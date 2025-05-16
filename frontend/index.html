@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文生图与文生语音</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI 内容生成器</h1>
+            <p>输入文本，选择生成图片或语音</p>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <h2>输入内容</h2>
+                <textarea id="text-input" rows="6" placeholder="请输入您的描述文本，例如：一只可爱的猫咪在草地上玩耍"></textarea>
+                
+                <div class="options">
+                    <label>生成类型：</label>
+                    <input type="radio" id="type-image" name="generation-type" value="image" checked>
+                    <label for="type-image">图片</label>
+                    <input type="radio" id="type-audio" name="generation-type" value="audio">
+                    <label for="type-audio">语音</label>
+                </div>
+                
+                <button id="generate-button">开始生成</button>
+            </section>
+
+            <section class="output-section">
+                <h2>生成结果</h2>
+                <div id="loading-indicator" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>正在生成中，请稍候...</p>
+                </div>
+                
+                <div id="error-message" class="error-text" style="display: none;"></div>
+
+                <div id="image-result-container" class="result-container image-container" style="display: none;">
+                    <img id="generated-image" src="#" alt="生成的图片">
+                </div>
+
+                <div id="audio-result-container" class="result-container audio-container" style="display: none;">
+                    <p>生成的语音:</p>
+                    <audio id="generated-audio" controls></audio>
+                    <a id="download-audio-link" href="#" download="generated_audio.wav" style="display: none;">下载语音文件</a>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 AI内容生成平台</p>
+        </footer>
+    </div>
+
+    <script src="js/api_client.js?v=1.0.1"></script>
+    <script src="js/ui_handler.js?v=1.0.1"></script>
+    <script src="js/app.js?v=1.0.1"></script>
+</body>
+</html> 

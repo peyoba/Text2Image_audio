@@ -1,0 +1,21 @@
+# Web Framework & API
+Flask>=2.3,<3.1
+Flask-Cors>=4.0,<4.1
+Werkzeug>=2.3,<3.1 # Flask的依赖，有时需要明确指定以避免版本冲突
+
+# HTTP Requests
+requests>=2.28,<2.32
+
+# Asynchronous Task Queue
+celery>=5.3,<5.4
+redis>=4.6,<5.1 # Python client for Redis
+
+# Environment Variable Management
+python-dotenv>=0.20,<1.1 # 用于从 .env 文件加载配置到环境变量
+
+# --- Development Tools ---
+# 这些是推荐的开发辅助工具，通常在开发环境中单独安装。
+# 如果需要在项目中统一管理，可以取消注释它们。
+# black==24.3.0
+# flake8==7.0.0
+# pylint>=3.0,<3.2 
