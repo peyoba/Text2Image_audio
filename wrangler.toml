@@ -1,37 +1,42 @@
 name = "text2image-api" # 您可以自定义Worker的名称
-main = "backend/worker.py" # 指向您的Python Worker入口文件
+main = "backend/index.js" # 指向新的JS Worker入口文件
 compatibility_date = "2024-03-01" # 使用一个较新的兼容日期
+compatibility_flags = [] # JS Worker 不需要 python_workers 标志
 
 # Python Workers特定配置
-[build]
-command = "pip install -r backend/requirements.txt -t backend/.wrangler/dist/deps" # 安装依赖到指定目录
+# [build]
+# command = "pip install -r backend/requirements.txt -t backend/.wrangler/dist/deps" # 安装依赖到指定目录
 
-[[python_workers]]
-modules = [
-  { name = "main", path = "backend/worker.py" }, # 主模块
-  { name = "pollinations_api_handler", path = "backend/pollinations_api_handler.py" },
-  { name = "config_module", path = "backend/config.py" } # 重命名以避免潜在冲突
-  # 我们将首先尝试将 optimize_api 和 generation_api 的逻辑直接迁移到 worker.py
-  # 如果有必要，后续再将它们拆分为可导入的模块
-  # { name = "optimize_api_logic", path = "backend/api/optimize_api.py" },
-  # { name = "generation_api_logic", path = "backend/api/generation_api.py" }
-]
+# [[python_workers]]
+# modules = [
+#   { name = "main", path = "backend/worker.py" } # 仅保留主模块
+#   # { name = "pollinations_api_handler", path = "backend/pollinations_api_handler.py" }, # 已整合
+#   # { name = "config_module", path = "backend/config.py" } # 已整合或通过env获取
+#   # 我们将首先尝试将 optimize_api 和 generation_api 的逻辑直接迁移到 worker.py
+#   # 如果有必要，后续再将它们拆分为可导入的模块
+#   # { name = "optimize_api_logic", path = "backend/api/optimize_api.py" },
+#   # { name = "generation_api_logic", path = "backend/api/generation_api.py" }
+# ]
 
 # 环境变量 (稍后在Cloudflare仪表盘中设置更安全)
-[vars]
-# POLLINATIONS_API_KEY = "your_pollinations_key_here" # 部署时在Cloudflare后台设置
-# DEEPSEEK_API_KEY = "your_deepseek_key_here"       # 部署时在Cloudflare后台设置
-# OPENAI_API_KEY = "your_openai_key_here" # 如果您的config.py中引用了
+# [vars]
+# # POLLINATIONS_API_KEY = "your_pollinations_key_here" # 部署时在Cloudflare后台设置
+# # DEEPSEEK_API_KEY = "your_deepseek_key_here"       # 部署时在Cloudflare后台设置
+# # OPENAI_API_KEY = "your_openai_key_here" # 如果您的config.py中引用了
 
 # KV Namespace 绑定 (用于存储任务状态等)
 # [[kv_namespaces]]
 # binding = "TASK_STORE"
-# id = "your_kv_namespace_id_here" # 创建后从Cloudflare仪表盘获取
+# id = "your_kv_namespace_id_here" # 部署后在Cloudflare后台创建并替换
 
-# R2 Bucket 绑定 (用于存储生成的图片/音频)
+# R2 Bucket 绑定 (用于存储生成的图片/音频等)
 # [[r2_buckets]]
-# binding = "ASSETS_BUCKET"
-# bucket_name = "your-r2-bucket-name-here" # 您将创建的R2存储桶名称
+# binding = "ASSETS_BUCKET" # 在worker.py中通过 env.ASSETS_BUCKET 访问
+# bucket_name = "text2image-assets"
+
+# 如果您的Python Worker需要访问外部网络，需要配置
+# [experimental]
+# # fetch_module_config = true # 较旧的配置方式，可能不需要了
 
 # 如果您的应用需要访问外部网络，例如调用Pollinations或DeepSeek API
 [placement]

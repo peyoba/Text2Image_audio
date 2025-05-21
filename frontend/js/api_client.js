@@ -2,7 +2,7 @@
  * API客户端类，处理与后端的所有通信
  */
 class ApiClient {
-    constructor(baseUrl = 'http://localhost:5000/api') { // 使用完整的后端地址
+    constructor(baseUrl = 'https://text2image-api.peyoba660703.workers.dev') { // 更新为正确的 Worker URL
         this.baseUrl = baseUrl;
         this.pollingInterval = 2000; // 轮询间隔ms，例如2秒
         this.maxPollingAttempts = 30; // 最大轮询次数，例如 30 * 2s = 1分钟超时
@@ -13,40 +13,61 @@ class ApiClient {
      * 提交生成任务到后端
      * @param {string} text - 用户输入的文本
      * @param {string} type - 生成类型 ('image' 或 'audio')
-     * @returns {Promise<Object>} - 返回包含 task_id 和 status_url 的对象
+     * @param {object} options - (可选) 其他生成选项，例如 { width, height, nologo } 等
+     * @returns {Promise<Object|ArrayBuffer>} - 对于图片返回包含data的Object，对于音频返回ArrayBuffer
      */
-    async submitGenerationTask(text, type) {
-        const requestUrl = `${this.baseUrl}/generate`;
-        console.log(`ApiClient: Submitting task to ${requestUrl} - Type: ${type}, Text: ${text.substring(0, 50)}...`);
+    async submitGenerationTask(text, type, options = {}) {
+        const requestUrl = `${this.baseUrl}/api/generate`;
+        console.log(`ApiClient: Submitting task to ${requestUrl} - Type: ${type}, Text: ${text.substring(0, 50)}..., Options:`, options);
+        
+        const payload = {
+            text: text,
+            type: type
+        };
+
+        if (type === 'image' && options) {
+            Object.assign(payload, options); // 如果是图片类型，合并options到payload
+        }
+
         try {
             const response = await fetch(requestUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    // 对于音频，后端直接返回 ArrayBuffer，所以 Accept application/json 可能不再完全准确
+                    // 但通常服务器会忽略不适用的 Accept 头，或者我们可以根据 type 动态设置 Accept
+                    'Accept': type === 'image' ? 'application/json' : '*/*' // 更通用的 Accept for audio
                 },
-                body: JSON.stringify({
-                    text: text,
-                    type: type
-                })
+                body: JSON.stringify(payload) // 使用包含选项的payload
             });
 
             if (!response.ok) {
-                const errorText = await response.text();
+                const errorText = await response.text(); // 尝试读取错误文本
                 console.error('ApiClient: Submit task error - Response not OK', response.status, errorText);
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error(`HTTP error! status: ${response.status}, details: ${errorText}`);
             }
 
-            const responseData = await response.json();
-            console.log('ApiClient: Task submitted successfully', responseData);
-            return responseData;
+            if (type === 'image') {
+                const responseData = await response.json();
+                console.log('ApiClient: Image task submitted successfully', responseData);
+                return responseData;
+            } else if (type === 'audio') {
+                // 对于音频，后端直接发送 ArrayBuffer
+                const arrayBuffer = await response.arrayBuffer();
+                console.log('ApiClient: Audio task completed, received ArrayBuffer length:', arrayBuffer.byteLength);
+                return arrayBuffer; // 直接返回 ArrayBuffer
+            } else {
+                console.error('ApiClient: Unknown type for submitGenerationTask:', type);
+                throw new Error('Unknown generation type');
+            }
 
         } catch (error) {
-            console.error('ApiClient: submitGenerationTask - 请求失败:', error.message);
-            if (error instanceof Error) {
+            console.error(`ApiClient: submitGenerationTask (type: ${type}) - 请求失败:`, error.message);
+            // 避免重复包装错误
+            if (error instanceof Error && error.message.startsWith('HTTP error!')) {
                 throw error;
             }
-            throw new Error(error.toString());
+            throw new Error(`任务提交或处理失败: ${error.message || error.toString()}`);
         }
     }
 
@@ -175,9 +196,42 @@ class ApiClient {
             throw error;
         }
     }
+
+    async optimizeText(text) {
+        const requestUrl = `${this.baseUrl}/api/optimize`;
+        console.log(`ApiClient: Optimizing text: ${text.substring(0, 50)}...`);
+        try {
+            const response = await fetch(requestUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ text: text })
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('ApiClient: Optimize text error - Response not OK', response.status, errorText);
+                throw new Error(`HTTP error! status: ${response.status}, details: ${errorText}`);
+            }
+
+            const responseData = await response.json();
+            console.log('ApiClient: Text optimized successfully', responseData);
+            if (responseData && responseData.optimized_text) {
+                return responseData.optimized_text;
+            } else {
+                console.error('ApiClient: Optimized text not found in response', responseData);
+                throw new Error('优化成功，但未找到优化后的文本。');
+            }
+        } catch (error) {
+            console.error(`ApiClient: optimizeText - 请求失败:`, error.message);
+            throw new Error(`文本优化失败: ${error.message || error.toString()}`);
+        }
+    }
 }
 
 // 导出API客户端实例
 const apiClient = new ApiClient();
 // 若要在其他模块中使用，例如: import { apiClient } from './api_client.js'; (如果使用ES模块)
-// 或者直接使用全局的 apiClient (如果按顺序加载脚本) 
+// 或者直接使用全局的 apiClient (如果按顺序加载脚本)

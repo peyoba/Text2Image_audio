@@ -25,6 +25,39 @@
                     <input type="radio" id="type-audio" name="generation-type" value="audio">
                     <label for="type-audio">语音</label>
                 </div>
+
+                <div class="image-options" id="image-generation-options">
+                    <h3>图片选项</h3>
+                    <div>
+                        <input type="checkbox" id="option-nologo" name="option-nologo" checked>
+                        <label for="option-nologo">去除Logo (水印)</label>
+                    </div>
+                    <div>
+                        <label for="option-aspect-ratio">宽高比：</label>
+                        <select id="option-aspect-ratio" name="option-aspect-ratio">
+                            <option value="1:1" data-width="1024" data-height="1024" selected>正方形 (1:1 - 1024x1024)</option>
+                            <option value="16:9" data-width="1280" data-height="720">风景 (16:9 - 1280x720)</option>
+                            <option value="9:16" data-width="720" data-height="1280">肖像 (9:16 - 720x1280)</option>
+                            <option value="4:3" data-width="1024" data-height="768">标准 (4:3 - 1024x768)</option>
+                            <option value="3:4" data-width="768" data-height="1024">标准垂直 (3:4 - 768x1024)</option>
+                            <option value="custom">自定义尺寸</option>
+                        </select>
+                    </div>
+                    <div id="custom-dimensions-container" style="display:none;">
+                        <label for="option-width">宽度 (px):</label>
+                        <input type="number" id="option-width" name="option-width" placeholder="例如: 1024" min="256" max="2048" step="64">
+                        <label for="option-height">高度 (px):</label>
+                        <input type="number" id="option-height" name="option-height" placeholder="例如: 1024" min="256" max="2048" step="64">
+                    </div>
+                    <div>
+                        <label for="option-num-images">生成数量：</label>
+                        <select id="option-num-images" name="option-num-images">
+                            <option value="1" selected>1 张</option>
+                            <option value="2">2 张</option>
+                            <option value="4">4 张</option>
+                        </select>
+                    </div>
+                </div>
                 
                 <button id="generate-button">开始生成</button>
             </section>
@@ -39,7 +72,7 @@
                 <div id="error-message" class="error-text" style="display: none;"></div>
 
                 <div id="image-result-container" class="result-container image-container" style="display: none;">
-                    <img id="generated-image" src="#" alt="生成的图片">
+                    <!-- 图片将由JS动态添加到这里 -->
                 </div>
 
                 <div id="audio-result-container" class="result-container audio-container" style="display: none;">
