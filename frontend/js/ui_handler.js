@@ -121,9 +121,7 @@ class UIHandler {
         const text = this.textInput.value.trim();
         const isValid = text.length > 0;
         this.generateButton.disabled = !isValid;
-        if (!isValid) {
-            this.showError(t('pleaseInput'));
-        }
+        this.hideError(); // 在输入验证时隐藏错误信息
         return isValid;
     }
 
@@ -255,7 +253,7 @@ class UIHandler {
      */
     async handleGenerate() {
         if (!this.validateInput()) {
-            this.showError(t('pleaseInput'));
+            this.showError(t('pleaseInput')); // 只在点击生成按钮时显示错误
             return;
         }
 
