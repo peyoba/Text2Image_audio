@@ -1,127 +1,236 @@
 # 文生图与文生语音网站
 
-本项目旨在创建一个Web应用程序，允许用户输入文本，并通过调用 Pollinations Multimodal MCP Server 生成相应的图片或语音。
+本项目是一个基于AI的内容生成Web应用程序，允许用户输入文本，并通过调用 Pollinations API 生成相应的图片或语音。项目采用 Serverless 架构，部署在 Cloudflare 平台上。
 
-## 项目结构 (初步)
+## 🎯 项目特色
 
-- **`.cursorrules.json`**: AI协作与编码规范。
-- **`开发计划.md`**: 项目的开发计划和任务分解。
-- **`需求文档.md`**: 项目的详细需求规格说明。
-- **`backend/`**: 存放所有后端代码 (Python/Flask)。
-- **`frontend/`**: 存放所有前端代码 (HTML, CSS, JavaScript)。
-- **`.gitignore`**: Git忽略文件配置。
-- **`README.md`**: 本文件，项目总体说明。
+- **🖼️ 智能文生图**：支持多种尺寸和风格的图片生成
+- **🎵 文生语音**：高质量语音合成，支持在线播放和下载
+- **🧠 提示词优化**：集成DeepSeek AI，自动优化中文描述为高质量英文提示词
+- **⚡ 全球加速**：基于Cloudflare CDN，全球低延迟访问
+- **📱 响应式设计**：支持桌面和移动设备
 
-## 快速开始
+## 🏗️ 技术架构
 
-### 1. 环境准备
+### 前端
+- **技术栈**：HTML5 + CSS3 + 原生JavaScript
+- **部署平台**：Cloudflare Pages
+- **架构特点**：模块化设计，组件分离
 
-*   确保您的计算机上已安装以下软件：
-    *   [Python](https://www.python.org/downloads/) (建议版本 3.8 或更高)
-    *   [Node.js](https://nodejs.org/) (用于运行 `http-server`，可选，您也可以使用其他HTTP服务器)
-    *   Git
+### 后端
+- **技术栈**：JavaScript (ES Modules)
+- **部署平台**：Cloudflare Workers
+- **Worker URL**：`https://text2image-api.peyoba660703.workers.dev`
+- **架构特点**：Serverless，无服务器运维
 
-### 2. 下载项目
+### API集成
+- **图片生成**：Pollinations Image API
+- **语音合成**：Pollinations Audio API  
+- **提示词优化**：DeepSeek API (SiliconFlow)
 
+## 📁 项目结构
+
+```
+Text2Image_audio/
+├── frontend/                 # 前端静态资源
+│   ├── index.html           # 主页面
+│   ├── css/
+│   │   └── style.css        # 样式文件
+│   └── js/
+│       ├── api_client.js    # API通信模块
+│       ├── ui_handler.js    # UI交互处理
+│       └── app.js           # 主应用逻辑
+├── backend/
+│   └── index.js             # Cloudflare Worker主文件
+├── 需求文档.md               # 详细功能需求
+├── 开发计划.md               # 开发进度和规划
+├── APIDOCS.md               # Pollinations API文档
+├── wrangler.toml            # Worker部署配置
+├── cloudflare-pages.toml    # Pages部署配置
+└── README.md                # 项目说明（本文件）
+```
+
+## 🚀 快速开始
+
+### 在线访问（推荐）
+项目已部署到 Cloudflare 平台，可直接访问：
+- **前端地址**：[即将更新]
+- **后端API**：`https://text2image-api.peyoba660703.workers.dev`
+
+### 本地开发
+
+#### 1. 环境准备
+- [Python 3.8+](https://www.python.org/downloads/) （用于本地开发服务器）
+- [Node.js](https://nodejs.org/) （可选，用于其他HTTP服务器）
+- [Git](https://git-scm.com/)
+
+#### 2. 克隆项目
 ```bash
-git clone https://github.com/peyoba/Text2Image_audio.git # 请替换为您的项目仓库URL
+git clone https://github.com/peyoba/Text2Image_audio.git
 cd Text2Image_audio
 ```
 
-### 3. 后端配置与启动
+#### 3. 启动前端（本地开发）
+```bash
+# 进入前端目录
+cd frontend
 
-1.  **进入后端目录**
-    ```bash
-    cd backend
-    ```
+# 启动Python HTTP服务器
+python -m http.server 8000
 
-2.  **创建并激活Python虚拟环境**
-    *   Windows:
-        ```bash
-        python -m venv .venv
-        .venv\Scripts\activate
-        ```
-    *   macOS/Linux:
-        ```bash
-        python3 -m venv .venv
-        source .venv/bin/activate
-        ```
+# 或使用Node.js http-server（如已安装）
+# npx http-server -p 8000 --cors
+```
 
-3.  **安装后端依赖**
-    ```bash
-    pip install -r requirements.txt
-    ```
+#### 4. 访问应用
+打开浏览器访问：`http://localhost:8000`
 
-4.  **启动后端Flask服务**
-    ```bash
-    python app.py
-    ```
-    服务默认运行在 `http://127.0.0.1:5000`。您应该会在终端看到类似 "Running on http://127.0.0.1:5000" 的输出。
+## 📋 功能使用指南
 
-### 4. 前端启动
+### 🖼️ 图片生成
+1. 在文本框中输入图片描述（支持中文）
+2. 选择"图片"选项
+3. 配置图片参数：
+   - **宽高比**：正方形、风景、肖像等预设
+   - **自定义尺寸**：手动设置宽度和高度
+   - **去除水印**：生成无Logo图片
+   - **生成数量**：1张、2张或4张
+4. 点击"开始生成"等待结果
 
-1.  **进入前端目录** (在项目根目录下打开新的终端)
-    ```bash
-    cd frontend
-    ```
+### 🎵 语音生成
+1. 在文本框中输入要朗读的文字
+2. 选择"语音"选项
+3. 点击"开始生成"
+4. 生成完成后可：
+   - 在线播放音频
+   - 下载音频文件
 
-2.  **启动HTTP服务器**
-    *   如果您安装了 `http-server` (通过 `npm install -g http-server`):
-        ```bash
-        http-server -p 8000 --cors
-        ```
-    *   您也可以使用Python内置的HTTP服务器 (适用于简单测试):
-        ```bash
-        python -m http.server 8000
-        ```
-        注意：使用Python内置服务器时，请确保后端服务允许来自端口8000的跨域请求，或者在开发时暂时禁用浏览器的CORS策略。`http-server --cors` 是更推荐的方式。
+### 🧠 智能优化
+系统会自动调用DeepSeek AI优化您的中文描述，转换为更适合AI理解的英文提示词，提升生成效果。
 
-3.  **访问应用**
-    打开您的浏览器，访问前端服务器的地址，通常是 `http://127.0.0.1:8000` 或 `http://localhost:8000`。
+## 🔧 API接口说明
 
-### 5. 如何使用
+### POST /api/generate
+**功能**：统一的内容生成接口
 
-1.  在文本框中输入您想要生成图片或语音的描述。
-2.  选择"图片"或"语音"单选按钮。
-3.  点击"生成"按钮。
-4.  等待片刻，生成的结果将显示在下方区域。
-    *   图片将直接显示。
-    *   语音将提供一个播放器和下载链接。
+**请求体示例（图片）**：
+```json
+{
+  "text": "一只可爱的猫咪在草地上玩耍",
+  "type": "image",
+  "width": 1024,
+  "height": 1024,
+  "nologo": true
+}
+```
 
-## 项目API (后端)
+**请求体示例（语音）**：
+```json
+{
+  "text": "你好，欢迎使用AI语音合成服务",
+  "type": "audio",
+  "voice": "nova",
+  "model": "openai-audio"
+}
+```
 
-### `/api/generate` (POST)
+**成功响应（图片）**：
+```json
+{
+  "type": "image",
+  "data": "data:image/jpeg;base64,/9j/4AAQSkZJRgABA...",
+  "format": "base64",
+  "content_type": "image/jpeg"
+}
+```
 
-*   **功能**: 接收用户输入和生成类型，调用Pollinations API生成内容。
-*   **请求体 (JSON)**:
-    ```json
-    {
-      "text": "用户输入的描述",
-      "type": "image" // 或 "audio"
-    }
-    ```
-*   **成功响应 (JSON)**:
-    *   图片类型:
-        ```json
-        {
-          "type": "image",
-          "data": "base64编码的图片数据..."
-        }
-        ```
-    *   语音类型:
-        ```json
-        {
-          "type": "audio",
-          "url": "/audio_files/generated_audio_unique_filename.mp3" // 指向后端静态文件的URL
-        }
-        ```
-*   **失败响应 (JSON)**:
-    ```json
-    {
-      "error": "错误信息描述"
-    }
-    ```
+**成功响应（语音）**：
+直接返回音频文件流（ArrayBuffer）
 
-## 注意事项
-* 后端服务需要能够访问互联网以便调用 Pollinations.AI 的 API。
-* 生成的音频文件会临时存储在 `backend/audio_files` 目录下。请考虑定期清理或设置更持久的存储方案。 
+### POST /api/optimize
+**功能**：提示词优化接口
+
+**请求体**：
+```json
+{
+  "text": "一只可爱的猫咪"
+}
+```
+
+**响应**：
+```json
+{
+  "optimized_text": "A cute kitten playing on green grass, professional photography, high resolution, detailed",
+  "raw_optimized": "原始优化结果",
+  "original_prompt": "一只可爱的猫咪"
+}
+```
+
+## 🛠️ 部署说明
+
+### Cloudflare Workers 部署
+```bash
+# 安装Wrangler CLI
+npm install -g wrangler
+
+# 登录Cloudflare
+wrangler login
+
+# 部署Worker
+wrangler deploy
+```
+
+### Cloudflare Pages 部署
+1. 连接GitHub仓库到Cloudflare Pages
+2. 设置构建配置：
+   - **构建命令**：无需构建
+   - **发布目录**：`frontend`
+3. 部署完成后自动分配域名
+
+## 🔐 环境变量配置
+
+在Cloudflare Workers控制台中设置以下环境变量：
+- `DEEPSEEK_API_KEY`：DeepSeek API密钥
+- `DEEPSEEK_API_URL`：DeepSeek API地址（默认：https://api.siliconflow.cn）
+- `POLLINATIONS_IMAGE_API_BASE`：图片API基地址
+- `POLLINATIONS_TEXT_API_BASE`：语音API基地址
+
+## 📊 项目状态
+
+**当前版本**：MVP 1.0  
+**部署状态**：✅ 生产就绪  
+**前端状态**：✅ 本地开发服务器运行中 (端口8000)  
+**后端状态**：✅ Cloudflare Workers已部署  
+**功能完成度**：90% （核心功能完整）
+
+### 🔄 当前工作重点
+**UI界面现代化优化** (2025-05-24启动)
+- 🎯 **目标**: 提升视觉现代化水平，参考业界最佳实践
+- 📋 **方案**: 渐进式三阶段优化（视觉现代化→布局优化→交互增强）
+- 🛡️ **原则**: 保护现有功能，模块化实施，随时可回滚
+- ⏳ **当前**: 阶段一准备中（基础视觉现代化）
+
+## 🎯 后续规划
+
+- [ ] **UI界面现代化** (当前进行中)
+- [ ] 用户账户系统
+- [ ] 生成历史记录
+- [ ] 更多图片风格选项
+- [ ] 批量生成功能
+- [ ] 移动端App
+- [ ] API访问统计
+
+## 📞 技术支持
+
+- **GitHub仓库**：[https://github.com/peyoba/Text2Image_audio](https://github.com/peyoba/Text2Image_audio)
+- **问题反馈**：请提交GitHub Issue
+- **技术文档**：查看项目内的文档文件
+
+## 📄 许可证
+
+本项目采用 MIT 许可证。详细信息请查看 LICENSE 文件。
+
+---
+
+*最后更新时间：2025-05-24*  
+*项目状态：活跃开发中* 🚀 

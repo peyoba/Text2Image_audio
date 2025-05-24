@@ -16,7 +16,28 @@
         <main>
             <section class="input-section">
                 <h2>输入内容</h2>
+                
+                <!-- 新增：示例展示区域 -->
+                <div class="examples-container">
+                    <p class="examples-title">💡 点击示例快速填充：</p>
+                    <div class="examples-grid">
+                        <button class="example-btn" data-type="image" data-text="一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影">🐱 可爱猫咪</button>
+                        <button class="example-btn" data-type="image" data-text="未来科技城市夜景，霓虹灯闪烁，赛博朋克风格，超高清">🌃 科技城市</button>
+                        <button class="example-btn" data-type="image" data-text="古风美女，汉服飘逸，桃花盛开，国风插画，精美细节">🌸 古风美女</button>
+                        <button class="example-btn" data-type="audio" data-text="欢迎使用AI内容生成器，希望您能创造出精彩的作品">🎵 欢迎语音</button>
+                        <button class="example-btn" data-type="audio" data-text="今天天气真不错，适合出门散步和拍照">☀️ 天气播报</button>
+                        <button class="example-btn" data-type="image" data-text="梦幻森林，精灵飞舞，魔法光芒，幻想风景画">🧚 魔法森林</button>
+                    </div>
+                </div>
+                
                 <textarea id="text-input" rows="6" placeholder="请输入您的描述文本，例如：一只可爱的猫咪在草地上玩耍"></textarea>
+                
+                <!-- 新增：快捷操作按钮 -->
+                <div class="quick-actions">
+                    <button class="quick-btn" id="clear-btn" title="清空文本">🗑️ 清空</button>
+                    <button class="quick-btn" id="optimize-btn" title="智能优化提示词">✨ 优化</button>
+                    <button class="quick-btn" id="random-btn" title="随机示例">🎲 随机</button>
+                </div>
                 
                 <div class="options">
                     <label>生成类型：</label>
@@ -24,6 +45,8 @@
                     <label for="type-image">图片</label>
                     <input type="radio" id="type-audio" name="generation-type" value="audio">
                     <label for="type-audio">语音</label>
+                    <!-- 新增：提示信息 -->
+                    <span class="type-hint" id="type-hint">💡 图片生成支持多种尺寸和数量选择</span>
                 </div>
 
                 <div class="image-options" id="image-generation-options">
@@ -64,8 +87,19 @@
 
             <section class="output-section">
                 <h2>生成结果</h2>
+                
+                <!-- 新增：结果状态提示 -->
+                <div class="result-status" id="result-status" style="display: none;">
+                    <span class="status-icon">ℹ️</span>
+                    <span class="status-text">准备生成内容...</span>
+                </div>
+                
                 <div id="loading-indicator" class="loading" style="display: none;">
-                    <div class="spinner"></div>
+                    <div class="bouncing-loader">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
                     <p>正在生成中，请稍候...</p>
                 </div>
                 
@@ -91,6 +125,8 @@
     <script src="js/api_client.js?v=1.0.1"></script>
     <script src="js/ui_handler.js?v=1.0.1"></script>
     <script src="js/app.js?v=1.0.1"></script>
+    <!-- 新增：交互增强模块 -->
+    <script src="js/ui_enhancements.js?v=1.0.0"></script>
     <!-- Test auto-deploy on 2025-05-23 06:25 -->
 </body>
 </html> 

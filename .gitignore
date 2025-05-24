@@ -75,6 +75,40 @@ Desktop.ini
 *.swp
 *~
 
-# Custom
-backend/generated_audio/ # 存储生成的音频文件，不应提交
-*.env # 环境变量文件 
+# Cloudflare Workers
+.wrangler/
+wrangler.toml.bak
+worker-configuration.json
+
+# Environment & Config
+*.env
+.env.local
+.env.development
+.env.production
+secrets.txt
+config.local.js
+
+# Generated content
+backend/generated_audio/
+backend/temp/
+frontend/generated/
+*.tmp
+*.temp
+
+# Logs
+logs/
+*.log.*
+access.log
+error.log
+
+# Backup files
+*.bak
+*.backup
+*~.nib
+local.properties
+
+# Custom project files
+TODO.txt
+NOTES.md
+temp_*
+draft_* 

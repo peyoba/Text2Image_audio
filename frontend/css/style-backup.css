@@ -1,0 +1,275 @@
+/* frontend/css/style.css */
+
+/* 基本重置和全局样式 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6; /* 淡雅的背景色 */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* 从顶部开始对齐 */
+    min-height: 100vh;
+    padding-top: 20px; /* 给顶部一些空间 */
+    padding-bottom: 20px; /* 给底部一些空间 */
+}
+
+.container {
+    width: 90%;
+    max-width: 800px; /* 限制最大宽度，使其在大屏幕上不过宽 */
+    margin: 0 auto; /* 水平居中 */
+    background-color: #ffffff; /* 内容区域白色背景 */
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 添加柔和阴影 */
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0; /* 头部下方分割线 */
+}
+
+header h1 {
+    color: #2c3e50; /* 标题颜色 */
+    margin-bottom: 8px;
+    font-size: 2em;
+}
+
+header p {
+    font-size: 1.1em;
+    color: #555;
+}
+
+main {
+    /* 主内容区域样式 */
+}
+
+/* 输入区域 */
+.input-section {
+    margin-bottom: 30px;
+}
+
+.input-section h2, .output-section h2 {
+    color: #34495e; /* 小标题颜色 */
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #3498db; /* 小标题下方强调线 */
+    display: inline-block; /* 使边框仅包裹文字 */
+}
+
+textarea#text-input {
+    width: calc(100% - 22px); /* 考虑padding和border */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    margin-bottom: 15px;
+    box-sizing: border-box; /* 确保padding和border不增加额外宽度 */
+    transition: border-color 0.3s ease;
+}
+
+textarea#text-input:focus {
+    border-color: #3498db; /* 焦点时边框颜色 */
+    outline: none;
+}
+
+.options {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 选项之间的间距 */
+}
+
+.options label {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.options input[type="radio"] {
+    margin-right: 3px;
+    cursor: pointer;
+}
+
+button#generate-button {
+    background-color: #3498db; /* 主按钮颜色 */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    display: block; /* 使按钮占据整行或通过margin:auto居中 */
+    margin: 0 auto; /* 简单居中按钮 */
+}
+
+button#generate-button:hover {
+    background-color: #2980b9; /* 悬停时按钮颜色变深 */
+}
+
+button#generate-button:active {
+    transform: scale(0.98); /* 点击时轻微缩小效果 */
+}
+
+button#generate-button:disabled {
+    background-color: #bdc3c7; /* 禁用时按钮颜色 */
+    cursor: not-allowed;
+}
+
+/* 输出区域 */
+.output-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0; /* 输出区域上方分割线 */
+}
+
+.result-container {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f9f9f9; /* 结果区域浅灰色背景 */
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+
+.image-container img#generated-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block; /* 避免图片下方有多余空间 */
+    margin: 0 auto; /* 图片居中 */
+    border: 1px solid #ddd;
+}
+
+.audio-container audio#generated-audio {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.audio-container a#download-audio-link {
+    display: inline-block; /* 或 block */
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #2ecc71; /* 下载按钮颜色 */
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.audio-container a#download-audio-link:hover {
+    background-color: #27ae60; /* 悬停时下载按钮颜色变深 */
+}
+
+/* 加载指示器 */
+/*
+.spinner {
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 10px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+*/
+
+/* 新的跳动点加载器样式 */
+.bouncing-loader {
+    display: flex;
+    justify-content: center; /* 使点在其容器内横向居中 */
+    align-items: center; /* 点在跳动时基线一致 */
+    height: 50px; /* 给跳动一些垂直空间 */
+    /* margin-left: auto;  移除，由父级 flex 控制居中 */
+    /* margin-right: auto; 移除，由父级 flex 控制居中 */
+}
+
+.bouncing-loader > div {
+    width: 12px; /* 点的大小 */
+    height: 12px;
+    margin: 0 4px;
+    background-color: #3498db;
+    border-radius: 50%;
+    animation: bouncing-loader 1.4s infinite ease-in-out both;
+}
+
+.bouncing-loader > div:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.bouncing-loader > div:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes bouncing-loader {
+    0%, 80%, 100% {
+        transform: scale(0.6);
+        opacity: 0.6;
+    }
+    40% {
+        transform: scale(1.0);
+        opacity: 1;
+    }
+}
+
+/* .loading 容器本身样式，用于结果区域内的加载指示 */
+.loading { /* 这是 #loading-indicator */
+    display: flex;
+    flex-direction: column;    /* 使其子项（点和文字）垂直排列 */
+    align-items: center;       /* 使其子项水平居中 */
+    padding: 20px; /* 保持一些内边距 */
+    color: #34495e; /* 加载文字颜色 */
+    /* text-align: center; 当使用 flex align-items:center 时，这个对于子块不是必需的了 */
+}
+
+/* 为 .loading 内的文字单独设置样式 */
+.loading p {
+    margin-top: 10px; /* 点和文字之间的间距 */
+    font-size: 1.1em;
+    /* text-align: center; 如果 <p> 元素本身宽度大于文字，且希望文字在 <p> 内居中，可以保留或依赖继承 */
+}
+
+/* 错误提示 */
+.error-text {
+    color: #e74c3c; /* 错误文字颜色 */
+    background-color: #fddfdf;
+    border: 1px solid #e74c3c;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.9em;
+    color: #777;
+}
+
+/* 响应式调整 (简单示例) */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 20px 15px;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    button#generate-button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+} 

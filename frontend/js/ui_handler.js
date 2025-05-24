@@ -109,30 +109,32 @@ class UIHandler {
      * @param {Array<string>} imageDataURLs - base64图片数据URL数组
      */
     showImageResult(imageDataURLs) {
-        this.imageResultContainer.innerHTML = ''; // 清空旧图片
         if (!imageDataURLs || !Array.isArray(imageDataURLs) || imageDataURLs.length === 0) {
             console.error('UIHandler: showImageResult - 无效的imageDataURLs数组', imageDataURLs);
             this.showError('未收到有效的图片数据。');
             return;
         }
 
-        imageDataURLs.forEach(imageDataURL => {
-            if (typeof imageDataURL === 'string' && imageDataURL.startsWith('data:image')) {
-                const imgElement = document.createElement('img');
-                imgElement.src = imageDataURL;
-                imgElement.alt = '生成的图片';
-                this.imageResultContainer.appendChild(imgElement);
-            } else {
-                console.warn('UIHandler: showImageResult - 数组中包含无效的图片数据URL', imageDataURL);
-            }
-        });
-        
-        if (this.imageResultContainer.children.length > 0) {
-            this.imageResultContainer.style.display = 'flex'; // 使用flex布局以便图片排列
-            this.audioResultContainer.style.display = 'none';
-        } else {
+        // 过滤有效的图片数据
+        const validImages = imageDataURLs.filter(imageDataURL => 
+            typeof imageDataURL === 'string' && imageDataURL.startsWith('data:image')
+        );
+
+        if (validImages.length === 0) {
+            console.warn('UIHandler: showImageResult - 没有有效的图片数据');
             this.showError('未能成功加载任何图片。');
+            return;
         }
+
+        // 使用新的显示函数
+        if (validImages.length === 1) {
+            displayImageResult(validImages[0], 1);
+        } else {
+            displayImageResult(validImages, validImages.length);
+        }
+        
+        // 隐藏音频结果容器
+        this.audioResultContainer.style.display = 'none';
     }
 
     /**
@@ -292,4 +294,313 @@ class UIHandler {
 // 创建UI处理器实例 (确保在DOM加载完毕后执行，或者将脚本放在body底部)
 // 如果 app.js 依赖它，确保 uiHandler 在 app.js 之前实例化或通过某种方式传递
 // 在这个项目中，脚本是顺序加载的，所以这里实例化是OK的。
-const uiHandler = new UIHandler(); 
+const uiHandler = new UIHandler();
+
+/**
+ * 显示生成的图片结果
+ * @param {string|Array} imageData - Base64图片数据或图片数组
+ * @param {number} numImages - 图片数量
+ */
+function displayImageResult(imageData, numImages = 1) {
+    const imageContainer = document.getElementById('image-result-container');
+    
+    if (!imageContainer) {
+        console.error('图片容器元素未找到');
+        return;
+    }
+
+    // 清空之前的内容
+    imageContainer.innerHTML = '';
+
+    if (Array.isArray(imageData)) {
+        // 多图片显示
+        displayMultipleImages(imageContainer, imageData);
+    } else {
+        // 单图片显示
+        displaySingleImage(imageContainer, imageData);
+    }
+
+    // 显示容器
+    imageContainer.style.display = 'block';
+}
+
+/**
+ * 显示单张图片
+ */
+function displaySingleImage(container, imageData) {
+    const img = document.createElement('img');
+    img.id = 'generated-image';
+    img.src = imageData;
+    img.alt = '生成的图片';
+    
+    // 添加图片加载事件
+    img.onload = function() {
+        // 添加图片信息
+        addImageInfo(container, img);
+        // 添加操作按钮
+        addImageActions(container, img, imageData);
+    };
+    
+    img.onerror = function() {
+        console.error('图片加载失败');
+        container.innerHTML = '<p style="color: #e74c3c; text-align: center;">图片加载失败，请重试</p>';
+    };
+
+    container.appendChild(img);
+}
+
+/**
+ * 显示多张图片
+ */
+function displayMultipleImages(container, imageDataArray) {
+    const imageGrid = document.createElement('div');
+    imageGrid.className = 'image-grid';
+    
+    // 根据图片数量设置网格类
+    switch(imageDataArray.length) {
+        case 1:
+            imageGrid.classList.add('single');
+            break;
+        case 2:
+            imageGrid.classList.add('double');
+            break;
+        case 4:
+            imageGrid.classList.add('quad');
+            break;
+        default:
+            imageGrid.classList.add('quad'); // 默认4宫格
+    }
+
+    imageDataArray.forEach((imageData, index) => {
+        const img = document.createElement('img');
+        img.src = imageData;
+        img.alt = `生成的图片 ${index + 1}`;
+        img.dataset.index = index;
+        
+        // 点击图片放大查看
+        img.addEventListener('click', () => {
+            showImageModal(imageData, index + 1);
+        });
+
+        imageGrid.appendChild(img);
+    });
+
+    container.appendChild(imageGrid);
+    
+    // 添加多图片信息
+    addMultiImageInfo(container, imageDataArray.length);
+    // 添加批量操作按钮
+    addBatchImageActions(container, imageDataArray);
+}
+
+/**
+ * 添加图片信息显示
+ */
+function addImageInfo(container, img) {
+    const infoDiv = document.createElement('div');
+    infoDiv.className = 'image-info';
+    
+    // 获取图片实际尺寸
+    const width = img.naturalWidth;
+    const height = img.naturalHeight;
+    const fileSize = Math.round(img.src.length * 0.75 / 1024); // 估算文件大小KB
+    
+    infoDiv.innerHTML = `
+        📐 尺寸: ${width} × ${height} 像素 | 📁 大小: ~${fileSize}KB
+    `;
+    
+    container.appendChild(infoDiv);
+}
+
+/**
+ * 添加多图片信息
+ */
+function addMultiImageInfo(container, count) {
+    const infoDiv = document.createElement('div');
+    infoDiv.className = 'image-info';
+    infoDiv.innerHTML = `🖼️ 共生成 ${count} 张图片，点击图片可放大查看`;
+    container.appendChild(infoDiv);
+}
+
+/**
+ * 添加图片操作按钮
+ */
+function addImageActions(container, img, imageData) {
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'image-actions';
+    
+    // 下载按钮
+    const downloadBtn = document.createElement('a');
+    downloadBtn.className = 'image-action-btn';
+    downloadBtn.href = imageData;
+    downloadBtn.download = `AI生成图片_${new Date().getTime()}.jpg`;
+    downloadBtn.innerHTML = '⬇️ 下载图片';
+    
+    // 查看原图按钮
+    const viewBtn = document.createElement('button');
+    viewBtn.className = 'image-action-btn';
+    viewBtn.innerHTML = '🔍 查看原图';
+    viewBtn.onclick = () => showImageModal(imageData);
+    
+    // 复制链接按钮
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'image-action-btn';
+    copyBtn.innerHTML = '📋 复制链接';
+    copyBtn.onclick = () => copyImageData(imageData);
+    
+    actionsDiv.appendChild(downloadBtn);
+    actionsDiv.appendChild(viewBtn);
+    actionsDiv.appendChild(copyBtn);
+    
+    container.appendChild(actionsDiv);
+}
+
+/**
+ * 添加批量图片操作按钮
+ */
+function addBatchImageActions(container, imageDataArray) {
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'image-actions';
+    
+    // 下载全部按钮
+    const downloadAllBtn = document.createElement('button');
+    downloadAllBtn.className = 'image-action-btn';
+    downloadAllBtn.innerHTML = '⬇️ 下载全部';
+    downloadAllBtn.onclick = () => downloadAllImages(imageDataArray);
+    
+    // 查看网格按钮
+    const gridBtn = document.createElement('button');
+    gridBtn.className = 'image-action-btn';
+    gridBtn.innerHTML = '🏢 网格查看';
+    gridBtn.onclick = () => showImageGrid(imageDataArray);
+    
+    actionsDiv.appendChild(downloadAllBtn);
+    actionsDiv.appendChild(gridBtn);
+    
+    container.appendChild(actionsDiv);
+}
+
+/**
+ * 显示图片模态框（放大查看）
+ */
+function showImageModal(imageData, index = 1) {
+    // 创建模态框
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        cursor: pointer;
+    `;
+    
+    const img = document.createElement('img');
+    img.src = imageData;
+    img.style.cssText = `
+        max-width: 90vw;
+        max-height: 90vh;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+    `;
+    
+    const closeBtn = document.createElement('div');
+    closeBtn.innerHTML = '✕';
+    closeBtn.style.cssText = `
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: white;
+        font-size: 30px;
+        font-weight: bold;
+        cursor: pointer;
+        user-select: none;
+    `;
+    
+    const infoDiv = document.createElement('div');
+    infoDiv.innerHTML = `图片 ${index} - 点击空白处关闭`;
+    infoDiv.style.cssText = `
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 14px;
+        text-align: center;
+    `;
+    
+    modal.appendChild(img);
+    modal.appendChild(closeBtn);
+    modal.appendChild(infoDiv);
+    
+    // 点击关闭
+    modal.onclick = (e) => {
+        if (e.target === modal || e.target === closeBtn) {
+            document.body.removeChild(modal);
+        }
+    };
+    
+    // ESC键关闭
+    const handleEscape = (e) => {
+        if (e.key === 'Escape') {
+            document.body.removeChild(modal);
+            document.removeEventListener('keydown', handleEscape);
+        }
+    };
+    document.addEventListener('keydown', handleEscape);
+    
+    document.body.appendChild(modal);
+}
+
+/**
+ * 复制图片数据
+ */
+function copyImageData(imageData) {
+    navigator.clipboard.writeText(imageData).then(() => {
+        // 显示复制成功提示
+        if (window.uiEnhancements) {
+            window.uiEnhancements.updateResultStatus('📋 图片链接已复制到剪贴板', 'success');
+        }
+    }).catch(() => {
+        // 显示复制失败提示
+        if (window.uiEnhancements) {
+            window.uiEnhancements.updateResultStatus('复制失败，请手动复制', 'error');
+        }
+    });
+}
+
+/**
+ * 下载所有图片
+ */
+function downloadAllImages(imageDataArray) {
+    imageDataArray.forEach((imageData, index) => {
+        const link = document.createElement('a');
+        link.href = imageData;
+        link.download = `AI生成图片_${index + 1}_${new Date().getTime()}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // 添加延迟避免浏览器阻止多文件下载
+        if (index < imageDataArray.length - 1) {
+            setTimeout(() => {}, 100);
+        }
+    });
+    
+    if (window.uiEnhancements) {
+        window.uiEnhancements.updateResultStatus(`📁 开始下载 ${imageDataArray.length} 张图片`, 'success');
+    }
+}
+
+/**
+ * 显示图片网格视图
+ */
+function showImageGrid(imageDataArray) {
+    showImageModal(imageDataArray[0], 1); // 暂时显示第一张，后续可扩展为网格查看器
+} 
