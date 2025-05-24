@@ -1,25 +1,31 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文生图与文生语音</title>
+    <title>AI Content Generator</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- 语言切换按钮 -->
+    <div class="language-switcher">
+        <button id="lang-zh" class="lang-btn" data-lang="zh">中文</button>
+        <button id="lang-en" class="lang-btn active" data-lang="en">English</button>
+    </div>
+
     <div class="container">
         <header>
-            <h1>AI 内容生成器</h1>
-            <p>输入文本，选择生成图片或语音</p>
+            <h1>AI Content Generator</h1>
+            <p>Generate images and audio from text</p>
         </header>
 
         <main>
             <section class="input-section">
-                <h2>输入内容</h2>
+                <h2>Input Content</h2>
                 
                 <!-- 新增：示例展示区域 -->
                 <div class="examples-container">
-                    <p class="examples-title">💡 点击示例快速填充：</p>
+                    <p class="examples-title">💡 Click an example to quickly fill in:</p>
                     <div class="examples-grid">
                         <button class="example-btn" data-type="image" data-text="一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影">🐱 可爱猫咪</button>
                         <button class="example-btn" data-type="image" data-text="未来科技城市夜景，霓虹灯闪烁，赛博朋克风格，超高清">🌃 科技城市</button>
@@ -40,58 +46,58 @@
                 </div>
                 
                 <div class="options">
-                    <label>生成类型：</label>
+                    <label>Generation Type:</label>
                     <input type="radio" id="type-image" name="generation-type" value="image" checked>
-                    <label for="type-image">图片</label>
+                    <label for="type-image">Image</label>
                     <input type="radio" id="type-audio" name="generation-type" value="audio">
-                    <label for="type-audio">语音</label>
+                    <label for="type-audio">Audio</label>
                     <!-- 新增：提示信息 -->
-                    <span class="type-hint" id="type-hint">💡 图片生成支持多种尺寸和数量选择</span>
+                    <span class="type-hint" id="type-hint">💡 Image generation supports multiple sizes and quantities</span>
                 </div>
 
                 <div class="image-options" id="image-generation-options">
-                    <h3>图片选项</h3>
+                    <h3>Image Options</h3>
                     <div>
                         <input type="checkbox" id="option-nologo" name="option-nologo" checked>
-                        <label for="option-nologo">去除Logo (水印)</label>
+                        <label for="option-nologo">Remove Logo (Watermark)</label>
                     </div>
                     <div>
-                        <label for="option-aspect-ratio">宽高比：</label>
+                        <label for="option-aspect-ratio">Aspect Ratio:</label>
                         <select id="option-aspect-ratio" name="option-aspect-ratio">
-                            <option value="1:1" data-width="1024" data-height="1024" selected>正方形 (1:1 - 1024x1024)</option>
-                            <option value="16:9" data-width="1280" data-height="720">风景 (16:9 - 1280x720)</option>
-                            <option value="9:16" data-width="720" data-height="1280">肖像 (9:16 - 720x1280)</option>
-                            <option value="4:3" data-width="1024" data-height="768">标准 (4:3 - 1024x768)</option>
-                            <option value="3:4" data-width="768" data-height="1024">标准垂直 (3:4 - 768x1024)</option>
-                            <option value="custom">自定义尺寸</option>
+                            <option value="1:1" data-width="1024" data-height="1024" selected>Square (1:1 - 1024x1024)</option>
+                            <option value="16:9" data-width="1280" data-height="720">Landscape (16:9 - 1280x720)</option>
+                            <option value="9:16" data-width="720" data-height="1280">Portrait (9:16 - 720x1280)</option>
+                            <option value="4:3" data-width="1024" data-height="768">Standard (4:3 - 1024x768)</option>
+                            <option value="3:4" data-width="768" data-height="1024">Standard Vertical (3:4 - 768x1024)</option>
+                            <option value="custom">Custom Dimensions</option>
                         </select>
                     </div>
                     <div id="custom-dimensions-container" style="display:none;">
-                        <label for="option-width">宽度 (px):</label>
-                        <input type="number" id="option-width" name="option-width" placeholder="例如: 1024" min="256" max="2048" step="64">
-                        <label for="option-height">高度 (px):</label>
-                        <input type="number" id="option-height" name="option-height" placeholder="例如: 1024" min="256" max="2048" step="64">
+                        <label for="option-width">Width (px):</label>
+                        <input type="number" id="option-width" name="option-width" placeholder="For example: 1024" min="256" max="2048" step="64">
+                        <label for="option-height">Height (px):</label>
+                        <input type="number" id="option-height" name="option-height" placeholder="For example: 1024" min="256" max="2048" step="64">
                     </div>
                     <div>
-                        <label for="option-num-images">生成数量：</label>
+                        <label for="option-num-images">Quantity:</label>
                         <select id="option-num-images" name="option-num-images">
-                            <option value="1" selected>1 张</option>
-                            <option value="2">2 张</option>
-                            <option value="4">4 张</option>
+                            <option value="1" selected>1 Image</option>
+                            <option value="2">2 Images</option>
+                            <option value="4">4 Images</option>
                         </select>
                     </div>
                 </div>
                 
-                <button id="generate-button">开始生成</button>
+                <button id="generate-button">Start Generation</button>
             </section>
 
             <section class="output-section">
-                <h2>生成结果</h2>
+                <h2>Generation Result</h2>
                 
                 <!-- 新增：结果状态提示 -->
                 <div class="result-status" id="result-status" style="display: none;">
                     <span class="status-icon">ℹ️</span>
-                    <span class="status-text">准备生成内容...</span>
+                    <span class="status-text">Preparing content...</span>
                 </div>
                 
                 <div id="loading-indicator" class="loading" style="display: none;">
@@ -100,7 +106,7 @@
                         <div></div>
                         <div></div>
                     </div>
-                    <p>正在生成中，请稍候...</p>
+                    <p>Generating content, please wait...</p>
                 </div>
                 
                 <div id="error-message" class="error-text" style="display: none;"></div>
@@ -110,23 +116,24 @@
                 </div>
 
                 <div id="audio-result-container" class="result-container audio-container" style="display: none;">
-                    <p>生成的语音:</p>
+                    <p>Generated Audio:</p>
                     <audio id="generated-audio" controls></audio>
-                    <a id="download-audio-link" href="#" download="generated_audio.wav" style="display: none;">下载语音文件</a>
+                    <a id="download-audio-link" href="#" download="generated_audio.wav" style="display: none;">Download Audio File</a>
                 </div>
             </section>
         </main>
 
         <footer>
-            <p>&copy; 2024 AI内容生成平台</p>
+            <p>&copy; 2024 AI Content Generation Platform</p>
         </footer>
     </div>
 
-    <script src="js/api_client.js?v=1.0.1"></script>
-    <script src="js/ui_handler.js?v=1.0.1"></script>
-    <script src="js/app.js?v=1.0.1"></script>
-    <!-- 新增：交互增强模块 -->
-    <script src="js/ui_enhancements.js?v=1.0.0"></script>
+    <!-- 按依赖顺序加载脚本 -->
+    <script src="js/i18n.js"></script>
+    <script src="js/api_client.js"></script>
+    <script src="js/ui_handler.js"></script>
+    <script src="js/ui_enhancements.js"></script>
+    <script src="js/app.js"></script>
     <!-- Test auto-deploy on 2025-05-23 06:25 -->
 </body>
 </html> 

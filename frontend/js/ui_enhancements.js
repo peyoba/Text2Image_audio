@@ -8,17 +8,23 @@
 class UIEnhancements {
     constructor() {
         this.examples = [
-            { type: 'image', text: '一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影', icon: '🐱', name: '可爱猫咪' },
-            { type: 'image', text: '未来科技城市夜景，霓虹灯闪烁，赛博朋克风格，超高清', icon: '🌃', name: '科技城市' },
-            { type: 'image', text: '古风美女，汉服飘逸，桃花盛开，国风插画，精美细节', icon: '🌸', name: '古风美女' },
-            { type: 'audio', text: '欢迎使用AI内容生成器，希望您能创造出精彩的作品', icon: '🎵', name: '欢迎语音' },
-            { type: 'audio', text: '今天天气真不错，适合出门散步和拍照', icon: '☀️', name: '天气播报' },
-            { type: 'image', text: '梦幻森林，精灵飞舞，魔法光芒，幻想风景画', icon: '🧚', name: '魔法森林' },
-            { type: 'image', text: '星空下的山峰，银河璀璨，摄影作品，震撼视觉', icon: '🏔️', name: '星空山峰' },
-            { type: 'image', text: '机械朋克机器人，金属质感，蒸汽朋克风格，工业美学', icon: '🤖', name: '机械朋克' },
-            { type: 'audio', text: '感谢您的使用，祝您生活愉快，工作顺利', icon: '🙏', name: '感谢语音' },
-            { type: 'image', text: '樱花飘落的日式庭院，宁静优美，水墨画风格', icon: '🌸', name: '日式庭院' }
+            { type: 'image', text: t('examples.cat.text'), icon: '🐱', name: t('examples.cat.name') },
+            { type: 'image', text: t('examples.city.text'), icon: '🌃', name: t('examples.city.name') },
+            { type: 'image', text: t('examples.beauty.text'), icon: '🌸', name: t('examples.beauty.name') },
+            { type: 'audio', text: t('examples.welcome.text'), icon: '🎵', name: t('examples.welcome.name') },
+            { type: 'audio', text: t('examples.weather.text'), icon: '☀️', name: t('examples.weather.name') },
+            { type: 'image', text: t('examples.forest.text'), icon: '🧚', name: t('examples.forest.name') },
+            { type: 'image', text: t('examples.mountain.text'), icon: '🏔️', name: t('examples.mountain.name') },
+            { type: 'image', text: t('examples.robot.text'), icon: '🤖', name: t('examples.robot.name') },
+            { type: 'audio', text: t('examples.thanks.text'), icon: '🙏', name: t('examples.thanks.name') },
+            { type: 'image', text: t('examples.garden.text'), icon: '🌸', name: t('examples.garden.name') }
         ];
+        
+        // 监听语言变更事件
+        document.addEventListener('languageChanged', () => {
+            this.updateExamples();
+            this.updateTypeHint();
+        });
         
         this.initializeEventListeners();
         this.updateTypeHint();
@@ -62,6 +68,9 @@ class UIEnhancements {
             textInput.value = text;
             textInput.focus();
             
+            // 触发input事件以更新按钮状态
+            textInput.dispatchEvent(new Event('input'));
+            
             // 添加填充动画效果
             textInput.style.background = 'rgba(102, 126, 234, 0.1)';
             setTimeout(() => {
@@ -94,24 +103,23 @@ class UIEnhancements {
         if (textInput) {
             textInput.value = '';
             textInput.focus();
-            this.updateResultStatus('文本已清空，请输入新的内容');
+            this.updateResultStatus(t('tips.clear'));
         }
     }
 
     /**
-     * 智能优化文本（调用现有的优化功能）
+     * 智能优化文本
      */
     async optimizeText() {
         const textInput = document.getElementById('text-input');
         if (!textInput || !textInput.value.trim()) {
-            this.updateResultStatus('请先输入文本内容', 'warning');
+            this.updateResultStatus(t('pleaseInputFirst'), 'warning');
             return;
         }
 
         try {
-            this.updateResultStatus('正在智能优化提示词...', 'loading');
+            this.updateResultStatus(t('loading'), 'loading');
             
-            // 调用现有的优化API
             const response = await fetch('https://text2image-api.peyoba660703.workers.dev/api/optimize', {
                 method: 'POST',
                 headers: {
@@ -126,20 +134,19 @@ class UIEnhancements {
                 const result = await response.json();
                 if (result.optimized_text) {
                     textInput.value = result.optimized_text;
-                    this.updateResultStatus('✨ 提示词优化完成！');
+                    this.updateResultStatus(t('optimizationSuccess'));
                     
-                    // 添加优化成功动画
                     textInput.style.borderColor = '#2ecc71';
                     setTimeout(() => {
                         textInput.style.borderColor = '';
                     }, 1000);
                 }
             } else {
-                throw new Error('优化服务暂时不可用');
+                throw new Error(t('error'));
             }
         } catch (error) {
             console.error('优化失败:', error);
-            this.updateResultStatus('优化失败，请稍后重试', 'error');
+            this.updateResultStatus(t('optimizationFailed'), 'error');
         }
     }
 
@@ -175,11 +182,7 @@ class UIEnhancements {
         const selectedType = document.querySelector('input[name="generation-type"]:checked')?.value;
         
         if (typeHint) {
-            if (selectedType === 'audio') {
-                typeHint.textContent = '🎵 语音生成支持播放和下载功能';
-            } else {
-                typeHint.textContent = '💡 图片生成支持多种尺寸和数量选择';
-            }
+            typeHint.textContent = selectedType === 'audio' ? t('audioHint') : t('imageHint');
         }
     }
 
@@ -278,15 +281,41 @@ class UIEnhancements {
      */
     showUsageTips() {
         const tips = [
-            '💡 尝试点击示例按钮快速填充内容',
-            '✨ 使用"优化"按钮提升AI生成效果',
-            '🎲 点击"随机"按钮获取灵感',
-            '🖼️ 图片生成支持多种尺寸比例',
-            '🎵 语音生成支持下载功能'
+            t('tips.example'),
+            t('tips.optimize'),
+            t('tips.random'),
+            t('tips.imageSize'),
+            t('tips.audio')
         ];
 
         const randomTip = tips[Math.floor(Math.random() * tips.length)];
         this.updateResultStatus(randomTip);
+    }
+
+    // 新增：更新示例数据
+    updateExamples() {
+        this.examples = [
+            { type: 'image', text: t('examples.cat.text'), icon: '🐱', name: t('examples.cat.name') },
+            { type: 'image', text: t('examples.city.text'), icon: '🌃', name: t('examples.city.name') },
+            { type: 'image', text: t('examples.beauty.text'), icon: '🌸', name: t('examples.beauty.name') },
+            { type: 'audio', text: t('examples.welcome.text'), icon: '🎵', name: t('examples.welcome.name') },
+            { type: 'audio', text: t('examples.weather.text'), icon: '☀️', name: t('examples.weather.name') },
+            { type: 'image', text: t('examples.forest.text'), icon: '🧚', name: t('examples.forest.name') },
+            { type: 'image', text: t('examples.mountain.text'), icon: '🏔️', name: t('examples.mountain.name') },
+            { type: 'image', text: t('examples.robot.text'), icon: '🤖', name: t('examples.robot.name') },
+            { type: 'audio', text: t('examples.thanks.text'), icon: '🙏', name: t('examples.thanks.name') },
+            { type: 'image', text: t('examples.garden.text'), icon: '🌸', name: t('examples.garden.name') }
+        ];
+        
+        // 更新示例按钮
+        document.querySelectorAll('.example-btn').forEach((btn, index) => {
+            if (this.examples[index]) {
+                const example = this.examples[index];
+                btn.textContent = `${example.icon} ${example.name}`;
+                btn.dataset.text = example.text;
+                btn.dataset.type = example.type;
+            }
+        });
     }
 }
 
@@ -300,7 +329,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1000);
 });
 
-// 导出给其他模块使用
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = UIEnhancements;
-} 
+// 将类设为全局变量
+window.UIEnhancements = UIEnhancements; 

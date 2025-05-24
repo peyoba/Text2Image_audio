@@ -2,8 +2,8 @@
  * API客户端类，处理与后端的所有通信
  */
 class ApiClient {
-    constructor(baseUrl = 'https://text2image-api.peyoba660703.workers.dev') { // 更新为正确的 Worker URL
-        this.baseUrl = baseUrl;
+    constructor() {
+        this.baseUrl = 'https://text2image-api.peyoba660703.workers.dev';
         this.pollingInterval = 2000; // 轮询间隔ms，例如2秒
         this.maxPollingAttempts = 30; // 最大轮询次数，例如 30 * 2s = 1分钟超时
         console.log('ApiClient initialized with baseUrl:', this.baseUrl); // 添加初始化日志
@@ -231,7 +231,6 @@ class ApiClient {
     }
 }
 
-// 导出API客户端实例
-const apiClient = new ApiClient();
-// 若要在其他模块中使用，例如: import { apiClient } from './api_client.js'; (如果使用ES模块)
-// 或者直接使用全局的 apiClient (如果按顺序加载脚本)
+// 将类设为全局变量
+window.ApiClient = ApiClient;
+window.apiClient = new ApiClient();

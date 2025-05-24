@@ -3,6 +3,9 @@
  */
 class UIHandler {
     constructor() {
+        // 初始化语言切换
+        this.initLanguageSwitcher();
+        
         // 获取DOM元素
         this.textInput = document.getElementById('text-input');
         this.generateButton = document.getElementById('generate-button');
@@ -25,9 +28,74 @@ class UIHandler {
         this.optionHeight = document.getElementById('option-height');
         this.optionNumImages = document.getElementById('option-num-images');
 
+        // 更新页面文本
+        this.updatePageText();
+        
+        // 监听语言变更事件
+        document.addEventListener('languageChanged', () => {
+            this.updatePageText();
+        });
+        
         this.bindEvents();
         this._toggleImageOptions(); // 初始化时根据类型显隐图片选项
         this._handleAspectRatioChange(); // 初始化宽高比相关UI
+    }
+
+    /**
+     * 初始化语言切换功能
+     */
+    initLanguageSwitcher() {
+        const currentLang = getCurrentLang();
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            const lang = btn.dataset.lang;
+            if (lang === currentLang) {
+                btn.classList.add('active');
+            }
+            btn.addEventListener('click', () => {
+                if (lang !== getCurrentLang()) {
+                    setLanguage(lang);
+                }
+            });
+        });
+    }
+
+    /**
+     * 更新页面文本
+     */
+    updatePageText() {
+        // 更新标题
+        document.title = t('title');
+        document.querySelector('header h1').textContent = t('title');
+        document.querySelector('header p').textContent = t('subtitle');
+
+        // 更新输入区域
+        this.textInput.placeholder = t('inputPlaceholder');
+        this.generateButton.textContent = t('generateButton');
+
+        // 更新生成类型
+        document.querySelector('label[for="type-image"]').textContent = t('typeImage');
+        document.querySelector('label[for="type-audio"]').textContent = t('typeAudio');
+
+        // 更新图片选项
+        document.querySelector('.image-options h3').textContent = t('imageOptions');
+        document.querySelector('label[for="option-aspect-ratio"]').textContent = t('aspectRatio');
+        document.querySelector('option[value="1:1"]').textContent = t('aspectRatioSquare');
+        document.querySelector('option[value="16:9"]').textContent = t('aspectRatioLandscape');
+        document.querySelector('option[value="9:16"]').textContent = t('aspectRatioPortrait');
+        document.querySelector('option[value="custom"]').textContent = t('aspectRatioCustom');
+        document.querySelector('label[for="option-width"]').textContent = t('width');
+        document.querySelector('label[for="option-height"]').textContent = t('height');
+        document.querySelector('label[for="option-nologo"]').textContent = t('noLogo');
+        document.querySelector('label[for="option-num-images"]').textContent = t('numImages');
+
+        // 更新快捷操作按钮
+        document.getElementById('clear-btn').textContent = t('clearButton');
+        document.getElementById('optimize-btn').textContent = t('optimizeButton');
+        document.getElementById('random-btn').textContent = t('randomButton');
+
+        // 更新提示文本
+        document.getElementById('type-hint').textContent = 
+            this.typeImageRadio.checked ? t('imageHint') : t('audioHint');
     }
 
     /**
@@ -53,13 +121,16 @@ class UIHandler {
         const text = this.textInput.value.trim();
         const isValid = text.length > 0;
         this.generateButton.disabled = !isValid;
+        if (!isValid) {
+            this.showError(t('pleaseInput'));
+        }
         return isValid;
     }
 
     /**
      * 显示加载状态
      */
-    showLoading(message = "正在处理中，请稍候...") {
+    showLoading(message = t('loading')) {
         this.loadingText.textContent = message;
         this.loadingIndicator.style.display = 'block';
         this.generateButton.disabled = true;
@@ -184,7 +255,7 @@ class UIHandler {
      */
     async handleGenerate() {
         if (!this.validateInput()) {
-            this.showError("请输入描述文本后再生成。");
+            this.showError(t('pleaseInput'));
             return;
         }
 
@@ -291,10 +362,8 @@ class UIHandler {
     }
 }
 
-// 创建UI处理器实例 (确保在DOM加载完毕后执行，或者将脚本放在body底部)
-// 如果 app.js 依赖它，确保 uiHandler 在 app.js 之前实例化或通过某种方式传递
-// 在这个项目中，脚本是顺序加载的，所以这里实例化是OK的。
-const uiHandler = new UIHandler();
+// 将类设为全局变量
+window.UIHandler = UIHandler;
 
 /**
  * 显示生成的图片结果
