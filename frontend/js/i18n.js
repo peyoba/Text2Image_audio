@@ -203,6 +203,11 @@ function setLanguage(lang) {
         // 更新语言按钮状态
         updateLanguageButtons();
         
+        // 更新页面文本
+        if (window.uiHandler) {
+            window.uiHandler.updatePageText();
+        }
+        
         return true;
     }
     return false;
