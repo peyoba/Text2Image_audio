@@ -333,9 +333,9 @@ function updatePageText() {
         typeHint.textContent = isImage ? t('imageHint') : t('audioHint');
     }
 
-    // 如果存在UI增强实例，更新其文本
+    // 如果存在UI增强实例，更新其示例
     if (window.uiEnhancements) {
-        window.uiEnhancements.updatePageText();
+        window.uiEnhancements.updateExamples();
     }
 }
 
