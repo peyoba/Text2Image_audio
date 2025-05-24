@@ -7,18 +7,8 @@
 
 class UIEnhancements {
     constructor() {
-        this.examples = [
-            { type: 'image', text: t('examples.cat.text'), icon: '🐱', name: t('examples.cat.name') },
-            { type: 'image', text: t('examples.city.text'), icon: '🌃', name: t('examples.city.name') },
-            { type: 'image', text: t('examples.beauty.text'), icon: '🌸', name: t('examples.beauty.name') },
-            { type: 'audio', text: t('examples.welcome.text'), icon: '🎵', name: t('examples.welcome.name') },
-            { type: 'audio', text: t('examples.weather.text'), icon: '☀️', name: t('examples.weather.name') },
-            { type: 'image', text: t('examples.forest.text'), icon: '🧚', name: t('examples.forest.name') },
-            { type: 'image', text: t('examples.mountain.text'), icon: '🏔️', name: t('examples.mountain.name') },
-            { type: 'image', text: t('examples.robot.text'), icon: '🤖', name: t('examples.robot.name') },
-            { type: 'audio', text: t('examples.thanks.text'), icon: '🙏', name: t('examples.thanks.name') },
-            { type: 'image', text: t('examples.garden.text'), icon: '🌸', name: t('examples.garden.name') }
-        ];
+        // 初始化空示例数组
+        this.examples = [];
         
         // 监听语言变更事件
         document.addEventListener('languageChanged', () => {
@@ -28,6 +18,9 @@ class UIEnhancements {
         
         this.initializeEventListeners();
         this.updateTypeHint();
+        
+        // 初始化示例
+        this.updateExamples();
     }
 
     /**
@@ -292,8 +285,11 @@ class UIEnhancements {
         this.updateResultStatus(randomTip);
     }
 
-    // 新增：更新示例数据
+    /**
+     * 更新示例按钮
+     */
     updateExamples() {
+        // 更新示例数组
         this.examples = [
             { type: 'image', text: t('examples.cat.text'), icon: '🐱', name: t('examples.cat.name') },
             { type: 'image', text: t('examples.city.text'), icon: '🌃', name: t('examples.city.name') },
@@ -306,14 +302,15 @@ class UIEnhancements {
             { type: 'audio', text: t('examples.thanks.text'), icon: '🙏', name: t('examples.thanks.name') },
             { type: 'image', text: t('examples.garden.text'), icon: '🌸', name: t('examples.garden.name') }
         ];
-        
+
         // 更新示例按钮
-        document.querySelectorAll('.example-btn').forEach((btn, index) => {
-            if (this.examples[index]) {
-                const example = this.examples[index];
+        const exampleButtons = document.querySelectorAll('.example-btn');
+        exampleButtons.forEach(btn => {
+            const type = btn.dataset.type;
+            const example = this.examples.find(ex => ex.type === type);
+            if (example) {
                 btn.textContent = `${example.icon} ${example.name}`;
                 btn.dataset.text = example.text;
-                btn.dataset.type = example.type;
             }
         });
     }
