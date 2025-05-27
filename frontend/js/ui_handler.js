@@ -317,38 +317,60 @@ class UIHandler {
                 } catch (optimizationError) {
                     console.error("UIHandler: Text/Negative optimization failed, proceeding with original.", optimizationError);
                 }
-                this.showLoading(numImages > 1 ? `正在生成 ${numImages} 张图片...` : "正在生成图片...");
+                this.showLoading(numImages > 1 ? `正在生成 ${numImages} 张图片... (1/${numImages})` : "正在生成图片...");
 
-                const generationPromises = [];
+                const imageDataURLs = [];
+                let allSuccessful = true;
+
                 for (let i = 0; i < numImages; i++) {
+                    if (numImages > 1) {
+                        this.showLoading(`正在生成 ${numImages} 张图片... (${i + 1}/${numImages})`);
+                    }
                     let currentImageOptions = { ...imageOptions };
-                    if (numImages > 1 && !currentImageOptions.seed) {
-                        currentImageOptions.seed = Math.floor(Math.random() * 1000000);
+                    // 为多张图片生成不同的seed，确保图片多样性，除非用户已指定seed
+                    if (numImages > 1 && !currentImageOptions.seed) { 
+                        currentImageOptions.seed = Math.floor(Math.random() * 1000000000); // 使用更大的随机种子范围
                     }
                     // 传递负面提示词
                     if (negativeToGenerate) {
                         currentImageOptions.negative = negativeToGenerate;
                     }
-                    generationPromises.push(apiClient.submitGenerationTask(textToGenerate, type, currentImageOptions));
+                    try {
+                        const result = await apiClient.submitGenerationTask(textToGenerate, type, currentImageOptions);
+                        if (result && result.data && result.format === 'base64') {
+                            const imageContentType = result.content_type || 'image/jpeg';
+                            imageDataURLs.push(`data:${imageContentType};base64,${result.data}`);
+                        } else {
+                            console.error(`UIHandler: Image data from API is not in expected format for image ${i + 1}.`, result);
+                            allSuccessful = false;
+                            // 可以选择在这里抛出错误中断后续生成，或者记录错误并继续尝试生成其余图片
+                            // 为了用户体验，选择继续，但最后会提示部分失败
+                        }
+                    } catch (singleImageError) {
+                        console.error(`UIHandler: Error generating image ${i + 1}:`, singleImageError);
+                        allSuccessful = false;
+                        // 如果一个图片失败，是否中断所有？目前选择继续。
+                    }
+                    // 在两次API调用之间添加一个小的延迟，进一步避免速率限制
+                    if (i < numImages - 1) {
+                        await new Promise(resolve => setTimeout(resolve, 500)); // 延迟0.5秒
+                    }
                 }
 
-                const results = await Promise.all(generationPromises);
-                this.hideResults();
-                this.hideError();
-
-                const imageDataURLs = results.map(result => {
-                    if (result && result.data && result.format === 'base64') {
-                        const imageContentType = result.content_type || 'image/jpeg';
-                        return `data:${imageContentType};base64,${result.data}`;
-                    } else {
-                        console.error('UIHandler: Image data from API is not in expected format for one of the images.', result);
-                        return null;
-                    }
-                }).filter(url => url !== null);
+                this.hideResults(); // 清空旧结果区域
+                this.hideError();   // 清除旧错误信息
 
                 if (imageDataURLs.length > 0) {
                     this.showImageResult(imageDataURLs);
-                } else if (numImages > 0) {
+                    if (!allSuccessful && numImages > 1) {
+                        // 如果部分图片生成失败，追加一个提示信息
+                        // 可以考虑将这个提示信息显示在更持久的位置，或者使用更明显的UI元素
+                        this.showError(`部分图片生成失败，已显示 ${imageDataURLs.length} 张成功图片。请检查控制台获取更多信息。`);
+                    } else if (!allSuccessful && numImages === 1 && imageDataURLs.length === 0) {
+                        // 如果是单张图片且失败
+                        throw new Error('图片生成失败或返回无效数据。');
+                    }
+                } else if (numImages > 0) { // 如果请求了图片但一张都没成功
                     throw new Error('所有图片生成均失败或返回无效数据。');
                 }
 
