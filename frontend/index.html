@@ -23,26 +23,28 @@
             <section class="input-section">
                 <h2>Input Content</h2>
                 
-                <!-- 新增：示例展示区域 -->
-                <div class="examples-container">
-                    <p class="examples-title">💡 Click an example to quickly fill in:</p>
-                    <div class="examples-grid">
-                        <button class="example-btn" data-type="image" data-text="一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影">🐱 可爱猫咪</button>
-                        <button class="example-btn" data-type="image" data-text="未来科技城市夜景，霓虹灯闪烁，赛博朋克风格，超高清">🌃 科技城市</button>
-                        <button class="example-btn" data-type="image" data-text="古风美女，汉服飘逸，桃花盛开，国风插画，精美细节">🌸 古风美女</button>
-                        <button class="example-btn" data-type="audio" data-text="欢迎使用AI内容生成器，希望您能创造出精彩的作品">🎵 欢迎语音</button>
-                        <button class="example-btn" data-type="audio" data-text="今天天气真不错，适合出门散步和拍照">☀️ 天气播报</button>
-                        <button class="example-btn" data-type="image" data-text="梦幻森林，精灵飞舞，魔法光芒，幻想风景画">🧚 魔法森林</button>
-                    </div>
+                <!-- 示例快速填充按钮区域 -->
+                <div class="examples-quickfill">
+                    <span class="examples-label" data-i18n="quickFillLabel">快速填充示例：</span>
+                    <button class="example-btn" data-type="image" data-text="一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影" data-i18n-name="examples.cat.name">🐱 可爱猫咪</button>
+                    <button class="example-btn" data-type="image" data-text="一条凶猛的龙在火山上空盘旋，熔岩流淌，史诗感" data-i18n-name="examples.dragon.name">🐉 史诗巨龙</button>
+                    <button class="example-btn" data-type="image" data-text="宁静的湖面倒映着雪山和森林，黄昏，油画风格" data-i18n-name="examples.lake.name">🏞️ 雪山湖景</button>
+                    <button class="example-btn" data-type="audio" data-text="欢迎使用AI内容生成器，希望您能创造出精彩的作品" data-i18n-name="examples.welcome.name">🎵 欢迎语音</button>
                 </div>
                 
-                <textarea id="text-input" rows="6" placeholder="请输入您的描述文本，例如：一只可爱的猫咪在草地上玩耍"></textarea>
-                
-                <!-- 新增：快捷操作按钮 -->
+                <textarea id="text-input" rows="6" placeholder="请输入描述，如：一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影"></textarea>
+                <!-- 智能优化提示语 -->
+                <div class="prompt-tip" data-i18n="smartOptimizeTip">✨ 智能优化：自动将描述翻译并优化为高质量英文提示词，提升出图效果</div>
+                <!-- 恢复快捷操作按钮 -->
                 <div class="quick-actions">
-                    <button class="quick-btn" id="clear-btn" title="清空文本">🗑️ 清空</button>
-                    <button class="quick-btn" id="optimize-btn" title="智能优化提示词">✨ 优化</button>
-                    <button class="quick-btn" id="random-btn" title="随机示例">🎲 随机</button>
+                    <button id="clear-btn">清空</button>
+                    <button id="optimize-btn">✨ 智能优化</button>
+                    <button id="random-btn">🎲 随机示例</button>
+                </div>
+                
+                <div class="negative-prompt">
+                    <label data-i18n="negativePromptLabel">负面提示词：</label>
+                    <input type="text" id="negative-prompt" placeholder="输入不想要的元素，用逗号分隔">
                 </div>
                 
                 <div class="options">
@@ -122,6 +124,29 @@
                 </div>
             </section>
         </main>
+
+        <!-- 灵感获取专区，图片卡片浏览，不做自动填充 -->
+        <div class="inspiration-gallery">
+            <p class="inspiration-title" data-i18n="inspirationTitle">🎨 灵感获取专区</p>
+            <div class="inspiration-grid">
+                <div class="inspiration-card">
+                    <img src="https://picsum.photos/300/200?random=11" alt="灵感1">
+                    <span class="inspiration-label" data-i18n="inspirationExamples.forest">梦幻森林</span>
+                </div>
+                <div class="inspiration-card">
+                    <img src="https://picsum.photos/300/200?random=12" alt="灵感2">
+                    <span class="inspiration-label" data-i18n="inspirationExamples.city">未来都市</span>
+                </div>
+                <div class="inspiration-card">
+                    <img src="https://picsum.photos/300/200?random=13" alt="灵感3">
+                    <span class="inspiration-label" data-i18n="inspirationExamples.cottage">童话小屋</span>
+                </div>
+                <div class="inspiration-card">
+                    <img src="https://picsum.photos/300/200?random=14" alt="灵感4">
+                    <span class="inspiration-label" data-i18n="inspirationExamples.cyberpunk">赛博朋克</span>
+                </div>
+            </div>
+        </div>
 
         <footer>
             <p>&copy; 2024 AI Content Generation Platform</p>

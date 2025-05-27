@@ -5,14 +5,18 @@
 const i18n = {
     zh: {
         // 标题和描述
-        title: 'AI内容生成器',
-        subtitle: '使用AI生成图片和语音，让创意更简单',
+        title: '超感AI创作站',
+        subtitle: '图片·语音·无限免费生成',
         
         // 输入区域
         inputTitle: '输入内容',
         examplesTitle: '💡 点击示例快速填充：',
         inputPlaceholder: '请输入描述文本，例如：一只可爱的猫咪在草地上玩耍...',
         generateButton: '开始生成',
+        quickFillLabel: '快速填充示例：',
+        smartOptimizeTip: '✨ 智能优化：自动将描述翻译并优化为高质量英文提示词，提升出图效果',
+        negativePromptLabel: '负面提示词：',
+        negativePromptPlaceholder: '输入不想要的元素，用逗号分隔',
         
         // 生成类型
         generationType: '生成类型',
@@ -58,16 +62,18 @@ const i18n = {
         
         // 示例按钮
         examples: {
-            cat: { name: '可爱猫咪', text: '一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影' },
-            city: { name: '科技城市', text: '未来科技城市夜景，霓虹灯闪烁，赛博朋克风格，超高清' },
-            beauty: { name: '古风美女', text: '古风美女，汉服飘逸，桃花盛开，国风插画，精美细节' },
-            welcome: { name: '欢迎语音', text: '欢迎使用AI内容生成器，希望您能创造出精彩的作品' },
-            weather: { name: '天气播报', text: '今天天气真不错，适合出门散步和拍照' },
-            forest: { name: '魔法森林', text: '梦幻森林，精灵飞舞，魔法光芒，幻想风景画' },
-            mountain: { name: '星空山峰', text: '星空下的山峰，银河璀璨，摄影作品，震撼视觉' },
-            robot: { name: '机械朋克', text: '机械朋克机器人，金属质感，蒸汽朋克风格，工业美学' },
-            thanks: { name: '感谢语音', text: '感谢您的使用，祝您生活愉快，工作顺利' },
-            garden: { name: '日式庭院', text: '樱花飘落的日式庭院，宁静优美，水墨画风格' }
+            cat: { name: '🐱 可爱猫咪', text: '一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影', type: 'image' },
+            city: { name: '🌃 科技城市', text: '未来科技城市夜景，霓虹灯闪烁，赛博朋克风格，超高清', type: 'image' },
+            beauty: { name: '🌸 古风美女', text: '古风美女，汉服飘逸，桃花盛开，国风插画，精美细节', type: 'image' },
+            dragon: { name: '🐉 史诗巨龙', text: '一条凶猛的龙在火山上空盘旋，熔岩流淌，史诗感', type: 'image' },
+            lake: { name: '🏞️ 雪山湖景', text: '宁静的湖面倒映着雪山和森林，黄昏，油画风格', type: 'image' },
+            welcome: { name: '🎵 欢迎语音', text: '欢迎使用AI内容生成器，希望您能创造出精彩的作品', type: 'audio' },
+            weather: { name: '🌦️ 天气播报', text: '今天天气真不错，适合出门散步和拍照', type: 'audio' },
+            forest: { name: '🌲 魔法森林', text: '梦幻森林，精灵飞舞，魔法光芒，幻想风景画', type: 'image' },
+            mountain: { name: '⛰️ 星空山峰', text: '星空下的山峰，银河璀璨，摄影作品，震撼视觉', type: 'image' },
+            robot: { name: '🤖 机械朋克', text: '机械朋克机器人，金属质感，蒸汽朋克风格，工业美学', type: 'image' },
+            thanks: { name: '🙏 感谢语音', text: '感谢您的使用，祝您生活愉快，工作顺利', type: 'audio' },
+            garden: { name: '🌸 日式庭院', text: '樱花飘落的日式庭院，宁静优美，水墨画风格', type: 'image' }
         },
 
         // 使用提示
@@ -83,19 +89,32 @@ const i18n = {
         download: '下载',
         copy: '复制',
         view: '查看',
-        close: '关闭'
+        close: '关闭',
+
+        // 新增：灵感获取专区
+        inspirationTitle: '🎨 灵感获取专区',
+        inspirationExamples: {
+            forest: '梦幻森林',
+            city: '未来都市',
+            cottage: '童话小屋',
+            cyberpunk: '赛博朋克'
+        }
     },
     
     en: {
         // Title and description
-        title: 'AI Content Generator',
-        subtitle: 'Generate images and audio with AI, make creativity easier',
+        title: 'SuperSense AI Creation Hub',
+        subtitle: 'Images · Audio · Unlimited Free Generation',
         
         // Input area
         inputTitle: 'Input Content',
         examplesTitle: '💡 Click an example to quickly fill in:',
         inputPlaceholder: 'Enter description text, e.g.: A cute cat playing on the grass...',
         generateButton: 'Generate',
+        quickFillLabel: 'Quick Fill Examples:',
+        smartOptimizeTip: '✨ Smart Optimize: Automatically translate and optimize descriptions into high-quality English prompts to enhance image results.',
+        negativePromptLabel: 'Negative Prompts:',
+        negativePromptPlaceholder: 'Enter unwanted elements, separated by commas',
         
         // Generation type
         generationType: 'Generation Type',
@@ -141,16 +160,18 @@ const i18n = {
         
         // Example buttons
         examples: {
-            cat: { name: 'Cute Cat', text: 'A cute cat playing on the grass, sunny day, HD photography' },
-            city: { name: 'Tech City', text: 'Futuristic city night view, neon lights, cyberpunk style, ultra HD' },
-            beauty: { name: 'Traditional Beauty', text: 'Traditional Chinese beauty, flowing Hanfu, peach blossoms, detailed illustration' },
-            welcome: { name: 'Welcome', text: 'Welcome to the AI Content Generator, hope you create amazing works' },
-            weather: { name: 'Weather', text: "It's a beautiful day, perfect for a walk and taking photos" },
-            forest: { name: 'Magic Forest', text: 'Dreamy forest, fairies flying, magical light, fantasy landscape' },
-            mountain: { name: 'Starry Mountain', text: 'Mountain under starry sky, brilliant Milky Way, stunning photography' },
-            robot: { name: 'Mech Punk', text: 'Mechanical punk robot, metallic texture, steampunk style, industrial aesthetics' },
-            thanks: { name: 'Thanks', text: 'Thank you for using our service, wish you happiness and success' },
-            garden: { name: 'Japanese Garden', text: 'Japanese garden with falling cherry blossoms, peaceful and elegant, ink painting style' }
+            cat: { name: '🐱 Cute Cat', text: 'A cute cat playing on the grass, sunny day, HD photography', type: 'image' },
+            city: { name: '🌃 Tech City', text: 'Futuristic city night view, neon lights, cyberpunk style, ultra HD', type: 'image' },
+            beauty: { name: '🌸 Traditional Beauty', text: 'Traditional Chinese beauty, flowing Hanfu, peach blossoms, detailed illustration', type: 'image' },
+            dragon: { name: '🐉 Epic Dragon', text: 'A fierce dragon hovers over a volcano, lava flowing, epic sense', type: 'image' },
+            lake: { name: '🏞️ Snowy Mountain Lake', text: 'A tranquil lake reflects snowy mountains and forests, dusk, oil painting style', type: 'image' },
+            welcome: { name: '🎵 Welcome', text: 'Welcome to the AI Content Generator, hope you create amazing works', type: 'audio' },
+            weather: { name: '🌦️ Weather', text: "It's a beautiful day, perfect for a walk and taking photos", type: 'audio' },
+            forest: { name: '🌲 Magic Forest', text: 'Dreamy forest, fairies flying, magical light, fantasy landscape', type: 'image' },
+            mountain: { name: '⛰️ Starry Mountain', text: 'Mountain under starry sky, brilliant Milky Way, stunning photography', type: 'image' },
+            robot: { name: '🤖 Mech Punk', text: 'Mechanical punk robot, metallic texture, steampunk style, industrial aesthetics', type: 'image' },
+            thanks: { name: '🙏 Thanks', text: 'Thank you for using our service, wish you happiness and success', type: 'audio' },
+            garden: { name: '🌸 Japanese Garden', text: 'Japanese garden with falling cherry blossoms, peaceful and elegant, ink painting style', type: 'image' }
         },
 
         // Usage tips
@@ -166,7 +187,16 @@ const i18n = {
         download: 'Download',
         copy: 'Copy',
         view: 'View',
-        close: 'Close'
+        close: 'Close',
+
+        // Added: Inspiration Gallery
+        inspirationTitle: '🎨 Inspiration Gallery',
+        inspirationExamples: {
+            forest: 'Mystic Forest',
+            city: 'Future City',
+            cottage: 'Fairy Tale Cottage',
+            cyberpunk: 'Cyberpunk'
+        }
     }
 };
 
@@ -239,8 +269,24 @@ function updatePageText() {
     document.querySelector('header p').textContent = t('subtitle');
 
     // 更新输入区域标题
-    const inputTitle = document.querySelector('section.input-section h2');
-    if (inputTitle) inputTitle.textContent = t('inputTitle');
+    const inputTitleEl = document.querySelector('section.input-section h2');
+    if (inputTitleEl) inputTitleEl.textContent = t('inputTitle');
+
+    // 更新示例区域标签
+    const quickFillLabelEl = document.querySelector('[data-i18n="quickFillLabel"]');
+    if (quickFillLabelEl) quickFillLabelEl.textContent = t('quickFillLabel');
+
+    // 更新智能优化提示
+    const smartOptimizeTipEl = document.querySelector('[data-i18n="smartOptimizeTip"]');
+    if (smartOptimizeTipEl) smartOptimizeTipEl.textContent = t('smartOptimizeTip');
+
+    // 更新负面提示词标签
+    const negativePromptLabelEl = document.querySelector('[data-i18n="negativePromptLabel"]');
+    if (negativePromptLabelEl) negativePromptLabelEl.textContent = t('negativePromptLabel');
+
+    // 更新负面提示词输入框的placeholder
+    const negativePromptInputEl = document.getElementById('negative-prompt');
+    if (negativePromptInputEl) negativePromptInputEl.placeholder = t('negativePromptPlaceholder');
 
     // 更新示例标题
     const examplesTitle = document.querySelector('.examples-title');
@@ -315,14 +361,28 @@ function updatePageText() {
 
     // 更新示例按钮
     document.querySelectorAll('.example-btn').forEach(btn => {
-        const type = btn.dataset.type;
-        const key = btn.textContent.split(' ')[1]; // 获取示例名称
-        const example = Object.values(i18n[getCurrentLang()].examples).find(ex => 
-            ex.name.includes(key) || key.includes(ex.name)
-        );
-        if (example) {
-            btn.textContent = `${btn.textContent.split(' ')[0]} ${example.name}`;
-            btn.dataset.text = example.text;
+        const i18nNameKey = btn.dataset.i18nName; // 例如: "examples.cat.name"
+        if (i18nNameKey) {
+            const translatedName = t(i18nNameKey); // 获取包含emoji的完整翻译名称
+            
+            // 从 i18nNameKey (e.g., "examples.cat.name") 构建 textKey (e.g., "examples.cat.text")
+            const parts = i18nNameKey.split('.');
+            if (parts.length === 3 && parts[0] === 'examples') {
+                const exampleKey = parts[1]; // "cat", "dragon", etc.
+                const textKey = `examples.${exampleKey}.text`;
+                const translatedText = t(textKey);
+
+                if (translatedName && translatedName !== i18nNameKey) {
+                    btn.textContent = translatedName; // 设置按钮文本 (包含emoji)
+                }
+                if (translatedText && translatedText !== textKey) {
+                    btn.dataset.text = translatedText; // 设置按钮的data-text属性
+                }
+            } else {
+                console.warn(`Invalid data-i18n-name format: ${i18nNameKey}`);
+            }
+        } else {
+            console.warn('Button missing data-i18n-name attribute:', btn);
         }
     });
 
@@ -331,6 +391,30 @@ function updatePageText() {
     if (typeHint) {
         const isImage = document.getElementById('type-image')?.checked;
         typeHint.textContent = isImage ? t('imageHint') : t('audioHint');
+    }
+
+    // 更新灵感获取专区标题
+    const inspirationTitleEl = document.querySelector('[data-i18n="inspirationTitle"]');
+    if (inspirationTitleEl) {
+        inspirationTitleEl.textContent = t('inspirationTitle');
+    }
+
+    // 更新灵感获取专区卡片标题
+    const inspirationForestEl = document.querySelector('[data-i18n="inspirationExamples.forest"]');
+    if (inspirationForestEl) {
+        inspirationForestEl.textContent = t('inspirationExamples.forest');
+    }
+    const inspirationCityEl = document.querySelector('[data-i18n="inspirationExamples.city"]');
+    if (inspirationCityEl) {
+        inspirationCityEl.textContent = t('inspirationExamples.city');
+    }
+    const inspirationCottageEl = document.querySelector('[data-i18n="inspirationExamples.cottage"]');
+    if (inspirationCottageEl) {
+        inspirationCottageEl.textContent = t('inspirationExamples.cottage');
+    }
+    const inspirationCyberpunkEl = document.querySelector('[data-i18n="inspirationExamples.cyberpunk"]');
+    if (inspirationCyberpunkEl) {
+        inspirationCyberpunkEl.textContent = t('inspirationExamples.cyberpunk');
     }
 
     // 如果存在UI增强实例，更新其示例
