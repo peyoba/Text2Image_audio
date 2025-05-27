@@ -8,11 +8,11 @@
 class UIEnhancements {
     constructor() {
         // 初始化空示例数组
-        this.examples = [];
+        // this.examples = []; // 不再需要内部的 this.examples 数组
         
         // 监听语言变更事件
         document.addEventListener('languageChanged', () => {
-            this.updateExamples();
+            // this.updateExamples(); // 移除调用，依赖 i18n.js 的 updatePageText
             this.updateTypeHint();
         });
         
@@ -20,7 +20,9 @@ class UIEnhancements {
         this.updateTypeHint();
         
         // 初始化示例
-        this.updateExamples();
+        // this.updateExamples(); // 移除调用，依赖 i18n.js 的 updatePageText
+
+        this.initializeExampleCards();
     }
 
     /**
@@ -147,17 +149,31 @@ class UIEnhancements {
      * 填充随机示例
      */
     fillRandomExample() {
-        const currentType = document.querySelector('input[name="generation-type"]:checked')?.value || 'image';
-        const typeExamples = this.examples.filter(ex => ex.type === currentType);
+        const currentSelectedType = document.querySelector('input[name="generation-type"]:checked')?.value || 'image';
+        const currentLang = window.getCurrentLang(); // 获取当前语言
+        const allExamplesInCurrentLang = window.i18n[currentLang].examples; // 获取当前语言的所有示例对象
+
+        if (!allExamplesInCurrentLang) {
+            console.error(`No examples found for language: ${currentLang}`);
+            return;
+        }
+
+        // 将示例对象转换为数组，并根据当前选中的类型进行筛选
+        const availableExamples = Object.values(allExamplesInCurrentLang).filter(ex => ex.type === currentSelectedType);
         
-        if (typeExamples.length > 0) {
-            const randomExample = typeExamples[Math.floor(Math.random() * typeExamples.length)];
+        if (availableExamples.length > 0) {
+            const randomExample = availableExamples[Math.floor(Math.random() * availableExamples.length)];
             const textInput = document.getElementById('text-input');
             
             if (textInput) {
-                textInput.value = randomExample.text;
-                this.updateResultStatus(`🎲 随机填充：${randomExample.name}`);
+                textInput.value = randomExample.text; // 使用示例的 text 属性
+                // 从 randomExample.name (e.g., "🐱 可爱猫咪") 中提取纯名称用于提示
+                const pureName = randomExample.name.substring(randomExample.name.indexOf(' ') + 1);
+                this.updateResultStatus(`🎲 随机填充：${pureName}`);
                 
+                // 触发input事件以更新按钮状态 (如果需要)
+                textInput.dispatchEvent(new Event('input'));
+
                 // 添加随机填充动画
                 textInput.style.background = 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)';
                 setTimeout(() => {
@@ -287,31 +303,85 @@ class UIEnhancements {
 
     /**
      * 更新示例按钮
+     * 此方法现在不再需要主动修改按钮内容，因为按钮内容由 i18n.js 的 updatePageText 统一处理。
+     * 保留此方法名，但将其内容清空或注释掉，以防其他地方意外调用时出错。
      */
     updateExamples() {
-        // 更新示例数组
-        this.examples = [
-            { type: 'image', text: t('examples.cat.text'), icon: '🐱', name: t('examples.cat.name') },
-            { type: 'image', text: t('examples.city.text'), icon: '🌃', name: t('examples.city.name') },
-            { type: 'image', text: t('examples.beauty.text'), icon: '🌸', name: t('examples.beauty.name') },
-            { type: 'audio', text: t('examples.welcome.text'), icon: '🎵', name: t('examples.welcome.name') },
-            { type: 'audio', text: t('examples.weather.text'), icon: '☀️', name: t('examples.weather.name') },
-            { type: 'image', text: t('examples.forest.text'), icon: '🧚', name: t('examples.forest.name') },
-            { type: 'image', text: t('examples.mountain.text'), icon: '🏔️', name: t('examples.mountain.name') },
-            { type: 'image', text: t('examples.robot.text'), icon: '🤖', name: t('examples.robot.name') },
-            { type: 'audio', text: t('examples.thanks.text'), icon: '🙏', name: t('examples.thanks.name') },
-            { type: 'image', text: t('examples.garden.text'), icon: '🌸', name: t('examples.garden.name') }
-        ];
-
-        // 更新示例按钮
+        console.log('UIEnhancements.updateExamples() 被调用 - textContent 修改已被禁用'); // 更新调试日志
         const exampleButtons = document.querySelectorAll('.example-btn');
-        exampleButtons.forEach(btn => {
-            const type = btn.dataset.type;
-            const example = this.examples.find(ex => ex.type === type);
-            if (example) {
-                btn.textContent = `${example.icon} ${example.name}`;
-                btn.dataset.text = example.text;
+        const lang = window.getCurrentLang();
+        const examplesData = window.i18n[lang].examples;
+
+        if (!examplesData) {
+            console.error(`No examples data found for language: ${lang}`);
+            return;
+        }
+
+        // 将i18n中的示例数据转换为数组以便按顺序处理
+        const exampleKeys = Object.keys(examplesData); // e.g., ["cat", "dragon", "lake", "welcome"]
+
+        exampleButtons.forEach((button, index) => {
+            // 尝试从HTML的data-i18n-name获取原始key，例如 "examples.cat.name"
+            const i18nNameKey = button.dataset.i18nName; // e.g., "examples.cat.name"
+            
+            if (i18nNameKey) {
+                const parts = i18nNameKey.split('.');
+                if (parts.length === 3 && parts[0] === 'examples') {
+                    const exampleKey = parts[1]; // "cat", "dragon", etc.
+                    const exampleEntry = examplesData[exampleKey];
+
+                    if (exampleEntry) {
+                        // 关键：这里不应该再修改textContent，textContent由i18n.js的updatePageText负责
+                        // button.textContent = exampleEntry.name; // ！！！确保此行被注释或删除 ！！！
+                        button.dataset.text = exampleEntry.text;
+                        button.dataset.type = exampleEntry.type;
+                        // console.log(`更新按钮 ${index}: key=${exampleKey}, name=${exampleEntry.name}, text=${exampleEntry.text}, type=${exampleEntry.type}`);
+                    } else {
+                        // console.warn(`No data found for example key: ${exampleKey} in i18n data for lang ${lang}`);
+                    }
+                } else {
+                     // 如果 i18nNameKey 格式不对，或者我们想严格按照 i18n.js 中定义的顺序来填充前 N 个按钮
+                     // 这是一个备用逻辑，但理想情况下，HTML中的按钮应该与i18n.js中的key对应
+                    if (exampleKeys[index]) {
+                        const exampleKey = exampleKeys[index];
+                        const exampleEntry = examplesData[exampleKey];
+                        // button.textContent = exampleEntry.name; // ！！！确保此行被注释或删除 ！！！
+                        button.dataset.text = exampleEntry.text;
+                        button.dataset.type = exampleEntry.type;
+                        // console.log(`(Fallback) 更新按钮 ${index} (顺序): key=${exampleKey}, name=${exampleEntry.name}, text=${exampleEntry.text}, type=${exampleEntry.type}`);
+                    }
+                }
+            } else {
+                // 如果按钮没有 data-i18n-name，则按顺序从 i18n 数据中获取
+                // 这种方式更脆弱，依赖于HTML按钮顺序和i18n数据顺序一致
+                if (exampleKeys[index]) {
+                    const exampleKey = exampleKeys[index];
+                    const exampleEntry = examplesData[exampleKey];
+                    // button.textContent = exampleEntry.name; // ！！！确保此行被注释或删除 ！！！
+                    button.dataset.text = exampleEntry.text;
+                    button.dataset.type = exampleEntry.type;
+                    // console.log(`(No data-i18n-name) 更新按钮 ${index} (顺序): key=${exampleKey}, name=${exampleEntry.name}, text=${exampleEntry.text}, type=${exampleEntry.type}`);
+                }
             }
+        });
+    }
+
+    initializeExampleCards() {
+        const exampleCards = document.querySelectorAll('.example-card');
+        exampleCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const text = card.dataset.text;
+                const type = card.dataset.type;
+                
+                // 更新输入框
+                document.getElementById('text-input').value = text;
+                
+                // 更新生成类型
+                const typeRadio = document.getElementById(`type-${type}`);
+                if (typeRadio) {
+                    typeRadio.checked = true;
+                }
+            });
         });
     }
 }
