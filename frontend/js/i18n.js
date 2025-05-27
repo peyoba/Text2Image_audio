@@ -417,10 +417,10 @@ function updatePageText() {
         inspirationCyberpunkEl.textContent = t('inspirationExamples.cyberpunk');
     }
 
-    // 如果存在UI增强实例，更新其示例
-    if (window.uiEnhancements) {
-        window.uiEnhancements.updateExamples();
-    }
+    // 如果存在UI增强实例，更新其示例 (注释掉此调用，因为示例按钮的文本应完全由i18n.js通过data-i18n-name控制)
+    // if (window.uiEnhancements) {
+    //     window.uiEnhancements.updateExamples();
+    // }
 }
 
 // 监听语言变更事件
