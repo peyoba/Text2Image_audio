@@ -5,6 +5,7 @@ class UIHandler {
     constructor() {
         // 初始化语言切换
         this.initLanguageSwitcher();
+        this.isGenerating = false; // 新增API请求状态标志
         
         // 获取DOM元素
         this.textInput = document.getElementById('text-input');
@@ -35,7 +36,7 @@ class UIHandler {
         document.addEventListener('languageChanged', () => {
             this.updatePageText();
         });
-        
+
         this.bindEvents();
         this._toggleImageOptions(); // 初始化时根据类型显隐图片选项
         this._handleAspectRatioChange(); // 初始化宽高比相关UI
@@ -120,7 +121,12 @@ class UIHandler {
     validateInput() {
         const text = this.textInput.value.trim();
         const isValid = text.length > 0;
-        this.generateButton.disabled = !isValid;
+        // 只有当没有正在进行的生成任务时，才根据输入有效性启用按钮
+        if (!this.isGenerating) {
+            this.generateButton.disabled = !isValid;
+        } else {
+            this.generateButton.disabled = true; // 如果正在生成，始终禁用
+        }
         this.hideError(); // 在输入验证时隐藏错误信息
         return isValid;
     }
@@ -141,8 +147,8 @@ class UIHandler {
      */
     hideLoading() {
         this.loadingIndicator.style.display = 'none';
-        this.generateButton.disabled = false; // 重新启用按钮，除非任务仍在进行
-        this.validateInput(); // 根据输入框内容决定按钮最终状态
+        // this.generateButton.disabled = false; // 移除，让 validateInput 通过 isGenerating 状态处理
+        this.validateInput(); // 确保根据 isGenerating 和输入内容更新按钮状态
     }
 
     /**
@@ -252,14 +258,20 @@ class UIHandler {
      * 处理生成请求
      */
     async handleGenerate() {
-        if (!this.validateInput()) {
-            this.showError(t('pleaseInput')); // 只在点击生成按钮时显示错误
+        if (!this.validateInput() || this.isGenerating) { // 防止在已生成时重复点击 或 输入无效
             return;
         }
 
+        this.isGenerating = true; // 设置生成状态标志
+        // this.generateButton.disabled = true; // showLoading会处理，或者validateInput会因isGenerating=true而禁用
+        // validateInput 已经被调用，并且由于 isGenerating 为 false (在此之前)，它可能已经正确设置了按钮状态
+        // 现在 isGenerating 为 true，再调用一次 validateInput 以确保按钮基于新状态被禁用
+        this.validateInput(); 
+
         const text = this.textInput.value.trim();
+        const negative = document.getElementById('negative-prompt')?.value.trim() || '';
         const type = this.typeImageRadio.checked ? 'image' : 'audio';
-        const imageOptions = {}; // 用于收集图片生成选项
+        const imageOptions = {};
 
         try {
             if (type === 'image') {
@@ -282,26 +294,40 @@ class UIHandler {
                 console.log('UIHandler: Generating with image options:', imageOptions, 'Number of images:', numImages);
 
                 let textToGenerate = text;
+                let negativeToGenerate = negative;
                 try {
                     this.showLoading("正在优化提示词...");
-                    const optimizedText = await apiClient.optimizeText(text);
+                    // 主提示词用DeepSeek优化，负面提示词只翻译
+                    const [optimizedText, translatedNegative] = await Promise.all([
+                        apiClient.optimizeText(text),
+                        negative ? apiClient.translateText(negative) : Promise.resolve('')
+                    ]);
                     if (optimizedText && typeof optimizedText === 'string' && optimizedText.trim() !== '') {
                         textToGenerate = optimizedText.trim();
                         console.log("UIHandler: Text optimized, using for generation:", textToGenerate);
                     } else {
                         console.warn("UIHandler: Optimization returned no valid text, using original.");
                     }
+                    if (translatedNegative && typeof translatedNegative === 'string' && translatedNegative.trim() !== '') {
+                        negativeToGenerate = translatedNegative.trim();
+                        console.log("UIHandler: Negative translated, using for generation:", negativeToGenerate);
+                    } else {
+                        negativeToGenerate = '';
+                    }
                 } catch (optimizationError) {
-                    console.error("UIHandler: Text optimization failed, proceeding with original text.", optimizationError);
+                    console.error("UIHandler: Text/Negative optimization failed, proceeding with original.", optimizationError);
                 }
-                
                 this.showLoading(numImages > 1 ? `正在生成 ${numImages} 张图片...` : "正在生成图片...");
-                
+
                 const generationPromises = [];
                 for (let i = 0; i < numImages; i++) {
-                    let currentImageOptions = {...imageOptions};
-                    if (numImages > 1 && !currentImageOptions.seed) { 
+                    let currentImageOptions = { ...imageOptions };
+                    if (numImages > 1 && !currentImageOptions.seed) {
                         currentImageOptions.seed = Math.floor(Math.random() * 1000000);
+                    }
+                    // 传递负面提示词
+                    if (negativeToGenerate) {
+                        currentImageOptions.negative = negativeToGenerate;
                     }
                     generationPromises.push(apiClient.submitGenerationTask(textToGenerate, type, currentImageOptions));
                 }
@@ -341,15 +367,12 @@ class UIHandler {
                 }
             }
         } catch (error) {
-            console.error('UIHandler: 生成处理主流程失败:', error.message, error.stack);
-            let displayErrorMessage = error.message || '生成过程中发生未知错误，请稍后重试。';
-            // error.details 可能来自 apiClient 的 HTTP error 包装
-            if (error.details) { 
-                displayErrorMessage += ` 详情: ${error.details}`;
-            }
-            this.showError(displayErrorMessage);
+            console.error('UIHandler: 生成处理主流程失败:', error, error.details || '');
+            this.showError(`${t('error')}: ${error.message}`);
         } finally {
-            this.hideLoading(); // 确保loading最终被隐藏
+            this.isGenerating = false; // 清除生成状态标志
+            // hideLoading() 会被调用，其内部的 validateInput() 会根据 isGenerating = false 和输入内容重新评估按钮状态
+            this.hideLoading(); 
         }
     }
 
