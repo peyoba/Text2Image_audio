@@ -26,7 +26,7 @@ class ApiClient {
         };
 
         if (type === 'image' && options) {
-            Object.assign(payload, options); // 如果是图片类型，合并options到payload
+            Object.assign(payload, options); // 合并options到payload，包括negative
         }
 
         try {
@@ -227,6 +227,37 @@ class ApiClient {
         } catch (error) {
             console.error(`ApiClient: optimizeText - 请求失败:`, error.message);
             throw new Error(`文本优化失败: ${error.message || error.toString()}`);
+        }
+    }
+
+    async translateText(text) {
+        const requestUrl = `${this.baseUrl}/api/translate`;
+        console.log(`ApiClient: Translating text: ${text.substring(0, 50)}...`);
+        try {
+            const response = await fetch(requestUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ text: text })
+            });
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('ApiClient: Translate text error - Response not OK', response.status, errorText);
+                throw new Error(`HTTP error! status: ${response.status}, details: ${errorText}`);
+            }
+            const responseData = await response.json();
+            console.log('ApiClient: Text translated successfully', responseData);
+            if (responseData && responseData.translated_text) {
+                return responseData.translated_text;
+            } else {
+                console.error('ApiClient: Translated text not found in response', responseData);
+                throw new Error('翻译成功，但未找到翻译后的文本。');
+            }
+        } catch (error) {
+            console.error(`ApiClient: translateText - 请求失败:`, error.message);
+            throw new Error(`文本翻译失败: ${error.message || error.toString()}`);
         }
     }
 }

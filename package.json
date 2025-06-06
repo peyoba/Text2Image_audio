@@ -1,0 +1,15 @@
+{
+  "name": "text2image-audio",
+  "version": "1.0.0",
+  "description": "A Cloudflare Worker for text-to-image and text-to-audio generation.",
+  "main": "backend/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "wrangler deploy"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+} 

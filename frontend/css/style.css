@@ -107,87 +107,172 @@ main {
 
 .examples-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
 }
 
-.example-btn {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-    border: 1px solid rgba(102, 126, 234, 0.2);
+.example-card {
+    position: relative;
     border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 0.9em;
-    color: #555;
+    overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    aspect-ratio: 1;
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.example-btn:hover {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
-    border-color: #667eea;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+.example-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-textarea#text-input {
-    width: calc(100% - 32px); /* 调整计算以适应新的padding */
-    padding: 16px;
+.example-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.example-card:hover img {
+    transform: scale(1.05);
+}
+
+.example-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    color: white;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+/* 提示词工具样式 */
+/*
+.prompt-tools {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.tool-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tool-group label {
+    font-size: 0.9em;
+    color: #555;
+    font-weight: 500;
+}
+
+.tool-select {
+    padding: 8px 12px;
     border: 2px solid #e1e8ed;
-    border-radius: 12px; /* 更大圆角 */
-    font-size: 1.05em; /* 稍微增大字体 */
-    margin-bottom: 15px; /* 调整间距为快捷按钮让路 */
-    box-sizing: border-box;
+    border-radius: 8px;
+    font-size: 0.95em;
+    background: white;
     transition: all 0.3s ease;
-    font-family: inherit;
+    cursor: pointer;
+}
+
+.tool-select:focus {
+    border-color: #667eea;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+*/
+
+/* 负面提示词样式 */
+.negative-prompt {
+    margin: 18px 0; /* 统一上下间距 */
+    background: rgba(255, 255, 255, 0.7);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.negative-prompt label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    color: #555;
+    font-weight: 500;
+}
+
+.negative-prompt input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e1e8ed;
+    border-radius: 8px;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+}
+
+.negative-prompt input:focus {
+    border-color: #667eea;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* 主文本输入框样式 */
+textarea#text-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #d1d9e6; /* 与其他输入框统一 */
+    border-radius: 8px;
+    font-size: 1em;
+    line-height: 1.5;
+    min-height: 140px; /* 增大最小高度，约等于8行文本 */
     resize: vertical;
-    min-height: 130px; /* 增加最小高度 */
-    background: rgba(255, 255, 255, 0.8);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 10px; /* 与下方提示的间距 */
 }
 
 textarea#text-input:focus {
     border-color: #667eea;
     outline: none;
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.12);
-    transform: translateY(-1px);
-    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
-/* 新增：快捷操作按钮 */
-.quick-actions {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    justify-content: flex-end;
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .examples-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .prompt-tools {
+        grid-template-columns: 1fr;
+    }
+
+    .tool-select {
+        width: 100%;
+    }
 }
 
-.quick-btn {
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(102, 126, 234, 0.3);
-    border-radius: 8px;
-    padding: 6px 12px;
-    font-size: 0.9em;
-    color: #667eea;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
+@media (max-width: 480px) {
+    .examples-grid {
+        grid-template-columns: 1fr;
+    }
 
-.quick-btn:hover {
-    background: rgba(102, 126, 234, 0.1);
-    border-color: #667eea;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
-}
-
-.quick-btn:active {
-    transform: translateY(0);
+    .example-card {
+        aspect-ratio: 16/9;
+    }
 }
 
 /* 选项区域 - 卡片化分组 */
 .options {
+    margin-top: 18px; /* 与上方元素的间距 */
     margin-bottom: 25px; /* 增加间距 */
     display: flex;
     align-items: center;
@@ -663,18 +748,27 @@ footer {
     }
 
     .examples-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 8px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 
     .example-btn {
-        padding: 6px 10px;
+        padding: 8px 10px; /* 调整响应式下的padding */
         font-size: 0.85em;
     }
 
     .quick-actions {
-        justify-content: center;
+        justify-content: space-between; /* 中屏幕两端对齐 */
         flex-wrap: wrap;
+    }
+    .quick-actions button {
+        flex-grow: 1; /* 让按钮在空间允许时填充 */
+        flex-basis: calc(50% - 6px); /* 一行显示两个按钮 */
+        min-width: 120px; /* 确保按钮不会太窄 */
+        margin-bottom: 10px; /* 换行时的间距 */
+    }
+     .quick-actions button:last-child {
+        margin-bottom: 0; /* 最后一个按钮无底部外边距 */
     }
 
     textarea#text-input {
@@ -762,18 +856,32 @@ footer {
     }
 
     .examples-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 6px;
+        grid-template-columns: 1fr;
     }
 
     .example-btn {
-        padding: 5px 8px;
         font-size: 0.8em;
+        padding: 6px 10px; /* 调整非常小屏幕下的padding */
+        flex-basis: calc(50% - 4px); /* 一行显示两个，减去gap */
+    }
+    .examples-quickfill {
+        gap: 8px; /* 小屏幕按钮间距 */
+    }
+    .examples-quickfill .examples-label {
+        width: 100%; /* 标签单独一行 */
+        margin-bottom: 8px;
+        text-align: center; /* 标签居中 */
     }
 
-    .quick-btn {
-        padding: 5px 10px;
-        font-size: 0.85em;
+    .quick-actions button {
+        font-size: 0.9em;
+        padding: 10px 15px; /* 调整按钮内边距 */
+        width: 100%; /* 小屏幕按钮占满一行 */
+        flex-basis: 100%; /* 明确占满一行 */
+        margin-bottom: 10px; /* 堆叠时间距 */
+    }
+    .quick-actions button:last-child {
+        margin-bottom: 0;
     }
 
     textarea#text-input {
@@ -869,4 +977,144 @@ footer {
         padding: 6px 12px;
         font-size: 12px;
     }
+}
+
+.prompt-tip {
+    font-size: 0.9em;
+    color: #667eea; /* 深色提示，更醒目 */
+    font-style: italic;
+    margin: 18px 0; /* 调整上下间距 */
+    padding: 10px 15px; /* 调整内边距 */
+    background: rgba(102, 126, 234, 0.08); /* 更淡的背景 */
+    border-radius: 8px;
+    text-align: left; /* 确保左对齐 */
+    border: 1px solid rgba(102, 126, 234, 0.15);
+}
+
+.examples-quickfill {
+    margin-bottom: 18px; /* 与下方输入框的间距 */
+    display: flex; /* 使用flex布局 */
+    flex-wrap: wrap; /* 允许换行 */
+    gap: 10px; /* 按钮之间的间距 */
+    align-items: center; /* 垂直居中对齐 */
+}
+
+.examples-quickfill .examples-label {
+    font-size: 0.95em;
+    color: #444; /* 标签颜色稍深 */
+    font-weight: 500;
+    margin-right: 5px; /* 与第一个按钮的间距减少 */
+    padding-bottom: 2px; /* 微调基线对齐 */
+}
+
+.example-btn {
+    /* 现代化渐变按钮 */
+    background: linear-gradient(135deg, #f0f4ff 0%, #e6e9f0 100%);
+    color: #667eea;
+    padding: 8px 12px; /* 内边距调整为更紧凑 */
+    border: 1px solid #d1d9e6; /* 边框颜色调整 */
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.88em; /* 字体稍小，更精致 */
+    font-weight: 500;
+    transition: all 0.3s ease;
+    /* min-width: auto;  由下方 flex-basis 和 min-width 控制 */
+    flex-shrink: 0; /* 防止按钮被过度压缩 */
+    flex-grow: 1; /* 允许按钮增长以填充空间 */
+    flex-basis: 140px; /* 建议的基础宽度 */
+    min-width: 110px; /* 确保按钮不会太窄 */
+    text-align: center; /* 文本居中 */
+}
+
+.example-btn:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    color: #fff;
+    border-color: #667eea;
+}
+
+.quick-actions {
+    display: flex;
+    gap: 12px; /* 按钮之间的间距调整 */
+    margin: 18px 0; /* 上下间距 */
+    justify-content: flex-start; /* 默认左对齐 */
+    flex-wrap: wrap; /* 允许换行 */
+}
+
+.quick-actions button {
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid transparent; /* 统一边框处理 */
+    flex-grow: 0; /* 默认不拉伸 */
+    flex-shrink: 0; /* 默认不压缩 */
+}
+
+/* 清空按钮 */
+#clear-btn:hover {
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.15);
+}
+
+/* 为三个快捷按钮设置flex-basis，使其在空间足够时宽度一致 */
+#clear-btn, #optimize-btn, #random-btn {
+    flex-basis: calc(33.333% - 8px); /* 减去gap的影响，(12px * 2 / 3) */
+    text-align: center; /* 确保文本居中 */
+    min-width: 100px; /* 保证一个最小的可点击宽度 */
+}
+
+/* 智能优化按钮 */
+.inspiration-gallery {
+    margin-top: 28px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 14px;
+    padding: 18px 12px 12px 12px;
+    border: 1px solid rgba(102, 126, 234, 0.12);
+    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.05);
+}
+.inspiration-title {
+    margin: 0 0 14px 0;
+    font-weight: 600;
+    color: #764ba2;
+    font-size: 1.08em;
+}
+.inspiration-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+}
+.inspiration-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.08);
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+.inspiration-card:hover {
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.18);
+    transform: translateY(-2px) scale(1.03);
+}
+.inspiration-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    display: block;
+}
+.inspiration-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 8px 0;
+    background: linear-gradient(to top, rgba(118,75,162,0.85), transparent);
+    color: #fff;
+    font-size: 0.95em;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 1px;
 } 

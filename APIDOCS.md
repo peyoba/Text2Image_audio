@@ -21,6 +21,15 @@ Click the links below to see examples in your browser:
 - [Pollinations.AI API Documentation](#pollinationsai-api-documentation)
   - [Quickstart](#quickstart)
   - [Summary / Navigation](#summary--navigation)
+  - [Authentication 🔑](#authentication-)
+    - [Who Needs What Authentication?](#who-needs-what-authentication)
+    - [Getting Started with Authentication](#getting-started-with-authentication)
+    - [Referrer-Based Authentication](#referrer-based-authentication)
+    - [API Keys and Tokens (For Backend Apps)](#api-keys-and-tokens-for-backend-apps)
+    - [Bearer Authentication](#bearer-authentication)
+    - [Authentication Tiers](#authentication-tiers)
+    - [User Tier System](#user-tier-system)
+  - [Please create a **special bee** issue on GitHub to request tier upgrade.](#please-create-a-special-bee-issue-on-github-to-request-tier-upgrade)
   - [Generate Image API 🖼️](#generate-image-api-️)
     - [Text-To-Image (GET) 🖌️](#text-to-image-get-️)
     - [List Available Image Models 📜](#list-available-image-models-)
@@ -40,10 +49,91 @@ Click the links below to see examples in your browser:
     - [Image Feed 🖼️📈](#image-feed-️)
     - [Text Feed 📝📈](#text-feed-)
   - [Referrer 🔗](#referrer-)
+    - [How to Use Referrers](#how-to-use-referrers)
     - [API Update (starting **2025.03.31**) 📅](#api-update-starting-20250331-)
     - [Special Bee ✅🐝🍯](#special-bee-)
   - [License 📜](#license-)
 
+---
+
+## Authentication 🔑
+
+Pollinations.AI provides flexible authentication options designed for different types of applications.
+
+### Who Needs What Authentication?
+
+- **Frontend Web Apps**: Only need a valid referrer - **no token required!**
+- **Backend Services & Scripts**: Should use API tokens for reliable access and higher rate limits
+- **Testing & Development**: Can use anonymous access for quick experimentation
+
+### Getting Started with Authentication
+
+**Visit [auth.pollinations.ai](https://auth.pollinations.ai) to:**
+- Set up and register your application's referrer
+- Create API tokens for backend applications
+- Manage your authentication settings
+
+### Referrer-Based Authentication
+
+For **frontend web applications** that call our APIs directly from the browser, a valid referrer is sufficient:
+
+- Browsers automatically send the `Referer` header
+- Alternatively, add `?referrer=your-app-identifier` to API requests
+- Registered referrers get higher rate limits and priority access
+- **No token needed** - keeping your frontend secure
+
+### API Keys and Tokens (For Backend Apps)
+
+For **backend services, scripts, and server applications**, tokens provide the highest priority access. Tokens can be provided using any of these methods:
+
+| Method | Description | Example |
+| :--- | :--- | :--- |
+| Authorization Header | Standard Bearer token approach (recommended) | `Authorization: Bearer YOUR_TOKEN` |
+| Query Parameter | Token as URL parameter | `?token=YOUR_TOKEN` |
+| Request Body | Token in POST request body | `{ "token": "YOUR_TOKEN" }` |
+
+### Bearer Authentication
+
+The Bearer authentication scheme is the recommended approach for backend applications, especially when integrating with our OpenAI-compatible endpoints:
+
+```http
+GET /your-endpoint HTTP/1.1
+Host: api.pollinations.ai
+Authorization: Bearer YOUR_TOKEN
+```
+
+### Authentication Tiers
+
+Pollinations.AI supports multiple authentication tiers:
+
+1. **API Token Authentication**: Highest priority (for backend applications)
+   - Highest rate limits and priority queue access
+   - Full access to all API features and endpoints
+   - **Create tokens at [auth.pollinations.ai](https://auth.pollinations.ai)**
+
+2. **Referrer-based Authentication**: Standard access (for frontend web apps)
+   - Increased rate limits compared to anonymous access
+   - Automatic handling through browser's `Referer` header
+   - **Register your domain at [auth.pollinations.ai](https://auth.pollinations.ai)**
+
+3. **Anonymous Access**: Basic access
+   - Limited rate limits with standard queue waiting times
+   - No setup required - just call the API
+
+> **Security Best Practice**: Never expose API tokens in frontend code! 
+> Frontend web applications should rely on referrer-based authentication.
+
+### User Tier System
+
+Pollinations.AI uses a tiered system where apps automatically upgrade based on usage and ad integration:
+
+| Stage | Rate Limits | Models |
+|------|-------------|--------|
+| **seed** | Limited | Standard |
+| **flower** | Less limited | Advanced |
+| **nectar** | Unlimited | Advanced |
+
+Please create a **special bee** issue on GitHub to request tier upgrade. 
 ---
 
 ## Generate Image API 🖼️
@@ -67,6 +157,7 @@ Generates an image based on a text description.
 | `private`  | No       | Set to `true` to prevent the image from appearing in the public feed.              | `false` |
 | `enhance`  | No       | Set to `true` to enhance the prompt using an LLM for more detail.                  | `false` |
 | `safe`     | No       | Set to `true` for strict NSFW filtering (throws error if detected).                | `false` |
+| `transparent` | No    | Set to `true` to generate images with transparent backgrounds (gptimage model only). | `false` |
 | `referrer` | No\*     | Referrer URL/Identifier. See [Referrer Section](#referrer-).                       |         |
 
 **Return:** Image file (typically JPEG) 🖼️
@@ -84,6 +175,9 @@ curl -o sunset.jpg "https://image.pollinations.ai/prompt/A%20beautiful%20sunset%
 
 # With parameters
 curl -o sunset_large.jpg "https://image.pollinations.ai/prompt/A%20beautiful%20sunset%20over%20the%20ocean?width=1280&height=720&seed=42&model=flux"
+
+# With transparent background (gptimage model only)
+curl -o logo_transparent.png "https://image.pollinations.ai/prompt/A%20company%20logo%20on%20transparent%20background?model=gptimage&transparent=true"
 ```
 
 **Python (`requests`):**
@@ -99,6 +193,7 @@ params = {
     "seed": 42,
     "model": "flux",
     # "nologo": "true", # Optional
+    # "transparent": "true", # Optional - generates transparent background (gptimage model only)
     # "referrer": "MyPythonApp" # Optional
 }
 encoded_prompt = urllib.parse.quote(prompt)
@@ -245,16 +340,20 @@ Generates text based on a simple prompt.
 
 **Parameters:**
 
-| Parameter  | Required | Description                                                                                | Options                   | Default  |
-| :--------- | :------- | :----------------------------------------------------------------------------------------- | :------------------------ | :------- |
-| `prompt`   | Yes      | Text prompt for the AI. Should be URL-encoded.                                             |                           |          |
-| `model`    | No       | Model for generation. See [Available Text Models](#list-available-text-models-).           | `openai`, `mistral`, etc. | `openai` |
-| `seed`     | No       | Seed for reproducible results.                                                             |                           |          |
-| `json`     | No       | Set to `true` to receive the response formatted as a JSON string.                          | `true` / `false`          | `false`  |
-| `system`   | No       | System prompt to guide AI behavior. Should be URL-encoded.                                 |                           |          |
-| `stream`   | No       | Set to `true` for streaming responses via Server-Sent Events (SSE). Handle `data:` chunks. | `true` / `false`          | `false`  |
-| `private`  | No       | Set to `true` to prevent the response from appearing in the public feed.                   | `true` / `false`          | `false`  |
-| `referrer` | No\*     | Referrer URL/Identifier. See [Referrer Section](#referrer-).                               |                           |          |
+| Parameter            | Required | Description                                                                                | Options                   | Default  |
+| :------------------- | :------- | :----------------------------------------------------------------------------------------- | :------------------------ | :------- |
+| `prompt`             | Yes      | Text prompt for the AI. Should be URL-encoded.                                             |                           |          |
+| `model`              | No       | Model for generation. See [Available Text Models](#list-available-text-models-).           | `openai`, `mistral`, etc. | `openai` |
+| `seed`               | No       | Seed for reproducible results.                                                             |                           |          |
+| `temperature`        | No       | Controls randomness in output. Higher values make output more random.                      | `0.0` to `3.0`            |          |
+| `top_p`              | No       | Nucleus sampling parameter. Controls diversity via cumulative probability.                 | `0.0` to `1.0`            |          |
+| `presence_penalty`   | No       | Penalizes tokens based on their presence in the text so far.                              | `-2.0` to `2.0`           |          |
+| `frequency_penalty`  | No       | Penalizes tokens based on their frequency in the text so far.                             | `-2.0` to `2.0`           |          |
+| `json`               | No       | Set to `true` to receive the response formatted as a JSON string.                          | `true` / `false`          | `false`  |
+| `system`             | No       | System prompt to guide AI behavior. Should be URL-encoded.                                 |                           |          |
+| `stream`             | No       | Set to `true` for streaming responses via Server-Sent Events (SSE). Handle `data:` chunks. | `true` / `false`          | `false`  |
+| `private`            | No       | Set to `true` to prevent the response from appearing in the public feed.                   | `true` / `false`          | `false`  |
+| `referrer`           | No\*     | Referrer URL/Identifier. See [Referrer Section](#referrer-).                               |                           |          |
 
 **Return:** Generated text (plain text or JSON string if `json=true`) 📝. If `stream=true`, returns an SSE stream.
 
@@ -322,6 +421,7 @@ try:
 
 except requests.exceptions.RequestException as e:
     print(f"Error fetching text: {e}")
+    # if response is not None: print(response.text)
 ```
 
 **JavaScript (Browser `fetch`):**
@@ -413,12 +513,16 @@ Follows the OpenAI Chat Completions API format for inputs where applicable.
 | `messages`                     | An array of message objects (role: `system`, `user`, `assistant`). Used for Chat, Vision, STT.                                                                   | Required for most tasks.                                                                                              |
 | `model`                        | The model identifier. See [Available Text Models](#list-available-text-models-).                                                                                 | Required. e.g., `openai` (Chat/Vision), `openai-large` (Vision), `claude-hybridspace` (Vision), `openai-audio` (STT). |
 | `seed`                         | Seed for reproducible results (Text Generation).                                                                                                                 | Optional.                                                                                                             |
+| `temperature`                  | Controls randomness in output. Higher values make output more random (Text Generation).                                                                          | Optional. Range: `0.0` to `3.0`.                                                                                      |
+| `top_p`                        | Nucleus sampling parameter. Controls diversity via cumulative probability (Text Generation).                                                                     | Optional. Range: `0.0` to `1.0`.                                                                                      |
+| `presence_penalty`             | Penalizes tokens based on their presence in the text so far (Text Generation).                                                                                   | Optional. Range: `-2.0` to `2.0`.                                                                                     |
+| `frequency_penalty`            | Penalizes tokens based on their frequency in the text so far (Text Generation).                                                                                  | Optional. Range: `-2.0` to `2.0`.                                                                                     |
 | `stream`                       | If `true`, sends partial message deltas using SSE (Text Generation). Process chunks as per OpenAI streaming docs.                                                | Optional, default `false`.                                                                                            |
 | `jsonMode` / `response_format` | Set `response_format={ "type": "json_object" }` to constrain text output to valid JSON. `jsonMode: true` is a legacy alias.                                      | Optional. Check model compatibility.                                                                                  |
 | `tools`                        | A list of tools (functions) the model may call (Text Generation). See [OpenAI Function Calling Guide](https://platform.openai.com/docs/guides/function-calling). | Optional.                                                                                                             |
 | `tool_choice`                  | Controls how the model uses tools.                                                                                                                               | Optional.                                                                                                             |
 | `private`                      | Set to `true` to prevent the response from appearing in the public feed.                                                                                         | Optional, default `false`.                                                                                            |
-| `reasoning_effort`             | Sets reasoning effort for `o3-mini` model (Text Generation).                                                                                                     | Optional. Options: `low`, `medium`, `high`.                                                                           |
+| `referrer`                     | Referrer URL/Identifier. See [Referrer Section](#referrer-).                                                                                                     | Optional.                                                                                                             |
 
 <details>
 <summary><strong>Code Examples:</strong> Basic Chat Completion (POST)</summary>
@@ -728,6 +832,8 @@ curl https://text.pollinations.ai/openai \
     ],
     "max_tokens": 300
   }'
+# Expected Response might include:
+# ... "choices": [ { "message": { "role": "assistant", "tool_calls": [ { ... "function": { "name": "get_current_weather", "arguments": "{\"location\": \"Boston, MA\"}" ... } ] } } ] ...
 ```
 
 **Python (`requests`, using URL and local file/base64):**
@@ -807,6 +913,7 @@ def analyze_local_image(image_path, question="What's in this image?"):
         return response.json()
     except requests.exceptions.RequestException as e:
         print(f"Error analyzing local image: {e}")
+        # if response is not None: print(response.text) # Show error from API
         return None
 
 # --- Usage Examples ---
@@ -949,7 +1056,7 @@ def transcribe_audio(audio_path, question="Transcribe this audio"):
 
     # Determine audio format (simple check by extension)
     audio_format = audio_path.split('.')[-1].lower()
-    supported_formats = ['mp3', 'mp4', 'mpeg', 'mpga', 'm4a', 'wav', 'webm'] # Check API/OpenAI docs for current list
+    supported_formats = ['mp3', 'wav'] # Only WAV and MP3 formats are currently supported
     if audio_format not in supported_formats:
          print(f"Warning: Potentially unsupported audio format '{audio_format}'. Check API documentation.")
          # Consider trying a default like 'mp3' or returning error
@@ -1016,7 +1123,7 @@ async function transcribeAudio(audioFile, question = "Transcribe this audio") {
   try {
     const base64AudioData = await fileToBase64Data(audioFile);
     const audioFormat = audioFile.name.split(".").pop().toLowerCase();
-    // Add validation for supported formats if needed
+    // Note: Only WAV and MP3 formats are currently supported
 
     const payload = {
       model: "openai-audio",
@@ -1174,15 +1281,14 @@ try:
     print("--- First API Call (User Request) ---")
     response = requests.post(url, headers=headers, json=payload)
     response.raise_for_status()
+    
+    # Parse the JSON response
     response_data = response.json()
-    print(json.dumps(response_data, indent=2))
-
-    response_message = response_data['choices'][0]['message']
-
+    
     # Check if the model wants to call a tool
-    if response_message.get("tool_calls"):
+    if response_data.get("choices", [{}])[0].get("message", {}).get("tool_calls"):
         print("\n--- Model requested tool call ---")
-        tool_call = response_message["tool_calls"][0] # Assuming one call for simplicity
+        tool_call = response_data["choices"][0]["message"]["tool_calls"][0] # Assuming one call for simplicity
         function_name = tool_call["function"]["name"]
         function_args = json.loads(tool_call["function"]["arguments"])
 
@@ -1194,7 +1300,7 @@ try:
             )
 
             # Append the assistant's request and your function's response to messages
-            messages.append(response_message) # Add assistant's msg with tool_calls
+            messages.append(response_data["choices"][0]["message"]) # Add assistant's msg with tool_calls
             messages.append(
                 {
                     "tool_call_id": tool_call["id"],
@@ -1222,7 +1328,7 @@ try:
 
     else:
         print("\n--- Model responded directly ---")
-        print("Assistant:", response_message['content'])
+        print("Assistant:", response_data['choices'][0]['message']['content'])
 
 
 except requests.exceptions.RequestException as e:
@@ -1375,6 +1481,7 @@ try:
         with open(output_filename, 'wb') as f:
             f.write(response.content)
         print(f"Audio saved successfully as {output_filename}")
+        
     else:
         print("Error: Expected audio response, but received:")
         print(f"Content-Type: {response.headers.get('Content-Type')}")
@@ -1477,7 +1584,24 @@ Generates speech audio from text using the OpenAI compatible endpoint. This meth
 | `messages`   | Yes      | Standard OpenAI message array, containing the text to speak in the `content` of a `user` role message. |         |
 | `private`    | No       | Set to `true` to prevent the response from appearing in the public feed.                               | `false` |
 
-**Return:** Audio file (MP3 format, `Content-Type: audio/mpeg`) 🎧. The response body _is_ the audio data, not JSON.
+**Return:** JSON response containing audio data encoded in base64 format 🎧. The response follows the OpenAI audio API format with a structure like:
+```json
+{
+  "choices": [
+    {
+      "content_filter_results": {...},
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "audio": {
+          "data": "BASE64_ENCODED_AUDIO_DATA..."
+        }
+      }
+    }
+  ]
+}
+```
+For detailed usage guide, see [OpenAI Audio Documentation](https://platform.openai.com/docs/guides/audio/audio-generation?example=audio-out).
 
 **Rate Limits:** (Inherits base text API limits)
 
@@ -1487,7 +1611,7 @@ Generates speech audio from text using the OpenAI compatible endpoint. This meth
 **cURL:**
 
 ```bash
-# Save output directly to an MP3 file
+# Get JSON response with base64-encoded audio
 curl https://text.pollinations.ai/openai \
   -H "Content-Type: application/json" \
   -d '{
@@ -1496,8 +1620,7 @@ curl https://text.pollinations.ai/openai \
       {"role": "user", "content": "Hello from Pollinations AI! This audio was generated via POST."}
     ],
     "voice": "echo"
-  }' \
-  --output generated_audio_post.mp3
+  }'
 ```
 
 **Python (`requests`):**
@@ -1505,6 +1628,7 @@ curl https://text.pollinations.ai/openai \
 ```python
 import requests
 import json
+import base64
 
 url = "https://text.pollinations.ai/openai"
 payload = {
@@ -1520,14 +1644,26 @@ output_filename = "generated_audio_post.mp3"
 try:
     response = requests.post(url, headers=headers, json=payload)
     response.raise_for_status()
-    if 'audio/mpeg' in response.headers.get('Content-Type', ''):
+    
+    # Parse the JSON response
+    response_data = response.json()
+    
+    # Extract the base64-encoded audio data
+    try:
+        audio_data_base64 = response_data['choices'][0]['message']['audio']['data']
+        
+        # Decode the base64 data to binary
+        audio_binary = base64.b64decode(audio_data_base64)
+        
+        # Write the binary audio data to a file
         with open(output_filename, 'wb') as f:
-            f.write(response.content)
+            f.write(audio_binary)
         print(f"Audio saved successfully as {output_filename}")
-    else:
-        print("Error: Expected audio response, received:")
-        print(f"Content-Type: {response.headers.get('Content-Type')}")
-        print(response.text)
+        
+    except (KeyError, IndexError) as e:
+        print(f"Error extracting audio data from response: {e}")
+        print("Response structure:", json.dumps(response_data, indent=2))
+        
 except requests.exceptions.RequestException as e:
     print(f"Error making TTS POST request: {e}")
 ```
@@ -1549,26 +1685,49 @@ async function generateAudioPost(text, voice = "alloy") {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
+    
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(
         `HTTP error! status: ${response.status}, message: ${errorText}`
       );
     }
-    if (response.headers.get("Content-Type")?.includes("audio/mpeg")) {
-      const audioBlob = await response.blob();
-      const audioUrl = URL.createObjectURL(audioBlob);
-      const audio = new Audio(audioUrl);
-      audio.play();
-      console.log("Audio generated and playing.");
-    } else {
-      const errorText = await response.text();
-      console.error(
-        "Expected audio, received:",
-        response.headers.get("Content-Type"),
-        errorText
-      );
-      throw new Error("API did not return audio content.");
+    
+    // Parse the JSON response
+    const responseData = await response.json();
+    
+    try {
+        // Extract the base64-encoded audio data
+        const audioBase64 = responseData.choices[0].message.audio.data;
+        
+        // Convert base64 to binary data
+        // First, create a binary string from the base64 data
+        const binaryString = atob(audioBase64);
+        
+        // Convert the binary string to a Uint8Array
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        
+        // Create a blob from the bytes
+        const audioBlob = new Blob([bytes], { type: "audio/mpeg" });
+        const audioUrl = URL.createObjectURL(audioBlob);
+        
+        // Play the audio
+        const audio = new Audio(audioUrl);
+        audio.play();
+        console.log("Audio generated and playing.");
+        
+        // Optional: Download the audio file
+        // const downloadLink = document.createElement('a');
+        // downloadLink.href = audioUrl;
+        // downloadLink.download = 'generated_audio.mp3';
+        // downloadLink.click();
+        
+    } catch (error) {
+        console.error("Error processing audio data:", error);
+        console.error("Response structure:", responseData);
     }
   } catch (error) {
     console.error("Error generating audio via POST:", error);
@@ -1716,7 +1875,7 @@ import time
 feed_url = "https://image.pollinations.ai/feed"
 
 def connect_image_feed():
-    while True: # Loop to reconnect on error
+     while True: # Loop to reconnect on error
         try:
             print(f"Connecting to image feed: {feed_url}")
             # Need stream=True for SSE
@@ -1748,7 +1907,7 @@ def connect_image_feed():
              time.sleep(10)
 
 # --- Usage ---
-# connect_image_feed()
+// connect_image_feed()
 ```
 
 </details>
@@ -1867,7 +2026,7 @@ def connect_text_feed():
              time.sleep(10)
 
 # --- Usage ---
-# connect_text_feed()
+// connect_text_feed()
 ```
 
 </details>
@@ -1876,19 +2035,45 @@ def connect_text_feed():
 
 ## Referrer 🔗
 
+**Referrers are the recommended authentication method for frontend web applications** that call our APIs directly from the browser. 
+
+Why use referrers?
+- **Security**: No tokens to manage or accidentally expose
+- **Simplicity**: Works automatically in browsers via the `Referer` header
+- **Priority**: Registered referrers get higher rate limits and priority queue access
+
+### How to Use Referrers
+
+1. **Automatic (Browser)**: When your web app makes API calls, browsers automatically send the `Referer` header
+2. **Manual (Optional)**: Add `?referrer=your-app-identifier` to API requests for more specific identification
+3. **Register**: Visit [auth.pollinations.ai](https://auth.pollinations.ai) to register your domain for increased rate limits
+
+**Example API call with explicit referrer:**
+```
+https://image.pollinations.ai/prompt/a%20beautiful%20landscape?referrer=mywebapp.com
+```
+
 ### API Update (starting **2025.03.31**) 📅
 
 - **Text-To-Image** responses may show the Pollinations.AI logo 🖼️ (can be disabled with `nologo=true`).
 - **Text-To-Text** responses may include a link to pollinations.ai 🔗.
 
-**To potentially influence future default behavior or qualify for different rate limits:** Add a `referrer` parameter to your API requests.
-
-- **Web Apps:** Browsers typically send this via the `Referer` HTTP header automatically. Explicitly setting the `referrer` parameter can provide more specific context (e.g., `?referrer=MyWebAppSection`).
-- **Bots & Backend Apps:** Add the `referrer` parameter (e.g., `?referrer=MyCoolBot` or in POST body) to identify your application.
+**For the best experience:**
+- **Web Applications**: Register your referrer at [auth.pollinations.ai](https://auth.pollinations.ai)
+- **Backend Services**: Use API tokens instead of referrers (see [Authentication section](#authentication-))
 
 ### Special Bee ✅🐝🍯
 
-Projects can **request to have their referrer verified** for potentially enhanced API access (e.g., priority queue, modified rate limits). This is evaluated on a case-by-case basis. [Submit a Special Bee Request](https://github.com/pollinations/pollinations/issues/new?template=special-bee-request.yml)
+**Special Bee requests are for upgrading to flower tier** - unlocking unlimited usage and SOTA models for your application.
+
+**Two ways to request flower tier upgrade:**
+1. **Self-serve**: Visit [auth.pollinations.ai](https://auth.pollinations.ai) to register your domain and request tier upgrade
+2. **GitHub request**: For special cases, [submit a Special Bee Request](https://github.com/pollinations/pollinations/issues/new?template=special-bee-request.yml)
+
+**Flower tier benefits:**
+- Less limited rate limits → **Unlimited usage**
+- Standard models → **SOTA models**
+- Priority queue access
 
 ---
 

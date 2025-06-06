@@ -41,3 +41,9 @@ compatibility_flags = [] # JS Worker 不需要 python_workers 标志
 # 如果您的应用需要访问外部网络，例如调用Pollinations或DeepSeek API
 [placement]
 mode = "smart" 
+
+[vars]
+DEEPSEEK_MODEL = "deepseek-ai/DeepSeek-V2.5"
+DEFAULT_AUDIO_MODEL = "openai-audio"
+DEFAULT_AUDIO_VOICE = "nova"
+LOG_LEVEL = "info" 

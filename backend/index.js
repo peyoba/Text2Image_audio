@@ -1,5 +1,12 @@
 // backend/index.js
 
+function logInfo(env, ...args) {
+    // Only log if LOG_LEVEL is explicitly set to 'debug'
+    if ((env.LOG_LEVEL || 'info').toLowerCase() === 'debug') {
+        console.log(...args);
+    }
+}
+
 export default {
     async fetch(request, env, ctx) {
         const url = new URL(request.url);
@@ -7,19 +14,19 @@ export default {
         const method = request.method;
         
         // Log all request headers for debugging
-        console.log(`[Worker Log] Received request: ${method} ${path}`);
+        logInfo(env, `[Worker Log] Received request: ${method} ${path}`);
         let headersLog = "[Worker Log] Request Headers: ";
         for (let pair of request.headers.entries()) {
             headersLog += `\n  ${pair[0]}: ${pair[1]}`;
         }
-        console.log(headersLog);
+        logInfo(env, headersLog);
 
         if (method === "OPTIONS") {
-            console.log("[Worker Log] Matched OPTIONS method. Request Origin:", request.headers.get("Origin"));
-            console.log("[Worker Log] Access-Control-Request-Method:", request.headers.get("Access-Control-Request-Method"));
-            console.log("[Worker Log] Access-Control-Request-Headers:", request.headers.get("Access-Control-Request-Headers"));
-            console.log("[Worker Log] Calling makeCorsResponse for OPTIONS request.");
-            return makeCorsResponse(request); // Pass request to makeCorsResponse
+            logInfo(env, "[Worker Log] Matched OPTIONS method. Request Origin:", request.headers.get("Origin"));
+            logInfo(env, "[Worker Log] Access-Control-Request-Method:", request.headers.get("Access-Control-Request-Method"));
+            logInfo(env, "[Worker Log] Access-Control-Request-Headers:", request.headers.get("Access-Control-Request-Headers"));
+            logInfo(env, "[Worker Log] Calling makeCorsResponse for OPTIONS request.");
+            return makeCorsResponse(request, env); // Pass request to makeCorsResponse
         }
 
         // CORS Preflight (This block might be redundant now due to the explicit check above, but keep for other scenarios if any)
@@ -32,22 +39,22 @@ export default {
                 const requestData = await request.json();
                 const textPrompt = requestData.text;
                 if (!textPrompt) {
-                    return jsonResponse({ error: '缺少必要的参数: text' }, 400);
+                    return jsonResponse({ error: '缺少必要的参数: text' }, env, 400);
                 }
-                console.log(`[Worker Log] Processing optimize request for prompt: '${textPrompt.substring(0, 50)}...'`);
+                logInfo(env, `[Worker Log] Processing optimize request for prompt: '${textPrompt.substring(0, 50)}...'`);
                 const optimizationResult = await optimizePromptWithDeepseek(textPrompt, env);
-                return jsonResponse(optimizationResult);
+                return jsonResponse(optimizationResult, env);
             } else if (method === "POST" && path === "/api/generate") {
                 const requestData = await request.json();
                 const textPrompt = requestData.text;
                 const genType = requestData.type;
 
                 if (!textPrompt || !genType) {
-                    return jsonResponse({ error: '缺少必要的参数: text 和 type' }, 400);
+                    return jsonResponse({ error: '缺少必要的参数: text 和 type' }, env, 400);
                 }
 
                 if (!['image', 'audio'].includes(genType)) {
-                    return jsonResponse({ error: '不支持的生成类型，请使用 image 或 audio' }, 400);
+                    return jsonResponse({ error: '不支持的生成类型，请使用 image 或 audio' }, env, 400);
                 }
 
                 if (genType === 'image') {
@@ -57,18 +64,19 @@ export default {
                     const actualHeight = requestData.height; // Directly from requestData
                     const actualNologo = requestData.nologo; // Directly from requestData
                     const seed = requestData.seed; // Directly from requestData, if provided
+                    const negative = requestData.negative; // 新增，负面提示词
                     // --- End of Actual Parameters ---
 
-                    console.log(`[Worker Log] Processing image generation for prompt: \'${actualPrompt.substring(0,100)}...\', width: ${actualWidth}, height: ${actualHeight}, seed: ${seed}, nologo: ${actualNologo}`);
-                    const imageArrayBuffer = await generateImageFromPollinations(actualPrompt, env, actualWidth, actualHeight, seed, actualNologo);
+                    logInfo(env, `[Worker Log] Processing image generation for prompt: '${actualPrompt.substring(0,100)}...', width: ${actualWidth}, height: ${actualHeight}, seed: ${seed}, nologo: ${actualNologo}, negative: ${negative}`);
+                    const imageArrayBuffer = await generateImageFromPollinations(actualPrompt, env, actualWidth, actualHeight, seed, actualNologo, negative);
                     // Convert ArrayBuffer to Base64 string
                     const base64Image = arrayBufferToBase64(imageArrayBuffer);
-                    return jsonResponse({ type: genType, data: base64Image, format: "base64", content_type: "image/jpeg" }); // Assuming jpeg
+                    return jsonResponse({ type: genType, data: base64Image, format: "base64", content_type: "image/jpeg" }, env); // Assuming jpeg
                 } else if (genType === 'audio') {
-                    const voice = requestData.voice || 'nova';
-                    const model = requestData.model || 'openai-audio';
+                    const voice = requestData.voice || env.DEFAULT_AUDIO_VOICE || 'nova';
+                    const model = requestData.model || env.DEFAULT_AUDIO_MODEL || 'openai-audio';
                     // const outputFormat = requestData.output_format || 'mp3'; // output_format was defined in python but not used for request.
-                    console.log(`[Worker Log] Processing audio generation for prompt: '${textPrompt.substring(0, 50)}...'`);
+                    logInfo(env, `[Worker Log] Processing audio generation for prompt: '${textPrompt.substring(0, 50)}...'`);
                     const audioArrayBuffer = await generateAudioFromPollinations(textPrompt, env, voice, model);
                     
                     let audioContentType = "audio/mpeg"; // Default for mp3
@@ -80,17 +88,72 @@ export default {
 
                     const audioRespHeaders = new Headers();
                     audioRespHeaders.append('Content-Type', audioContentType);
-                    addCorsHeaders(audioRespHeaders);
+                    addCorsHeaders(audioRespHeaders, env);
                     
                     return new Response(audioArrayBuffer, { status: 200, headers: audioRespHeaders });
                 }
+            } else if (method === "POST" && path === "/api/translate") {
+                const requestData = await request.json();
+                const text = requestData.text;
+                if (!text) {
+                    return jsonResponse({ error: '缺少必要的参数: text' }, env, 400);
+                }
+
+                const deepseekApiKey = env.DEEPSEEK_API_KEY;
+                if (!deepseekApiKey) {
+                    console.error("[Worker Error] DEEPSEEK_API_KEY not set for /api/translate.");
+                    return jsonResponse({ error: '服务器配置错误：翻译服务不可用' }, env, 500);
+                }
+
+                try {
+                    let deepseekApiUrl = env.DEEPSEEK_API_URL || 'https://api.siliconflow.cn/v1/chat/completions';
+                    if (!deepseekApiUrl.endsWith('/v1/chat/completions')) {
+                        deepseekApiUrl = deepseekApiUrl.endsWith('/') ? deepseekApiUrl + 'v1/chat/completions' : deepseekApiUrl + '/v1/chat/completions';
+                    }
+                    
+                    const prompt = `请将下列中文负面提示词精准翻译为英文，保持逗号分隔，且不要添加任何修饰或润色，只输出英文短语列表：\n${text}`;
+                    const headers = {
+                        'Authorization': `Bearer ${deepseekApiKey}`,
+                        'Content-Type': 'application/json'
+                    };
+                    const payload = {
+                        model: env.DEEPSEEK_MODEL || "deepseek-ai/DeepSeek-V2.5",
+                        messages: [{ role: "user", content: prompt }],
+                        temperature: 0.2
+                    };
+                    const response = await fetch(deepseekApiUrl, {
+                        method: "POST",
+                        headers: headers,
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        console.error(`[Worker Error] DeepSeek API call failed for translation with status: ${response.status}`);
+                        return jsonResponse({ translated_text: text, translated: false }, env);
+                    }
+
+                    const result = await response.json();
+                    const translated = result.choices[0].message.content.trim();
+                    return jsonResponse({ translated_text: translated, translated: true }, env);
+
+                } catch (e) {
+                    console.error(`[Worker Error] An unexpected error occurred in translation fetch: ${e.message}`);
+                    return jsonResponse({ translated_text: text, translated: false }, env);
+                }
             } else {
-                return jsonResponse({ error: "Not Found", path: path }, 404);
+                return jsonResponse({ error: "Not Found", path: path }, env, 404);
             }
         } catch (e) {
             console.error(`[Worker Error] An unexpected error occurred in fetch: ${e.message}`);
             console.error(e.stack);
-            return jsonResponse({ error: "服务器内部错误", details: e.message }, 500);
+            // Check if the error has a status property and if it's 429
+            if (e.status === 429) {
+                return jsonResponse({
+                    error: "生成服务正忙",
+                    details: "当前生成服务队列已满，我们的系统已自动重试数次但仍未成功。这通常是临时状况，请您稍等片刻再重新提交。"
+                }, env, 503); // 503 Service Unavailable is more appropriate for a temporary overload
+            }
+            return jsonResponse({ error: "服务器内部错误", details: e.message }, env, 500);
         }
     }
 };
@@ -114,7 +177,8 @@ async function optimizePromptWithDeepseek(textPrompt, env) {
 
     if (!deepseekApiKey) {
         console.error("[Worker Error] DEEPSEEK_API_KEY not found in environment variables.");
-        return { error: 'DeepSeek API密钥未配置', optimized_text: textPrompt, raw_optimized: textPrompt, original_prompt: textPrompt };
+        // Throw an error that can be caught by the main fetch handler
+        throw new Error("服务器配置错误：DeepSeek API密钥未配置");
     }
 
     const engineeredPrompt = `你是一个顶级的提示词工程师，专注于为最先进的文生图模型创作具有艺术性和画面感的提示词。请严格基于用户提供的原始描述中的核心主体、数量、场景和明确指定的风格（例如"写实风格"、"卡通风格"、"油画风格"等），进行优化和丰富。
@@ -136,12 +200,12 @@ async function optimizePromptWithDeepseek(textPrompt, env) {
         'Content-Type': 'application/json'
     };
     const payload = {
-        model: "deepseek-ai/DeepSeek-V2.5", // Consider making model configurable via env
+        model: env.DEEPSEEK_MODEL || "deepseek-ai/DeepSeek-V2.5", // Consider making model configurable via env
         messages: [{ role: "user", content: engineeredPrompt }],
         temperature: 0.5
     };
 
-    console.log(`[Worker Log] 向 DeepSeek API 发送请求 (JS fetch): URL=${deepseekApiUrl}`);
+    logInfo(env, `[Worker Log] 向 DeepSeek API 发送请求 (JS fetch): URL=${deepseekApiUrl}`);
     
     try {
         const response = await fetch(deepseekApiUrl, {
@@ -157,7 +221,7 @@ async function optimizePromptWithDeepseek(textPrompt, env) {
         }
 
         const result = await response.json();
-        console.log(`[Worker Log] DeepSeek API 原始响应:`, result); // Logging the whole object might be too verbose
+        logInfo(env, `[Worker Log] DeepSeek API 原始响应:`, result); // Logging the whole object might be too verbose
         const optimizedTextRaw = result.choices[0].message.content.trim();
 
         const englishPattern = /[a-zA-Z0-9\s.,!?'":;()\[\]{}<>#@$%^&*+=_\\\|/~-]+/g;
@@ -179,8 +243,8 @@ async function optimizePromptWithDeepseek(textPrompt, env) {
              console.warn(`[Worker Warning] 清洗后的提示词长度显著减少。原始: '${optimizedTextRaw}', 清洗后: '${optimizedText}'.`);
         }
 
-        console.log(`[Worker Log] 优化后的提示词 (原始): ${optimizedTextRaw}`);
-        console.log(`[Worker Log] 优化后的提示词 (清洗后): ${optimizedText}`);
+        logInfo(env, `[Worker Log] 优化后的提示词 (原始): ${optimizedTextRaw}`);
+        logInfo(env, `[Worker Log] 优化后的提示词 (清洗后): ${optimizedText}`);
         return { optimized_text: optimizedText, raw_optimized: optimizedTextRaw, original_prompt: textPrompt };
 
     } catch (e) {
@@ -190,126 +254,139 @@ async function optimizePromptWithDeepseek(textPrompt, env) {
     }
 }
 
-async function generateImageFromPollinations(prompt, env, width, height, seed, nologo) {
+async function generateImageFromPollinations(prompt, env, width, height, seed, nologo, negative) {
     let imageApiBase = env.POLLINATIONS_IMAGE_API_BASE || "https://image.pollinations.ai"; // Default base
     if (!imageApiBase) {
         console.error("[Worker Error] Image API base URL not provided in env.POLLINATIONS_IMAGE_API_BASE");
         throw new Error("图片API基地址未在环境变量中配置");
     }
 
-    // Ensure the base URL does not end with a slash if we are adding /prompt/
     if (imageApiBase.endsWith('/')) {
         imageApiBase = imageApiBase.slice(0, -1);
     }
-    
-    // Correctly form the path including /prompt/
     const promptPath = "/prompt/";
-
     const encodedPrompt = encodeURIComponent(prompt);
     const params = new URLSearchParams();
     if (width) params.append('width', width);
     if (height) params.append('height', height);
     if (seed) params.append('seed', seed);
-    if (nologo) params.append('nologo', 'true');
-    
-    const queryString = params.toString();
-    // Construct the full URL carefully: BASE_URL/prompt/ENCODED_PROMPT?QUERY_PARAMS
-    const fullUrl = `${imageApiBase}${promptPath}${encodedPrompt}${queryString ? '?' + queryString : ''}`;
-    
-    console.log(`[Worker Log] 向 Pollinations 图片 API 发送请求 (JS fetch): ${fullUrl}`);
+    if (nologo) params.append('nologo', nologo);
+    if (negative) params.append('negative', encodeURIComponent(negative)); // Ensure negative prompt is also encoded
 
-    try {
-        const response = await fetch(fullUrl, { method: "GET" });
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error(`[Worker Error] Pollinations 图片 API HTTPError: Status ${response.status}, Response: ${errorText}`);
-            throw new Error(`API返回错误状态: ${response.status}, Details: ${errorText}`);
-        }
-        console.log(`[Worker Log] Pollinations 图片 API 响应成功 (JS fetch)，状态码: ${response.status}`);
-        return await response.arrayBuffer();
-    } catch (e) {
-        console.error(`[Worker Error] Pollinations 图片 API 请求失败或处理错误 (JS fetch): ${e.message}`);
-        throw e; // Re-throw to be caught by the main fetch handler
+    const fullUrl = `${imageApiBase}${promptPath}${encodedPrompt}?${params.toString()}`;
+    logInfo(env, `[Worker Log] 向 Pollinations Image API 发送请求: ${fullUrl}`);
+    
+    // 创建请求头并添加认证信息
+    const headers = {};
+    const apiToken = env.POLLINATIONS_API_TOKEN;
+    if (apiToken) {
+        headers['Authorization'] = `Bearer ${apiToken}`;
+        logInfo(env, "[Worker Log] 使用 Pollinations API Token进行认证。");
     }
+
+    const response = await fetchWithRetry(fullUrl, {
+        method: "GET",
+        headers: headers
+    }, "Pollinations Image API", env);
+
+    return await response.arrayBuffer();
 }
 
 async function generateAudioFromPollinations(prompt, env, voice = "nova", model = "openai-audio") {
-    const textApiBase = env.POLLINATIONS_TEXT_API_BASE || "https://text.pollinations.ai/";
-     if (!textApiBase) {
-        console.error("[Worker Error] Text/Audio API base URL not provided in env.POLLINATIONS_TEXT_API_BASE");
-        throw new Error("文本/语音API基地址未在环境变量中配置");
+    let textApiBase = env.POLLINATIONS_TEXT_API_BASE || "https://text.pollinations.ai";
+    if (!textApiBase) {
+        console.error("[Worker Error] Text API base URL not provided in env.POLLINATIONS_TEXT_API_BASE");
+        throw new Error("语音API基地址未在环境变量中配置");
+    }
+    if (textApiBase.endsWith('/')) {
+        textApiBase = textApiBase.slice(0, -1);
     }
 
-    const apiDescription = `GET ${textApiBase}`;
-    console.log(`[Worker Log] _generate_audio_from_pollinations (${apiDescription}) called with prompt: '${prompt}', model: '${model}', voice: '${voice}'`);
-
-    const instructionalPrefix = "Say: ";
-    const engineeredPrompt = `${instructionalPrefix}${prompt}`;
-    const encodedPrompt = encodeURIComponent(engineeredPrompt);
+    const encodedPrompt = encodeURIComponent(prompt);
+    const params = new URLSearchParams({
+        model: model,
+        voice: voice
+    });
     
-    let currentTextApiBase = textApiBase;
-    if (!currentTextApiBase.endsWith('/')) {
-        currentTextApiBase += '/';
+    const fullUrl = `${textApiBase}/${encodedPrompt}?${params.toString()}`;
+    logInfo(env, `[Worker Log] 向 Pollinations Text(Audio) API 发送请求: ${fullUrl}`);
+
+    // 创建请求头并添加认证信息
+    const headers = {};
+    const apiToken = env.POLLINATIONS_API_TOKEN;
+    if (apiToken) {
+        headers['Authorization'] = `Bearer ${apiToken}`;
+        logInfo(env, "[Worker Log] 使用 Pollinations API Token进行认证。");
     }
+
+    const response = await fetchWithRetry(fullUrl, {
+        method: "GET",
+        headers: headers
+    }, "Pollinations Text(Audio) API", env);
     
-    const fullUrl = `${currentTextApiBase}${encodedPrompt}?model=${model}&voice=${voice}`;
-    console.log(`[Worker Log] 向 Pollinations 文本/语音 API 发送请求 (JS fetch): ${fullUrl}`);
+    return await response.arrayBuffer();
+}
 
-    try {
-        const response = await fetch(fullUrl, { method: "GET" });
-        const actualContentType = response.headers.get('Content-Type')?.toLowerCase() || '';
-        console.log(`[Worker Log] Pollinations API (${apiDescription}) response status (JS fetch): ${response.status}`);
+// 通用的带有重试逻辑的fetch函数
+async function fetchWithRetry(url, options, apiName, env, maxRetries = 3, initialDelay = 3000) {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+            const response = await fetch(url, options);
 
-        if (response.status === 200) {
-            if (actualContentType.includes("audio/")) {
-                const audioDataArrayBuffer = await response.arrayBuffer();
-                if (audioDataArrayBuffer.byteLength < 100) {
-                    console.warn(`[Worker Warning] Pollinations API (${apiDescription}) (JS fetch) returned very small audio content (length: ${audioDataArrayBuffer.byteLength}).`);
+            if (response.ok) {
+                logInfo(env, `[Worker Log] 成功从 ${apiName} 获取响应 (尝试 ${attempt}/${maxRetries}).`);
+                return response;
+            }
+
+            // Specific handling for 429 Too Many Requests
+            if (response.status === 429) {
+                if (attempt < maxRetries) {
+                    const jitter = Math.floor(Math.random() * 1000);
+                    const delay = initialDelay * Math.pow(2, attempt - 1) + jitter; // Exponential backoff with jitter
+                    const errorContent = await response.text().catch(() => "无法读取错误内容");
+                    logInfo(env, `[Worker Warning] ${apiName} 返回 429 (Too Many Requests). 尝试 #${attempt} of ${maxRetries}. 在 ${delay}ms 后重试... 错误: ${errorContent}`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    continue; // Next attempt
                 }
-                console.log(`[Worker Log] 成功从 Pollinations API (JS fetch) 接收到音频流. Content-Type: ${actualContentType}`);
-                return audioDataArrayBuffer;
+            }
+
+            // For other HTTP errors, or the last 429 attempt, construct and throw
+            const errorContent = await response.text().catch(() => `Status ${response.status} with no readable body`);
+            const err = new Error(`${apiName}调用失败 (HTTP ${response.status}): ${errorContent}`);
+            err.status = response.status; // Attach status to the error object
+            throw err;
+
+        } catch (e) {
+            console.error(`[Worker Error] 调用 ${apiName} 时发生错误 (尝试 #${attempt}/${maxRetries}): ${e.message}`);
+            if (attempt < maxRetries) {
+                const jitter = Math.floor(Math.random() * 1000);
+                const delay = initialDelay * Math.pow(2, attempt - 1) + jitter;
+                logInfo(env, `[Worker Warning] 请求失败，将在 ${delay}ms 后重试...`);
+                await new Promise(resolve => setTimeout(resolve, delay));
             } else {
-                const errorTextContent = await response.text();
-                console.error(`[Worker Error] Pollinations API (${apiDescription}) (JS fetch) 返回 200 但 Content-Type 不符合预期音频: ${actualContentType}. Raw content snippet: ${errorTextContent.substring(0,500)}...`);
-                throw new Error(`API 返回 200 但 Content-Type (${actualContentType}) 不符合预期音频格式 (JS fetch)`);
+                console.error(`[Worker Error] 所有 ${maxRetries} 次尝试均失败。`);
+                throw e; // Rethrow the last error, which will have the status code
             }
-        } else {
-            let errorDetails = "";
-            const errorTextContent = await response.text();
-            try {
-                if (actualContentType.includes('application/json')) {
-                    const errorJson = JSON.parse(errorTextContent);
-                    errorDetails = `JSON Response: ${JSON.stringify(errorJson)}`;
-                } else {
-                    errorDetails = `Raw Text Response: ${errorTextContent.substring(0, 500)}...`;
-                }
-            } catch (parseErr) {
-                 console.warn(`[Worker Warning] Error parsing non-200 response body as JSON (JS fetch): ${parseErr.message}`);
-                 errorDetails = `Raw Text Response (JSON parse failed): ${errorTextContent.substring(0,500)}...`;
-            }
-            console.error(`[Worker Error] Pollinations API (${apiDescription}) (JS fetch) 返回非200状态码. Status: ${response.status}, Content-Type: ${actualContentType}. Details: ${errorDetails}`);
-            throw new Error(`API 请求失败 (JS fetch). Status: ${response.status}. Details: ${errorDetails}`);
         }
-    } catch (e) {
-        console.error(`[Worker Error] Pollinations API (${apiDescription}) (JS fetch) 请求失败或处理错误: ${e.message}`);
-        throw e; // Re-throw
     }
+    // This should not be reached, but as a fallback
+    throw new Error(`${apiName} 在 ${maxRetries} 次重试后仍然失败。`);
 }
 
 // Helper for JSON response
-function jsonResponse(body, status = 200, additionalHeaders = {}) {
+function jsonResponse(body, env, status = 200, additionalHeaders = {}) {
     const headers = new Headers({
         'Content-Type': 'application/json',
         ...additionalHeaders
     });
-    addCorsHeaders(headers); // Add CORS headers here
+    addCorsHeaders(headers, env); // Add CORS headers here
 
     // Log final response headers for jsonResponse
     let finalHeadersLog = "[Worker Log] jsonResponse final headers: ";
     for (let pair of headers.entries()) {
         finalHeadersLog += `\n  ${pair[0]}: ${pair[1]}`;
     }
-    console.log(finalHeadersLog);
+    logInfo(env, finalHeadersLog);
 
     return new Response(JSON.stringify(body), {
         status: status,
@@ -318,8 +395,8 @@ function jsonResponse(body, status = 200, additionalHeaders = {}) {
 }
 
 // Helper for CORS preflight
-function makeCorsResponse(request) { // Added request parameter
-    console.log("[Worker Log] makeCorsResponse called.");
+function makeCorsResponse(request, env) { // Added request parameter
+    logInfo(env, "[Worker Log] makeCorsResponse called.");
     const corsHeaders = {
         "Access-Control-Allow-Origin": "*", // Allow all origins
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS", // Specify allowed methods
@@ -333,7 +410,7 @@ function makeCorsResponse(request) { // Added request parameter
         const requestHeaders = request.headers.get("Access-Control-Request-Headers");
         if (requestHeaders) {
             corsHeaders["Access-Control-Allow-Headers"] = requestHeaders;
-            console.log(`[Worker Log] makeCorsResponse: Echoing Access-Control-Request-Headers: ${requestHeaders}`);
+            logInfo(env, `[Worker Log] makeCorsResponse: Echoing Access-Control-Request-Headers: ${requestHeaders}`);
         }
     }
     
@@ -341,7 +418,7 @@ function makeCorsResponse(request) { // Added request parameter
     for (let key in corsHeaders) {
         headersLog += `\n  ${key}: ${corsHeaders[key]}`;
     }
-    console.log(headersLog);
+    logInfo(env, headersLog);
 
     return new Response(null, {
         status: 204, // No Content for preflight
@@ -349,8 +426,8 @@ function makeCorsResponse(request) { // Added request parameter
     });
 }
 
-function addCorsHeaders(responseHeaders) { // responseHeaders should be a Headers object
-    console.log("[Worker Log] addCorsHeaders called.");
+function addCorsHeaders(responseHeaders, env) { // responseHeaders should be a Headers object
+    logInfo(env, "[Worker Log] addCorsHeaders called.");
     responseHeaders.set("Access-Control-Allow-Origin", "*");
     responseHeaders.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS"); // Should match makeCorsResponse
     responseHeaders.set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With"); // Should match
@@ -359,6 +436,6 @@ function addCorsHeaders(responseHeaders) { // responseHeaders should be a Header
     for (let pair of responseHeaders.entries()) { // Iterate over Headers object
         headersLog += `\n  ${pair[0]}: ${pair[1]}`;
     }
-    console.log(headersLog);
+    logInfo(env, headersLog);
     // No need to return, as Headers object is modified by reference
 } 
