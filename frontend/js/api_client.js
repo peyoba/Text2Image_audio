@@ -42,9 +42,18 @@ class ApiClient {
             });
 
             if (!response.ok) {
-                const errorText = await response.text(); // 尝试读取错误文本
-                console.error('ApiClient: Submit task error - Response not OK', response.status, errorText);
-                throw new Error(`HTTP error! status: ${response.status}, details: ${errorText}`);
+                // 尝试将错误响应体解析为JSON
+                let errorDetails;
+                try {
+                    errorDetails = await response.json();
+                } catch (e) {
+                    // 如果解析失败，回退到读取文本
+                    errorDetails = { error: '无法解析错误详情', details: await response.text().catch(() => '无法读取错误文本') };
+                }
+                console.error('ApiClient: Submit task error - Response not OK', response.status, errorDetails);
+                const error = new Error(`HTTP error! status: ${response.status}`);
+                error.details = errorDetails; // 将解析后的对象附加到错误上
+                throw error;
             }
 
             if (type === 'image') {

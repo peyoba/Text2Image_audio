@@ -5,8 +5,8 @@
 const i18n = {
     zh: {
         // 标题和描述
-        title: '超感AI创作站',
-        subtitle: '图片·语音·无限免费生成',
+        title: 'Nihilistic AI',
+        subtitle: 'Nihilistic AI - 图片·语音·无限免费生成',
         
         // 输入区域
         inputTitle: '输入内容',
@@ -103,8 +103,8 @@ const i18n = {
     
     en: {
         // Title and description
-        title: 'SuperSense AI Creation Hub',
-        subtitle: 'Images · Audio · Unlimited Free Generation',
+        title: 'Nihilistic AI',
+        subtitle: 'Nihilistic AI - Images · Audio · Unlimited Free Generation',
         
         // Input area
         inputTitle: 'Input Content',

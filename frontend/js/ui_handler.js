@@ -245,156 +245,95 @@ class UIHandler {
             this.customDimensionsContainer.style.display = 'block';
         } else {
             this.customDimensionsContainer.style.display = 'none';
-            // 预设宽高比时，可以从 selectedOption.dataset 获取预设的宽高
-            // const selectedOption = this.optionAspectRatio.selectedOptions[0];
-            // const width = selectedOption.dataset.width;
-            // const height = selectedOption.dataset.height;
-            // console.log(`Preset aspect ratio: ${this.optionAspectRatio.value}, width: ${width}, height: ${height}`);
-            // 这里暂时不直接更新内部宽高变量，在 handleGenerate 时再读取
         }
     }
 
     /**
-     * 处理生成请求
+     * 主生成逻辑
      */
     async handleGenerate() {
-        if (!this.validateInput() || this.isGenerating) { // 防止在已生成时重复点击 或 输入无效
+        if (!this.validateInput() || this.isGenerating) {
             return;
         }
 
-        this.isGenerating = true; // 设置生成状态标志
-        // this.generateButton.disabled = true; // showLoading会处理，或者validateInput会因isGenerating=true而禁用
-        // validateInput 已经被调用，并且由于 isGenerating 为 false (在此之前)，它可能已经正确设置了按钮状态
-        // 现在 isGenerating 为 true，再调用一次 validateInput 以确保按钮基于新状态被禁用
-        this.validateInput(); 
-
+        this.isGenerating = true;
         const text = this.textInput.value.trim();
-        const negative = document.getElementById('negative-prompt')?.value.trim() || '';
         const type = this.typeImageRadio.checked ? 'image' : 'audio';
-        const imageOptions = {};
+        this.showLoading(t('loading'));
 
         try {
             if (type === 'image') {
-                this.showLoading("准备中...");
-
-                imageOptions.nologo = this.optionNologo.checked;
-                const aspectRatioValue = this.optionAspectRatio.value;
-                if (aspectRatioValue === 'custom') {
-                    imageOptions.width = parseInt(this.optionWidth.value, 10);
-                    imageOptions.height = parseInt(this.optionHeight.value, 10);
-                } else {
-                    const selectedOption = this.optionAspectRatio.selectedOptions[0];
-                    imageOptions.width = parseInt(selectedOption.dataset.width, 10);
-                    imageOptions.height = parseInt(selectedOption.dataset.height, 10);
-                }
-                if (isNaN(imageOptions.width) || imageOptions.width <= 0) delete imageOptions.width;
-                if (isNaN(imageOptions.height) || imageOptions.height <= 0) delete imageOptions.height;
-
-                const numImages = parseInt(this.optionNumImages.value, 10) || 1;
-                console.log('UIHandler: Generating with image options:', imageOptions, 'Number of images:', numImages);
-
-                let textToGenerate = text;
-                let negativeToGenerate = negative;
-                try {
-                    this.showLoading("正在优化提示词...");
-                    // 主提示词用DeepSeek优化，负面提示词只翻译
-                    const [optimizedText, translatedNegative] = await Promise.all([
-                        apiClient.optimizeText(text),
-                        negative ? apiClient.translateText(negative) : Promise.resolve('')
-                    ]);
-                    if (optimizedText && typeof optimizedText === 'string' && optimizedText.trim() !== '') {
-                        textToGenerate = optimizedText.trim();
-                        console.log("UIHandler: Text optimized, using for generation:", textToGenerate);
-                    } else {
-                        console.warn("UIHandler: Optimization returned no valid text, using original.");
-                    }
-                    if (translatedNegative && typeof translatedNegative === 'string' && translatedNegative.trim() !== '') {
-                        negativeToGenerate = translatedNegative.trim();
-                        console.log("UIHandler: Negative translated, using for generation:", negativeToGenerate);
-                    } else {
-                        negativeToGenerate = '';
-                    }
-                } catch (optimizationError) {
-                    console.error("UIHandler: Text/Negative optimization failed, proceeding with original.", optimizationError);
-                }
-                this.showLoading(numImages > 1 ? `正在生成 ${numImages} 张图片... (1/${numImages})` : "正在生成图片...");
-
-                const imageDataURLs = [];
-                let allSuccessful = true;
+                const numImages = parseInt(this.optionNumImages.value, 10);
+                const imageOptions = this._getImageOptions();
+                const allImageData = [];
+                let failedCount = 0;
 
                 for (let i = 0; i < numImages; i++) {
-                    if (numImages > 1) {
-                        this.showLoading(`正在生成 ${numImages} 张图片... (${i + 1}/${numImages})`);
-                    }
-                    let currentImageOptions = { ...imageOptions };
-                    // 为多张图片生成不同的seed，确保图片多样性，除非用户已指定seed
-                    if (numImages > 1 && !currentImageOptions.seed) { 
-                        currentImageOptions.seed = Math.floor(Math.random() * 1000000000); // 使用更大的随机种子范围
-                    }
-                    // 传递负面提示词
-                    if (negativeToGenerate) {
-                        currentImageOptions.negative = negativeToGenerate;
-                    }
                     try {
-                        const result = await apiClient.submitGenerationTask(textToGenerate, type, currentImageOptions);
-                        if (result && result.data && result.format === 'base64') {
-                            const imageContentType = result.content_type || 'image/jpeg';
-                            imageDataURLs.push(`data:${imageContentType};base64,${result.data}`);
+                        // 更新加载提示
+                        this.showLoading(`${t('generating')} ${i + 1}/${numImages}...`);
+                        
+                        const response = await this.apiClient.submitGenerationTask(text, 'image', {
+                            ...imageOptions,
+                            seed: Math.floor(Math.random() * 100000000) // 每次生成都用随机种子
+                        });
+
+                        if (response && response.data) {
+                            allImageData.push(`data:image/jpeg;base64,${response.data}`);
                         } else {
-                            console.error(`UIHandler: Image data from API is not in expected format for image ${i + 1}.`, result);
-                            allSuccessful = false;
-                            // 可以选择在这里抛出错误中断后续生成，或者记录错误并继续尝试生成其余图片
-                            // 为了用户体验，选择继续，但最后会提示部分失败
+                            throw new Error('API did not return image data.');
                         }
-                    } catch (singleImageError) {
-                        console.error(`UIHandler: Error generating image ${i + 1}:`, singleImageError);
-                        allSuccessful = false;
-                        // 如果一个图片失败，是否中断所有？目前选择继续。
-                    }
-                    // 在两次API调用之间添加一个小的延迟，进一步避免速率限制
-                    if (i < numImages - 1) {
-                        await new Promise(resolve => setTimeout(resolve, 500)); // 延迟0.5秒
+                    } catch (error) {
+                        console.error(`UIHandler: Error generating image ${i + 1}:`, error);
+                        // 优先使用后端返回的详细错误信息
+                        let userFriendlyError = `图片 ${i + 1} 生成失败。`;
+                        if (error.details && error.details.error) {
+                            userFriendlyError = error.details.error; // e.g., "生成服务正忙"
+                            if (error.details.details) {
+                                userFriendlyError += ` (${error.details.details})`;
+                            }
+                        } else {
+                            userFriendlyError = `${t('error')}: ${error.message}`;
+                        }
+                        this.showError(userFriendlyError);
+                        failedCount++;
+                        // 即使有一次失败，也跳出循环，因为很可能是同样的问题
+                        break; 
                     }
                 }
 
-                this.hideResults(); // 清空旧结果区域
-                this.hideError();   // 清除旧错误信息
-
-                if (imageDataURLs.length > 0) {
-                    this.showImageResult(imageDataURLs);
-                    if (!allSuccessful && numImages > 1) {
-                        // 如果部分图片生成失败，追加一个提示信息
-                        // 可以考虑将这个提示信息显示在更持久的位置，或者使用更明显的UI元素
-                        this.showError(`部分图片生成失败，已显示 ${imageDataURLs.length} 张成功图片。请检查控制台获取更多信息。`);
-                    } else if (!allSuccessful && numImages === 1 && imageDataURLs.length === 0) {
-                        // 如果是单张图片且失败
-                        throw new Error('图片生成失败或返回无效数据。');
+                if (allImageData.length > 0) {
+                    this.showImageResult(allImageData);
+                    if (failedCount > 0) {
+                        this.showError(`成功生成 ${allImageData.length} 张图片，但有 ${failedCount} 次失败。请检查错误信息。`);
                     }
-                } else if (numImages > 0) { // 如果请求了图片但一张都没成功
-                    throw new Error('所有图片生成均失败或返回无效数据。');
-                }
-
-            } else if (type === 'audio') {
-                this.showLoading("正在生成音频...");
-                const result = await apiClient.submitGenerationTask(text, type);
-                this.hideResults();
-                this.hideError();
-                if (result instanceof ArrayBuffer && result.byteLength > 0) {
-                    const audioBlob = new Blob([result], { type: 'audio/mpeg' });
-                    const audioUrl = URL.createObjectURL(audioBlob);
-                    this.showAudioResult(audioUrl);
                 } else {
-                    console.error('UIHandler: Audio data from API is not an ArrayBuffer or is empty.', result);
-                    throw new Error('音频数据响应格式不正确或为空。');
+                    // 如果 allImageData 为空且 failedCount > 0，错误信息已在循环内显示
+                    if(failedCount === 0) {
+                         this.showError('未能生成任何图片。');
+                    }
                 }
+
+            } else { // type === 'audio'
+                const audioBuffer = await this.apiClient.submitGenerationTask(text, 'audio');
+                const audioBlob = new Blob([audioBuffer], { type: 'audio/mpeg' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+                this.showAudioResult(audioUrl);
             }
         } catch (error) {
-            console.error('UIHandler: 生成处理主流程失败:', error, error.details || '');
-            this.showError(`${t('error')}: ${error.message}`);
+            console.error('UIHandler: An unexpected error occurred in handleGenerate:', error);
+            // 这是一个捕获所有其他意外错误的地方，比如音频生成失败
+            let userFriendlyError = `${t('error')}: ${error.message}`;
+             if (error.details && error.details.error) {
+                userFriendlyError = error.details.error;
+                if (error.details.details) {
+                    userFriendlyError += ` (${error.details.details})`;
+                }
+            }
+            this.showError(userFriendlyError);
         } finally {
-            this.isGenerating = false; // 清除生成状态标志
-            // hideLoading() 会被调用，其内部的 validateInput() 会根据 isGenerating = false 和输入内容重新评估按钮状态
-            this.hideLoading(); 
+            this.isGenerating = false;
+            this._ensureLoadingIsHidden();
         }
     }
 
@@ -402,6 +341,26 @@ class UIHandler {
         if (this.loadingIndicator.style.display !== 'none') {
             this.hideLoading();
         }
+    }
+
+    /**
+     * 获取图片生成选项
+     */
+    _getImageOptions() {
+        const imageOptions = {};
+        imageOptions.nologo = this.optionNologo.checked;
+        const aspectRatioValue = this.optionAspectRatio.value;
+        if (aspectRatioValue === 'custom') {
+            imageOptions.width = parseInt(this.optionWidth.value, 10);
+            imageOptions.height = parseInt(this.optionHeight.value, 10);
+        } else {
+            const selectedOption = this.optionAspectRatio.selectedOptions[0];
+            imageOptions.width = parseInt(selectedOption.dataset.width, 10);
+            imageOptions.height = parseInt(selectedOption.dataset.height, 10);
+        }
+        if (isNaN(imageOptions.width) || imageOptions.width <= 0) delete imageOptions.width;
+        if (isNaN(imageOptions.height) || imageOptions.height <= 0) delete imageOptions.height;
+        return imageOptions;
     }
 }
 

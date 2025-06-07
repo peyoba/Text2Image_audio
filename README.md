@@ -128,9 +128,7 @@ python -m http.server 8000
 ```json
 {
   "text": "你好，欢迎使用AI语音合成服务",
-  "type": "audio",
-  "voice": "nova",
-  "model": "openai-audio"
+  "type": "audio"
 }
 ```
 
@@ -176,9 +174,10 @@ npm install -g wrangler
 # 登录Cloudflare
 wrangler login
 
-# 部署Worker
+# 在根目录下运行部署命令
 wrangler deploy
 ```
+部署前，请确保 `wrangler.toml` 文件已根据您的需求配置好。
 
 ### Cloudflare Pages 部署
 1. 连接GitHub仓库到Cloudflare Pages
@@ -189,15 +188,36 @@ wrangler deploy
 
 ## 🔐 环境变量配置
 
-在Cloudflare Workers控制台中设置以下环境变量：
-- `DEEPSEEK_API_KEY`：DeepSeek API密钥
-- `DEEPSEEK_API_URL`：DeepSeek API地址（默认：https://api.siliconflow.cn）
-- `POLLINATIONS_IMAGE_API_BASE`：图片API基地址
-- `POLLINATIONS_TEXT_API_BASE`：语音API基地址
+我们推荐通过 `wrangler.toml` 文件来管理环境变量，这样便于版本控制和团队协作。您也可以在Cloudflare Workers的控制台UI中进行设置。
+
+**核心密钥（必须配置）**
+- `DEEPSEEK_API_KEY`: 您的DeepSeek API密钥。
+
+**API端点（可选，有默认值）**
+- `DEEPSEEK_API_URL`: DeepSeek API的地址。
+- `POLLINATIONS_IMAGE_API_BASE`: Pollinations图片API的基地址。
+- `POLLINATIONS_TEXT_API_BASE`: Pollinations语音API的基地址。
+
+**模型与参数配置（可选，有默认值）**
+- `DEEPSEEK_MODEL`: 用于提示词优化的DeepSeek模型名称。 (默认: `deepseek-ai/DeepSeek-V2.5-Chat`)
+- `AUDIO_VOICE`: 生成语音时使用的音色。 (默认: `nova`)
+- `AUDIO_SPEED`: 生成语音的语速。 (默认: `1.0`)
+
+**系统配置（可选，有默认值）**
+- `LOG_LEVEL`: 后端服务的日志输出级别。设置为 `'debug'` 可查看详细的API请求日志。 (默认: `info`)
+
+## ✨ 健壮性与可维护性
+
+为了保证服务的稳定和项目的长期健康，我们进行了一系列优化：
+
+- **通用重试逻辑**: 后端实现了一个 `fetchWithRetry` 辅助函数，当外部API（如Pollinations）调用瞬时失败时，会自动进行最多3次重试，大大提高了生成成功率。
+- **标准化错误处理**: API现在会返回规范的HTTP状态码。例如，如果服务器未配置 `DEEPSEEK_API_KEY`，将返回 `500 Internal Server Error` 及详细错误信息，便于前端精确诊断问题。
+- **配置外部化**: 核心参数（如模型名称、语音参数）已从代码中分离，通过环境变量进行管理，使得调整参数无需修改和重新部署代码。
+- **可控日志级别**: 通过 `LOG_LEVEL` 环境变量，可以轻松在生产环境（静默运行）和开发环境（输出详细日志）之间切换。
 
 ## 📊 项目状态
 
-**当前版本**：MVP 1.0  
+**当前版本**：MVP 1.1 (已完成健壮性优化)
 **部署状态**：✅ 生产就绪  
 **前端状态**：✅ 本地开发服务器运行中 (端口8000)  
 **后端状态**：✅ Cloudflare Workers已部署  
