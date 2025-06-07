@@ -66,8 +66,10 @@ class UIHandler {
     updatePageText() {
         // 更新标题
         document.title = t('title');
-        document.querySelector('header h1').textContent = t('title');
-        document.querySelector('header p').textContent = t('subtitle');
+        const heroTitle = document.querySelector('.hero-title');
+        if (heroTitle) heroTitle.textContent = t('title');
+        const heroSubtitle = document.querySelector('.hero-subtitle');
+        if (heroSubtitle) heroSubtitle.textContent = t('subtitle');
 
         // 更新输入区域
         this.textInput.placeholder = t('inputPlaceholder');
@@ -97,6 +99,53 @@ class UIHandler {
         // 更新提示文本
         document.getElementById('type-hint').textContent = 
             this.typeImageRadio.checked ? t('imageHint') : t('audioHint');
+
+        // 更新输入区域标题
+        const inputTitleEl = document.querySelector('.input-section h2');
+        if (inputTitleEl) inputTitleEl.textContent = t('inputPlaceholder');
+
+        // 更新导航栏菜单项
+        const navMenu = document.querySelectorAll('.navbar-menu li a');
+        if (navMenu.length >= 4) {
+            navMenu[0].textContent = t('navHome');
+            navMenu[1].textContent = t('navAbout');
+            navMenu[2].textContent = t('navServices');
+            navMenu[3].textContent = t('navContact');
+        }
+        // 更新登录按钮
+        const loginBtn = document.querySelector('.login-btn');
+        if (loginBtn) loginBtn.textContent = t('navLogin');
+
+        // 更新Generation Result标题
+        const outputTitle = document.querySelector('.output-section h2');
+        if (outputTitle) outputTitle.textContent = t('generationResult');
+
+        // 更新主要特性区块标题
+        const featuresTitle = document.querySelector('.features-title');
+        if (featuresTitle) featuresTitle.textContent = t('featuresTitle');
+
+        // 更新主要特性卡片内容
+        const featureCards = document.querySelectorAll('.feature-card');
+        const features = t('features');
+        if (featureCards && Array.isArray(features)) {
+            featureCards.forEach((card, idx) => {
+                const titleEl = card.querySelector('h3');
+                const descEl = card.querySelector('p');
+                if (features[idx]) {
+                    if (titleEl) titleEl.textContent = features[idx].title;
+                    if (descEl) descEl.textContent = features[idx].desc;
+                }
+            });
+        }
+
+        // 更新footer内容
+        const footerCopyright = document.querySelector('.footer-left');
+        if (footerCopyright) footerCopyright.textContent = t('footerCopyright');
+        const footerLinks = t('footerLinks');
+        const footerRight = document.querySelector('.footer-right');
+        if (footerRight && Array.isArray(footerLinks)) {
+            footerRight.innerHTML = footerLinks.map(link => `<a href="${link.url}" class="footer-link">${link.text}</a>`).join('<br>');
+        }
     }
 
     /**

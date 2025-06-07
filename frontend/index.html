@@ -8,18 +8,44 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- 语言切换按钮 -->
-    <div class="language-switcher">
-        <button id="lang-zh" class="lang-btn" data-lang="zh">中文</button>
-        <button id="lang-en" class="lang-btn active" data-lang="en">English</button>
-    </div>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img src="assets/logo.svg" alt="Nihilistic AI Logo" class="logo-img" />
+            <span class="site-name">NIHILISTIC AI</span>
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="navbar-right">
+            <select id="lang-select" class="lang-select">
+                <option value="zh">中文</option>
+                <option value="en">English</option>
+            </select>
+            <button class="login-btn">登录</button>
+        </div>
+    </nav>
+
+    <!-- 主视觉区 -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-row">
+                <img src="assets/logo.svg" alt="Nihilistic AI Logo" class="hero-logo-img" />
+                <h1 class="hero-title">Nihilistic AI</h1>
+            </div>
+            <p class="hero-subtitle">图片·语音·无限免费生成</p>
+            <div class="hero-tags">
+                <span class="tag tag-free">100% 免费</span>
+                <span class="tag tag-unlimited">无限生成</span>
+                <span class="tag tag-no-login">无需登录</span>
+            </div>
+        </div>
+    </section>
 
     <div class="container">
-        <header>
-            <h1 data-i18n="mainTitle">Nihilistic AI</h1>
-            <p data-i18n="subTitle">Nihilistic AI - Generate stunning, high-quality images and audio from just a few words. Free, fast, and easy to use.</p>
-        </header>
-
         <main>
             <section class="input-section">
                 <h2>Input Content</h2>
@@ -125,32 +151,32 @@
                 </div>
             </section>
         </main>
-
-        <!-- 灵感获取专区，图片卡片浏览，不做自动填充 -->
-        <div class="inspiration-gallery">
-            <p class="inspiration-title" data-i18n="inspirationTitle">🎨 灵感获取专区</p>
-            <div class="inspiration-grid">
-                <div class="inspiration-card">
-                    <img src="https://picsum.photos/300/200?random=11" alt="灵感1">
-                    <span class="inspiration-label" data-i18n="inspirationExamples.forest">梦幻森林</span>
+        <!-- 主要特性区块移动到footer前 -->
+        <section class="features-section" id="features">
+            <h2 class="features-title">Nihilistic AI 的主要特性</h2>
+            <div class="features-grid">
+                <div class="feature-card"><span class="feature-icon">💸</span><h3>零成本创作</h3><p>完全免费，无需注册，无限生成。</p></div>
+                <div class="feature-card"><span class="feature-icon">🧠</span><h3>最先进的质量</h3><p>高分辨率，细节丰富，艺术风格多样。</p></div>
+                <div class="feature-card"><span class="feature-icon">⚡</span><h3>闪电般的速度</h3><p>优化推理管道，快速生成不影响质量。</p></div>
+                <div class="feature-card"><span class="feature-icon">🔒</span><h3>隐私保护</h3><p>零数据留存，生成内容不存储。</p></div>
+                <div class="feature-card"><span class="feature-icon">🌐</span><h3>多语言支持</h3><p>支持中英文界面，全球可用。</p></div>
+                <div class="feature-card"><span class="feature-icon">🎨</span><h3>多风格支持</h3><p>跨艺术风格，照片、插画、动漫等。</p></div>
+            </div>
+        </section>
+        <footer>
+            <div class="footer-grid">
+                <div class="footer-left">&copy; 2025 Nihilistic AI</div>
+                <div class="footer-center">
+                    <a href="#" class="footer-icon" aria-label="Twitter"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="#00CFFF" d="M22.46 5.924c-.793.352-1.646.59-2.54.698a4.48 4.48 0 0 0 1.963-2.47 8.94 8.94 0 0 1-2.828 1.08A4.48 4.48 0 0 0 11.1 9.03a12.72 12.72 0 0 1-9.23-4.68s-2.28 4.02 2.7 6.18c-.73.02-1.42-.22-2.02-.56 0 2.28 1.62 4.18 4.02 4.62-.39.11-.8.17-1.22.17-.3 0-.58-.03-.86-.08.58 1.81 2.27 3.13 4.27 3.17A9.01 9.01 0 0 1 2 19.54c6.29 4.03 13.72 1.13 15.86-5.13.32-.8.6-1.6.82-2.44.56-.41 1.05-.92 1.44-1.5z"/></svg></a>
+                    <a href="#" class="footer-icon" aria-label="LinkedIn"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="#00CFFF" d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.88v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg></a>
+                    <a href="#" class="footer-icon" aria-label="Instagram"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="#00CFFF" d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.34 3.608 1.314.975.975 1.252 2.242 1.314 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.34 2.633-1.314 3.608-.975.975-2.242 1.252-3.608 1.314-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.34-3.608-1.314-.975-.975-1.252-2.242-1.314-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.34-2.633 1.314-3.608C4.522 2.573 5.789 2.295 7.155 2.233 8.421 2.175 8.801 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.771.131 4.659.414 3.678 1.395c-.98.98-1.263 2.092-1.322 3.373C2.013 8.332 2 8.741 2 12c0 3.259.013 3.668.072 4.948.059 1.281.342 2.393 1.322 3.373.98.98 2.092 1.263 3.373 1.322C8.332 23.987 8.741 24 12 24s3.668-.013 4.948-.072c1.281-.059 2.393-.342 3.373-1.322.98-.98 1.263-2.092 1.322-3.373.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.059-1.281-.342-2.393-1.322-3.373-.98-.98-2.092-1.263-3.373-1.322C15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a>
                 </div>
-                <div class="inspiration-card">
-                    <img src="https://picsum.photos/300/200?random=12" alt="灵感2">
-                    <span class="inspiration-label" data-i18n="inspirationExamples.city">未来都市</span>
-                </div>
-                <div class="inspiration-card">
-                    <img src="https://picsum.photos/300/200?random=13" alt="灵感3">
-                    <span class="inspiration-label" data-i18n="inspirationExamples.cottage">童话小屋</span>
-                </div>
-                <div class="inspiration-card">
-                    <img src="https://picsum.photos/300/200?random=14" alt="灵感4">
-                    <span class="inspiration-label" data-i18n="inspirationExamples.cyberpunk">赛博朋克</span>
+                <div class="footer-right">
+                    <a href="#" class="footer-link">Privacy Policy</a><br>
+                    <a href="#" class="footer-link">Terms of Service</a><br>
+                    <a href="#" class="footer-link">Autinimmo</a>
                 </div>
             </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2024 AI Content Generation Platform</p>
         </footer>
     </div>
 

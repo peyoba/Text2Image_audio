@@ -6,7 +6,7 @@ const i18n = {
     zh: {
         // 标题和描述
         title: 'Nihilistic AI',
-        subtitle: 'Nihilistic AI - 图片·语音·无限免费生成',
+        subtitle: '图片·语音·无限免费生成',
         
         // 输入区域
         inputTitle: '输入内容',
@@ -98,13 +98,40 @@ const i18n = {
             city: '未来都市',
             cottage: '童话小屋',
             cyberpunk: '赛博朋克'
-        }
+        },
+
+        // 导航栏
+        navHome: '首页',
+        navAbout: '关于',
+        navServices: '服务',
+        navContact: '联系',
+        navLogin: '登录',
+
+        // 主要特性区块
+        featuresTitle: 'Nihilistic AI 的主要特性',
+        features: [
+            { icon: '💸', title: '零成本创作', desc: '完全免费，无需注册，无限生成。' },
+            { icon: '🧠', title: '最先进的质量', desc: '高分辨率，细节丰富，艺术风格多样。' },
+            { icon: '⚡', title: '闪电般的速度', desc: '优化推理管道，快速生成不影响质量。' },
+            { icon: '🔒', title: '隐私保护', desc: '零数据留存，生成内容不存储。' },
+            { icon: '🌐', title: '多语言支持', desc: '支持中英文界面，全球可用。' },
+            { icon: '🎨', title: '多风格支持', desc: '跨艺术风格，照片、插画、动漫等。' }
+        ],
+        generationResult: '生成结果',
+
+        // Footer
+        footerCopyright: '© 2025 Nihilistic AI',
+        footerLinks: [
+            { text: '隐私政策', url: '#' },
+            { text: '服务条款', url: '#' },
+            { text: 'Autinimmo', url: '#' }
+        ]
     },
     
     en: {
         // Title and description
         title: 'Nihilistic AI',
-        subtitle: 'Nihilistic AI - Images · Audio · Unlimited Free Generation',
+        subtitle: 'Images · Audio · Unlimited Free Generation',
         
         // Input area
         inputTitle: 'Input Content',
@@ -196,7 +223,34 @@ const i18n = {
             city: 'Future City',
             cottage: 'Fairy Tale Cottage',
             cyberpunk: 'Cyberpunk'
-        }
+        },
+
+        // Navbar
+        navHome: 'Home',
+        navAbout: 'About',
+        navServices: 'Services',
+        navContact: 'Contact',
+        navLogin: 'Login',
+
+        // Features section
+        featuresTitle: 'Nihilistic AI Features',
+        features: [
+            { icon: '💸', title: 'Zero Cost Creation', desc: 'Completely free, no registration, unlimited generation.' },
+            { icon: '🧠', title: 'Cutting-edge Quality', desc: 'High resolution, rich details, diverse art styles.' },
+            { icon: '⚡', title: 'Lightning Fast', desc: 'Optimized inference pipeline, fast generation without quality loss.' },
+            { icon: '🔒', title: 'Privacy Protection', desc: 'Zero data retention, generated content not stored.' },
+            { icon: '🌐', title: 'Multilingual Support', desc: 'Supports Chinese and English interface, available globally.' },
+            { icon: '🎨', title: 'Multi-style Support', desc: 'Cross art styles: photo, illustration, anime, etc.' }
+        ],
+        generationResult: 'Generation Result',
+
+        // Footer
+        footerCopyright: '© 2025 Nihilistic AI',
+        footerLinks: [
+            { text: 'Privacy Policy', url: '#' },
+            { text: 'Terms of Service', url: '#' },
+            { text: 'Autinimmo', url: '#' }
+        ]
     }
 };
 
@@ -265,11 +319,13 @@ function t(key) {
 function updatePageText() {
     // 更新标题
     document.title = t('title');
-    document.querySelector('header h1').textContent = t('title');
-    document.querySelector('header p').textContent = t('subtitle');
+    const heroTitle = document.querySelector('.hero-title');
+    if (heroTitle) heroTitle.textContent = t('title');
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+    if (heroSubtitle) heroSubtitle.textContent = t('subtitle');
 
     // 更新输入区域标题
-    const inputTitleEl = document.querySelector('section.input-section h2');
+    const inputTitleEl = document.querySelector('.input-section h2');
     if (inputTitleEl) inputTitleEl.textContent = t('inputTitle');
 
     // 更新示例区域标签
@@ -439,4 +495,16 @@ window.updatePageText = updatePageText;
 document.addEventListener('DOMContentLoaded', () => {
     updatePageText();
     updateLanguageButtons(); // 初始化时也更新按钮状态
+    // 新增：下拉框语言切换
+    const langSelect = document.getElementById('lang-select');
+    if (langSelect) {
+        langSelect.value = getCurrentLang();
+        langSelect.addEventListener('change', (e) => {
+            setLanguage(e.target.value);
+        });
+        // 监听语言切换事件，自动同步下拉框选中项
+        document.addEventListener('languageChanged', (e) => {
+            langSelect.value = getCurrentLang();
+        });
+    }
 }); 
