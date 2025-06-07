@@ -3,6 +3,8 @@
  */
 class UIHandler {
     constructor() {
+        // 初始化apiClient
+        this.apiClient = new ApiClient();
         // 初始化语言切换
         this.initLanguageSwitcher();
         this.isGenerating = false; // 新增API请求状态标志

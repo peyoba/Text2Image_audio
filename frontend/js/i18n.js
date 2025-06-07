@@ -55,6 +55,7 @@ const i18n = {
         optimizationFailed: '优化失败，请稍后重试',
         pleaseInputFirst: '请先输入文本内容',
         generationComplete: '生成完成！',
+        generating: '正在生成中...',
         
         // 示例提示
         imageHint: '💡 图片生成支持多种尺寸和数量选择',
@@ -180,6 +181,7 @@ const i18n = {
         optimizationFailed: 'Optimization failed, please try again later',
         pleaseInputFirst: 'Please enter text content first',
         generationComplete: 'Generation complete!',
+        generating: 'Generating...',
         
         // Example hints
         imageHint: '💡 Image generation supports various sizes and quantities',
