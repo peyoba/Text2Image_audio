@@ -1,4 +1,6 @@
-# 文生图与文生语音网站需求文档
+# Requirements Document
+
+> For project overview, deployment, progress, and status, please refer to README.md. This document only details functional requirements and user experience.
 
 ## 1. 引言
 

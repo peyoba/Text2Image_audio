@@ -1,4 +1,6 @@
-# 项目开发计划 (MVP优先原则)
+# Development Plan (MVP First)
+
+> For project overview, deployment, and current status, please refer to README.md. This document only details development phases, iteration goals, and future plans.
 
 **GitHub仓库地址：** [https://github.com/peyoba/Text2Image_audio](https://github.com/peyoba/Text2Image_audio)
 
