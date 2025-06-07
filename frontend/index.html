@@ -68,6 +68,7 @@
                     <button class="example-btn" data-type="audio" data-text="欢迎使用AI内容生成器，希望您能创造出精彩的作品" data-i18n-name="examples.welcome.name">🎵 欢迎语音</button>
                 </div>
                 
+                <label for="text-input">输入内容</label>
                 <textarea id="text-input" rows="6" placeholder="请输入描述，如：一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影"></textarea>
                 <!-- 智能优化提示语 -->
                 <div class="prompt-tip" data-i18n="smartOptimizeTip">✨ 智能优化：自动将描述翻译并优化为高质量英文提示词，提升出图效果</div>
@@ -79,7 +80,7 @@
                 </div>
                 
                 <div class="negative-prompt">
-                    <label data-i18n="negativePromptLabel">负面提示词：</label>
+                    <label for="negative-prompt">负面提示词：</label>
                     <input type="text" id="negative-prompt" placeholder="输入不想要的元素，用逗号分隔">
                 </div>
                 
@@ -126,7 +127,7 @@
                     </div>
                 </div>
                 
-                <button id="generate-button">Start Generation</button>
+                <button id="generate-button" aria-label="开始生成">Start Generation</button>
             </section>
 
             <section class="output-section">
@@ -190,11 +191,11 @@
     </div>
 
     <!-- 按依赖顺序加载脚本 -->
-    <script src="js/i18n.js"></script>
-    <script src="js/api_client.js"></script>
-    <script src="js/ui_handler.js"></script>
-    <script src="js/ui_enhancements.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/i18n.js" defer></script>
+    <script src="js/api_client.js" defer></script>
+    <script src="js/ui_handler.js" defer></script>
+    <script src="js/ui_enhancements.js" defer></script>
+    <script src="js/app.js" defer></script>
     <!-- Test auto-deploy on 2025-05-23 06:25 -->
 </body>
 </html> 
