@@ -391,11 +391,14 @@ function setupAboutModal() {
     const aboutBtn = document.getElementById('about-link');
     const aboutModal = document.getElementById('about-modal');
     const aboutClose = document.getElementById('about-modal-close');
-
     if (!aboutBtn || !aboutModal || !aboutClose) return;
-
     aboutBtn.addEventListener('click', (e) => {
-        e.preventDefault(); // 防止跳转页面
+        e.preventDefault();
+        // 动态设置内容
+        const lang = window.getCurrentLang ? window.getCurrentLang() : 'zh';
+        const i18nData = window.i18n && window.i18n[lang] ? window.i18n[lang] : window.i18n['zh'];
+        aboutModal.querySelector('h2').innerHTML = i18nData.aboutModal.title;
+        aboutModal.querySelector('p').innerHTML = i18nData.aboutModal.content;
         aboutModal.style.display = 'block';
         document.body.style.overflow = 'hidden';
     });
@@ -403,7 +406,6 @@ function setupAboutModal() {
         aboutModal.style.display = 'none';
         document.body.style.overflow = '';
     });
-    // 点击遮罩关闭
     aboutModal.addEventListener('click', (e) => {
         if (e.target === aboutModal) {
             aboutModal.style.display = 'none';
@@ -416,11 +418,13 @@ function setupContactModal() {
     const contactBtn = document.getElementById('contact-link');
     const contactModal = document.getElementById('contact-modal');
     const contactClose = document.getElementById('contact-modal-close');
-
     if (!contactBtn || !contactModal || !contactClose) return;
-
     contactBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        const lang = window.getCurrentLang ? window.getCurrentLang() : 'zh';
+        const i18nData = window.i18n && window.i18n[lang] ? window.i18n[lang] : window.i18n['zh'];
+        contactModal.querySelector('h2').innerHTML = i18nData.contactModal.title;
+        contactModal.querySelector('p').innerHTML = i18nData.contactModal.content;
         contactModal.style.display = 'block';
         document.body.style.overflow = 'hidden';
     });
@@ -440,11 +444,20 @@ function setupServicesModal() {
     const servicesBtn = document.getElementById('services-link');
     const servicesModal = document.getElementById('services-modal');
     const servicesClose = document.getElementById('services-modal-close');
-
     if (!servicesBtn || !servicesModal || !servicesClose) return;
-
     servicesBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        const lang = window.getCurrentLang ? window.getCurrentLang() : 'zh';
+        const i18nData = window.i18n && window.i18n[lang] ? window.i18n[lang] : window.i18n['zh'];
+        servicesModal.querySelector('h2').innerHTML = i18nData.servicesModal.title;
+        servicesModal.querySelector('ul').outerHTML = i18nData.servicesModal.content;
+        // 兼容content为ul+div结构
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = i18nData.servicesModal.content;
+        const modalContent = servicesModal.querySelector('.modal-content');
+        // 清空原ul和div内容
+        while (modalContent.children.length > 3) { modalContent.removeChild(modalContent.lastChild); }
+        Array.from(tempDiv.children).forEach(child => modalContent.appendChild(child));
         servicesModal.style.display = 'block';
         document.body.style.overflow = 'hidden';
     });

@@ -126,7 +126,21 @@ const i18n = {
             { text: '隐私政策', url: '#' },
             { text: '服务条款', url: '#' },
             { text: 'Autinimmo', url: '#' }
-        ]
+        ],
+
+        // 弹窗内容
+        aboutModal: {
+            title: '关于 Nihilistic AI',
+            content: 'Nihilistic AI 是一个集成了文本生成图片与语音的智能工具平台，致力于为用户提供高效、便捷、免费的AI内容创作体验。<br><br>无论你是设计师、内容创作者，还是普通用户，只需输入一句描述，就能一键生成高质量的图片或语音。平台支持中英文输入，内置智能优化和多种生成参数，满足多样化的创作需求。<br><br>本项目基于先进的AI模型，结合云端算力，保证生成速度与质量。所有功能永久免费开放，界面简洁友好，适配多终端设备，助力每一位用户释放创意灵感。'
+        },
+        contactModal: {
+            title: '联系我们',
+            content: '如果您在使用 Nihilistic AI 的过程中有任何问题或建议，欢迎随时与我们联系！<br><br><b>产品反馈与建议：</b>我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈。<br><b>技术支持：</b>遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决。<br><br>您可以通过以下方式联系我们：<br>邮箱：<a href="mailto:support@nihilisticai.com">support@nihilisticai.com</a><br>官方网站：<a href="https://nihilisticai.com" target="_blank">https://nihilisticai.com</a><br><br>我们会在1-2个工作日内回复您的信息。感谢您的关注与支持！'
+        },
+        servicesModal: {
+            title: '我们的服务',
+            content: '<ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;"><li><b>AI图片生成：</b>输入描述文本，智能生成高质量、多风格的图片，支持多种分辨率和比例选择。</li><li><b>AI语音生成：</b>输入文本，一键生成自然流畅的语音音频，适用于配音、播报等多种场景。</li><li><b>智能提示词优化：</b>内置AI优化和翻译功能，自动将您的描述转化为高质量英文提示词，提升生成效果。</li><li><b>多语言支持：</b>支持中文和英文界面，满足全球用户需求。</li><li><b>永久免费：</b>所有功能对用户永久免费，无需注册，无使用次数限制。</li></ul><div style="margin-top: 12px; color: #AAB4D4;">如需了解更多服务细节，欢迎通过\"联系我们\"与我们取得联系。</div>'
+        }
     },
     
     en: {
@@ -252,7 +266,21 @@ const i18n = {
             { text: 'Privacy Policy', url: '#' },
             { text: 'Terms of Service', url: '#' },
             { text: 'Autinimmo', url: '#' }
-        ]
+        ],
+
+        // 弹窗内容
+        aboutModal: {
+            title: 'About Nihilistic AI',
+            content: 'Nihilistic AI is an integrated platform for text-to-image and text-to-audio generation, dedicated to providing users with efficient, convenient, and free AI content creation experiences.<br><br>Whether you are a designer, content creator, or an ordinary user, you can generate high-quality images or audio with just one description. The platform supports both Chinese and English input, built-in smart optimization, and multiple generation parameters to meet diverse creative needs.<br><br>This project is based on advanced AI models and cloud computing power, ensuring both speed and quality. All features are permanently free, with a clean and friendly interface, multi-device adaptation, and designed to inspire every user.'
+        },
+        contactModal: {
+            title: 'Contact Us',
+            content: 'If you have any questions or suggestions while using Nihilistic AI, feel free to contact us at any time!<br><br><b>Product Feedback:</b> We value your experience and opinions. Any feature suggestions or improvement ideas are welcome.<br><b>Technical Support:</b> If you encounter technical issues or obstacles, please describe your problem in detail and we will assist you as soon as possible.<br><br>You can contact us via:<br>Email: <a href="mailto:support@nihilisticai.com">support@nihilisticai.com</a><br>Official Website: <a href="https://nihilisticai.com" target="_blank">https://nihilisticai.com</a><br><br>We will reply within 1-2 business days. Thank you for your attention and support!'
+        },
+        servicesModal: {
+            title: 'Our Services',
+            content: '<ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;"><li><b>AI Image Generation:</b> Enter a description to generate high-quality, multi-style images, supporting various resolutions and aspect ratios.</li><li><b>AI Audio Generation:</b> Enter text to generate natural and fluent audio with one click, suitable for dubbing, broadcasting, and more.</li><li><b>Smart Prompt Optimization:</b> Built-in AI optimization and translation, automatically converting your description into high-quality English prompts for better results.</li><li><b>Multi-language Support:</b> Supports both Chinese and English interfaces for global users.</li><li><b>Permanently Free:</b> All features are free for users, no registration or usage limits.</li></ul><div style="margin-top: 12px; color: #AAB4D4;">For more service details, please contact us via "Contact Us".</div>'
+        }
     }
 };
 
