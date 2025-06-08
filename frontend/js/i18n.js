@@ -39,6 +39,8 @@ const i18n = {
         oneImage: '1张图片',
         twoImages: '2张图片',
         fourImages: '4张图片',
+        aspectRatioLandscape2K: '横向2K (16:9 - 2560x1440)',
+        aspectRatioPortrait2K: '竖向2K (9:16 - 1440x2560)',
         
         // 快捷操作
         clearButton: '清空',
@@ -178,6 +180,8 @@ const i18n = {
         oneImage: '1 Image',
         twoImages: '2 Images',
         fourImages: '4 Images',
+        aspectRatioLandscape2K: 'Landscape 2K (16:9 - 2560x1440)',
+        aspectRatioPortrait2K: 'Portrait 2K (9:16 - 1440x2560)',
         
         // Quick actions
         clearButton: 'Clear',

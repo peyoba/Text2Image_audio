@@ -85,8 +85,10 @@ class UIHandler {
         document.querySelector('.image-options h3').textContent = t('imageOptions');
         document.querySelector('label[for="option-aspect-ratio"]').textContent = t('aspectRatio');
         document.querySelector('option[value="1:1"]').textContent = t('aspectRatioSquare');
-        document.querySelector('option[value="16:9"]').textContent = t('aspectRatioLandscape');
-        document.querySelector('option[value="9:16"]').textContent = t('aspectRatioPortrait');
+        const option16_9_2k = document.querySelector('option[value="16:9-2k"]');
+        if (option16_9_2k) option16_9_2k.textContent = t('aspectRatioLandscape2K');
+        const option9_16_2k = document.querySelector('option[value="9:16-2k"]');
+        if (option9_16_2k) option9_16_2k.textContent = t('aspectRatioPortrait2K');
         document.querySelector('option[value="custom"]').textContent = t('aspectRatioCustom');
         document.querySelector('label[for="option-width"]').textContent = t('width');
         document.querySelector('label[for="option-height"]').textContent = t('height');
