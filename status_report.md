@@ -1,5 +1,13 @@
 # Project Status Report
 
+## 🗓️ 2024-06-08 工作进度与内容更新
+
+- 前端UI/UX细节全面优化：统一分块深色风格、负面提示词输入框对齐、分块标题色一致。
+- 弹窗内容（关于、联系我们、服务）支持中英文切换，i18n多语言适配。
+- API后端增加指数退避重试，前端loading与错误提示更友好，极大提升高峰期体验。
+- Footer版权"Nihilistic AI"全部大写，移除无关链接，底部更规范。
+- 多次提交并部署，所有优化已上线。
+
 > For project overview, deployment, and development progress, please refer to README.md. This document only details the latest deployment status, feature completion, and performance.
 
 **Report Date**：2025-05-24  
