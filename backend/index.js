@@ -146,12 +146,12 @@ export default {
         } catch (e) {
             console.error(`[Worker Error] An unexpected error occurred in fetch: ${e.message}`);
             console.error(e.stack);
-            // Check if the error has a status property and if it's 429
-            if (e.status === 429) {
+            // 针对429/502等重试失败，返回友好提示
+            if (e.status === 429 || e.status === 502) {
                 return jsonResponse({
-                    error: "生成服务正忙",
-                    details: "当前生成服务队列已满，我们的系统已自动重试数次但仍未成功。这通常是临时状况，请您稍等片刻再重新提交。"
-                }, env, 503); // 503 Service Unavailable is more appropriate for a temporary overload
+                    error: "AI服务繁忙，已为您排队重试多次但仍未成功，请稍后再试。",
+                    details: e.message
+                }, env, 503);
             }
             return jsonResponse({ error: "服务器内部错误", details: e.message }, env, 500);
         }
@@ -345,7 +345,7 @@ async function generateAudioFromPollinations(prompt, env, voice = "nova", model 
 }
 
 // 通用的带有重试逻辑的fetch函数
-async function fetchWithRetry(url, options, apiName, env, maxRetries = 3, initialDelay = 3000) {
+async function fetchWithRetry(url, options, apiName, env, maxRetries = 8, initialDelay = 1500) {
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
         try {
             const response = await fetch(url, options);

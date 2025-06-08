@@ -185,7 +185,7 @@ class UIHandler {
     /**
      * 显示加载状态
      */
-    showLoading(message = t('loading')) {
+    showLoading(message = 'AI服务繁忙时会自动排队重试，请耐心等待...') {
         this.loadingText.textContent = message;
         this.loadingIndicator.style.display = 'block';
         this.generateButton.disabled = true;
@@ -372,19 +372,16 @@ class UIHandler {
                 this.showAudioResult(audioUrl);
             }
         } catch (error) {
-            console.error('UIHandler: An unexpected error occurred in handleGenerate:', error);
-            // 这是一个捕获所有其他意外错误的地方，比如音频生成失败
-            let userFriendlyError = `${t('error')}: ${error.message}`;
-             if (error.details && error.details.error) {
-                userFriendlyError = error.details.error;
-                if (error.details.details) {
-                    userFriendlyError += ` (${error.details.details})`;
-                }
+            // 优化错误提示
+            let msg = error.details && error.details.error ? error.details.error : (error.details && error.details.details ? error.details.details : error.message);
+            if (error.details && error.details.error && error.details.error.includes('AI服务繁忙')) {
+                msg += '\n建议您稍后再试，或更换描述内容。';
             }
-            this.showError(userFriendlyError);
+            this.showError(msg);
         } finally {
             this.isGenerating = false;
-            this._ensureLoadingIsHidden();
+            this.generateButton.disabled = false;
+            this.hideLoading();
         }
     }
 
