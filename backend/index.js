@@ -298,17 +298,20 @@ async function generateAudioFromPollinations(prompt, env, voice = "nova", model 
         console.error("[Worker Error] Text API base URL not provided in env.POLLINATIONS_TEXT_API_BASE");
         throw new Error("语音API基地址未在环境变量中配置");
     }
-    if (textApiBase.endsWith('/')) {
-        textApiBase = textApiBase.slice(0, -1);
+    if (!textApiBase.endsWith('/')) {
+        textApiBase = textApiBase + '/';
     }
 
-    const encodedPrompt = encodeURIComponent(prompt);
+    // 添加 'Say: ' 前缀
+    const instructionalPrefix = "Say: ";
+    const engineeredPrompt = `${instructionalPrefix}${prompt}`;
+    const encodedPrompt = encodeURIComponent(engineeredPrompt);
+    
     const params = new URLSearchParams({
         model: model,
         voice: voice
     });
-    
-    const fullUrl = `${textApiBase}/${encodedPrompt}?${params.toString()}`;
+    const fullUrl = `${textApiBase}${encodedPrompt}?${params.toString()}`;
     logInfo(env, `[Worker Log] 向 Pollinations Text(Audio) API 发送请求: ${fullUrl}`);
 
     // 创建请求头并添加认证信息
@@ -323,8 +326,22 @@ async function generateAudioFromPollinations(prompt, env, voice = "nova", model 
         method: "GET",
         headers: headers
     }, "Pollinations Text(Audio) API", env);
-    
-    return await response.arrayBuffer();
+
+    const actualContentType = response.headers.get('Content-Type')?.toLowerCase() || '';
+    logInfo(env, `[Worker Log] Pollinations API response status: ${response.status}, Content-Type: ${actualContentType}`);
+
+    if (response.status === 200 && actualContentType.includes("audio/")) {
+        const audioDataArrayBuffer = await response.arrayBuffer();
+        if (audioDataArrayBuffer.byteLength < 100) {
+            logInfo(env, `[Worker Warning] Pollinations API 返回的音频内容很小 (length: ${audioDataArrayBuffer.byteLength})。`);
+        }
+        return audioDataArrayBuffer;
+    } else {
+        // 不是音频，打印部分内容
+        const errorTextContent = await response.text();
+        logInfo(env, `[Worker Error] Pollinations API 返回非音频内容。Content-Type: ${actualContentType}, 内容片段: ${errorTextContent.substring(0, 500)}...`);
+        throw new Error(`API 返回非音频内容，Content-Type: ${actualContentType}`);
+    }
 }
 
 // 通用的带有重试逻辑的fetch函数

@@ -25,9 +25,9 @@
         </div>
         <ul class="navbar-menu">
             <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#about" id="about-link">About</a></li>
+            <li><a href="#services" id="services-link">Services</a></li>
+            <li><a href="#contact" id="contact-link">Contact</a></li>
         </ul>
         <div class="navbar-right">
             <select id="lang-select" class="lang-select">
@@ -57,35 +57,30 @@
     <div class="container">
         <main>
             <section class="input-section">
-                <h2>Input Content</h2>
-                
-                <!-- 示例快速填充按钮区域 -->
+                <label for="text-input" class="section-title">输入内容</label>
+                <textarea id="text-input" rows="6" placeholder="请输入描述，如：一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影"></textarea>
+                <!-- 快速填充示例按钮区域（移动到此处） -->
                 <div class="examples-quickfill">
-                    <span class="examples-label" data-i18n="quickFillLabel">快速填充示例：</span>
+                    <span class="examples-label" data-i18n="quickFillLabel">💡 快速填充示例：</span>
                     <button class="example-btn" data-type="image" data-text="一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影" data-i18n-name="examples.cat.name">🐱 可爱猫咪</button>
                     <button class="example-btn" data-type="image" data-text="一条凶猛的龙在火山上空盘旋，熔岩流淌，史诗感" data-i18n-name="examples.dragon.name">🐉 史诗巨龙</button>
                     <button class="example-btn" data-type="image" data-text="宁静的湖面倒映着雪山和森林，黄昏，油画风格" data-i18n-name="examples.lake.name">🏞️ 雪山湖景</button>
                     <button class="example-btn" data-type="audio" data-text="欢迎使用AI内容生成器，希望您能创造出精彩的作品" data-i18n-name="examples.welcome.name">🎵 欢迎语音</button>
                 </div>
-                
-                <label for="text-input">输入内容</label>
-                <textarea id="text-input" rows="6" placeholder="请输入描述，如：一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影"></textarea>
-                <!-- 智能优化提示语 -->
-                <div class="prompt-tip" data-i18n="smartOptimizeTip">✨ 智能优化：自动将描述翻译并优化为高质量英文提示词，提升出图效果</div>
                 <!-- 恢复快捷操作按钮 -->
                 <div class="quick-actions">
                     <button id="clear-btn">清空</button>
-                    <button id="optimize-btn">✨ 智能优化</button>
+                    <button id="optimize-btn" title="自动优化提示词，提升出图效果">✨ 智能优化</button>
                     <button id="random-btn">🎲 随机示例</button>
                 </div>
                 
                 <div class="negative-prompt">
-                    <label for="negative-prompt">负面提示词：</label>
+                    <label for="negative-prompt" class="section-title">负面提示词：</label>
                     <input type="text" id="negative-prompt" placeholder="输入不想要的元素，用逗号分隔">
                 </div>
                 
                 <div class="options">
-                    <label>Generation Type:</label>
+                    <div class="section-title">生成类型：</div>
                     <input type="radio" id="type-image" name="generation-type" value="image" checked>
                     <label for="type-image">Image</label>
                     <input type="radio" id="type-audio" name="generation-type" value="audio">
@@ -95,7 +90,7 @@
                 </div>
 
                 <div class="image-options" id="image-generation-options">
-                    <h3>Image Options</h3>
+                    <h3 class="section-title">图片选项</h3>
                     <div>
                         <input type="checkbox" id="option-nologo" name="option-nologo" checked>
                         <label for="option-nologo">Remove Logo (Watermark)</label>
@@ -197,5 +192,48 @@
     <script src="js/ui_enhancements.js" defer></script>
     <script src="js/app.js" defer></script>
     <!-- Test auto-deploy on 2025-05-23 06:25 -->
+
+    <!-- 关于弹窗模块 -->
+    <div id="about-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" id="about-modal-close">&times;</span>
+        <h2>关于 Nihilistic AI</h2>
+        <p>Nihilistic AI 是一个集成了文本生成图片与语音的智能工具平台，致力于为用户提供高效、便捷、免费的AI内容创作体验。<br><br>
+无论你是设计师、内容创作者，还是普通用户，只需输入一句描述，就能一键生成高质量的图片或语音。平台支持中英文输入，内置智能优化和多种生成参数，满足多样化的创作需求。<br><br>
+本项目基于先进的AI模型，结合云端算力，保证生成速度与质量。所有功能永久免费开放，界面简洁友好，适配多终端设备，助力每一位用户释放创意灵感。</p>
+      </div>
+    </div>
+
+    <!-- 联系弹窗模块 -->
+    <div id="contact-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" id="contact-modal-close">&times;</span>
+        <h2>联系我们</h2>
+        <p>如果您在使用 Nihilistic AI 的过程中有任何问题或建议，欢迎随时与我们联系！<br><br>
+        <b>产品反馈与建议：</b>我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈。<br>
+        <b>技术支持：</b>遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决。<br><br>
+        您可以通过以下方式联系我们：<br>
+        邮箱：<a href="mailto:support@nihilisticai.com">support@nihilisticai.com</a><br>
+        官方网站：<a href="https://nihilisticai.com" target="_blank">https://nihilisticai.com</a><br><br>
+        我们会在1-2个工作日内回复您的信息。感谢您的关注与支持！
+        </p>
+      </div>
+    </div>
+
+    <!-- 服务弹窗模块 -->
+    <div id="services-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" id="services-modal-close">&times;</span>
+        <h2>我们的服务</h2>
+        <ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;">
+          <li><b>AI图片生成：</b>输入描述文本，智能生成高质量、多风格的图片，支持多种分辨率和比例选择。</li>
+          <li><b>AI语音生成：</b>输入文本，一键生成自然流畅的语音音频，适用于配音、播报等多种场景。</li>
+          <li><b>智能提示词优化：</b>内置AI优化和翻译功能，自动将您的描述转化为高质量英文提示词，提升生成效果。</li>
+          <li><b>多语言支持：</b>支持中文和英文界面，满足全球用户需求。</li>
+          <li><b>永久免费：</b>所有功能对用户永久免费，无需注册，无使用次数限制。</li>
+        </ul>
+        <div style="margin-top: 12px; color: #AAB4D4;">如需了解更多服务细节，欢迎通过"联系我们"与我们取得联系。</div>
+      </div>
+    </div>
 </body>
 </html> 

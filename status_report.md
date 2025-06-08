@@ -187,4 +187,41 @@ backend/
 
 **Status Summary**：Project Has Reached MVP Standard, Core Functions Complete and Usable, Production Environment Deployment Successful. ✅
 
-*Report Generation Time：2025-05-24* 
+*Report Generation Time：2025-05-24*
+
+## 2024-06-07 语音生成功能异常与修复记录
+
+### 问题现象
+- 语音生成功能异常，输入文本后返回的是"对话内容"而不是音频流。
+- 中文语音可以正常生成，英文语音请求则直接"Failed to fetch"或连接超时。
+
+### 排查过程
+1. 检查后端 `/api/generate` 逻辑，发现新版代码未对 prompt 添加 "Say: " 前缀，也未判断 Pollinations API 返回的 Content-Type。
+2. 对比 2024-05-24 的历史版本（commit 1df6d67），发现旧版代码在 prompt 前加了 "Say: "，并有 Content-Type 判断，能正确生成音频。
+3. 用 curl 测试 Worker，发现本地网络无法访问 Cloudflare 443 端口，curl 直接超时，说明是本地网络问题。
+
+### 原因分析
+- Pollinations TTS API 需要 prompt 以 "Say: " 开头，才能正确识别为语音合成请求。
+- 若未加前缀，API 可能返回文本（如对话内容）而不是音频流。
+- 新版代码未判断 Content-Type，导致前端收到错误内容。
+- 本地网络无法访问 Cloudflare 443 端口，导致所有 HTTPS 请求都失败，与代码无关。
+
+### 解决方法
+1. 恢复后端 generateAudioFromPollinations 逻辑：
+   - prompt 前加上 "Say: " 前缀。
+   - 增加 Content-Type 判断，只有返回音频流时才处理，否则抛出异常并打印日志。
+2. 用 Wrangler 成功重新部署修复后的 Worker，语音生成功能恢复正常。
+3. 网络问题建议：
+   - 切换手机热点、VPN 或在其他网络环境下测试。
+   - 若 curl 也无法连通，说明是本地网络被限制，与项目代码无关。
+
+### 参考命令
+- curl 测试命令（PowerShell 格式）：
+  ```powershell
+  curl "https://text2image-api.peyoba660703.workers.dev/api/generate" -H "Content-Type: application/json" --data '{"text": "Welcome to the AI Content Generator, hope you create great works!", "type": "audio"}' --output test_en.mp3
+  ```
+
+### 经验总结
+- 语音合成API调用时，务必加上 "Say: " 前缀，并判断 Content-Type。
+- 网络层面问题优先用 curl 验证，排除本地环境影响。
+- 重要修复建议及时记录到文档，便于团队后续查阅和复现。 

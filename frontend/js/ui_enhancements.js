@@ -386,7 +386,80 @@ class UIEnhancements {
     }
 }
 
-// 页面加载完成后初始化UI增强功能
+// 关于弹窗模块化逻辑
+function setupAboutModal() {
+    const aboutBtn = document.getElementById('about-link');
+    const aboutModal = document.getElementById('about-modal');
+    const aboutClose = document.getElementById('about-modal-close');
+
+    if (!aboutBtn || !aboutModal || !aboutClose) return;
+
+    aboutBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // 防止跳转页面
+        aboutModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    });
+    aboutClose.addEventListener('click', () => {
+        aboutModal.style.display = 'none';
+        document.body.style.overflow = '';
+    });
+    // 点击遮罩关闭
+    aboutModal.addEventListener('click', (e) => {
+        if (e.target === aboutModal) {
+            aboutModal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    });
+}
+
+function setupContactModal() {
+    const contactBtn = document.getElementById('contact-link');
+    const contactModal = document.getElementById('contact-modal');
+    const contactClose = document.getElementById('contact-modal-close');
+
+    if (!contactBtn || !contactModal || !contactClose) return;
+
+    contactBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        contactModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    });
+    contactClose.addEventListener('click', () => {
+        contactModal.style.display = 'none';
+        document.body.style.overflow = '';
+    });
+    contactModal.addEventListener('click', (e) => {
+        if (e.target === contactModal) {
+            contactModal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    });
+}
+
+function setupServicesModal() {
+    const servicesBtn = document.getElementById('services-link');
+    const servicesModal = document.getElementById('services-modal');
+    const servicesClose = document.getElementById('services-modal-close');
+
+    if (!servicesBtn || !servicesModal || !servicesClose) return;
+
+    servicesBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        servicesModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    });
+    servicesClose.addEventListener('click', () => {
+        servicesModal.style.display = 'none';
+        document.body.style.overflow = '';
+    });
+    servicesModal.addEventListener('click', (e) => {
+        if (e.target === servicesModal) {
+            servicesModal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     window.uiEnhancements = new UIEnhancements();
     
@@ -394,6 +467,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         window.uiEnhancements.showUsageTips();
     }, 1000);
+    
+    // 初始化关于弹窗
+    setupAboutModal();
+    setupContactModal();
+    setupServicesModal();
 });
 
 // 将类设为全局变量

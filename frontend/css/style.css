@@ -188,35 +188,22 @@ main {
 */
 
 /* 负面提示词样式 */
-.negative-prompt {
-    margin: 18px 0; /* 统一上下间距 */
-    background: rgba(255, 255, 255, 0.7);
-    padding: 15px;
+.negative-prompt,
+.options,
+.image-options {
+    background: #232B3E;
     border-radius: 12px;
-    border: 1px solid rgba(102, 126, 234, 0.1);
+    padding: 0 0 0 0; /* 移除原有内边距，左右对齐 */
+    border: 1px solid #2D3650;
+    margin-bottom: 18px;
+    color: #E3E6F3;
 }
 
-.negative-prompt label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 0.9em;
-    color: #555;
-    font-weight: 500;
-}
-
-.negative-prompt input {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #e1e8ed;
-    border-radius: 8px;
-    font-size: 0.95em;
-    transition: all 0.3s ease;
-}
-
-.negative-prompt input:focus {
-    border-color: #667eea;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+.negative-prompt input,
+.image-options select,
+.image-options input[type="number"] {
+    color: #222;
+    background: #fff;
 }
 
 /* 主文本输入框样式 */
@@ -267,23 +254,23 @@ textarea#text-input:focus {
 
 /* 选项区域 - 卡片化分组 */
 .options {
-    margin-top: 18px; /* 与上方元素的间距 */
-    margin-bottom: 25px; /* 增加间距 */
+    margin-top: 18px;
+    margin-bottom: 25px;
     display: flex;
     align-items: center;
-    gap: 15px; /* 增加gap */
-    background: rgba(255, 255, 255, 0.6);
-    padding: 15px 20px;
+    gap: 15px;
+    background: #232B3E !important;
+    padding: 18px 18px 12px 18px;
     border-radius: 12px;
-    border: 1px solid rgba(102, 126, 234, 0.1);
-    flex-wrap: wrap; /* 允许换行以适应提示信息 */
+    border: 1px solid #2D3650;
+    flex-wrap: wrap;
+    color: #E3E6F3;
 }
-
 .options label {
-    margin-right: 8px; /* 增加间距 */
+    margin-right: 8px;
     cursor: pointer;
     font-weight: 500;
-    color: #555;
+    color: #E3E6F3 !important;
     font-size: 1.05em;
 }
 
@@ -307,17 +294,18 @@ textarea#text-input:focus {
 
 /* 图片选项区域 - 独立卡片 */
 .image-options {
-    background: rgba(255, 255, 255, 0.7);
+    background: #232B3E !important;
     border-radius: 12px;
     padding: 20px;
-    border: 1px solid rgba(102, 126, 234, 0.1);
+    border: 1px solid #2D3650;
     margin-bottom: 25px;
+    color: #E3E6F3;
 }
 
 .image-options h3 {
     margin-top: 0;
     margin-bottom: 15px;
-    color: #667eea;
+    color: #AAB4D4;
     font-weight: 600;
     font-size: 1.1em;
 }
@@ -332,7 +320,7 @@ textarea#text-input:focus {
 
 .image-options label {
     font-weight: 500;
-    color: #555;
+    color: #E3E6F3 !important;
     margin-right: 10px;
     font-size: 1.05em;
 }
@@ -370,54 +358,24 @@ textarea#text-input:focus {
 }
 
 button#generate-button {
-    /* 现代化渐变按钮 */
-    background: #10182A;
-    color: #00CFFF;
-    padding: 10px 28px;
-    border: 2px solid #00CFFF;
+    background: linear-gradient(90deg, #0099E6 0%, #005F99 100%);
+    color: #fff;
+    font-size: 1.18em;
+    font-weight: bold;
+    border: none;
     border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-    transition: background 0.2s, color 0.2s;
-    display: block;
-    margin: 20px auto 0; /* 增加顶部间距 */
-    position: relative;
-    overflow: hidden;
-    /* 现代化阴影 */
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-    min-width: 200px; /* 设置最小宽度 */
-}
-
-button#generate-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
+    padding: 14px 0;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
+    margin-top: 22px;
+    box-shadow: 0 2px 8px rgba(0,207,255,0.10);
+    transition: background 0.2s, box-shadow 0.2s;
+    letter-spacing: 2px;
 }
 
-button#generate-button:hover {
-    transform: translateY(-3px); /* 增加悬停效果 */
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
-}
-
-button#generate-button:hover::before {
-    left: 100%;
-}
-
-button#generate-button:active {
-    transform: translateY(-1px);
-}
-
-button#generate-button:disabled {
-    background: linear-gradient(135deg, #bbb 0%, #999 100%);
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+button#generate-button:hover, button#generate-button:focus {
+    background: linear-gradient(90deg, #00CFFF 0%, #4F8CFF 100%);
+    box-shadow: 0 4px 16px rgba(0,207,255,0.18);
+    cursor: pointer;
 }
 
 /* 输出区域 - 卡片化设计 */
@@ -776,11 +734,13 @@ footer {
 }
 
 .examples-quickfill .examples-label {
-    font-size: 0.95em;
-    color: #444; /* 标签颜色稍深 */
-    font-weight: 500;
-    margin-right: 5px; /* 与第一个按钮的间距减少 */
-    padding-bottom: 2px; /* 微调基线对齐 */
+    color: #00CFFF;
+    font-weight: bold;
+    font-size: 1.13em;
+    margin-bottom: 6px;
+    display: inline-block;
+    letter-spacing: 1px;
+    vertical-align: middle;
 }
 
 .example-btn {
@@ -1304,4 +1264,100 @@ footer {
     .footer-center {
         min-width: unset;
     }
+}
+
+/* 关于弹窗样式 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background: rgba(21,28,41,0.85);
+  backdrop-filter: blur(2px);
+}
+.modal-content {
+  background: #1A223A;
+  margin: 7% auto;
+  padding: 48px 44px 36px 44px;
+  border: 1.5px solid #2D3650;
+  border-radius: 22px;
+  width: 98%;
+  max-width: 820px;
+  color: #AAB4D4;
+  box-shadow: 0 8px 32px rgba(0,207,255,0.10);
+  position: relative;
+  animation: modal-fade-in 0.3s;
+  font-size: 1.18em;
+}
+.modal-content h2 {
+  margin-top: 0;
+  color: #667eea;
+  font-size: 1.7em;
+  font-weight: 700;
+}
+.modal-content p, .modal-content ul, .modal-content div {
+  font-size: 1.18em;
+  line-height: 2;
+  color: #AAB4D4;
+}
+.close {
+  color: #AAB4D4;
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-size: 1.8em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.close:hover {
+  color: #00CFFF;
+}
+@keyframes modal-fade-in {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+  display: block;
+  font-size: 1.18em;
+  font-weight: bold;
+  color: #AAB4D4;
+  margin: 22px 0 10px 0;
+  letter-spacing: 1px;
+}
+
+.examples-label {
+  color: #AAB4D4;
+  font-size: 1em;
+  font-weight: normal;
+  margin-bottom: 6px;
+  display: inline-block;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+  opacity: 0.85;
+}
+
+#negative-prompt {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #d1d9e6;
+    border-radius: 8px;
+    font-size: 1.1em;
+    line-height: 1.5;
+    margin-top: 8px;
+    margin-bottom: 0;
+    box-sizing: border-box;
+    background: #fff;
+    color: #222;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+#negative-prompt:focus {
+    border-color: #667eea;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
 } 
