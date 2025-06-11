@@ -141,7 +141,41 @@ const i18n = {
         servicesModal: {
             title: '我们的服务',
             content: '<ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;"><li><b>AI图片生成：</b>输入描述文本，智能生成高质量、多风格的图片，支持多种分辨率和比例选择。</li><li><b>AI语音生成：</b>输入文本，一键生成自然流畅的语音音频，适用于配音、播报等多种场景。</li><li><b>智能提示词优化：</b>内置AI优化和翻译功能，自动将您的描述转化为高质量英文提示词，提升生成效果。</li><li><b>多语言支持：</b>支持中文和英文界面，满足全球用户需求。</li><li><b>永久免费：</b>所有功能对用户永久免费，无需注册，无使用次数限制。</li></ul><div style="margin-top: 12px; color: #AAB4D4;">如需了解更多服务细节，欢迎通过"联系我们"与我们取得联系。</div>'
-        }
+        },
+        heroTitle: 'NIHILISTIC AI - 免费AI图片生成与语音合成平台',
+        heroSubtitle: '图片·语音·无限免费生成',
+        heroSlogan: 'AI驱动·一键生成·释放你的创意！',
+        faqTitle: '常见问题 FAQ',
+        faqQ1: 'NIHILISTIC AI 是否永久免费？',
+        faqA1: '是的，平台所有功能永久免费，无需注册，无次数限制。',
+        faqQ2: '使用平台需要登录吗？',
+        faqA2: '无需登录，直接输入描述即可生成图片或语音。',
+        faqQ3: '支持哪些输入语言？',
+        faqA3: '支持中文和英文输入，界面可切换。',
+        faqQ4: '生成的内容有版权吗？',
+        faqA4: 'AI生成内容归用户所有，可自由使用。',
+        faqQ5: '如何反馈问题或建议？',
+        faqA5: '可通过页面底部的联系方式或邮箱 support@nihilisticai.com 反馈。',
+        aboutModalTitle: '关于 NIHILISTIC AI',
+        aboutModalContent: 'NIHILISTIC AI 是一个集成了文本生成图片与语音的智能工具平台，致力于为用户提供高效、便捷、免费的AI内容创作体验。<br><br>无论你是设计师、内容创作者，还是普通用户，只需输入一句描述，就能一键生成高质量的图片或语音。平台支持中英文输入，内置智能优化和多种生成参数，满足多样化的创作需求。<br><br>本项目基于先进的AI模型，结合云端算力，保证生成速度与质量。所有功能永久免费开放，界面简洁友好，适配多终端设备，助力每一位用户释放创意灵感。',
+        contactModalTitle: '联系我们',
+        contactModalContent: '如果您在使用 NIHILISTIC AI 的过程中有任何问题或建议，欢迎随时与我们联系！<br><br><b>产品反馈与建议：</b>我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈。<br><b>技术支持：</b>遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决。<br><br>您可以通过以下方式联系我们：<br>邮箱：<a href="mailto:support@nihilisticai.com">support@nihilisticai.com</a><br>官方网站：<a href="https://nihilisticai.com" target="_blank">https://nihilisticai.com</a><br><br>我们会在1-2个工作日内回复您的信息。感谢您的关注与支持！',
+        servicesModalTitle: '我们的服务',
+        servicesModalContent: '<ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;"><li><b>AI图片生成：</b>输入描述文本，智能生成高质量、多风格的图片，支持多种分辨率和比例选择。</li><li><b>AI语音生成：</b>输入文本，一键生成自然流畅的语音音频，适用于配音、播报等多种场景。</li><li><b>智能提示词优化：</b>内置AI优化和翻译功能，自动将您的描述转化为高质量英文提示词，提升生成效果。</li><li><b>多语言支持：</b>支持中文和英文界面，满足全球用户需求。</li><li><b>永久免费：</b>所有功能对用户永久免费，无需注册，无使用次数限制。</li></ul><div style="margin-top: 12px; color: #AAB4D4;">如需了解更多服务细节，欢迎通过"联系我们"与我们取得联系。</div>',
+        tagFree: '100% 免费',
+        tagUnlimited: '无限生成',
+        tagNoLogin: '无需登录',
+        faqTip: '如有更多疑问，欢迎通过页面底部联系我们',
+        faqQ6: '生成速度慢或失败怎么办？',
+        faqA6: '如遇高峰期可能稍慢，请耐心等待或稍后重试。如持续失败请联系客服。',
+        faqQ7: '平台有API接口吗？',
+        faqA7: '支持API调用，详见开发文档或联系客服获取API接入方式。',
+        faqQ8: '如何保护用户隐私？',
+        faqA8: '平台不存储用户输入和生成内容，所有数据实时处理，保障隐私安全。',
+        faqQ9: '未来会不会收费或限制？',
+        faqA9: '目前永久免费，无次数限制。如有变动会提前公告。',
+        faqQ10: '如何加入交流群或获取最新动态？',
+        faqA10: '可关注官网、公众号或联系客服，获取交流群二维码和最新资讯。',
     },
     
     en: {
@@ -282,7 +316,41 @@ const i18n = {
         servicesModal: {
             title: 'Our Services',
             content: '<ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;"><li><b>AI Image Generation:</b> Enter a description to generate high-quality, multi-style images with various resolutions and aspect ratios.</li><li><b>AI Speech Generation:</b> Enter text to generate natural and fluent audio, suitable for dubbing, broadcasting, and more.</li><li><b>Prompt Optimization:</b> Built-in AI optimization and translation, automatically converting your description into high-quality English prompts for better results.</li><li><b>Multi-language Support:</b> Supports both Chinese and English interfaces for global users.</li><li><b>Permanently Free:</b> All features are free for users, no registration or usage limits.</li></ul><div style="margin-top: 12px; color: #AAB4D4;">For more service details, feel free to contact us via "Contact Us".</div>'
-        }
+        },
+        heroTitle: 'NIHILISTIC AI - Free Text to Image & Audio Platform',
+        heroSubtitle: 'Images · Audio · Unlimited Free Generation',
+        heroSlogan: 'AI-powered · One-click Generation · Unleash Your Creativity!',
+        faqTitle: 'FAQ',
+        faqQ1: 'Is NIHILISTIC AI always free?',
+        faqA1: 'Yes, all features are permanently free, no registration or usage limits.',
+        faqQ2: 'Do I need to log in to use the platform?',
+        faqA2: 'No login required, just enter your description to generate images or audio.',
+        faqQ3: 'Which input languages are supported?',
+        faqA3: 'Both Chinese and English are supported, and the interface is switchable.',
+        faqQ4: 'Do I own the copyright of generated content?',
+        faqA4: 'All AI-generated content belongs to the user and can be used freely.',
+        faqQ5: 'What image styles and resolutions are supported?',
+        faqA5: 'Supports various art styles (photorealistic, illustration, anime, etc.) and multiple resolutions, all customizable.',
+        faqQ6: 'What if generation is slow or fails?',
+        faqA6: 'During peak times, it may be slower. Please wait patiently or try again later. If it keeps failing, contact support.',
+        faqQ7: 'Is there an API available?',
+        faqA7: 'API access is supported. See the developer docs or contact support for API integration.',
+        faqQ8: 'How is user privacy protected?',
+        faqA8: 'We do not store your input or generated content. All data is processed in real time to ensure privacy.',
+        faqQ9: 'Will there be charges or limits in the future?',
+        faqA9: 'Currently it is permanently free with no usage limits. Any changes will be announced in advance.',
+        faqQ10: 'How to join the user group or get updates?',
+        faqA10: 'Follow our website, official account, or contact support to get the group QR code and latest news.',
+        aboutModalTitle: 'About NIHILISTIC AI',
+        aboutModalContent: 'NIHILISTIC AI is an intelligent tool platform integrating text-to-image and text-to-audio generation, dedicated to providing users with efficient, convenient, and free AI content creation experience.<br><br>Whether you are a designer, content creator, or ordinary user, just enter a description and you can generate high-quality images or audio with one click. The platform supports both Chinese and English input, built-in smart optimization and various generation parameters to meet diverse creative needs.<br><br>This project is based on advanced AI models and cloud computing power to ensure generation speed and quality. All features are permanently free, the interface is simple and friendly, and adapts to multiple devices, helping every user unleash their creative inspiration.',
+        contactModalTitle: 'Contact Us',
+        contactModalContent: 'If you have any questions or suggestions while using NIHILISTIC AI, feel free to contact us at any time!<br><br><b>Product Feedback & Suggestions:</b> We value your experience and opinions, and welcome any feature suggestions or improvement ideas.<br><b>Technical Support:</b> If you encounter technical problems or usage obstacles, please describe your issue in detail and we will assist you as soon as possible.<br><br>You can contact us via:<br>Email: <a href="mailto:support@nihilisticai.com">support@nihilisticai.com</a><br>Official Website: <a href="https://nihilisticai.com" target="_blank">https://nihilisticai.com</a><br><br>We will reply within 1-2 business days. Thank you for your attention and support!',
+        servicesModalTitle: 'Our Services',
+        servicesModalContent: '<ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;"><li><b>AI Image Generation:</b> Enter a description to intelligently generate high-quality, multi-style images, supporting various resolutions and aspect ratios.</li><li><b>AI Audio Generation:</b> Enter text to generate natural and smooth audio with one click, suitable for dubbing, broadcasting, and more.</li><li><b>Smart Prompt Optimization:</b> Built-in AI optimization and translation, automatically converting your description into high-quality English prompts for better results.</li><li><b>Multi-language Support:</b> Supports both Chinese and English interfaces for global users.</li><li><b>Permanently Free:</b> All features are free for users, no registration or usage limits.</li></ul><div style="margin-top: 12px; color: #AAB4D4;">For more service details, please contact us via "Contact Us".</div>',
+        tagFree: '100% Free',
+        tagUnlimited: 'Unlimited Generation',
+        tagNoLogin: 'No Login Required',
+        faqTip: 'For more questions, please contact us via the page footer',
     }
 };
 
@@ -349,103 +417,121 @@ function t(key) {
 
 // 更新页面所有文本
 function updatePageText() {
+    const lang = getCurrentLang();
+    const dict = i18n[lang];
+    // 旧逻辑保留
+    document.title = dict.title;
+    // 新增：支持所有带data-i18n的元素
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key] !== undefined) {
+            // 判断是否是input/textarea/option等
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = dict[key];
+            } else if (el.tagName === 'OPTION') {
+                el.textContent = dict[key];
+            } else {
+                el.innerHTML = dict[key];
+            }
+        }
+    });
+
     // 更新标题
-    document.title = t('title');
     const heroTitle = document.querySelector('.hero-title');
-    if (heroTitle) heroTitle.textContent = t('title');
+    if (heroTitle) heroTitle.textContent = dict.title;
     const heroSubtitle = document.querySelector('.hero-subtitle');
-    if (heroSubtitle) heroSubtitle.textContent = t('subtitle');
+    if (heroSubtitle) heroSubtitle.textContent = dict.subtitle;
 
     // 更新输入区域标题
     const inputTitleEl = document.querySelector('.input-section h2');
-    if (inputTitleEl) inputTitleEl.textContent = t('inputTitle');
+    if (inputTitleEl) inputTitleEl.textContent = dict.inputTitle;
 
     // 更新示例区域标签
     const quickFillLabelEl = document.querySelector('[data-i18n="quickFillLabel"]');
-    if (quickFillLabelEl) quickFillLabelEl.textContent = t('quickFillLabel');
+    if (quickFillLabelEl) quickFillLabelEl.textContent = dict.quickFillLabel;
 
     // 更新智能优化提示
     const smartOptimizeTipEl = document.querySelector('[data-i18n="smartOptimizeTip"]');
-    if (smartOptimizeTipEl) smartOptimizeTipEl.textContent = t('smartOptimizeTip');
+    if (smartOptimizeTipEl) smartOptimizeTipEl.textContent = dict.smartOptimizeTip;
 
     // 更新负面提示词标签
     const negativePromptLabelEl = document.querySelector('[data-i18n="negativePromptLabel"]');
-    if (negativePromptLabelEl) negativePromptLabelEl.textContent = t('negativePromptLabel');
+    if (negativePromptLabelEl) negativePromptLabelEl.textContent = dict.negativePromptLabel;
 
     // 更新负面提示词输入框的placeholder
     const negativePromptInputEl = document.getElementById('negative-prompt');
-    if (negativePromptInputEl) negativePromptInputEl.placeholder = t('negativePromptPlaceholder');
+    if (negativePromptInputEl) negativePromptInputEl.placeholder = dict.negativePromptPlaceholder;
 
     // 更新示例标题
     const examplesTitle = document.querySelector('.examples-title');
-    if (examplesTitle) examplesTitle.textContent = t('examplesTitle');
+    if (examplesTitle) examplesTitle.textContent = dict.examplesTitle;
 
     // 更新输入区域
     const textInput = document.getElementById('text-input');
     if (textInput) {
-        textInput.placeholder = t('inputPlaceholder');
+        textInput.placeholder = dict.inputPlaceholder;
     }
 
     const generateButton = document.getElementById('generate-button');
     if (generateButton) {
-        generateButton.textContent = t('generateButton');
+        generateButton.textContent = dict.generateButton;
     }
 
     // 更新生成类型标签
     const generationTypeLabel = document.querySelector('.options label:first-child');
-    if (generationTypeLabel) generationTypeLabel.textContent = t('generationType') + ':';
+    if (generationTypeLabel) generationTypeLabel.textContent = dict.generationType + ':';
 
     const typeImageLabel = document.querySelector('label[for="type-image"]');
     const typeAudioLabel = document.querySelector('label[for="type-audio"]');
-    if (typeImageLabel) typeImageLabel.textContent = t('typeImage');
-    if (typeAudioLabel) typeAudioLabel.textContent = t('typeAudio');
+    if (typeImageLabel) typeImageLabel.textContent = dict.typeImage;
+    if (typeAudioLabel) typeAudioLabel.textContent = dict.typeAudio;
 
     // 更新图片选项
     const imageOptionsTitle = document.querySelector('.image-options h3');
-    if (imageOptionsTitle) imageOptionsTitle.textContent = t('imageOptions');
+    if (imageOptionsTitle) imageOptionsTitle.textContent = dict.imageOptions;
 
     // 更新宽高比选项
     const aspectRatioLabel = document.querySelector('label[for="option-aspect-ratio"]');
-    if (aspectRatioLabel) aspectRatioLabel.textContent = t('aspectRatio') + ':';
+    if (aspectRatioLabel) aspectRatioLabel.textContent = dict.aspectRatio + ':';
 
     const aspectRatioSelect = document.getElementById('option-aspect-ratio');
     if (aspectRatioSelect) {
-        aspectRatioSelect.querySelector('option[value="1:1"]').textContent = t('aspectRatioSquare');
-        aspectRatioSelect.querySelector('option[value="16:9"]').textContent = t('aspectRatioLandscape');
-        aspectRatioSelect.querySelector('option[value="9:16"]').textContent = t('aspectRatioPortrait');
-        aspectRatioSelect.querySelector('option[value="4:3"]').textContent = t('aspectRatioStandard');
-        aspectRatioSelect.querySelector('option[value="3:4"]').textContent = t('aspectRatioStandardVertical');
-        aspectRatioSelect.querySelector('option[value="custom"]').textContent = t('aspectRatioCustom');
+        aspectRatioSelect.querySelector('option[value="1:1"]').textContent = dict.aspectRatioSquare;
+        aspectRatioSelect.querySelector('option[value="16:9"]').textContent = dict.aspectRatioLandscape;
+        aspectRatioSelect.querySelector('option[value="9:16"]').textContent = dict.aspectRatioPortrait;
+        aspectRatioSelect.querySelector('option[value="4:3"]').textContent = dict.aspectRatioStandard;
+        aspectRatioSelect.querySelector('option[value="3:4"]').textContent = dict.aspectRatioStandardVertical;
+        aspectRatioSelect.querySelector('option[value="custom"]').textContent = dict.aspectRatioCustom;
     }
 
     // 更新数量选择
     const numImagesLabel = document.querySelector('label[for="option-num-images"]');
-    if (numImagesLabel) numImagesLabel.textContent = t('numImages') + ':';
+    if (numImagesLabel) numImagesLabel.textContent = dict.numImages + ':';
 
     const numImagesSelect = document.getElementById('option-num-images');
     if (numImagesSelect) {
-        numImagesSelect.querySelector('option[value="1"]').textContent = t('oneImage');
-        numImagesSelect.querySelector('option[value="2"]').textContent = t('twoImages');
-        numImagesSelect.querySelector('option[value="4"]').textContent = t('fourImages');
+        numImagesSelect.querySelector('option[value="1"]').textContent = dict.oneImage;
+        numImagesSelect.querySelector('option[value="2"]').textContent = dict.twoImages;
+        numImagesSelect.querySelector('option[value="4"]').textContent = dict.fourImages;
     }
 
     // 更新水印选项
     const noLogoLabel = document.querySelector('label[for="option-nologo"]');
-    if (noLogoLabel) noLogoLabel.textContent = t('noLogo');
+    if (noLogoLabel) noLogoLabel.textContent = dict.noLogo;
 
     // 更新宽高输入标签
     const widthLabel = document.querySelector('label[for="option-width"]');
     const heightLabel = document.querySelector('label[for="option-height"]');
-    if (widthLabel) widthLabel.textContent = t('width') + ' (px):';
-    if (heightLabel) heightLabel.textContent = t('height') + ' (px):';
+    if (widthLabel) widthLabel.textContent = dict.width + ' (px):';
+    if (heightLabel) heightLabel.textContent = dict.height + ' (px):';
 
     // 更新快捷操作按钮
     const clearBtn = document.getElementById('clear-btn');
     const optimizeBtn = document.getElementById('optimize-btn');
     const randomBtn = document.getElementById('random-btn');
-    if (clearBtn) clearBtn.textContent = t('clearButton');
-    if (optimizeBtn) optimizeBtn.textContent = t('optimizeButton');
-    if (randomBtn) randomBtn.textContent = t('randomButton');
+    if (clearBtn) clearBtn.textContent = dict.clearButton;
+    if (optimizeBtn) optimizeBtn.textContent = dict.optimizeButton;
+    if (randomBtn) randomBtn.textContent = dict.randomButton;
 
     // 更新示例按钮
     document.querySelectorAll('.example-btn').forEach(btn => {
@@ -478,31 +564,31 @@ function updatePageText() {
     const typeHint = document.getElementById('type-hint');
     if (typeHint) {
         const isImage = document.getElementById('type-image')?.checked;
-        typeHint.textContent = isImage ? t('imageHint') : t('audioHint');
+        typeHint.textContent = isImage ? dict.imageHint : dict.audioHint;
     }
 
     // 更新灵感获取专区标题
     const inspirationTitleEl = document.querySelector('[data-i18n="inspirationTitle"]');
     if (inspirationTitleEl) {
-        inspirationTitleEl.textContent = t('inspirationTitle');
+        inspirationTitleEl.textContent = dict.inspirationTitle;
     }
 
     // 更新灵感获取专区卡片标题
     const inspirationForestEl = document.querySelector('[data-i18n="inspirationExamples.forest"]');
     if (inspirationForestEl) {
-        inspirationForestEl.textContent = t('inspirationExamples.forest');
+        inspirationForestEl.textContent = dict.inspirationExamples.forest;
     }
     const inspirationCityEl = document.querySelector('[data-i18n="inspirationExamples.city"]');
     if (inspirationCityEl) {
-        inspirationCityEl.textContent = t('inspirationExamples.city');
+        inspirationCityEl.textContent = dict.inspirationExamples.city;
     }
     const inspirationCottageEl = document.querySelector('[data-i18n="inspirationExamples.cottage"]');
     if (inspirationCottageEl) {
-        inspirationCottageEl.textContent = t('inspirationExamples.cottage');
+        inspirationCottageEl.textContent = dict.inspirationExamples.cottage;
     }
     const inspirationCyberpunkEl = document.querySelector('[data-i18n="inspirationExamples.cyberpunk"]');
     if (inspirationCyberpunkEl) {
-        inspirationCyberpunkEl.textContent = t('inspirationExamples.cyberpunk');
+        inspirationCyberpunkEl.textContent = dict.inspirationExamples.cyberpunk;
     }
 
     // 如果存在UI增强实例，更新其示例 (注释掉此调用，因为示例按钮的文本应完全由i18n.js通过data-i18n-name控制)

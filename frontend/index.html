@@ -98,14 +98,14 @@
         <div class="hero-content">
             <div class="hero-row">
                 <img src="assets/logo.svg" alt="NIHILISTIC AI LOGO - 免费AI图片生成与语音合成" class="hero-logo-img" />
-                <h1 class="hero-title">NIHILISTIC AI - 免费AI图片生成与语音合成平台</h1>
+                <h1 class="hero-title" data-i18n="heroTitle">NIHILISTIC AI - 免费AI图片生成与语音合成平台</h1>
             </div>
-            <p class="hero-subtitle">图片·语音·无限免费生成</p>
-            <div class="hero-slogan" style="font-size:1.25em;color:#00CFFF;margin:12px 0 0 0;">AI驱动·一键生成·释放你的创意！</div>
+            <p class="hero-subtitle" data-i18n="heroSubtitle">图片·语音·无限免费生成</p>
+            <div class="hero-slogan" data-i18n="heroSlogan" style="font-size:1.25em;color:#00CFFF;margin:12px 0 0 0;">AI驱动·一键生成·释放你的创意！</div>
             <div class="hero-tags">
-                <span class="tag tag-free">100% 免费</span>
-                <span class="tag tag-unlimited">无限生成</span>
-                <span class="tag tag-no-login">无需登录</span>
+                <span class="tag tag-free" data-i18n="tagFree">100% 免费</span>
+                <span class="tag tag-unlimited" data-i18n="tagUnlimited">无限生成</span>
+                <span class="tag tag-no-login" data-i18n="tagNoLogin">无需登录</span>
             </div>
         </div>
     </section>
@@ -113,7 +113,7 @@
     <div class="container">
         <main>
             <section class="input-section">
-                <label for="text-input" class="section-title">输入内容</label>
+                <label for="text-input" class="section-title" data-i18n="inputTitle">输入内容</label>
                 <textarea id="text-input" rows="6" placeholder="请输入描述，如：一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影"></textarea>
                 <!-- 快速填充示例按钮区域（移动到此处） -->
                 <div class="examples-quickfill">
@@ -131,22 +131,22 @@
                 </div>
                 
                 <div class="negative-prompt">
-                    <label for="negative-prompt" class="section-title">负面提示词：</label>
+                    <label for="negative-prompt" class="section-title" data-i18n="negativePromptLabel">负面提示词：</label>
                     <input type="text" id="negative-prompt" placeholder="输入不想要的元素，用逗号分隔">
                 </div>
                 
                 <div class="options">
-                    <div class="section-title">生成类型：</div>
+                    <div class="section-title" data-i18n="generationType">生成类型：</div>
                     <input type="radio" id="type-image" name="generation-type" value="image" checked>
-                    <label for="type-image">Image</label>
+                    <label for="type-image" data-i18n="typeImage">生成图片</label>
                     <input type="radio" id="type-audio" name="generation-type" value="audio">
-                    <label for="type-audio">Audio</label>
+                    <label for="type-audio" data-i18n="typeAudio">生成语音</label>
                     <!-- 新增：提示信息 -->
                     <span class="type-hint" id="type-hint">💡 Image generation supports multiple sizes and quantities</span>
                 </div>
 
                 <div class="image-options" id="image-generation-options">
-                    <h3 class="section-title">图片选项</h3>
+                    <h3 class="section-title" data-i18n="imageOptions">图片选项</h3>
                     <div>
                         <input type="checkbox" id="option-nologo" name="option-nologo" checked>
                         <label for="option-nologo">Remove Logo (Watermark)</label>
@@ -216,7 +216,7 @@
         </main>
         <!-- 主要特性区块移动到footer前 -->
         <section class="features-section" id="features">
-            <h2 class="features-title">NIHILISTIC AI 的主要特性 | MAIN FEATURES OF NIHILISTIC AI</h2>
+            <h2 class="features-title" data-i18n="featuresTitle">NIHILISTIC AI 的主要特性 | MAIN FEATURES OF NIHILISTIC AI</h2>
             <div class="features-grid">
                 <div class="feature-card"><span class="feature-icon">💸</span><h3>零成本创作</h3><p>完全免费，无需注册，无限生成。</p></div>
                 <div class="feature-card"><span class="feature-icon">🧠</span><h3>最先进的质量</h3><p>高分辨率，细节丰富，艺术风格多样。</p></div>
@@ -224,6 +224,55 @@
                 <div class="feature-card"><span class="feature-icon">🔒</span><h3>隐私保护</h3><p>零数据留存，生成内容不存储。</p></div>
                 <div class="feature-card"><span class="feature-icon">🌐</span><h3>多语言支持</h3><p>支持中英文界面，全球可用。</p></div>
                 <div class="feature-card"><span class="feature-icon">🎨</span><h3>多风格支持</h3><p>跨艺术风格，照片、插画、动漫等。</p></div>
+            </div>
+        </section>
+        <!-- FAQ区块移动到features区块之后、footer之前，并深色风格美化 -->
+        <section class="faq-section" style="background:#232837;padding:48px 0 40px 0;">
+            <div class="container">
+                <h2 style="text-align:center;font-size:2.1em;font-weight:bold;margin-bottom:18px;color:#00CFFF;letter-spacing:1px;" data-i18n="faqTitle">常见问题 FAQ</h2>
+                <div style="text-align:center;color:#aab4d4;font-size:1.08em;margin-bottom:30px;" data-i18n="faqTip">如有更多疑问，欢迎通过页面底部联系我们</div>
+                <div class="faq-list" style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+                    <div class="faq-item" style="background:#262b35;border-radius:14px;box-shadow:0 2px 12px #0002;padding:22px 26px;min-height:110px;">
+                        <div style="font-weight:bold;font-size:1.08em;margin-bottom:8px;color:#fff;" data-i18n="faqQ1">NIHILISTIC AI 是否永久免费？</div>
+                        <div style="color:#e0e6f6;" data-i18n="faqA1">是的，平台所有功能永久免费，无需注册，无次数限制。</div>
+                    </div>
+                    <div class="faq-item" style="background:#262b35;border-radius:14px;box-shadow:0 2px 12px #0002;padding:22px 26px;min-height:110px;">
+                        <div style="font-weight:bold;font-size:1.08em;margin-bottom:8px;color:#fff;" data-i18n="faqQ2">使用平台需要登录吗？</div>
+                        <div style="color:#e0e6f6;" data-i18n="faqA2">无需登录，直接输入描述即可生成图片或语音。</div>
+                    </div>
+                    <div class="faq-item" style="background:#262b35;border-radius:14px;box-shadow:0 2px 12px #0002;padding:22px 26px;min-height:110px;">
+                        <div style="font-weight:bold;font-size:1.08em;margin-bottom:8px;color:#fff;" data-i18n="faqQ3">支持哪些输入语言？</div>
+                        <div style="color:#e0e6f6;" data-i18n="faqA3">支持中文和英文输入，界面可切换。</div>
+                    </div>
+                    <div class="faq-item" style="background:#262b35;border-radius:14px;box-shadow:0 2px 12px #0002;padding:22px 26px;min-height:110px;">
+                        <div style="font-weight:bold;font-size:1.08em;margin-bottom:8px;color:#fff;" data-i18n="faqQ4">生成的内容有版权吗？</div>
+                        <div style="color:#e0e6f6;" data-i18n="faqA4">AI生成内容归用户所有，可自由使用，包括商用。</div>
+                    </div>
+                    <div class="faq-item" style="background:#262b35;border-radius:14px;box-shadow:0 2px 12px #0002;padding:22px 26px;min-height:110px;">
+                        <div style="font-weight:bold;font-size:1.08em;margin-bottom:8px;color:#fff;" data-i18n="faqQ5">支持哪些图片风格和分辨率？</div>
+                        <div style="color:#e0e6f6;" data-i18n="faqA5">支持多种艺术风格（如写实、插画、动漫等）和多种分辨率，参数可自定义。</div>
+                    </div>
+                    <div class="faq-item" style="background:#262b35;border-radius:14px;box-shadow:0 2px 12px #0002;padding:22px 26px;min-height:110px;">
+                        <div style="font-weight:bold;font-size:1.08em;margin-bottom:8px;color:#fff;" data-i18n="faqQ6">生成速度慢或失败怎么办？</div>
+                        <div style="color:#e0e6f6;" data-i18n="faqA6">如遇高峰期可能稍慢，请耐心等待或稍后重试。如持续失败请联系客服。</div>
+                    </div>
+                    <div class="faq-item" style="background:#262b35;border-radius:14px;box-shadow:0 2px 12px #0002;padding:22px 26px;min-height:110px;">
+                        <div style="font-weight:bold;font-size:1.08em;margin-bottom:8px;color:#fff;" data-i18n="faqQ7">平台有API接口吗？</div>
+                        <div style="color:#e0e6f6;" data-i18n="faqA7">支持API调用，详见开发文档或联系客服获取API接入方式。</div>
+                    </div>
+                    <div class="faq-item" style="background:#262b35;border-radius:14px;box-shadow:0 2px 12px #0002;padding:22px 26px;min-height:110px;">
+                        <div style="font-weight:bold;font-size:1.08em;margin-bottom:8px;color:#fff;" data-i18n="faqQ8">如何保护用户隐私？</div>
+                        <div style="color:#e0e6f6;" data-i18n="faqA8">平台不存储用户输入和生成内容，所有数据实时处理，保障隐私安全。</div>
+                    </div>
+                    <div class="faq-item" style="background:#262b35;border-radius:14px;box-shadow:0 2px 12px #0002;padding:22px 26px;min-height:110px;">
+                        <div style="font-weight:bold;font-size:1.08em;margin-bottom:8px;color:#fff;" data-i18n="faqQ9">未来会不会收费或限制？</div>
+                        <div style="color:#e0e6f6;" data-i18n="faqA9">目前永久免费，无次数限制。如有变动会提前公告。</div>
+                    </div>
+                    <div class="faq-item" style="background:#262b35;border-radius:14px;box-shadow:0 2px 12px #0002;padding:22px 26px;min-height:110px;">
+                        <div style="font-weight:bold;font-size:1.08em;margin-bottom:8px;color:#fff;" data-i18n="faqQ10">如何加入交流群或获取最新动态？</div>
+                        <div style="color:#e0e6f6;" data-i18n="faqA10">可关注官网、公众号或联系客服，获取交流群二维码和最新资讯。</div>
+                    </div>
+                </div>
             </div>
         </section>
         <footer>
@@ -240,19 +289,6 @@
                 </div>
             </div>
         </footer>
-        <!-- 新增FAQ区块 -->
-        <section class="faq-section" style="background:#f8faff;padding:32px 0 24px 0;">
-            <div class="container">
-                <h2 style="text-align:center;font-size:1.6em;margin-bottom:18px;">常见问题 FAQ</h2>
-                <div class="faq-list" style="max-width:700px;margin:0 auto;">
-                    <div class="faq-item"><b>NIHILISTIC AI 是否永久免费？</b><br>是的，平台所有功能永久免费，无需注册，无次数限制。</div>
-                    <div class="faq-item"><b>使用平台需要登录吗？</b><br>无需登录，直接输入描述即可生成图片或语音。</div>
-                    <div class="faq-item"><b>支持哪些输入语言？</b><br>支持中文和英文输入，界面可切换。</div>
-                    <div class="faq-item"><b>生成的内容有版权吗？</b><br>AI生成内容归用户所有，可自由使用。</div>
-                    <div class="faq-item"><b>如何反馈问题或建议？</b><br>可通过页面底部的联系方式或邮箱 support@nihilisticai.com 反馈。</div>
-                </div>
-            </div>
-        </section>
     </div>
 
     <!-- 按依赖顺序加载脚本 -->
@@ -267,8 +303,8 @@
     <div id="about-modal" class="modal" style="display:none;">
       <div class="modal-content">
         <span class="close" id="about-modal-close">&times;</span>
-        <h2>关于 NIHILISTIC AI</h2>
-        <p>NIHILISTIC AI 是一个集成了文本生成图片与语音的智能工具平台，致力于为用户提供高效、便捷、免费的AI内容创作体验。<br><br>
+        <h2 data-i18n="aboutModalTitle">关于 NIHILISTIC AI</h2>
+        <p data-i18n="aboutModalContent">NIHILISTIC AI 是一个集成了文本生成图片与语音的智能工具平台，致力于为用户提供高效、便捷、免费的AI内容创作体验。<br><br>
 无论你是设计师、内容创作者，还是普通用户，只需输入一句描述，就能一键生成高质量的图片或语音。平台支持中英文输入，内置智能优化和多种生成参数，满足多样化的创作需求。<br><br>
 本项目基于先进的AI模型，结合云端算力，保证生成速度与质量。所有功能永久免费开放，界面简洁友好，适配多终端设备，助力每一位用户释放创意灵感。</p>
       </div>
@@ -278,8 +314,8 @@
     <div id="contact-modal" class="modal" style="display:none;">
       <div class="modal-content">
         <span class="close" id="contact-modal-close">&times;</span>
-        <h2>联系我们</h2>
-        <p>如果您在使用 NIHILISTIC AI 的过程中有任何问题或建议，欢迎随时与我们联系！<br><br>
+        <h2 data-i18n="contactModalTitle">联系我们</h2>
+        <p data-i18n="contactModalContent">如果您在使用 NIHILISTIC AI 的过程中有任何问题或建议，欢迎随时与我们联系！<br><br>
         <b>产品反馈与建议：</b>我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈。<br>
         <b>技术支持：</b>遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决。<br><br>
         您可以通过以下方式联系我们：<br>
@@ -294,8 +330,8 @@
     <div id="services-modal" class="modal" style="display:none;">
       <div class="modal-content">
         <span class="close" id="services-modal-close">&times;</span>
-        <h2>我们的服务</h2>
-        <ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;">
+        <h2 data-i18n="servicesModalTitle">我们的服务</h2>
+        <ul data-i18n="servicesModalContent" style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;">
           <li><b>AI图片生成：</b>输入描述文本，智能生成高质量、多风格的图片，支持多种分辨率和比例选择。</li>
           <li><b>AI语音生成：</b>输入文本，一键生成自然流畅的语音音频，适用于配音、播报等多种场景。</li>
           <li><b>智能提示词优化：</b>内置AI优化和翻译功能，自动将您的描述转化为高质量英文提示词，提升生成效果。</li>

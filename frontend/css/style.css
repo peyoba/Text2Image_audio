@@ -1121,20 +1121,25 @@ footer {
     gap: 18px;
     margin-top: 18px;
 }
-.tag {
-    background: #232B45;
-    color: #00CFFF;
-    border-radius: 16px;
-    padding: 7px 22px;
+.tag, .tag-free, .tag-unlimited, .tag-no-login {
+    display: inline-block;
+    background: #262b35;
+    color: #e0e6f6 !important;
+    border-radius: 18px;
+    padding: 6px 22px;
     font-size: 1em;
-    font-weight: 600;
-    letter-spacing: 1px;
-    border: 1.5px solid #2D3650;
-    box-shadow: 0 2px 8px rgba(0,207,255,0.08);
+    font-weight: 500;
+    margin-right: 10px;
+    margin-bottom: 4px;
+    border: 2px solid transparent;
+    transition: border-color 0.2s, color 0.2s;
 }
-.tag-free { color: #00CFFF; }
-.tag-unlimited { color: #AAB4D4; }
-.tag-no-login { color: #AAB4D4; }
+.tag:last-child { margin-right: 0; }
+.tag:hover, .tag-free:hover, .tag-unlimited:hover, .tag-no-login:hover {
+    border-color: #00CFFF;
+    color: #00CFFF !important;
+    cursor: pointer;
+}
 
 /* 主要特性区块 */
 .features-section {
