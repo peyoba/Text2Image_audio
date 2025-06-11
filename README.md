@@ -302,4 +302,14 @@ wrangler deploy
 - UI持续现代化优化
 - 用户账户系统、生成历史、更多风格与参数
 - 移动端体验优化、API统计与监控
-- 详细规划见《dev_plan.md》 
+- 详细规划见《dev_plan.md》
+
+## 🚀 正式上线公告
+
+本项目已于2025年5月正式上线，欢迎访问体验！
+
+- **前端正式地址**：[https://nihilistic.dpdns.org](https://nihilistic.dpdns.org)
+- **后端API入口**：[https://text2image-api.peyoba660703.workers.dev](https://text2image-api.peyoba660703.workers.dev)
+- **GitHub仓库**：[https://github.com/peyoba/Text2Image_audio](https://github.com/peyoba/Text2Image_audio)
+
+所有功能均已在生产环境稳定运行，详细进展见 [status_report.md](./status_report.md)。 

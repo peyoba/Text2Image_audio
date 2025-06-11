@@ -2084,3 +2084,12 @@ Pollinations.AI is open-source software licensed under the [MIT license](LICENSE
 ---
 
 Made with ❤️ by the Pollinations.AI team 💡
+
+---
+
+### 生产环境API Base URL
+
+- https://text2image-api.peyoba660703.workers.dev
+- 或自定义域名：https://nihilistic.dpdns.org/api/...
+
+请优先使用生产环境API进行集成和测试。
