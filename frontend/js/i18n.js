@@ -334,7 +334,7 @@ const i18n = {
         faqQ6: 'What if generation is slow or fails?',
         faqA6: 'During peak times, it may be slower. Please wait patiently or try again later. If it keeps failing, contact support.',
         faqQ7: 'Is there an API available?',
-        faqA7: 'API access is supported. See the developer docs or contact support for API integration.',
+        faqA7: 'Currently, the platform does not provide a public API. Please stay tuned for future updates. For special needs, contact us via the page footer.',
         faqQ8: 'How is user privacy protected?',
         faqA8: 'We do not store your input or generated content. All data is processed in real time to ensure privacy.',
         faqQ9: 'Will there be charges or limits in the future?',
