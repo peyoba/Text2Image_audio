@@ -384,6 +384,30 @@ class UIEnhancements {
             });
         });
     }
+
+    displayImageResult(imageData) {
+        const container = document.getElementById('image-result-container');
+        container.style.display = 'block';
+        
+        // 创建图片元素
+        const img = document.createElement('img');
+        img.src = imageData.imageURL;
+        img.alt = `AI生成的图片 - ${imageData.prompt || '用户描述的内容'}`;
+        img.className = 'generated-image';
+        
+        // 添加图片信息
+        const info = document.createElement('div');
+        info.className = 'image-info';
+        info.innerHTML = `
+            <p>尺寸: ${imageData.width}x${imageData.height}</p>
+            <p>提示词: ${imageData.prompt || '无'}</p>
+        `;
+        
+        // 清空容器并添加新内容
+        container.innerHTML = '';
+        container.appendChild(img);
+        container.appendChild(info);
+    }
 }
 
 // 关于弹窗模块化逻辑
@@ -489,3 +513,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 将类设为全局变量
 window.UIEnhancements = UIEnhancements; 
+
+// 用户评价区块卡片式自动轮播（每次滑动一整张卡片，循环无缝，卡片居中）
+(function() {
+  const wrapper = document.querySelector('.testimonial-carousel-wrapper');
+  const container = wrapper && wrapper.querySelector('.testimonial-cards');
+  if (!container) return;
+  const cards = Array.from(container.children);
+  const cardCount = cards.length;
+  const cardWidth = cards[0].offsetWidth + 18; // 卡片宽度+gap
+  // 克隆前N张卡片到末尾，保证无缝
+  for (let i = 0; i < Math.min(3, cardCount); i++) {
+    const clone = cards[i].cloneNode(true);
+    container.appendChild(clone);
+  }
+  let index = 0;
+  let paused = false;
+  function scrollToIndex(idx, smooth = true) {
+    const offset = idx * cardWidth;
+    container.style.transform = `translateX(${-offset}px)`;
+  }
+  function next() {
+    if (paused) return;
+    index++;
+    scrollToIndex(index);
+    if (index >= cardCount) {
+      setTimeout(() => {
+        container.style.transition = 'none';
+        index = 0;
+        scrollToIndex(index, false);
+        // 强制重绘后恢复动画
+        void container.offsetWidth;
+        container.style.transition = '';
+      }, 700);
+    }
+  }
+  let timer = setInterval(next, 3000);
+  container.style.transition = 'transform 0.7s cubic-bezier(0.4,0,0.2,1)';
+  scrollToIndex(index, false);
+  wrapper.addEventListener('mouseenter', () => { paused = true; });
+  wrapper.addEventListener('mouseleave', () => { paused = false; });
+  // 自动轮播
+  setInterval(() => { if (!paused) next(); }, 3000);
+})(); 

@@ -49,23 +49,22 @@ class UIHandler {
      */
     initLanguageSwitcher() {
         const currentLang = getCurrentLang();
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            const lang = btn.dataset.lang;
-            if (lang === currentLang) {
-                btn.classList.add('active');
-            }
-            btn.addEventListener('click', () => {
-                if (lang !== getCurrentLang()) {
-                    setLanguage(lang);
+        const langSelect = document.getElementById('lang-select');
+        if (langSelect) {
+            langSelect.value = currentLang;
+            langSelect.addEventListener('change', (e) => {
+                if (e.target.value !== getCurrentLang()) {
+                    setLanguage(e.target.value);
                 }
             });
-        });
+        }
     }
 
     /**
      * 更新页面文本
      */
     updatePageText() {
+        // 只保留自定义UI更新逻辑，不再调用window.updatePageText()
         // 更新标题
         document.title = t('title');
         const heroTitle = document.querySelector('.hero-title');
@@ -452,7 +451,7 @@ function displaySingleImage(container, imageData) {
     const img = document.createElement('img');
     img.id = 'generated-image';
     img.src = imageData;
-    img.alt = '生成的图片';
+    img.alt = `AI生成的图片 - ${imageData.prompt || '用户描述的内容'}`;
     
     // 添加图片加载事件
     img.onload = function() {
@@ -495,7 +494,7 @@ function displayMultipleImages(container, imageDataArray) {
     imageDataArray.forEach((imageData, index) => {
         const img = document.createElement('img');
         img.src = imageData;
-        img.alt = `生成的图片 ${index + 1}`;
+        img.alt = `AI生成的图片 ${index + 1} - ${imageData.prompt || '用户描述的内容'}`;
         img.dataset.index = index;
         
         // 点击图片放大查看

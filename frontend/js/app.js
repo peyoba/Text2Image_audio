@@ -7,23 +7,59 @@ class App {
         // document.getElementById('generate-button').disabled = true;
         
         // 添加页面加载完成事件监听
-        // document.addEventListener('DOMContentLoaded', () => {
-        //     this.initializeApp();
-        // });
-        this.initializeApp(); // 直接调用初始化方法
+        document.addEventListener('DOMContentLoaded', () => {
+            this.initializeApp();
+        });
     }
 
     /**
      * 初始化应用
      */
     initializeApp() {
-        console.log('应用初始化完成');
+        console.log('应用初始化开始');
         
         // 检查浏览器兼容性
         this.checkBrowserCompatibility();
         
         // 初始化错误处理
         this.initializeErrorHandling();
+
+        // 初始化语言选择器
+        this.initializeLanguageSelector();
+        
+        // 初始化UI处理器
+        window.uiHandler = new UIHandler();
+        
+        // 初始化UI增强功能
+        window.uiEnhancements = new UIEnhancements();
+
+        console.log('应用初始化完成');
+    }
+
+    /**
+     * 初始化语言选择器
+     */
+    initializeLanguageSelector() {
+        const langSelect = document.getElementById('lang-select');
+        if (langSelect) {
+            // 设置初始值
+            const currentLang = getCurrentLang();
+            langSelect.value = currentLang;
+            console.log('设置语言选择器初始值:', currentLang);
+
+            // 添加事件监听器
+            langSelect.addEventListener('change', (e) => {
+                console.log('语言选择器变化:', e.target.value);
+                const success = setLanguage(e.target.value);
+                if (!success) {
+                    console.error('语言切换失败');
+                    // 恢复原来的选择
+                    langSelect.value = getCurrentLang();
+                }
+            });
+        } else {
+            console.error('未找到语言选择器元素');
+        }
     }
 
     /**
@@ -64,61 +100,10 @@ class App {
     }
 }
 
-// 等待DOM加载完成
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('当前语言:', getCurrentLang()); // 调试：打印当前语言
-
-    // 初始化UI处理器
-    window.uiHandler = new UIHandler();
-    
-    // 初始化UI增强功能
-    window.uiEnhancements = new UIEnhancements();
-    
-    // 初始化语言切换按钮
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        const lang = btn.dataset.lang;
-        console.log('按钮语言:', lang); // 调试：打印按钮语言
-
-        // 设置当前语言的按钮状态
-        if (lang === getCurrentLang()) {
-            btn.classList.add('active');
-            document.documentElement.lang = lang; // 更新HTML lang属性
-        } else {
-            btn.classList.remove('active');
-        }
-
-        // 移除旧的事件监听器（如果有）
-        btn.removeEventListener('click', handleLangButtonClick);
-        // 添加新的事件监听器
-        btn.addEventListener('click', handleLangButtonClick);
-    });
-
-    // 调试：监听localStorage变化
-    window.addEventListener('storage', (e) => {
-        console.log('localStorage变化:', e);
-    });
-});
-
-// 语言切换按钮点击处理函数
-function handleLangButtonClick(e) {
-    e.preventDefault();
-    const lang = e.target.dataset.lang;
-    console.log('点击语言按钮:', lang); // 调试：打印点击事件
-    
-    if (lang !== getCurrentLang()) {
-        // 更新按钮状态
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        e.target.classList.add('active');
-        
-        // 更新语言
-        console.log('切换语言到:', lang); // 调试：打印语言切换
-        localStorage.setItem('preferred_language', lang);
-        document.documentElement.lang = lang;
-        window.location.reload();
-    }
-}
-
 // 创建应用实例
-const app = new App(); 
+const app = new App();
+
+// 调试：监听localStorage变化
+window.addEventListener('storage', (e) => {
+    console.log('localStorage变化:', e);
+}); 

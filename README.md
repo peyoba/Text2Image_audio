@@ -4,14 +4,14 @@
 
 - **Cloudflare 项目ID/仓库名**：`Text2Image_audio`
   - 用于本地文件夹、GitHub仓库、Cloudflare Pages/Workers 的真实项目名。
-- **网站品牌名/展示名**：`Nihilistic AI`
+- **网站品牌名/展示名**：`AISTONE`
   - 仅用于前端页面、LOGO、UI展示，不参与任何Cloudflare命令或控制台操作。
 - **Cloudflare Pages 项目名**：应为 `Text2Image_audio`（或你在Cloudflare Pages控制台自定义的名字）。
   - 部署命令：
     ```powershell
     npx wrangler pages deploy ./frontend --project-name Text2Image_audio
     ```
-  - 不能用 `nihilistic-ai`，除非Cloudflare控制台真的有这个项目。
+  - 不能用 `aistone-ai`，除非Cloudflare控制台真的有这个项目。
 - **Cloudflare Worker 名称**：`text2image-api`
   - 由 `wrangler.toml` 的 `name` 字段决定。
   - 部署命令：
@@ -308,7 +308,7 @@ wrangler deploy
 
 本项目已于2025年5月正式上线，欢迎访问体验！
 
-- **前端正式地址**：[https://nihilistic.dpdns.org](https://nihilistic.dpdns.org)
+- **前端正式地址**：[https://aistone.dpdns.org](https://aistone.dpdns.org)
 - **后端API入口**：[https://text2image-api.peyoba660703.workers.dev](https://text2image-api.peyoba660703.workers.dev)
 - **GitHub仓库**：[https://github.com/peyoba/Text2Image_audio](https://github.com/peyoba/Text2Image_audio)
 

@@ -5,7 +5,7 @@
 const i18n = {
     zh: {
         // 标题和描述
-        title: 'Nihilistic AI',
+        title: 'AISTONE',
         subtitle: '图片·语音·无限免费生成',
         
         // 输入区域
@@ -111,7 +111,7 @@ const i18n = {
         navLogin: '登录',
 
         // 主要特性区块
-        featuresTitle: 'NIHILISTIC AI 的主要特性',
+        featuresTitle: 'AISTONE 的主要特性',
         features: [
             { icon: '💸', title: '零成本创作', desc: '完全免费，无需注册，无限生成。' },
             { icon: '🧠', title: '最先进的质量', desc: '高分辨率，细节丰富，艺术风格多样。' },
@@ -123,7 +123,7 @@ const i18n = {
         generationResult: '生成结果',
 
         // Footer
-        footerCopyright: '© 2025 NIHILISTIC AI',
+        footerCopyright: '© 2025 AISTONE',
         footerLinks: [
             { text: '隐私政策', url: '#' },
             { text: '服务条款', url: '#' }
@@ -131,22 +131,22 @@ const i18n = {
 
         // 弹窗内容
         aboutModal: {
-            title: '关于 NIHILISTIC AI',
-            content: 'NIHILISTIC AI 是一个集成了文本生成图片与语音的智能工具平台，致力于为用户提供高效、便捷、免费的AI内容创作体验。<br><br>无论你是设计师、内容创作者，还是普通用户，只需输入一句描述，就能一键生成高质量的图片或语音。平台支持中英文输入，内置智能优化和多种生成参数，满足多样化的创作需求。<br><br>本项目基于先进的AI模型，结合云端算力，保证生成速度与质量。所有功能永久免费开放，界面简洁友好，适配多终端设备，助力每一位用户释放创意灵感。'
+            title: '关于 AISTONE',
+            content: 'AISTONE 是一个集成了文本生成图片与语音的智能工具平台，致力于为用户提供高效、便捷、免费的AI内容创作体验。<br><br>无论你是设计师、内容创作者，还是普通用户，只需输入一句描述，就能一键生成高质量的图片或语音。平台支持中英文输入，内置智能优化和多种生成参数，满足多样化的创作需求。<br><br>本项目基于先进的AI模型，结合云端算力，保证生成速度与质量。所有功能永久免费开放，界面简洁友好，适配多终端设备，助力每一位用户释放创意灵感。'
         },
         contactModal: {
             title: '联系我们',
-            content: '如果您在使用 NIHILISTIC AI 的过程中有任何问题或建议，欢迎随时与我们联系！<br><br><b>产品反馈与建议：</b>我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈。<br><b>技术支持：</b>遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决。<br><br>您可以通过以下方式联系我们：<br>邮箱：<a href="mailto:support@nihilisticai.com">support@nihilisticai.com</a><br>官方网站：<a href="https://nihilisticai.com" target="_blank">https://nihilisticai.com</a><br><br>我们会在1-2个工作日内回复您的信息。感谢您的关注与支持！'
+            content: '如果您在使用 AISTONE 的过程中有任何问题或建议，欢迎随时与我们联系！<br><br><b>产品反馈与建议：</b>我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈。<br><b>技术支持：</b>遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决。<br><br>您可以通过以下方式联系我们：<br>邮箱：<a href="mailto:support@aistone.org">support@aistone.org</a><br>官方网站：<a href="https://aistone.org" target="_blank">https://aistone.org</a><br><br>我们会在1-2个工作日内回复您的信息。感谢您的关注与支持！'
         },
         servicesModal: {
             title: '我们的服务',
             content: '<ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;"><li><b>AI图片生成：</b>输入描述文本，智能生成高质量、多风格的图片，支持多种分辨率和比例选择。</li><li><b>AI语音生成：</b>输入文本，一键生成自然流畅的语音音频，适用于配音、播报等多种场景。</li><li><b>智能提示词优化：</b>内置AI优化和翻译功能，自动将您的描述转化为高质量英文提示词，提升生成效果。</li><li><b>多语言支持：</b>支持中文和英文界面，满足全球用户需求。</li><li><b>永久免费：</b>所有功能对用户永久免费，无需注册，无使用次数限制。</li></ul><div style="margin-top: 12px; color: #AAB4D4;">如需了解更多服务细节，欢迎通过"联系我们"与我们取得联系。</div>'
         },
-        heroTitle: 'NIHILISTIC AI - 免费AI图片生成与语音合成平台',
+        heroTitle: 'AISTONE - 免费AI图片生成与语音合成平台',
         heroSubtitle: '图片·语音·无限免费生成',
         heroSlogan: 'AI驱动·一键生成·释放你的创意！',
         faqTitle: '常见问题 FAQ',
-        faqQ1: 'NIHILISTIC AI 是否永久免费？',
+        faqQ1: 'AISTONE 是否永久免费？',
         faqA1: '是的，平台所有功能永久免费，无需注册，无次数限制。',
         faqQ2: '使用平台需要登录吗？',
         faqA2: '无需登录，直接输入描述即可生成图片或语音。',
@@ -155,11 +155,11 @@ const i18n = {
         faqQ4: '生成的内容有版权吗？',
         faqA4: 'AI生成内容归用户所有，可自由使用。',
         faqQ5: '如何反馈问题或建议？',
-        faqA5: '可通过页面底部的联系方式或邮箱 support@nihilisticai.com 反馈。',
-        aboutModalTitle: '关于 NIHILISTIC AI',
-        aboutModalContent: 'NIHILISTIC AI 是一个集成了文本生成图片与语音的智能工具平台，致力于为用户提供高效、便捷、免费的AI内容创作体验。<br><br>无论你是设计师、内容创作者，还是普通用户，只需输入一句描述，就能一键生成高质量的图片或语音。平台支持中英文输入，内置智能优化和多种生成参数，满足多样化的创作需求。<br><br>本项目基于先进的AI模型，结合云端算力，保证生成速度与质量。所有功能永久免费开放，界面简洁友好，适配多终端设备，助力每一位用户释放创意灵感。',
+        faqA5: '可通过页面底部的联系方式或邮箱 support@aistone.org 反馈。',
+        aboutModalTitle: '关于 AISTONE',
+        aboutModalContent: 'AISTONE 是一个集成了文本生成图片与语音的智能工具平台，致力于为用户提供高效、便捷、免费的AI内容创作体验。<br><br>无论你是设计师、内容创作者，还是普通用户，只需输入一句描述，就能一键生成高质量的图片或语音。平台支持中英文输入，内置智能优化和多种生成参数，满足多样化的创作需求。<br><br>本项目基于先进的AI模型，结合云端算力，保证生成速度与质量。所有功能永久免费开放，界面简洁友好，适配多终端设备，助力每一位用户释放创意灵感。',
         contactModalTitle: '联系我们',
-        contactModalContent: '如果您在使用 NIHILISTIC AI 的过程中有任何问题或建议，欢迎随时与我们联系！<br><br><b>产品反馈与建议：</b>我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈。<br><b>技术支持：</b>遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决。<br><br>您可以通过以下方式联系我们：<br>邮箱：<a href="mailto:support@nihilisticai.com">support@nihilisticai.com</a><br>官方网站：<a href="https://nihilisticai.com" target="_blank">https://nihilisticai.com</a><br><br>我们会在1-2个工作日内回复您的信息。感谢您的关注与支持！',
+        contactModalContent: '如果您在使用 AISTONE 的过程中有任何问题或建议，欢迎随时与我们联系！<br><br><b>产品反馈与建议：</b>我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈。<br><b>技术支持：</b>遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决。<br><br>您可以通过以下方式联系我们：<br>邮箱：<a href="mailto:support@aistone.org">support@aistone.org</a><br>官方网站：<a href="https://aistone.org" target="_blank">https://aistone.org</a><br><br>我们会在1-2个工作日内回复您的信息。感谢您的关注与支持！',
         servicesModalTitle: '我们的服务',
         servicesModalContent: '<ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;"><li><b>AI图片生成：</b>输入描述文本，智能生成高质量、多风格的图片，支持多种分辨率和比例选择。</li><li><b>AI语音生成：</b>输入文本，一键生成自然流畅的语音音频，适用于配音、播报等多种场景。</li><li><b>智能提示词优化：</b>内置AI优化和翻译功能，自动将您的描述转化为高质量英文提示词，提升生成效果。</li><li><b>多语言支持：</b>支持中文和英文界面，满足全球用户需求。</li><li><b>永久免费：</b>所有功能对用户永久免费，无需注册，无使用次数限制。</li></ul><div style="margin-top: 12px; color: #AAB4D4;">如需了解更多服务细节，欢迎通过"联系我们"与我们取得联系。</div>',
         tagFree: '100% 免费',
@@ -176,21 +176,38 @@ const i18n = {
         faqA9: '目前永久免费，无次数限制。如有变动会提前公告。',
         faqQ10: '如何加入交流群或获取最新动态？',
         faqA10: '可关注官网、公众号或联系客服，获取交流群二维码和最新资讯。',
+        heroIntro: 'AISTONE 是一个集AI图片生成与语音合成于一体的智能创作平台，支持中英文输入，永久免费，无需注册。无论你是设计师、内容创作者还是普通用户，只需一句描述，即可一键生成高质量图片和自然语音，释放无限创意。平台注重隐私保护，所有内容实时生成不留存，助力每一位用户高效创作、自由分享。',
+        testimonialsTitle: '用户评价与真实案例',
+        testimonialName1: 'Sarah Chen',
+        testimonialRole1: '插画师',
+        testimonialContent1: '“平台生成的插画非常精美，极大提升了我的设计效率！”',
+        testimonialName2: 'Alex Wang',
+        testimonialRole2: '短视频创作者',
+        testimonialContent2: '“AI语音自然流畅，直接用于我的短视频配音。”',
+        testimonialName3: '李明',
+        testimonialRole3: '独立开发者',
+        testimonialContent3: '“一键生成图片和语音，创作效率翻倍，强烈推荐！”',
+        testimonialName4: 'Emily Zhang',
+        testimonialRole4: '产品经理',
+        testimonialContent4: '“AI内容生成工具极大提升了团队的创意产出效率。”',
+        testimonialName5: 'Tom Lee',
+        testimonialRole5: '自媒体人',
+        testimonialContent5: '“生成速度快，内容质量高，值得推荐！”',
     },
     
     en: {
         // Title and description
-        title: 'Nihilistic AI',
-        subtitle: 'Images · Audio · Unlimited Free Generation',
+        title: 'AISTONE',
+        subtitle: 'Image · Audio · Unlimited Free Generation',
         
         // Input area
         inputTitle: 'Input Content',
-        examplesTitle: '💡 Click an example to quickly fill in:',
+        examplesTitle: '💡 Click examples to quickly fill:',
         inputPlaceholder: 'Enter description text, e.g.: A cute cat playing on the grass...',
-        generateButton: 'Generate',
+        generateButton: 'Start Generation',
         quickFillLabel: 'Quick Fill Examples:',
-        smartOptimizeTip: '✨ Smart Optimize: Automatically translate and optimize descriptions into high-quality English prompts to enhance image results.',
-        negativePromptLabel: 'Negative Prompts:',
+        smartOptimizeTip: '✨ Smart Optimization: Automatically translates and optimizes descriptions into high-quality English prompts',
+        negativePromptLabel: 'Negative Prompt:',
         negativePromptPlaceholder: 'Enter unwanted elements, separated by commas',
         
         // Generation type
@@ -210,7 +227,7 @@ const i18n = {
         width: 'Width',
         height: 'Height',
         noLogo: 'Remove Watermark',
-        numImages: 'Number of Images',
+        numImages: 'Quantity',
         oneImage: '1 Image',
         twoImages: '2 Images',
         fourImages: '4 Images',
@@ -228,129 +245,146 @@ const i18n = {
         audioGenerating: 'Generating audio, please wait...',
         error: 'An error occurred',
         pleaseInput: 'Please enter description text before generating.',
-        optimizationSuccess: '✨ Prompt optimization complete!',
+        optimizationSuccess: '✨ Prompt optimization completed!',
         optimizationFailed: 'Optimization failed, please try again later',
         pleaseInputFirst: 'Please enter text content first',
         generationComplete: 'Generation complete!',
         generating: 'Generating...',
         
         // Example hints
-        imageHint: '💡 Image generation supports various sizes and quantities',
+        imageHint: '💡 Image generation supports multiple sizes and quantities',
         audioHint: '🎵 Audio generation supports playback and download',
         
         // Example buttons
         examples: {
-            cat: { name: '🐱 Cute Cat', text: 'A cute cat playing on the grass, sunny day, HD photography', type: 'image' },
-            city: { name: '🌃 Tech City', text: 'Futuristic city night view, neon lights, cyberpunk style, ultra HD', type: 'image' },
-            beauty: { name: '🌸 Traditional Beauty', text: 'Traditional Chinese beauty, flowing Hanfu, peach blossoms, detailed illustration', type: 'image' },
-            dragon: { name: '🐉 Epic Dragon', text: 'A fierce dragon hovers over a volcano, lava flowing, epic sense', type: 'image' },
-            lake: { name: '🏞️ Snowy Mountain Lake', text: 'A tranquil lake reflects snowy mountains and forests, dusk, oil painting style', type: 'image' },
-            welcome: { name: '🎵 Welcome', text: 'Welcome to the AI Content Generator, hope you create amazing works', type: 'audio' },
-            weather: { name: '🌦️ Weather', text: "It's a beautiful day, perfect for a walk and taking photos", type: 'audio' },
-            forest: { name: '🌲 Magic Forest', text: 'Dreamy forest, fairies flying, magical light, fantasy landscape', type: 'image' },
-            mountain: { name: '⛰️ Starry Mountain', text: 'Mountain under starry sky, brilliant Milky Way, stunning photography', type: 'image' },
-            robot: { name: '🤖 Mech Punk', text: 'Mechanical punk robot, metallic texture, steampunk style, industrial aesthetics', type: 'image' },
-            thanks: { name: '🙏 Thanks', text: 'Thank you for using our service, wish you happiness and success', type: 'audio' },
-            garden: { name: '🌸 Japanese Garden', text: 'Japanese garden with falling cherry blossoms, peaceful and elegant, ink painting style', type: 'image' }
+            cat: { name: '🐱 Cute Cat', text: 'A cute cat playing on the grass, sunny day, high quality photography', type: 'image' },
+            city: { name: '🌃 Tech City', text: 'Futuristic city night scene, neon lights, cyberpunk style, ultra HD', type: 'image' },
+            beauty: { name: '🌸 Ancient Beauty', text: 'Ancient beauty in Hanfu, cherry blossoms, Chinese style illustration', type: 'image' },
+            dragon: { name: '🐉 Epic Dragon', text: 'A fierce dragon circling above a volcano, lava flowing, epic scene', type: 'image' },
+            lake: { name: '🏞️ Mountain Lake', text: 'Peaceful lake reflecting mountains and forest, sunset, oil painting style', type: 'image' },
+            welcome: { name: '🎵 Welcome Audio', text: 'Welcome to the AI content generator, hope you create amazing works', type: 'audio' },
+            weather: { name: '🌦️ Weather Report', text: 'The weather is great today, perfect for walking and taking photos', type: 'audio' },
+            forest: { name: '🌲 Magic Forest', text: 'Dreamy forest with fairies, magical lights, fantasy landscape', type: 'image' },
+            mountain: { name: '⛰️ Starry Mountain', text: 'Mountain under starry sky, Milky Way, photography, stunning visuals', type: 'image' },
+            robot: { name: '🤖 Steampunk Robot', text: 'Steampunk robot, metallic texture, industrial aesthetics', type: 'image' },
+            thanks: { name: '🙏 Thank You Audio', text: 'Thank you for using our service, wish you a happy life and successful work', type: 'audio' },
+            garden: { name: '🌸 Japanese Garden', text: 'Japanese garden with falling cherry blossoms, peaceful and beautiful, ink painting style', type: 'image' }
         },
 
-        // Usage tips
+        // Tips
         tips: {
             example: '💡 Try clicking example buttons to quickly fill content',
-            optimize: '✨ Use "Optimize" button to enhance AI generation',
+            optimize: '✨ Use "Optimize" button to improve AI generation results',
             random: '🎲 Click "Random" button for inspiration',
-            imageSize: '🖼️ Image generation supports various aspect ratios',
-            audio: '🎵 Audio generation supports download'
+            imageSize: '🖼️ Image generation supports multiple aspect ratios',
+            audio: '🎵 Audio generation supports download feature'
         },
 
-        // Result operations
+        // Result actions
         download: 'Download',
         copy: 'Copy',
         view: 'View',
         close: 'Close',
 
-        // Added: Inspiration Gallery
+        // Inspiration section
         inspirationTitle: '🎨 Inspiration Gallery',
         inspirationExamples: {
-            forest: 'Mystic Forest',
+            forest: 'Magic Forest',
             city: 'Future City',
             cottage: 'Fairy Tale Cottage',
             cyberpunk: 'Cyberpunk'
         },
 
-        // Navbar
+        // Navigation
         navHome: 'Home',
         navAbout: 'About',
         navServices: 'Services',
         navContact: 'Contact',
         navLogin: 'Login',
 
-        // Features section
-        featuresTitle: 'NIHILISTIC AI FEATURES',
+        // Main features section
+        featuresTitle: 'Key Features of AISTONE',
         features: [
             { icon: '💸', title: 'Zero Cost Creation', desc: 'Completely free, no registration, unlimited generation.' },
-            { icon: '🧠', title: 'Cutting-edge Quality', desc: 'High resolution, rich details, diverse art styles.' },
+            { icon: '🧠', title: 'State-of-the-art Quality', desc: 'High resolution, rich details, diverse artistic styles.' },
             { icon: '⚡', title: 'Lightning Fast', desc: 'Optimized inference pipeline, fast generation without quality loss.' },
             { icon: '🔒', title: 'Privacy Protection', desc: 'Zero data retention, generated content not stored.' },
-            { icon: '🌐', title: 'Multilingual Support', desc: 'Supports Chinese and English interface, available globally.' },
-            { icon: '🎨', title: 'Multi-style Support', desc: 'Cross art styles: photo, illustration, anime, etc.' }
+            { icon: '🌐', title: 'Multi-language Support', desc: 'Supports Chinese and English interfaces, globally available.' },
+            { icon: '🎨', title: 'Multi-style Support', desc: 'Across artistic styles, photos, illustrations, anime, etc.' }
         ],
         generationResult: 'Generation Result',
 
         // Footer
-        footerCopyright: '© 2025 NIHILISTIC AI',
+        footerCopyright: '© 2025 AISTONE',
         footerLinks: [
             { text: 'Privacy Policy', url: '#' },
             { text: 'Terms of Service', url: '#' }
         ],
 
-        // 弹窗内容
+        // Modal content
         aboutModal: {
-            title: 'About NIHILISTIC AI',
-            content: 'NIHILISTIC AI is an integrated platform for text-to-image and text-to-speech generation, dedicated to providing users with efficient, convenient, and free AI content creation. <br><br>Whether you are a designer, content creator, or an ordinary user, you can generate high-quality images or audio with just a single description. The platform supports both Chinese and English input, built-in prompt optimization, and multiple generation parameters to meet diverse creative needs.<br><br>This project is based on advanced AI models and cloud computing, ensuring both speed and quality. All features are permanently free, with a clean interface and multi-device support to inspire every user.'
+            title: 'About AISTONE',
+            content: 'AISTONE is an intelligent tool platform integrating text-to-image and text-to-speech generation, dedicated to providing users with efficient, convenient, and free AI content creation experience.<br><br>Whether you are a designer, content creator, or regular user, just input a description to generate high-quality images or audio with one click. The platform supports Chinese and English input, built-in intelligent optimization and various generation parameters to meet diverse creation needs.<br><br>This project is based on advanced AI models, combined with cloud computing power, ensuring generation speed and quality. All features are permanently free, with a clean and friendly interface, compatible with multiple devices, helping every user unleash their creative inspiration.'
         },
         contactModal: {
             title: 'Contact Us',
-            content: 'If you have any questions or suggestions while using NIHILISTIC AI, feel free to contact us!<br><br><b>Product Feedback:</b> We value your experience and opinions. Any feature suggestions or improvement ideas are welcome.<br><b>Technical Support:</b> If you encounter technical issues or obstacles, please describe your problem in detail and we will assist you as soon as possible.<br><br>You can contact us via:<br>Email: <a href="mailto:support@nihilisticai.com">support@nihilisticai.com</a><br>Official Website: <a href="https://nihilisticai.com" target="_blank">https://nihilisticai.com</a><br><br>We will reply within 1-2 business days. Thank you for your attention and support!'
+            content: 'If you have any questions or suggestions while using AISTONE, feel free to contact us!<br><br><b>Product Feedback & Suggestions:</b> We highly value your experience and opinions, any feature suggestions or improvement ideas are welcome.<br><b>Technical Support:</b> If you encounter technical issues or usage obstacles, please describe your problem in detail, and we will assist you as soon as possible.<br><br>You can contact us through:<br>Email: <a href="mailto:support@aistone.org">support@aistone.org</a><br>Official Website: <a href="https://aistone.org" target="_blank">https://aistone.org</a><br><br>We will reply to your message within 1-2 business days. Thank you for your attention and support!'
         },
         servicesModal: {
             title: 'Our Services',
-            content: '<ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;"><li><b>AI Image Generation:</b> Enter a description to generate high-quality, multi-style images with various resolutions and aspect ratios.</li><li><b>AI Speech Generation:</b> Enter text to generate natural and fluent audio, suitable for dubbing, broadcasting, and more.</li><li><b>Prompt Optimization:</b> Built-in AI optimization and translation, automatically converting your description into high-quality English prompts for better results.</li><li><b>Multi-language Support:</b> Supports both Chinese and English interfaces for global users.</li><li><b>Permanently Free:</b> All features are free for users, no registration or usage limits.</li></ul><div style="margin-top: 12px; color: #AAB4D4;">For more service details, feel free to contact us via "Contact Us".</div>'
+            content: '<ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;"><li><b>AI Image Generation:</b> Input description text to intelligently generate high-quality, multi-style images, supporting various resolutions and aspect ratios.</li><li><b>AI Audio Generation:</b> Input text to generate natural and fluent audio with one click, suitable for dubbing, broadcasting, and other scenarios.</li><li><b>Smart Prompt Optimization:</b> Built-in AI optimization and translation features, automatically converting your descriptions into high-quality English prompts to improve generation results.</li><li><b>Multi-language Support:</b> Supports Chinese and English interfaces to meet global user needs.</li><li><b>Permanently Free:</b> All features are permanently free for users, no registration required, no usage limits.</li></ul><div style="margin-top: 12px; color: #AAB4D4;">For more service details, please contact us through "Contact Us".</div>'
         },
-        heroTitle: 'NIHILISTIC AI - Free Text to Image & Audio Platform',
-        heroSubtitle: 'Images · Audio · Unlimited Free Generation',
-        heroSlogan: 'AI-powered · One-click Generation · Unleash Your Creativity!',
-        faqTitle: 'FAQ',
-        faqQ1: 'Is NIHILISTIC AI always free?',
-        faqA1: 'Yes, all features are permanently free, no registration or usage limits.',
+        heroTitle: 'AISTONE - Free AI Image Generation & Audio Synthesis Platform',
+        heroSubtitle: 'Image · Audio · Unlimited Free Generation',
+        heroSlogan: 'AI-Driven · One-Click Generation · Unleash Your Creativity!',
+        faqTitle: 'Frequently Asked Questions',
+        faqQ1: 'Is AISTONE permanently free?',
+        faqA1: 'Yes, all platform features are permanently free, no registration required, no usage limits.',
         faqQ2: 'Do I need to log in to use the platform?',
-        faqA2: 'No login required, just enter your description to generate images or audio.',
-        faqQ3: 'Which input languages are supported?',
-        faqA3: 'Both Chinese and English are supported, and the interface is switchable.',
-        faqQ4: 'Do I own the copyright of generated content?',
-        faqA4: 'All AI-generated content belongs to the user and can be used freely.',
-        faqQ5: 'What image styles and resolutions are supported?',
-        faqA5: 'Supports various art styles (photorealistic, illustration, anime, etc.) and multiple resolutions, all customizable.',
-        faqQ6: 'What if generation is slow or fails?',
-        faqA6: 'During peak times, it may be slower. Please wait patiently or try again later. If it keeps failing, contact support.',
-        faqQ7: 'Is there an API available?',
-        faqA7: 'Currently, the platform does not provide a public API. Please stay tuned for future updates. For special needs, contact us via the page footer.',
-        faqQ8: 'How is user privacy protected?',
-        faqA8: 'We do not store your input or generated content. All data is processed in real time to ensure privacy.',
-        faqQ9: 'Will there be charges or limits in the future?',
-        faqA9: 'Currently it is permanently free with no usage limits. Any changes will be announced in advance.',
-        faqQ10: 'How to join the user group or get updates?',
-        faqA10: 'Follow our website, official account, or contact support to get the group QR code and latest news.',
-        aboutModalTitle: 'About NIHILISTIC AI',
-        aboutModalContent: 'NIHILISTIC AI is an intelligent tool platform integrating text-to-image and text-to-audio generation, dedicated to providing users with efficient, convenient, and free AI content creation experience.<br><br>Whether you are a designer, content creator, or ordinary user, just enter a description and you can generate high-quality images or audio with one click. The platform supports both Chinese and English input, built-in smart optimization and various generation parameters to meet diverse creative needs.<br><br>This project is based on advanced AI models and cloud computing power to ensure generation speed and quality. All features are permanently free, the interface is simple and friendly, and adapts to multiple devices, helping every user unleash their creative inspiration.',
+        faqA2: 'No login required, just input your description to generate images or audio.',
+        faqQ3: 'What input languages are supported?',
+        faqA3: 'Supports Chinese and English input, interface can be switched.',
+        faqQ4: 'Who owns the copyright of generated content?',
+        faqA4: 'AI-generated content belongs to the user and can be used freely.',
+        faqQ5: 'How can I provide feedback or suggestions?',
+        faqA5: 'You can contact us through the contact information at the bottom of the page or email support@aistone.org.',
+        aboutModalTitle: 'About AISTONE',
+        aboutModalContent: 'AISTONE is an intelligent tool platform integrating text-to-image and text-to-speech generation, dedicated to providing users with efficient, convenient, and free AI content creation experience.<br><br>Whether you are a designer, content creator, or regular user, just input a description to generate high-quality images or audio with one click. The platform supports Chinese and English input, built-in intelligent optimization and various generation parameters to meet diverse creation needs.<br><br>This project is based on advanced AI models, combined with cloud computing power, ensuring generation speed and quality. All features are permanently free, with a clean and friendly interface, compatible with multiple devices, helping every user unleash their creative inspiration.',
         contactModalTitle: 'Contact Us',
-        contactModalContent: 'If you have any questions or suggestions while using NIHILISTIC AI, feel free to contact us at any time!<br><br><b>Product Feedback & Suggestions:</b> We value your experience and opinions, and welcome any feature suggestions or improvement ideas.<br><b>Technical Support:</b> If you encounter technical problems or usage obstacles, please describe your issue in detail and we will assist you as soon as possible.<br><br>You can contact us via:<br>Email: <a href="mailto:support@nihilisticai.com">support@nihilisticai.com</a><br>Official Website: <a href="https://nihilisticai.com" target="_blank">https://nihilisticai.com</a><br><br>We will reply within 1-2 business days. Thank you for your attention and support!',
+        contactModalContent: 'If you have any questions or suggestions while using AISTONE, feel free to contact us!<br><br><b>Product Feedback & Suggestions:</b> We highly value your experience and opinions, any feature suggestions or improvement ideas are welcome.<br><b>Technical Support:</b> If you encounter technical issues or usage obstacles, please describe your problem in detail, and we will assist you as soon as possible.<br><br>You can contact us through:<br>Email: <a href="mailto:support@aistone.org">support@aistone.org</a><br>Official Website: <a href="https://aistone.org" target="_blank">https://aistone.org</a><br><br>We will reply to your message within 1-2 business days. Thank you for your attention and support!',
         servicesModalTitle: 'Our Services',
-        servicesModalContent: '<ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;"><li><b>AI Image Generation:</b> Enter a description to intelligently generate high-quality, multi-style images, supporting various resolutions and aspect ratios.</li><li><b>AI Audio Generation:</b> Enter text to generate natural and smooth audio with one click, suitable for dubbing, broadcasting, and more.</li><li><b>Smart Prompt Optimization:</b> Built-in AI optimization and translation, automatically converting your description into high-quality English prompts for better results.</li><li><b>Multi-language Support:</b> Supports both Chinese and English interfaces for global users.</li><li><b>Permanently Free:</b> All features are free for users, no registration or usage limits.</li></ul><div style="margin-top: 12px; color: #AAB4D4;">For more service details, please contact us via "Contact Us".</div>',
+        servicesModalContent: '<ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;"><li><b>AI Image Generation:</b> Input description text to intelligently generate high-quality, multi-style images, supporting various resolutions and aspect ratios.</li><li><b>AI Audio Generation:</b> Input text to generate natural and fluent audio with one click, suitable for dubbing, broadcasting, and other scenarios.</li><li><b>Smart Prompt Optimization:</b> Built-in AI optimization and translation features, automatically converting your descriptions into high-quality English prompts to improve generation results.</li><li><b>Multi-language Support:</b> Supports Chinese and English interfaces to meet global user needs.</li><li><b>Permanently Free:</b> All features are permanently free for users, no registration required, no usage limits.</li></ul><div style="margin-top: 12px; color: #AAB4D4;">For more service details, please contact us through "Contact Us".</div>',
         tagFree: '100% Free',
         tagUnlimited: 'Unlimited Generation',
         tagNoLogin: 'No Login Required',
-        faqTip: 'For more questions, please contact us via the page footer',
+        faqTip: 'For more questions, please contact us through the bottom of the page',
+        faqQ6: 'What if generation is slow or fails?',
+        faqA6: 'It may be slower during peak hours, please be patient or try again later. If it continues to fail, please contact customer service.',
+        faqQ7: 'Does the platform have an API?',
+        faqA7: 'API calls are supported, see development documentation or contact customer service for API access.',
+        faqQ8: 'How is user privacy protected?',
+        faqA8: 'The platform does not store user input and generated content, all data is processed in real-time to ensure privacy and security.',
+        faqQ9: 'Will there be charges or limits in the future?',
+        faqA9: 'Currently permanently free with no usage limits. Any changes will be announced in advance.',
+        faqQ10: 'How to join the community or get latest updates?',
+        faqA10: 'Follow the official website, public account, or contact customer service for community QR code and latest news.',
+        heroIntro: 'AISTONE is an intelligent creation platform integrating AI image generation and audio synthesis, supporting Chinese and English input, permanently free, no registration required. Whether you are a designer, content creator, or regular user, just input a description to generate high-quality images and natural audio with one click, unleashing unlimited creativity. The platform focuses on privacy protection, all content is generated in real-time without storage, helping every user create efficiently and share freely.',
+        testimonialsTitle: 'User Reviews & Real Cases',
+        testimonialName1: 'Sarah Chen',
+        testimonialRole1: 'Illustrator',
+        testimonialContent1: '"The platform generates beautiful illustrations, greatly improving my design efficiency!"',
+        testimonialName2: 'Alex Wang',
+        testimonialRole2: 'Short Video Creator',
+        testimonialContent2: '"The AI audio is natural and fluent, directly used for my short video dubbing."',
+        testimonialName3: 'Li Ming',
+        testimonialRole3: 'Independent Developer',
+        testimonialContent3: '"One-click generation of images and audio, creative efficiency doubled, highly recommended!"',
+        testimonialName4: 'Emily Zhang',
+        testimonialRole4: 'Product Manager',
+        testimonialContent4: '"The AI content generation tool greatly improves the team\'s creative output efficiency."',
+        testimonialName5: 'Tom Lee',
+        testimonialRole5: 'Content Creator',
+        testimonialContent5: '"Fast generation speed, high content quality, worth recommending!"'
     }
 };
 
@@ -364,36 +398,115 @@ function getCurrentLang() {
 // 更新语言切换按钮状态
 function updateLanguageButtons() {
     const currentLang = getCurrentLang();
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        if (btn.dataset.lang === currentLang) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
+    const langSelect = document.getElementById('lang-select');
+    if (langSelect) {
+        langSelect.value = currentLang;
+    }
 }
 
 // 设置语言
 function setLanguage(lang) {
-    console.log('设置语言:', lang); // 调试日志
+    console.log('[i18n] setLanguage called, lang=', lang);
     if (i18n[lang]) {
+        try {
+            // 保存语言设置
         localStorage.setItem('preferred_language', lang);
-        console.log('语言已保存到localStorage'); // 调试日志
+            document.documentElement.lang = lang;
+            console.log('[i18n] 语言已保存到localStorage:', lang);
+            
+            // 更新所有带有data-i18n属性的元素
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang][key] !== undefined) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = i18n[lang][key];
+                    } else if (el.tagName === 'OPTION') {
+                        el.textContent = i18n[lang][key];
+                    } else {
+                        el.innerHTML = i18n[lang][key];
+                    }
+                    console.log(`[i18n] 已更新元素 [data-i18n=${key}]`);
+                } else {
+                    console.warn(`[i18n] 未找到翻译键: ${key}`);
+                }
+            });
+
+            // 更新特定元素
+            const elements = {
+                'title': 'title',
+                'heroTitle': '.hero-title',
+                'heroSubtitle': '.hero-subtitle',
+                'heroSlogan': '.hero-slogan',
+                'heroIntro': '.hero-intro',
+                'inputTitle': '.input-section h2',
+                'quickFillLabel': '.examples-label',
+                'negativePromptLabel': '.negative-prompt h3',
+                'generationType': '.options h3',
+                'typeImage': 'label[for="type-image"]',
+                'typeAudio': 'label[for="type-audio"]',
+                'imageOptions': '.image-options h3',
+                'aspectRatio': 'label[for="option-aspect-ratio"]',
+                'width': 'label[for="option-width"]',
+                'height': 'label[for="option-height"]',
+                'noLogo': 'label[for="option-nologo"]',
+                'numImages': 'label[for="option-num-images"]',
+                'clearButton': '#clear-btn',
+                'optimizeButton': '#optimize-btn',
+                'randomButton': '#random-btn',
+                'generateButton': '#generate-button'
+            };
+
+            for (const [key, selector] of Object.entries(elements)) {
+                const element = document.querySelector(selector);
+                if (element && i18n[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = i18n[lang][key];
+                    } else {
+                        element.textContent = i18n[lang][key];
+                    }
+                    console.log(`[i18n] 已更新元素 ${selector}`);
+                }
+            }
+
+            // 更新示例按钮
+            document.querySelectorAll('.example-btn').forEach(btn => {
+                const i18nNameKey = btn.dataset.i18nName;
+                if (i18nNameKey) {
+                    const parts = i18nNameKey.split('.');
+                    if (parts.length === 3 && parts[0] === 'examples') {
+                        const exampleKey = parts[1];
+                        const nameKey = `examples.${exampleKey}.name`;
+                        const textKey = `examples.${exampleKey}.text`;
+                        
+                        if (i18n[lang][nameKey]) {
+                            btn.textContent = i18n[lang][nameKey];
+                        }
+                        if (i18n[lang][textKey]) {
+                            btn.dataset.text = i18n[lang][textKey];
+                        }
+                    }
+                }
+            });
+
+            // 更新提示文本
+            const typeHint = document.getElementById('type-hint');
+            if (typeHint) {
+                const isImage = document.getElementById('type-image')?.checked;
+                typeHint.textContent = isImage ? i18n[lang].imageHint : i18n[lang].audioHint;
+            }
         
         // 触发语言变更事件
         const event = new CustomEvent('languageChanged', { detail: { language: lang } });
         document.dispatchEvent(event);
-        
-        // 更新语言按钮状态
-        updateLanguageButtons();
-        
-        // 更新页面文本
-        if (window.uiHandler) {
-            window.uiHandler.updatePageText();
+            console.log('[i18n] 已触发languageChanged事件');
+            
+            return true;
+        } catch (error) {
+            console.error('[i18n] 设置语言时发生错误:', error);
+            return false;
         }
-        
-        return true;
     }
+    console.warn('[i18n] 不支持的语言:', lang);
     return false;
 }
 
@@ -407,11 +520,12 @@ function t(key) {
         if (value && value[k]) {
             value = value[k];
         } else {
-            console.warn(`Translation missing for key: ${key} in language: ${lang}`);
+            console.warn(`[i18n] Translation missing for key: ${key} in language: ${lang}`);
             return key;
         }
     }
     
+    console.log(`[i18n] t('${key}') =`, value, 'lang=', lang);
     return value;
 }
 
@@ -419,13 +533,17 @@ function t(key) {
 function updatePageText() {
     const lang = getCurrentLang();
     const dict = i18n[lang];
-    // 旧逻辑保留
+    console.log('[i18n] updatePageText called, lang=', lang);
+    
+    try {
+        // 更新标题
     document.title = dict.title;
-    // 新增：支持所有带data-i18n的元素
+        console.log('[i18n] 已更新页面标题');
+        
+        // 更新所有带有data-i18n属性的元素
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (dict[key] !== undefined) {
-            // 判断是否是input/textarea/option等
             if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                 el.placeholder = dict[key];
             } else if (el.tagName === 'OPTION') {
@@ -433,172 +551,97 @@ function updatePageText() {
             } else {
                 el.innerHTML = dict[key];
             }
+                console.log(`[i18n] 已更新元素 [data-i18n=${key}]`);
+            } else {
+                console.warn(`[i18n] 未找到翻译键: ${key}`);
         }
     });
 
-    // 更新标题
+        // 更新特定元素
     const heroTitle = document.querySelector('.hero-title');
-    if (heroTitle) heroTitle.textContent = dict.title;
+        if (heroTitle) {
+            heroTitle.textContent = dict.title;
+            console.log('[i18n] 已更新hero标题');
+        }
+        
     const heroSubtitle = document.querySelector('.hero-subtitle');
-    if (heroSubtitle) heroSubtitle.textContent = dict.subtitle;
-
-    // 更新输入区域标题
-    const inputTitleEl = document.querySelector('.input-section h2');
-    if (inputTitleEl) inputTitleEl.textContent = dict.inputTitle;
-
-    // 更新示例区域标签
-    const quickFillLabelEl = document.querySelector('[data-i18n="quickFillLabel"]');
-    if (quickFillLabelEl) quickFillLabelEl.textContent = dict.quickFillLabel;
-
-    // 更新智能优化提示
-    const smartOptimizeTipEl = document.querySelector('[data-i18n="smartOptimizeTip"]');
-    if (smartOptimizeTipEl) smartOptimizeTipEl.textContent = dict.smartOptimizeTip;
-
-    // 更新负面提示词标签
-    const negativePromptLabelEl = document.querySelector('[data-i18n="negativePromptLabel"]');
-    if (negativePromptLabelEl) negativePromptLabelEl.textContent = dict.negativePromptLabel;
-
-    // 更新负面提示词输入框的placeholder
-    const negativePromptInputEl = document.getElementById('negative-prompt');
-    if (negativePromptInputEl) negativePromptInputEl.placeholder = dict.negativePromptPlaceholder;
-
-    // 更新示例标题
-    const examplesTitle = document.querySelector('.examples-title');
-    if (examplesTitle) examplesTitle.textContent = dict.examplesTitle;
+        if (heroSubtitle) {
+            heroSubtitle.textContent = dict.subtitle;
+            console.log('[i18n] 已更新hero副标题');
+        }
 
     // 更新输入区域
     const textInput = document.getElementById('text-input');
     if (textInput) {
         textInput.placeholder = dict.inputPlaceholder;
+            console.log('[i18n] 已更新输入框placeholder');
     }
 
+        // 更新生成按钮
     const generateButton = document.getElementById('generate-button');
     if (generateButton) {
         generateButton.textContent = dict.generateButton;
-    }
-
-    // 更新生成类型标签
-    const generationTypeLabel = document.querySelector('.options label:first-child');
-    if (generationTypeLabel) generationTypeLabel.textContent = dict.generationType + ':';
-
-    const typeImageLabel = document.querySelector('label[for="type-image"]');
-    const typeAudioLabel = document.querySelector('label[for="type-audio"]');
-    if (typeImageLabel) typeImageLabel.textContent = dict.typeImage;
-    if (typeAudioLabel) typeAudioLabel.textContent = dict.typeAudio;
-
-    // 更新图片选项
-    const imageOptionsTitle = document.querySelector('.image-options h3');
-    if (imageOptionsTitle) imageOptionsTitle.textContent = dict.imageOptions;
-
-    // 更新宽高比选项
-    const aspectRatioLabel = document.querySelector('label[for="option-aspect-ratio"]');
-    if (aspectRatioLabel) aspectRatioLabel.textContent = dict.aspectRatio + ':';
-
-    const aspectRatioSelect = document.getElementById('option-aspect-ratio');
-    if (aspectRatioSelect) {
-        aspectRatioSelect.querySelector('option[value="1:1"]').textContent = dict.aspectRatioSquare;
-        aspectRatioSelect.querySelector('option[value="16:9"]').textContent = dict.aspectRatioLandscape;
-        aspectRatioSelect.querySelector('option[value="9:16"]').textContent = dict.aspectRatioPortrait;
-        aspectRatioSelect.querySelector('option[value="4:3"]').textContent = dict.aspectRatioStandard;
-        aspectRatioSelect.querySelector('option[value="3:4"]').textContent = dict.aspectRatioStandardVertical;
-        aspectRatioSelect.querySelector('option[value="custom"]').textContent = dict.aspectRatioCustom;
-    }
-
-    // 更新数量选择
-    const numImagesLabel = document.querySelector('label[for="option-num-images"]');
-    if (numImagesLabel) numImagesLabel.textContent = dict.numImages + ':';
-
-    const numImagesSelect = document.getElementById('option-num-images');
-    if (numImagesSelect) {
-        numImagesSelect.querySelector('option[value="1"]').textContent = dict.oneImage;
-        numImagesSelect.querySelector('option[value="2"]').textContent = dict.twoImages;
-        numImagesSelect.querySelector('option[value="4"]').textContent = dict.fourImages;
-    }
-
-    // 更新水印选项
-    const noLogoLabel = document.querySelector('label[for="option-nologo"]');
-    if (noLogoLabel) noLogoLabel.textContent = dict.noLogo;
-
-    // 更新宽高输入标签
-    const widthLabel = document.querySelector('label[for="option-width"]');
-    const heightLabel = document.querySelector('label[for="option-height"]');
-    if (widthLabel) widthLabel.textContent = dict.width + ' (px):';
-    if (heightLabel) heightLabel.textContent = dict.height + ' (px):';
-
-    // 更新快捷操作按钮
-    const clearBtn = document.getElementById('clear-btn');
-    const optimizeBtn = document.getElementById('optimize-btn');
-    const randomBtn = document.getElementById('random-btn');
-    if (clearBtn) clearBtn.textContent = dict.clearButton;
-    if (optimizeBtn) optimizeBtn.textContent = dict.optimizeButton;
-    if (randomBtn) randomBtn.textContent = dict.randomButton;
-
-    // 更新示例按钮
-    document.querySelectorAll('.example-btn').forEach(btn => {
-        const i18nNameKey = btn.dataset.i18nName; // 例如: "examples.cat.name"
-        if (i18nNameKey) {
-            const translatedName = t(i18nNameKey); // 获取包含emoji的完整翻译名称
-            
-            // 从 i18nNameKey (e.g., "examples.cat.name") 构建 textKey (e.g., "examples.cat.text")
-            const parts = i18nNameKey.split('.');
-            if (parts.length === 3 && parts[0] === 'examples') {
-                const exampleKey = parts[1]; // "cat", "dragon", etc.
-                const textKey = `examples.${exampleKey}.text`;
-                const translatedText = t(textKey);
-
-                if (translatedName && translatedName !== i18nNameKey) {
-                    btn.textContent = translatedName; // 设置按钮文本 (包含emoji)
-                }
-                if (translatedText && translatedText !== textKey) {
-                    btn.dataset.text = translatedText; // 设置按钮的data-text属性
-                }
-            } else {
-                console.warn(`Invalid data-i18n-name format: ${i18nNameKey}`);
-            }
-        } else {
-            console.warn('Button missing data-i18n-name attribute:', btn);
+            console.log('[i18n] 已更新生成按钮文本');
         }
-    });
-
-    // 更新提示文本
-    const typeHint = document.getElementById('type-hint');
-    if (typeHint) {
-        const isImage = document.getElementById('type-image')?.checked;
-        typeHint.textContent = isImage ? dict.imageHint : dict.audioHint;
+        
+        // 更新其他UI元素
+        const elements = {
+            'inputTitle': '.input-section h2',
+            'quickFillLabel': '.examples-label',
+            'negativePromptLabel': '.negative-prompt h3',
+            'generationType': '.options h3',
+            'typeImage': 'label[for="type-image"]',
+            'typeAudio': 'label[for="type-audio"]',
+            'imageOptions': '.image-options h3',
+            'aspectRatio': 'label[for="option-aspect-ratio"]',
+            'width': 'label[for="option-width"]',
+            'height': 'label[for="option-height"]',
+            'noLogo': 'label[for="option-nologo"]',
+            'numImages': 'label[for="option-num-images"]',
+            'clearButton': '#clear-btn',
+            'optimizeButton': '#optimize-btn',
+            'randomButton': '#random-btn'
+        };
+        
+        for (const [key, selector] of Object.entries(elements)) {
+            const element = document.querySelector(selector);
+            if (element && dict[key]) {
+                element.textContent = dict[key];
+                console.log(`[i18n] 已更新元素 ${selector}`);
+            }
+        }
+        
+        console.log('[i18n] 页面文本更新完成');
+    } catch (error) {
+        console.error('[i18n] 更新页面文本时发生错误:', error);
     }
-
-    // 更新灵感获取专区标题
-    const inspirationTitleEl = document.querySelector('[data-i18n="inspirationTitle"]');
-    if (inspirationTitleEl) {
-        inspirationTitleEl.textContent = dict.inspirationTitle;
-    }
-
-    // 更新灵感获取专区卡片标题
-    const inspirationForestEl = document.querySelector('[data-i18n="inspirationExamples.forest"]');
-    if (inspirationForestEl) {
-        inspirationForestEl.textContent = dict.inspirationExamples.forest;
-    }
-    const inspirationCityEl = document.querySelector('[data-i18n="inspirationExamples.city"]');
-    if (inspirationCityEl) {
-        inspirationCityEl.textContent = dict.inspirationExamples.city;
-    }
-    const inspirationCottageEl = document.querySelector('[data-i18n="inspirationExamples.cottage"]');
-    if (inspirationCottageEl) {
-        inspirationCottageEl.textContent = dict.inspirationExamples.cottage;
-    }
-    const inspirationCyberpunkEl = document.querySelector('[data-i18n="inspirationExamples.cyberpunk"]');
-    if (inspirationCyberpunkEl) {
-        inspirationCyberpunkEl.textContent = dict.inspirationExamples.cyberpunk;
-    }
-
-    // 如果存在UI增强实例，更新其示例 (注释掉此调用，因为示例按钮的文本应完全由i18n.js通过data-i18n-name控制)
-    // if (window.uiEnhancements) {
-    //     window.uiEnhancements.updateExamples();
-    // }
 }
 
 // 监听语言变更事件
 document.addEventListener('languageChanged', () => {
+    updatePageText();
+});
+
+// 初始化时更新页面文本
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('[i18n] DOMContentLoaded, initializing i18n...');
+    
+    // 初始化语言选择器
+    const langSelect = document.getElementById('lang-select');
+    if (langSelect) {
+        // 设置初始语言
+        const currentLang = getCurrentLang();
+        langSelect.value = currentLang;
+        document.documentElement.lang = currentLang;
+        
+        // 添加change事件监听器
+        langSelect.addEventListener('change', (e) => {
+            console.log('[i18n] lang-select changed:', e.target.value);
+            setLanguage(e.target.value);
+        });
+    }
+    
+    // 更新页面文本
     updatePageText();
 });
 
@@ -607,22 +650,4 @@ window.getCurrentLang = getCurrentLang;
 window.setLanguage = setLanguage;
 window.t = t;
 window.i18n = i18n;
-window.updatePageText = updatePageText;
-
-// 初始化时更新页面文本
-document.addEventListener('DOMContentLoaded', () => {
-    updatePageText();
-    updateLanguageButtons(); // 初始化时也更新按钮状态
-    // 新增：下拉框语言切换
-    const langSelect = document.getElementById('lang-select');
-    if (langSelect) {
-        langSelect.value = getCurrentLang();
-        langSelect.addEventListener('change', (e) => {
-            setLanguage(e.target.value);
-        });
-        // 监听语言切换事件，自动同步下拉框选中项
-        document.addEventListener('languageChanged', (e) => {
-            langSelect.value = getCurrentLang();
-        });
-    }
-}); 
+window.updatePageText = updatePageText; 
