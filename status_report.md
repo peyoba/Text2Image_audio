@@ -2,7 +2,7 @@
 
 ## 🚀 正式上线声明
 
-- 本项目已于2025年5月正式上线，前端已绑定自定义域名：https://aistone.dpdns.org，后端API已部署于Cloudflare Workers，API主入口：https://text2image-api.peyoba660703.workers.dev。
+- 本项目已于2025年5月正式上线，前端已绑定自定义域名：https://aistone.org，后端API已部署于Cloudflare Workers，API主入口：https://text2image-api.peyoba660703.workers.dev。
 - 所有功能（文本转图片、文本转语音、智能优化、多语言、响应式UI等）均已在生产环境稳定运行。
 - SEO、GA4统计、站长验证、API安全等全部配置到位，线上体验与数据分析能力同步升级。
 - 线上代码与GitHub仓库保持同步，持续集成与优化中。

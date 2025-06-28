@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://aistone.dpdns.org/sitemap.xml 
+Sitemap: https://aistone.org/sitemap.xml 

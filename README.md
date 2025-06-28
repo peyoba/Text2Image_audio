@@ -308,7 +308,7 @@ wrangler deploy
 
 本项目已于2025年5月正式上线，欢迎访问体验！
 
-- **前端正式地址**：[https://aistone.dpdns.org](https://aistone.dpdns.org)
+- **前端正式地址**：[https://aistone.org](https://aistone.org)
 - **后端API入口**：[https://text2image-api.peyoba660703.workers.dev](https://text2image-api.peyoba660703.workers.dev)
 - **GitHub仓库**：[https://github.com/peyoba/Text2Image_audio](https://github.com/peyoba/Text2Image_audio)
 

@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://aistone.dpdns.org/</loc>
+    <loc>https://aistone.org/</loc>
     <lastmod>2025-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://aistone.dpdns.org/#about</loc>
+    <loc>https://aistone.org/#about</loc>
     <lastmod>2025-01-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aistone.dpdns.org/#services</loc>
+    <loc>https://aistone.org/#services</loc>
     <lastmod>2025-01-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aistone.dpdns.org/#contact</loc>
+    <loc>https://aistone.org/#contact</loc>
     <lastmod>2025-01-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://aistone.dpdns.org/#testimonials</loc>
+    <loc>https://aistone.org/#testimonials</loc>
     <lastmod>2025-01-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
