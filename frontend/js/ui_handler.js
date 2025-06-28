@@ -105,7 +105,7 @@ class UIHandler {
 
         // 更新输入区域标题
         const inputTitleEl = document.querySelector('.input-section h2');
-        if (inputTitleEl) inputTitleEl.textContent = t('inputPlaceholder');
+        if (inputTitleEl) inputTitleEl.textContent = t('inputTitle');
 
         // 更新导航栏菜单项
         const navMenu = document.querySelectorAll('.navbar-menu li a');

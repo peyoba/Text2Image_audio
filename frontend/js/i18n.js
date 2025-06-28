@@ -9,7 +9,7 @@ const i18n = {
         subtitle: '图片·语音·无限免费生成',
         
         // 输入区域
-        inputTitle: '输入内容',
+        inputTitle: '描述文本',
         examplesTitle: '💡 点击示例快速填充：',
         inputPlaceholder: '请输入描述文本，例如：一只可爱的猫咪在草地上玩耍...',
         generateButton: '开始生成',
@@ -205,7 +205,7 @@ const i18n = {
         subtitle: 'Image · Audio · Unlimited Free Generation',
         
         // Input area
-        inputTitle: 'Input Content',
+        inputTitle: 'Description',
         examplesTitle: '💡 Click examples to quickly fill:',
         inputPlaceholder: 'Enter description text, e.g.: A cute cat playing on the grass...',
         generateButton: 'Start Generation',
