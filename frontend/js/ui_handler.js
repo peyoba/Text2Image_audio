@@ -315,6 +315,18 @@ class UIHandler {
 
         try {
             if (type === 'image') {
+                // 对于图片生成，先进行提示词优化
+                let optimizedText = text;
+                try {
+                    this.showLoading('正在优化提示词...');
+                    optimizedText = await this.apiClient.optimizeText(text);
+                    console.log('UIHandler: 提示词优化成功，原始文本:', text, '优化后:', optimizedText);
+                } catch (optimizeError) {
+                    console.warn('UIHandler: 提示词优化失败，使用原始文本:', optimizeError);
+                    // 如果优化失败，继续使用原始文本
+                    optimizedText = text;
+                }
+
                 const numImages = parseInt(this.optionNumImages.value, 10);
                 const imageOptions = this._getImageOptions();
                 const allImageData = [];
@@ -325,7 +337,7 @@ class UIHandler {
                         // 更新加载提示
                         this.showLoading(`${t('generating')} ${i + 1}/${numImages}...`);
                         
-                        const response = await this.apiClient.submitGenerationTask(text, 'image', {
+                        const response = await this.apiClient.submitGenerationTask(optimizedText, 'image', {
                             ...imageOptions,
                             seed: Math.floor(Math.random() * 100000000) // 每次生成都用随机种子
                         });
