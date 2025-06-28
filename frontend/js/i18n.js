@@ -631,6 +631,23 @@ function updatePageText() {
         }
         
         console.log('[i18n] 页面文本更新完成');
+
+        // 修复：同步更新示例按钮内容
+        document.querySelectorAll('.example-btn').forEach(btn => {
+            const i18nNameKey = btn.dataset.i18nName;
+            if (i18nNameKey) {
+                btn.textContent = getNestedI18nValue(lang, i18nNameKey);
+                // 赋值text和type
+                const parts = i18nNameKey.split('.');
+                if (parts.length === 3 && parts[0] === 'examples') {
+                    const exampleKey = parts[1];
+                    const textVal = getNestedI18nValue(lang, `examples.${exampleKey}.text`);
+                    const typeVal = getNestedI18nValue(lang, `examples.${exampleKey}.type`);
+                    if (textVal) btn.dataset.text = textVal;
+                    if (typeVal) btn.dataset.type = typeVal;
+                }
+            }
+        });
     } catch (error) {
         console.error('[i18n] 更新页面文本时发生错误:', error);
     }
