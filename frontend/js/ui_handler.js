@@ -531,16 +531,10 @@ function displayMultipleImages(container, imageDataArray) {
 function addImageInfo(container, img) {
     const infoDiv = document.createElement('div');
     infoDiv.className = 'image-info';
-    
-    // 获取图片实际尺寸
     const width = img.naturalWidth;
     const height = img.naturalHeight;
     const fileSize = Math.round(img.src.length * 0.75 / 1024); // 估算文件大小KB
-    
-    infoDiv.innerHTML = `
-        📐 尺寸: ${width} × ${height} 像素 | 📁 大小: ~${fileSize}KB
-    `;
-    
+    infoDiv.innerHTML = `${t('imageInfoSize')}: ${width} × ${height} ${t('pixels')} | ${t('imageInfoFileSize')}: ~${fileSize}KB`;
     container.appendChild(infoDiv);
 }
 
@@ -550,7 +544,7 @@ function addImageInfo(container, img) {
 function addMultiImageInfo(container, count) {
     const infoDiv = document.createElement('div');
     infoDiv.className = 'image-info';
-    infoDiv.innerHTML = `🖼️ 共生成 ${count} 张图片，点击图片可放大查看`;
+    infoDiv.innerHTML = `${t('imageInfoCount').replace('{count}', count)}`;
     container.appendChild(infoDiv);
 }
 

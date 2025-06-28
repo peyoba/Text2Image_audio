@@ -193,6 +193,10 @@ const i18n = {
         testimonialName5: 'Tom Lee',
         testimonialRole5: '自媒体人',
         testimonialContent5: '“生成速度快，内容质量高，值得推荐！”',
+        imageInfoSize: 'Size',
+        imageInfoFileSize: 'File Size',
+        imageInfoCount: 'Total {count} images generated, click image to enlarge',
+        pixels: 'pixels',
     },
     
     en: {
@@ -384,7 +388,11 @@ const i18n = {
         testimonialContent4: '"The AI content generation tool greatly improves the team\'s creative output efficiency."',
         testimonialName5: 'Tom Lee',
         testimonialRole5: 'Content Creator',
-        testimonialContent5: '"Fast generation speed, high content quality, worth recommending!"'
+        testimonialContent5: '"Fast generation speed, high content quality, worth recommending!"',
+        imageInfoSize: 'Size',
+        imageInfoFileSize: 'File Size',
+        imageInfoCount: 'Total {count} images generated, click image to enlarge',
+        pixels: 'pixels',
     }
 };
 

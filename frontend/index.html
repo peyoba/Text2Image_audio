@@ -119,11 +119,11 @@
                 <textarea id="text-input" rows="6" placeholder="请输入描述，如：一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影"></textarea>
                 <!-- 快速填充示例按钮区域（移动到此处） -->
                 <div class="examples-quickfill">
-                    <span class="examples-label" data-i18n="quickFillLabel">💡 快速填充示例：</span>
-                    <button class="example-btn" data-type="image" data-text="一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影" data-i18n-name="examples.cat.name">🐱 可爱猫咪</button>
-                    <button class="example-btn" data-type="image" data-text="一条凶猛的龙在火山上空盘旋，熔岩流淌，史诗感" data-i18n-name="examples.dragon.name">🐉 史诗巨龙</button>
-                    <button class="example-btn" data-type="image" data-text="宁静的湖面倒映着雪山和森林，黄昏，油画风格" data-i18n-name="examples.lake.name">🏞️ 雪山湖景</button>
-                    <button class="example-btn" data-type="audio" data-text="欢迎使用AI内容生成器，希望您能创造出精彩的作品" data-i18n-name="examples.welcome.name">🎵 欢迎语音</button>
+                    <span class="examples-label" data-i18n="quickFillLabel"></span>
+                    <button class="example-btn" data-type="image" data-i18n-name="examples.cat.name"></button>
+                    <button class="example-btn" data-type="image" data-i18n-name="examples.dragon.name"></button>
+                    <button class="example-btn" data-type="image" data-i18n-name="examples.lake.name"></button>
+                    <button class="example-btn" data-type="audio" data-i18n-name="examples.welcome.name"></button>
                 </div>
                 <!-- 恢复快捷操作按钮 -->
                 <div class="quick-actions">
@@ -133,8 +133,8 @@
                 </div>
                 
                 <div class="negative-prompt">
-                    <h3 class="section-title" data-i18n="negativePromptLabel">负面提示词</h3>
-                    <input type="text" id="negative-prompt" placeholder="输入不想要的元素，用逗号分隔">
+                    <h3 class="section-title" data-i18n="negativePromptLabel"></h3>
+                    <input type="text" id="negative-prompt" data-i18n="negativePromptPlaceholder">
                 </div>
                 
                 <div class="options">
@@ -229,44 +229,44 @@
             </div>
         </section>
         <section class="testimonials-section" id="testimonials">
-          <h2 class="testimonials-title" data-i18n="testimonialsTitle" style="text-align:center;font-size:2em;font-weight:bold;margin-bottom:18px;color:#00CFFF;letter-spacing:1px;">用户评价与真实案例</h2>
+          <h2 class="testimonials-title" data-i18n="testimonialsTitle"></h2>
           <div class="testimonial-carousel-wrapper">
             <div class="testimonial-carousel-fade left"></div>
             <div class="testimonial-cards">
               <div class="testimonial-card">
-                  <img src="https://ui-avatars.com/api/?name=Li+Ming&background=0D8ABC&color=fff&size=64" alt="李明" class="avatar">
-                  <h3>李明</h3>
-                  <p class="role">产品经理</p>
+                  <img src="https://ui-avatars.com/api/?name=Li+Ming&background=0D8ABC&color=fff&size=64" alt="Li Ming" class="avatar">
+                  <h3 data-i18n="testimonialName3"></h3>
+                  <p class="role" data-i18n="testimonialRole3"></p>
                   <div class="rating">★★★★★</div>
-                  <p data-i18n="testimonials.user1">这个平台极大提升了我的工作效率，图片生成速度很快，效果也很棒！</p>
+                  <p data-i18n="testimonialContent3"></p>
               </div>
               <div class="testimonial-card">
                   <img src="https://ui-avatars.com/api/?name=Anna+Smith&background=0D8ABC&color=fff&size=64" alt="Anna Smith" class="avatar">
-                  <h3>Anna Smith</h3>
-                  <p class="role">平面设计师</p>
+                  <h3 data-i18n="testimonialName2"></h3>
+                  <p class="role" data-i18n="testimonialRole2"></p>
                   <div class="rating">★★★★☆</div>
-                  <p data-i18n="testimonials.user2">界面友好，操作简单，适合设计师日常使用。希望未来能增加更多风格。</p>
+                  <p data-i18n="testimonialContent2"></p>
               </div>
               <div class="testimonial-card">
-                  <img src="https://ui-avatars.com/api/?name=Wang+Wei&background=0D8ABC&color=fff&size=64" alt="王伟" class="avatar">
-                  <h3>王伟</h3>
-                  <p class="role">大学生</p>
-                  <div class="rating">★★★★★</div>
-                  <p data-i18n="testimonials.user3">作为学生，用来做课件和项目展示非常方便，强烈推荐！</p>
-              </div>
-              <div class="testimonial-card">
-                  <img src="https://ui-avatars.com/api/?name=Emily+Chen&background=0D8ABC&color=fff&size=64" alt="Emily Chen" class="avatar">
-                  <h3>Emily Chen</h3>
-                  <p class="role">自由插画师</p>
+                  <img src="https://ui-avatars.com/api/?name=Emily+Zhang&background=0D8ABC&color=fff&size=64" alt="Emily Zhang" class="avatar">
+                  <h3 data-i18n="testimonialName4"></h3>
+                  <p class="role" data-i18n="testimonialRole4"></p>
                   <div class="rating">★★★★☆</div>
-                  <p data-i18n="testimonials.user4">生成的图片质量很高，节省了我很多时间。希望能支持更多分辨率。</p>
+                  <p data-i18n="testimonialContent4"></p>
               </div>
               <div class="testimonial-card">
-                  <img src="https://ui-avatars.com/api/?name=Zhang+Ting&background=0D8ABC&color=fff&size=64" alt="张婷" class="avatar">
-                  <h3>张婷</h3>
-                  <p class="role">市场专员</p>
+                  <img src="https://ui-avatars.com/api/?name=Sarah+Chen&background=0D8ABC&color=fff&size=64" alt="Sarah Chen" class="avatar">
+                  <h3 data-i18n="testimonialName1"></h3>
+                  <p class="role" data-i18n="testimonialRole1"></p>
                   <div class="rating">★★★★★</div>
-                  <p data-i18n="testimonials.user5">用来做市场推广素材非常合适，团队反馈都很好。</p>
+                  <p data-i18n="testimonialContent1"></p>
+              </div>
+              <div class="testimonial-card">
+                  <img src="https://ui-avatars.com/api/?name=Tom+Lee&background=0D8ABC&color=fff&size=64" alt="Tom Lee" class="avatar">
+                  <h3 data-i18n="testimonialName5"></h3>
+                  <p class="role" data-i18n="testimonialRole5"></p>
+                  <div class="rating">★★★★★</div>
+                  <p data-i18n="testimonialContent5"></p>
               </div>
             </div>
             <div class="testimonial-carousel-fade right"></div>
