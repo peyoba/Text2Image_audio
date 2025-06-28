@@ -412,6 +412,20 @@ function updateLanguageButtons() {
     }
 }
 
+// 新增递归读取函数
+function getNestedI18nValue(lang, keyPath) {
+    const keys = keyPath.split('.');
+    let value = i18n[lang];
+    for (const k of keys) {
+        if (value && value[k] !== undefined) {
+            value = value[k];
+        } else {
+            return undefined;
+        }
+    }
+    return value;
+}
+
 // 设置语言
 function setLanguage(lang) {
     console.log('[i18n] setLanguage called, lang=', lang);
@@ -480,18 +494,15 @@ function setLanguage(lang) {
             document.querySelectorAll('.example-btn').forEach(btn => {
                 const i18nNameKey = btn.dataset.i18nName;
                 if (i18nNameKey) {
+                    btn.textContent = getNestedI18nValue(lang, i18nNameKey);
+                    // 赋值text和type
                     const parts = i18nNameKey.split('.');
                     if (parts.length === 3 && parts[0] === 'examples') {
                         const exampleKey = parts[1];
-                        const nameKey = `examples.${exampleKey}.name`;
-                        const textKey = `examples.${exampleKey}.text`;
-                        
-                        if (i18n[lang][nameKey]) {
-                            btn.textContent = i18n[lang][nameKey];
-                        }
-                        if (i18n[lang][textKey]) {
-                            btn.dataset.text = i18n[lang][textKey];
-                        }
+                        const textVal = getNestedI18nValue(lang, `examples.${exampleKey}.text`);
+                        const typeVal = getNestedI18nValue(lang, `examples.${exampleKey}.type`);
+                        if (textVal) btn.dataset.text = textVal;
+                        if (typeVal) btn.dataset.type = typeVal;
                     }
                 }
             });
