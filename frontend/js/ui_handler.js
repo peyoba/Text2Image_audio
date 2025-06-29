@@ -9,30 +9,65 @@ class UIHandler {
         this.initLanguageSwitcher();
         this.isGenerating = false; // 新增API请求状态标志
         
-        // 获取DOM元素
-        this.textInput = document.getElementById('text-input');
-        this.generateButton = document.getElementById('generate-button');
-        this.typeImageRadio = document.getElementById('type-image');
-        this.typeAudioRadio = document.getElementById('type-audio');
-        this.loadingIndicator = document.getElementById('loading-indicator');
-        this.loadingText = this.loadingIndicator.querySelector('p'); // 获取加载指示器内的p标签
-        this.errorMessage = document.getElementById('error-message');
-        this.imageResultContainer = document.getElementById('image-result-container');
-        this.audioResultContainer = document.getElementById('audio-result-container');
-        this.generatedAudio = document.getElementById('generated-audio');
-        this.downloadAudioLink = document.getElementById('download-audio-link');
+        // 检查当前页面类型
+        const currentPath = window.location.pathname;
+        const isHomePage = !currentPath.includes('about.html') && !currentPath.includes('services.html');
+        
+        if (isHomePage) {
+            // 首页：获取所有DOM元素
+            this.textInput = document.getElementById('text-input');
+            this.generateButton = document.getElementById('generate-button');
+            this.typeImageRadio = document.getElementById('type-image');
+            this.typeAudioRadio = document.getElementById('type-audio');
+            this.loadingIndicator = document.getElementById('loading-indicator');
+            this.loadingText = this.loadingIndicator.querySelector('p'); // 获取加载指示器内的p标签
+            this.errorMessage = document.getElementById('error-message');
+            this.imageResultContainer = document.getElementById('image-result-container');
+            this.audioResultContainer = document.getElementById('audio-result-container');
+            this.generatedAudio = document.getElementById('generated-audio');
+            this.downloadAudioLink = document.getElementById('download-audio-link');
 
-        // 新增：获取图片选项UI元素
-        this.imageOptionsContainer = document.getElementById('image-generation-options');
-        this.optionNologo = document.getElementById('option-nologo');
-        this.optionAspectRatio = document.getElementById('option-aspect-ratio');
-        this.customDimensionsContainer = document.getElementById('custom-dimensions-container');
-        this.optionWidth = document.getElementById('option-width');
-        this.optionHeight = document.getElementById('option-height');
-        this.optionNumImages = document.getElementById('option-num-images');
+            // 新增：获取图片选项UI元素
+            this.imageOptionsContainer = document.getElementById('image-generation-options');
+            this.optionNologo = document.getElementById('option-nologo');
+            this.optionAspectRatio = document.getElementById('option-aspect-ratio');
+            this.customDimensionsContainer = document.getElementById('custom-dimensions-container');
+            this.optionWidth = document.getElementById('option-width');
+            this.optionHeight = document.getElementById('option-height');
+            this.optionNumImages = document.getElementById('option-num-images');
 
-        // 新增：获取面包屑导航元素
-        this.breadcrumbNav = document.getElementById('breadcrumb-nav');
+            // 新增：获取面包屑导航元素
+            this.breadcrumbNav = document.getElementById('breadcrumb-nav');
+
+            // 绑定首页特有的事件
+            this.bindEvents();
+            this._toggleImageOptions(); // 初始化时根据类型显隐图片选项
+            this._handleAspectRatioChange(); // 初始化宽高比相关UI
+            this._handleBreadcrumbVisibility(); // 初始化面包屑导航显示逻辑
+            window.addEventListener('hashchange', () => this._handleBreadcrumbVisibility());
+            document.addEventListener('DOMContentLoaded', () => this._handleBreadcrumbVisibility());
+        } else {
+            // 新页面：只初始化基本元素
+            this.textInput = null;
+            this.generateButton = null;
+            this.typeImageRadio = null;
+            this.typeAudioRadio = null;
+            this.loadingIndicator = null;
+            this.loadingText = null;
+            this.errorMessage = null;
+            this.imageResultContainer = null;
+            this.audioResultContainer = null;
+            this.generatedAudio = null;
+            this.downloadAudioLink = null;
+            this.imageOptionsContainer = null;
+            this.optionNologo = null;
+            this.optionAspectRatio = null;
+            this.customDimensionsContainer = null;
+            this.optionWidth = null;
+            this.optionHeight = null;
+            this.optionNumImages = null;
+            this.breadcrumbNav = null;
+        }
 
         // 更新页面文本
         this.updatePageText();
@@ -41,13 +76,6 @@ class UIHandler {
         document.addEventListener('languageChanged', () => {
             this.updatePageText();
         });
-
-        this.bindEvents();
-        this._toggleImageOptions(); // 初始化时根据类型显隐图片选项
-        this._handleAspectRatioChange(); // 初始化宽高比相关UI
-        this._handleBreadcrumbVisibility(); // 初始化面包屑导航显示逻辑
-        window.addEventListener('hashchange', () => this._handleBreadcrumbVisibility());
-        document.addEventListener('DOMContentLoaded', () => this._handleBreadcrumbVisibility());
     }
 
     /**
@@ -71,49 +99,96 @@ class UIHandler {
      */
     updatePageText() {
         // 只保留自定义UI更新逻辑，不再调用window.updatePageText()
-        // 更新标题
-        document.title = t('title');
-        const heroTitle = document.querySelector('.hero-title');
-        if (heroTitle) heroTitle.textContent = t('title');
-        const heroSubtitle = document.querySelector('.hero-subtitle');
-        if (heroSubtitle) heroSubtitle.textContent = t('subtitle');
+        
+        // 更新页面标题和meta标签（适用于所有页面）
+        const currentLang = getCurrentLang();
+        const langCode = currentLang === 'zh' ? 'zh-CN' : 'en';
+        document.documentElement.lang = langCode;
+        
+        // 根据当前页面更新标题
+        const currentPath = window.location.pathname;
+        if (currentPath.includes('about.html')) {
+            document.title = t('aboutModalTitle');
+            // 更新meta描述
+            const metaDescription = document.querySelector('meta[name="description"]');
+            if (metaDescription) {
+                metaDescription.content = currentLang === 'zh' 
+                    ? 'AISTONE - 关于我们，AI图片生成与语音合成平台介绍。'
+                    : 'AISTONE - About us, AI image generation and voice synthesis platform introduction.';
+            }
+        } else if (currentPath.includes('services.html')) {
+            document.title = t('servicesModalTitle');
+            // 更新meta描述
+            const metaDescription = document.querySelector('meta[name="description"]');
+            if (metaDescription) {
+                metaDescription.content = currentLang === 'zh'
+                    ? 'AISTONE - 服务介绍，AI图片生成与语音合成平台功能一览。'
+                    : 'AISTONE - Service introduction, AI image generation and voice synthesis platform features.';
+            }
+        } else {
+            // 首页
+            document.title = t('title');
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) heroTitle.textContent = t('title');
+            const heroSubtitle = document.querySelector('.hero-subtitle');
+            if (heroSubtitle) heroSubtitle.textContent = t('subtitle');
+        }
 
-        // 更新输入区域
-        this.textInput.placeholder = t('inputPlaceholder');
-        this.generateButton.textContent = t('generateButton');
+        // 更新输入区域（仅首页）
+        if (this.textInput) {
+            this.textInput.placeholder = t('inputPlaceholder');
+        }
+        if (this.generateButton) {
+            this.generateButton.textContent = t('generateButton');
+        }
 
-        // 更新生成类型
-        document.querySelector('label[for="type-image"]').textContent = t('typeImage');
-        document.querySelector('label[for="type-audio"]').textContent = t('typeAudio');
+        // 更新生成类型（仅首页）
+        const typeImageLabel = document.querySelector('label[for="type-image"]');
+        if (typeImageLabel) typeImageLabel.textContent = t('typeImage');
+        const typeAudioLabel = document.querySelector('label[for="type-audio"]');
+        if (typeAudioLabel) typeAudioLabel.textContent = t('typeAudio');
 
-        // 更新图片选项
-        document.querySelector('.image-options h3').textContent = t('imageOptions');
-        document.querySelector('label[for="option-aspect-ratio"]').textContent = t('aspectRatio');
-        document.querySelector('option[value="1:1"]').textContent = t('aspectRatioSquare');
+        // 更新图片选项（仅首页）
+        const imageOptionsTitle = document.querySelector('.image-options h3');
+        if (imageOptionsTitle) imageOptionsTitle.textContent = t('imageOptions');
+        const aspectRatioLabel = document.querySelector('label[for="option-aspect-ratio"]');
+        if (aspectRatioLabel) aspectRatioLabel.textContent = t('aspectRatio');
+        const aspectRatioSquare = document.querySelector('option[value="1:1"]');
+        if (aspectRatioSquare) aspectRatioSquare.textContent = t('aspectRatioSquare');
         const option16_9_2k = document.querySelector('option[value="16:9-2k"]');
         if (option16_9_2k) option16_9_2k.textContent = t('aspectRatioLandscape2K');
         const option9_16_2k = document.querySelector('option[value="9:16-2k"]');
         if (option9_16_2k) option9_16_2k.textContent = t('aspectRatioPortrait2K');
-        document.querySelector('option[value="custom"]').textContent = t('aspectRatioCustom');
-        document.querySelector('label[for="option-width"]').textContent = t('width');
-        document.querySelector('label[for="option-height"]').textContent = t('height');
-        document.querySelector('label[for="option-nologo"]').textContent = t('noLogo');
-        document.querySelector('label[for="option-num-images"]').textContent = t('numImages');
+        const aspectRatioCustom = document.querySelector('option[value="custom"]');
+        if (aspectRatioCustom) aspectRatioCustom.textContent = t('aspectRatioCustom');
+        const widthLabel = document.querySelector('label[for="option-width"]');
+        if (widthLabel) widthLabel.textContent = t('width');
+        const heightLabel = document.querySelector('label[for="option-height"]');
+        if (heightLabel) heightLabel.textContent = t('height');
+        const noLogoLabel = document.querySelector('label[for="option-nologo"]');
+        if (noLogoLabel) noLogoLabel.textContent = t('noLogo');
+        const numImagesLabel = document.querySelector('label[for="option-num-images"]');
+        if (numImagesLabel) numImagesLabel.textContent = t('numImages');
 
-        // 更新快捷操作按钮
-        document.getElementById('clear-btn').textContent = t('clearButton');
-        document.getElementById('optimize-btn').textContent = t('optimizeButton');
-        document.getElementById('random-btn').textContent = t('randomButton');
+        // 更新快捷操作按钮（仅首页）
+        const clearBtn = document.getElementById('clear-btn');
+        if (clearBtn) clearBtn.textContent = t('clearButton');
+        const optimizeBtn = document.getElementById('optimize-btn');
+        if (optimizeBtn) optimizeBtn.textContent = t('optimizeButton');
+        const randomBtn = document.getElementById('random-btn');
+        if (randomBtn) randomBtn.textContent = t('randomButton');
 
-        // 更新提示文本
-        document.getElementById('type-hint').textContent = 
-            this.typeImageRadio.checked ? t('imageHint') : t('audioHint');
+        // 更新提示文本（仅首页）
+        const typeHint = document.getElementById('type-hint');
+        if (typeHint && this.typeImageRadio) {
+            typeHint.textContent = this.typeImageRadio.checked ? t('imageHint') : t('audioHint');
+        }
 
-        // 更新输入区域标题
+        // 更新输入区域标题（仅首页）
         const inputTitleEl = document.querySelector('.input-section h2');
         if (inputTitleEl) inputTitleEl.textContent = t('inputTitle');
 
-        // 更新导航栏菜单项
+        // 更新导航栏菜单项（所有页面）
         const navMenu = document.querySelectorAll('.navbar-menu li a');
         if (navMenu.length >= 4) {
             navMenu[0].textContent = t('navHome');
@@ -121,19 +196,19 @@ class UIHandler {
             navMenu[2].textContent = t('navServices');
             navMenu[3].textContent = t('navContact');
         }
-        // 更新登录按钮
+        // 更新登录按钮（所有页面）
         const loginBtn = document.querySelector('.login-btn');
         if (loginBtn) loginBtn.textContent = t('navLogin');
 
-        // 更新Generation Result标题
+        // 更新Generation Result标题（仅首页）
         const outputTitle = document.querySelector('.output-section h2');
         if (outputTitle) outputTitle.textContent = t('generationResult');
 
-        // 更新主要特性区块标题
+        // 更新主要特性区块标题（仅首页）
         const featuresTitle = document.querySelector('.features-title');
         if (featuresTitle) featuresTitle.textContent = t('featuresTitle');
 
-        // 更新主要特性卡片内容
+        // 更新主要特性卡片内容（仅首页）
         const featureCards = document.querySelectorAll('.feature-card');
         const features = t('features');
         if (featureCards && Array.isArray(features)) {
@@ -147,7 +222,7 @@ class UIHandler {
             });
         }
 
-        // 更新footer内容
+        // 更新footer内容（所有页面）
         const footerCopyright = document.querySelector('.footer-left');
         if (footerCopyright) footerCopyright.textContent = t('footerCopyright');
         const footerLinks = t('footerLinks');
