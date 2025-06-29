@@ -127,12 +127,84 @@
       ]
     }
     </script>
+    
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://aistone.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "AI内容生成",
+          "item": "https://aistone.org/#create"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "AI语音合成",
+          "item": "https://aistone.org/#create"
+        }
+      ]
+    }
+    </script>
+    
+    <!-- SoftwareApplication Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "AISTONE",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Web Browser",
+      "description": "AI图片生成与语音合成平台，支持中英文输入，永久免费，无需注册。",
+      "url": "https://aistone.org",
+      "author": {
+        "@type": "Organization",
+        "name": "AISTONE"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "featureList": [
+        "AI图片生成",
+        "AI语音合成",
+        "中英文支持",
+        "多种图片尺寸",
+        "智能提示词优化",
+        "实时生成",
+        "隐私保护"
+      ]
+    }
+    </script>
 </head>
 <body>
+    <!-- 面包屑导航 -->
+    <nav class="breadcrumb" aria-label="面包屑导航">
+        <ol class="breadcrumb-list">
+            <li class="breadcrumb-item">
+                <a href="#home" class="breadcrumb-link">首页</a>
+            </li>
+            <li class="breadcrumb-item">
+                <span class="breadcrumb-current" data-i18n="breadcrumbCurrent">AI内容生成</span>
+            </li>
+        </ol>
+    </nav>
+
     <!-- 顶部导航栏 -->
     <nav class="navbar">
         <div class="navbar-left">
-            <img src="assets/logo.svg" alt="AISTONE LOGO - 免费AI图片生成与语音合成" class="logo-img" aria-label="AISTONE 平台标志" />
+            <img src="assets/logo.svg" alt="AISTONE LOGO - 免费AI图片生成与语音合成平台标志" class="logo-img" aria-label="AISTONE 平台标志" />
             <span class="site-name">AISTONE</span>
         </div>
         <ul class="navbar-menu">
@@ -154,7 +226,7 @@
     <section class="hero-section" id="home">
         <div class="hero-content">
             <div class="hero-row">
-                <img src="assets/logo.svg" alt="AISTONE LOGO - 免费AI图片生成与语音合成" class="hero-logo-img" aria-label="AISTONE 平台标志" />
+                <img src="assets/logo.svg" alt="AISTONE LOGO - 免费AI图片生成与语音合成平台主标志" class="hero-logo-img" aria-label="AISTONE 平台主标志" />
                 <h1 class="hero-title" data-i18n="heroTitle">AISTONE - 免费AI图片生成与语音合成平台</h1>
             </div>
             <p class="hero-subtitle" data-i18n="heroSubtitle">图片·语音·无限免费生成</p>
@@ -297,39 +369,39 @@
             <div class="testimonial-carousel-fade left"></div>
             <div class="testimonial-cards">
               <div class="testimonial-card">
-                  <img src="https://ui-avatars.com/api/?name=Li+Ming&background=0D8ABC&color=fff&size=64" alt="Li Ming" class="avatar">
-                  <h3 data-i18n="testimonialName3">李明</h3>
-                  <p class="role" data-i18n="testimonialRole3">独立开发者</p>
+                  <img src="https://ui-avatars.com/api/?name=Li+Ming&background=0D8ABC&color=fff&size=64" alt="李明 - 独立开发者用户头像" class="avatar">
+                  <h3 data-i18n="testimonialName3"></h3>
+                  <p class="role" data-i18n="testimonialRole3"></p>
                   <div class="rating">★★★★★</div>
-                  <p data-i18n="testimonialContent3">"一键生成图片和语音，创作效率翻倍，强烈推荐！"</p>
+                  <p data-i18n="testimonialContent3"></p>
               </div>
               <div class="testimonial-card">
-                  <img src="https://ui-avatars.com/api/?name=Anna+Smith&background=0D8ABC&color=fff&size=64" alt="Anna Smith" class="avatar">
-                  <h3 data-i18n="testimonialName2">Anna Smith</h3>
-                  <p class="role" data-i18n="testimonialRole2">短视频创作者</p>
+                  <img src="https://ui-avatars.com/api/?name=Anna+Smith&background=0D8ABC&color=fff&size=64" alt="Anna Smith - 短视频创作者用户头像" class="avatar">
+                  <h3 data-i18n="testimonialName2"></h3>
+                  <p class="role" data-i18n="testimonialRole2"></p>
                   <div class="rating">★★★★☆</div>
-                  <p data-i18n="testimonialContent2">"AI语音自然流畅，直接用于我的短视频配音。"</p>
+                  <p data-i18n="testimonialContent2"></p>
               </div>
               <div class="testimonial-card">
-                  <img src="https://ui-avatars.com/api/?name=Emily+Zhang&background=0D8ABC&color=fff&size=64" alt="Emily Zhang" class="avatar">
-                  <h3 data-i18n="testimonialName4">Emily Zhang</h3>
-                  <p class="role" data-i18n="testimonialRole4">产品经理</p>
+                  <img src="https://ui-avatars.com/api/?name=Emily+Zhang&background=0D8ABC&color=fff&size=64" alt="Emily Zhang - 产品经理用户头像" class="avatar">
+                  <h3 data-i18n="testimonialName4"></h3>
+                  <p class="role" data-i18n="testimonialRole4"></p>
                   <div class="rating">★★★★☆</div>
-                  <p data-i18n="testimonialContent4">"AI内容生成工具极大提升了团队的创意产出效率。"</p>
+                  <p data-i18n="testimonialContent4"></p>
               </div>
               <div class="testimonial-card">
-                  <img src="https://ui-avatars.com/api/?name=Sarah+Chen&background=0D8ABC&color=fff&size=64" alt="Sarah Chen" class="avatar">
-                  <h3 data-i18n="testimonialName1">Sarah Chen</h3>
-                  <p class="role" data-i18n="testimonialRole1">插画师</p>
+                  <img src="https://ui-avatars.com/api/?name=Sarah+Chen&background=0D8ABC&color=fff&size=64" alt="Sarah Chen - 插画师用户头像" class="avatar">
+                  <h3 data-i18n="testimonialName1"></h3>
+                  <p class="role" data-i18n="testimonialRole1"></p>
                   <div class="rating">★★★★★</div>
-                  <p data-i18n="testimonialContent1">"平台生成的插画非常精美，极大提升了我的设计效率！"</p>
+                  <p data-i18n="testimonialContent1"></p>
               </div>
               <div class="testimonial-card">
-                  <img src="https://ui-avatars.com/api/?name=Tom+Lee&background=0D8ABC&color=fff&size=64" alt="Tom Lee" class="avatar">
-                  <h3 data-i18n="testimonialName5">Tom Lee</h3>
-                  <p class="role" data-i18n="testimonialRole5">自媒体人</p>
+                  <img src="https://ui-avatars.com/api/?name=Tom+Lee&background=0D8ABC&color=fff&size=64" alt="Tom Lee - 自媒体人用户头像" class="avatar">
+                  <h3 data-i18n="testimonialName5"></h3>
+                  <p class="role" data-i18n="testimonialRole5"></p>
                   <div class="rating">★★★★★</div>
-                  <p data-i18n="testimonialContent5">"生成速度快，内容质量高，值得推荐！"</p>
+                  <p data-i18n="testimonialContent5"></p>
               </div>
             </div>
             <div class="testimonial-carousel-fade right"></div>

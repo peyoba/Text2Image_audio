@@ -110,6 +110,9 @@ const i18n = {
         navContact: '联系',
         navLogin: '登录',
 
+        // 面包屑导航
+        breadcrumbCurrent: 'AI内容生成',
+
         // 主要特性区块
         featuresTitle: 'AISTONE 的主要特性',
         features: [
@@ -305,6 +308,9 @@ const i18n = {
         navServices: 'Services',
         navContact: 'Contact',
         navLogin: 'Login',
+
+        // Breadcrumb navigation
+        breadcrumbCurrent: 'AI Content Generation',
 
         // Main features section
         featuresTitle: 'Key Features of AISTONE',
