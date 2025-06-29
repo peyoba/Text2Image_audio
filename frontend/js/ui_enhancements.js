@@ -412,6 +412,8 @@ class UIEnhancements {
 
 // 关于弹窗模块化逻辑
 function setupAboutModal() {
+    // 注释掉弹窗逻辑，让链接正常跳转
+    /*
     const aboutBtn = document.getElementById('about-link');
     const aboutModal = document.getElementById('about-modal');
     const aboutClose = document.getElementById('about-modal-close');
@@ -436,9 +438,12 @@ function setupAboutModal() {
             document.body.style.overflow = '';
         }
     });
+    */
 }
 
 function setupContactModal() {
+    // 注释掉弹窗逻辑，让链接正常跳转
+    /*
     const contactBtn = document.getElementById('contact-link');
     const contactModal = document.getElementById('contact-modal');
     const contactClose = document.getElementById('contact-modal-close');
@@ -462,9 +467,12 @@ function setupContactModal() {
             document.body.style.overflow = '';
         }
     });
+    */
 }
 
 function setupServicesModal() {
+    // 注释掉弹窗逻辑，让链接正常跳转
+    /*
     const servicesBtn = document.getElementById('services-link');
     const servicesModal = document.getElementById('services-modal');
     const servicesClose = document.getElementById('services-modal-close');
@@ -495,6 +503,7 @@ function setupServicesModal() {
             document.body.style.overflow = '';
         }
     });
+    */
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -505,10 +514,10 @@ document.addEventListener('DOMContentLoaded', () => {
         window.uiEnhancements.showUsageTips();
     }, 1000);
     
-    // 初始化关于弹窗
-    setupAboutModal();
-    setupContactModal();
-    setupServicesModal();
+    // 注释掉弹窗初始化，让链接正常跳转
+    // setupAboutModal();
+    // setupContactModal();
+    // setupServicesModal();
 });
 
 // 将类设为全局变量
