@@ -189,18 +189,6 @@
     </script>
 </head>
 <body>
-    <!-- 面包屑导航 -->
-    <nav class="breadcrumb" aria-label="面包屑导航">
-        <ol class="breadcrumb-list">
-            <li class="breadcrumb-item">
-                <a href="#home" class="breadcrumb-link">首页</a>
-            </li>
-            <li class="breadcrumb-item">
-                <span class="breadcrumb-current" data-i18n="breadcrumbCurrent">AI内容生成</span>
-            </li>
-        </ol>
-    </nav>
-
     <!-- 顶部导航栏 -->
     <nav class="navbar">
         <div class="navbar-left">
@@ -209,8 +197,8 @@
         </div>
         <ul class="navbar-menu">
             <li><a href="#home">Home</a></li>
-            <li><a href="#about" id="about-link">About</a></li>
-            <li><a href="#services" id="services-link">Services</a></li>
+            <li><a href="/about.html" id="about-link">About</a></li>
+            <li><a href="/services.html" id="services-link">Services</a></li>
             <li><a href="#contact" id="contact-link">Contact</a></li>
         </ul>
         <div class="navbar-right">
@@ -244,6 +232,17 @@
 
     <div class="container">
         <main>
+            <!-- 面包屑导航（仅在非首页显示） -->
+            <nav class="breadcrumb" id="breadcrumb-nav" aria-label="面包屑导航" style="display:none;">
+                <ol class="breadcrumb-list">
+                    <li class="breadcrumb-item">
+                        <a href="#home" class="breadcrumb-link" data-i18n="navHome">首页</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <span class="breadcrumb-current" data-i18n="breadcrumbCurrent">AI内容生成</span>
+                    </li>
+                </ol>
+            </nav>
             <!-- 内容创作区域 -->
             <section class="input-section" id="create">
                 <h2 class="section-title" data-i18n="inputTitle">描述文本</h2>
@@ -483,17 +482,6 @@
     <script src="js/app.js" defer></script>
     <!-- Test auto-deploy on 2025-05-23 06:25 -->
 
-    <!-- 关于弹窗模块 -->
-    <div id="about-modal" class="modal" style="display:none;">
-      <div class="modal-content">
-        <span class="close" id="about-modal-close">&times;</span>
-        <h2 data-i18n="aboutModalTitle">关于 AISTONE</h2>
-        <p data-i18n="aboutModalContent">AISTONE 是一个集成了文本生成图片与语音的智能工具平台，致力于为用户提供高效、便捷、免费的AI内容创作体验。<br><br>
-无论你是设计师、内容创作者，还是普通用户，只需输入一句描述，就能一键生成高质量的图片或语音。平台支持中英文输入，内置智能优化和多种生成参数，满足多样化的创作需求。<br><br>
-本项目基于先进的AI模型，结合云端算力，保证生成速度与质量。所有功能永久免费开放，界面简洁友好，适配多终端设备，助力每一位用户释放创意灵感。</p>
-      </div>
-    </div>
-
     <!-- 联系弹窗模块 -->
     <div id="contact-modal" class="modal" style="display:none;">
       <div class="modal-content">
@@ -507,22 +495,6 @@
         官方网站：<a href="https://aistone.org" target="_blank">https://aistone.org</a><br><br>
         我们会在1-2个工作日内回复您的信息。感谢您的关注与支持！
         </p>
-      </div>
-    </div>
-
-    <!-- 服务弹窗模块 -->
-    <div id="services-modal" class="modal" style="display:none;">
-      <div class="modal-content">
-        <span class="close" id="services-modal-close">&times;</span>
-        <h2 data-i18n="servicesModalTitle">我们的服务</h2>
-        <ul data-i18n="servicesModalContent" style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;">
-          <li><b>AI图片生成：</b>输入描述文本，智能生成高质量、多风格的图片，支持多种分辨率和比例选择。</li>
-          <li><b>AI语音生成：</b>输入文本，一键生成自然流畅的语音音频，适用于配音、播报等多种场景。</li>
-          <li><b>智能提示词优化：</b>内置AI优化和翻译功能，自动将您的描述转化为高质量英文提示词，提升生成效果。</li>
-          <li><b>多语言支持：</b>支持中文和英文界面，满足全球用户需求。</li>
-          <li><b>永久免费：</b>所有功能对用户永久免费，无需注册，无使用次数限制。</li>
-        </ul>
-        <div style="margin-top: 12px; color: #AAB4D4;">如需了解更多服务细节，欢迎通过"联系我们"与我们取得联系。</div>
       </div>
     </div>
 </body>

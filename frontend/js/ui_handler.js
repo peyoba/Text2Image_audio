@@ -31,6 +31,9 @@ class UIHandler {
         this.optionHeight = document.getElementById('option-height');
         this.optionNumImages = document.getElementById('option-num-images');
 
+        // 新增：获取面包屑导航元素
+        this.breadcrumbNav = document.getElementById('breadcrumb-nav');
+
         // 更新页面文本
         this.updatePageText();
         
@@ -42,6 +45,9 @@ class UIHandler {
         this.bindEvents();
         this._toggleImageOptions(); // 初始化时根据类型显隐图片选项
         this._handleAspectRatioChange(); // 初始化宽高比相关UI
+        this._handleBreadcrumbVisibility(); // 初始化面包屑导航显示逻辑
+        window.addEventListener('hashchange', () => this._handleBreadcrumbVisibility());
+        document.addEventListener('DOMContentLoaded', () => this._handleBreadcrumbVisibility());
     }
 
     /**
@@ -422,6 +428,18 @@ class UIHandler {
         if (isNaN(imageOptions.width) || imageOptions.width <= 0) delete imageOptions.width;
         if (isNaN(imageOptions.height) || imageOptions.height <= 0) delete imageOptions.height;
         return imageOptions;
+    }
+
+    _handleBreadcrumbVisibility() {
+        const hash = window.location.hash;
+        const showHashes = ['#features', '#create', '#results', '#faq', '#testimonials'];
+        if (this.breadcrumbNav) {
+            if (showHashes.includes(hash)) {
+                this.breadcrumbNav.style.display = '';
+            } else {
+                this.breadcrumbNav.style.display = 'none';
+            }
+        }
     }
 }
 
