@@ -433,8 +433,10 @@ function setLanguage(lang) {
         try {
             // 保存语言设置
         localStorage.setItem('preferred_language', lang);
-            document.documentElement.lang = lang;
-            console.log('[i18n] 语言已保存到localStorage:', lang);
+            // 设置HTML lang属性，使用标准的语言代码
+            const langCode = lang === 'zh' ? 'zh-CN' : 'en';
+            document.documentElement.lang = langCode;
+            console.log('[i18n] 语言已保存到localStorage:', lang, 'HTML lang属性设置为:', langCode);
             
             // 更新所有带有data-i18n属性的元素
             document.querySelectorAll('[data-i18n]').forEach(el => {

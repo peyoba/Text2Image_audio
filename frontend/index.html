@@ -6,6 +6,39 @@
     <meta name="description" content="AISTONE - 免费AI图片生成与语音合成平台，AI驱动，永久免费，无需登录，支持中英文输入，适合设计师、内容创作者和普通用户。AI图片生成、AI语音合成、文本转图片、文本转语音，一站式AI内容创作工具。">
     <meta name="keywords" content="AI图片生成,AI语音合成,免费AI工具,内容创作,文本转图片,文本转语音,AI Content Generation,Text to Image,Text to Speech,AI生成艺术,AI创作,AI Slogan,Free AI">
     <title>AISTONE - 免费AI图片生成与语音合成 | Free Text to Image & Audio</title>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aistone.org/">
+    <meta property="og:title" content="AISTONE - 免费AI图片生成与语音合成平台">
+    <meta property="og:description" content="AI驱动，永久免费，无需登录，支持中英文输入。一键生成高质量图片和自然语音，释放无限创意。">
+    <meta property="og:image" content="https://aistone.org/assets/logo.svg">
+    <meta property="og:site_name" content="AISTONE">
+    <meta property="og:locale" content="zh_CN">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://aistone.org/">
+    <meta property="twitter:title" content="AISTONE - 免费AI图片生成与语音合成平台">
+    <meta property="twitter:description" content="AI驱动，永久免费，无需登录，支持中英文输入。一键生成高质量图片和自然语音，释放无限创意。">
+    <meta property="twitter:image" content="https://aistone.org/assets/logo.svg">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="author" content="AISTONE">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="zh-CN,en">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://aistone.org/">
+    
+    <!-- Alternate Language Versions -->
+    <link rel="alternate" hreflang="zh" href="https://aistone.org/">
+    <link rel="alternate" hreflang="en" href="https://aistone.org/">
+    <link rel="alternate" hreflang="x-default" href="https://aistone.org/">
+    
     <link rel="stylesheet" href="css/style.css">
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-X8QYXG63G3"></script>
@@ -23,10 +56,35 @@
       "name": "AISTONE",
       "url": "https://aistone.org",
       "description": "AI图片生成与语音合成平台，永久免费，支持中英文输入。",
-      "inLanguage": ["zh-CN", "en"]
+      "inLanguage": ["zh-CN", "en"],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://aistone.org/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
     }
-    
     </script>
+    
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "AISTONE",
+      "url": "https://aistone.org",
+      "logo": "https://aistone.org/assets/logo.svg",
+      "description": "AI图片生成与语音合成平台",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "support@aistone.org",
+        "contactType": "customer service"
+      },
+      "sameAs": [
+        "https://aistone.org"
+      ]
+    }
+    </script>
+    
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -93,7 +151,7 @@
     </nav>
 
     <!-- 主视觉区 -->
-    <section class="hero-section">
+    <section class="hero-section" id="home">
         <div class="hero-content">
             <div class="hero-row">
                 <img src="assets/logo.svg" alt="AISTONE LOGO - 免费AI图片生成与语音合成" class="hero-logo-img" aria-label="AISTONE 平台标志" />
@@ -114,8 +172,9 @@
 
     <div class="container">
         <main>
-            <section class="input-section">
-                <h2 class="section-title" data-i18n="inputTitle">输入内容</h2>
+            <!-- 内容创作区域 -->
+            <section class="input-section" id="create">
+                <h2 class="section-title" data-i18n="inputTitle">描述文本</h2>
                 <textarea id="text-input" rows="6" placeholder="请输入描述，如：一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影"></textarea>
                 <!-- 快速填充示例按钮区域（移动到此处） -->
                 <div class="examples-quickfill">
@@ -185,7 +244,8 @@
                 <button id="generate-button" aria-label="开始生成">Start Generation</button>
             </section>
 
-            <section class="output-section">
+            <!-- 生成结果区域 -->
+            <section class="output-section" id="results">
                 <h2>生成结果 Generation Result</h2>
                 
                 <!-- 新增：结果状态提示 -->
@@ -216,7 +276,8 @@
                 </div>
             </section>
         </main>
-        <!-- 主要特性区块移动到footer前 -->
+        
+        <!-- 主要特性区块 -->
         <section class="features-section" id="features">
             <h2 class="features-title" data-i18n="featuresTitle">AISTONE 的主要特性 | MAIN FEATURES OF AISTONE</h2>
             <div class="features-grid">
@@ -228,52 +289,55 @@
                 <div class="feature-card"><span class="feature-icon">🎨</span><h3>多风格支持</h3><p>跨艺术风格，照片、插画、动漫等。</p></div>
             </div>
         </section>
+        
+        <!-- 用户评价区域 -->
         <section class="testimonials-section" id="testimonials">
-          <h2 class="testimonials-title" data-i18n="testimonialsTitle"></h2>
+          <h2 class="testimonials-title" data-i18n="testimonialsTitle">用户评价与真实案例</h2>
           <div class="testimonial-carousel-wrapper">
             <div class="testimonial-carousel-fade left"></div>
             <div class="testimonial-cards">
               <div class="testimonial-card">
                   <img src="https://ui-avatars.com/api/?name=Li+Ming&background=0D8ABC&color=fff&size=64" alt="Li Ming" class="avatar">
-                  <h3 data-i18n="testimonialName3"></h3>
-                  <p class="role" data-i18n="testimonialRole3"></p>
+                  <h3 data-i18n="testimonialName3">李明</h3>
+                  <p class="role" data-i18n="testimonialRole3">独立开发者</p>
                   <div class="rating">★★★★★</div>
-                  <p data-i18n="testimonialContent3"></p>
+                  <p data-i18n="testimonialContent3">"一键生成图片和语音，创作效率翻倍，强烈推荐！"</p>
               </div>
               <div class="testimonial-card">
                   <img src="https://ui-avatars.com/api/?name=Anna+Smith&background=0D8ABC&color=fff&size=64" alt="Anna Smith" class="avatar">
-                  <h3 data-i18n="testimonialName2"></h3>
-                  <p class="role" data-i18n="testimonialRole2"></p>
+                  <h3 data-i18n="testimonialName2">Anna Smith</h3>
+                  <p class="role" data-i18n="testimonialRole2">短视频创作者</p>
                   <div class="rating">★★★★☆</div>
-                  <p data-i18n="testimonialContent2"></p>
+                  <p data-i18n="testimonialContent2">"AI语音自然流畅，直接用于我的短视频配音。"</p>
               </div>
               <div class="testimonial-card">
                   <img src="https://ui-avatars.com/api/?name=Emily+Zhang&background=0D8ABC&color=fff&size=64" alt="Emily Zhang" class="avatar">
-                  <h3 data-i18n="testimonialName4"></h3>
-                  <p class="role" data-i18n="testimonialRole4"></p>
+                  <h3 data-i18n="testimonialName4">Emily Zhang</h3>
+                  <p class="role" data-i18n="testimonialRole4">产品经理</p>
                   <div class="rating">★★★★☆</div>
-                  <p data-i18n="testimonialContent4"></p>
+                  <p data-i18n="testimonialContent4">"AI内容生成工具极大提升了团队的创意产出效率。"</p>
               </div>
               <div class="testimonial-card">
                   <img src="https://ui-avatars.com/api/?name=Sarah+Chen&background=0D8ABC&color=fff&size=64" alt="Sarah Chen" class="avatar">
-                  <h3 data-i18n="testimonialName1"></h3>
-                  <p class="role" data-i18n="testimonialRole1"></p>
+                  <h3 data-i18n="testimonialName1">Sarah Chen</h3>
+                  <p class="role" data-i18n="testimonialRole1">插画师</p>
                   <div class="rating">★★★★★</div>
-                  <p data-i18n="testimonialContent1"></p>
+                  <p data-i18n="testimonialContent1">"平台生成的插画非常精美，极大提升了我的设计效率！"</p>
               </div>
               <div class="testimonial-card">
                   <img src="https://ui-avatars.com/api/?name=Tom+Lee&background=0D8ABC&color=fff&size=64" alt="Tom Lee" class="avatar">
-                  <h3 data-i18n="testimonialName5"></h3>
-                  <p class="role" data-i18n="testimonialRole5"></p>
+                  <h3 data-i18n="testimonialName5">Tom Lee</h3>
+                  <p class="role" data-i18n="testimonialRole5">自媒体人</p>
                   <div class="rating">★★★★★</div>
-                  <p data-i18n="testimonialContent5"></p>
+                  <p data-i18n="testimonialContent5">"生成速度快，内容质量高，值得推荐！"</p>
               </div>
             </div>
             <div class="testimonial-carousel-fade right"></div>
           </div>
         </section>
-        <!-- FAQ区块移动到features区块之后、footer之前，并深色风格美化 -->
-        <section class="faq-section" style="background:#232837;padding:48px 0 40px 0;">
+        
+        <!-- FAQ区块 -->
+        <section class="faq-section" id="faq" style="background:#232837;padding:48px 0 40px 0;">
             <div class="container">
                 <h2 style="text-align:center;font-size:2.1em;font-weight:bold;margin-bottom:18px;color:#00CFFF;letter-spacing:1px;" data-i18n="faqTitle">常见问题 FAQ</h2>
                 <div style="text-align:center;color:#aab4d4;font-size:1.08em;margin-bottom:30px;" data-i18n="faqTip">如有更多疑问，欢迎通过页面底部联系我们</div>
@@ -321,7 +385,9 @@
                 </div>
             </div>
         </section>
-        <footer>
+        
+        <!-- 页脚区域 -->
+        <footer id="contact">
             <div class="footer-grid">
                 <div class="footer-left">&copy; 2025 AISTONE</div>
                 <div class="footer-center">
