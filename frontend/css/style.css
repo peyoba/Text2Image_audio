@@ -1624,4 +1624,58 @@ footer {
 .testimonial-carousel-fade.right {
   right: 0;
   background: linear-gradient(to left, #151c29 80%, transparent);
+}
+
+/* 新页面样式 */
+.about-section, .services-section, .contact-section {
+  background: #1A223A;
+  border-radius: 16px;
+  padding: 40px;
+  margin: 40px 0;
+  border: 1px solid #2D3650;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.about-section h2, .services-section h2, .contact-section h2 {
+  color: #00CFFF;
+  font-size: 2.2em;
+  font-weight: bold;
+  margin-bottom: 24px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.about-content, .services-content, .contact-content {
+  color: #AAB4D4;
+  font-size: 1.18em;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+.about-content a, .services-content a, .contact-content a {
+  color: #00CFFF;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.about-content a:hover, .services-content a:hover, .contact-content a:hover {
+  color: #667eea;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .about-section, .services-section, .contact-section {
+    padding: 24px;
+    margin: 24px 0;
+  }
+  
+  .about-section h2, .services-section h2, .contact-section h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+  
+  .about-content, .services-content, .contact-content {
+    font-size: 1.1em;
+    line-height: 1.7;
+  }
 } 

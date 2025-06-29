@@ -11,7 +11,7 @@ class UIHandler {
         
         // 检查当前页面类型
         const currentPath = window.location.pathname;
-        const isHomePage = !currentPath.includes('about.html') && !currentPath.includes('services.html');
+        const isHomePage = !currentPath.includes('about.html') && !currentPath.includes('services.html') && !currentPath.includes('contact.html');
         
         if (isHomePage) {
             // 首页：获取所有DOM元素
@@ -124,6 +124,15 @@ class UIHandler {
                 metaDescription.content = currentLang === 'zh'
                     ? 'AISTONE - 服务介绍，AI图片生成与语音合成平台功能一览。'
                     : 'AISTONE - Service introduction, AI image generation and voice synthesis platform features.';
+            }
+        } else if (currentPath.includes('contact.html')) {
+            document.title = t('contactModalTitle');
+            // 更新meta描述
+            const metaDescription = document.querySelector('meta[name="description"]');
+            if (metaDescription) {
+                metaDescription.content = currentLang === 'zh'
+                    ? 'AISTONE - 联系我们，AI图片生成与语音合成平台客服支持。'
+                    : 'AISTONE - Contact us, AI image generation and voice synthesis platform customer support.';
             }
         } else {
             // 首页
