@@ -4,17 +4,17 @@
 class ApiClient {
     constructor() {
         this.baseUrl = 'https://text2image-api.peyoba660703.workers.dev';
-        this.pollingInterval = 2000; // 轮询间隔ms，例如2秒
-        this.maxPollingAttempts = 30; // 最大轮询次数，例如 30 * 2s = 1分钟超时
+        this.maxPollingAttempts = 60; // 最大轮询次数 (60 * 2秒 = 2分钟)
+        this.pollingInterval = 2000; // 轮询间隔 (2秒)
         console.log('ApiClient initialized with baseUrl:', this.baseUrl); // 添加初始化日志
     }
 
     /**
-     * 提交生成任务到后端
-     * @param {string} text - 用户输入的文本
-     * @param {string} type - 生成类型 ('image' 或 'audio')
-     * @param {object} options - (可选) 其他生成选项，例如 { width, height, nologo } 等
-     * @returns {Promise<Object|ArrayBuffer>} - 对于图片返回包含data的Object，对于音频返回ArrayBuffer
+     * 提交生成任务
+     * @param {string} text - 输入文本
+     * @param {string} type - 任务类型 ('image' 或 'audio')
+     * @param {Object} options - 额外选项 (仅用于图片生成)
+     * @returns {Promise<Object|ArrayBuffer>} - 返回任务结果或直接返回ArrayBuffer (音频)
      */
     async submitGenerationTask(text, type, options = {}) {
         const requestUrl = `${this.baseUrl}/api/generate`;
@@ -173,7 +173,7 @@ class ApiClient {
     /**
      * 获取生成的音频
      * @param {string} audioId - 音频ID
-     * @returns {Promise<string>} - 返回音频的base64数据
+     * @returns {Promise<ArrayBuffer>} - 返回音频数据
      */
     async getGeneratedAudio(audioId) {
         try {
@@ -181,7 +181,7 @@ class ApiClient {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            return await response.text();
+            return await response.arrayBuffer();
         } catch (error) {
             console.error('获取音频失败:', error);
             throw error;
@@ -191,86 +191,169 @@ class ApiClient {
     /**
      * 下载音频文件
      * @param {string} audioId - 音频ID
-     * @returns {Promise<Blob>} - 返回音频文件Blob
+     * @returns {Promise<Blob>} - 返回音频Blob对象
      */
     async downloadAudio(audioId) {
         try {
-            const response = await fetch(`${this.baseUrl}/audio/${audioId}/download`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return await response.blob();
+            const audioBuffer = await this.getGeneratedAudio(audioId);
+            return new Blob([audioBuffer], { type: 'audio/mpeg' });
         } catch (error) {
             console.error('下载音频失败:', error);
             throw error;
         }
     }
 
+    /**
+     * 优化文本提示词
+     * @param {string} text - 原始文本
+     * @returns {Promise<string>} - 返回优化后的文本
+     */
     async optimizeText(text) {
-        const requestUrl = `${this.baseUrl}/api/optimize`;
-        console.log(`ApiClient: Optimizing text: ${text.substring(0, 50)}...`);
         try {
-            const response = await fetch(requestUrl, {
+            console.log(`ApiClient: Optimizing text: ${text.substring(0, 50)}...`);
+            
+            const response = await fetch('https://text2image-api.peyoba660703.workers.dev/api/optimize', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({ text: text })
             });
 
             if (!response.ok) {
-                const errorText = await response.text();
-                console.error('ApiClient: Optimize text error - Response not OK', response.status, errorText);
-                throw new Error(`HTTP error! status: ${response.status}, details: ${errorText}`);
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const responseData = await response.json();
-            console.log('ApiClient: Text optimized successfully', responseData);
-            if (responseData && responseData.optimized_text) {
-                return responseData.optimized_text;
+            const result = await response.json();
+            console.log('ApiClient: Text optimization result:', result);
+            
+            if (result.optimized_text) {
+                return result.optimized_text;
             } else {
-                console.error('ApiClient: Optimized text not found in response', responseData);
-                throw new Error('优化成功，但未找到优化后的文本。');
+                throw new Error('优化服务未返回优化后的文本');
             }
         } catch (error) {
-            console.error(`ApiClient: optimizeText - 请求失败:`, error.message);
-            throw new Error(`文本优化失败: ${error.message || error.toString()}`);
+            console.error('ApiClient: Text optimization failed:', error);
+            throw error;
         }
     }
 
-    async translateText(text) {
-        const requestUrl = `${this.baseUrl}/api/translate`;
-        console.log(`ApiClient: Translating text: ${text.substring(0, 50)}...`);
+    /**
+     * 翻译文本
+     * @param {string} text - 要翻译的文本
+     * @param {string} targetLang - 目标语言 (默认 'en')
+     * @returns {Promise<string>} - 返回翻译后的文本
+     */
+    async translateText(text, targetLang = 'en') {
         try {
-            const response = await fetch(requestUrl, {
+            console.log(`ApiClient: Translating text to ${targetLang}: ${text.substring(0, 50)}...`);
+            
+            const response = await fetch('https://text2image-api.peyoba660703.workers.dev/api/translate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
                 },
-                body: JSON.stringify({ text: text })
+                body: JSON.stringify({ 
+                    text: text,
+                    target_language: targetLang
+                })
             });
+
             if (!response.ok) {
-                const errorText = await response.text();
-                console.error('ApiClient: Translate text error - Response not OK', response.status, errorText);
-                throw new Error(`HTTP error! status: ${response.status}, details: ${errorText}`);
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-            const responseData = await response.json();
-            console.log('ApiClient: Text translated successfully', responseData);
-            if (responseData && responseData.translated_text) {
-                return responseData.translated_text;
+
+            const result = await response.json();
+            console.log('ApiClient: Translation result:', result);
+            
+            if (result.translated_text) {
+                return result.translated_text;
             } else {
-                console.error('ApiClient: Translated text not found in response', responseData);
-                throw new Error('翻译成功，但未找到翻译后的文本。');
+                throw new Error('翻译服务未返回翻译后的文本');
             }
         } catch (error) {
-            console.error(`ApiClient: translateText - 请求失败:`, error.message);
-            throw new Error(`文本翻译失败: ${error.message || error.toString()}`);
+            console.error('ApiClient: Translation failed:', error);
+            throw error;
         }
     }
-}
 
-// 将类设为全局变量
-window.ApiClient = ApiClient;
-window.apiClient = new ApiClient();
+    /**
+     * 使用Pollinations.AI生成图像
+     * @param {string} prompt - 图像描述
+     * @param {Object} options - 生成选项
+     * @param {string} options.model - 模型名称 (flux, turbo, gpt-image)
+     * @param {number} options.width - 图像宽度
+     * @param {number} options.height - 图像高度
+     * @param {number} options.seed - 随机种子
+     * @param {boolean} options.nologo - 是否移除logo
+     * @returns {Promise<string>} 图像URL
+     */
+    async generateImageWithPollinations(prompt, options = {}) {
+        try {
+            const {
+                model = 'flux',
+                width = 1024,
+                height = 1024,
+                seed = -1,
+                nologo = true
+            } = options;
+
+            console.log(`ApiClient: Generating image with Pollinations - Prompt: ${prompt.substring(0, 50)}..., Model: ${model}, Size: ${width}x${height}`);
+
+            // 构建Pollinations.AI图像API URL
+            const encodedPrompt = encodeURIComponent(prompt);
+            let imageUrl = `https://pollinations.ai/p/${encodedPrompt}`;
+            
+            // 添加查询参数
+            const params = new URLSearchParams();
+            if (model !== 'flux') params.append('model', model);
+            if (width !== 1024) params.append('width', width);
+            if (height !== 1024) params.append('height', height);
+            if (seed !== -1) params.append('seed', seed);
+            if (nologo) params.append('nologo', 'true');
+            
+            if (params.toString()) {
+                imageUrl += `?${params.toString()}`;
+            }
+
+            console.log(`ApiClient: Pollinations image URL: ${imageUrl}`);
+            
+            // 验证图像URL是否可访问
+            const response = await fetch(imageUrl, { method: 'HEAD' });
+            if (!response.ok) {
+                throw new Error(`Pollinations image API error: ${response.status} ${response.statusText}`);
+            }
+
+            return imageUrl;
+        } catch (error) {
+            console.error(`ApiClient: Pollinations image generation failed:`, error.message);
+            throw error;
+        }
+    }
+
+    /**
+     * 获取可用的图像模型
+     * @returns {Array} 模型列表
+     */
+    getAvailableImageModels() {
+        return [
+            { id: 'flux', name: 'FLUX', description: '高质量图像生成，适合艺术创作' },
+            { id: 'turbo', name: 'Turbo', description: '快速生成，适合快速原型' },
+            { id: 'gpt-image', name: 'GPT Image', description: 'OpenAI最新模型，高分辨率高精度' }
+        ];
+    }
+
+    /**
+     * 获取预设的图像尺寸
+     * @returns {Array} 尺寸列表
+     */
+    getPresetImageSizes() {
+        return [
+            { id: 'square', name: '正方形', width: 1024, height: 1024 },
+            { id: 'portrait', name: '竖版', width: 768, height: 1024 },
+            { id: 'landscape', name: '横版', width: 1024, height: 768 },
+            { id: 'wide', name: '宽屏', width: 1280, height: 720 },
+            { id: 'ultrawide', name: '超宽', width: 1920, height: 1080 }
+        ];
+    }
+} 

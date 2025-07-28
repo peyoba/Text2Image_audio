@@ -253,7 +253,24 @@ class UIHandler {
         this.typeAudioRadio.addEventListener('change', () => this._toggleImageOptions());
         this.optionAspectRatio.addEventListener('change', () => this._handleAspectRatioChange());
 
+        // 新增：为新的选项绑定事件
+        this._bindNewOptionsEvents();
+
         this.validateInput();
+    }
+
+    /**
+     * 绑定新选项的事件处理器
+     */
+    _bindNewOptionsEvents() {
+        // 绑定AI模型选择事件
+        const aiModelSelect = document.getElementById('option-ai-model');
+        if (aiModelSelect) {
+            aiModelSelect.addEventListener('change', () => {
+                console.log('AI模型已更改为:', aiModelSelect.value);
+                // 可以在这里添加模型切换时的特殊处理
+            });
+        }
     }
 
     /**
@@ -374,10 +391,14 @@ class UIHandler {
 
     // 新增：根据生成类型显隐图片选项
     _toggleImageOptions() {
+        const imageOptionsContainer = document.getElementById('image-generation-options');
+        
         if (this.typeImageRadio.checked) {
-            this.imageOptionsContainer.style.display = 'block';
+            // 显示图片选项
+            if (imageOptionsContainer) imageOptionsContainer.style.display = 'block';
         } else {
-            this.imageOptionsContainer.style.display = 'none';
+            // 隐藏图片选项
+            if (imageOptionsContainer) imageOptionsContainer.style.display = 'none';
         }
     }
 
@@ -391,7 +412,7 @@ class UIHandler {
     }
 
     /**
-     * 主生成逻辑
+     * 主生成逻辑 - 升级版，支持Pollinations.AI新功能
      */
     async handleGenerate() {
         if (!this.validateInput() || this.isGenerating) {
@@ -405,74 +426,9 @@ class UIHandler {
 
         try {
             if (type === 'image') {
-                // 对于图片生成，先进行提示词优化
-                let optimizedText = text;
-                try {
-                    this.showLoading('正在优化提示词...');
-                    optimizedText = await this.apiClient.optimizeText(text);
-                    console.log('UIHandler: 提示词优化成功，原始文本:', text, '优化后:', optimizedText);
-                } catch (optimizeError) {
-                    console.warn('UIHandler: 提示词优化失败，使用原始文本:', optimizeError);
-                    // 如果优化失败，继续使用原始文本
-                    optimizedText = text;
-                }
-
-                const numImages = parseInt(this.optionNumImages.value, 10);
-                const imageOptions = this._getImageOptions();
-                const allImageData = [];
-                let failedCount = 0;
-
-                for (let i = 0; i < numImages; i++) {
-                    try {
-                        // 更新加载提示
-                        this.showLoading(`${t('generating')} ${i + 1}/${numImages}...`);
-                        
-                        const response = await this.apiClient.submitGenerationTask(optimizedText, 'image', {
-                            ...imageOptions,
-                            seed: Math.floor(Math.random() * 100000000) // 每次生成都用随机种子
-                        });
-
-                        if (response && response.data) {
-                            allImageData.push(`data:image/jpeg;base64,${response.data}`);
-                        } else {
-                            throw new Error('API did not return image data.');
-                        }
-                    } catch (error) {
-                        console.error(`UIHandler: Error generating image ${i + 1}:`, error);
-                        // 优先使用后端返回的详细错误信息
-                        let userFriendlyError = `图片 ${i + 1} 生成失败。`;
-                        if (error.details && error.details.error) {
-                            userFriendlyError = error.details.error; // e.g., "生成服务正忙"
-                            if (error.details.details) {
-                                userFriendlyError += ` (${error.details.details})`;
-                            }
-                        } else {
-                            userFriendlyError = `${t('error')}: ${error.message}`;
-                        }
-                        this.showError(userFriendlyError);
-                        failedCount++;
-                        // 即使有一次失败，也跳出循环，因为很可能是同样的问题
-                        break; 
-                    }
-                }
-
-                if (allImageData.length > 0) {
-                    this.showImageResult(allImageData);
-                    if (failedCount > 0) {
-                        this.showError(`成功生成 ${allImageData.length} 张图片，但有 ${failedCount} 次失败。请检查错误信息。`);
-                    }
-                } else {
-                    // 如果 allImageData 为空且 failedCount > 0，错误信息已在循环内显示
-                    if(failedCount === 0) {
-                         this.showError('未能生成任何图片。');
-                    }
-                }
-
+                await this._handleImageGeneration(text);
             } else { // type === 'audio'
-                const audioBuffer = await this.apiClient.submitGenerationTask(text, 'audio');
-                const audioBlob = new Blob([audioBuffer], { type: 'audio/mpeg' });
-                const audioUrl = URL.createObjectURL(audioBlob);
-                this.showAudioResult(audioUrl);
+                await this._handleAudioGeneration(text);
             }
         } catch (error) {
             // 优化错误提示
@@ -488,6 +444,110 @@ class UIHandler {
         }
     }
 
+    /**
+     * 处理图像生成 - 支持Pollinations.AI新模型
+     */
+    async _handleImageGeneration(text) {
+        // 对于图片生成，先进行提示词优化
+        let optimizedText = text;
+        try {
+            this.showLoading('正在优化提示词...');
+            optimizedText = await this.apiClient.optimizeText(text);
+            console.log('UIHandler: 提示词优化成功，原始文本:', text, '优化后:', optimizedText);
+        } catch (optimizeError) {
+            console.warn('UIHandler: 提示词优化失败，使用原始文本:', optimizeError);
+            optimizedText = text;
+        }
+
+        const numImages = parseInt(this.optionNumImages.value, 10);
+        const imageOptions = this._getImageOptions();
+        const allImageUrls = [];
+        let failedCount = 0;
+
+        // 尝试使用Pollinations.AI新功能
+        const usePollinations = this._shouldUsePollinations();
+        
+        for (let i = 0; i < numImages; i++) {
+            try {
+                this.showLoading(`${t('generating')} ${i + 1}/${numImages}...`);
+                
+                let imageUrl;
+                if (usePollinations) {
+                    // 使用Pollinations.AI新API
+                    imageUrl = await this.apiClient.generateImageWithPollinations(optimizedText, {
+                        ...imageOptions,
+                        seed: Math.floor(Math.random() * 100000000)
+                    });
+                } else {
+                    // 使用原有API
+                    const response = await this.apiClient.submitGenerationTask(optimizedText, 'image', {
+                        ...imageOptions,
+                        seed: Math.floor(Math.random() * 100000000)
+                    });
+                    if (response && response.data) {
+                        imageUrl = `data:image/jpeg;base64,${response.data}`;
+                    } else {
+                        throw new Error('API did not return image data.');
+                    }
+                }
+                
+                allImageUrls.push(imageUrl);
+            } catch (error) {
+                console.error(`UIHandler: Error generating image ${i + 1}:`, error);
+                let userFriendlyError = `图片 ${i + 1} 生成失败。`;
+                if (error.details && error.details.error) {
+                    userFriendlyError = error.details.error;
+                    if (error.details.details) {
+                        userFriendlyError += ` (${error.details.details})`;
+                    }
+                } else {
+                    userFriendlyError = `${t('error')}: ${error.message}`;
+                }
+                this.showError(userFriendlyError);
+                failedCount++;
+                break;
+            }
+        }
+
+        if (allImageUrls.length > 0) {
+            this.showImageResult(allImageUrls);
+            if (failedCount > 0) {
+                this.showError(`成功生成 ${allImageUrls.length} 张图片，但有 ${failedCount} 次失败。请检查错误信息。`);
+            }
+        } else {
+            if(failedCount === 0) {
+                this.showError('未能生成任何图片。');
+            }
+        }
+    }
+
+    /**
+     * 处理音频生成 - 还原原始功能
+     */
+    async _handleAudioGeneration(text) {
+        try {
+            this.showLoading('正在生成音频...');
+            
+            // 使用原有的音频生成API
+            const audioBuffer = await this.apiClient.submitGenerationTask(text, 'audio');
+            const audioBlob = new Blob([audioBuffer], { type: 'audio/mpeg' });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            this.showAudioResult(audioUrl);
+        } catch (error) {
+            console.error('UIHandler: Audio generation failed:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * 判断是否应该使用Pollinations.AI新功能 - 仅用于图像
+     */
+    _shouldUsePollinations() {
+        // 检查是否有新的AI模型选择，仅用于图像生成
+        const aiModel = document.getElementById('option-ai-model')?.value;
+        return aiModel && (aiModel === 'gpt-image' || aiModel === 'turbo');
+    }
+
     _ensureLoadingIsHidden() { // 新增一个方法确保loading最终被隐藏
         if (this.loadingIndicator.style.display !== 'none') {
             this.hideLoading();
@@ -499,18 +559,37 @@ class UIHandler {
      */
     _getImageOptions() {
         const imageOptions = {};
-        imageOptions.nologo = this.optionNologo.checked;
-        const aspectRatioValue = this.optionAspectRatio.value;
-        if (aspectRatioValue === 'custom') {
-            imageOptions.width = parseInt(this.optionWidth.value, 10);
-            imageOptions.height = parseInt(this.optionHeight.value, 10);
-        } else {
-            const selectedOption = this.optionAspectRatio.selectedOptions[0];
-            imageOptions.width = parseInt(selectedOption.dataset.width, 10);
-            imageOptions.height = parseInt(selectedOption.dataset.height, 10);
+        
+        // 基础选项
+        const nologoCheckbox = document.getElementById('option-nologo');
+        imageOptions.nologo = nologoCheckbox ? nologoCheckbox.checked : true;
+        
+        // AI模型选择
+        const aiModelSelect = document.getElementById('option-ai-model');
+        if (aiModelSelect) {
+            imageOptions.model = aiModelSelect.value;
         }
+        
+        // 尺寸选项
+        const aspectRatioSelect = document.getElementById('option-aspect-ratio');
+        if (aspectRatioSelect) {
+            const aspectRatioValue = aspectRatioSelect.value;
+            if (aspectRatioValue === 'custom') {
+                const widthInput = document.getElementById('option-width');
+                const heightInput = document.getElementById('option-height');
+                imageOptions.width = parseInt(widthInput?.value, 10);
+                imageOptions.height = parseInt(heightInput?.value, 10);
+            } else {
+                const selectedOption = aspectRatioSelect.selectedOptions[0];
+                imageOptions.width = parseInt(selectedOption.dataset.width, 10);
+                imageOptions.height = parseInt(selectedOption.dataset.height, 10);
+            }
+        }
+        
+        // 验证尺寸
         if (isNaN(imageOptions.width) || imageOptions.width <= 0) delete imageOptions.width;
         if (isNaN(imageOptions.height) || imageOptions.height <= 0) delete imageOptions.height;
+        
         return imageOptions;
     }
 

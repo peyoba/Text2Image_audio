@@ -25,6 +25,10 @@ const i18n = {
         
         // 图片选项
         imageOptions: '图片选项',
+        aiModel: 'AI模型',
+        aiModelFlux: 'FLUX - 高质量艺术创作',
+        aiModelTurbo: 'Turbo - 快速生成',
+        aiModelGptImage: 'GPT Image - 最新高精度模型',
         aspectRatio: '宽高比例',
         aspectRatioSquare: '正方形 (1:1 - 1024x1024)',
         aspectRatioLandscape: '横向 (16:9 - 1280x720)',
@@ -41,6 +45,18 @@ const i18n = {
         fourImages: '4张图片',
         aspectRatioLandscape2K: '横向2K (16:9 - 2560x1440)',
         aspectRatioPortrait2K: '竖向2K (9:16 - 1440x2560)',
+        
+        // 音频选项
+        audioOptions: '音频选项',
+        voiceSelection: '语音选择',
+        voiceNova: 'Nova - 清晰专业的女声',
+        voiceEcho: 'Echo - 温暖友好的男声',
+        voiceFable: 'Fable - 富有表现力的叙事声音',
+        voiceOnyx: 'Onyx - 深沉权威的男声',
+        voiceShimmer: 'Shimmer - 明亮活泼的女声',
+        voiceAlloy: 'Alloy - 平衡多用途的声音',
+        audioModel: '音频模型',
+        audioModelOpenai: 'OpenAI Audio - 最新语音合成',
         
         // 快捷操作
         clearButton: '清空',
@@ -224,6 +240,10 @@ const i18n = {
         
         // Image options
         imageOptions: 'Image Options',
+        aiModel: 'AI Model',
+        aiModelFlux: 'FLUX - High Quality Art Creation',
+        aiModelTurbo: 'Turbo - Fast Generation',
+        aiModelGptImage: 'GPT Image - Latest High Precision Model',
         aspectRatio: 'Aspect Ratio',
         aspectRatioSquare: 'Square (1:1 - 1024x1024)',
         aspectRatioLandscape: 'Landscape (16:9 - 1280x720)',
@@ -240,6 +260,18 @@ const i18n = {
         fourImages: '4 Images',
         aspectRatioLandscape2K: 'Landscape 2K (16:9 - 2560x1440)',
         aspectRatioPortrait2K: 'Portrait 2K (9:16 - 1440x2560)',
+        
+        // Audio options
+        audioOptions: 'Audio Options',
+        voiceSelection: 'Voice Selection',
+        voiceNova: 'Nova - Clear Professional Female Voice',
+        voiceEcho: 'Echo - Warm Friendly Male Voice',
+        voiceFable: 'Fable - Expressive Narrative Voice',
+        voiceOnyx: 'Onyx - Deep Authoritative Male Voice',
+        voiceShimmer: 'Shimmer - Bright Lively Female Voice',
+        voiceAlloy: 'Alloy - Balanced Versatile Voice',
+        audioModel: 'Audio Model',
+        audioModelOpenai: 'OpenAI Audio - Latest Speech Synthesis',
         
         // Quick actions
         clearButton: 'Clear',

@@ -415,6 +415,15 @@ textarea#text-input:focus {
     transform: scale(1.1);
 }
 
+.model-hint {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.85em;
+    color: #667eea;
+    font-style: italic;
+    line-height: 1.4;
+}
+
 /* 自定义尺寸容器 */
 #custom-dimensions-container {
     background: rgba(240, 244, 255, 0.8);

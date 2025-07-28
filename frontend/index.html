@@ -279,6 +279,18 @@
 
                 <div class="image-options" id="image-generation-options">
                     <h3 class="section-title" data-i18n="imageOptions">图片选项</h3>
+                    
+                    <!-- 新增：AI模型选择 -->
+                    <div>
+                        <label for="option-ai-model">AI模型:</label>
+                        <select id="option-ai-model" name="option-ai-model">
+                            <option value="flux" selected>FLUX - 高质量艺术创作</option>
+                            <option value="turbo">Turbo - 快速生成</option>
+                            <option value="gpt-image">GPT Image - 最新高精度模型</option>
+                        </select>
+                        <small class="model-hint">💡 不同模型适合不同场景：FLUX适合艺术创作，Turbo适合快速原型，GPT Image适合高精度需求</small>
+                    </div>
+                    
                     <div>
                         <input type="checkbox" id="option-nologo" name="option-nologo" checked>
                         <label for="option-nologo">Remove Logo (Watermark)</label>
@@ -311,6 +323,8 @@
                         </select>
                     </div>
                 </div>
+                
+
                 
                 <button id="generate-button" aria-label="开始生成">Start Generation</button>
             </section>
