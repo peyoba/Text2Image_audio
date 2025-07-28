@@ -314,9 +314,8 @@ async function generateImageFromPollinations(prompt, env, width, height, seed, n
 
     const response = await fetchWithRetry(fullUrl, {
         method: "GET",
-        headers: headers,
-        // 增加超时设置，避免Worker超时
-        signal: AbortSignal.timeout(25000) // 25秒超时
+        headers: headers
+        // 移除超时限制，让Pollinations.AI有足够时间生成图像
     }, "Pollinations Image API", env);
 
     return await response.arrayBuffer();
@@ -405,19 +404,6 @@ async function fetchWithRetry(url, options, apiName, env, maxRetries = 8, initia
 
         } catch (e) {
             console.error(`[Worker Error] 调用 ${apiName} 时发生错误 (尝试 #${attempt}/${maxRetries}): ${e.message}`);
-            
-            // 特殊处理超时错误
-            if (e.name === 'TimeoutError' || e.message.includes('timeout')) {
-                logInfo(env, `[Worker Warning] ${apiName} 请求超时 (尝试 #${attempt}/${maxRetries})`);
-                if (attempt < maxRetries) {
-                    const delay = initialDelay * Math.pow(2, attempt - 1);
-                    logInfo(env, `[Worker Warning] 超时后将在 ${delay}ms 重试...`);
-                    await new Promise(resolve => setTimeout(resolve, delay));
-                    continue;
-                } else {
-                    throw new Error(`${apiName} 请求超时，请稍后重试`);
-                }
-            }
             
             if (attempt < maxRetries) {
                 const jitter = Math.floor(Math.random() * 1000);
