@@ -447,13 +447,13 @@
                     
                     <!-- 新增：AI模型选择 -->
                     <div>
-                        <label for="option-ai-model">AI模型:</label>
+                        <label for="option-ai-model" data-i18n="aiModel">AI Model:</label>
                         <select id="option-ai-model" name="option-ai-model">
-                            <option value="flux" selected>FLUX - 高质量艺术创作</option>
-                            <option value="turbo">Turbo - 快速生成</option>
-                            <option value="gpt-image">GPT Image - 最新高精度模型</option>
+                            <option value="flux" selected data-i18n="aiModelFlux">FLUX - High Quality Art Creation</option>
+                            <option value="turbo" data-i18n="aiModelTurbo">Turbo - Fast Generation</option>
+                            <option value="gpt-image" data-i18n="aiModelGptImage">GPT Image - Latest High Precision Model</option>
                         </select>
-                        <small class="model-hint">💡 不同模型适合不同场景：FLUX适合艺术创作，Turbo适合快速原型，GPT Image适合高精度需求</small>
+                        <small class="model-hint" data-i18n="modelHint">💡 Different models suit different scenarios: FLUX for art creation, Turbo for fast prototyping, GPT Image for high precision needs</small>
                     </div>
                     
                     <div>
@@ -491,12 +491,12 @@
                 
 
                 
-                <button id="generate-button" aria-label="开始生成">Start Generation</button>
+                <button id="generate-button" aria-label="开始生成" data-i18n="generateButton">Start Generation</button>
             </section>
 
             <!-- 生成结果区域 -->
             <section class="output-section" id="results">
-                <h2>生成结果 Generation Result</h2>
+                <h2 data-i18n="generationResult">生成结果 Generation Result</h2>
                 
                 <!-- 新增：结果状态提示 -->
                 <div class="result-status" id="result-status" style="display: none;">
@@ -531,12 +531,12 @@
         <section class="features-section" id="features">
             <h2 class="features-title" data-i18n="featuresTitle">AISTONE 的主要特性 | MAIN FEATURES OF AISTONE</h2>
             <div class="features-grid">
-                <div class="feature-card"><span class="feature-icon">💸</span><h3>零成本创作</h3><p>完全免费，无需注册，无限生成。</p></div>
-                <div class="feature-card"><span class="feature-icon">🧠</span><h3>最先进的质量</h3><p>高分辨率，细节丰富，艺术风格多样。</p></div>
-                <div class="feature-card"><span class="feature-icon">⚡</span><h3>闪电般的速度</h3><p>优化推理管道，快速生成不影响质量。</p></div>
-                <div class="feature-card"><span class="feature-icon">🔒</span><h3>隐私保护</h3><p>零数据留存，生成内容不存储。</p></div>
-                <div class="feature-card"><span class="feature-icon">🌐</span><h3>多语言支持</h3><p>支持中英文界面，全球可用。</p></div>
-                <div class="feature-card"><span class="feature-icon">🎨</span><h3>多风格支持</h3><p>跨艺术风格，照片、插画、动漫等。</p></div>
+                <div class="feature-card"><span class="feature-icon">💸</span><h3 data-i18n="features.0.title">零成本创作</h3><p data-i18n="features.0.desc">完全免费，无需注册，无限生成。</p></div>
+                <div class="feature-card"><span class="feature-icon">🧠</span><h3 data-i18n="features.1.title">最先进的质量</h3><p data-i18n="features.1.desc">高分辨率，细节丰富，艺术风格多样。</p></div>
+                <div class="feature-card"><span class="feature-icon">⚡</span><h3 data-i18n="features.2.title">闪电般的速度</h3><p data-i18n="features.2.desc">优化推理管道，快速生成不影响质量。</p></div>
+                <div class="feature-card"><span class="feature-icon">🔒</span><h3 data-i18n="features.3.title">隐私保护</h3><p data-i18n="features.3.desc">零数据留存，生成内容不存储。</p></div>
+                <div class="feature-card"><span class="feature-icon">🌐</span><h3 data-i18n="features.4.title">多语言支持</h3><p data-i18n="features.4.desc">支持中英文界面，全球可用。</p></div>
+                <div class="feature-card"><span class="feature-icon">🎨</span><h3 data-i18n="features.5.title">多风格支持</h3><p data-i18n="features.5.desc">跨艺术风格，照片、插画、动漫等。</p></div>
             </div>
         </section>
         

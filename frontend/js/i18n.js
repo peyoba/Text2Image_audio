@@ -29,6 +29,7 @@ const i18n = {
         aiModelFlux: 'FLUX - 高质量艺术创作',
         aiModelTurbo: 'Turbo - 快速生成',
         aiModelGptImage: 'GPT Image - 最新高精度模型',
+        modelHint: '💡 不同模型适合不同场景：FLUX适合艺术创作，Turbo适合快速原型，GPT Image适合高精度需求',
         aspectRatio: '宽高比例',
         aspectRatioSquare: '正方形 (1:1 - 1024x1024)',
         aspectRatioLandscape: '横向 (16:9 - 1280x720)',
@@ -244,6 +245,7 @@ const i18n = {
         aiModelFlux: 'FLUX - High Quality Art Creation',
         aiModelTurbo: 'Turbo - Fast Generation',
         aiModelGptImage: 'GPT Image - Latest High Precision Model',
+        modelHint: '💡 Different models suit different scenarios: FLUX for art creation, Turbo for fast prototyping, GPT Image for high precision needs',
         aspectRatio: 'Aspect Ratio',
         aspectRatioSquare: 'Square (1:1 - 1024x1024)',
         aspectRatioLandscape: 'Landscape (16:9 - 1280x720)',
@@ -576,7 +578,7 @@ function t(key) {
     let value = i18n[lang];
     
     for (const k of keys) {
-        if (value && value[k]) {
+        if (value && value[k] !== undefined) {
             value = value[k];
         } else {
             console.warn(`[i18n] Translation missing for key: ${key} in language: ${lang}`);
