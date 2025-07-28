@@ -160,10 +160,40 @@ class UIHandler {
         // 更新图片选项（仅首页）
         const imageOptionsTitle = document.querySelector('.image-options h3');
         if (imageOptionsTitle) imageOptionsTitle.textContent = t('imageOptions');
+        
+        // 更新AI模型选择器
+        const aiModelLabel = document.querySelector('label[for="option-ai-model"]');
+        if (aiModelLabel) aiModelLabel.textContent = t('aiModel');
+        
+        const aiModelFluxOption = document.querySelector('option[value="flux"]');
+        if (aiModelFluxOption) aiModelFluxOption.textContent = t('aiModelFlux');
+        
+        const aiModelTurboOption = document.querySelector('option[value="turbo"]');
+        if (aiModelTurboOption) aiModelTurboOption.textContent = t('aiModelTurbo');
+        
+        const aiModelGptImageOption = document.querySelector('option[value="gpt-image"]');
+        if (aiModelGptImageOption) aiModelGptImageOption.textContent = t('aiModelGptImage');
+        
+        const modelHint = document.querySelector('.model-hint');
+        if (modelHint) modelHint.textContent = t('modelHint');
+        
         const aspectRatioLabel = document.querySelector('label[for="option-aspect-ratio"]');
         if (aspectRatioLabel) aspectRatioLabel.textContent = t('aspectRatio');
         const aspectRatioSquare = document.querySelector('option[value="1:1"]');
         if (aspectRatioSquare) aspectRatioSquare.textContent = t('aspectRatioSquare');
+        
+        const aspectRatioLandscape = document.querySelector('option[value="16:9"]');
+        if (aspectRatioLandscape) aspectRatioLandscape.textContent = t('aspectRatioLandscape');
+        
+        const aspectRatioPortrait = document.querySelector('option[value="9:16"]');
+        if (aspectRatioPortrait) aspectRatioPortrait.textContent = t('aspectRatioPortrait');
+        
+        const aspectRatioStandard = document.querySelector('option[value="4:3"]');
+        if (aspectRatioStandard) aspectRatioStandard.textContent = t('aspectRatioStandard');
+        
+        const aspectRatioStandardVertical = document.querySelector('option[value="3:4"]');
+        if (aspectRatioStandardVertical) aspectRatioStandardVertical.textContent = t('aspectRatioStandardVertical');
+        
         const option16_9_2k = document.querySelector('option[value="16:9-2k"]');
         if (option16_9_2k) option16_9_2k.textContent = t('aspectRatioLandscape2K');
         const option9_16_2k = document.querySelector('option[value="9:16-2k"]');
@@ -178,6 +208,16 @@ class UIHandler {
         if (noLogoLabel) noLogoLabel.textContent = t('noLogo');
         const numImagesLabel = document.querySelector('label[for="option-num-images"]');
         if (numImagesLabel) numImagesLabel.textContent = t('numImages');
+        
+        // 更新数量选择器选项
+        const oneImageOption = document.querySelector('option[value="1"]');
+        if (oneImageOption) oneImageOption.textContent = t('oneImage');
+        
+        const twoImagesOption = document.querySelector('option[value="2"]');
+        if (twoImagesOption) twoImagesOption.textContent = t('twoImages');
+        
+        const fourImagesOption = document.querySelector('option[value="4"]');
+        if (fourImagesOption) fourImagesOption.textContent = t('fourImages');
 
         // 更新快捷操作按钮（仅首页）
         const clearBtn = document.getElementById('clear-btn');
