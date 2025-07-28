@@ -389,9 +389,13 @@ class UIHandler {
             return;
         }
 
-        // 过滤有效的图片数据
+        // 过滤有效的图片数据 - 支持base64和URL格式
         const validImages = imageDataURLs.filter(imageDataURL => 
-            typeof imageDataURL === 'string' && imageDataURL.startsWith('data:image')
+            typeof imageDataURL === 'string' && (
+                imageDataURL.startsWith('data:image') || 
+                imageDataURL.startsWith('http') ||
+                imageDataURL.startsWith('https')
+            )
         );
 
         if (validImages.length === 0) {
