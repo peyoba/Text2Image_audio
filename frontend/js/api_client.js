@@ -323,10 +323,11 @@ class ApiClient {
             const result = await response.json();
             console.log('ApiClient: Pollinations proxy result:', result);
             
-            if (result.imageUrl) {
-                return result.imageUrl;
+            if (result.data) {
+                // 返回base64格式的图像数据
+                return `data:image/jpeg;base64,${result.data}`;
             } else {
-                throw new Error('Pollinations代理未返回图像URL');
+                throw new Error('Pollinations代理未返回图像数据');
             }
         } catch (error) {
             console.error(`ApiClient: Pollinations image generation failed:`, error.message);

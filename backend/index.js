@@ -103,31 +103,18 @@ export default {
                 try {
                     logInfo(env, `[Worker Log] Processing Pollinations image generation - Prompt: ${prompt.substring(0, 50)}..., Model: ${model}, Size: ${width}x${height}`);
                     
-                    // 构建Pollinations.AI图像API URL
-                    const encodedPrompt = encodeURIComponent(prompt);
-                    let imageUrl = `https://pollinations.ai/p/${encodedPrompt}`;
+                    // 使用现有的generateImageFromPollinations函数
+                    const imageArrayBuffer = await generateImageFromPollinations(prompt, env, width, height, seed, nologo);
                     
-                    // 添加查询参数
-                    const params = new URLSearchParams();
-                    if (model !== 'flux') params.append('model', model);
-                    if (width !== 1024) params.append('width', width);
-                    if (height !== 1024) params.append('height', height);
-                    if (seed !== -1) params.append('seed', seed);
-                    if (nologo) params.append('nologo', 'true');
+                    // 转换为Base64字符串
+                    const base64Image = arrayBufferToBase64(imageArrayBuffer);
                     
-                    if (params.toString()) {
-                        imageUrl += `?${params.toString()}`;
-                    }
-
-                    logInfo(env, `[Worker Log] Pollinations image URL: ${imageUrl}`);
-                    
-                    // 验证图像URL是否可访问
-                    const response = await fetch(imageUrl, { method: 'HEAD' });
-                    if (!response.ok) {
-                        throw new Error(`Pollinations image API error: ${response.status} ${response.statusText}`);
-                    }
-
-                    return jsonResponse({ imageUrl }, env);
+                    return jsonResponse({ 
+                        type: 'image', 
+                        data: base64Image, 
+                        format: "base64", 
+                        content_type: "image/jpeg" 
+                    }, env);
 
                 } catch (e) {
                     console.error(`[Worker Error] Pollinations image generation failed: ${e.message}`);
