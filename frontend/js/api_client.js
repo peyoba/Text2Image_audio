@@ -278,7 +278,7 @@ class ApiClient {
     }
 
     /**
-     * 使用Pollinations.AI生成图像
+     * 使用Pollinations.AI生成图像（通过后端代理）
      * @param {string} prompt - 图像描述
      * @param {Object} options - 生成选项
      * @param {string} options.model - 模型名称 (flux, turbo, gpt-image)
@@ -300,31 +300,34 @@ class ApiClient {
 
             console.log(`ApiClient: Generating image with Pollinations - Prompt: ${prompt.substring(0, 50)}..., Model: ${model}, Size: ${width}x${height}`);
 
-            // 构建Pollinations.AI图像API URL
-            const encodedPrompt = encodeURIComponent(prompt);
-            let imageUrl = `https://pollinations.ai/p/${encodedPrompt}`;
-            
-            // 添加查询参数
-            const params = new URLSearchParams();
-            if (model !== 'flux') params.append('model', model);
-            if (width !== 1024) params.append('width', width);
-            if (height !== 1024) params.append('height', height);
-            if (seed !== -1) params.append('seed', seed);
-            if (nologo) params.append('nologo', 'true');
-            
-            if (params.toString()) {
-                imageUrl += `?${params.toString()}`;
-            }
+            // 通过后端代理调用Pollinations.AI
+            const response = await fetch(`${this.baseUrl}/api/pollinations/image`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    prompt,
+                    model,
+                    width,
+                    height,
+                    seed,
+                    nologo
+                })
+            });
 
-            console.log(`ApiClient: Pollinations image URL: ${imageUrl}`);
-            
-            // 验证图像URL是否可访问
-            const response = await fetch(imageUrl, { method: 'HEAD' });
             if (!response.ok) {
-                throw new Error(`Pollinations image API error: ${response.status} ${response.statusText}`);
+                throw new Error(`Pollinations proxy error: ${response.status} ${response.statusText}`);
             }
 
-            return imageUrl;
+            const result = await response.json();
+            console.log('ApiClient: Pollinations proxy result:', result);
+            
+            if (result.imageUrl) {
+                return result.imageUrl;
+            } else {
+                throw new Error('Pollinations代理未返回图像URL');
+            }
         } catch (error) {
             console.error(`ApiClient: Pollinations image generation failed:`, error.message);
             throw error;

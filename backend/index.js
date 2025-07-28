@@ -92,6 +92,47 @@ export default {
                     
                     return new Response(audioArrayBuffer, { status: 200, headers: audioRespHeaders });
                 }
+            } else if (method === "POST" && path === "/api/pollinations/image") {
+                const requestData = await request.json();
+                const { prompt, model = 'flux', width = 1024, height = 1024, seed = -1, nologo = true } = requestData;
+                
+                if (!prompt) {
+                    return jsonResponse({ error: '缺少必要的参数: prompt' }, env, 400);
+                }
+
+                try {
+                    logInfo(env, `[Worker Log] Processing Pollinations image generation - Prompt: ${prompt.substring(0, 50)}..., Model: ${model}, Size: ${width}x${height}`);
+                    
+                    // 构建Pollinations.AI图像API URL
+                    const encodedPrompt = encodeURIComponent(prompt);
+                    let imageUrl = `https://pollinations.ai/p/${encodedPrompt}`;
+                    
+                    // 添加查询参数
+                    const params = new URLSearchParams();
+                    if (model !== 'flux') params.append('model', model);
+                    if (width !== 1024) params.append('width', width);
+                    if (height !== 1024) params.append('height', height);
+                    if (seed !== -1) params.append('seed', seed);
+                    if (nologo) params.append('nologo', 'true');
+                    
+                    if (params.toString()) {
+                        imageUrl += `?${params.toString()}`;
+                    }
+
+                    logInfo(env, `[Worker Log] Pollinations image URL: ${imageUrl}`);
+                    
+                    // 验证图像URL是否可访问
+                    const response = await fetch(imageUrl, { method: 'HEAD' });
+                    if (!response.ok) {
+                        throw new Error(`Pollinations image API error: ${response.status} ${response.statusText}`);
+                    }
+
+                    return jsonResponse({ imageUrl }, env);
+
+                } catch (e) {
+                    console.error(`[Worker Error] Pollinations image generation failed: ${e.message}`);
+                    return jsonResponse({ error: `Pollinations图像生成失败: ${e.message}` }, env, 500);
+                }
             } else if (method === "POST" && path === "/api/translate") {
                 const requestData = await request.json();
                 const text = requestData.text;
