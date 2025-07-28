@@ -1,3 +1,30 @@
 User-agent: *
 Allow: /
-Sitemap: https://aistone.org/sitemap.xml 
+Disallow: /assets/
+Disallow: /css/
+Disallow: /js/
+Disallow: /api/
+
+# 允许搜索引擎访问重要页面
+Allow: /about.html
+Allow: /services.html
+Allow: /contact.html
+
+# 设置爬取延迟
+Crawl-delay: 1
+
+# 站点地图
+Sitemap: https://aistone.org/sitemap.xml
+
+# 针对特定搜索引擎的优化
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2 
