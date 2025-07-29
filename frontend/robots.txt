@@ -1,22 +1,28 @@
 User-agent: *
 Allow: /
-Disallow: /assets/
-Disallow: /css/
-Disallow: /js/
-Disallow: /api/
 
-# 允许搜索引擎访问重要页面
+# 允许访问主要页面
+Allow: /index.html
 Allow: /about.html
 Allow: /services.html
 Allow: /contact.html
 
+# 允许访问静态资源
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+
+# 禁止访问API和后台文件
+Disallow: /api/
+Disallow: /backend/
+Disallow: /node_modules/
+Disallow: /.*\.json$
+Disallow: /.*\.md$
+
 # 设置爬取延迟
 Crawl-delay: 1
 
-# 站点地图
-Sitemap: https://aistone.org/sitemap.xml
-
-# 针对特定搜索引擎的优化
+# 针对主要搜索引擎的优化
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 1
@@ -27,4 +33,13 @@ Crawl-delay: 1
 
 User-agent: Baiduspider
 Allow: /
-Crawl-delay: 2 
+Crawl-delay: 2
+
+# 站点地图
+Sitemap: https://aistone.org/sitemap.xml
+
+# AISTONE 网站信息
+# 网站名称: AISTONE - Free AI Image Generator & Voice Synthesis Platform
+# 主要关键词: AISTONE, AI image generator, free AI art, text to image, AI voice synthesis
+# 技术栈: Pollinations.AI, GPT Image, FLUX, DeepSeek
+# 语言支持: English, Chinese 
