@@ -454,14 +454,11 @@
                 <h1 class="hero-title" data-i18n="heroTitle">AISTONE - 免费AI图片生成与语音合成平台</h1>
             </div>
             <p class="hero-subtitle" data-i18n="heroSubtitle">图片·语音·无限免费生成</p>
-            <div class="hero-slogan" data-i18n="heroSlogan" style="font-size:1.25em;color:#00CFFF;margin:12px 0 0 0;">AI驱动·一键生成·释放你的创意！</div>
-            <div class="hero-tags">
+            <div class="hero-slogan" data-i18n="heroSlogan" style="font-size:1.25em;color:#00CFFF;margin:8px 0 0 0;">AI驱动·一键生成·释放你的创意！</div>
+            <div class="hero-tags" style="margin-top:12px;">
                 <span class="tag tag-free" data-i18n="tagFree">100% 免费</span>
                 <span class="tag tag-unlimited" data-i18n="tagUnlimited">无限生成</span>
                 <span class="tag tag-no-login" data-i18n="tagNoLogin">无需登录</span>
-            </div>
-            <div class="hero-intro" data-i18n="heroIntro" style="max-width:700px;margin:24px auto 0 auto;text-align:center;color:#aab4d4;font-size:1.18em;line-height:1.8;">
-              AISTONE 是一个集AI图片生成与语音合成于一体的智能创作平台，支持中英文输入，永久免费，无需注册。无论你是设计师、内容创作者还是普通用户，只需一句描述，即可一键生成高质量图片和自然语音，释放无限创意。平台注重隐私保护，所有内容实时生成不留存，助力每一位用户高效创作、自由分享。
             </div>
         </div>
     </section>
@@ -469,28 +466,15 @@
     <!-- AISTONE 详细介绍部分 -->
     <section class="aistone-intro" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 0; margin: 20px 0;">
         <div class="container">
-            <div style="text-align: center; color: white; max-width: 800px; margin: 0 auto;">
-                <h2 style="font-size: 2.5em; margin-bottom: 20px; font-weight: bold;">Welcome to AISTONE</h2>
-                <p style="font-size: 1.2em; line-height: 1.8; margin-bottom: 20px;">
-                    <strong>AISTONE</strong> is your premier destination for AI-powered image generation and voice synthesis. As a leading AI content creation platform, <strong>AISTONE</strong> combines cutting-edge technology with user-friendly design to deliver exceptional results.
-                </p>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px;">
-                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
-                        <h3 style="color: #00CFFF; margin-bottom: 10px;">AISTONE AI Image Generator</h3>
-                        <p>Experience the power of <strong>AISTONE's</strong> advanced AI models including GPT Image, FLUX, and DeepSeek for stunning visual creation.</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
-                        <h3 style="color: #00CFFF; margin-bottom: 10px;">AISTONE Voice Synthesis</h3>
-                        <p>Transform text into natural speech with <strong>AISTONE's</strong> state-of-the-art voice synthesis technology.</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
-                        <h3 style="color: #00CFFF; margin-bottom: 10px;">AISTONE Free Platform</h3>
-                        <p>Enjoy <strong>AISTONE's</strong> complete feature set completely free - no registration, no limits, no hidden costs.</p>
-                    </div>
+            <div style="text-align: center; color: white; max-width: 800px; margin: 0 auto; margin-bottom: 30px;">
+                <div class="hero-intro" data-i18n="heroIntro" style="max-width:700px;margin:0 auto;text-align:center;color:#e0e6f0;font-size:1.1em;line-height:1.7;">
+                  AISTONE 是一个集AI图片生成与语音合成于一体的智能创作平台，支持中英文输入，永久免费，无需注册。无论你是设计师、内容创作者还是普通用户，只需一句描述，即可一键生成高质量图片和自然语音，释放无限创意。平台注重隐私保护，所有内容实时生成不留存，助力每一位用户高效创作、自由分享。
                 </div>
             </div>
         </div>
     </section>
+
+
 
     <div class="container">
         <main>
@@ -506,9 +490,9 @@
                 </ol>
             </nav>
             <!-- 内容创作区域 -->
-            <section class="input-section" id="create">
-                <h2 class="section-title" data-i18n="inputTitle">描述文本</h2>
-                <textarea id="text-input" rows="6" placeholder="请输入描述，如：一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影"></textarea>
+            <section class="input-section" id="create" style="margin-top: 20px;">
+                <h2 class="section-title" data-i18n="inputTitle" style="margin-bottom: 12px;">描述文本</h2>
+                <textarea id="text-input" rows="4" placeholder="请输入描述，如：一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影" style="margin-bottom: 12px;"></textarea>
                 <!-- 快速填充示例按钮区域（移动到此处） -->
                 <div class="examples-quickfill">
                     <span class="examples-label" data-i18n="quickFillLabel"></span>
@@ -592,8 +576,8 @@
             </section>
 
             <!-- 生成结果区域 -->
-            <section class="output-section" id="results">
-                <h2 data-i18n="generationResult">生成结果 Generation Result</h2>
+            <section class="output-section" id="results" style="margin-top: 20px;">
+                <h2 data-i18n="generationResult" style="margin-bottom: 12px;">生成结果 Generation Result</h2>
                 
                 <!-- 新增：结果状态提示 -->
                 <div class="result-status" id="result-status" style="display: none;">
