@@ -3,6 +3,99 @@
  * 支持中文和英文
  */
 const i18n = {
+    en: {
+        // Title and description
+        title: 'AISTONE',
+        subtitle: 'Images · Voice · Unlimited Free Generation',
+        
+        // Input area
+        inputTitle: 'Description Text',
+        examplesTitle: '💡 Click examples to quickly fill:',
+        inputPlaceholder: 'Please enter description text, e.g.: A cute cat playing on the grass...',
+        generateButton: 'Start Generation',
+        quickFillLabel: 'Quick fill examples:',
+        smartOptimizeTip: '✨ Smart optimization: Automatically translate and optimize descriptions into high-quality English prompts to improve image generation',
+        negativePromptLabel: 'Negative prompt:',
+        negativePromptPlaceholder: 'Enter unwanted elements, separated by commas',
+        
+        // Generation type
+        generationType: 'Generation Type',
+        typeImage: 'Generate Image',
+        typeAudio: 'Generate Voice',
+        
+        // Image options
+        imageOptions: 'Image Options',
+        aiModel: 'AI Model',
+        aiModelFlux: 'FLUX - High Quality Art Creation',
+        aiModelTurbo: 'Turbo - Fast Generation',
+        aiModelGptImage: 'GPT Image - Latest High Precision Model',
+        modelHint: '💡 Different models suit different scenarios: FLUX for art creation, Turbo for fast prototyping, GPT Image for high precision needs',
+        aspectRatio: 'Aspect Ratio',
+        aspectRatioSquare: 'Square (1:1 - 1024x1024)',
+        aspectRatioLandscape: 'Landscape (16:9 - 1280x720)',
+        aspectRatioPortrait: 'Portrait (9:16 - 720x1280)',
+        aspectRatioStandard: 'Standard (4:3 - 1024x768)',
+        aspectRatioStandardVertical: 'Standard Vertical (3:4 - 768x1024)',
+        aspectRatioCustom: 'Custom',
+        width: 'Width',
+        height: 'Height',
+        noLogo: 'Remove Watermark',
+        numImages: 'Number of Images',
+        oneImage: '1 Image',
+        twoImages: '2 Images',
+        fourImages: '4 Images',
+        aspectRatioLandscape2K: 'Landscape 2K (16:9 - 2560x1440)',
+        aspectRatioPortrait2K: 'Portrait 2K (9:16 - 1440x2560)',
+        
+        // Audio options
+        audioOptions: 'Audio Options',
+        voiceSelection: 'Voice Selection',
+        voiceNova: 'Nova - Clear and professional female voice',
+        voiceEcho: 'Echo - Warm and friendly male voice',
+        voiceFable: 'Fable - Expressive narrative voice',
+        voiceOnyx: 'Onyx - Deep and authoritative male voice',
+        voiceShimmer: 'Shimmer - Bright and lively female voice',
+        voiceAlloy: 'Alloy - Balanced multi-purpose voice',
+        audioModel: 'Audio Model',
+        audioModelOpenai: 'OpenAI Audio - Latest voice synthesis',
+        
+        // Quick actions
+        clearButton: 'Clear',
+        optimizeButton: 'Optimize',
+        randomButton: 'Random',
+        
+        // Status messages
+        loading: 'Processing, please wait...',
+        imageGenerating: 'Generating image, please wait...',
+        audioGenerating: 'Generating voice, please wait...',
+        error: 'An error occurred',
+        pleaseInput: 'Please enter description text before generating.',
+        optimizationSuccess: '✨ Prompt optimization completed!',
+        optimizationFailed: 'Optimization failed, please try again later',
+        pleaseInputFirst: 'Please enter text content first',
+        generationComplete: 'Generation completed!',
+        generating: 'Generating...',
+        
+        // Example hints
+        imageHint: '💡 Image generation supports multiple sizes and quantities',
+        audioHint: '🎵 Voice generation supports play and download functions',
+        
+        // Example buttons
+        examples: {
+            cat: { name: '🐱 Cute Cat', text: 'A cute cat playing on the grass, sunny day, high-definition photography', type: 'image' },
+            city: { name: '🌃 Tech City', text: 'Future tech city night scene, neon lights flashing, cyberpunk style, ultra HD', type: 'image' },
+            beauty: { name: '🌸 Ancient Beauty', text: 'Ancient beauty, flowing hanfu, peach blossoms, Chinese style illustration, exquisite details', type: 'image' },
+            dragon: { name: '🐉 Epic Dragon', text: 'A fierce dragon circling above a volcano, lava flowing, epic feeling', type: 'image' },
+            lake: { name: '🏞️ Mountain Lake', text: 'Peaceful lake reflecting snow mountains and forest, sunset, oil painting style', type: 'image' },
+            welcome: { name: '🎵 Welcome Voice', text: 'Welcome to AI content generator, hope you can create wonderful works', type: 'audio' },
+            weather: { name: '🌦️ Weather Report', text: 'The weather is really nice today, perfect for going out for a walk and taking photos', type: 'audio' },
+            forest: { name: '🌲 Magic Forest', text: 'Dreamy forest, fairies dancing, magic light, fantasy landscape painting', type: 'image' },
+            mountain: { name: '⛰️ Starry Mountain', text: 'Mountain under the starry sky, brilliant galaxy, photography work, stunning visuals', type: 'image' },
+            robot: { name: '🤖 Mechanical Punk', text: 'Mechanical punk robot, metallic texture, steampunk style, industrial aesthetics', type: 'image' },
+            thanks: { name: '🙏 Thanks Voice', text: 'Thank you for using, wish you a happy life and smooth work', type: 'audio' },
+            garden: { name: '🌸 Japanese Garden', text: 'Japanese garden with falling cherry blossoms, peaceful and beautiful, ink painting style', type: 'image' }
+        },
+    },
     zh: {
         // 标题和描述
         title: 'AISTONE',
