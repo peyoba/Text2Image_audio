@@ -85,6 +85,27 @@ const i18n = {
         imageHint: '💡 Image generation supports multiple sizes and quantities',
         audioHint: '🎵 Voice generation supports play and download functions',
         
+        // Welcome to AISTONE section
+        welcomeToAistone: 'Welcome to AISTONE',
+        aistoneIntro: 'AISTONE is your premier destination for AI-powered image generation and voice synthesis. As a leading AI content creation platform, AISTONE combines cutting-edge technology with user-friendly design to deliver exceptional results.',
+        aistoneImageGenerator: 'AISTONE AI Image Generator',
+        aistoneImageDesc: 'Experience the power of AISTONE\'s advanced AI models including GPT Image, FLUX, and DeepSeek for stunning visual creation.',
+        aistoneVoiceSynthesis: 'AISTONE Voice Synthesis',
+        aistoneVoiceDesc: 'Transform text into natural speech with AISTONE\'s state-of-the-art voice synthesis technology.',
+        aistoneFreePlatform: 'AISTONE Free Platform',
+        aistoneFreeDesc: 'Enjoy AISTONE\'s complete feature set completely free - no registration, no limits, no hidden costs.',
+        
+        // About AISTONE section
+        aboutAistone: 'About AISTONE',
+        whatIsAistone: 'What is AISTONE?',
+        whatIsAistoneDesc: 'AISTONE is a revolutionary AI-powered platform that combines cutting-edge image generation and voice synthesis technologies. Founded with the vision of democratizing AI content creation, AISTONE provides free access to advanced AI models including GPT Image, FLUX, and DeepSeek.',
+        aistoneMission: 'AISTONE\'s Mission',
+        aistoneMissionDesc: 'AISTONE is committed to making AI content creation accessible to everyone. Whether you\'re a professional designer, content creator, or just someone with creative ideas, AISTONE provides the tools you need to bring your vision to life without any barriers.',
+        whyChooseAistone: 'Why Choose AISTONE?',
+        whyChooseAistoneDesc: 'AISTONE stands out with its commitment to privacy, quality, and accessibility. Our platform processes all content in real-time without storing user data, ensuring complete privacy while delivering professional-grade results powered by the latest AI technology.',
+        aistonePartner: 'AISTONE - Your AI Content Creation Partner',
+        aistonePartnerDesc: 'Join thousands of users who trust AISTONE for their AI content creation needs. From stunning visual art to natural voice synthesis, AISTONE is your one-stop solution for all AI-powered creative projects. Experience the future of content creation with AISTONE today.',
+        
         // Example buttons
         examples: {
             cat: { name: '🐱 Cute Cat', text: 'A cute cat playing on the grass, sunny day, high-definition photography', type: 'image' },
@@ -182,6 +203,27 @@ const i18n = {
         // 示例提示
         imageHint: '💡 图片生成支持多种尺寸和数量选择',
         audioHint: '🎵 语音生成支持播放和下载功能',
+        
+        // Welcome to AISTONE 部分
+        welcomeToAistone: '欢迎使用 AISTONE',
+        aistoneIntro: 'AISTONE 是您进行AI图片生成与语音合成的首选平台。作为领先的AI内容创作平台，AISTONE 结合前沿技术与用户友好设计，为您提供卓越的创作体验。',
+        aistoneImageGenerator: 'AISTONE AI 图片生成器',
+        aistoneImageDesc: '体验 AISTONE 先进AI模型的强大功能，包括GPT Image、FLUX和DeepSeek，为您创造令人惊叹的视觉作品。',
+        aistoneVoiceSynthesis: 'AISTONE 语音合成',
+        aistoneVoiceDesc: '使用 AISTONE 最先进的语音合成技术，将文本转换为自然语音。',
+        aistoneFreePlatform: 'AISTONE 免费平台',
+        aistoneFreeDesc: '享受 AISTONE 完整功能集，完全免费 - 无需注册，无限制，无隐藏费用。',
+        
+        // About AISTONE 部分
+        aboutAistone: '关于 AISTONE',
+        whatIsAistone: '什么是 AISTONE？',
+        whatIsAistoneDesc: 'AISTONE 是一个革命性的AI驱动平台，结合了前沿的图片生成和语音合成技术。以民主化AI内容创作为愿景，AISTONE 提供对包括GPT Image、FLUX和DeepSeek在内的先进AI模型的免费访问。',
+        aistoneMission: 'AISTONE 的使命',
+        aistoneMissionDesc: 'AISTONE 致力于让AI内容创作对每个人都能触手可及。无论您是专业设计师、内容创作者，还是只是有创意想法的人，AISTONE 都提供您需要的工具，让您的愿景变为现实，没有任何障碍。',
+        whyChooseAistone: '为什么选择 AISTONE？',
+        whyChooseAistoneDesc: 'AISTONE 以其对隐私、质量和可访问性的承诺而脱颖而出。我们的平台实时处理所有内容而不存储用户数据，确保完全隐私的同时，提供由最新AI技术驱动的专业级结果。',
+        aistonePartner: 'AISTONE - 您的AI内容创作伙伴',
+        aistonePartnerDesc: '加入数千名信任 AISTONE 进行AI内容创作需求的用户。从令人惊叹的视觉艺术到自然语音合成，AISTONE 是您所有AI驱动创意项目的一站式解决方案。今天就与 AISTONE 一起体验内容创作的未来。',
         
         // 示例按钮
         examples: {
