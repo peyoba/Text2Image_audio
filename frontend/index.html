@@ -511,7 +511,7 @@
                     <input type="radio" id="type-audio" name="generation-type" value="audio">
                     <label for="type-audio" data-i18n="typeAudio">生成语音</label>
                     <!-- 新增：提示信息 -->
-                    <span class="type-hint" id="type-hint">💡 Image generation supports multiple sizes and quantities</span>
+                    <span class="type-hint" id="type-hint" data-i18n="imageHint">💡 图片生成支持多种尺寸和数量选择</span>
                 </div>
 
                 <div class="image-options" id="image-generation-options">
@@ -519,7 +519,7 @@
                     
                     <!-- 新增：AI模型选择 -->
                     <div>
-                        <label for="option-ai-model" data-i18n="aiModel">AI Model:</label>
+                        <label for="option-ai-model" data-i18n="aiModel">AI模型</label>
                         <select id="option-ai-model" name="option-ai-model">
                             <option value="flux" selected data-i18n="aiModelFlux">FLUX - High Quality Art Creation</option>
                             <option value="turbo" data-i18n="aiModelTurbo">Turbo - Fast Generation</option>
@@ -530,10 +530,10 @@
                     
                     <div>
                         <input type="checkbox" id="option-nologo" name="option-nologo" checked>
-                        <label for="option-nologo" data-i18n="noLogo">Remove Logo (Watermark)</label>
+                        <label for="option-nologo" data-i18n="noLogo">去除水印</label>
                     </div>
                     <div>
-                        <label for="option-aspect-ratio" data-i18n="aspectRatio">Aspect Ratio:</label>
+                        <label for="option-aspect-ratio" data-i18n="aspectRatio">宽高比例</label>
                         <select id="option-aspect-ratio" name="option-aspect-ratio">
                             <option value="1:1" data-width="1024" data-height="1024" selected data-i18n="aspectRatioSquare">Square (1:1 - 1024x1024)</option>
                             <option value="16:9" data-width="1280" data-height="720" data-i18n="aspectRatioLandscape">Landscape (16:9 - 1280x720)</option>
@@ -546,13 +546,13 @@
                         </select>
                     </div>
                     <div id="custom-dimensions-container" style="display:none;">
-                        <label for="option-width" data-i18n="width">Width (px):</label>
+                        <label for="option-width" data-i18n="width">宽度 (px)</label>
                         <input type="number" id="option-width" name="option-width" placeholder="For example: 1024" min="256" max="2048" step="64">
-                        <label for="option-height" data-i18n="height">Height (px):</label>
+                        <label for="option-height" data-i18n="height">高度 (px)</label>
                         <input type="number" id="option-height" name="option-height" placeholder="For example: 1024" min="256" max="2048" step="64">
                     </div>
                     <div>
-                        <label for="option-num-images" data-i18n="numImages">Quantity:</label>
+                        <label for="option-num-images" data-i18n="numImages">生成数量</label>
                         <select id="option-num-images" name="option-num-images">
                             <option value="1" selected data-i18n="oneImage">1 Image</option>
                             <option value="2" data-i18n="twoImages">2 Images</option>
@@ -563,17 +563,17 @@
                 
 
                 
-                <button id="generate-button" aria-label="开始生成" data-i18n="generateButton">Start Generation</button>
+                <button id="generate-button" aria-label="开始生成" data-i18n="generateButton">开始生成</button>
             </section>
 
             <!-- 生成结果区域 -->
             <section class="output-section" id="results" style="margin-top: 20px;">
-                <h2 data-i18n="generationResult" style="margin-bottom: 12px;">生成结果 Generation Result</h2>
+                <h2 data-i18n="generationResult" style="margin-bottom: 12px;">生成结果</h2>
                 
                 <!-- 新增：结果状态提示 -->
                 <div class="result-status" id="result-status" style="display: none;">
                     <span class="status-icon">ℹ️</span>
-                    <span class="status-text">Preparing content...</span>
+                    <span class="status-text" data-i18n="preparingContent">正在准备内容...</span>
                 </div>
                 
                 <div id="loading-indicator" class="loading" style="display: none;">
@@ -582,7 +582,7 @@
                         <div></div>
                         <div></div>
                     </div>
-                    <p>Generating content, please wait...</p>
+                    <p data-i18n="generatingContent">正在生成内容，请稍候...</p>
                 </div>
                 
                 <div id="error-message" class="error-text" style="display: none;"></div>
@@ -592,9 +592,9 @@
                 </div>
 
                 <div id="audio-result-container" class="result-container audio-container" style="display: none;">
-                    <p>Generated Audio:</p>
+                    <p data-i18n="generatedAudio">生成的音频：</p>
                     <audio id="generated-audio" controls></audio>
-                    <a id="download-audio-link" href="#" download="generated_audio.wav" style="display: none;">Download Audio File</a>
+                    <a id="download-audio-link" href="#" download="generated_audio.wav" style="display: none;" data-i18n="downloadAudioFile">下载音频文件</a>
                 </div>
             </section>
         </main>

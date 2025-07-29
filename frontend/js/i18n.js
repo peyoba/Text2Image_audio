@@ -22,6 +22,7 @@ const i18n = {
         generationType: 'Generation Type',
         typeImage: 'Generate Image',
         typeAudio: 'Generate Voice',
+        generationResult: 'Generation Result',
         
         // Image options
         imageOptions: 'Image Options',
@@ -75,6 +76,10 @@ const i18n = {
         pleaseInputFirst: 'Please enter text content first',
         generationComplete: 'Generation completed!',
         generating: 'Generating...',
+        preparingContent: 'Preparing content...',
+        generatingContent: 'Generating content, please wait...',
+        generatedAudio: 'Generated Audio:',
+        downloadAudioFile: 'Download Audio File',
         
         // Example hints
         imageHint: '💡 Image generation supports multiple sizes and quantities',
@@ -115,6 +120,7 @@ const i18n = {
         generationType: '生成类型',
         typeImage: '生成图片',
         typeAudio: '生成语音',
+        generationResult: '生成结果',
         
         // 图片选项
         imageOptions: '图片选项',
@@ -168,6 +174,10 @@ const i18n = {
         pleaseInputFirst: '请先输入文本内容',
         generationComplete: '生成完成！',
         generating: '正在生成中...',
+        preparingContent: '正在准备内容...',
+        generatingContent: '正在生成内容，请稍候...',
+        generatedAudio: '生成的音频：',
+        downloadAudioFile: '下载音频文件',
         
         // 示例提示
         imageHint: '💡 图片生成支持多种尺寸和数量选择',
