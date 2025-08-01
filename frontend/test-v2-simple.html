@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V2.0 功能测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <h1>🔐 V2.0 功能测试页面</h1>
+    
+    <div class="test-section">
+        <h2>认证功能测试</h2>
+        <div id="auth-status" class="status info">正在检查认证状态...</div>
+        <button class="btn" onclick="testLogin()">测试登录</button>
+        <button class="btn" onclick="testRegister()">测试注册</button>
+        <button class="btn" onclick="testLogout()">测试登出</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>图片管理功能测试</h2>
+        <div id="image-status" class="status info">等待认证后测试...</div>
+        <button class="btn" onclick="testSaveImage()">测试保存图片</button>
+        <button class="btn" onclick="testGetImages()">测试获取图片列表</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>API 测试</h2>
+        <div id="api-status" class="status info">API状态检查...</div>
+        <button class="btn" onclick="testAPI()">测试API连接</button>
+    </div>
+
+    <!-- 引入认证模块 -->
+    <script src="js/auth.js"></script>
+    <script src="js/hd_image_manager.js"></script>
+    
+    <!-- 认证界面 -->
+    <div id="auth-modals"></div>
+    <script>
+        fetch('auth-modals.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('auth-modals').innerHTML = html;
+            });
+    </script>
+
+    <script>
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                if (window.authManager) {
+                    window.authManager.init();
+                    updateAuthStatus();
+                }
+            }, 1000);
+        });
+
+        function updateAuthStatus() {
+            const statusEl = document.getElementById('auth-status');
+            if (window.authManager && window.authManager.isLoggedIn()) {
+                statusEl.textContent = '✅ 用户已登录';
+                statusEl.className = 'status success';
+                document.getElementById('image-status').textContent = '✅ 可以测试图片功能';
+                document.getElementById('image-status').className = 'status success';
+            } else {
+                statusEl.textContent = 'ℹ️ 用户未登录';
+                statusEl.className = 'status info';
+                document.getElementById('image-status').textContent = '⚠️ 请先登录';
+                document.getElementById('image-status').className = 'status error';
+            }
+        }
+
+        function testLogin() {
+            if (typeof showModal === 'function') {
+                showModal('loginModal');
+                addStatus('显示登录模态框', 'success');
+            } else {
+                addStatus('登录模态框函数未找到', 'error');
+            }
+        }
+
+        function testRegister() {
+            if (typeof showModal === 'function') {
+                showModal('registerModal');
+                addStatus('显示注册模态框', 'success');
+            } else {
+                addStatus('注册模态框函数未找到', 'error');
+            }
+        }
+
+        function testLogout() {
+            if (window.authManager) {
+                window.authManager.logout();
+                updateAuthStatus();
+                addStatus('登出成功', 'success');
+            } else {
+                addStatus('认证管理器未找到', 'error');
+            }
+        }
+
+        function testSaveImage() {
+            if (!window.authManager || !window.authManager.isLoggedIn()) {
+                addStatus('请先登录', 'error');
+                return;
+            }
+
+            if (window.hdImageManager) {
+                // 模拟图片数据
+                const mockImageData = {
+                    prompt: '测试图片',
+                    data: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==', // 1x1像素的base64
+                    width: 1024,
+                    height: 1024,
+                    seed: 12345,
+                    model: 'flux',
+                    negative: ''
+                };
+
+                window.hdImageManager.saveHDImage(mockImageData)
+                    .then(result => {
+                        if (result.success) {
+                            addStatus('图片保存成功: ' + result.id, 'success');
+                        } else {
+                            addStatus('图片保存失败: ' + result.error, 'error');
+                        }
+                    })
+                    .catch(error => {
+                        addStatus('图片保存错误: ' + error.message, 'error');
+                    });
+            } else {
+                addStatus('图片管理器未找到', 'error');
+            }
+        }
+
+        function testGetImages() {
+            if (!window.authManager || !window.authManager.isLoggedIn()) {
+                addStatus('请先登录', 'error');
+                return;
+            }
+
+            if (window.hdImageManager) {
+                window.hdImageManager.getDailyImages()
+                    .then(result => {
+                        if (result.images) {
+                            addStatus(`获取图片列表成功，共${result.images.length}张图片`, 'success');
+                        } else {
+                            addStatus('获取图片列表失败', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        addStatus('获取图片列表错误: ' + error.message, 'error');
+                    });
+            } else {
+                addStatus('图片管理器未找到', 'error');
+            }
+        }
+
+        function testAPI() {
+            fetch('/api/auth/validate', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${window.authManager ? window.authManager.getToken() : ''}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    addStatus('API连接正常', 'success');
+                } else {
+                    addStatus('API连接异常: ' + data.error, 'error');
+                }
+            })
+            .catch(error => {
+                addStatus('API连接失败: ' + error.message, 'error');
+            });
+        }
+
+        function addStatus(message, type) {
+            const statusEl = document.getElementById('api-status');
+            statusEl.textContent = message;
+            statusEl.className = `status ${type}`;
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        // 监听认证状态变化
+        setInterval(updateAuthStatus, 2000);
+    </script>
+</body>
+</html> 

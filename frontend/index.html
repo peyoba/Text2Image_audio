@@ -466,7 +466,7 @@
                 <option value="en">English</option>
                 <option value="zh">中文</option>
             </select>
-            <button class="login-btn">登录</button>
+                            <button class="login-btn" onclick="showModal('loginModal')">登录</button>
         </div>
     </nav>
 
@@ -827,6 +827,59 @@
     <script src="js/ui_handler.js" defer></script>
     <script src="js/ui_enhancements.js" defer></script>
     <script src="js/app.js" defer></script>
+    
+    <!-- V2.0 认证和图片管理模块 -->
+    <script src="js/auth.js" defer></script>
+    <script src="js/hd_image_manager.js" defer></script>
+    
+    <!-- 认证界面 -->
+    <div id="auth-modals"></div>
+    <script>
+        fetch('auth-modals.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('auth-modals').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('加载认证界面失败:', error);
+            });
+    </script>
+    
+    <!-- 高清图片管理界面 -->
+    <div id="hd-images-ui"></div>
+    <script>
+        fetch('hd-images-ui.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('hd-images-ui').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('加载图片管理界面失败:', error);
+            });
+    </script>
+    
+    <!-- 页面初始化 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 等待所有模块加载完成
+            setTimeout(() => {
+                // 初始化认证状态
+                if (window.authManager) {
+                    window.authManager.init();
+                    console.log('认证模块初始化完成');
+                } else {
+                    console.error('认证模块未加载');
+                }
+                
+                // 初始化图片管理
+                if (window.hdImageManager) {
+                    console.log('图片管理模块初始化完成');
+                } else {
+                    console.error('图片管理模块未加载');
+                }
+            }, 1000);
+        });
+    </script>
     <!-- Test auto-deploy on 2025-05-23 06:25 -->
 </body>
 </html> 
