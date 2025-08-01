@@ -46,4 +46,10 @@ mode = "smart"
 DEEPSEEK_MODEL = "deepseek-ai/DeepSeek-V2.5"
 DEFAULT_AUDIO_MODEL = "openai-audio"
 DEFAULT_AUDIO_VOICE = "nova"
-LOG_LEVEL = "info" 
+LOG_LEVEL = "info"
+JWT_SECRET = "your-super-secret-jwt-key-change-this-in-production"
+
+# KV Namespace 绑定 (用于存储用户数据)
+[[kv_namespaces]]
+binding = "USERS"
+id = "your_users_kv_namespace_id_here" # 部署后在Cloudflare后台创建并替换 

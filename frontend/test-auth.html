@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录功能测试页面</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+        
+        .test-section h2 {
+            color: #4f46e5;
+            margin-top: 0;
+        }
+        
+        .status {
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        
+        .status.success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        
+        .status.error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+        
+        .status.info {
+            background-color: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+        
+        button {
+            background-color: #4f46e5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background-color: #4338ca;
+        }
+        
+        button:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        .auth-info {
+            background-color: #f9fafb;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        
+        .auth-info pre {
+            background-color: #1f2937;
+            color: #f9fafb;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 登录功能测试页面</h1>
+        
+        <!-- 认证状态显示 -->
+        <div class="test-section">
+            <h2>认证状态</h2>
+            <div id="authStatus" class="status info">
+                正在检查认证状态...
+            </div>
+            <div id="userInfo" class="auth-info" style="display: none;">
+                <h3>当前用户信息：</h3>
+                <pre id="userInfoContent"></pre>
+            </div>
+        </div>
+        
+        <!-- 认证功能测试 -->
+        <div class="test-section">
+            <h2>认证功能测试</h2>
+            <button onclick="showLoginModal()">显示登录模态框</button>
+            <button onclick="showRegisterModal()">显示注册模态框</button>
+            <button onclick="testLogout()">测试登出</button>
+            <button onclick="testTokenValidation()">验证Token</button>
+        </div>
+        
+        <!-- API测试 -->
+        <div class="test-section">
+            <h2>API端点测试</h2>
+            <button onclick="testRegisterAPI()">测试注册API</button>
+            <button onclick="testLoginAPI()">测试登录API</button>
+            <button onclick="testValidateAPI()">测试验证API</button>
+        </div>
+        
+        <!-- 测试结果 -->
+        <div class="test-section">
+            <h2>测试结果</h2>
+            <div id="testResults"></div>
+        </div>
+    </div>
+
+    <!-- 引入认证模块 -->
+    <script src="js/auth.js"></script>
+    
+    <!-- 动态加载认证模态框 -->
+    <div id="authContainer"></div>
+    
+    <script>
+        // 动态加载认证模态框
+        fetch('auth-modals.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('authContainer').innerHTML = html;
+                // 初始化认证状态检查
+                checkAuthStatus();
+            })
+            .catch(error => {
+                console.error('加载认证模态框失败:', error);
+                document.getElementById('authStatus').innerHTML = 
+                    '<div class="status error">加载认证模态框失败</div>';
+            });
+
+        // 检查认证状态
+        function checkAuthStatus() {
+            const isLoggedIn = authManager.isLoggedIn();
+            const currentUser = authManager.getCurrentUser();
+            
+            const authStatusEl = document.getElementById('authStatus');
+            const userInfoEl = document.getElementById('userInfo');
+            const userInfoContentEl = document.getElementById('userInfoContent');
+            
+            if (isLoggedIn && currentUser) {
+                authStatusEl.className = 'status success';
+                authStatusEl.textContent = '✅ 用户已登录';
+                
+                userInfoEl.style.display = 'block';
+                userInfoContentEl.textContent = JSON.stringify(currentUser, null, 2);
+            } else {
+                authStatusEl.className = 'status info';
+                authStatusEl.textContent = 'ℹ️ 用户未登录';
+                userInfoEl.style.display = 'none';
+            }
+        }
+
+        // 显示登录模态框
+        function showLoginModal() {
+            showModal('loginModal');
+            addTestResult('显示登录模态框', 'success');
+        }
+
+        // 显示注册模态框
+        function showRegisterModal() {
+            showModal('registerModal');
+            addTestResult('显示注册模态框', 'success');
+        }
+
+        // 测试登出
+        function testLogout() {
+            authManager.logout();
+            checkAuthStatus();
+            addTestResult('用户登出', 'success');
+        }
+
+        // 测试Token验证
+        async function testTokenValidation() {
+            const token = authManager.getToken();
+            if (!token) {
+                addTestResult('Token验证失败：没有token', 'error');
+                return;
+            }
+            
+            try {
+                const result = await authManager.validateToken();
+                if (result) {
+                    addTestResult('Token验证成功', 'success');
+                    checkAuthStatus();
+                } else {
+                    addTestResult('Token验证失败：token无效', 'error');
+                }
+            } catch (error) {
+                addTestResult(`Token验证错误：${error.message}`, 'error');
+            }
+        }
+
+        // 测试注册API
+        async function testRegisterAPI() {
+            const testUser = {
+                username: 'testuser_' + Date.now(),
+                email: `test${Date.now()}@example.com`,
+                password: 'Test123!'
+            };
+            
+            try {
+                const result = await authManager.register(testUser);
+                if (result.success) {
+                    addTestResult(`注册成功：${testUser.email}`, 'success');
+                    checkAuthStatus();
+                } else {
+                    addTestResult(`注册失败：${result.message}`, 'error');
+                }
+            } catch (error) {
+                addTestResult(`注册API错误：${error.message}`, 'error');
+            }
+        }
+
+        // 测试登录API
+        async function testLoginAPI() {
+            const credentials = {
+                email: 'test@example.com',
+                password: 'Test123!'
+            };
+            
+            try {
+                const result = await authManager.login(credentials);
+                if (result.success) {
+                    addTestResult('登录成功', 'success');
+                    checkAuthStatus();
+                } else {
+                    addTestResult(`登录失败：${result.message}`, 'error');
+                }
+            } catch (error) {
+                addTestResult(`登录API错误：${error.message}`, 'error');
+            }
+        }
+
+        // 测试验证API
+        async function testValidateAPI() {
+            const token = authManager.getToken();
+            if (!token) {
+                addTestResult('验证API失败：没有token', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/auth/validate', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    addTestResult('验证API成功', 'success');
+                } else {
+                    addTestResult(`验证API失败：${result.error}`, 'error');
+                }
+            } catch (error) {
+                addTestResult(`验证API错误：${error.message}`, 'error');
+            }
+        }
+
+        // 添加测试结果
+        function addTestResult(message, type) {
+            const resultsEl = document.getElementById('testResults');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `status ${type}`;
+            resultDiv.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            resultsEl.appendChild(resultDiv);
+            
+            // 滚动到底部
+            resultsEl.scrollTop = resultsEl.scrollHeight;
+        }
+
+        // 监听认证状态变化
+        setInterval(checkAuthStatus, 2000);
+    </script>
+</body>
+</html> 

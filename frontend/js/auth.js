@@ -1,0 +1,264 @@
+/**
+ * 用户认证模块
+ * 处理登录、注册、token管理等功能
+ */
+
+class AuthManager {
+    constructor() {
+        this.baseUrl = '/api';
+        this.tokenKey = 'auth_token';
+        this.userKey = 'user_info';
+        this.isAuthenticated = false;
+        this.currentUser = null;
+        
+        // 初始化时检查本地存储的token
+        this.init();
+    }
+
+    /**
+     * 初始化认证状态
+     */
+    init() {
+        const token = this.getToken();
+        const user = this.getUser();
+        
+        if (token && user) {
+            this.isAuthenticated = true;
+            this.currentUser = user;
+            this.updateUI();
+        }
+    }
+
+    /**
+     * 用户注册
+     * @param {Object} userData - 用户注册数据
+     * @returns {Promise<Object>} 注册结果
+     */
+    async register(userData) {
+        try {
+            const response = await fetch(`${this.baseUrl}/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData)
+            });
+
+            const result = await response.json();
+            
+            if (response.ok) {
+                this.setToken(result.token);
+                this.setUser(result.user);
+                this.isAuthenticated = true;
+                this.currentUser = result.user;
+                this.updateUI();
+                return { success: true, message: '注册成功！' };
+            } else {
+                return { success: false, message: result.error || '注册失败' };
+            }
+        } catch (error) {
+            console.error('注册错误:', error);
+            return { success: false, message: '网络错误，请稍后重试' };
+        }
+    }
+
+    /**
+     * 用户登录
+     * @param {Object} credentials - 登录凭据
+     * @returns {Promise<Object>} 登录结果
+     */
+    async login(credentials) {
+        try {
+            const response = await fetch(`${this.baseUrl}/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(credentials)
+            });
+
+            const result = await response.json();
+            
+            if (response.ok) {
+                this.setToken(result.token);
+                this.setUser(result.user);
+                this.isAuthenticated = true;
+                this.currentUser = result.user;
+                this.updateUI();
+                return { success: true, message: '登录成功！' };
+            } else {
+                return { success: false, message: result.error || '登录失败' };
+            }
+        } catch (error) {
+            console.error('登录错误:', error);
+            return { success: false, message: '网络错误，请稍后重试' };
+        }
+    }
+
+    /**
+     * 用户登出
+     */
+    logout() {
+        this.clearToken();
+        this.clearUser();
+        this.isAuthenticated = false;
+        this.currentUser = null;
+        this.updateUI();
+        
+        // 显示登出成功消息
+        this.showMessage('已成功登出', 'success');
+    }
+
+    /**
+     * 验证token是否有效
+     * @returns {Promise<boolean>} token是否有效
+     */
+    async validateToken() {
+        const token = this.getToken();
+        if (!token) return false;
+
+        try {
+            const response = await fetch(`${this.baseUrl}/auth/validate`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                this.setUser(result.user);
+                this.currentUser = result.user;
+                return true;
+            } else {
+                this.logout();
+                return false;
+            }
+        } catch (error) {
+            console.error('Token验证错误:', error);
+            this.logout();
+            return false;
+        }
+    }
+
+    /**
+     * 获取认证token
+     * @returns {string|null} token
+     */
+    getToken() {
+        return localStorage.getItem(this.tokenKey);
+    }
+
+    /**
+     * 设置认证token
+     * @param {string} token - JWT token
+     */
+    setToken(token) {
+        localStorage.setItem(this.tokenKey, token);
+    }
+
+    /**
+     * 清除认证token
+     */
+    clearToken() {
+        localStorage.removeItem(this.tokenKey);
+    }
+
+    /**
+     * 获取用户信息
+     * @returns {Object|null} 用户信息
+     */
+    getUser() {
+        const userStr = localStorage.getItem(this.userKey);
+        return userStr ? JSON.parse(userStr) : null;
+    }
+
+    /**
+     * 设置用户信息
+     * @param {Object} user - 用户信息
+     */
+    setUser(user) {
+        localStorage.setItem(this.userKey, JSON.stringify(user));
+    }
+
+    /**
+     * 清除用户信息
+     */
+    clearUser() {
+        localStorage.removeItem(this.userKey);
+    }
+
+    /**
+     * 更新UI显示
+     */
+    updateUI() {
+        const authButtons = document.querySelectorAll('.auth-buttons');
+        const userInfo = document.querySelectorAll('.user-info');
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+
+        if (this.isAuthenticated) {
+            // 显示用户信息，隐藏登录按钮
+            authButtons.forEach(btn => btn.style.display = 'none');
+            userInfo.forEach(info => {
+                info.style.display = 'block';
+                const usernameEl = info.querySelector('.username');
+                if (usernameEl && this.currentUser) {
+                    usernameEl.textContent = this.currentUser.username || this.currentUser.email;
+                }
+            });
+
+            // 关闭模态框
+            if (loginModal) loginModal.style.display = 'none';
+            if (registerModal) registerModal.style.display = 'none';
+        } else {
+            // 显示登录按钮，隐藏用户信息
+            authButtons.forEach(btn => btn.style.display = 'block');
+            userInfo.forEach(info => info.style.display = 'none');
+        }
+    }
+
+    /**
+     * 显示消息提示
+     * @param {string} message - 消息内容
+     * @param {string} type - 消息类型 (success, error, warning)
+     */
+    showMessage(message, type = 'info') {
+        // 创建消息元素
+        const messageEl = document.createElement('div');
+        messageEl.className = `message message-${type}`;
+        messageEl.textContent = message;
+        
+        // 添加到页面
+        document.body.appendChild(messageEl);
+        
+        // 3秒后自动移除
+        setTimeout(() => {
+            if (messageEl.parentNode) {
+                messageEl.parentNode.removeChild(messageEl);
+            }
+        }, 3000);
+    }
+
+    /**
+     * 检查用户是否已登录
+     * @returns {boolean} 是否已登录
+     */
+    isLoggedIn() {
+        return this.isAuthenticated;
+    }
+
+    /**
+     * 获取当前用户信息
+     * @returns {Object|null} 当前用户信息
+     */
+    getCurrentUser() {
+        return this.currentUser;
+    }
+}
+
+// 创建全局认证管理器实例
+const authManager = new AuthManager();
+
+// 导出供其他模块使用
+window.authManager = authManager; 

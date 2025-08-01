@@ -1,5 +1,12 @@
 // backend/index.js
 
+import { 
+    handleUserRegistration, 
+    handleUserLogin, 
+    validateUserToken, 
+    extractTokenFromRequest 
+} from './auth.js';
+
 function logInfo(env, ...args) {
     // Only log if LOG_LEVEL is explicitly set to 'debug'
     if ((env.LOG_LEVEL || 'info').toLowerCase() === 'debug') {
@@ -35,7 +42,23 @@ export default {
         // }
 
         try {
-            if (method === "POST" && path === "/api/optimize") {
+            // 认证相关路由
+            if (method === "POST" && path === "/api/auth/register") {
+                const requestData = await request.json();
+                logInfo(env, `[Worker Log] Processing user registration for email: ${requestData.email}`);
+                const result = await handleUserRegistration(requestData, env);
+                return jsonResponse(result, env, result.success ? 201 : 400);
+            } else if (method === "POST" && path === "/api/auth/login") {
+                const requestData = await request.json();
+                logInfo(env, `[Worker Log] Processing user login for email: ${requestData.email}`);
+                const result = await handleUserLogin(requestData, env);
+                return jsonResponse(result, env, result.success ? 200 : 401);
+            } else if (method === "GET" && path === "/api/auth/validate") {
+                const token = extractTokenFromRequest(request);
+                logInfo(env, `[Worker Log] Validating user token`);
+                const result = await validateUserToken(token, env);
+                return jsonResponse(result, env, result.success ? 200 : 401);
+            } else if (method === "POST" && path === "/api/optimize") {
                 const requestData = await request.json();
                 const textPrompt = requestData.text;
                 if (!textPrompt) {
