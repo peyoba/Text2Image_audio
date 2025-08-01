@@ -466,7 +466,21 @@
                 <option value="en">English</option>
                 <option value="zh">中文</option>
             </select>
-                            <button class="login-btn" onclick="showModal('loginModal')">登录</button>
+            <!-- 登录按钮 -->
+            <button class="login-btn" onclick="showModal('loginModal')">登录</button>
+            <!-- 用户信息显示区域 -->
+            <div class="user-info" style="display: none;">
+                <div class="user-avatar">
+                    <img src="assets/default-avatar.png" alt="用户头像" id="userAvatar">
+                </div>
+                <div class="user-details">
+                    <span class="username">用户名</span>
+                    <div class="user-actions">
+                        <button class="btn btn-small" onclick="showUserProfile()">个人中心</button>
+                        <button class="btn btn-small btn-outline" onclick="authManager.logout()">登出</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -862,6 +876,95 @@
             });
     </script>
     
+    <!-- 用户信息样式 -->
+    <style>
+    /* 用户信息样式 */
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 16px;
+        background-color: #f9fafb;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+    }
+    
+    .user-avatar img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+    .user-details {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .username {
+        font-weight: 500;
+        color: #1f2937;
+        font-size: 0.875rem;
+    }
+    
+    .user-actions {
+        display: flex;
+        gap: 8px;
+    }
+    
+    .btn {
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: none;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .btn-primary {
+        background-color: #4f46e5;
+        color: white;
+    }
+    
+    .btn-primary:hover {
+        background-color: #4338ca;
+    }
+    
+    .btn-outline {
+        background-color: transparent;
+        color: #4f46e5;
+        border: 1px solid #4f46e5;
+    }
+    
+    .btn-outline:hover {
+        background-color: #4f46e5;
+        color: white;
+    }
+    
+    .btn-small {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+        .user-info {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .user-actions {
+            justify-content: center;
+        }
+    }
+    </style>
+
     <!-- 页面初始化 -->
     <script>
         // 全局模态框控制函数
@@ -901,10 +1004,18 @@
                     console.error('图片管理模块未加载');
                 }
 
-                // 测试模态框函数
-                console.log('showModal函数可用:', typeof showModal);
-            }, 1000);
-        });
+                        // 测试模态框函数
+        console.log('showModal函数可用:', typeof showModal);
+    }, 1000);
+});
+
+// 用户个人中心函数
+function showUserProfile() {
+    // 这里可以跳转到用户个人中心页面或显示用户信息
+    if (window.authManager) {
+        window.authManager.showMessage('个人中心功能开发中...', 'info');
+    }
+}
     </script>
     <!-- Test auto-deploy on 2025-05-23 06:25 -->
 </body>
