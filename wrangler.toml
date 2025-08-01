@@ -52,4 +52,9 @@ JWT_SECRET = "your-super-secret-jwt-key-change-this-in-production"
 # KV Namespace 绑定 (用于存储用户数据)
 [[kv_namespaces]]
 binding = "USERS"
-id = "your_users_kv_namespace_id_here" # 部署后在Cloudflare后台创建并替换 
+id = "your_users_kv_namespace_id_here" # 部署后在Cloudflare后台创建并替换
+
+# KV Namespace 绑定 (用于存储图片缓存)
+[[kv_namespaces]]
+binding = "IMAGES_CACHE"
+id = "your_images_cache_kv_namespace_id_here" # 部署后在Cloudflare后台创建并替换 

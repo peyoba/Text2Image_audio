@@ -7,6 +7,11 @@ import {
     extractTokenFromRequest 
 } from './auth.js';
 
+import {
+    HDImageCacheManager,
+    authenticateImageAccess
+} from './image_cache.js';
+
 function logInfo(env, ...args) {
     // Only log if LOG_LEVEL is explicitly set to 'debug'
     if ((env.LOG_LEVEL || 'info').toLowerCase() === 'debug') {
@@ -58,6 +63,103 @@ export default {
                 logInfo(env, `[Worker Log] Validating user token`);
                 const result = await validateUserToken(token, env);
                 return jsonResponse(result, env, result.success ? 200 : 401);
+            } else if (method === "POST" && path === "/api/images/save") {
+                const user = await authenticateImageAccess(request, env);
+                if (!user) {
+                    return jsonResponse({ error: '需要登录' }, env, 401);
+                }
+                
+                const requestData = await request.json();
+                const cacheManager = new HDImageCacheManager(env);
+                logInfo(env, `[Worker Log] Saving HD image for user: ${user.id}`);
+                const result = await cacheManager.saveHDImage(user.id, requestData);
+                return jsonResponse(result, env, result.success ? 201 : 400);
+            } else if (method === "GET" && path === "/api/images/daily") {
+                const user = await authenticateImageAccess(request, env);
+                if (!user) {
+                    return jsonResponse({ error: '需要登录' }, env, 401);
+                }
+                
+                const cacheManager = new HDImageCacheManager(env);
+                logInfo(env, `[Worker Log] Getting daily images for user: ${user.id}`);
+                const result = await cacheManager.getDailyImageList(user.id);
+                return jsonResponse(result, env, result.success ? 200 : 400);
+            } else if (method === "GET" && path.startsWith("/api/images/") && !path.includes("/download/")) {
+                const user = await authenticateImageAccess(request, env);
+                if (!user) {
+                    return jsonResponse({ error: '需要登录' }, env, 401);
+                }
+                
+                const imageId = path.split('/').pop();
+                const cacheManager = new HDImageCacheManager(env);
+                logInfo(env, `[Worker Log] Getting HD image: ${imageId} for user: ${user.id}`);
+                const result = await cacheManager.getHDImage(user.id, imageId);
+                
+                if (result.success) {
+                    return jsonResponse({
+                        id: result.image.id,
+                        prompt: result.image.prompt,
+                        data: result.image.data, // 高清base64数据
+                        width: result.image.width,
+                        height: result.image.height,
+                        seed: result.image.seed,
+                        model: result.image.model,
+                        negative: result.image.negative,
+                        created_at: result.image.created_at,
+                        quality: result.image.quality
+                    }, env);
+                } else {
+                    return jsonResponse({ error: result.error }, env, 404);
+                }
+            } else if (method === "GET" && path.startsWith("/api/images/download/")) {
+                const user = await authenticateImageAccess(request, env);
+                if (!user) {
+                    return jsonResponse({ error: '需要登录' }, env, 401);
+                }
+                
+                const imageId = path.split('/').pop();
+                const cacheManager = new HDImageCacheManager(env);
+                logInfo(env, `[Worker Log] Downloading HD image: ${imageId} for user: ${user.id}`);
+                const result = await cacheManager.getHDImage(user.id, imageId);
+                
+                if (result.success) {
+                    // 返回下载响应
+                    const response = new Response(
+                        Uint8Array.from(atob(result.image.data), c => c.charCodeAt(0)),
+                        {
+                            headers: {
+                                'Content-Type': 'image/jpeg',
+                                'Content-Disposition': `attachment; filename="image_${imageId}.jpg"`,
+                                'Cache-Control': 'no-cache'
+                            }
+                        }
+                    );
+                    
+                    return addCorsHeaders(response.headers, env);
+                } else {
+                    return jsonResponse({ error: result.error }, env, 404);
+                }
+            } else if (method === "DELETE" && path.startsWith("/api/images/")) {
+                const user = await authenticateImageAccess(request, env);
+                if (!user) {
+                    return jsonResponse({ error: '需要登录' }, env, 401);
+                }
+                
+                const imageId = path.split('/').pop();
+                const cacheManager = new HDImageCacheManager(env);
+                logInfo(env, `[Worker Log] Deleting image: ${imageId} for user: ${user.id}`);
+                const result = await cacheManager.deleteImage(user.id, imageId);
+                return jsonResponse(result, env, result.success ? 200 : 400);
+            } else if (method === "GET" && path === "/api/images/stats") {
+                const user = await authenticateImageAccess(request, env);
+                if (!user) {
+                    return jsonResponse({ error: '需要登录' }, env, 401);
+                }
+                
+                const cacheManager = new HDImageCacheManager(env);
+                logInfo(env, `[Worker Log] Getting image stats for user: ${user.id}`);
+                const result = await cacheManager.getUserImageStats(user.id);
+                return jsonResponse(result, env, result.success ? 200 : 400);
             } else if (method === "POST" && path === "/api/optimize") {
                 const requestData = await request.json();
                 const textPrompt = requestData.text;
