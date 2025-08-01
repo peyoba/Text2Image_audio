@@ -1000,6 +1000,11 @@
                 // 初始化图片管理
                 if (window.hdImageManager) {
                     console.log('图片管理模块初始化完成');
+                    // 确保图片管理器正确初始化
+                    if (window.authManager && window.authManager.isLoggedIn()) {
+                        console.log('用户已登录，初始化图片管理器');
+                        window.hdImageManager.init();
+                    }
                 } else {
                     console.error('图片管理模块未加载');
                 }

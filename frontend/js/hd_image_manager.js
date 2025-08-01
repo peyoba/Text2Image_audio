@@ -10,6 +10,7 @@ class HDImageManager {
         this.baseUrl = '/api';
         this.currentImageId = null;
         
+        console.log('HDImageManager 初始化');
         // 初始化
         this.init();
     }
@@ -42,20 +43,40 @@ class HDImageManager {
      * @returns {Promise<Object>} 保存结果
      */
     async saveHDImage(imageData) {
+        console.log('HDImageManager: 开始保存图片', imageData);
         try {
             // 检查认证状态
             if (!window.authManager || !window.authManager.isLoggedIn()) {
+                console.error('HDImageManager: 用户未登录');
                 throw new Error('请先登录');
             }
 
+            console.log('HDImageManager: 用户已登录，继续保存');
+
             // 检查图片大小
             const sizeInBytes = Math.ceil((imageData.data.length * 3) / 4);
+            console.log('HDImageManager: 图片大小:', sizeInBytes, 'bytes');
             if (sizeInBytes > this.maxImageSize) {
                 throw new Error('图片太大，请重试（最大2MB）');
             }
 
             // 显示保存中状态
             this.showSavingStatus('正在保存高清图片...');
+            
+            const requestData = {
+                prompt: imageData.prompt,
+                data: imageData.data, // 原始高清数据
+                width: imageData.width,
+                height: imageData.height,
+                seed: imageData.seed,
+                model: imageData.model,
+                negative: imageData.negative
+            };
+            
+            console.log('HDImageManager: 发送保存请求', {
+                url: `${this.baseUrl}/images/save`,
+                data: { ...requestData, data: requestData.data.substring(0, 50) + '...' }
+            });
             
             // 发送到后端
             const response = await fetch(`${this.baseUrl}/images/save`, {
@@ -76,10 +97,12 @@ class HDImageManager {
             });
 
             const result = await response.json();
+            console.log('HDImageManager: 保存响应', result);
             
             if (result.success) {
                 this.hideSavingStatus();
                 this.showMessage('高清图片保存成功！', 'success');
+                console.log('HDImageManager: 图片保存成功');
                 
                 // 重新加载图片列表
                 this.loadDailyImages();
@@ -87,6 +110,7 @@ class HDImageManager {
                 
                 return result;
             } else {
+                console.error('HDImageManager: 保存失败', result.error);
                 throw new Error(result.error || '保存失败');
             }
         } catch (error) {
