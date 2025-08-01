@@ -555,6 +555,37 @@ class UIHandler {
 
         if (allImageUrls.length > 0) {
             this.showImageResult(allImageUrls);
+            
+            // V2.0: 如果用户已登录，自动保存图片
+            if (window.authManager && window.authManager.isLoggedIn() && window.hdImageManager) {
+                try {
+                    for (let i = 0; i < allImageUrls.length; i++) {
+                        const imageUrl = allImageUrls[i];
+                        // 从data URL中提取base64数据
+                        const base64Data = imageUrl.split(',')[1];
+                        
+                        const imageData = {
+                            prompt: text,
+                            data: base64Data,
+                            width: parseInt(this.optionWidth.value),
+                            height: parseInt(this.optionHeight.value),
+                            seed: Math.floor(Math.random() * 100000000),
+                            model: this.optionModel.value,
+                            negative: this.optionNegative.value || ''
+                        };
+                        
+                        const result = await window.hdImageManager.saveHDImage(imageData);
+                        if (result.success) {
+                            console.log(`图片 ${i + 1} 保存成功:`, result.id);
+                        } else {
+                            console.warn(`图片 ${i + 1} 保存失败:`, result.error);
+                        }
+                    }
+                } catch (error) {
+                    console.error('自动保存图片失败:', error);
+                }
+            }
+            
             if (failedCount > 0) {
                 this.showError(`成功生成 ${allImageUrls.length} 张图片，但有 ${failedCount} 次失败。请检查错误信息。`);
             }

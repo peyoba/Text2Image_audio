@@ -18,13 +18,20 @@ class AuthManager {
     /**
      * 初始化认证状态
      */
-    init() {
+    async init() {
         const token = this.getToken();
         const user = this.getUser();
         
         if (token && user) {
-            this.isAuthenticated = true;
-            this.currentUser = user;
+            // 验证token是否仍然有效
+            const isValid = await this.validateToken();
+            if (isValid) {
+                console.log('认证状态恢复成功');
+            } else {
+                console.log('Token已过期，需要重新登录');
+            }
+        } else {
+            console.log('未找到认证信息');
             this.updateUI();
         }
     }
@@ -46,16 +53,17 @@ class AuthManager {
 
             const result = await response.json();
             
-            if (response.ok) {
-                this.setToken(result.token);
-                this.setUser(result.user);
-                this.isAuthenticated = true;
-                this.currentUser = result.user;
-                this.updateUI();
-                return { success: true, message: '注册成功！' };
-            } else {
-                return { success: false, message: result.error || '注册失败' };
-            }
+                               if (response.ok) {
+                       this.setToken(result.token);
+                       this.setUser(result.user);
+                       this.isAuthenticated = true;
+                       this.currentUser = result.user;
+                       this.updateUI();
+                       console.log('注册成功，用户信息已保存');
+                       return { success: true, message: '注册成功！' };
+                   } else {
+                       return { success: false, message: result.error || '注册失败' };
+                   }
         } catch (error) {
             console.error('注册错误:', error);
             return { success: false, message: '网络错误，请稍后重试' };
@@ -79,16 +87,17 @@ class AuthManager {
 
             const result = await response.json();
             
-            if (response.ok) {
-                this.setToken(result.token);
-                this.setUser(result.user);
-                this.isAuthenticated = true;
-                this.currentUser = result.user;
-                this.updateUI();
-                return { success: true, message: '登录成功！' };
-            } else {
-                return { success: false, message: result.error || '登录失败' };
-            }
+                               if (response.ok) {
+                       this.setToken(result.token);
+                       this.setUser(result.user);
+                       this.isAuthenticated = true;
+                       this.currentUser = result.user;
+                       this.updateUI();
+                       console.log('登录成功，用户信息已保存');
+                       return { success: true, message: '登录成功！' };
+                   } else {
+                       return { success: false, message: result.error || '登录失败' };
+                   }
         } catch (error) {
             console.error('登录错误:', error);
             return { success: false, message: '网络错误，请稍后重试' };
@@ -127,10 +136,19 @@ class AuthManager {
 
             if (response.ok) {
                 const result = await response.json();
-                this.setUser(result.user);
-                this.currentUser = result.user;
-                return true;
+                if (result.success && result.user) {
+                    this.setUser(result.user);
+                    this.currentUser = result.user;
+                    this.isAuthenticated = true;
+                    this.updateUI();
+                    return true;
+                } else {
+                    console.log('Token验证失败：服务器返回无效数据');
+                    this.logout();
+                    return false;
+                }
             } else {
+                console.log('Token验证失败：HTTP状态码', response.status);
                 this.logout();
                 return false;
             }
@@ -192,14 +210,21 @@ class AuthManager {
      * 更新UI显示
      */
     updateUI() {
+        // 查找所有登录按钮（包括导航栏中的）
+        const loginButtons = document.querySelectorAll('.login-btn');
         const authButtons = document.querySelectorAll('.auth-buttons');
         const userInfo = document.querySelectorAll('.user-info');
         const loginModal = document.getElementById('loginModal');
         const registerModal = document.getElementById('registerModal');
 
         if (this.isAuthenticated) {
-            // 显示用户信息，隐藏登录按钮
+            // 用户已登录：隐藏登录按钮，显示用户信息
+            loginButtons.forEach(btn => {
+                btn.style.display = 'none';
+                console.log('隐藏登录按钮');
+            });
             authButtons.forEach(btn => btn.style.display = 'none');
+            
             userInfo.forEach(info => {
                 info.style.display = 'block';
                 const usernameEl = info.querySelector('.username');
@@ -211,10 +236,18 @@ class AuthManager {
             // 关闭模态框
             if (loginModal) loginModal.style.display = 'none';
             if (registerModal) registerModal.style.display = 'none';
+            
+            console.log('UI更新：用户已登录');
         } else {
-            // 显示登录按钮，隐藏用户信息
+            // 用户未登录：显示登录按钮，隐藏用户信息
+            loginButtons.forEach(btn => {
+                btn.style.display = 'block';
+                console.log('显示登录按钮');
+            });
             authButtons.forEach(btn => btn.style.display = 'block');
             userInfo.forEach(info => info.style.display = 'none');
+            
+            console.log('UI更新：用户未登录');
         }
     }
 

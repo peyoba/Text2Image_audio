@@ -879,12 +879,12 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
             // 等待所有模块加载完成
-            setTimeout(() => {
+            setTimeout(async () => {
                 // 初始化认证状态
                 if (window.authManager) {
-                    window.authManager.init();
+                    await window.authManager.init();
                     console.log('认证模块初始化完成');
                 } else {
                     console.error('认证模块未加载');
