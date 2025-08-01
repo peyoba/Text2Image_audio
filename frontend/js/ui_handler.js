@@ -558,32 +558,82 @@ class UIHandler {
             
             // V2.0: 如果用户已登录，自动保存图片
             if (window.authManager && window.authManager.isLoggedIn() && window.hdImageManager) {
+                console.log('开始自动保存图片...');
                 try {
                     for (let i = 0; i < allImageUrls.length; i++) {
                         const imageUrl = allImageUrls[i];
+                        console.log(`处理图片 ${i + 1}:`, imageUrl.substring(0, 50) + '...');
+                        
                         // 从data URL中提取base64数据
                         const base64Data = imageUrl.split(',')[1];
+                        if (!base64Data) {
+                            console.error(`图片 ${i + 1} 数据格式错误`);
+                            continue;
+                        }
+                        
+                        // 获取图片尺寸
+                        const aspectRatio = document.getElementById('option-aspect-ratio')?.value || 'square';
+                        let width = 1024, height = 1024;
+                        
+                        // 根据宽高比设置尺寸
+                        switch(aspectRatio) {
+                            case 'portrait':
+                                width = 768; height = 1024;
+                                break;
+                            case 'landscape':
+                                width = 1024; height = 768;
+                                break;
+                            case 'wide':
+                                width = 1280; height = 720;
+                                break;
+                            case 'ultrawide':
+                                width = 1920; height = 1080;
+                                break;
+                            default: // square
+                                width = 1024; height = 1024;
+                        }
                         
                         const imageData = {
                             prompt: text,
                             data: base64Data,
-                            width: parseInt(this.optionWidth.value),
-                            height: parseInt(this.optionHeight.value),
+                            width: width,
+                            height: height,
                             seed: Math.floor(Math.random() * 100000000),
-                            model: this.optionModel.value,
-                            negative: this.optionNegative.value || ''
+                            model: document.getElementById('option-ai-model')?.value || 'flux',
+                            negative: document.getElementById('negative-prompt')?.value || ''
                         };
+                        
+                        console.log(`保存图片 ${i + 1} 数据:`, {
+                            prompt: imageData.prompt,
+                            width: imageData.width,
+                            height: imageData.height,
+                            model: imageData.model,
+                            dataLength: imageData.data.length
+                        });
                         
                         const result = await window.hdImageManager.saveHDImage(imageData);
                         if (result.success) {
                             console.log(`图片 ${i + 1} 保存成功:`, result.id);
+                            // 显示保存成功消息
+                            if (window.authManager) {
+                                window.authManager.showMessage(`图片 ${i + 1} 已自动保存到您的账户`, 'success');
+                            }
                         } else {
                             console.warn(`图片 ${i + 1} 保存失败:`, result.error);
+                            // 显示保存失败消息
+                            if (window.authManager) {
+                                window.authManager.showMessage(`图片 ${i + 1} 保存失败: ${result.error}`, 'error');
+                            }
                         }
                     }
                 } catch (error) {
                     console.error('自动保存图片失败:', error);
+                    if (window.authManager) {
+                        window.authManager.showMessage(`自动保存图片失败: ${error.message}`, 'error');
+                    }
                 }
+            } else {
+                console.log('用户未登录或图片管理器未加载，跳过自动保存');
             }
             
             if (failedCount > 0) {
