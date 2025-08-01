@@ -860,6 +860,25 @@
     
     <!-- 页面初始化 -->
     <script>
+        // 全局模态框控制函数
+        function showModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'block';
+                console.log('显示模态框:', modalId);
+            } else {
+                console.error('模态框未找到:', modalId);
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                console.log('关闭模态框:', modalId);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             // 等待所有模块加载完成
             setTimeout(() => {
@@ -877,6 +896,9 @@
                 } else {
                     console.error('图片管理模块未加载');
                 }
+
+                // 测试模态框函数
+                console.log('showModal函数可用:', typeof showModal);
             }, 1000);
         });
     </script>
