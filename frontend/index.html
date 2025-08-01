@@ -839,6 +839,10 @@
             .then(response => response.text())
             .then(html => {
                 document.getElementById('auth-modals').innerHTML = html;
+                // 重新绑定表单事件
+                if (typeof initAuthForms === 'function') {
+                    setTimeout(initAuthForms, 100);
+                }
             })
             .catch(error => {
                 console.error('加载认证界面失败:', error);

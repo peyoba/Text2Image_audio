@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>认证测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔐 认证功能测试页面</h1>
+    
+    <div class="test-section">
+        <h2>当前状态</h2>
+        <div id="auth-status" class="status info">正在检查认证状态...</div>
+        <button class="btn" onclick="checkAuthStatus()">刷新状态</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>注册测试</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="regUsername">用户名:</label>
+                <input type="text" id="regUsername" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="regEmail">邮箱:</label>
+                <input type="email" id="regEmail" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="regPassword">密码:</label>
+                <input type="password" id="regPassword" name="password" required>
+            </div>
+            <button type="submit" class="btn">注册</button>
+        </form>
+        <div id="register-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>登录测试</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginEmail">邮箱:</label>
+                <input type="email" id="loginEmail" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">密码:</label>
+                <input type="password" id="loginPassword" name="password" required>
+            </div>
+            <button type="submit" class="btn">登录</button>
+        </form>
+        <div id="login-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>API测试</h2>
+        <button class="btn" onclick="testAPI()">测试API连接</button>
+        <button class="btn" onclick="testToken()">测试Token验证</button>
+        <button class="btn" onclick="logout()">登出</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>调试日志</h2>
+        <div id="debug-log" class="log"></div>
+        <button class="btn" onclick="clearLog()">清空日志</button>
+    </div>
+
+    <!-- 引入认证模块 -->
+    <script src="js/auth.js"></script>
+    
+    <script>
+        // 调试日志函数
+        function log(message, type = 'info') {
+            const logEl = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${type.toUpperCase()}: ${message}`;
+            logEl.innerHTML += logEntry + '\n';
+            logEl.scrollTop = logEl.scrollHeight;
+            console.log(logEntry);
+        }
+        
+        function clearLog() {
+            document.getElementById('debug-log').innerHTML = '';
+        }
+        
+        // 检查认证状态
+        function checkAuthStatus() {
+            const statusEl = document.getElementById('auth-status');
+            if (window.authManager && window.authManager.isLoggedIn()) {
+                const user = window.authManager.getCurrentUser();
+                statusEl.textContent = `✅ 已登录 - 用户: ${user.username} (${user.email})`;
+                statusEl.className = 'status success';
+                log(`用户已登录: ${user.username}`);
+            } else {
+                statusEl.textContent = 'ℹ️ 未登录';
+                statusEl.className = 'status info';
+                log('用户未登录');
+            }
+        }
+        
+        // 注册表单处理
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const userData = {
+                username: formData.get('username'),
+                email: formData.get('email'),
+                password: formData.get('password')
+            };
+            
+            log(`尝试注册用户: ${userData.username} (${userData.email})`);
+            
+            try {
+                const result = await window.authManager.register(userData);
+                const resultEl = document.getElementById('register-result');
+                
+                if (result.success) {
+                    resultEl.innerHTML = `<div class="status success">注册成功！</div>`;
+                    log('注册成功', 'success');
+                    checkAuthStatus();
+                } else {
+                    resultEl.innerHTML = `<div class="status error">注册失败: ${result.message}</div>`;
+                    log(`注册失败: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`注册异常: ${error.message}`, 'error');
+                document.getElementById('register-result').innerHTML = 
+                    `<div class="status error">注册异常: ${error.message}</div>`;
+            }
+        });
+        
+        // 登录表单处理
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const credentials = {
+                email: formData.get('email'),
+                password: formData.get('password')
+            };
+            
+            log(`尝试登录: ${credentials.email}`);
+            
+            try {
+                const result = await window.authManager.login(credentials);
+                const resultEl = document.getElementById('login-result');
+                
+                if (result.success) {
+                    resultEl.innerHTML = `<div class="status success">登录成功！</div>`;
+                    log('登录成功', 'success');
+                    checkAuthStatus();
+                } else {
+                    resultEl.innerHTML = `<div class="status error">登录失败: ${result.message}</div>`;
+                    log(`登录失败: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`登录异常: ${error.message}`, 'error');
+                document.getElementById('login-result').innerHTML = 
+                    `<div class="status error">登录异常: ${error.message}</div>`;
+            }
+        });
+        
+        // API测试
+        async function testAPI() {
+            log('测试API连接...');
+            try {
+                const response = await fetch('/api/auth/validate', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${window.authManager ? window.authManager.getToken() : ''}`
+                    }
+                });
+                const data = await response.json();
+                log(`API响应: ${JSON.stringify(data)}`);
+            } catch (error) {
+                log(`API测试失败: ${error.message}`, 'error');
+            }
+        }
+        
+        // Token测试
+        async function testToken() {
+            if (!window.authManager) {
+                log('认证管理器未加载', 'error');
+                return;
+            }
+            
+            const token = window.authManager.getToken();
+            if (!token) {
+                log('没有找到token', 'error');
+                return;
+            }
+            
+            log(`Token存在: ${token.substring(0, 20)}...`);
+            const isValid = await window.authManager.validateToken();
+            log(`Token验证结果: ${isValid ? '有效' : '无效'}`);
+        }
+        
+        // 登出
+        function logout() {
+            if (window.authManager) {
+                window.authManager.logout();
+                log('用户已登出');
+                checkAuthStatus();
+            }
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            log('页面加载完成');
+            setTimeout(() => {
+                if (window.authManager) {
+                    log('认证管理器已加载');
+                    window.authManager.init().then(() => {
+                        log('认证管理器初始化完成');
+                        checkAuthStatus();
+                    });
+                } else {
+                    log('认证管理器未加载', 'error');
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html> 
