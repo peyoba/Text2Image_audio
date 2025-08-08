@@ -6,14 +6,14 @@
             <span class="close" onclick="closeModal('loginModal')">&times;</span>
         </div>
         <div class="modal-body">
-            <form id="loginForm" class="auth-form">
+            <form id="loginForm" class="auth-form" method="post" autocomplete="on">
                 <div class="form-group">
                     <label for="loginEmail">邮箱地址</label>
-                    <input type="email" id="loginEmail" name="email" required placeholder="请输入邮箱地址">
+                    <input type="email" id="loginEmail" name="email" required placeholder="请输入邮箱地址" autocomplete="email">
                 </div>
                 <div class="form-group">
                     <label for="loginPassword">密码</label>
-                    <input type="password" id="loginPassword" name="password" required placeholder="请输入密码">
+                    <input type="password" id="loginPassword" name="password" required placeholder="请输入密码" autocomplete="current-password">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">登录</button>
@@ -34,22 +34,22 @@
             <span class="close" onclick="closeModal('registerModal')">&times;</span>
         </div>
         <div class="modal-body">
-            <form id="registerForm" class="auth-form">
+            <form id="registerForm" class="auth-form" method="post" autocomplete="on">
                 <div class="form-group">
                     <label for="registerUsername">用户名</label>
-                    <input type="text" id="registerUsername" name="username" required placeholder="请输入用户名">
+                    <input type="text" id="registerUsername" name="username" required placeholder="请输入用户名" autocomplete="username">
                 </div>
                 <div class="form-group">
                     <label for="registerEmail">邮箱地址</label>
-                    <input type="email" id="registerEmail" name="email" required placeholder="请输入邮箱地址">
+                    <input type="email" id="registerEmail" name="email" required placeholder="请输入邮箱地址" autocomplete="email">
                 </div>
                 <div class="form-group">
                     <label for="registerPassword">密码</label>
-                    <input type="password" id="registerPassword" name="password" required placeholder="请输入密码（至少6位）">
+                    <input type="password" id="registerPassword" name="password" required placeholder="请输入密码（至少6位）" autocomplete="new-password">
                 </div>
                 <div class="form-group">
                     <label for="registerConfirmPassword">确认密码</label>
-                    <input type="password" id="registerConfirmPassword" name="confirmPassword" required placeholder="请再次输入密码">
+                    <input type="password" id="registerConfirmPassword" name="confirmPassword" required placeholder="请再次输入密码" autocomplete="new-password">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">注册</button>

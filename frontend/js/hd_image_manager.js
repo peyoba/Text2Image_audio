@@ -7,7 +7,9 @@ class HDImageManager {
     constructor() {
         this.maxImagesPerDay = 3;
         this.maxImageSize = 2 * 1024 * 1024; // 2MB
-        this.baseUrl = '/api';
+        // 与 auth.js 一致：优先 window.API_BASE，其次生产 Worker，最后相对路径
+        const apiBase = (window.API_BASE || 'https://text2image-api.peyoba660703.workers.dev');
+        this.baseUrl = apiBase.endsWith('/api') ? apiBase : `${apiBase}/api`;
         this.currentImageId = null;
         
         console.log('HDImageManager 初始化');
@@ -126,7 +128,7 @@ class HDImageManager {
      */
     async getDailyImages() {
         try {
-            const response = await fetch(`${this.baseUrl}/images/daily`, {
+            const response = await fetch(`${this.baseUrl}/images/list`, {
                 headers: {
                     'Authorization': `Bearer ${window.authManager.getToken()}`
                 }
@@ -134,11 +136,8 @@ class HDImageManager {
 
             const result = await response.json();
             
-            if (result.success) {
-                return result;
-            } else {
-                throw new Error(result.error || '获取图片列表失败');
-            }
+            if (result && result.success) return result;
+            throw new Error((result && result.error) || '获取图片列表失败');
         } catch (error) {
             console.error('获取图片列表错误:', error);
             throw error;
@@ -152,7 +151,7 @@ class HDImageManager {
      */
     async getHDImage(imageId) {
         try {
-            const response = await fetch(`${this.baseUrl}/images/${imageId}`, {
+            const response = await fetch(`${this.baseUrl}/images/get/${imageId}`, {
                 headers: {
                     'Authorization': `Bearer ${window.authManager.getToken()}`
                 }
@@ -160,11 +159,8 @@ class HDImageManager {
 
             const result = await response.json();
             
-            if (result.data) {
-                return result;
-            } else {
-                throw new Error(result.error || '获取图片失败');
-            }
+            if (result && result.success && result.image) return result.image;
+            throw new Error((result && result.error) || '获取图片失败');
         } catch (error) {
             console.error('获取高清图片错误:', error);
             throw error;
