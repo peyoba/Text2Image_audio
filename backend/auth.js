@@ -103,19 +103,10 @@ function generateSalt() {
  */
 function validatePassword(password) {
     const minLength = 6;
-    const hasLetters = /[A-Za-z]/.test(password);
-    const hasNumbers = /\d/.test(password);
-
     const errors = [];
-
-    if (password.length < minLength) {
+    if (!password || password.length < minLength) {
         errors.push(`密码长度至少${minLength}位`);
     }
-
-    if (!hasLetters || !hasNumbers) {
-        errors.push('密码需包含字母和数字');
-    }
-
     return {
         isValid: errors.length === 0,
         errors

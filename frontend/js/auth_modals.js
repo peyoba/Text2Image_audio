@@ -18,8 +18,8 @@ function initAuthForms() {
     const pwd = document.getElementById('registerPassword');
     if (pwd) {
       pwd.addEventListener('input', () => {
-        const ok = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/.test(pwd.value);
-        pwd.setCustomValidity(ok ? '' : '至少6位且需包含字母和数字');
+        const ok = pwd.value && pwd.value.length >= 6; // 降级为长度校验，避免浏览器对pattern差异
+        pwd.setCustomValidity(ok ? '' : '至少6位');
       });
     }
   }
@@ -53,8 +53,8 @@ async function handleRegisterSubmit(e) {
       window.authManager?.showMessage('两次输入的密码不一致', 'error');
       return;
     }
-    if (!/^(?=.*[A-Za-z])(?=.*\d).{6,}$/.test(password)) {
-      window.authManager?.showMessage('密码需至少6位，且包含字母和数字', 'error');
+    if (!password || password.length < 6) {
+      window.authManager?.showMessage('密码需至少6位', 'error');
       return;
     }
     const userData = {

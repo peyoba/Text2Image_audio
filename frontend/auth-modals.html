@@ -45,8 +45,8 @@
                 </div>
                 <div class="form-group">
                     <label for="registerPassword">密码</label>
-                    <input type="password" id="registerPassword" name="password" required minlength="6" pattern="^(?=.*[A-Za-z])(?=.*\\d).{6,}$" title="至少6位且包含字母和数字" placeholder="至少6位，含字母和数字" autocomplete="new-password">
-                    <small style="color:#6b7280">密码要求：至少6位，包含字母和数字</small>
+                    <input type="password" id="registerPassword" name="password" required minlength="6" title="至少6位，建议包含字母和数字" placeholder="至少6位，建议包含字母和数字" autocomplete="new-password" autocapitalize="off" spellcheck="false">
+                    <small style="color:#6b7280">密码要求：至少6位；为更安全，建议包含字母和数字</small>
                 </div>
                 <div class="form-group">
                     <label for="registerConfirmPassword">确认密码</label>
