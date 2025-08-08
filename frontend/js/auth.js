@@ -5,7 +5,10 @@
 
 class AuthManager {
     constructor() {
-        this.baseUrl = '/api';
+        // 优先使用全局配置，其次使用生产Worker地址，最后回退相对路径
+        const apiBase = (window.API_BASE || 'https://text2image-api.peyoba660703.workers.dev');
+        // 统一以 /api 结尾，确保后续拼接 /auth/*
+        this.baseUrl = apiBase.endsWith('/api') ? apiBase : `${apiBase}/api`;
         this.tokenKey = 'auth_token';
         this.userKey = 'user_info';
         this.isAuthenticated = false;
