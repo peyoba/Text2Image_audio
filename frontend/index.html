@@ -883,42 +883,21 @@
             });
     </script>
     
-    <!-- 用户信息样式 -->
+    <!-- 用户信息样式（深色主题） -->
     <style>
-    /* 用户信息样式 */
     .user-info {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 8px 16px;
-        background-color: #f9fafb;
-        border-radius: 8px;
-        border: 1px solid #e5e7eb;
+        gap: 10px;
+        padding: 6px 10px;
+        background: rgba(15,23,42,0.7);
+        border: 1px solid #273548;
+        border-radius: 999px;
     }
-    
-    .user-avatar img {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-    
-    .user-details {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
-    
-    .username {
-        font-weight: 500;
-        color: #1f2937;
-        font-size: 0.875rem;
-    }
-    
-    .user-actions {
-        display: flex;
-        gap: 8px;
-    }
+    .user-avatar img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+    .user-details { display: flex; flex-direction: row; align-items: center; gap: 10px; }
+    .username { font-weight: 600; color: #e5e7eb; font-size: 0.85rem; }
+    .user-actions { display: flex; gap: 6px; }
     
     .btn {
         padding: 8px 16px;
@@ -960,16 +939,7 @@
     }
     
     /* 响应式设计 */
-    @media (max-width: 768px) {
-        .user-info {
-            flex-direction: column;
-            text-align: center;
-        }
-        
-        .user-actions {
-            justify-content: center;
-        }
-    }
+    @media (max-width: 768px) { .user-info { flex-direction: column; text-align: center; } .user-actions { justify-content: center; } }
     </style>
 
     <!-- 页面初始化 -->
