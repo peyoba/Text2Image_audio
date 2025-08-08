@@ -55,8 +55,8 @@ class AuthManager {
             });
 
             const result = await response.json();
-            
-                                                               if (response.ok) {
+
+            if (response.ok && result && result.success && result.token) {
                         this.setToken(result.token);
                         this.setUser(result.user);
                         this.isAuthenticated = true;
@@ -66,7 +66,7 @@ class AuthManager {
                         console.log('注册成功，用户信息已保存');
                         return { success: true, message: '注册成功！' };
                     } else {
-                        return { success: false, message: result.error || '注册失败' };
+                return { success: false, message: (result && result.error) || '注册失败' };
                     }
         } catch (error) {
             console.error('注册错误:', error);
@@ -90,8 +90,8 @@ class AuthManager {
             });
 
             const result = await response.json();
-            
-                                                               if (response.ok) {
+
+            if (response.ok && result && result.success && result.token) {
                         this.setToken(result.token);
                         this.setUser(result.user);
                         this.isAuthenticated = true;
@@ -101,7 +101,7 @@ class AuthManager {
                         console.log('登录成功，用户信息已保存');
                         return { success: true, message: '登录成功！' };
                     } else {
-                        return { success: false, message: result.error || '登录失败' };
+                return { success: false, message: (result && result.error) || '登录失败' };
                     }
         } catch (error) {
             console.error('登录错误:', error);

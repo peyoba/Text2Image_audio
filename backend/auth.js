@@ -103,32 +103,22 @@ function generateSalt() {
  */
 function validatePassword(password) {
     const minLength = 6;
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
+    const hasLetters = /[A-Za-z]/.test(password);
     const hasNumbers = /\d/.test(password);
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-    
+
     const errors = [];
-    
+
     if (password.length < minLength) {
         errors.push(`密码长度至少${minLength}位`);
     }
-    
-    if (!hasUpperCase) {
-        errors.push('密码应包含大写字母');
+
+    if (!hasLetters || !hasNumbers) {
+        errors.push('密码需包含字母和数字');
     }
-    
-    if (!hasLowerCase) {
-        errors.push('密码应包含小写字母');
-    }
-    
-    if (!hasNumbers) {
-        errors.push('密码应包含数字');
-    }
-    
+
     return {
         isValid: errors.length === 0,
-        errors: errors
+        errors
     };
 }
 
