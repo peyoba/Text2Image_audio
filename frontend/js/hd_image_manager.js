@@ -284,6 +284,7 @@ class HDImageManager {
         card.className = 'image-card';
         card.innerHTML = `
             <div class="image-preview">
+                <img class="thumb" alt="缩略图" style="display:none;"/>
                 <div class="image-placeholder" data-image-id="${image.id}">
                     <div class="loading-spinner"></div>
                     <span>点击查看高清图片</span>
@@ -313,11 +314,22 @@ class HDImageManager {
             </div>
         `;
 
-        // 添加点击事件加载图片
-        const placeholder = card.querySelector('.image-placeholder');
-        placeholder.addEventListener('click', () => {
-            this.viewImage(image.id);
-        });
+        // 点击查看高清
+        const preview = card.querySelector('.image-preview');
+        preview.addEventListener('click', () => this.viewImage(image.id));
+
+        // 异步加载缩略图（每日最多3张，直接用高清数据即可）
+        this.getHDImage(image.id)
+            .then((imgData) => {
+                const imgEl = card.querySelector('.thumb');
+                const ph = card.querySelector('.image-placeholder');
+                if (imgEl && imgData && imgData.data) {
+                    imgEl.src = `data:image/jpeg;base64,${imgData.data}`;
+                    imgEl.style.display = 'block';
+                    if (ph) ph.style.display = 'none';
+                }
+            })
+            .catch(() => { /* 忽略缩略图错误，保留占位 */ });
 
         return card;
     }
