@@ -841,6 +841,8 @@
     <script src="js/ui_handler.js" defer></script>
     <script src="js/ui_enhancements.js" defer></script>
     <script src="js/app.js" defer></script>
+    <!-- 认证模态交互脚本（保证表单submit被JS接管，避免浏览器默认提交导致405） -->
+    <script src="js/auth_modals.js" defer></script>
     
     <!-- V2.0 认证和图片管理模块 -->
     <script src="js/auth.js" defer></script>
@@ -853,10 +855,15 @@
             .then(response => response.text())
             .then(html => {
                 document.getElementById('auth-modals').innerHTML = html;
-                // 重新绑定表单事件
-                if (typeof initAuthForms === 'function') {
-                    setTimeout(initAuthForms, 100);
-                }
+                // 确保在脚本加载完成后绑定事件，避免表单触发默认提交
+                const ensureBind = () => {
+                    if (window.initAuthForms) {
+                        window.initAuthForms();
+                    } else {
+                        setTimeout(ensureBind, 100);
+                    }
+                };
+                ensureBind();
             })
             .catch(error => {
                 console.error('加载认证界面失败:', error);
