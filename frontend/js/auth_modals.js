@@ -14,6 +14,14 @@ function initAuthForms() {
   const registerForm = document.getElementById('registerForm');
   if (registerForm) {
     registerForm.addEventListener('submit', handleRegisterSubmit);
+    // 即时校验：显示密码规则提示
+    const pwd = document.getElementById('registerPassword');
+    if (pwd) {
+      pwd.addEventListener('input', () => {
+        const ok = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/.test(pwd.value);
+        pwd.setCustomValidity(ok ? '' : '至少6位且需包含字母和数字');
+      });
+    }
   }
 }
 
@@ -43,6 +51,10 @@ async function handleRegisterSubmit(e) {
     const confirmPassword = formData.get('confirmPassword');
     if (password !== confirmPassword) {
       window.authManager?.showMessage('两次输入的密码不一致', 'error');
+      return;
+    }
+    if (!/^(?=.*[A-Za-z])(?=.*\d).{6,}$/.test(password)) {
+      window.authManager?.showMessage('密码需至少6位，且包含字母和数字', 'error');
       return;
     }
     const userData = {

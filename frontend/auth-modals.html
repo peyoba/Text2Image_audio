@@ -45,8 +45,8 @@
                 </div>
                 <div class="form-group">
                     <label for="registerPassword">密码</label>
-                    <input type="password" id="registerPassword" name="password" required placeholder="至少6位，含大小写和数字" autocomplete="new-password">
-                    <small style="color:#6b7280">密码要求：至少6位，包含大写字母、小写字母和数字</small>
+                    <input type="password" id="registerPassword" name="password" required minlength="6" pattern="^(?=.*[A-Za-z])(?=.*\\d).{6,}$" title="至少6位且包含字母和数字" placeholder="至少6位，含字母和数字" autocomplete="new-password">
+                    <small style="color:#6b7280">密码要求：至少6位，包含字母和数字</small>
                 </div>
                 <div class="form-group">
                     <label for="registerConfirmPassword">确认密码</label>
@@ -358,118 +358,4 @@
 }
 </style>
 
-<script>
-// 模态框控制函数
-function showModal(modalId) {
-    document.getElementById(modalId).style.display = 'block';
-}
-
-function closeModal(modalId) {
-    document.getElementById(modalId).style.display = 'none';
-}
-
-// 点击模态框外部关闭
-window.onclick = function(event) {
-    const modals = document.querySelectorAll('.modal');
-    modals.forEach(modal => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-}
-
-// 表单提交处理函数
-function initAuthForms() {
-    // 登录表单处理
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        // 移除旧的事件监听器
-        loginForm.removeEventListener('submit', handleLoginSubmit);
-        // 添加新的事件监听器
-        loginForm.addEventListener('submit', handleLoginSubmit);
-        console.log('登录表单事件监听器已绑定');
-    }
-    
-    // 注册表单处理
-    const registerForm = document.getElementById('registerForm');
-    if (registerForm) {
-        // 移除旧的事件监听器
-        registerForm.removeEventListener('submit', handleRegisterSubmit);
-        // 添加新的事件监听器
-        registerForm.addEventListener('submit', handleRegisterSubmit);
-        console.log('注册表单事件监听器已绑定');
-    }
-}
-
-// 登录表单提交处理
-async function handleLoginSubmit(e) {
-    e.preventDefault();
-    console.log('登录表单提交');
-    
-    const formData = new FormData(e.target);
-    const credentials = {
-        email: formData.get('email'),
-        password: formData.get('password')
-    };
-    
-    console.log('登录凭据:', { email: credentials.email, password: '***' });
-    
-    const result = await authManager.login(credentials);
-    console.log('登录结果:', result);
-    authManager.showMessage(result.message, result.success ? 'success' : 'error');
-    
-    if (result.success) {
-        closeModal('loginModal');
-        e.target.reset();
-    }
-}
-
-// 注册表单提交处理
-async function handleRegisterSubmit(e) {
-    e.preventDefault();
-    console.log('注册表单提交');
-    
-    const formData = new FormData(e.target);
-    const password = formData.get('password');
-    const confirmPassword = formData.get('confirmPassword');
-    
-    if (password !== confirmPassword) {
-        authManager.showMessage('两次输入的密码不一致', 'error');
-        return;
-    }
-    
-    if (password.length < 6) {
-        authManager.showMessage('密码长度至少6位', 'error');
-        return;
-    }
-    
-    const userData = {
-        username: formData.get('username'),
-        email: formData.get('email'),
-        password: password
-    };
-    
-    console.log('注册数据:', { ...userData, password: '***' });
-    
-    const result = await authManager.register(userData);
-    console.log('注册结果:', result);
-    authManager.showMessage(result.message, result.success ? 'success' : 'error');
-    
-    if (result.success) {
-        closeModal('registerModal');
-        e.target.reset();
-    }
-}
-
-// 页面加载完成后初始化表单
-document.addEventListener('DOMContentLoaded', function() {
-    // 延迟初始化，确保auth-modals.html已加载
-    setTimeout(initAuthForms, 500);
-});
-
-// 用户个人中心函数
-function showUserProfile() {
-    // 这里可以跳转到用户个人中心页面或显示用户信息
-    authManager.showMessage('个人中心功能开发中...', 'info');
-}
-</script> 
+<!-- 事件脚本已迁移到 js/auth_modals.js，避免重复绑定 -->
