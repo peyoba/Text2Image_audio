@@ -2,24 +2,24 @@
 <div id="loginModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2>用户登录</h2>
+            <h2 data-i18n="loginTitle">用户登录</h2>
             <span class="close" onclick="closeModal('loginModal')">&times;</span>
         </div>
         <div class="modal-body">
             <form id="loginForm" class="auth-form" method="post" autocomplete="on">
                 <div class="form-group">
-                    <label for="loginEmail">邮箱地址</label>
+                    <label for="loginEmail" data-i18n="emailLabel">邮箱地址</label>
                     <input type="email" id="loginEmail" name="email" required placeholder="请输入邮箱地址" autocomplete="email">
                 </div>
                 <div class="form-group">
-                    <label for="loginPassword">密码</label>
+                    <label for="loginPassword" data-i18n="passwordLabel">密码</label>
                     <input type="password" id="loginPassword" name="password" required placeholder="请输入密码" autocomplete="current-password">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">登录</button>
+                    <button type="submit" class="btn btn-primary" data-i18n="login">登录</button>
                 </div>
                 <div class="form-footer">
-                    <p>还没有账号？ <a href="#" onclick="showModal('registerModal'); closeModal('loginModal')">立即注册</a></p>
+                    <p><span data-i18n="noAccount">还没有账号？</span> <a href="#" onclick="showModal('registerModal'); closeModal('loginModal')" data-i18n="registerNow">立即注册</a></p>
                 </div>
             </form>
         </div>
@@ -30,33 +30,33 @@
 <div id="registerModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2>用户注册</h2>
+            <h2 data-i18n="registerTitle">用户注册</h2>
             <span class="close" onclick="closeModal('registerModal')">&times;</span>
         </div>
         <div class="modal-body">
             <form id="registerForm" class="auth-form" method="post" autocomplete="on">
                 <div class="form-group">
-                    <label for="registerUsername">用户名</label>
+                    <label for="registerUsername" data-i18n="userUsername">用户名</label>
                     <input type="text" id="registerUsername" name="username" required placeholder="请输入用户名" autocomplete="username">
                 </div>
                 <div class="form-group">
-                    <label for="registerEmail">邮箱地址</label>
+                    <label for="registerEmail" data-i18n="emailLabel">邮箱地址</label>
                     <input type="email" id="registerEmail" name="email" required placeholder="请输入邮箱地址" autocomplete="email">
                 </div>
                 <div class="form-group">
-                    <label for="registerPassword">密码</label>
+                    <label for="registerPassword" data-i18n="passwordLabel">密码</label>
                     <input type="password" id="registerPassword" name="password" required minlength="6" title="至少6位，建议包含字母和数字" placeholder="至少6位，建议包含字母和数字" autocomplete="new-password" autocapitalize="off" spellcheck="false">
                     <small style="color:#6b7280">密码要求：至少6位；为更安全，建议包含字母和数字</small>
                 </div>
                 <div class="form-group">
-                    <label for="registerConfirmPassword">确认密码</label>
+                    <label for="registerConfirmPassword" data-i18n="confirmPasswordLabel">确认密码</label>
                     <input type="password" id="registerConfirmPassword" name="confirmPassword" required placeholder="请再次输入密码" autocomplete="new-password">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">注册</button>
+                    <button type="submit" class="btn btn-primary" data-i18n="register">注册</button>
                 </div>
                 <div class="form-footer">
-                    <p>已有账号？ <a href="#" onclick="showModal('loginModal'); closeModal('registerModal')">立即登录</a></p>
+                    <p><span data-i18n="haveAccount">已有账号？</span> <a href="#" onclick="showModal('loginModal'); closeModal('registerModal')" data-i18n="loginNow">立即登录</a></p>
                 </div>
             </form>
         </div>
@@ -72,16 +72,13 @@
         <span class="username">用户名</span>
         <div class="user-actions">
 <a href="/user.html" class="btn btn-small btn-outline" data-i18n="userCenter">个人中心</a>
-            <button class="btn btn-small btn-outline" onclick="authManager.logout()">登出</button>
+    <button class="btn btn-small btn-outline" onclick="authManager.logout()" data-i18n="logout">登出</button>
         </div>
     </div>
 </div>
 
-<!-- 认证按钮区域 -->
-<div class="auth-buttons">
-    <button class="btn btn-primary" onclick="showModal('loginModal')">登录</button>
-    <button class="btn btn-outline" onclick="showModal('registerModal')">注册</button>
-</div>
+<!-- 认证按钮区域（取消左下角悬浮，仅保留结构供可能复用） -->
+<div class="auth-buttons" style="display:none"></div>
 
 <!-- 消息提示样式 -->
 <style>
