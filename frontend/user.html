@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="userCenter">个人中心</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="/frontend/css/style.css" rel="stylesheet">
+  <style>
+    body { background: #0b1220; color: #e5e7eb; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+    .page-header { display:flex; align-items:center; justify-content:space-between; margin: 8px 0 18px; }
+    .back-link { color:#00CFFF; text-decoration:none; }
+    .card { background:#0f172a; border:1px solid #273548; border-radius:12px; padding:18px; }
+  </style>
+</head>
+<body>
+  <nav class="navbar" style="border-radius:0;">
+    <div class="navbar-left">
+      <a href="/index.html" class="site-name" style="text-decoration:none;">AISTONE</a>
+    </div>
+    <div class="navbar-right">
+      <select id="lang-select" class="lang-select">
+        <option value="en">English</option>
+        <option value="zh">中文</option>
+      </select>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 data-i18n="userCenter">个人中心</h1>
+      <a class="back-link" href="/index.html">← <span data-i18n="navHome">首页</span></a>
+    </div>
+
+    <div id="hd-images-ui"></div>
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/hd_image_manager.js" defer></script>
+  <script>
+    // 注入高清图片管理 UI
+    fetch('hd-images-ui.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('hd-images-ui').innerHTML = html;
+        if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') {
+          setLanguage(getCurrentLang());
+        }
+      });
+
+    // 保证用户已登录后初始化图片管理器
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        if (window.authManager) {
+          window.authManager.init?.().then(() => {
+            if (window.authManager.isLoggedIn() && window.hdImageManager) {
+              window.hdImageManager.init();
+            }
+          });
+        }
+      }, 300);
+    });
+  </script>
+</body>
+</html>
+
