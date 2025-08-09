@@ -849,7 +849,6 @@
     
     <!-- V2.0 认证和图片管理模块 -->
     <script src="js/auth.js" defer></script>
-    <script src="js/hd_image_manager.js" defer></script>
     
     <!-- 认证界面 -->
     <div id="auth-modals"></div>
@@ -877,22 +876,7 @@
             });
     </script>
     
-    <!-- 高清图片管理界面 -->
-    <div id="hd-images-ui"></div>
-    <script>
-        fetch('hd-images-ui.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('hd-images-ui').innerHTML = html;
-                // 注入后根据当前语言刷新多语言文本
-                if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') {
-                    setLanguage(getCurrentLang());
-                }
-            })
-            .catch(error => {
-                console.error('加载图片管理界面失败:', error);
-            });
-    </script>
+    
     
     <!-- 用户信息样式（深色主题） -->
     <style>
