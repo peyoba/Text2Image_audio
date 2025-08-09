@@ -6,6 +6,7 @@ Allow: /index.html
 Allow: /about.html
 Allow: /services.html
 Allow: /contact.html
+Disallow: /user.html
 
 # 允许访问静态资源
 Allow: /assets/
