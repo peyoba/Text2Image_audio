@@ -910,6 +910,10 @@
         cursor: pointer;
         font-size: 0.85rem;
         box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+        background-clip: padding-box;
     }
     .user-menu-toggle:hover { background: rgba(36, 49, 77, 0.85); }
     .user-menu-toggle .caret { color: #aab4d4; font-size: 0.8rem; }
@@ -936,6 +940,17 @@
         white-space: nowrap;
     }
     .dropdown-item:hover { background: #1a2440; }
+    /* 右上语言下拉与按钮统一深色主题，移除系统白色外观 */
+    .lang-select {
+        background: #0e1424;
+        color: #d6def8;
+        border: 1px solid #2A3A57;
+        border-radius: 999px;
+        padding: 6px 28px 6px 12px;
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+    }
     
     .btn {
         padding: 8px 16px;
