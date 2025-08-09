@@ -128,7 +128,7 @@ class HDImageManager {
      */
     async getDailyImages() {
         try {
-            const response = await fetch(`${this.baseUrl}/images/daily`, {
+        const response = await fetch(`${this.baseUrl}/images/daily`, {
                 headers: {
                     'Authorization': `Bearer ${window.authManager.getToken()}`
                 }
@@ -137,7 +137,11 @@ class HDImageManager {
             const result = await response.json();
             
             if (result && result.success) return result;
-            throw new Error((result && result.error) || '获取图片列表失败');
+            // 某些部署下返回 {images:[], count,...} 无 success 标记，做兼容
+            if (result && (Array.isArray(result.images) || Array.isArray(result.list))) {
+                return { success: true, images: result.images || result.list, count: result.count || (result.images?.length||0), maxCount: result.maxCount || this.maxImagesPerDay };
+            }
+            throw new Error((result && result.error) || (getCurrentLang && getCurrentLang()==='zh' ? '获取图片列表失败' : 'Failed to get image list'));
         } catch (error) {
             console.error('获取图片列表错误:', error);
             throw error;
@@ -159,8 +163,10 @@ class HDImageManager {
 
             const result = await response.json();
             
-            if (result && result.success && result.image) return result.image;
-            throw new Error((result && result.error) || '获取图片失败');
+            if (result && (result.success && result.image)) return result.image;
+            // 兼容直接返回图片对象
+            if (result && result.data && result.width && result.height) return result;
+            throw new Error((result && result.error) || (getCurrentLang && getCurrentLang()==='zh' ? '获取图片失败' : 'Failed to get image'));
         } catch (error) {
             console.error('获取高清图片错误:', error);
             throw error;
