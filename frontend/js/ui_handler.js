@@ -870,18 +870,18 @@ function addImageActions(container, img, imageData) {
     downloadBtn.className = 'image-action-btn';
     downloadBtn.href = imageData;
     downloadBtn.download = `AI生成图片_${new Date().getTime()}.jpg`;
-    downloadBtn.innerHTML = '⬇️ 下载图片';
+    downloadBtn.innerHTML = (getCurrentLang && getCurrentLang()==='zh') ? '⬇️ 下载图片' : '⬇️ Download';
     
     // 查看原图按钮
     const viewBtn = document.createElement('button');
     viewBtn.className = 'image-action-btn';
-    viewBtn.innerHTML = '🔍 查看原图';
+    viewBtn.innerHTML = (getCurrentLang && getCurrentLang()==='zh') ? '🔍 查看原图' : '🔍 View Original';
     viewBtn.onclick = () => showImageModal(imageData);
     
     // 复制链接按钮
     const copyBtn = document.createElement('button');
     copyBtn.className = 'image-action-btn';
-    copyBtn.innerHTML = '📋 复制链接';
+    copyBtn.innerHTML = (getCurrentLang && getCurrentLang()==='zh') ? '📋 复制链接' : '📋 Copy Link';
     copyBtn.onclick = () => copyImageData(imageData);
     
     actionsDiv.appendChild(downloadBtn);

@@ -247,7 +247,7 @@ class UIEnhancements {
                     if (mutation.type === 'attributes' && mutation.attributeName === 'disabled') {
                         const isDisabled = generateButton.disabled;
                         if (isDisabled) {
-                            this.updateResultStatus('正在生成内容，请稍候...', 'loading');
+        this.updateResultStatus((getCurrentLang && getCurrentLang()==='zh') ? '正在生成内容，请稍候...' : 'Generating content, please wait...', 'loading');
                         }
                     }
                 });
