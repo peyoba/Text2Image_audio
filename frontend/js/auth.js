@@ -99,9 +99,9 @@ class AuthManager {
                         this.updateUI();
                         this.forceUpdateUI(); // 强制刷新UI
                         console.log('登录成功，用户信息已保存');
-                        return { success: true, message: '登录成功！' };
+            return { success: true, message: (getCurrentLang && getCurrentLang()==='zh') ? '登录成功！' : 'Logged in successfully' };
                     } else {
-                return { success: false, message: (result && result.error) || '登录失败' };
+            return { success: false, message: (result && result.error) || ((getCurrentLang && getCurrentLang()==='zh') ? '登录失败' : 'Login failed') };
                     }
         } catch (error) {
             console.error('登录错误:', error);
@@ -120,7 +120,7 @@ class AuthManager {
         this.updateUI();
         
         // 显示登出成功消息
-        this.showMessage('已成功登出', 'success');
+        this.showMessage((getCurrentLang && getCurrentLang()==='zh') ? '已成功登出' : 'Logged out successfully', 'success');
     }
 
     /**
