@@ -220,7 +220,7 @@ class AuthManager {
         // 查找所有登录按钮（包括导航栏中的）
         const loginButtons = document.querySelectorAll('.login-btn');
         const authButtons = document.querySelectorAll('.auth-buttons');
-        const userInfo = document.querySelectorAll('.user-info');
+        const userInfo = document.querySelectorAll('#nav-user-info');
         const loginModal = document.getElementById('loginModal');
         const registerModal = document.getElementById('registerModal');
 
