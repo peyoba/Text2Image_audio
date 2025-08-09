@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="userCenter">个人中心</title>
-  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+  <meta name="description" content="AISTONE 个人中心 - 登录后管理你的高清图片与账户信息。" />
   <link rel="canonical" href="/user.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,13 +20,34 @@
 <body>
   <nav class="navbar" style="border-radius:0;">
     <div class="navbar-left">
-      <a href="/index.html" class="site-name" style="text-decoration:none;">AISTONE</a>
+      <img src="assets/logo.svg" alt="AISTONE LOGO" class="logo-img" />
+      <span class="site-name">AISTONE</span>
     </div>
+    <ul class="navbar-menu">
+      <li><a href="/index.html#home">Home</a></li>
+      <li><a href="/about.html" id="about-link">About</a></li>
+      <li><a href="/services.html" id="services-link">Services</a></li>
+      <li><a href="/contact.html" id="contact-link">Contact</a></li>
+    </ul>
     <div class="navbar-right">
       <select id="lang-select" class="lang-select">
         <option value="en">English</option>
         <option value="zh">中文</option>
       </select>
+      <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">登录</button>
+      <div class="user-info" style="display:none;">
+        <div class="user-avatar"><img src="assets/default-avatar.png" alt="用户头像"></div>
+        <div class="user-details">
+          <button class="user-menu-toggle" id="userMenuToggle" aria-haspopup="true" aria-expanded="false">
+            <span class="username">用户名</span>
+            <span class="caret">▾</span>
+          </button>
+          <div class="user-dropdown" id="userDropdown" role="menu" aria-labelledby="userMenuToggle" style="display:none;">
+            <a href="/user.html" class="dropdown-item" data-i18n="userCenter">个人中心</a>
+            <a href="#" class="dropdown-item" onclick="authManager.logout()" data-i18n="logout">登出</a>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -40,9 +61,17 @@
   </div>
 
   <script src="js/i18n.js"></script>
+  <script src="js/auth_modals.js" defer></script>
   <script src="js/auth.js" defer></script>
   <script src="js/hd_image_manager.js" defer></script>
+  <div id="auth-modals"></div>
   <script>
+    // 注入认证模态
+    fetch('auth-modals.html').then(r=>r.text()).then(html=>{
+      document.getElementById('auth-modals').innerHTML = html;
+      window.initAuthForms && window.initAuthForms();
+      if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') setLanguage(getCurrentLang());
+    });
     // 注入高清图片管理 UI
     fetch('hd-images-ui.html')
       .then(r => r.text())

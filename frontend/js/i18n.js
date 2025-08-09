@@ -362,6 +362,7 @@ const i18n = {
         imageInfoFileSize: 'File Size',
         imageInfoCount: 'Total {count} images generated, click image to enlarge',
         pixels: 'pixels',
+        userMetaDescription: 'AISTONE 个人中心 - 登录后管理你的高清图片与账户信息。',
 
         // 顶部用户区
         userCenter: '个人中心',
@@ -600,6 +601,7 @@ const i18n = {
         imageInfoFileSize: 'File Size',
         imageInfoCount: 'Total {count} images generated, click image to enlarge',
         pixels: 'pixels',
+        userMetaDescription: 'AISTONE User Center - Manage your HD images and account info after login.',
 
         // Top user area
         userCenter: 'User Center',

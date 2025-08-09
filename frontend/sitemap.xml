@@ -67,6 +67,14 @@
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
+
+    <!-- AISTONE 个人中心页面 -->
+    <url>
+        <loc>https://aistone.org/user.html</loc>
+        <lastmod>2025-01-23</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
     
     <!-- AISTONE GPT Image 模型页面 -->
     <url>
