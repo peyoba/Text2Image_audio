@@ -362,6 +362,28 @@ const i18n = {
         imageInfoFileSize: 'File Size',
         imageInfoCount: 'Total {count} images generated, click image to enlarge',
         pixels: 'pixels',
+
+        // 顶部用户区
+        userCenter: '个人中心',
+        logout: '登出',
+        userCenterDevTip: '个人中心功能开发中...',
+
+        // 高清图片管理
+        hdTitle: '📸 今日高清图片',
+        hdRefresh: '刷新',
+        hdGeneratedLabel: '已生成:',
+        hdRemainingTimeLabel: '剩余时间:',
+        hdSaving: '正在保存高清图片...',
+        hdEmptyTitle: '还没有保存的图片',
+        hdEmptyDesc: '生成的图片会在这里显示，最多保存3张',
+        hdPreviewTitle: '高清图片预览',
+        hdDownloadHD: '下载高清',
+        hdClickToView: '点击查看高清图片',
+        hdLabelSize: '尺寸:',
+        hdLabelModel: '模型:',
+        hdLabelSeed: '种子:',
+        hdLabelTime: '时间:',
+        delete: '删除',
     },
     
     en: {
@@ -578,6 +600,28 @@ const i18n = {
         imageInfoFileSize: 'File Size',
         imageInfoCount: 'Total {count} images generated, click image to enlarge',
         pixels: 'pixels',
+
+        // Top user area
+        userCenter: 'User Center',
+        logout: 'Logout',
+        userCenterDevTip: 'User center is under development...',
+
+        // HD images manager
+        hdTitle: '📸 Today\'s HD Images',
+        hdRefresh: 'Refresh',
+        hdGeneratedLabel: 'Generated:',
+        hdRemainingTimeLabel: 'Time Left:',
+        hdSaving: 'Saving HD image...',
+        hdEmptyTitle: 'No saved images yet',
+        hdEmptyDesc: 'Generated images will appear here, up to 3 saved per day',
+        hdPreviewTitle: 'HD Image Preview',
+        hdDownloadHD: 'Download HD',
+        hdClickToView: 'Click to view HD image',
+        hdLabelSize: 'Size:',
+        hdLabelModel: 'Model:',
+        hdLabelSeed: 'Seed:',
+        hdLabelTime: 'Time:',
+        delete: 'Delete',
     }
 };
 

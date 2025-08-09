@@ -1,10 +1,10 @@
 <!-- 高清图片管理界面 -->
 <div class="hd-images-section" style="background:#111827;color:#e5e7eb;border:1px solid #273548;box-shadow:none;">
     <div class="section-header">
-        <h2>📸 今日高清图片</h2>
+        <h2 data-i18n="hdTitle">📸 今日高清图片</h2>
         <div class="section-actions">
             <button class="btn btn-primary" onclick="hdImageManager.loadDailyImages()">
-                <span class="btn-icon">🔄</span>刷新
+                <span class="btn-icon">🔄</span><span data-i18n="hdRefresh">刷新</span>
             </button>
         </div>
     </div>
@@ -12,26 +12,24 @@
     <!-- 统计信息 -->
     <div class="image-stats" id="image-stats" style="background:#0f172a;border:1px solid #273548;color:#e5e7eb;">
         <div class="stat-item">
-            <span class="stat-label">已生成:</span>
+            <span class="stat-label" data-i18n="hdGeneratedLabel">已生成:</span>
             <span class="stat-value">0/3</span>
         </div>
         <div class="stat-item">
-            <span class="stat-label">剩余时间:</span>
+            <span class="stat-label" data-i18n="hdRemainingTimeLabel">剩余时间:</span>
             <span class="stat-value">24:00:00</span>
         </div>
     </div>
     
     <!-- 保存状态提示 -->
-    <div id="saving-status" class="saving-status" style="display: none;">
-        正在保存高清图片...
-    </div>
+    <div id="saving-status" class="saving-status" style="display: none;" data-i18n="hdSaving">正在保存高清图片...</div>
     
     <!-- 图片网格 -->
     <div id="daily-images" class="image-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px; margin-top:12px;">
         <div class="empty-state">
             <div class="empty-icon">📷</div>
-            <h3>还没有保存的图片</h3>
-            <p>生成的图片会在这里显示，最多保存3张</p>
+            <h3 data-i18n="hdEmptyTitle">还没有保存的图片</h3>
+            <p data-i18n="hdEmptyDesc">生成的图片会在这里显示，最多保存3张</p>
         </div>
     </div>
 </div>
@@ -40,7 +38,7 @@
 <div id="imageModal" class="modal">
     <div class="modal-content image-modal-content">
         <div class="modal-header">
-            <h3>高清图片预览</h3>
+            <h3 data-i18n="hdPreviewTitle">高清图片预览</h3>
             <span class="close" onclick="closeImageModal()">&times;</span>
         </div>
         <div class="modal-body">
@@ -54,9 +52,9 @@
         </div>
         <div class="modal-footer">
             <button onclick="hdImageManager.downloadHDImage(hdImageManager.currentImageId)" class="btn btn-primary">
-                <span class="btn-icon">⬇️</span>下载高清
+                <span class="btn-icon">⬇️</span><span data-i18n="hdDownloadHD">下载高清</span>
             </button>
-            <button onclick="closeImageModal()" class="btn btn-outline">关闭</button>
+            <button onclick="closeImageModal()" class="btn btn-outline" data-i18n="close">关闭</button>
         </div>
     </div>
 </div>
@@ -65,7 +63,7 @@
 <div id="loading-overlay" class="loading-overlay" style="display: none;">
     <div class="loading-content">
         <div class="loading-spinner"></div>
-        <div class="loading-message">正在加载...</div>
+        <div class="loading-message" data-i18n="loading">正在加载...</div>
     </div>
 </div>
 

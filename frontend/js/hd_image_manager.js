@@ -50,7 +50,7 @@ class HDImageManager {
             // 检查认证状态
             if (!window.authManager || !window.authManager.isLoggedIn()) {
                 console.error('HDImageManager: 用户未登录');
-                throw new Error('请先登录');
+                throw new Error(t('navLogin'));
             }
 
             console.log('HDImageManager: 用户已登录，继续保存');
@@ -59,11 +59,11 @@ class HDImageManager {
             const sizeInBytes = Math.ceil((imageData.data.length * 3) / 4);
             console.log('HDImageManager: 图片大小:', sizeInBytes, 'bytes');
             if (sizeInBytes > this.maxImageSize) {
-                throw new Error('图片太大，请重试（最大2MB）');
+                throw new Error(getCurrentLang() === 'zh' ? '图片太大，请重试（最大2MB）' : 'Image too large, please retry (max 2MB)');
             }
 
             // 显示保存中状态
-            this.showSavingStatus('正在保存高清图片...');
+            this.showSavingStatus(t('hdSaving'));
             
             const requestData = {
                 prompt: imageData.prompt,
@@ -103,7 +103,7 @@ class HDImageManager {
             
             if (result.success) {
                 this.hideSavingStatus();
-                this.showMessage('高清图片保存成功！', 'success');
+                this.showMessage(getCurrentLang() === 'zh' ? '高清图片保存成功！' : 'HD image saved successfully!', 'success');
                 console.log('HDImageManager: 图片保存成功');
                 
                 // 重新加载图片列表
@@ -192,7 +192,7 @@ class HDImageManager {
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
                 
-                this.showMessage('下载成功！', 'success');
+                this.showMessage(getCurrentLang() === 'zh' ? '下载成功！' : 'Download succeeded!', 'success');
             } else {
                 const error = await response.json();
                 throw new Error(error.error || '下载失败');
@@ -243,7 +243,7 @@ class HDImageManager {
             this.updateImageCount(result.count, result.maxCount);
         } catch (error) {
             console.error('加载今日图片错误:', error);
-            this.showMessage('加载图片列表失败', 'error');
+            this.showMessage(getCurrentLang() === 'zh' ? '加载图片列表失败' : 'Failed to load image list', 'error');
         }
     }
 
@@ -261,8 +261,8 @@ class HDImageManager {
             container.innerHTML = `
                 <div class="empty-state">
                     <div class="empty-icon">📷</div>
-                    <h3>还没有保存的图片</h3>
-                    <p>生成的图片会在这里显示，最多保存3张</p>
+                    <h3>${t('hdEmptyTitle')}</h3>
+                    <p>${t('hdEmptyDesc')}</p>
                 </div>
             `;
             return;
@@ -285,9 +285,9 @@ class HDImageManager {
         card.innerHTML = `
             <div class="image-preview">
                 <img class="thumb" alt="缩略图" style="display:none;"/>
-                <div class="image-placeholder" data-image-id="${image.id}">
+                    <div class="image-placeholder" data-image-id="${image.id}">
                     <div class="loading-spinner"></div>
-                    <span>点击查看高清图片</span>
+                    <span>${t('hdClickToView')}</span>
                 </div>
             </div>
             <div class="image-info">
@@ -302,14 +302,14 @@ class HDImageManager {
                 </div>
             </div>
             <div class="image-actions">
-                <button onclick="hdImageManager.viewImage('${image.id}')" class="btn btn-primary btn-small">
-                    <span class="btn-icon">👁️</span>查看
+                    <button onclick="hdImageManager.viewImage('${image.id}')" class="btn btn-primary btn-small">
+                        <span class="btn-icon">👁️</span>${t('view')}
                 </button>
-                <button onclick="hdImageManager.downloadHDImage('${image.id}')" class="btn btn-outline btn-small">
-                    <span class="btn-icon">⬇️</span>下载
+                    <button onclick="hdImageManager.downloadHDImage('${image.id}')" class="btn btn-outline btn-small">
+                        <span class="btn-icon">⬇️</span>${t('download')}
                 </button>
-                <button onclick="hdImageManager.deleteImage('${image.id}')" class="btn btn-danger btn-small">
-                    <span class="btn-icon">🗑️</span>删除
+                    <button onclick="hdImageManager.deleteImage('${image.id}')" class="btn btn-danger btn-small">
+                        <span class="btn-icon">🗑️</span>${t('delete')}
                 </button>
             </div>
         `;
@@ -340,7 +340,7 @@ class HDImageManager {
      */
     async viewImage(imageId) {
         try {
-            this.showLoading('正在加载高清图片...');
+            this.showLoading(getCurrentLang() === 'zh' ? '正在加载高清图片...' : 'Loading HD image...');
             
             const result = await this.getHDImage(imageId);
             this.currentImageId = imageId;
@@ -369,19 +369,19 @@ class HDImageManager {
         modalCaption.textContent = imageData.prompt;
         modalInfo.innerHTML = `
             <div class="modal-info-item">
-                <span class="info-label">尺寸:</span>
+                <span class="info-label">${t('hdLabelSize')}</span>
                 <span class="info-value">${imageData.width}×${imageData.height}</span>
             </div>
             <div class="modal-info-item">
-                <span class="info-label">模型:</span>
+                <span class="info-label">${t('hdLabelModel')}</span>
                 <span class="info-value">${imageData.model}</span>
             </div>
             <div class="modal-info-item">
-                <span class="info-label">种子:</span>
+                <span class="info-label">${t('hdLabelSeed')}</span>
                 <span class="info-value">${imageData.seed}</span>
             </div>
             <div class="modal-info-item">
-                <span class="info-label">时间:</span>
+                <span class="info-label">${t('hdLabelTime')}</span>
                 <span class="info-value">${new Date(imageData.created_at).toLocaleString()}</span>
             </div>
         `;
@@ -422,11 +422,11 @@ class HDImageManager {
         
         statsContainer.innerHTML = `
             <div class="stat-item">
-                <span class="stat-label">已生成:</span>
+                <span class="stat-label">${t('hdGeneratedLabel')}</span>
                 <span class="stat-value">${stats.totalImages}/${stats.maxImages}</span>
             </div>
             <div class="stat-item">
-                <span class="stat-label">剩余时间:</span>
+                <span class="stat-label">${t('hdRemainingTimeLabel')}</span>
                 <span class="stat-value">${remainingTime}</span>
             </div>
         `;

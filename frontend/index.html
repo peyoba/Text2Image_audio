@@ -474,10 +474,13 @@
                     <img src="assets/default-avatar.png" alt="用户头像" id="userAvatar">
                 </div>
                 <div class="user-details">
-                    <span class="username">用户名</span>
-                    <div class="user-actions">
-                        <button class="btn btn-small" onclick="showUserProfile()">个人中心</button>
-                        <button class="btn btn-small btn-outline" onclick="authManager.logout()">登出</button>
+                    <button class="user-menu-toggle" id="userMenuToggle" aria-haspopup="true" aria-expanded="false">
+                        <span class="username">用户名</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown" role="menu" aria-labelledby="userMenuToggle" style="display:none;">
+                        <a href="#" class="dropdown-item" onclick="showUserProfile()" data-i18n="userCenter">个人中心</a>
+                        <a href="#" class="dropdown-item" onclick="authManager.logout()" data-i18n="logout">登出</a>
                     </div>
                 </div>
             </div>
@@ -864,6 +867,10 @@
                     }
                 };
                 ensureBind();
+                // 注入后同步当前语言
+                if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') {
+                    setLanguage(getCurrentLang());
+                }
             })
             .catch(error => {
                 console.error('加载认证界面失败:', error);
@@ -877,6 +884,10 @@
             .then(response => response.text())
             .then(html => {
                 document.getElementById('hd-images-ui').innerHTML = html;
+                // 注入后根据当前语言刷新多语言文本
+                if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') {
+                    setLanguage(getCurrentLang());
+                }
             })
             .catch(error => {
                 console.error('加载图片管理界面失败:', error);
@@ -896,9 +907,47 @@
     }
     .user-avatar { display: none; }
     .user-avatar img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
-    .user-details { display: flex; flex-direction: row; align-items: center; gap: 10px; }
-    .username { font-weight: 600; color: #e5e7eb; font-size: 0.85rem; }
-    .user-actions { display: flex; gap: 6px; }
+    .user-details { display: flex; flex-direction: row; align-items: center; gap: 10px; position: relative; }
+    .username { font-weight: 600; color: #e5e7eb; font-size: 0.9rem; }
+    .user-actions { display: none; }
+
+    /* 下拉菜单样式 */
+    .user-menu-toggle {
+        background: rgba(15,23,42,0.2);
+        color: #e5e7eb;
+        border: 1px solid #273548;
+        border-radius: 999px;
+        padding: 6px 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        font-size: 0.85rem;
+    }
+    .user-menu-toggle:hover { background: rgba(15,23,42,0.35); }
+    .user-menu-toggle .caret { color: #aab4d4; font-size: 0.8rem; }
+    .user-dropdown {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 8px);
+        background: #0f172a;
+        border: 1px solid #273548;
+        border-radius: 10px;
+        min-width: 160px;
+        box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+        padding: 8px;
+        z-index: 1000;
+    }
+    .dropdown-item {
+        display: block;
+        padding: 8px 10px;
+        color: #e5e7eb;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: #1f2937; }
     
     .btn {
         padding: 8px 16px;
@@ -987,16 +1036,35 @@
                     console.error('图片管理模块未加载');
                 }
 
-                        // 测试模态框函数
-        console.log('showModal函数可用:', typeof showModal);
-    }, 1000);
-});
+                // 测试模态框函数
+                console.log('showModal函数可用:', typeof showModal);
+
+                // 绑定用户菜单下拉
+                const userMenuToggle = document.getElementById('userMenuToggle');
+                const userDropdown = document.getElementById('userDropdown');
+                if (userMenuToggle && userDropdown) {
+                    userMenuToggle.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const shown = userDropdown.style.display === 'block';
+                        userDropdown.style.display = shown ? 'none' : 'block';
+                        userMenuToggle.setAttribute('aria-expanded', (!shown).toString());
+                    });
+                    document.addEventListener('click', () => {
+                        if (userDropdown.style.display === 'block') {
+                            userDropdown.style.display = 'none';
+                            userMenuToggle.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                }
+
+            }, 1000);
+        });
 
 // 用户个人中心函数
 function showUserProfile() {
     // 这里可以跳转到用户个人中心页面或显示用户信息
     if (window.authManager) {
-        window.authManager.showMessage('个人中心功能开发中...', 'info');
+        window.authManager.showMessage(t('userCenterDevTip'), 'info');
     }
 }
     </script>
