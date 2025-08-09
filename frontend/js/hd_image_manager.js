@@ -128,7 +128,7 @@ class HDImageManager {
      */
     async getDailyImages() {
         try {
-            const response = await fetch(`${this.baseUrl}/images/list`, {
+            const response = await fetch(`${this.baseUrl}/images/daily`, {
                 headers: {
                     'Authorization': `Bearer ${window.authManager.getToken()}`
                 }
@@ -151,7 +151,7 @@ class HDImageManager {
      */
     async getHDImage(imageId) {
         try {
-            const response = await fetch(`${this.baseUrl}/images/get/${imageId}`, {
+            const response = await fetch(`${this.baseUrl}/images/${imageId}`, {
                 headers: {
                     'Authorization': `Bearer ${window.authManager.getToken()}`
                 }
