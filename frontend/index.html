@@ -471,10 +471,11 @@
             <!-- 用户信息显示区域 -->
             <div class="user-info" style="display: none;">
                 <div class="user-avatar">
-                    <img src="assets/default-avatar.png" alt="用户头像" id="userAvatar">
+                    <img src="assets/default-avatar.svg" alt="User avatar" id="userAvatar">
                 </div>
                 <div class="user-details">
                     <button class="user-menu-toggle" id="userMenuToggle" aria-haspopup="true" aria-expanded="false">
+                        <img src="assets/default-avatar.svg" alt="avatar" class="avatar-inline"/>
                         <span class="username">用户名</span>
                         <span class="caret">▾</span>
                     </button>
@@ -898,41 +899,43 @@
 
     /* 下拉菜单样式 */
     .user-menu-toggle {
-        background: rgba(15,23,42,0.2);
+        background: rgba(36, 49, 77, 0.6);
         color: #e5e7eb;
-        border: 1px solid #273548;
+        border: 1px solid #2A3A57;
         border-radius: 999px;
-        padding: 6px 10px;
+        padding: 6px 12px 6px 6px;
         display: inline-flex;
         align-items: center;
         gap: 6px;
         cursor: pointer;
         font-size: 0.85rem;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.25);
     }
-    .user-menu-toggle:hover { background: rgba(15,23,42,0.35); }
+    .user-menu-toggle:hover { background: rgba(36, 49, 77, 0.85); }
     .user-menu-toggle .caret { color: #aab4d4; font-size: 0.8rem; }
+    .user-menu-toggle .avatar-inline { width: 22px; height: 22px; border-radius: 50%; background:#0b1220; }
     .user-dropdown {
         position: absolute;
         right: 0;
         top: calc(100% + 8px);
-        background: #0f172a;
-        border: 1px solid #273548;
+        background: #0e1424;
+        border: 1px solid #2A3A57;
         border-radius: 10px;
         min-width: 160px;
-        box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+        box-shadow: 0 14px 32px rgba(0,0,0,0.45);
         padding: 8px;
         z-index: 1000;
     }
     .dropdown-item {
         display: block;
         padding: 8px 10px;
-        color: #e5e7eb;
+        color: #d6def8;
         text-decoration: none;
         border-radius: 8px;
         font-size: 0.9rem;
         white-space: nowrap;
     }
-    .dropdown-item:hover { background: #1f2937; }
+    .dropdown-item:hover { background: #1a2440; }
     
     .btn {
         padding: 8px 16px;
