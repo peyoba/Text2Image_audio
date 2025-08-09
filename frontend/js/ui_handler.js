@@ -333,7 +333,7 @@ class UIHandler {
     /**
      * 显示加载状态
      */
-    showLoading(message = 'AI服务繁忙时会自动排队重试，请耐心等待...') {
+    showLoading(message = (getCurrentLang && getCurrentLang() === 'zh' ? 'AI服务繁忙时会自动排队重试，请耐心等待...' : 'The AI service may queue and retry during peak times, please wait...')) {
         this.loadingText.textContent = message;
         this.loadingIndicator.style.display = 'block';
         this.generateButton.disabled = true;
@@ -385,7 +385,7 @@ class UIHandler {
     showImageResult(imageDataURLs) {
         if (!imageDataURLs || !Array.isArray(imageDataURLs) || imageDataURLs.length === 0) {
             console.error('UIHandler: showImageResult - 无效的imageDataURLs数组', imageDataURLs);
-            this.showError('未收到有效的图片数据。');
+            this.showError(getCurrentLang && getCurrentLang() === 'zh' ? '未收到有效的图片数据。' : 'No valid image data received.');
             return;
         }
 
@@ -400,7 +400,7 @@ class UIHandler {
 
         if (validImages.length === 0) {
             console.warn('UIHandler: showImageResult - 没有有效的图片数据');
-            this.showError('未能成功加载任何图片。');
+            this.showError(getCurrentLang && getCurrentLang() === 'zh' ? '未能成功加载任何图片。' : 'Failed to load any images.');
             return;
         }
 
@@ -495,7 +495,7 @@ class UIHandler {
         // 对于图片生成，先进行提示词优化
         let optimizedText = text;
         try {
-            this.showLoading('正在优化提示词...');
+            this.showLoading(getCurrentLang && getCurrentLang() === 'zh' ? '正在优化提示词...' : 'Optimizing prompt...');
             optimizedText = await this.apiClient.optimizeText(text);
             console.log('UIHandler: 提示词优化成功，原始文本:', text, '优化后:', optimizedText);
         } catch (optimizeError) {
@@ -538,7 +538,7 @@ class UIHandler {
                 allImageUrls.push(imageUrl);
             } catch (error) {
                 console.error(`UIHandler: Error generating image ${i + 1}:`, error);
-                let userFriendlyError = `图片 ${i + 1} 生成失败。`;
+                    let userFriendlyError = (getCurrentLang && getCurrentLang() === 'zh') ? `图片 ${i + 1} 生成失败。` : `Image ${i + 1} generation failed.`;
                 if (error.details && error.details.error) {
                     userFriendlyError = error.details.error;
                     if (error.details.details) {
@@ -615,21 +615,24 @@ class UIHandler {
                         if (result.success) {
                             console.log(`图片 ${i + 1} 保存成功:`, result.id);
                             // 显示保存成功消息
-                            if (window.authManager) {
-                                window.authManager.showMessage(`图片 ${i + 1} 已自动保存到您的账户`, 'success');
-                            }
+                                if (window.authManager) {
+                                    const msg = (getCurrentLang && getCurrentLang() === 'zh') ? `图片 ${i + 1} 已自动保存到您的账户` : `Image ${i + 1} has been saved to your account`;
+                                    window.authManager.showMessage(msg, 'success');
+                                }
                         } else {
                             console.warn(`图片 ${i + 1} 保存失败:`, result.error);
                             // 显示保存失败消息
-                            if (window.authManager) {
-                                window.authManager.showMessage(`图片 ${i + 1} 保存失败: ${result.error}`, 'error');
-                            }
+                                if (window.authManager) {
+                                    const msg = (getCurrentLang && getCurrentLang() === 'zh') ? `图片 ${i + 1} 保存失败: ${result.error}` : `Image ${i + 1} save failed: ${result.error}`;
+                                    window.authManager.showMessage(msg, 'error');
+                                }
                         }
                     }
                 } catch (error) {
                     console.error('自动保存图片失败:', error);
                     if (window.authManager) {
-                        window.authManager.showMessage(`自动保存图片失败: ${error.message}`, 'error');
+                        const msg = (getCurrentLang && getCurrentLang() === 'zh') ? `自动保存图片失败: ${error.message}` : `Auto-saving image failed: ${error.message}`;
+                        window.authManager.showMessage(msg, 'error');
                     }
                 }
             } else {
@@ -637,11 +640,12 @@ class UIHandler {
             }
             
             if (failedCount > 0) {
-                this.showError(`成功生成 ${allImageUrls.length} 张图片，但有 ${failedCount} 次失败。请检查错误信息。`);
+                const msg = (getCurrentLang && getCurrentLang() === 'zh') ? `成功生成 ${allImageUrls.length} 张图片，但有 ${failedCount} 次失败。请检查错误信息。` : `Successfully generated ${allImageUrls.length} images, but ${failedCount} failed. Please check the error messages.`;
+                this.showError(msg);
             }
         } else {
             if(failedCount === 0) {
-                this.showError('未能生成任何图片。');
+                this.showError(getCurrentLang && getCurrentLang() === 'zh' ? '未能生成任何图片。' : 'No images were generated.');
             }
         }
     }
@@ -651,7 +655,7 @@ class UIHandler {
      */
     async _handleAudioGeneration(text) {
         try {
-            this.showLoading('正在生成音频...');
+            this.showLoading(getCurrentLang && getCurrentLang() === 'zh' ? '正在生成音频...' : 'Generating audio...');
             
             // 使用原有的音频生成API
             const audioBuffer = await this.apiClient.submitGenerationTask(text, 'audio');
