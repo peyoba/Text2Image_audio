@@ -363,6 +363,21 @@ const i18n = {
         imageInfoCount: 'Total {count} images generated, click image to enlarge',
         pixels: 'pixels',
         userMetaDescription: 'AISTONE 个人中心 - 登录后管理你的高清图片与账户信息。',
+        // User center page
+        userAccountTitle: '账户资料',
+        userGreeting: '您好，{name}',
+        userUsername: '用户名',
+        userEmail: '邮箱',
+        userUpdateProfile: '更新资料',
+        userChangePasswordTitle: '修改密码',
+        userNewPassword: '新密码',
+        userConfirmPassword: '确认新密码',
+        userSave: '保存',
+        userNotLoggedIn: '请先登录后使用个人中心功能',
+        userLoginNow: '立即登录',
+        userFeatureComing: '功能开发中，敬请期待',
+        userUpdateSuccess: '更新成功',
+        userPasswordMismatch: '两次输入的密码不一致',
 
         // 顶部用户区
         userCenter: '个人中心',
@@ -602,6 +617,21 @@ const i18n = {
         imageInfoCount: 'Total {count} images generated, click image to enlarge',
         pixels: 'pixels',
         userMetaDescription: 'AISTONE User Center - Manage your HD images and account info after login.',
+        // User center page
+        userAccountTitle: 'Account Info',
+        userGreeting: 'Hello, {name}',
+        userUsername: 'Username',
+        userEmail: 'Email',
+        userUpdateProfile: 'Update Profile',
+        userChangePasswordTitle: 'Change Password',
+        userNewPassword: 'New Password',
+        userConfirmPassword: 'Confirm New Password',
+        userSave: 'Save',
+        userNotLoggedIn: 'Please log in to use the user center features',
+        userLoginNow: 'Log in now',
+        userFeatureComing: 'Feature under development',
+        userUpdateSuccess: 'Updated successfully',
+        userPasswordMismatch: 'Passwords do not match',
 
         // Top user area
         userCenter: 'User Center',
