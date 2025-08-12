@@ -65,23 +65,7 @@
 </script>
 
     <!-- Google Login - 使用OAuth 2.0弹窗模式 -->
-    <script>
-        // 简化的Google登录初始化 - 直接显示按钮
-        window.addEventListener('DOMContentLoaded', function() {
-            // 显示Google登录按钮
-            const googleBtn = document.getElementById('googleLoginBtn');
-            if (googleBtn) {
-                googleBtn.parentElement.style.display = 'block';
-                googleBtn.style.display = 'block';
-            }
-            const divider = document.querySelector('.divider');
-            if (divider) {
-                divider.style.display = 'block';
-            }
-            
-            console.log('Google OAuth 2.0 login ready');
-        });
-    </script>
+    <!-- Google登录按钮显示逻辑已移至auth-modals.html加载完成后 -->
 
     <!-- Google AdSense -->
     <meta name="google-adsense-account" content="ca-pub-6165370615688912">
@@ -905,6 +889,19 @@
             .then(response => response.text())
             .then(html => {
                 document.getElementById('auth-modals').innerHTML = html;
+                
+                // 显示Google登录按钮 - 移到这里确保DOM元素已存在
+                const googleBtn = document.getElementById('googleLoginBtn');
+                if (googleBtn) {
+                    googleBtn.parentElement.style.display = 'block';
+                    googleBtn.style.display = 'block';
+                }
+                const divider = document.querySelector('.divider');
+                if (divider) {
+                    divider.style.display = 'block';
+                }
+                console.log('Google OAuth 2.0 login ready');
+                
                 // 确保在脚本加载完成后绑定事件，避免表单触发默认提交
                 const ensureBind = () => {
                     if (window.initAuthForms) {
