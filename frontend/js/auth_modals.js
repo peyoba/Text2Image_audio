@@ -258,27 +258,35 @@ async function handleGoogleLogin() {
   try {
     // 检查Google API是否已加载
     if (typeof google === 'undefined' || !google.accounts) {
-      window.authManager?.showMessage('Google登录服务尚未加载，请稍后重试', 'error');
+      window.authManager?.showMessage(
+        (getCurrentLang && getCurrentLang() === 'zh') 
+          ? 'Google登录服务不可用，请使用邮箱登录' 
+          : 'Google login service unavailable, please use email login', 
+        'warning'
+      );
       return;
     }
     
     // 使用Google One Tap API
     google.accounts.id.prompt((notification) => {
       if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-        // 如果One Tap不可用，使用弹窗方式
-        google.accounts.id.renderButton(
-          document.createElement('div'),
-          {
-            theme: 'outline',
-            size: 'large',
-            type: 'standard',
-          }
+        // 如果One Tap不可用，显示提示信息
+        window.authManager?.showMessage(
+          (getCurrentLang && getCurrentLang() === 'zh') 
+            ? 'Google登录暂时不可用，请使用邮箱登录' 
+            : 'Google login temporarily unavailable, please use email login', 
+          'info'
         );
       }
     });
   } catch (err) {
     console.error('Google登录错误:', err);
-    window.authManager?.showMessage('Google登录失败，请稍后重试', 'error');
+    window.authManager?.showMessage(
+      (getCurrentLang && getCurrentLang() === 'zh') 
+        ? 'Google登录暂时不可用，请使用邮箱登录' 
+        : 'Google login temporarily unavailable, please use email login', 
+      'warning'
+    );
   }
 }
 

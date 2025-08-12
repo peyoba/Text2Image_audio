@@ -65,19 +65,46 @@
 </script>
 
     <!-- Google Login API -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
-        window.addEventListener('load', () => {
-            if (typeof google !== 'undefined' && google.accounts) {
-                google.accounts.id.initialize({
-                    client_id: '894036062262-8h0btc9vnrp4tj9v1gm8ljvj6b6d2m7i.apps.googleusercontent.com', // AISTONE的Google Client ID
-                    callback: window.handleGoogleCredentialResponse,
-                    auto_select: false,
-                    cancel_on_tap_outside: false,
-                    use_fedcm_for_prompt: true
-                });
-            }
-        });
+        // 检测网络环境，如果可以访问Google服务则加载
+        function loadGoogleSignIn() {
+            // 创建一个测试图片来检测Google服务可访问性
+            const testImg = new Image();
+            testImg.onload = function() {
+                // 可以访问Google服务，加载GSI库
+                const script = document.createElement('script');
+                script.src = 'https://accounts.google.com/gsi/client';
+                script.async = true;
+                script.defer = true;
+                script.onload = function() {
+                    if (typeof google !== 'undefined' && google.accounts) {
+                        google.accounts.id.initialize({
+                            client_id: '894036062262-8h0btc9vnrp4tj9v1gm8ljvj6b6d2m7i.apps.googleusercontent.com',
+                            callback: window.handleGoogleCredentialResponse,
+                            auto_select: false,
+                            cancel_on_tap_outside: false,
+                            use_fedcm_for_prompt: true
+                        });
+                    }
+                };
+                document.head.appendChild(script);
+            };
+            testImg.onerror = function() {
+                // 无法访问Google服务，隐藏Google登录按钮
+                console.log('Google services not accessible, hiding Google login');
+                const googleBtn = document.getElementById('googleLoginBtn');
+                if (googleBtn) {
+                    googleBtn.style.display = 'none';
+                }
+                const divider = googleBtn?.parentElement?.previousElementSibling;
+                if (divider && divider.classList.contains('divider')) {
+                    divider.style.display = 'none';
+                }
+            };
+            testImg.src = 'https://www.google.com/favicon.ico?' + Date.now();
+        }
+        
+        window.addEventListener('load', loadGoogleSignIn);
     </script>
 
     <!-- Google AdSense -->

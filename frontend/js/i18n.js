@@ -792,7 +792,7 @@ function getNestedI18nValue(lang, keyPath) {
 
 // 设置语言
 function setLanguage(lang) {
-    console.log('[i18n] setLanguage called, lang=', lang);
+            // console.log('[i18n] setLanguage called, lang=', lang);
     if (i18n[lang]) {
         try {
             // 保存语言设置
@@ -800,7 +800,7 @@ function setLanguage(lang) {
             // 设置HTML lang属性，使用标准的语言代码
             const langCode = lang === 'zh' ? 'zh-CN' : 'en';
             document.documentElement.lang = langCode;
-            console.log('[i18n] 语言已保存到localStorage:', lang, 'HTML lang属性设置为:', langCode);
+            // console.log('[i18n] 语言已保存到localStorage:', lang, 'HTML lang属性设置为:', langCode);
             
             // 更新所有带有data-i18n属性的元素
             document.querySelectorAll('[data-i18n]').forEach(el => {
