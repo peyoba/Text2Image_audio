@@ -64,6 +64,21 @@
   gtag('config', 'G-FYQPWQ1JTM');
 </script>
 
+    <!-- Google Login API -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        window.addEventListener('load', () => {
+            if (typeof google !== 'undefined' && google.accounts) {
+                google.accounts.id.initialize({
+                    client_id: '894036062262-j0dso8pgvfgl7ejqu3s3g6pq6d27q9s9.apps.googleusercontent.com', // 替换为您的Google Client ID
+                    callback: window.handleGoogleCredentialResponse,
+                    auto_select: false,
+                    cancel_on_tap_outside: false
+                });
+            }
+        });
+    </script>
+
     <!-- Google AdSense -->
     <meta name="google-adsense-account" content="ca-pub-6165370615688912">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6165370615688912"

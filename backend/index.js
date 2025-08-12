@@ -4,7 +4,10 @@ import {
     handleUserRegistration, 
     handleUserLogin, 
     validateUserToken, 
-    extractTokenFromRequest 
+    extractTokenFromRequest,
+    handleForgotPassword,
+    handleResetPassword,
+    handleGoogleLogin
 } from './auth.js';
 
 import {
@@ -62,6 +65,21 @@ export default {
                 const token = extractTokenFromRequest(request);
                 logInfo(env, `[Worker Log] Validating user token`);
                 const result = await validateUserToken(token, env);
+                return jsonResponse(result, env, result.success ? 200 : 401);
+            } else if (method === "POST" && path === "/api/auth/forgot-password") {
+                const requestData = await request.json();
+                logInfo(env, `[Worker Log] Processing forgot password for email: ${requestData.email}`);
+                const result = await handleForgotPassword(requestData, env);
+                return jsonResponse(result, env, result.success ? 200 : 400);
+            } else if (method === "POST" && path === "/api/auth/reset-password") {
+                const requestData = await request.json();
+                logInfo(env, `[Worker Log] Processing password reset`);
+                const result = await handleResetPassword(requestData, env);
+                return jsonResponse(result, env, result.success ? 200 : 400);
+            } else if (method === "POST" && path === "/api/auth/google-login") {
+                const requestData = await request.json();
+                logInfo(env, `[Worker Log] Processing Google login`);
+                const result = await handleGoogleLogin(requestData, env);
                 return jsonResponse(result, env, result.success ? 200 : 401);
             } else if (method === "POST" && path === "/api/images/save") {
                 const user = await authenticateImageAccess(request, env);

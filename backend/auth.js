@@ -392,4 +392,341 @@ export async function authenticateUser(request, env) {
     
     const result = await validateUserToken(token, env);
     return result.success ? result.user : null;
+}
+
+/**
+ * 生成重置密码token
+ * @param {string} email - 用户邮箱
+ * @returns {string} 重置token
+ */
+function generateResetToken(email) {
+    const timestamp = Date.now();
+    const randomStr = Math.random().toString(36).substring(2, 15);
+    const data = `${email}:${timestamp}:${randomStr}`;
+    return btoa(data).replace(/[+/=]/g, '');
+}
+
+/**
+ * 验证重置密码token
+ * @param {string} token - 重置token
+ * @param {number} maxAge - token最大有效期（毫秒）
+ * @returns {Object|null} 解码后的数据或null
+ */
+function verifyResetToken(token, maxAge = 24 * 60 * 60 * 1000) { // 24小时默认
+    try {
+        const decoded = atob(token);
+        const [email, timestamp, randomStr] = decoded.split(':');
+        
+        if (!email || !timestamp || !randomStr) {
+            return null;
+        }
+        
+        const tokenTime = parseInt(timestamp);
+        const now = Date.now();
+        
+        if (now - tokenTime > maxAge) {
+            return null; // token已过期
+        }
+        
+        return { email, timestamp: tokenTime, randomStr };
+    } catch (error) {
+        return null;
+    }
+}
+
+/**
+ * 处理忘记密码请求
+ * @param {Object} requestData - 请求数据
+ * @param {Object} env - 环境变量
+ * @returns {Promise<Object>} 处理结果
+ */
+export async function handleForgotPassword(requestData, env) {
+    try {
+        const { email } = requestData;
+        
+        // 验证输入数据
+        if (!email) {
+            return {
+                success: false,
+                error: '请输入邮箱地址'
+            };
+        }
+        
+        // 验证邮箱格式
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return {
+                success: false,
+                error: '邮箱格式不正确'
+            };
+        }
+        
+        // 检查用户是否存在
+        const userData = await env.USERS.get(email);
+        if (!userData) {
+            // 为了安全，即使用户不存在也返回成功信息
+            return {
+                success: true,
+                message: '如果该邮箱已注册，您将收到重置密码的链接'
+            };
+        }
+        
+        const user = JSON.parse(userData);
+        
+        // 生成重置token
+        const resetToken = generateResetToken(email);
+        
+        // 存储重置token（可以存储在KV中，设置过期时间）
+        const resetData = {
+            email: email,
+            token: resetToken,
+            createdAt: new Date().toISOString(),
+            used: false
+        };
+        
+        // 使用24小时过期的key存储重置token
+        await env.RESET_TOKENS.put(resetToken, JSON.stringify(resetData), {
+            expirationTtl: 24 * 60 * 60 // 24小时
+        });
+        
+        // TODO: 这里应该发送邮件给用户
+        // 目前返回重置链接（生产环境中应该通过邮件发送）
+        const resetUrl = `${env.FRONTEND_URL || 'https://aistone.org'}/reset-password?token=${resetToken}`;
+        
+        return {
+            success: true,
+            message: '重置密码链接已发送到您的邮箱',
+            resetUrl: resetUrl // 开发环境返回链接，生产环境删除此行
+        };
+        
+    } catch (error) {
+        console.error('忘记密码错误:', error);
+        return {
+            success: false,
+            error: '请求失败，请稍后重试'
+        };
+    }
+}
+
+/**
+ * 处理重置密码请求
+ * @param {Object} requestData - 请求数据
+ * @param {Object} env - 环境变量
+ * @returns {Promise<Object>} 处理结果
+ */
+export async function handleResetPassword(requestData, env) {
+    try {
+        const { token, newPassword } = requestData;
+        
+        // 验证输入数据
+        if (!token || !newPassword) {
+            return {
+                success: false,
+                error: '缺少必要参数'
+            };
+        }
+        
+        // 验证密码强度
+        if (newPassword.length < 6) {
+            return {
+                success: false,
+                error: '密码长度至少6位'
+            };
+        }
+        
+        // 验证重置token
+        const resetData = await env.RESET_TOKENS.get(token);
+        if (!resetData) {
+            return {
+                success: false,
+                error: '重置链接无效或已过期'
+            };
+        }
+        
+        const reset = JSON.parse(resetData);
+        
+        // 检查token是否已被使用
+        if (reset.used) {
+            return {
+                success: false,
+                error: '该重置链接已被使用'
+            };
+        }
+        
+        // 获取用户数据
+        const userData = await env.USERS.get(reset.email);
+        if (!userData) {
+            return {
+                success: false,
+                error: '用户不存在'
+            };
+        }
+        
+        const user = JSON.parse(userData);
+        
+        // 生成新的盐值和密码哈希
+        const salt = generateSalt();
+        const passwordHash = hashPassword(newPassword, salt);
+        
+        // 更新用户密码
+        user.passwordHash = passwordHash;
+        user.salt = salt;
+        user.updatedAt = new Date().toISOString();
+        
+        // 保存更新后的用户数据
+        await env.USERS.put(reset.email, JSON.stringify(user));
+        
+        // 标记重置token为已使用
+        reset.used = true;
+        reset.usedAt = new Date().toISOString();
+        await env.RESET_TOKENS.put(token, JSON.stringify(reset));
+        
+        return {
+            success: true,
+            message: '密码重置成功，请使用新密码登录'
+        };
+        
+    } catch (error) {
+        console.error('重置密码错误:', error);
+        return {
+            success: false,
+            error: '重置失败，请稍后重试'
+        };
+    }
+}
+
+/**
+ * 验证Google OAuth token
+ * @param {string} idToken - Google ID token
+ * @returns {Promise<Object|null>} Google用户信息或null
+ */
+async function verifyGoogleToken(idToken) {
+    try {
+        const response = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${idToken}`);
+        
+        if (!response.ok) {
+            return null;
+        }
+        
+        const tokenInfo = await response.json();
+        
+        // 验证audience（可选，增加安全性）
+        // if (tokenInfo.aud !== env.GOOGLE_CLIENT_ID) {
+        //     return null;
+        // }
+        
+        return {
+            email: tokenInfo.email,
+            name: tokenInfo.name,
+            picture: tokenInfo.picture,
+            email_verified: tokenInfo.email_verified === 'true'
+        };
+    } catch (error) {
+        console.error('Google token验证错误:', error);
+        return null;
+    }
+}
+
+/**
+ * 处理Google OAuth登录
+ * @param {Object} requestData - 请求数据
+ * @param {Object} env - 环境变量
+ * @returns {Promise<Object>} 登录结果
+ */
+export async function handleGoogleLogin(requestData, env) {
+    try {
+        const { idToken } = requestData;
+        
+        if (!idToken) {
+            return {
+                success: false,
+                error: '缺少Google ID token'
+            };
+        }
+        
+        // 验证Google token
+        const googleUser = await verifyGoogleToken(idToken);
+        if (!googleUser) {
+            return {
+                success: false,
+                error: 'Google登录验证失败'
+            };
+        }
+        
+        if (!googleUser.email_verified) {
+            return {
+                success: false,
+                error: 'Google账户邮箱未验证'
+            };
+        }
+        
+        // 检查用户是否已存在
+        let userData = await env.USERS.get(googleUser.email);
+        let user;
+        
+        if (userData) {
+            // 用户已存在，更新信息
+            user = JSON.parse(userData);
+            user.lastLoginAt = new Date().toISOString();
+            user.googleInfo = {
+                name: googleUser.name,
+                picture: googleUser.picture,
+                lastUpdated: new Date().toISOString()
+            };
+        } else {
+            // 创建新用户
+            const userId = generateUserId();
+            user = {
+                id: userId,
+                username: googleUser.name || googleUser.email.split('@')[0],
+                email: googleUser.email,
+                passwordHash: null, // Google用户不需要密码
+                salt: null,
+                isActive: true,
+                createdAt: new Date().toISOString(),
+                lastLoginAt: new Date().toISOString(),
+                authProvider: 'google',
+                googleInfo: {
+                    name: googleUser.name,
+                    picture: googleUser.picture,
+                    lastUpdated: new Date().toISOString()
+                }
+            };
+        }
+        
+        // 保存用户数据
+        await env.USERS.put(googleUser.email, JSON.stringify(user));
+        
+        // 生成JWT token
+        const token = generateJWT(
+            { userId: user.id, email: user.email },
+            env.JWT_SECRET || 'your-secret-key',
+            86400 // 24小时
+        );
+        
+        // 返回用户信息（不包含敏感数据）
+        const userResponse = {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            createdAt: user.createdAt,
+            lastLoginAt: user.lastLoginAt,
+            authProvider: user.authProvider || 'email',
+            avatar: user.googleInfo ? user.googleInfo.picture : null
+        };
+        
+        return {
+            success: true,
+            message: 'Google登录成功',
+            token: token,
+            user: userResponse
+        };
+        
+    } catch (error) {
+        console.error('Google登录错误:', error);
+        return {
+            success: false,
+            error: 'Google登录失败，请稍后重试'
+        };
+    }
 } 

@@ -38,6 +38,43 @@ function initAuthForms() {
     const btn = registerForm.querySelector('button[type="submit"]');
     if (btn && !btn.dataset.originText) btn.dataset.originText = btn.textContent;
   }
+
+  // 忘记密码表单
+  const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+  if (forgotPasswordForm) {
+    const btn = forgotPasswordForm.querySelector('button[type="submit"]');
+    if (btn && !btn.dataset.originText) btn.dataset.originText = btn.textContent;
+    forgotPasswordForm.addEventListener('submit', handleForgotPasswordSubmit);
+  }
+
+  // 重置密码表单
+  const resetPasswordForm = document.getElementById('resetPasswordForm');
+  if (resetPasswordForm) {
+    const btn = resetPasswordForm.querySelector('button[type="submit"]');
+    if (btn && !btn.dataset.originText) btn.dataset.originText = btn.textContent;
+    resetPasswordForm.addEventListener('submit', handleResetPasswordSubmit);
+    
+    // 确认密码验证
+    const newPwd = document.getElementById('newPassword');
+    const confirmPwd = document.getElementById('confirmNewPassword');
+    if (newPwd && confirmPwd) {
+      const validatePassword = () => {
+        if (confirmPwd.value && newPwd.value !== confirmPwd.value) {
+          confirmPwd.setCustomValidity('两次输入的密码不一致');
+        } else {
+          confirmPwd.setCustomValidity('');
+        }
+      };
+      newPwd.addEventListener('input', validatePassword);
+      confirmPwd.addEventListener('input', validatePassword);
+    }
+  }
+
+  // Google登录按钮
+  const googleLoginBtn = document.getElementById('googleLoginBtn');
+  if (googleLoginBtn) {
+    googleLoginBtn.addEventListener('click', handleGoogleLogin);
+  }
 }
 
 async function handleLoginSubmit(e) {
@@ -122,6 +159,155 @@ window.addEventListener('click', (event) => {
       modal.style.display = 'none';
     }
   });
+});
+
+// 忘记密码处理函数
+async function handleForgotPasswordSubmit(e) {
+  e.preventDefault();
+  try {
+    const form = e.target;
+    const formData = new FormData(form);
+    const email = String(formData.get('email') || '').trim();
+    
+    if (!email) {
+      window.authManager?.showMessage('请输入邮箱地址', 'error');
+      return;
+    }
+    
+    setSubmitting(form, true);
+    
+    const result = await window.authManager?.forgotPassword(email);
+    
+    if (result?.success) {
+      window.authManager?.showMessage(result.message, 'success');
+      closeModal('forgotPasswordModal');
+      
+      // 开发环境：显示重置链接
+      if (result.resetUrl) {
+        console.log('重置链接:', result.resetUrl);
+        window.authManager?.showMessage(`重置链接: ${result.resetUrl}`, 'info');
+      }
+    } else {
+      window.authManager?.showMessage(result?.message || '发送失败', 'error');
+    }
+  } catch (err) {
+    console.error('忘记密码失败:', err);
+    window.authManager?.showMessage('网络错误，请稍后重试', 'error');
+  } finally {
+    setSubmitting(e.target, false);
+  }
+}
+
+// 重置密码处理函数
+async function handleResetPasswordSubmit(e) {
+  e.preventDefault();
+  try {
+    const form = e.target;
+    const formData = new FormData(form);
+    const newPassword = String(formData.get('newPassword') || '');
+    const confirmNewPassword = String(formData.get('confirmNewPassword') || '');
+    
+    if (!newPassword || newPassword.length < 6) {
+      window.authManager?.showMessage('密码长度至少6位', 'error');
+      return;
+    }
+    
+    if (newPassword !== confirmNewPassword) {
+      window.authManager?.showMessage('两次输入的密码不一致', 'error');
+      return;
+    }
+    
+    // 从URL获取token
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    
+    if (!token) {
+      window.authManager?.showMessage('重置链接无效', 'error');
+      return;
+    }
+    
+    setSubmitting(form, true);
+    
+    const result = await window.authManager?.resetPassword(token, newPassword);
+    
+    if (result?.success) {
+      window.authManager?.showMessage(result.message, 'success');
+      closeModal('resetPasswordModal');
+      
+      // 清除URL中的token
+      const newUrl = window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
+      
+      // 显示登录模态框
+      setTimeout(() => {
+        showModal('loginModal');
+      }, 1000);
+    } else {
+      window.authManager?.showMessage(result?.message || '重置失败', 'error');
+    }
+  } catch (err) {
+    console.error('重置密码失败:', err);
+    window.authManager?.showMessage('网络错误，请稍后重试', 'error');
+  } finally {
+    setSubmitting(e.target, false);
+  }
+}
+
+// Google登录处理函数
+async function handleGoogleLogin() {
+  try {
+    // 检查Google API是否已加载
+    if (typeof google === 'undefined' || !google.accounts) {
+      window.authManager?.showMessage('Google登录服务尚未加载，请稍后重试', 'error');
+      return;
+    }
+    
+    // 使用Google One Tap API
+    google.accounts.id.prompt((notification) => {
+      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+        // 如果One Tap不可用，使用弹窗方式
+        google.accounts.id.renderButton(
+          document.createElement('div'),
+          {
+            theme: 'outline',
+            size: 'large',
+            type: 'standard',
+          }
+        );
+      }
+    });
+  } catch (err) {
+    console.error('Google登录错误:', err);
+    window.authManager?.showMessage('Google登录失败，请稍后重试', 'error');
+  }
+}
+
+// Google登录回调函数
+window.handleGoogleCredentialResponse = async function(response) {
+  try {
+    const result = await window.authManager?.googleLogin(response.credential);
+    
+    if (result?.success) {
+      window.authManager?.showMessage(result.message, 'success');
+      closeModal('loginModal');
+    } else {
+      window.authManager?.showMessage(result?.message || 'Google登录失败', 'error');
+    }
+  } catch (err) {
+    console.error('Google登录回调错误:', err);
+    window.authManager?.showMessage('Google登录失败，请稍后重试', 'error');
+  }
+};
+
+// 检查URL中是否有重置密码token
+window.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get('token');
+  
+  if (token) {
+    // 显示重置密码模态框
+    showModal('resetPasswordModal');
+  }
 });
 
 // 导出初始化函数

@@ -200,6 +200,33 @@ const i18n = {
         generatedAudio: '生成的音频：',
         downloadAudioFile: '下载音频文件',
         
+        // 认证相关
+        loginTitle: '用户登录',
+        registerTitle: '用户注册',
+        login: '登录',
+        register: '注册',
+        logout: '登出',
+        emailLabel: '邮箱地址',
+        passwordLabel: '密码',
+        userUsername: '用户名',
+        confirmPasswordLabel: '确认密码',
+        noAccount: '还没有账号？',
+        registerNow: '立即注册',
+        haveAccount: '已有账号？',
+        loginNow: '立即登录',
+        
+        // Google登录和忘记密码
+        or: '或',
+        googleLogin: '使用Google登录',
+        forgotPassword: '忘记密码？',
+        forgotPasswordTitle: '忘记密码',
+        forgotPasswordTip: '我们将向您的邮箱发送重置密码的链接',
+        sendResetLink: '发送重置链接',
+        backToLogin: '返回登录',
+        resetPasswordTitle: '重置密码',
+        newPasswordLabel: '新密码',
+        resetPassword: '重置密码',
+        
         // 示例提示
         imageHint: '💡 图片生成支持多种尺寸和数量选择',
         audioHint: '🎵 语音生成支持播放和下载功能',
@@ -489,6 +516,33 @@ const i18n = {
         // Example hints
         imageHint: '💡 Image generation supports multiple sizes and quantities',
         audioHint: '🎵 Audio generation supports playback and download',
+        
+        // Auth related
+        loginTitle: 'User Login',
+        registerTitle: 'User Registration',
+        login: 'Login',
+        register: 'Register',
+        logout: 'Logout',
+        emailLabel: 'Email Address',
+        passwordLabel: 'Password',
+        userUsername: 'Username',
+        confirmPasswordLabel: 'Confirm Password',
+        noAccount: 'Don\'t have an account?',
+        registerNow: 'Register Now',
+        haveAccount: 'Already have an account?',
+        loginNow: 'Login Now',
+        
+        // Google Login and forgot password
+        or: 'OR',
+        googleLogin: 'Sign in with Google',
+        forgotPassword: 'Forgot Password?',
+        forgotPasswordTitle: 'Forgot Password',
+        forgotPasswordTip: 'We will send a password reset link to your email',
+        sendResetLink: 'Send Reset Link',
+        backToLogin: 'Back to Login',
+        resetPasswordTitle: 'Reset Password',
+        newPasswordLabel: 'New Password',
+        resetPassword: 'Reset Password',
         
         // Welcome to AISTONE section
         welcomeToAistone: 'Welcome to AISTONE',

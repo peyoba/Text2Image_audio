@@ -124,6 +124,126 @@ class AuthManager {
     }
 
     /**
+     * 忘记密码
+     * @param {string} email - 邮箱地址
+     * @returns {Promise<Object>} 处理结果
+     */
+    async forgotPassword(email) {
+        try {
+            const response = await fetch(`${this.baseUrl}/auth/forgot-password`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email })
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result && result.success) {
+                return { 
+                    success: true, 
+                    message: result.message || ((getCurrentLang && getCurrentLang()==='zh') ? '重置密码链接已发送到您的邮箱' : 'Password reset link has been sent to your email'),
+                    resetUrl: result.resetUrl // 开发环境使用
+                };
+            } else {
+                return { 
+                    success: false, 
+                    message: (result && result.error) || ((getCurrentLang && getCurrentLang()==='zh') ? '发送失败' : 'Failed to send reset email') 
+                };
+            }
+        } catch (error) {
+            console.error('忘记密码错误:', error);
+            return { 
+                success: false, 
+                message: (getCurrentLang && getCurrentLang()==='zh') ? '网络错误，请稍后重试' : 'Network error, please try again later' 
+            };
+        }
+    }
+
+    /**
+     * 重置密码
+     * @param {string} token - 重置token
+     * @param {string} newPassword - 新密码
+     * @returns {Promise<Object>} 处理结果
+     */
+    async resetPassword(token, newPassword) {
+        try {
+            const response = await fetch(`${this.baseUrl}/auth/reset-password`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token, newPassword })
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result && result.success) {
+                return { 
+                    success: true, 
+                    message: result.message || ((getCurrentLang && getCurrentLang()==='zh') ? '密码重置成功，请使用新密码登录' : 'Password reset successfully, please login with your new password')
+                };
+            } else {
+                return { 
+                    success: false, 
+                    message: (result && result.error) || ((getCurrentLang && getCurrentLang()==='zh') ? '重置失败' : 'Reset failed') 
+                };
+            }
+        } catch (error) {
+            console.error('重置密码错误:', error);
+            return { 
+                success: false, 
+                message: (getCurrentLang && getCurrentLang()==='zh') ? '网络错误，请稍后重试' : 'Network error, please try again later' 
+            };
+        }
+    }
+
+    /**
+     * Google登录
+     * @param {string} idToken - Google ID token
+     * @returns {Promise<Object>} 登录结果
+     */
+    async googleLogin(idToken) {
+        try {
+            const response = await fetch(`${this.baseUrl}/auth/google-login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ idToken })
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result && result.success && result.token) {
+                this.setToken(result.token);
+                this.setUser(result.user);
+                this.isAuthenticated = true;
+                this.currentUser = result.user;
+                this.updateUI();
+                this.forceUpdateUI();
+                console.log('Google登录成功，用户信息已保存');
+                return { 
+                    success: true, 
+                    message: result.message || ((getCurrentLang && getCurrentLang()==='zh') ? 'Google登录成功！' : 'Google login successful!')
+                };
+            } else {
+                return { 
+                    success: false, 
+                    message: (result && result.error) || ((getCurrentLang && getCurrentLang()==='zh') ? 'Google登录失败' : 'Google login failed') 
+                };
+            }
+        } catch (error) {
+            console.error('Google登录错误:', error);
+            return { 
+                success: false, 
+                message: (getCurrentLang && getCurrentLang()==='zh') ? '网络错误，请稍后重试' : 'Network error, please try again later' 
+            };
+        }
+    }
+
+    /**
      * 验证token是否有效
      * @returns {Promise<boolean>} token是否有效
      */
