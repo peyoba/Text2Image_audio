@@ -772,40 +772,21 @@ function updateLanguageButtons() {
 
 // 新增递归读取函数
 function getNestedI18nValue(lang, keyPath) {
-    console.log(`[DEBUG] getNestedI18nValue called with lang="${lang}", keyPath="${keyPath}"`);
-    
-    // 检查 i18n 对象是否存在
-    if (!i18n) {
-        console.error('[DEBUG] i18n object is undefined');
-        return undefined;
-    }
-    
-    // 检查语言是否存在
-    if (!i18n[lang]) {
-        console.error(`[DEBUG] Language "${lang}" not found in i18n object`);
-        console.log('[DEBUG] Available languages:', Object.keys(i18n));
+    if (!i18n || !i18n[lang]) {
         return undefined;
     }
     
     const keys = keyPath.split('.');
     let value = i18n[lang];
     
-    console.log(`[DEBUG] Starting with value:`, typeof value, value ? 'exists' : 'undefined');
-    
-    for (let i = 0; i < keys.length; i++) {
-        const k = keys[i];
-        console.log(`[DEBUG] Step ${i}: looking for key "${k}" in`, typeof value);
-        
+    for (const k of keys) {
         if (value && value[k] !== undefined) {
             value = value[k];
-            console.log(`[DEBUG] Step ${i}: found value for "${k}":`, typeof value);
         } else {
-            console.error(`[DEBUG] Step ${i}: key "${k}" not found. Available keys:`, value ? Object.keys(value) : 'no object');
             return undefined;
         }
     }
     
-    console.log(`[DEBUG] Final value for "${keyPath}":`, value);
     return value;
 }
 
@@ -825,7 +806,6 @@ function setLanguage(lang) {
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 const value = getNestedI18nValue(lang, key);
-                console.log(`[i18n] 处理元素 [data-i18n=${key}], 获取值:`, value, '语言:', lang);
                 if (value && value !== key) {
                     if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                         el.placeholder = value;
@@ -834,9 +814,6 @@ function setLanguage(lang) {
                     } else {
                         el.innerHTML = value;
                     }
-                    console.log(`[i18n] 已更新元素 [data-i18n=${key}] 为:`, value);
-                } else {
-                    console.warn(`[i18n] 未找到翻译键: ${key}, 语言: ${lang}`);
                 }
             });
 

@@ -70,10 +70,11 @@
         window.addEventListener('load', () => {
             if (typeof google !== 'undefined' && google.accounts) {
                 google.accounts.id.initialize({
-                    client_id: '894036062262-j0dso8pgvfgl7ejqu3s3g6pq6d27q9s9.apps.googleusercontent.com', // 替换为您的Google Client ID
+                    client_id: '894036062262-8h0btc9vnrp4tj9v1gm8ljvj6b6d2m7i.apps.googleusercontent.com', // AISTONE的Google Client ID
                     callback: window.handleGoogleCredentialResponse,
                     auto_select: false,
-                    cancel_on_tap_outside: false
+                    cancel_on_tap_outside: false,
+                    use_fedcm_for_prompt: true
                 });
             }
         });
