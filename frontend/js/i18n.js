@@ -964,8 +964,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // 更新页面文本
-    updatePageText();
+    // 更新页面文本 - 使用setLanguage确保所有data-i18n元素正确处理
+    const currentLang = getCurrentLang();
+    setLanguage(currentLang);
 });
 
 // 将函数设为全局变量
