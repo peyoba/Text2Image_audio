@@ -774,21 +774,21 @@ async function handleGoogleOAuth(requestData, env) {
         const tokenData = await tokenResponse.json();
         
         // 使用访问令牌获取用户信息
-        const userResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+        const googleUserResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
             headers: {
                 'Authorization': `Bearer ${tokenData.access_token}`
             }
         });
 
-        if (!userResponse.ok) {
-            console.error('Google user info fetch failed:', await userResponse.text());
+        if (!googleUserResponse.ok) {
+            console.error('Google user info fetch failed:', await googleUserResponse.text());
             return {
                 success: false,
                 error: '获取用户信息失败'
             };
         }
 
-        const googleUser = await userResponse.json();
+        const googleUser = await googleUserResponse.json();
         
         // 验证用户信息
         if (!googleUser.email || !googleUser.verified_email) {
@@ -870,13 +870,4 @@ async function handleGoogleOAuth(requestData, env) {
     }
 }
 
-export {
-    handleUserRegistration,
-    handleUserLogin,
-    validateUserToken,
-    extractTokenFromRequest,
-    handleForgotPassword,
-    handleResetPassword,
-    handleGoogleLogin,
-    handleGoogleOAuth
-}; 
+ 

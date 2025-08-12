@@ -1,7 +1,7 @@
 name = "text2image-api" # 您可以自定义Worker的名称
 main = "backend/index.js" # 指向新的JS Worker入口文件
 compatibility_date = "2024-03-01" # 使用一个较新的兼容日期
-compatibility_flags = [] # JS Worker 不需要 python_workers 标志
+compatibility_flags = ["nodejs_compat"] # 启用Node.js兼容性，支持crypto模块
 
 # Python Workers特定配置
 # [build]
