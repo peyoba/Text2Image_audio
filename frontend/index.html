@@ -64,26 +64,70 @@
   gtag('config', 'G-FYQPWQ1JTM');
 </script>
 
-    <!-- Google Login API - 暂时禁用以避免网络连接问题 -->
+    <!-- Google Login API -->
     <script>
-        // 直接隐藏Google登录功能，避免网络连接错误
-        window.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                const googleBtn = document.getElementById('googleLoginBtn');
-                if (googleBtn) {
-                    googleBtn.style.display = 'none';
-                }
-                const divider = googleBtn?.parentElement?.previousElementSibling;
-                if (divider && divider.classList.contains('divider')) {
-                    divider.style.display = 'none';
-                }
-            }, 100);
-        });
+        // 检测Google服务可用性并加载
+        function loadGoogleSignIn() {
+            // 创建测试请求来检测Google服务
+            const testImg = new Image();
+            testImg.onload = function() {
+                // Google服务可用，加载登录API
+                const script = document.createElement('script');
+                script.src = 'https://accounts.google.com/gsi/client';
+                script.async = true;
+                script.defer = true;
+                script.onload = function() {
+                    if (typeof google !== 'undefined' && google.accounts) {
+                        try {
+                            google.accounts.id.initialize({
+                                client_id: '894036062262-8h0btc9vnrp4tj9v1gm8ljvj6b6d2m7i.apps.googleusercontent.com',
+                                callback: window.handleGoogleCredentialResponse,
+                                auto_select: false,
+                                cancel_on_tap_outside: false
+                                // 移除use_fedcm_for_prompt以避免FedCM相关错误
+                            });
+                            
+                            // 显示Google登录按钮
+                            const googleBtn = document.getElementById('googleLoginBtn');
+                            if (googleBtn) {
+                                googleBtn.parentElement.style.display = 'block';
+                                googleBtn.style.display = 'block';
+                            }
+                            const divider = document.querySelector('.divider');
+                            if (divider) {
+                                divider.style.display = 'block';
+                            }
+                        } catch (error) {
+                            console.log('Google Sign-In initialization failed:', error);
+                            hideGoogleLogin();
+                        }
+                    }
+                };
+                script.onerror = function() {
+                    console.log('Failed to load Google Sign-In script');
+                    hideGoogleLogin();
+                };
+                document.head.appendChild(script);
+            };
+            testImg.onerror = function() {
+                console.log('Google services not accessible');
+                hideGoogleLogin();
+            };
+            testImg.src = 'https://www.google.com/favicon.ico?' + Date.now();
+        }
         
-        // 空的回调函数，避免错误
-        window.handleGoogleCredentialResponse = function() {
-            console.log('Google login disabled for network compatibility');
-        };
+        function hideGoogleLogin() {
+            const googleBtn = document.getElementById('googleLoginBtn');
+            if (googleBtn) {
+                googleBtn.parentElement.style.display = 'none';
+            }
+            const divider = document.querySelector('.divider');
+            if (divider) {
+                divider.style.display = 'none';
+            }
+        }
+        
+        window.addEventListener('load', loadGoogleSignIn);
     </script>
 
     <!-- Google AdSense -->

@@ -253,20 +253,63 @@ async function handleResetPasswordSubmit(e) {
   }
 }
 
-// Google登录处理函数 - 暂时禁用
+// Google登录处理函数
 async function handleGoogleLogin() {
-  // 显示提示信息，引导用户使用邮箱登录
-  window.authManager?.showMessage(
-    (getCurrentLang && getCurrentLang() === 'zh') 
-      ? 'Google登录暂时不可用，请使用邮箱登录' 
-      : 'Google login temporarily unavailable, please use email login', 
-    'info'
-  );
+  try {
+    // 检查Google API是否已加载
+    if (typeof google === 'undefined' || !google.accounts) {
+      window.authManager?.showMessage(
+        (getCurrentLang && getCurrentLang() === 'zh') 
+          ? 'Google登录服务不可用，请使用邮箱登录' 
+          : 'Google login service unavailable, please use email login', 
+        'warning'
+      );
+      return;
+    }
+    
+    // 使用Google One Tap API（不使用FedCM以避免错误）
+    google.accounts.id.prompt((notification) => {
+      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+        // 如果One Tap不可用，显示提示信息
+        window.authManager?.showMessage(
+          (getCurrentLang && getCurrentLang() === 'zh') 
+            ? 'Google登录暂时不可用，请使用邮箱登录' 
+            : 'Google login temporarily unavailable, please use email login', 
+          'info'
+        );
+      }
+    });
+  } catch (err) {
+    console.error('Google登录错误:', err);
+    window.authManager?.showMessage(
+      (getCurrentLang && getCurrentLang() === 'zh') 
+        ? 'Google登录暂时不可用，请使用邮箱登录' 
+        : 'Google login temporarily unavailable, please use email login', 
+      'warning'
+    );
+  }
 }
 
-// Google登录回调函数 - 暂时禁用
+// Google登录回调函数
 window.handleGoogleCredentialResponse = async function(response) {
-  console.log('Google login callback called but service is disabled');
+  try {
+    const result = await window.authManager?.googleLogin(response.credential);
+    
+    if (result?.success) {
+      window.authManager?.showMessage(result.message, 'success');
+      closeModal('loginModal');
+    } else {
+      window.authManager?.showMessage(result?.message || 'Google登录失败', 'error');
+    }
+  } catch (err) {
+    console.error('Google登录回调错误:', err);
+    window.authManager?.showMessage(
+      (getCurrentLang && getCurrentLang() === 'zh') 
+        ? 'Google登录失败，请稍后重试' 
+        : 'Google login failed, please try again later', 
+      'error'
+    );
+  }
 };
 
 // 检查URL中是否有重置密码token
