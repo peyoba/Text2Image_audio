@@ -275,8 +275,12 @@ async function handleGoogleLogin() {
       `prompt=select_account&` +
       `state=${encodeURIComponent(state)}`;
     
+    console.log('Google授权URL:', authUrl);
+    
     // 打开弹窗进行登录
     const popup = window.open(authUrl, 'google-signin', 'width=500,height=600,scrollbars=yes,resizable=yes');
+    
+    console.log('弹窗已打开:', popup);
     
     if (!popup) {
       window.authManager?.showMessage(
@@ -290,15 +294,24 @@ async function handleGoogleLogin() {
     
     // 监听弹窗的消息
     const messageListener = (event) => {
-      if (event.origin !== window.location.origin) return;
+      console.log('收到消息:', event);
+      
+      if (event.origin !== window.location.origin) {
+        console.log('消息来源不匹配:', event.origin, 'vs', window.location.origin);
+        return;
+      }
+      
+      console.log('处理Google OAuth消息:', event.data);
       
       if (event.data.type === 'GOOGLE_AUTH_SUCCESS') {
         // 处理成功的Google登录
+        console.log('Google授权成功，code:', event.data.code);
         handleGoogleAuthSuccess(event.data.code, state);
         popup.close();
         window.removeEventListener('message', messageListener);
       } else if (event.data.type === 'GOOGLE_AUTH_ERROR') {
         // 处理错误
+        console.log('Google授权错误:', event.data.error);
         window.authManager?.showMessage(
           (getCurrentLang && getCurrentLang() === 'zh') 
             ? 'Google登录失败: ' + event.data.error 
