@@ -755,7 +755,7 @@ async function handleGoogleOAuth(requestData, env) {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: new URLSearchParams({
-                client_id: '894036062262-8h0btc9vnrp4tj9v1gm8ljvj6b6d2m7i.apps.googleusercontent.com',
+                client_id: '432588178769-n7vgnnmsh8l118heqmgtj92iir4i4n3s.apps.googleusercontent.com',
                 client_secret: env.GOOGLE_CLIENT_SECRET || 'GOCSPX-placeholder', // 需要在环境变量中设置
                 code: code,
                 grant_type: 'authorization_code',

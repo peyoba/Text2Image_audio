@@ -257,7 +257,7 @@ async function handleResetPasswordSubmit(e) {
 async function handleGoogleLogin() {
   try {
     // 直接使用OAuth 2.0弹窗，避免Google Identity Services的复杂性
-    const clientId = '894036062262-8h0btc9vnrp4tj9v1gm8ljvj6b6d2m7i.apps.googleusercontent.com';
+    const clientId = '432588178769-n7vgnnmsh8l118heqmgtj92iir4i4n3s.apps.googleusercontent.com';
     // 动态构建回调URL，支持不同环境
     const baseUrl = window.location.origin;
     const redirectUri = `${baseUrl}/auth/google/callback`;
