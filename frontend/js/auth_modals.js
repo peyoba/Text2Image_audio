@@ -253,39 +253,70 @@ async function handleResetPasswordSubmit(e) {
   }
 }
 
-// Google登录处理函数
+// Google登录处理函数 - 使用OAuth 2.0弹窗模式
 async function handleGoogleLogin() {
   try {
-    // 检查Google API是否已加载
-    if (typeof google === 'undefined' || !google.accounts) {
-      // API还没加载，等待一下再试
-      setTimeout(() => {
-        if (typeof google !== 'undefined' && google.accounts) {
-          handleGoogleLogin();
-        } else {
-          window.authManager?.showMessage(
-            (getCurrentLang && getCurrentLang() === 'zh') 
-              ? 'Google登录服务正在加载，请稍后重试' 
-              : 'Google login service loading, please try again later', 
-            'info'
-          );
-        }
-      }, 1000);
+    // 直接使用OAuth 2.0弹窗，避免Google Identity Services的复杂性
+    const clientId = '894036062262-8h0btc9vnrp4tj9v1gm8ljvj6b6d2m7i.apps.googleusercontent.com';
+    const redirectUri = window.location.origin + '/auth/google/callback';
+    const scope = 'openid email profile';
+    const state = Math.random().toString(36).substring(2, 15); // 随机状态参数
+    
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?` +
+      `client_id=${encodeURIComponent(clientId)}&` +
+      `redirect_uri=${encodeURIComponent(redirectUri)}&` +
+      `scope=${encodeURIComponent(scope)}&` +
+      `response_type=code&` +
+      `access_type=offline&` +
+      `prompt=select_account&` +
+      `state=${encodeURIComponent(state)}`;
+    
+    // 打开弹窗进行登录
+    const popup = window.open(authUrl, 'google-signin', 'width=500,height=600,scrollbars=yes,resizable=yes');
+    
+    if (!popup) {
+      window.authManager?.showMessage(
+        (getCurrentLang && getCurrentLang() === 'zh') 
+          ? '弹窗被阻止，请允许弹窗后重试' 
+          : 'Popup blocked, please allow popups and try again', 
+        'warning'
+      );
       return;
     }
     
-    // 使用Google One Tap API
-    google.accounts.id.prompt((notification) => {
-      console.log('Google One Tap notification:', notification);
-      if (notification.isNotDisplayed()) {
-        console.log('Google One Tap not displayed, reason:', notification.getNotDisplayedReason());
-      }
-      if (notification.isSkippedMoment()) {
-        console.log('Google One Tap skipped, reason:', notification.getSkippedReason());
-      }
+    // 监听弹窗的消息
+    const messageListener = (event) => {
+      if (event.origin !== window.location.origin) return;
       
-      // 不显示错误信息，让用户可以继续尝试或使用邮箱登录
-    });
+      if (event.data.type === 'GOOGLE_AUTH_SUCCESS') {
+        // 处理成功的Google登录
+        handleGoogleAuthSuccess(event.data.code, state);
+        popup.close();
+        window.removeEventListener('message', messageListener);
+      } else if (event.data.type === 'GOOGLE_AUTH_ERROR') {
+        // 处理错误
+        window.authManager?.showMessage(
+          (getCurrentLang && getCurrentLang() === 'zh') 
+            ? 'Google登录失败: ' + event.data.error 
+            : 'Google login failed: ' + event.data.error, 
+          'error'
+        );
+        popup.close();
+        window.removeEventListener('message', messageListener);
+      }
+    };
+    
+    window.addEventListener('message', messageListener);
+    
+    // 监听弹窗关闭
+    const checkClosed = setInterval(() => {
+      if (popup.closed) {
+        clearInterval(checkClosed);
+        window.removeEventListener('message', messageListener);
+        // 不显示取消消息，用户可能只是关闭了弹窗
+      }
+    }, 1000);
+    
   } catch (err) {
     console.error('Google登录错误:', err);
     window.authManager?.showMessage(
@@ -293,6 +324,29 @@ async function handleGoogleLogin() {
         ? 'Google登录出现错误，请尝试使用邮箱登录' 
         : 'Google login error, please try email login', 
       'warning'
+    );
+  }
+}
+
+// 处理Google授权成功
+async function handleGoogleAuthSuccess(code, state) {
+  try {
+    // 将授权码发送到后端进行token交换
+    const result = await window.authManager?.googleAuthCodeLogin(code, state);
+    
+    if (result?.success) {
+      window.authManager?.showMessage(result.message, 'success');
+      closeModal('loginModal');
+    } else {
+      window.authManager?.showMessage(result?.message || 'Google登录失败', 'error');
+    }
+  } catch (err) {
+    console.error('Google授权处理错误:', err);
+    window.authManager?.showMessage(
+      (getCurrentLang && getCurrentLang() === 'zh') 
+        ? 'Google登录处理失败，请稍后重试' 
+        : 'Google login processing failed, please try again later', 
+      'error'
     );
   }
 }

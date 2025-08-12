@@ -244,6 +244,51 @@ class AuthManager {
     }
 
     /**
+     * Google OAuth 2.0授权码登录
+     * @param {string} code - Google授权码
+     * @param {string} state - 状态参数
+     * @returns {Promise<Object>} 登录结果
+     */
+    async googleAuthCodeLogin(code, state) {
+        try {
+            const response = await fetch(`${this.baseUrl}/auth/google-oauth`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ code, state })
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result && result.success && result.token) {
+                this.setToken(result.token);
+                this.setUser(result.user);
+                this.isAuthenticated = true;
+                this.currentUser = result.user;
+                this.updateUI();
+                this.forceUpdateUI();
+                console.log('Google OAuth登录成功，用户信息已保存');
+                return { 
+                    success: true, 
+                    message: result.message || ((getCurrentLang && getCurrentLang()==='zh') ? 'Google登录成功！' : 'Google login successful!')
+                };
+            } else {
+                return { 
+                    success: false, 
+                    message: (result && result.error) || ((getCurrentLang && getCurrentLang()==='zh') ? 'Google登录失败' : 'Google login failed') 
+                };
+            }
+        } catch (error) {
+            console.error('Google OAuth登录错误:', error);
+            return { 
+                success: false, 
+                message: (getCurrentLang && getCurrentLang()==='zh') ? '网络错误，请稍后重试' : 'Network error, please try again later' 
+            };
+        }
+    }
+
+    /**
      * 验证token是否有效
      * @returns {Promise<boolean>} token是否有效
      */

@@ -729,4 +729,154 @@ export async function handleGoogleLogin(requestData, env) {
             error: 'Google登录失败，请稍后重试'
         };
     }
-} 
+}
+
+/**
+ * 处理Google OAuth 2.0授权码登录
+ * @param {Object} requestData - 包含code和state的请求数据
+ * @param {Object} env - 环境变量
+ * @returns {Object} 登录结果
+ */
+async function handleGoogleOAuth(requestData, env) {
+    try {
+        const { code, state } = requestData;
+        
+        if (!code) {
+            return {
+                success: false,
+                error: '缺少授权码'
+            };
+        }
+        
+        // 交换授权码获取访问令牌
+        const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                client_id: '894036062262-8h0btc9vnrp4tj9v1gm8ljvj6b6d2m7i.apps.googleusercontent.com',
+                client_secret: env.GOOGLE_CLIENT_SECRET, // 需要在环境变量中设置
+                code: code,
+                grant_type: 'authorization_code',
+                redirect_uri: 'https://aistone.org/auth/google/callback' // 使用实际的回调URL
+            })
+        });
+
+        if (!tokenResponse.ok) {
+            console.error('Google token exchange failed:', await tokenResponse.text());
+            return {
+                success: false,
+                error: 'Google授权失败'
+            };
+        }
+
+        const tokenData = await tokenResponse.json();
+        
+        // 使用访问令牌获取用户信息
+        const userResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+            headers: {
+                'Authorization': `Bearer ${tokenData.access_token}`
+            }
+        });
+
+        if (!userResponse.ok) {
+            console.error('Google user info fetch failed:', await userResponse.text());
+            return {
+                success: false,
+                error: '获取用户信息失败'
+            };
+        }
+
+        const googleUser = await userResponse.json();
+        
+        // 验证用户信息
+        if (!googleUser.email || !googleUser.verified_email) {
+            return {
+                success: false,
+                error: 'Google账户邮箱未验证'
+            };
+        }
+        
+        // 查找或创建用户
+        let user = await env.USERS.get(googleUser.email);
+        
+        if (user) {
+            // 用户已存在，更新登录时间和Google信息
+            user = JSON.parse(user);
+            user.lastLoginAt = new Date().toISOString();
+            user.googleInfo = {
+                id: googleUser.id,
+                name: googleUser.name,
+                picture: googleUser.picture,
+                locale: googleUser.locale
+            };
+            user.authProvider = 'google';
+            
+            await env.USERS.put(googleUser.email, JSON.stringify(user));
+        } else {
+            // 创建新用户
+            const userId = generateUUID();
+            user = {
+                id: userId,
+                username: googleUser.name || googleUser.email.split('@')[0],
+                email: googleUser.email,
+                password: null, // Google用户没有密码
+                createdAt: new Date().toISOString(),
+                lastLoginAt: new Date().toISOString(),
+                authProvider: 'google',
+                googleInfo: {
+                    id: googleUser.id,
+                    name: googleUser.name,
+                    picture: googleUser.picture,
+                    locale: googleUser.locale
+                }
+            };
+            
+            await env.USERS.put(googleUser.email, JSON.stringify(user));
+        }
+        
+        // 生成JWT token
+        const token = generateJWT(
+            { userId: user.id, email: user.email },
+            env.JWT_SECRET || 'your-secret-key',
+            86400 // 24小时
+        );
+        
+        // 返回用户信息（不包含敏感数据）
+        const userResponse = {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            createdAt: user.createdAt,
+            lastLoginAt: user.lastLoginAt,
+            authProvider: user.authProvider,
+            avatar: user.googleInfo ? user.googleInfo.picture : null
+        };
+        
+        return {
+            success: true,
+            message: 'Google登录成功',
+            token: token,
+            user: userResponse
+        };
+        
+    } catch (error) {
+        console.error('Google OAuth登录错误:', error);
+        return {
+            success: false,
+            error: 'Google登录失败，请稍后重试'
+        };
+    }
+}
+
+export {
+    handleUserRegistration,
+    handleUserLogin,
+    validateUserToken,
+    extractTokenFromRequest,
+    handleForgotPassword,
+    handleResetPassword,
+    handleGoogleLogin,
+    handleGoogleOAuth
+}; 

@@ -7,7 +7,8 @@ import {
     extractTokenFromRequest,
     handleForgotPassword,
     handleResetPassword,
-    handleGoogleLogin
+    handleGoogleLogin,
+    handleGoogleOAuth
 } from './auth.js';
 
 import {
@@ -80,6 +81,11 @@ export default {
                 const requestData = await request.json();
                 logInfo(env, `[Worker Log] Processing Google login`);
                 const result = await handleGoogleLogin(requestData, env);
+                return jsonResponse(result, env, result.success ? 200 : 401);
+            } else if (method === "POST" && path === "/api/auth/google-oauth") {
+                const requestData = await request.json();
+                logInfo(env, `[Worker Log] Processing Google OAuth`);
+                const result = await handleGoogleOAuth(requestData, env);
                 return jsonResponse(result, env, result.success ? 200 : 401);
             } else if (method === "POST" && path === "/api/images/save") {
                 const user = await authenticateImageAccess(request, env);

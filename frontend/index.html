@@ -64,11 +64,11 @@
   gtag('config', 'G-FYQPWQ1JTM');
 </script>
 
-    <!-- Google Login API -->
+    <!-- Google Login - 使用OAuth 2.0弹窗模式 -->
     <script>
-        // 直接加载Google登录API，适用于有代理的环境
-        function loadGoogleSignIn() {
-            // 先显示Google登录按钮，因为用户环境支持Google服务
+        // 简化的Google登录初始化 - 直接显示按钮
+        window.addEventListener('DOMContentLoaded', function() {
+            // 显示Google登录按钮
             const googleBtn = document.getElementById('googleLoginBtn');
             if (googleBtn) {
                 googleBtn.parentElement.style.display = 'block';
@@ -79,37 +79,8 @@
                 divider.style.display = 'block';
             }
             
-            // 加载Google Sign-In API
-            const script = document.createElement('script');
-            script.src = 'https://accounts.google.com/gsi/client';
-            script.async = true;
-            script.defer = true;
-            script.onload = function() {
-                if (typeof google !== 'undefined' && google.accounts) {
-                    try {
-                        google.accounts.id.initialize({
-                            client_id: '894036062262-8h0btc9vnrp4tj9v1gm8ljvj6b6d2m7i.apps.googleusercontent.com',
-                            callback: window.handleGoogleCredentialResponse,
-                            auto_select: false,
-                            cancel_on_tap_outside: false
-                        });
-                        console.log('Google Sign-In API loaded successfully');
-                    } catch (error) {
-                        console.error('Google Sign-In initialization failed:', error);
-                        // 即使初始化失败也保持按钮显示，让用户可以尝试
-                    }
-                } else {
-                    console.warn('Google API not available');
-                }
-            };
-            script.onerror = function() {
-                console.error('Failed to load Google Sign-In script');
-                // 保持按钮显示，让用户知道功能存在
-            };
-            document.head.appendChild(script);
-        }
-        
-        window.addEventListener('DOMContentLoaded', loadGoogleSignIn);
+            console.log('Google OAuth 2.0 login ready');
+        });
     </script>
 
     <!-- Google AdSense -->
