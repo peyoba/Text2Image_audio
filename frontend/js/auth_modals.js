@@ -258,33 +258,40 @@ async function handleGoogleLogin() {
   try {
     // 检查Google API是否已加载
     if (typeof google === 'undefined' || !google.accounts) {
-      window.authManager?.showMessage(
-        (getCurrentLang && getCurrentLang() === 'zh') 
-          ? 'Google登录服务不可用，请使用邮箱登录' 
-          : 'Google login service unavailable, please use email login', 
-        'warning'
-      );
+      // API还没加载，等待一下再试
+      setTimeout(() => {
+        if (typeof google !== 'undefined' && google.accounts) {
+          handleGoogleLogin();
+        } else {
+          window.authManager?.showMessage(
+            (getCurrentLang && getCurrentLang() === 'zh') 
+              ? 'Google登录服务正在加载，请稍后重试' 
+              : 'Google login service loading, please try again later', 
+            'info'
+          );
+        }
+      }, 1000);
       return;
     }
     
-    // 使用Google One Tap API（不使用FedCM以避免错误）
+    // 使用Google One Tap API
     google.accounts.id.prompt((notification) => {
-      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-        // 如果One Tap不可用，显示提示信息
-        window.authManager?.showMessage(
-          (getCurrentLang && getCurrentLang() === 'zh') 
-            ? 'Google登录暂时不可用，请使用邮箱登录' 
-            : 'Google login temporarily unavailable, please use email login', 
-          'info'
-        );
+      console.log('Google One Tap notification:', notification);
+      if (notification.isNotDisplayed()) {
+        console.log('Google One Tap not displayed, reason:', notification.getNotDisplayedReason());
       }
+      if (notification.isSkippedMoment()) {
+        console.log('Google One Tap skipped, reason:', notification.getSkippedReason());
+      }
+      
+      // 不显示错误信息，让用户可以继续尝试或使用邮箱登录
     });
   } catch (err) {
     console.error('Google登录错误:', err);
     window.authManager?.showMessage(
       (getCurrentLang && getCurrentLang() === 'zh') 
-        ? 'Google登录暂时不可用，请使用邮箱登录' 
-        : 'Google login temporarily unavailable, please use email login', 
+        ? 'Google登录出现错误，请尝试使用邮箱登录' 
+        : 'Google login error, please try email login', 
       'warning'
     );
   }
