@@ -1687,4 +1687,36 @@ footer {
     font-size: 1.1em;
     line-height: 1.7;
   }
+}
+
+/* Google AdSense 广告位样式 */
+.ad-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.ad-section .adsbygoogle {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.ad-section .adsbygoogle:hover {
+    transform: translateY(-2px);
+}
+
+/* 移动设备广告适配 */
+@media (max-width: 768px) {
+    .ad-section {
+        margin: 30px auto;
+        padding: 15px;
+    }
+    
+    .ad-section .adsbygoogle {
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
 } 

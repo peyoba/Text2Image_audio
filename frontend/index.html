@@ -644,6 +644,16 @@
                     <a id="download-audio-link" href="#" download="generated_audio.wav" style="display: none;" data-i18n="downloadAudioFile">下载音频文件</a>
                 </div>
             </section>
+            
+            <!-- Google AdSense 广告位1 - 生成结果区域后 -->
+            <section class="ad-section" style="margin: 40px 0; text-align: center;">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-6165370615688912"
+                     data-ad-slot="1234567890"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </section>
         </main>
         
         <!-- AISTONE 详细介绍部分 -->
@@ -824,6 +834,18 @@
                       AISTONE 是一个集AI图片生成与语音合成于一体的智能创作平台，支持中英文输入，永久免费，无需注册。无论你是设计师、内容创作者还是普通用户，只需一句描述，即可一键生成高质量图片和自然语音，释放无限创意。平台注重隐私保护，所有内容实时生成不留存，助力每一位用户高效创作、自由分享。
                     </div>
                 </div>
+            </div>
+        </section>
+        
+        <!-- Google AdSense 广告位2 - 页脚前 -->
+        <section class="ad-section" style="margin: 40px 0; text-align: center; background: #1a1f2e; padding: 30px 0;">
+            <div class="container">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-6165370615688912"
+                     data-ad-slot="9876543210"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
             </div>
         </section>
         
@@ -1076,6 +1098,22 @@ function showUserProfile() {
     }
 }
     </script>
+    
+    <!-- AdSense 广告初始化 -->
+    <script>
+        // 等待页面加载完成后初始化广告
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                try {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                } catch (e) {
+                    console.log('AdSense initialization failed:', e);
+                }
+            }, 1000);
+        });
+    </script>
+    
     <!-- Test auto-deploy on 2025-05-23 06:25 -->
 </body>
 </html> 
