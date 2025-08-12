@@ -53,14 +53,14 @@ GOOGLE_CLIENT_SECRET = "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"
 # KV Namespace 绑定 (用于存储用户数据)
 [[kv_namespaces]]
 binding = "USERS"
-id = "your_users_kv_namespace_id_here" # 部署后在Cloudflare后台创建并替换
+id = "1c05d537e46f401689e85a655dbf692e"
 
 # KV Namespace 绑定 (用于存储图片缓存)
 [[kv_namespaces]]
 binding = "IMAGES_CACHE"
-id = "your_images_cache_kv_namespace_id_here" # 部署后在Cloudflare后台创建并替换
+id = "3d9618b06326448888cbbf45f53acce4"
 
 # KV Namespace 绑定 (用于存储重置密码token)
 [[kv_namespaces]]
 binding = "RESET_TOKENS"
-id = "your_reset_tokens_kv_namespace_id_here" # 部署后在Cloudflare后台创建并替换 
+id = "18ab969ea8594e729c412d4c8e5d6afd" 

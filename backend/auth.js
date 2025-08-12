@@ -3,7 +3,7 @@
  * 处理用户注册、登录、JWT token生成和验证
  */
 
-import { createHash, randomBytes } from 'crypto';
+import { createHash, randomBytes } from 'node:crypto';
 
 /**
  * 生成JWT token
@@ -737,7 +737,7 @@ export async function handleGoogleLogin(requestData, env) {
  * @param {Object} env - 环境变量
  * @returns {Object} 登录结果
  */
-async function handleGoogleOAuth(requestData, env) {
+export async function handleGoogleOAuth(requestData, env) {
     try {
         const { code, state } = requestData;
         
