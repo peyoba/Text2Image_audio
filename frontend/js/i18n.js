@@ -724,13 +724,14 @@ function setLanguage(lang) {
             // 更新所有带有data-i18n属性的元素
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (i18n[lang][key] !== undefined) {
+                const value = getNestedI18nValue(lang, key);
+                if (value && value !== key) {
                     if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                        el.placeholder = i18n[lang][key];
+                        el.placeholder = value;
                     } else if (el.tagName === 'OPTION') {
-                        el.textContent = i18n[lang][key];
+                        el.textContent = value;
                     } else {
-                        el.innerHTML = i18n[lang][key];
+                        el.innerHTML = value;
                     }
                     console.log(`[i18n] 已更新元素 [data-i18n=${key}]`);
                 } else {
@@ -847,13 +848,14 @@ function updatePageText() {
         // 更新所有带有data-i18n属性的元素
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (dict[key] !== undefined) {
+        const value = getNestedI18nValue(lang, key);
+        if (value && value !== key) {
             if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                el.placeholder = dict[key];
+                el.placeholder = value;
             } else if (el.tagName === 'OPTION') {
-                el.textContent = dict[key];
+                el.textContent = value;
             } else {
-                el.innerHTML = dict[key];
+                el.innerHTML = value;
             }
                 console.log(`[i18n] 已更新元素 [data-i18n=${key}]`);
             } else {
