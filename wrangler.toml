@@ -3,9 +3,6 @@ main = "backend/index.js" # 指向新的JS Worker入口文件
 compatibility_date = "2024-03-01" # 使用一个较新的兼容日期
 compatibility_flags = ["nodejs_compat"] # 启用Node.js兼容性，支持crypto模块
 
-# 自定义域名配置
-route = { pattern = "aistone.org/api/*", custom_domain = true }
-
 # Python Workers特定配置
 # [build]
 # command = "pip install -r backend/requirements.txt -t backend/.wrangler/dist/deps" # 安装依赖到指定目录
