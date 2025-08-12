@@ -759,15 +759,25 @@ export async function handleGoogleOAuth(requestData, env) {
                 client_secret: env.GOOGLE_CLIENT_SECRET || 'GOCSPX-placeholder', // 需要在环境变量中设置
                 code: code,
                 grant_type: 'authorization_code',
-                redirect_uri: `https://${env.DOMAIN || 'aistone.org'}/auth/google/callback` // 使用环境变量或默认域名
+                redirect_uri: 'https://aistone.org/auth/google/callback' // 必须与Google Cloud Console配置完全一致
             })
         });
 
         if (!tokenResponse.ok) {
-            console.error('Google token exchange failed:', await tokenResponse.text());
+            const errorText = await tokenResponse.text();
+            console.error('Google token exchange failed:', {
+                status: tokenResponse.status,
+                statusText: tokenResponse.statusText,
+                error: errorText,
+                requestBody: {
+                    client_id: '432588178769-n7vgnnmsh8l118heqmgtj92iir4i4n3s.apps.googleusercontent.com',
+                    redirect_uri: 'https://aistone.org/auth/google/callback',
+                    grant_type: 'authorization_code'
+                }
+            });
             return {
                 success: false,
-                error: 'Google授权失败'
+                error: `Google授权失败: ${errorText}`
             };
         }
 
