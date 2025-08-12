@@ -3,7 +3,7 @@
  */
 class ApiClient {
     constructor() {
-        this.baseUrl = 'https://text2image-api.peyoba660703.workers.dev';
+        this.baseUrl = 'https://aistone.org/api';
         this.maxPollingAttempts = 60; // 最大轮询次数 (60 * 2秒 = 2分钟)
         this.pollingInterval = 2000; // 轮询间隔 (2秒)
         console.log('ApiClient initialized with baseUrl:', this.baseUrl); // 添加初始化日志
