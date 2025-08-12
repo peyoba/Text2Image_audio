@@ -725,6 +725,7 @@ function setLanguage(lang) {
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 const value = getNestedI18nValue(lang, key);
+                console.log(`[i18n] 处理元素 [data-i18n=${key}], 获取值:`, value, '语言:', lang);
                 if (value && value !== key) {
                     if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                         el.placeholder = value;
@@ -733,9 +734,9 @@ function setLanguage(lang) {
                     } else {
                         el.innerHTML = value;
                     }
-                    console.log(`[i18n] 已更新元素 [data-i18n=${key}]`);
+                    console.log(`[i18n] 已更新元素 [data-i18n=${key}] 为:`, value);
                 } else {
-                    console.warn(`[i18n] 未找到翻译键: ${key}`);
+                    console.warn(`[i18n] 未找到翻译键: ${key}, 语言: ${lang}`);
                 }
             });
 
