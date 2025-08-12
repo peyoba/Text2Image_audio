@@ -258,9 +258,13 @@ async function handleGoogleLogin() {
   try {
     // 直接使用OAuth 2.0弹窗，避免Google Identity Services的复杂性
     const clientId = '894036062262-8h0btc9vnrp4tj9v1gm8ljvj6b6d2m7i.apps.googleusercontent.com';
-    const redirectUri = window.location.origin + '/auth/google/callback';
+    // 动态构建回调URL，支持不同环境
+    const baseUrl = window.location.origin;
+    const redirectUri = `${baseUrl}/auth/google/callback`;
     const scope = 'openid email profile';
     const state = Math.random().toString(36).substring(2, 15); // 随机状态参数
+    
+    console.log('Google登录配置:', { clientId, redirectUri, baseUrl });
     
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?` +
       `client_id=${encodeURIComponent(clientId)}&` +
@@ -308,14 +312,32 @@ async function handleGoogleLogin() {
     
     window.addEventListener('message', messageListener);
     
-    // 监听弹窗关闭
+    // 监听弹窗关闭 - 使用try-catch避免COOP错误
     const checkClosed = setInterval(() => {
-      if (popup.closed) {
-        clearInterval(checkClosed);
-        window.removeEventListener('message', messageListener);
-        // 不显示取消消息，用户可能只是关闭了弹窗
+      try {
+        if (popup.closed) {
+          clearInterval(checkClosed);
+          window.removeEventListener('message', messageListener);
+          // 不显示取消消息，用户可能只是关闭了弹窗
+        }
+      } catch (error) {
+        // 忽略Cross-Origin-Opener-Policy错误，继续检查
+        // 如果弹窗真的关闭了，messageListener会超时处理
       }
     }, 1000);
+    
+    // 设置超时清理，防止无限等待
+    setTimeout(() => {
+      clearInterval(checkClosed);
+      window.removeEventListener('message', messageListener);
+      try {
+        if (popup && !popup.closed) {
+          popup.close();
+        }
+      } catch (error) {
+        // 忽略可能的跨域错误
+      }
+    }, 300000); // 5分钟超时
     
   } catch (err) {
     console.error('Google登录错误:', err);

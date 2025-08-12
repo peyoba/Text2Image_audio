@@ -756,10 +756,10 @@ async function handleGoogleOAuth(requestData, env) {
             },
             body: new URLSearchParams({
                 client_id: '894036062262-8h0btc9vnrp4tj9v1gm8ljvj6b6d2m7i.apps.googleusercontent.com',
-                client_secret: env.GOOGLE_CLIENT_SECRET, // 需要在环境变量中设置
+                client_secret: env.GOOGLE_CLIENT_SECRET || 'GOCSPX-placeholder', // 需要在环境变量中设置
                 code: code,
                 grant_type: 'authorization_code',
-                redirect_uri: 'https://aistone.org/auth/google/callback' // 使用实际的回调URL
+                redirect_uri: `https://${env.DOMAIN || 'aistone.org'}/auth/google/callback` // 使用环境变量或默认域名
             })
         });
 
