@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 全局函数必须最先定义 -->
+    <script>
+        // 全局模态框控制函数
+        function showModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'block';
+                console.log('显示模态框:', modalId);
+            } else {
+                console.error('模态框未找到:', modalId);
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                console.log('关闭模态框:', modalId);
+            }
+        }
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="AISTONE - Best Free AI Image Generator & Voice Synthesis Platform 2024 powered by Pollinations.AI technology. Features GPT Image, FLUX, DeepSeek advanced AI models. Create stunning AI art, text-to-image generation, AI voice synthesis, text-to-speech. Perfect for designers, content creators, marketers, ecommerce. No registration required, permanently free. High-quality AI image generation, commercial AI tools, online AI art software. Chinese AI image generator, AI绘画工具中文版, 免费AI图片生成器中国. 免费AI图片生成器与语音合成平台，基于Pollinations.AI技术。">
@@ -1040,25 +1062,6 @@
 
     <!-- 页面初始化 -->
     <script>
-        // 全局模态框控制函数
-        function showModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = 'block';
-                console.log('显示模态框:', modalId);
-            } else {
-                console.error('模态框未找到:', modalId);
-            }
-        }
-
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = 'none';
-                console.log('关闭模态框:', modalId);
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', async function() {
             // 等待所有模块加载完成
             setTimeout(async () => {
