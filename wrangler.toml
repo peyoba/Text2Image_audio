@@ -48,7 +48,6 @@ DEFAULT_AUDIO_MODEL = "openai-audio"
 DEFAULT_AUDIO_VOICE = "nova"
 LOG_LEVEL = "info"
 JWT_SECRET = "your-super-secret-jwt-key-change-this-in-production"
-GOOGLE_CLIENT_SECRET = "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"
 
 # KV Namespace 绑定 (用于存储用户数据)
 [[kv_namespaces]]

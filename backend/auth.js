@@ -756,7 +756,7 @@ export async function handleGoogleOAuth(requestData, env) {
             },
             body: new URLSearchParams({
                 client_id: '432588178769-n7vgnnmsh8l118heqmgtj92iir4i4n3s.apps.googleusercontent.com',
-                client_secret: env.GOOGLE_CLIENT_SECRET || 'GOCSPX-placeholder', // 需要在环境变量中设置
+                client_secret: env.GOOGLE_CLIENT_SECRET_NEW || 'GOCSPX-placeholder', // 需要在环境变量中设置
                 code: code,
                 grant_type: 'authorization_code',
                 redirect_uri: 'https://aistone.org/auth/google/callback' // 必须与Google Cloud Console配置完全一致
