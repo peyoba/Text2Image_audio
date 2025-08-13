@@ -325,23 +325,11 @@ async function handleGoogleLogin() {
     
     window.addEventListener('message', messageListener);
     
-    // 监听弹窗关闭 - 使用try-catch避免COOP错误
-    const checkClosed = setInterval(() => {
-      try {
-        if (popup.closed) {
-          clearInterval(checkClosed);
-          window.removeEventListener('message', messageListener);
-          // 不显示取消消息，用户可能只是关闭了弹窗
-        }
-      } catch (error) {
-        // 忽略Cross-Origin-Opener-Policy错误，继续检查
-        // 如果弹窗真的关闭了，messageListener会超时处理
-      }
-    }, 1000);
+    // 只依赖postMessage机制，不检查popup.closed以避免COOP错误
+    console.log('等待Google登录完成...');
     
     // 设置超时清理，防止无限等待
     setTimeout(() => {
-      clearInterval(checkClosed);
       window.removeEventListener('message', messageListener);
       try {
         if (popup && !popup.closed) {
