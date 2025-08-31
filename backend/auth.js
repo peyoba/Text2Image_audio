@@ -12,7 +12,7 @@ import { createHash, randomBytes } from 'node:crypto';
  * @param {number} expiresIn - 过期时间（秒）
  * @returns {string} JWT token
  */
-function generateJWT(payload, secret, expiresIn = 86400) {
+function generateJWT(payload, secret, expiresIn = 604800) {
     const header = {
         alg: 'HS256',
         typ: 'JWT'
@@ -190,7 +190,7 @@ export async function handleUserRegistration(userData, env) {
         const token = generateJWT(
             { userId: user.id, email: user.email },
             env.JWT_SECRET || 'your-secret-key',
-            86400 // 24小时
+            604800 // 7天 = 604800秒
         );
         
         // 返回用户信息（不包含敏感数据）
@@ -271,7 +271,7 @@ export async function handleUserLogin(credentials, env) {
         const token = generateJWT(
             { userId: user.id, email: user.email },
             env.JWT_SECRET || 'your-secret-key',
-            86400 // 24小时
+            604800 // 7天 = 604800秒
         );
         
         // 返回用户信息（不包含敏感数据）
@@ -701,7 +701,7 @@ export async function handleGoogleLogin(requestData, env) {
         const token = generateJWT(
             { userId: user.id, email: user.email },
             env.JWT_SECRET || 'your-secret-key',
-            86400 // 24小时
+            604800 // 7天 = 604800秒
         );
         
         // 返回用户信息（不包含敏感数据）
@@ -859,7 +859,7 @@ export async function handleGoogleOAuth(requestData, env) {
         const token = generateJWT(
             { userId: user.id, email: user.email },
             env.JWT_SECRET || 'your-secret-key',
-            86400 // 24小时
+            604800 // 7天 = 604800秒
         );
         
         // 返回用户信息（不包含敏感数据）

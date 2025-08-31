@@ -30,8 +30,11 @@ class AuthManager {
             const isValid = await this.validateToken();
             if (isValid) {
                 console.log('认证状态恢复成功');
+                // 设置定期检查token有效性（每小时检查一次）
+                this.setupTokenRefresh();
             } else {
                 console.log('Token已过期，需要重新登录');
+                this.logout();
             }
         } else {
             console.log('未找到认证信息');
@@ -350,6 +353,20 @@ class AuthManager {
      */
     clearToken() {
         localStorage.removeItem(this.tokenKey);
+    }
+
+    /**
+     * 设置token定期刷新
+     */
+    setupTokenRefresh() {
+        // 每小时检查一次token有效性
+        setInterval(async () => {
+            const isValid = await this.validateToken();
+            if (!isValid) {
+                console.log('Token验证失败，自动登出');
+                this.logout();
+            }
+        }, 3600000); // 1小时 = 3600000毫秒
     }
 
     /**
