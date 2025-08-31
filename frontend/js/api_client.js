@@ -343,7 +343,7 @@ class ApiClient {
         return [
             { id: 'flux', name: 'FLUX', description: '高质量图像生成，适合艺术创作' },
             { id: 'turbo', name: 'Turbo', description: '快速生成，适合快速原型' },
-            { id: 'gpt-image', name: 'GPT Image', description: 'OpenAI最新模型，高分辨率高精度' }
+            { id: 'kontext', name: 'Kontext', description: '图像到图像生成，适合图像编辑' }
         ];
     }
 

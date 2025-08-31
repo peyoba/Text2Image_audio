@@ -171,8 +171,8 @@ class UIHandler {
         const aiModelTurboOption = document.querySelector('option[value="turbo"]');
         if (aiModelTurboOption) aiModelTurboOption.textContent = t('aiModelTurbo');
         
-        const aiModelGptImageOption = document.querySelector('option[value="gpt-image"]');
-        if (aiModelGptImageOption) aiModelGptImageOption.textContent = t('aiModelGptImage');
+        const aiModelKontextOption = document.querySelector('option[value="kontext"]');
+        if (aiModelKontextOption) aiModelKontextOption.textContent = t('aiModelKontext');
         
         const modelHint = document.querySelector('.model-hint');
         if (modelHint) modelHint.textContent = t('modelHint');
@@ -492,29 +492,29 @@ class UIHandler {
      * 处理图像生成 - 支持Pollinations.AI新模型
      */
     async _handleImageGeneration(text) {
-        // 对于图片生成，先进行提示词优化
-        let optimizedText = text;
-        try {
+                // 对于图片生成，先进行提示词优化
+                let optimizedText = text;
+                try {
             this.showLoading(getCurrentLang && getCurrentLang() === 'zh' ? '正在优化提示词...' : 'Optimizing prompt...');
-            optimizedText = await this.apiClient.optimizeText(text);
-            console.log('UIHandler: 提示词优化成功，原始文本:', text, '优化后:', optimizedText);
-        } catch (optimizeError) {
-            console.warn('UIHandler: 提示词优化失败，使用原始文本:', optimizeError);
-            optimizedText = text;
-        }
+                    optimizedText = await this.apiClient.optimizeText(text);
+                    console.log('UIHandler: 提示词优化成功，原始文本:', text, '优化后:', optimizedText);
+                } catch (optimizeError) {
+                    console.warn('UIHandler: 提示词优化失败，使用原始文本:', optimizeError);
+                    optimizedText = text;
+                }
 
-        const numImages = parseInt(this.optionNumImages.value, 10);
-        const imageOptions = this._getImageOptions();
+                const numImages = parseInt(this.optionNumImages.value, 10);
+                const imageOptions = this._getImageOptions();
         const allImageUrls = [];
-        let failedCount = 0;
+                let failedCount = 0;
 
         // 尝试使用Pollinations.AI新功能
         const usePollinations = this._shouldUsePollinations();
-        
-        for (let i = 0; i < numImages; i++) {
-            try {
-                this.showLoading(`${t('generating')} ${i + 1}/${numImages}...`);
-                
+
+                for (let i = 0; i < numImages; i++) {
+                    try {
+                        this.showLoading(`${t('generating')} ${i + 1}/${numImages}...`);
+                        
                 let imageUrl;
                 if (usePollinations) {
                     // 使用Pollinations.AI新API
@@ -524,34 +524,34 @@ class UIHandler {
                     });
                 } else {
                     // 使用原有API
-                    const response = await this.apiClient.submitGenerationTask(optimizedText, 'image', {
-                        ...imageOptions,
+                        const response = await this.apiClient.submitGenerationTask(optimizedText, 'image', {
+                            ...imageOptions,
                         seed: Math.floor(Math.random() * 100000000)
-                    });
-                    if (response && response.data) {
+                        });
+                        if (response && response.data) {
                         imageUrl = `data:image/jpeg;base64,${response.data}`;
-                    } else {
-                        throw new Error('API did not return image data.');
-                    }
+                        } else {
+                            throw new Error('API did not return image data.');
+                        }
                 }
                 
                 allImageUrls.push(imageUrl);
-            } catch (error) {
-                console.error(`UIHandler: Error generating image ${i + 1}:`, error);
+                    } catch (error) {
+                        console.error(`UIHandler: Error generating image ${i + 1}:`, error);
                     let userFriendlyError = (getCurrentLang && getCurrentLang() === 'zh') ? `图片 ${i + 1} 生成失败。` : `Image ${i + 1} generation failed.`;
-                if (error.details && error.details.error) {
+                        if (error.details && error.details.error) {
                     userFriendlyError = error.details.error;
-                    if (error.details.details) {
-                        userFriendlyError += ` (${error.details.details})`;
+                            if (error.details.details) {
+                                userFriendlyError += ` (${error.details.details})`;
+                            }
+                        } else {
+                            userFriendlyError = `${t('error')}: ${error.message}`;
+                        }
+                        this.showError(userFriendlyError);
+                        failedCount++;
+                        break; 
                     }
-                } else {
-                    userFriendlyError = `${t('error')}: ${error.message}`;
                 }
-                this.showError(userFriendlyError);
-                failedCount++;
-                break;
-            }
-        }
 
         if (allImageUrls.length > 0) {
             this.showImageResult(allImageUrls);
@@ -639,12 +639,12 @@ class UIHandler {
                 console.log('用户未登录或图片管理器未加载，跳过自动保存');
             }
             
-            if (failedCount > 0) {
+                    if (failedCount > 0) {
                 const msg = (getCurrentLang && getCurrentLang() === 'zh') ? `成功生成 ${allImageUrls.length} 张图片，但有 ${failedCount} 次失败。请检查错误信息。` : `Successfully generated ${allImageUrls.length} images, but ${failedCount} failed. Please check the error messages.`;
                 this.showError(msg);
-            }
-        } else {
-            if(failedCount === 0) {
+                    }
+                } else {
+                    if(failedCount === 0) {
                 this.showError(getCurrentLang && getCurrentLang() === 'zh' ? '未能生成任何图片。' : 'No images were generated.');
             }
         }
@@ -658,10 +658,10 @@ class UIHandler {
             this.showLoading(getCurrentLang && getCurrentLang() === 'zh' ? '正在生成音频...' : 'Generating audio...');
             
             // 使用原有的音频生成API
-            const audioBuffer = await this.apiClient.submitGenerationTask(text, 'audio');
-            const audioBlob = new Blob([audioBuffer], { type: 'audio/mpeg' });
-            const audioUrl = URL.createObjectURL(audioBlob);
-            this.showAudioResult(audioUrl);
+                const audioBuffer = await this.apiClient.submitGenerationTask(text, 'audio');
+                const audioBlob = new Blob([audioBuffer], { type: 'audio/mpeg' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+                this.showAudioResult(audioUrl);
         } catch (error) {
             console.error('UIHandler: Audio generation failed:', error);
             throw error;
@@ -703,16 +703,16 @@ class UIHandler {
         const aspectRatioSelect = document.getElementById('option-aspect-ratio');
         if (aspectRatioSelect) {
             const aspectRatioValue = aspectRatioSelect.value;
-            if (aspectRatioValue === 'custom') {
+        if (aspectRatioValue === 'custom') {
                 const widthInput = document.getElementById('option-width');
                 const heightInput = document.getElementById('option-height');
                 imageOptions.width = parseInt(widthInput?.value, 10);
                 imageOptions.height = parseInt(heightInput?.value, 10);
-            } else {
+        } else {
                 const selectedOption = aspectRatioSelect.selectedOptions[0];
-                imageOptions.width = parseInt(selectedOption.dataset.width, 10);
-                imageOptions.height = parseInt(selectedOption.dataset.height, 10);
-            }
+            imageOptions.width = parseInt(selectedOption.dataset.width, 10);
+            imageOptions.height = parseInt(selectedOption.dataset.height, 10);
+        }
         }
         
         // 验证尺寸

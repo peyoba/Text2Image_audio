@@ -214,10 +214,11 @@ export default {
                     const actualNologo = requestData.nologo; // Directly from requestData
                     const seed = requestData.seed; // Directly from requestData, if provided
                     const negative = requestData.negative; // 新增，负面提示词
+                    const model = requestData.model || 'flux'; // 模型参数，默认为flux
                     // --- End of Actual Parameters ---
 
-                    logInfo(env, `[Worker Log] Processing image generation for prompt: '${actualPrompt.substring(0,100)}...', width: ${actualWidth}, height: ${actualHeight}, seed: ${seed}, nologo: ${actualNologo}, negative: ${negative}`);
-                    const imageArrayBuffer = await generateImageFromPollinations(actualPrompt, env, actualWidth, actualHeight, seed, actualNologo, negative);
+                    logInfo(env, `[Worker Log] Processing image generation for prompt: '${actualPrompt.substring(0,100)}...', width: ${actualWidth}, height: ${actualHeight}, seed: ${seed}, nologo: ${actualNologo}, negative: ${negative}, model: ${model}`);
+                    const imageArrayBuffer = await generateImageFromPollinations(actualPrompt, env, actualWidth, actualHeight, seed, actualNologo, negative, model);
                     // Convert ArrayBuffer to Base64 string
                     const base64Image = arrayBufferToBase64(imageArrayBuffer);
                     return jsonResponse({ type: genType, data: base64Image, format: "base64", content_type: "image/jpeg" }, env); // Assuming jpeg
@@ -252,8 +253,8 @@ export default {
                 try {
                     logInfo(env, `[Worker Log] Processing Pollinations image generation - Prompt: ${prompt.substring(0, 50)}..., Model: ${model}, Size: ${width}x${height}`);
                     
-                    // 使用现有的generateImageFromPollinations函数
-                    const imageArrayBuffer = await generateImageFromPollinations(prompt, env, width, height, seed, nologo);
+                    // 使用现有的generateImageFromPollinations函数，添加negative参数和model参数
+                    const imageArrayBuffer = await generateImageFromPollinations(prompt, env, width, height, seed, nologo, '', model);
                     
                     // 转换为Base64字符串
                     const base64Image = arrayBufferToBase64(imageArrayBuffer);
@@ -431,7 +432,7 @@ async function optimizePromptWithDeepseek(textPrompt, env) {
     }
 }
 
-async function generateImageFromPollinations(prompt, env, width, height, seed, nologo, negative) {
+async function generateImageFromPollinations(prompt, env, width, height, seed, nologo, negative, model = 'flux') {
     let imageApiBase = env.POLLINATIONS_IMAGE_API_BASE || "https://image.pollinations.ai"; // Default base
     if (!imageApiBase) {
         console.error("[Worker Error] Image API base URL not provided in env.POLLINATIONS_IMAGE_API_BASE");
@@ -441,17 +442,20 @@ async function generateImageFromPollinations(prompt, env, width, height, seed, n
     if (imageApiBase.endsWith('/')) {
         imageApiBase = imageApiBase.slice(0, -1);
     }
+    
     const promptPath = "/prompt/";
     const encodedPrompt = encodeURIComponent(prompt);
+    
     const params = new URLSearchParams();
     if (width) params.append('width', width);
     if (height) params.append('height', height);
-    if (seed) params.append('seed', seed);
+    if (seed && seed !== -1) params.append('seed', seed);
     if (nologo) params.append('nologo', nologo);
-    if (negative) params.append('negative', encodeURIComponent(negative)); // Ensure negative prompt is also encoded
+    if (negative) params.append('negative', encodeURIComponent(negative));
+    if (model) params.append('model', model);
 
     const fullUrl = `${imageApiBase}${promptPath}${encodedPrompt}?${params.toString()}`;
-    logInfo(env, `[Worker Log] 向 Pollinations Image API 发送请求: ${fullUrl}`);
+    logInfo(env, `[Worker Log] 向 Pollinations Image API 发送请求 (模型: ${model}): ${fullUrl}`);
     
     // 创建请求头并添加认证信息
     const headers = {};

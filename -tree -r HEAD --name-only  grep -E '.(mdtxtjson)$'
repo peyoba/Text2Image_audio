@@ -1,0 +1,10 @@
+[33mf06135a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m 添加ads.txt到网站根目录，解决Google AdSense检测问题
+[33m7146408[m 修复showModal未定义错误：将函数定义移到页面最前面，移除调试端点
+[33m2224519[m 修复Google OAuth密钥配置：使用GOOGLE_CLIENT_SECRET_NEW避免冲突
+[33m06e49a2[m 优化Google OAuth弹窗处理：移除COOP错误，只依赖postMessage机制
+[33m1884ae1[m revert: 恢复原始配置，删除无用文件
+[33m6198170[m fix: 解决SSL证书问题，使用自定义域名
+[33m16f5016[m debug: 添加Google OAuth调试日志
+[33m3f6d3df[m fix: 修复Google OAuth 401错误
+[33m14f5122[m fix: 修复Google登录按钮不显示的问题
+[33m841f578[m feat: 完成Google OAuth部署配置

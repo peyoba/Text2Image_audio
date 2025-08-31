@@ -764,20 +764,29 @@ export async function handleGoogleOAuth(requestData, env) {
         });
 
         if (!tokenResponse.ok) {
-            const errorText = await tokenResponse.text();
-            console.error('Google token exchange failed:', {
-                status: tokenResponse.status,
-                statusText: tokenResponse.statusText,
-                error: errorText,
-                requestBody: {
-                    client_id: '432588178769-n7vgnnmsh8l118heqmgtj92iir4i4n3s.apps.googleusercontent.com',
-                    redirect_uri: 'https://aistone.org/auth/google/callback',
-                    grant_type: 'authorization_code'
-                }
-            });
+            let errorPayload;
+            try {
+                errorPayload = await tokenResponse.json();
+            } catch (_) {
+                const text = await tokenResponse.text();
+                errorPayload = { error: 'unknown_error', error_description: text };
+            }
+
+            // 统一的人性化错误信息
+            let friendly = 'Google授权失败，请重试';
+            if (errorPayload && typeof errorPayload.error === 'string') {
+                const err = errorPayload.error;
+                if (err === 'invalid_grant') friendly = '授权码无效或已过期，请重新登录';
+                else if (err === 'redirect_uri_mismatch') friendly = '回调地址不匹配（redirect_uri_mismatch）';
+                else if (err === 'invalid_client') friendly = '客户端ID或密钥无效（invalid_client）';
+            }
+
             return {
                 success: false,
-                error: `Google授权失败: ${errorText}`
+                error: friendly,
+                google_error: errorPayload?.error || null,
+                google_error_description: errorPayload?.error_description || null,
+                status: tokenResponse.status
             };
         }
 
