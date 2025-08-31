@@ -33,7 +33,10 @@ function generateJWT(payload, secret, expiresIn = 604800) {
         .update(`${encodedHeader}.${encodedClaims}.${secret}`)
         .digest('hex');
     
-    return `${encodedHeader}.${encodedClaims}.${signature}`;
+    // 对签名进行base64编码以保持JWT格式一致性
+    const encodedSignature = btoa(signature);
+    
+    return `${encodedHeader}.${encodedClaims}.${encodedSignature}`;
 }
 
 /**
@@ -56,7 +59,10 @@ function verifyJWT(token, secret) {
             .update(`${encodedHeader}.${encodedClaims}.${secret}`)
             .digest('hex');
         
-        if (signature !== expectedSignature) {
+        // 解码base64签名进行对比
+        const decodedSignature = atob(signature);
+        
+        if (decodedSignature !== expectedSignature) {
             return null;
         }
         
