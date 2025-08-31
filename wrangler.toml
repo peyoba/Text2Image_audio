@@ -43,11 +43,21 @@ compatibility_flags = ["nodejs_compat"] # 启用Node.js兼容性，支持crypto�
 mode = "smart" 
 
 [vars]
+# API配置
+POLLINATIONS_IMAGE_API_BASE = "https://image.pollinations.ai"
+POLLINATIONS_TEXT_API_BASE = "https://text.pollinations.ai"
+DEEPSEEK_API_URL = "https://api.siliconflow.cn/v1/chat/completions"
 DEEPSEEK_MODEL = "deepseek-ai/DeepSeek-V2.5"
+
+# 音频配置
 DEFAULT_AUDIO_MODEL = "openai-audio"
 DEFAULT_AUDIO_VOICE = "nova"
-LOG_LEVEL = "info"
+
+# 认证配置
 JWT_SECRET = "your-super-secret-jwt-key-change-this-in-production"
+
+# 日志配置
+LOG_LEVEL = "info"
 
 # KV Namespace 绑定 (用于存储用户数据)
 [[kv_namespaces]]
