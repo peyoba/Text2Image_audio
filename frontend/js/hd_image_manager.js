@@ -75,6 +75,9 @@ class HDImageManager {
                 negative: imageData.negative
             };
             
+            const token = window.authManager.getToken();
+            console.log('HDImageManager: 当前token:', token ? `${token.substring(0, 20)}...` : 'null');
+            console.log('HDImageManager: 用户认证状态:', window.authManager.isLoggedIn());
             console.log('HDImageManager: 发送保存请求', {
                 url: `${this.baseUrl}/images/save`,
                 data: { ...requestData, data: requestData.data.substring(0, 50) + '...' }
@@ -85,7 +88,7 @@ class HDImageManager {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${window.authManager.getToken()}`
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({
                     prompt: imageData.prompt,
