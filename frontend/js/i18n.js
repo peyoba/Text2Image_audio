@@ -47,6 +47,8 @@ const i18n = {
         fourImages: '4 Images',
         aspectRatioLandscape2K: 'Landscape 2K (16:9 - 2560x1440)',
         aspectRatioPortrait2K: 'Portrait 2K (9:16 - 1440x2560)',
+        aspectRatioLandscape4K: 'Landscape 4K (16:9 - 3840x2160)',
+        aspectRatioPortrait4K: 'Portrait 4K (9:16 - 2160x3840)',
         
         // Audio options
         audioOptions: 'Audio Options',
@@ -166,6 +168,8 @@ const i18n = {
         fourImages: '4张图片',
         aspectRatioLandscape2K: '横向2K (16:9 - 2560x1440)',
         aspectRatioPortrait2K: '竖向2K (9:16 - 1440x2560)',
+        aspectRatioLandscape4K: '横向4K (16:9 - 3840x2160)',
+        aspectRatioPortrait4K: '竖向4K (9:16 - 2160x3840)',
         
         // 音频选项
         audioOptions: '音频选项',
@@ -483,6 +487,8 @@ const i18n = {
         fourImages: '4 Images',
         aspectRatioLandscape2K: 'Landscape 2K (16:9 - 2560x1440)',
         aspectRatioPortrait2K: 'Portrait 2K (9:16 - 1440x2560)',
+        aspectRatioLandscape4K: 'Landscape 4K (16:9 - 3840x2160)',
+        aspectRatioPortrait4K: 'Portrait 4K (9:16 - 2160x3840)',
         
         // Audio options
         audioOptions: 'Audio Options',

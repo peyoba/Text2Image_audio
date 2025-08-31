@@ -612,16 +612,18 @@
                             <option value="9:16" data-width="720" data-height="1280" data-i18n="aspectRatioPortrait">Portrait (9:16 - 720x1280)</option>
                             <option value="4:3" data-width="1024" data-height="768" data-i18n="aspectRatioStandard">Standard (4:3 - 1024x768)</option>
                             <option value="3:4" data-width="768" data-height="1024" data-i18n="aspectRatioStandardVertical">Standard Vertical (3:4 - 768x1024)</option>
-                            <option value="custom" data-i18n="aspectRatioCustom">Custom Dimensions</option>
                             <option value="16:9-2k" data-width="2560" data-height="1440" data-i18n="aspectRatioLandscape2K">Landscape 2K (16:9 - 2560x1440)</option>
                             <option value="9:16-2k" data-width="1440" data-height="2560" data-i18n="aspectRatioPortrait2K">Portrait 2K (9:16 - 1440x2560)</option>
+                            <option value="16:9-4k" data-width="3840" data-height="2160" data-i18n="aspectRatioLandscape4K">Landscape 4K (16:9 - 3840x2160)</option>
+                            <option value="9:16-4k" data-width="2160" data-height="3840" data-i18n="aspectRatioPortrait4K">Portrait 4K (9:16 - 2160x3840)</option>
+                            <option value="custom" data-i18n="aspectRatioCustom">Custom Dimensions</option>
                         </select>
                     </div>
                     <div id="custom-dimensions-container" style="display:none;">
                         <label for="option-width" data-i18n="width">宽度 (px)</label>
-                        <input type="number" id="option-width" name="option-width" placeholder="For example: 1024" min="256" max="2048" step="64">
+                        <input type="number" id="option-width" name="option-width" placeholder="For example: 1024" min="256" max="4096" step="64">
                         <label for="option-height" data-i18n="height">高度 (px)</label>
-                        <input type="number" id="option-height" name="option-height" placeholder="For example: 1024" min="256" max="2048" step="64">
+                        <input type="number" id="option-height" name="option-height" placeholder="For example: 1024" min="256" max="4096" step="64">
                     </div>
                     <div>
                         <label for="option-num-images" data-i18n="numImages">生成数量</label>
