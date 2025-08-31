@@ -76,9 +76,9 @@
         <priority>0.6</priority>
     </url>
     
-    <!-- AISTONE GPT Image 模型页面 -->
+    <!-- AISTONE Kontext 模型页面 -->
     <url>
-        <loc>https://aistone.org/#gpt-image</loc>
+        <loc>https://aistone.org/#kontext</loc>
         <lastmod>2025-01-23</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>

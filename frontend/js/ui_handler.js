@@ -674,7 +674,7 @@ class UIHandler {
     _shouldUsePollinations() {
         // 检查是否有新的AI模型选择，仅用于图像生成
         const aiModel = document.getElementById('option-ai-model')?.value;
-        return aiModel && (aiModel === 'gpt-image' || aiModel === 'turbo');
+        return aiModel && (aiModel === 'kontext' || aiModel === 'turbo');
     }
 
     _ensureLoadingIsHidden() { // 新增一个方法确保loading最终被隐藏

@@ -281,7 +281,7 @@ class ApiClient {
      * 使用Pollinations.AI生成图像（通过后端代理）
      * @param {string} prompt - 图像描述
      * @param {Object} options - 生成选项
-     * @param {string} options.model - 模型名称 (flux, turbo, gpt-image)
+     * @param {string} options.model - 模型名称 (flux, turbo, kontext)
      * @param {number} options.width - 图像宽度
      * @param {number} options.height - 图像高度
      * @param {number} options.seed - 随机种子
