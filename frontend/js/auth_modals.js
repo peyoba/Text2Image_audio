@@ -314,7 +314,14 @@ async function handleGoogleLogin() {
       
       console.log('处理Google OAuth消息:', event.data);
       
-      if (event.data.type === 'GOOGLE_AUTH_SUCCESS') {
+      if (event.data.type === 'GOOGLE_AUTH_LOGIN_READY') {
+        // 回调页已写入 token+user，本页只需校验并关闭弹窗
+        try { window.authManager?.validateToken().then(()=>window.authManager?.forceUpdateUI()); } catch(_){}
+        try { if (typeof closeModal==='function') closeModal('loginModal'); } catch(_){ }
+        window.removeEventListener('message', messageListener);
+        popup && popup.close();
+        return;
+      } else if (event.data.type === 'GOOGLE_AUTH_SUCCESS') {
         // 处理成功的Google登录
         console.log('Google授权成功，code:', event.data.code);
         handleGoogleAuthSuccess(event.data.code, state);

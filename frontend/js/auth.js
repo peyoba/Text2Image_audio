@@ -16,6 +16,39 @@ class AuthManager {
         
         // 初始化时检查本地存储的token
         this.init();
+
+        // 跨窗口/标签页：监听回调页写入的 token 与用户信息
+        try {
+            const self = this;
+            window.addEventListener('storage', (e) => {
+                if (!e) return;
+                if (e.key === self.tokenKey) {
+                    // 新 token 到达后，立即校验并刷新 UI
+                    self.validateToken().then(() => self.forceUpdateUI());
+                } else if (e.key === self.userKey) {
+                    // 用户信息到达后，同步刷新 UI
+                    const u = self.getUser();
+                    if (u) {
+                        self.currentUser = u;
+                        self.isAuthenticated = !!self.getToken();
+                        self.forceUpdateUI();
+                    }
+                }
+            });
+
+            // 回调页通知：无需依赖 postMessage 里传 code
+            window.addEventListener('message', (event) => {
+                const data = event && event.data;
+                if (data && data.type === 'GOOGLE_AUTH_LOGIN_READY') {
+                    self.validateToken().then(() => {
+                        self.forceUpdateUI();
+                        if (typeof closeModal === 'function') {
+                            try { closeModal('loginModal'); } catch(_){}
+                        }
+                    });
+                }
+            });
+        } catch(_) {}
     }
 
     // 认证状态变更事件派发，便于其他模块感知
