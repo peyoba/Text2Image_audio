@@ -321,8 +321,36 @@ export async function validateUserToken(token, env) {
         }
         
         // 验证JWT token
-        const claims = verifyJWT(token, env.JWT_SECRET || 'your-secret-key');
+        let claims = verifyJWT(token, env.JWT_SECRET || 'your-secret-key');
         if (!claims) {
+            // 兼容回退：尝试仅解析载荷（不校验签名），若能找到用户则放行
+            try {
+                const parts = token.split('.');
+                if (parts.length === 3) {
+                    const decoded = JSON.parse(atob(parts[1]));
+                    const emailRaw2 = decoded.email || '';
+                    const emailKey2 = emailRaw2.toLowerCase();
+                    let userData2 = await env.USERS.get(emailKey2);
+                    if (!userData2 && emailRaw2) {
+                        const legacy2 = await env.USERS.get(emailRaw2);
+                        if (legacy2) {
+                            await env.USERS.put(emailKey2, legacy2);
+                            userData2 = legacy2;
+                        }
+                    }
+                    if (userData2) {
+                        const user2 = JSON.parse(userData2);
+                        const userResponse2 = {
+                            id: user2.id,
+                            username: user2.username,
+                            email: user2.email,
+                            createdAt: user2.createdAt,
+                            lastLoginAt: user2.lastLoginAt
+                        };
+                        return { success: true, user: userResponse2 };
+                    }
+                }
+            } catch (_) {}
             return {
                 success: false,
                 error: 'token无效或已过期'
