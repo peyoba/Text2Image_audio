@@ -18,27 +18,47 @@ class AuthManager {
         this.init();
     }
 
+    // 认证状态变更事件派发，便于其他模块感知
+    emitAuthChanged(isAuthenticated) {
+        try {
+            const detail = { isAuthenticated: !!isAuthenticated, user: this.currentUser };
+            window.dispatchEvent(new CustomEvent('authChanged', { detail }));
+        } catch (e) { /* 忽略 */ }
+    }
+
     /**
      * 初始化认证状态
      */
     async init() {
         const token = this.getToken();
         const user = this.getUser();
-        
-        if (token && user) {
-            // 验证token是否仍然有效
+
+        if (token) {
+            // 只要存在token就尝试校验（即使本地没有user_info，也可从服务端取回）
             const isValid = await this.validateToken();
             if (isValid) {
                 console.log('认证状态恢复成功');
                 // 设置定期检查token有效性（每小时检查一次）
                 this.setupTokenRefresh();
-            } else {
-                console.log('Token已过期，需要重新登录');
-                this.logout();
+                this.emitAuthChanged(true);
+                return;
             }
+            console.log('Token已过期或校验失败，进入未登录态');
+            // 静默清理，避免误触发“已成功登出”提示
+            this.clearToken();
+            this.clearUser();
+            this.isAuthenticated = false;
+            this.currentUser = null;
+            this.updateUI();
+            this.emitAuthChanged(false);
         } else {
             console.log('未找到认证信息');
+            // 若仅本地残留了user_info但无token，同样视为未登录
+            if (user) {
+                this.clearUser();
+            }
             this.updateUI();
+            this.emitAuthChanged(false);
         }
     }
 
@@ -67,6 +87,7 @@ class AuthManager {
                         this.updateUI();
                         this.forceUpdateUI(); // 强制刷新UI
                         console.log('注册成功，用户信息已保存');
+                        this.emitAuthChanged(true);
                         return { success: true, message: '注册成功！' };
                     } else {
                 return { success: false, message: (result && result.error) || '注册失败' };
@@ -102,6 +123,7 @@ class AuthManager {
                         this.updateUI();
                         this.forceUpdateUI(); // 强制刷新UI
                         console.log('登录成功，用户信息已保存');
+            this.emitAuthChanged(true);
             return { success: true, message: (getCurrentLang && getCurrentLang()==='zh') ? '登录成功！' : 'Logged in successfully' };
                     } else {
             return { success: false, message: (result && result.error) || ((getCurrentLang && getCurrentLang()==='zh') ? '登录失败' : 'Login failed') };
@@ -121,6 +143,7 @@ class AuthManager {
         this.isAuthenticated = false;
         this.currentUser = null;
         this.updateUI();
+        this.emitAuthChanged(false);
         
         // 显示登出成功消息
         this.showMessage((getCurrentLang && getCurrentLang()==='zh') ? '已成功登出' : 'Logged out successfully', 'success');
@@ -227,6 +250,7 @@ class AuthManager {
                 this.updateUI();
                 this.forceUpdateUI();
                 console.log('Google登录成功，用户信息已保存');
+                this.emitAuthChanged(true);
                 return { 
                     success: true, 
                     message: result.message || ((getCurrentLang && getCurrentLang()==='zh') ? 'Google登录成功！' : 'Google login successful!')
@@ -272,6 +296,7 @@ class AuthManager {
                 this.updateUI();
                 this.forceUpdateUI();
                 console.log('Google OAuth登录成功，用户信息已保存');
+                this.emitAuthChanged(true);
                 return { 
                     success: true, 
                     message: result.message || ((getCurrentLang && getCurrentLang()==='zh') ? 'Google登录成功！' : 'Google login successful!')
@@ -295,7 +320,7 @@ class AuthManager {
      * 验证token是否有效
      * @returns {Promise<boolean>} token是否有效
      */
-    async validateToken() {
+    async validateToken(retryOn401 = true) {
         const token = this.getToken();
         if (!token) return false;
 
@@ -314,20 +339,24 @@ class AuthManager {
                     this.currentUser = result.user;
                     this.isAuthenticated = true;
                     this.updateUI();
+                    this.emitAuthChanged(true);
                     return true;
                 } else {
                     console.log('Token验证失败：服务器返回无效数据');
-                    this.logout();
+                    // 不立即登出，返回false让上层决定
                     return false;
                 }
             } else {
                 console.log('Token验证失败：HTTP状态码', response.status);
-                this.logout();
+                // 对可能的瞬时401做一次短延迟重试，避免进入页面即误判登出
+                if (response.status === 401 && retryOn401) {
+                    await new Promise(r => setTimeout(r, 700));
+                    return await this.validateToken(false);
+                }
                 return false;
             }
         } catch (error) {
             console.error('Token验证错误:', error);
-            this.logout();
             return false;
         }
     }
@@ -337,7 +366,11 @@ class AuthManager {
      * @returns {string|null} token
      */
     getToken() {
-        return localStorage.getItem(this.tokenKey);
+        const fromLS = localStorage.getItem(this.tokenKey);
+        if (fromLS) return fromLS;
+        // 回退从Cookie读取（解决跨子域/新窗口localStorage缺失）
+        const cookieMatch = document.cookie.match(new RegExp('(?:^|; )' + this.tokenKey + '=([^;]*)'));
+        return cookieMatch ? decodeURIComponent(cookieMatch[1]) : null;
     }
 
     /**
@@ -345,14 +378,46 @@ class AuthManager {
      * @param {string} token - JWT token
      */
     setToken(token) {
-        localStorage.setItem(this.tokenKey, token);
+        try { localStorage.setItem(this.tokenKey, token); } catch(_) {}
+        // 同步写入Cookie，7天有效
+        try {
+            const isHTTPS = location.protocol === 'https:';
+            const attrs = [
+                `${this.tokenKey}=${encodeURIComponent(token)}`,
+                'path=/',
+                `max-age=${7*24*60*60}`
+            ];
+            // 尝试共享到主域
+            const parts = location.hostname.split('.');
+            if (parts.length >= 2 && !/^\d+\.\d+\.\d+\.\d+$/.test(location.hostname)) {
+                const apex = parts.slice(-2).join('.');
+                attrs.push(`domain=.${apex}`);
+            }
+            if (isHTTPS) {
+                attrs.push('Secure');
+                attrs.push('SameSite=None');
+            } else {
+                attrs.push('SameSite=Lax');
+            }
+            document.cookie = attrs.join('; ');
+        } catch(_) {}
     }
 
     /**
      * 清除认证token
      */
     clearToken() {
-        localStorage.removeItem(this.tokenKey);
+        try { localStorage.removeItem(this.tokenKey); } catch(_) {}
+        // 删除Cookie
+        try {
+            const parts = location.hostname.split('.');
+            const baseAttrs = [`${this.tokenKey}=`, 'path=/', 'max-age=0'];
+            document.cookie = baseAttrs.join('; '); // 当前域
+            if (parts.length >= 2 && !/^\d+\.\d+\.\d+\.\d+$/.test(location.hostname)) {
+                const apex = parts.slice(-2).join('.');
+                document.cookie = [...baseAttrs, `domain=.${apex}`].join('; ');
+            }
+        } catch(_) {}
     }
 
     /**
