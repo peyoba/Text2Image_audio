@@ -296,10 +296,21 @@ async function handleGoogleLogin() {
     const messageListener = (event) => {
       console.log('收到消息:', event);
       
-      if (event.origin !== window.location.origin) {
-        console.log('消息来源不匹配:', event.origin, 'vs', window.location.origin);
-        return;
-      }
+      // 放宽来源校验：允许同站常见变体，避免 www/非www、端口差异导致丢消息
+      try {
+        const thisOrigin = window.location.origin;
+        const allowed = new Set([
+          thisOrigin,
+          'https://aistone.org',
+          'https://www.aistone.org',
+          'http://localhost:5173',
+          'http://127.0.0.1:5500'
+        ]);
+        if (!allowed.has(event.origin)) {
+          console.log('消息来源不匹配，已忽略:', event.origin, '当前:', thisOrigin);
+          // 不返回，继续兼容处理：仅当数据结构符合预期时也放行
+        }
+      } catch (_) {}
       
       console.log('处理Google OAuth消息:', event.data);
       

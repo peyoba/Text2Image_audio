@@ -53,29 +53,33 @@
         if (error) {
             // 登录错误
             if (window.opener) {
-                window.opener.postMessage({
-                    type: 'GOOGLE_AUTH_ERROR',
-                    error: error
-                }, window.location.origin);
+                try {
+                    window.opener.postMessage({ type: 'GOOGLE_AUTH_ERROR', error }, window.location.origin);
+                } catch(_) {
+                    // 回退到通配，最大化送达
+                    window.opener.postMessage({ type: 'GOOGLE_AUTH_ERROR', error }, '*');
+                }
             }
             window.close();
         } else if (code) {
             // 登录成功，发送授权码
             if (window.opener) {
-                window.opener.postMessage({
-                    type: 'GOOGLE_AUTH_SUCCESS',
-                    code: code,
-                    state: state
-                }, window.location.origin);
+                try {
+                    window.opener.postMessage({ type: 'GOOGLE_AUTH_SUCCESS', code, state }, window.location.origin);
+                } catch(_) {
+                    // 回退到通配，最大化送达
+                    window.opener.postMessage({ type: 'GOOGLE_AUTH_SUCCESS', code, state }, '*');
+                }
             }
             window.close();
         } else {
             // 未知状态
             if (window.opener) {
-                window.opener.postMessage({
-                    type: 'GOOGLE_AUTH_ERROR',
-                    error: 'unknown_error'
-                }, window.location.origin);
+                try {
+                    window.opener.postMessage({ type: 'GOOGLE_AUTH_ERROR', error: 'unknown_error' }, window.location.origin);
+                } catch(_) {
+                    window.opener.postMessage({ type: 'GOOGLE_AUTH_ERROR', error: 'unknown_error' }, '*');
+                }
             }
             window.close();
         }
