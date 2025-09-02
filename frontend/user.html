@@ -9,6 +9,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="css/style.css" rel="stylesheet">
+  <script>
+    // API Base：可被localStorage覆盖，确保与首页一致
+    (function(){
+      try {
+        var saved = localStorage.getItem('api_base');
+        if (saved && typeof saved === 'string' && saved.trim()) {
+          window.API_BASE = saved.trim();
+        }
+      } catch (e) {}
+      window.setApiBase = function(url){
+        if (typeof url === 'string' && url.trim()) {
+          window.API_BASE = url.trim();
+          try { localStorage.setItem('api_base', window.API_BASE); } catch(e){}
+        }
+      };
+    })();
+    // 全局模态框函数（与首页一致）
+    function showModal(modalId){ var m=document.getElementById(modalId); if(m){ m.style.display='block'; } }
+    function closeModal(modalId){ var m=document.getElementById(modalId); if(m){ m.style.display='none'; } }
+  </script>
   <style>
     body { background: #0b1220; color: #e5e7eb; }
     .container { max-width: 1100px; margin: 20px auto; padding: 24px 28px; }
@@ -131,12 +151,12 @@
         }
       });
 
-    // 保证用户已登录后初始化图片管理器与账户信息
+    // 初始化图片管理器与账户信息（避免再次强制调用 init 导致重复校验）
     document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         if (window.authManager) {
-          window.authManager.init?.().then(() => {
-            if (window.authManager.isLoggedIn() && window.hdImageManager) {
+          if (window.authManager.isLoggedIn && window.authManager.isLoggedIn()) {
+            if (window.hdImageManager && window.hdImageManager.init) {
               window.hdImageManager.init();
             }
             // 填充账户信息
@@ -151,7 +171,7 @@
               const tpl = (getCurrentLang()==='zh'? '您好，{name}' : 'Hello, {name}');
               if (greetingEl) greetingEl.textContent = tpl.replace('{name}', name);
             }
-          });
+          }
         }
       }, 300);
 

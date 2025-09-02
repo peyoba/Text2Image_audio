@@ -329,8 +329,32 @@ export async function validateUserToken(token, env) {
             };
         }
         
-        // 获取用户数据
-        const userData = await env.USERS.get(claims.email);
+        // 获取用户数据（统一按小写邮箱作为KV键），兼容旧键（原始大小写）
+        const emailRaw = claims.email || '';
+        const emailKey = emailRaw.toLowerCase();
+        let userData = await env.USERS.get(emailKey);
+        if (!userData) {
+            // 兼容旧版本：尝试原始大小写键
+            const legacyData = await env.USERS.get(emailRaw);
+            if (legacyData) {
+                // 迁移到小写键，保持向后兼容
+                await env.USERS.put(emailKey, legacyData);
+                userData = legacyData;
+            } else {
+                // KV 可能因最终一致性暂未可见：当签名有效但用户不存在时，基于claims构建最小用户并回填KV，避免首次Google登录后短时间401
+                const minimalUser = {
+                    id: claims.userId,
+                    username: emailKey.split('@')[0],
+                    email: emailKey,
+                    createdAt: new Date().toISOString(),
+                    lastLoginAt: new Date().toISOString(),
+                    isActive: true,
+                    authProvider: 'google'
+                };
+                try { await env.USERS.put(emailKey, JSON.stringify(minimalUser)); } catch(_){}
+                userData = JSON.stringify(minimalUser);
+            }
+        }
         if (!userData) {
             return {
                 success: false,
@@ -666,8 +690,11 @@ export async function handleGoogleLogin(requestData, env) {
             };
         }
         
-        // 检查用户是否已存在
-        let userData = await env.USERS.get(googleUser.email);
+        // 统一邮箱为小写并去除空格
+        const emailLower = (googleUser.email || '').toLowerCase().trim();
+
+        // 检查用户是否已存在（以小写邮箱为KV键）
+        let userData = await env.USERS.get(emailLower);
         let user;
         
         if (userData) {
@@ -684,8 +711,8 @@ export async function handleGoogleLogin(requestData, env) {
             const userId = generateUserId();
             user = {
                 id: userId,
-                username: googleUser.name || googleUser.email.split('@')[0],
-                email: googleUser.email,
+                username: googleUser.name || emailLower.split('@')[0],
+                email: emailLower,
                 passwordHash: null, // Google用户不需要密码
                 salt: null,
                 isActive: true,
@@ -700,8 +727,8 @@ export async function handleGoogleLogin(requestData, env) {
             };
         }
         
-        // 保存用户数据
-        await env.USERS.put(googleUser.email, JSON.stringify(user));
+        // 保存用户数据（键为小写邮箱）
+        await env.USERS.put(emailLower, JSON.stringify(user));
         
         // 生成JWT token
         const token = generateJWT(
@@ -823,8 +850,11 @@ export async function handleGoogleOAuth(requestData, env) {
             };
         }
         
-        // 查找或创建用户
-        let user = await env.USERS.get(googleUser.email);
+        // 统一邮箱为小写并去除空格
+        const emailLower = (googleUser.email || '').toLowerCase().trim();
+
+        // 查找或创建用户（以小写邮箱为KV键）
+        let user = await env.USERS.get(emailLower);
         
         if (user) {
             // 用户已存在，更新登录时间和Google信息
@@ -838,14 +868,14 @@ export async function handleGoogleOAuth(requestData, env) {
             };
             user.authProvider = 'google';
             
-            await env.USERS.put(googleUser.email, JSON.stringify(user));
+            await env.USERS.put(emailLower, JSON.stringify(user));
         } else {
             // 创建新用户
             const userId = generateUUID();
             user = {
                 id: userId,
-                username: googleUser.name || googleUser.email.split('@')[0],
-                email: googleUser.email,
+                username: googleUser.name || emailLower.split('@')[0],
+                email: emailLower,
                 password: null, // Google用户没有密码
                 createdAt: new Date().toISOString(),
                 lastLoginAt: new Date().toISOString(),
@@ -858,7 +888,7 @@ export async function handleGoogleOAuth(requestData, env) {
                 }
             };
             
-            await env.USERS.put(googleUser.email, JSON.stringify(user));
+            await env.USERS.put(emailLower, JSON.stringify(user));
         }
         
         // 生成JWT token
@@ -892,6 +922,35 @@ export async function handleGoogleOAuth(requestData, env) {
             success: false,
             error: 'Google登录失败，请稍后重试'
         };
+    }
+}
+
+// 生成用户ID（用于Google首次登录新用户）
+function generateUserId() {
+    try {
+        return randomBytes(16).toString('hex');
+    } catch (_) {
+        // 退化实现
+        return 'u_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+    }
+}
+
+// 简单UUID v4 生成（不依赖全局 crypto.randomUUID）
+function generateUUID() {
+    try {
+        const b = randomBytes(16);
+        // Set version (4) and variant (RFC 4122)
+        b[6] = (b[6] & 0x0f) | 0x40;
+        b[8] = (b[8] & 0x3f) | 0x80;
+        const hex = [...b].map(x => x.toString(16).padStart(2, '0'));
+        return `${hex[0]}${hex[1]}${hex[2]}${hex[3]}-${hex[4]}${hex[5]}-${hex[6]}${hex[7]}-${hex[8]}${hex[9]}-${hex[10]}${hex[11]}${hex[12]}${hex[13]}${hex[14]}${hex[15]}`;
+    } catch (_) {
+        // 退化实现
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+            const r = Math.random() * 16 | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
     }
 }
 
