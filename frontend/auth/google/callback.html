@@ -106,6 +106,11 @@
                         if (window.opener) {
                             try { window.opener.postMessage({ type: 'GOOGLE_AUTH_LOGIN_READY' }, window.location.origin); }
                             catch(_) { window.opener.postMessage({ type: 'GOOGLE_AUTH_LOGIN_READY' }, '*'); }
+                            // 800ms 兜底：若主窗口未及时校验，则直接携带 token+user 再发一次
+                            setTimeout(() => {
+                                try { window.opener.postMessage({ type: 'GOOGLE_AUTH_TOKEN', token: data.token, user: data.user }, window.location.origin); }
+                                catch(_) { window.opener.postMessage({ type: 'GOOGLE_AUTH_TOKEN', token: data.token, user: data.user }, '*'); }
+                            }, 800);
                         }
                     } else {
                         // 回退到仅发送 code 的老路径

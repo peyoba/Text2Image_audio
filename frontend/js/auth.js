@@ -76,17 +76,6 @@ class AuthManager {
                 this.emitAuthChanged(true);
                 return;
             }
-            // 宽限恢复：若本地有人信息则先保持登录态并延时重试，避免切页瞬时401导致误登出
-            if (user) {
-                console.log('服务端校验暂失败，但本地存在用户信息，先保持登录态并延迟重试');
-                this.currentUser = user;
-                this.isAuthenticated = true;
-                this.updateUI();
-                this.emitAuthChanged(true);
-                // 5秒后静默重试一次，不影响当前UI
-                setTimeout(() => { this.validateToken(false).then(() => this.forceUpdateUI()); }, 5000);
-                return;
-            }
             console.log('Token已过期或校验失败，进入未登录态');
             // 静默清理，避免误触发“已成功登出”提示
             this.clearToken();
@@ -391,7 +380,12 @@ class AuthManager {
                     return false;
                 }
             } else {
-                console.log('Token验证失败：HTTP状态码', response.status);
+                try {
+                    const err = await response.json();
+                    console.log('Token验证失败：HTTP状态码', response.status, 'cause=', err && err.cause, 'msg=', err && err.error);
+                } catch (_) {
+                    console.log('Token验证失败：HTTP状态码', response.status);
+                }
                 // 对可能的瞬时401做一次短延迟重试，避免进入页面即误判登出
                 if (response.status === 401 && retryOn401) {
                     await new Promise(r => setTimeout(r, 700));
@@ -414,7 +408,12 @@ class AuthManager {
         if (fromLS) return fromLS;
         // 回退从Cookie读取（解决跨子域/新窗口localStorage缺失）
         const cookieMatch = document.cookie.match(new RegExp('(?:^|; )' + this.tokenKey + '=([^;]*)'));
-        return cookieMatch ? decodeURIComponent(cookieMatch[1]) : null;
+        const tokenFromCookie = cookieMatch ? decodeURIComponent(cookieMatch[1]) : null;
+        // 若仅Cookie中存在，则立刻回填到localStorage，消除域名/时序差异
+        if (tokenFromCookie) {
+            try { localStorage.setItem(this.tokenKey, tokenFromCookie); } catch(_) {}
+        }
+        return tokenFromCookie;
     }
 
     /**

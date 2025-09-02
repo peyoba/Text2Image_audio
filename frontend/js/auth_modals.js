@@ -321,6 +321,17 @@ async function handleGoogleLogin() {
         window.removeEventListener('message', messageListener);
         popup && popup.close();
         return;
+      } else if (event.data.type === 'GOOGLE_AUTH_TOKEN' && event.data.token) {
+        // 兜底：回调页直接把 token+user 发来
+        try {
+          if (window.authManager?.setToken) window.authManager.setToken(event.data.token);
+          if (event.data.user && window.authManager?.setUser) window.authManager.setUser(event.data.user);
+          window.authManager?.validateToken().then(()=>window.authManager?.forceUpdateUI());
+        } catch(_) {}
+        try { if (typeof closeModal==='function') closeModal('loginModal'); } catch(_){ }
+        window.removeEventListener('message', messageListener);
+        popup && popup.close();
+        return;
       } else if (event.data.type === 'GOOGLE_AUTH_SUCCESS') {
         // 处理成功的Google登录
         console.log('Google授权成功，code:', event.data.code);

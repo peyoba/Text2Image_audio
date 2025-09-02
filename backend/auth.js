@@ -316,7 +316,8 @@ export async function validateUserToken(token, env) {
         if (!token) {
             return {
                 success: false,
-                error: '缺少认证token'
+                error: '缺少认证token',
+                cause: 'no_authorization_token'
             };
         }
         
@@ -353,7 +354,8 @@ export async function validateUserToken(token, env) {
             } catch (_) {}
             return {
                 success: false,
-                error: 'token无效或已过期'
+                error: 'token无效或已过期',
+                cause: 'jwt_invalid_or_expired'
             };
         }
         
@@ -386,7 +388,8 @@ export async function validateUserToken(token, env) {
         if (!userData) {
             return {
                 success: false,
-                error: '用户不存在'
+                error: '用户不存在',
+                cause: 'user_not_found'
             };
         }
         
@@ -396,7 +399,8 @@ export async function validateUserToken(token, env) {
         if (!user.isActive) {
             return {
                 success: false,
-                error: '账户已被禁用'
+                error: '账户已被禁用',
+                cause: 'user_disabled'
             };
         }
         
@@ -418,7 +422,8 @@ export async function validateUserToken(token, env) {
         console.error('Token验证错误:', error);
         return {
             success: false,
-            error: 'token验证失败'
+            error: 'token验证失败',
+            cause: 'internal_error'
         };
     }
 }
@@ -431,6 +436,14 @@ export async function validateUserToken(token, env) {
 export function extractTokenFromRequest(request) {
     const authHeader = request.headers.get('Authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        // 兜底：尝试从 Cookie 中提取 auth_token
+        try {
+            const cookie = request.headers.get('Cookie') || request.headers.get('cookie') || '';
+            const match = cookie.match(/(?:^|;\s*)auth_token=([^;]+)/);
+            if (match) {
+                return decodeURIComponent(match[1]);
+            }
+        } catch(_) {}
         return null;
     }
     return authHeader.substring(7);
