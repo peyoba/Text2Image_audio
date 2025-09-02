@@ -76,6 +76,17 @@ class AuthManager {
                 this.emitAuthChanged(true);
                 return;
             }
+            // 宽限恢复：若本地有人信息则先保持登录态并延时重试，避免切页瞬时401导致误登出
+            if (user) {
+                console.log('服务端校验暂失败，但本地存在用户信息，先保持登录态并延迟重试');
+                this.currentUser = user;
+                this.isAuthenticated = true;
+                this.updateUI();
+                this.emitAuthChanged(true);
+                // 5秒后静默重试一次，不影响当前UI
+                setTimeout(() => { this.validateToken(false).then(() => this.forceUpdateUI()); }, 5000);
+                return;
+            }
             console.log('Token已过期或校验失败，进入未登录态');
             // 静默清理，避免误触发“已成功登出”提示
             this.clearToken();
