@@ -29,6 +29,38 @@
     function showModal(modalId){ var m=document.getElementById(modalId); if(m){ m.style.display='block'; } }
     function closeModal(modalId){ var m=document.getElementById(modalId); if(m){ m.style.display='none'; } }
   </script>
+  <script>
+    // 过滤第三方脚本报错与被拦截资源噪声
+    (function(){
+      try {
+        var noisyHosts = ['googletagmanager.com','googlesyndication.com','clarity.ms','static.cloudflareinsights.com'];
+        window.addEventListener('error', function (e) {
+          try {
+            var msg = (e && e.message || '').toLowerCase();
+            var file = (e && e.filename) || '';
+            if (
+              msg.indexOf('net::err_connection_closed')>=0 ||
+              msg.indexOf("can't read properties of undefined (reading 'tolowercase')")>=0 ||
+              msg.indexOf('tolowercase')>=0 ||
+              noisyHosts.some(function(h){ return file.indexOf(h)>=0; })
+            ) {
+              e.preventDefault && e.preventDefault();
+              return true;
+            }
+          } catch(_) {}
+        }, true);
+        window.addEventListener('unhandledrejection', function (e) {
+          try {
+            var reason = (e && e.reason && (''+e.reason).toLowerCase()) || '';
+            if (reason.indexOf('net::err_connection_closed')>=0) {
+              e.preventDefault && e.preventDefault();
+              return true;
+            }
+          } catch(_) {}
+        });
+      } catch(_) {}
+    })();
+  </script>
   <style>
     body { background: #0b1220; color: #e5e7eb; }
     .container { max-width: 1100px; margin: 20px auto; padding: 24px 28px; }

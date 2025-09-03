@@ -38,6 +38,43 @@
             }
         }
     </script>
+    <script>
+        // 过滤第三方脚本报错与被拦截资源噪声
+        (function(){
+            try {
+                const noisyHosts = [
+                    'googletagmanager.com',
+                    'googlesyndication.com',
+                    'clarity.ms',
+                    'static.cloudflareinsights.com'
+                ];
+                window.addEventListener('error', function (e) {
+                    try {
+                        const msg = (e && e.message || '').toLowerCase();
+                        const file = (e && e.filename) || '';
+                        if (
+                            msg.includes('net::err_connection_closed') ||
+                            msg.includes("can't read properties of undefined (reading 'tolowercase')") ||
+                            msg.includes('tolowercase') ||
+                            noisyHosts.some(h => file.includes(h))
+                        ) {
+                            e.preventDefault && e.preventDefault();
+                            return true;
+                        }
+                    } catch(_) {}
+                }, true);
+                window.addEventListener('unhandledrejection', function (e) {
+                    try {
+                        const reason = (e && e.reason && (''+e.reason).toLowerCase()) || '';
+                        if (reason.includes('net::err_connection_closed')) {
+                            e.preventDefault && e.preventDefault();
+                            return true;
+                        }
+                    } catch(_) {}
+                });
+            } catch(_) {}
+        })();
+    </script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
