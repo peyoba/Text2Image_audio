@@ -14,7 +14,7 @@ class HDImageManager {
         this._statsTimerId = null;
         this._authListenerBound = false;
         
-        console.log('HDImageManager 初始化');
+        try { if (window.DEBUG) console.log('HDImageManager 初始化'); } catch(_) {}
         // 初始化
         this.init();
         // 监听登录状态变化，登录完成后自动加载
@@ -27,7 +27,7 @@ class HDImageManager {
     init() {
         // 检查认证状态
         if (!window.authManager || !window.authManager.isLoggedIn()) {
-            console.log('用户未登录，图片管理功能不可用');
+            // 静默等待认证事件驱动再初始化，避免刷新时噪声日志
             return;
         }
 
