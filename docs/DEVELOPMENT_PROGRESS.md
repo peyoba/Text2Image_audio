@@ -382,3 +382,45 @@ Text2Image_audio项目经过多次迭代，已经发展成为一个功能完整�
 
 *文档最后更新：2025-08-09*  
 *项目状态：V2.0正式版，生产环境稳定运行*
+
+## 问题复盘（2025-09-03）
+
+### 问题与现象
+- Google 授权登录账号无法保存图片、刷新后显示未登录
+- 个人中心刷新后不显示已保存图片，需手动点击“刷新”
+- 控制台出现第三方脚本网络错误与 content.js 的 toLowerCase 报错
+
+### 根因分析
+- 后端使用“非标准 JWT 签名”，与 HS256 不一致，导致校验不稳定
+- 邮箱大小写不统一与 KV 最终一致性，导致 validate 刚登录时查不到用户
+- 前端跨窗口/子域的 token 持久化不稳，validate 没带 Authorization
+- Google 回调消息来源校验过严，token 传递有时失败
+- 个人中心初始化早于认证完成与 UI 注入，导致首次为空
+- `/api/images/stats` 路由顺序落后，被 `/api/images/:id` 抢占
+- 第三方脚本/浏览器扩展引发的网络与脚本报错（不影响功能）
+
+### 解决方案（落地改动）
+- 后端
+  - 统一采用标准 JWT HS256（HMAC-SHA256 + base64url），兼容旧 token 并在 `/auth/validate` 成功时回传新 token
+  - 邮箱键一律小写并兼容旧键迁移；Google 登录路径统一 `isActive=true`
+  - 将 `/api/images/stats` 路由置于 `/api/images/:id` 之前
+- 前端
+  - `auth.js`：localStorage+Cookie 双通道持久化；validate 成功即替换新 token；派发 `authChanged` 事件
+  - Google 回调页直接换票并本地写入 token+user，`auth_modals.js` 兜底接收 token
+  - `hd_image_manager.js`：监听 `authChanged/auth-changed`，等待 UI 容器注入后再加载；刷新时静默未登录日志
+  - `user.html`：账户信息从 `authManager`/localStorage 填充；导航与模块补齐 `data-i18n`
+  - `index.html/user.html`：注入全局错误过滤，屏蔽外链与扩展产生的噪声
+
+### 验证结果
+- Google 登录后 `validate` 通过；高清图片保存返回 201
+- 个人中心刷新即可展示已保存图片与统计；账户资料与导航多语言正常
+
+### 经验与建议
+- 坚持使用标准协议（JWT HS256），避免“自制”实现带来的环境差异
+- 跨域仅依赖 Authorization 头，不指望 Cookie 作为跨域凭据
+- 前端模块用事件驱动与“容器就绪再加载”，后端路由遵循“精确优先、通配在后”
+
+### 后续可选优化
+- 通过 Cloudflare Zaraz/一方托管统计脚本，减少外链被拦截
+- 增加端到端用例：Google 登录→validate→生成→保存→列表/统计
+- 引入 Sentry，仅上报站点自身错误并过滤扩展/外链噪声
