@@ -5,81 +5,82 @@
 
 import { createHash, randomBytes } from 'node:crypto';
 
-/**
- * 生成JWT token
- * @param {Object} payload - token载荷
- * @param {string} secret - 密钥
- * @param {number} expiresIn - 过期时间（秒）
- * @returns {string} JWT token
- */
-function generateJWT(payload, secret, expiresIn = 604800) {
-    const header = {
-        alg: 'HS256',
-        typ: 'JWT'
-    };
-    
+// --- Standard JWT (HS256 + base64url, WebCrypto) ---
+function base64urlEncode(bytes) {
+    const str = typeof bytes === 'string' ? bytes : String.fromCharCode(...new Uint8Array(bytes));
+    return btoa(str).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+}
+
+function base64urlEncodeJSON(obj) {
+    return base64urlEncode(JSON.stringify(obj));
+}
+
+function base64urlDecodeToString(b64url) {
+    const b64 = b64url.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(b64url.length / 4) * 4, '=');
+    return atob(b64);
+}
+
+async function hmacSha256(keyRaw, data) {
+    const enc = new TextEncoder();
+    const key = await crypto.subtle.importKey(
+        'raw',
+        enc.encode(keyRaw),
+        { name: 'HMAC', hash: 'SHA-256' },
+        false,
+        ['sign', 'verify']
+    );
+    const sig = await crypto.subtle.sign('HMAC', key, enc.encode(data));
+    return new Uint8Array(sig);
+}
+
+async function generateJWT(payload, secret, expiresIn = 604800) {
+    const header = { alg: 'HS256', typ: 'JWT' };
     const now = Math.floor(Date.now() / 1000);
-    const claims = {
-        ...payload,
-        iat: now,
-        exp: now + expiresIn
-    };
-    
-    const encodedHeader = btoa(JSON.stringify(header));
-    const encodedClaims = btoa(JSON.stringify(claims));
-    
-    // 简单的HMAC签名（生产环境建议使用更安全的库）
-    const signature = createHash('sha256')
-        .update(`${encodedHeader}.${encodedClaims}.${secret}`)
-        .digest('hex');
-    
-    // 对签名进行base64编码以保持JWT格式一致性
-    const encodedSignature = btoa(signature);
-    
+    const claims = { ...payload, iat: now, exp: now + expiresIn };
+    const encodedHeader = base64urlEncodeJSON(header);
+    const encodedClaims = base64urlEncodeJSON(claims);
+    const signingInput = `${encodedHeader}.${encodedClaims}`;
+    const signature = await hmacSha256(secret, signingInput);
+    const encodedSignature = base64urlEncode(signature);
     return `${encodedHeader}.${encodedClaims}.${encodedSignature}`;
 }
 
-/**
- * 验证JWT token
- * @param {string} token - JWT token
- * @param {string} secret - 密钥
- * @returns {Object|null} 解码后的载荷或null
- */
-function verifyJWT(token, secret) {
+async function verifyJWT(token, secret) {
     try {
         const parts = token.split('.');
-        if (parts.length !== 3) {
-            return null;
-        }
-        
+        if (parts.length !== 3) return null;
+        const [encodedHeader, encodedClaims, encodedSignature] = parts;
+        const signingInput = `${encodedHeader}.${encodedClaims}`;
+        const sigBytes = await hmacSha256(secret, signingInput);
+        const expected = base64urlEncode(sigBytes);
+        if (expected !== encodedSignature) return null;
+        const claimsStr = base64urlDecodeToString(encodedClaims);
+        const claims = JSON.parse(claimsStr);
+        const now = Math.floor(Date.now() / 1000);
+        if (claims.exp && claims.exp < now) return null;
+        return claims;
+    } catch (e) {
+        console.error('JWT验证错误:', e);
+        return null;
+    }
+}
+
+// Legacy custom JWT verification (compat only during transition)
+function legacyVerifyJWT(token, secret) {
+    try {
+        const parts = token.split('.');
+        if (parts.length !== 3) return null;
         const [encodedHeader, encodedClaims, signature] = parts;
-        
-        // 验证签名
         const expectedSignature = createHash('sha256')
             .update(`${encodedHeader}.${encodedClaims}.${secret}`)
             .digest('hex');
-        
-        // 解码base64签名进行对比
         const decodedSignature = atob(signature);
-        
-        if (decodedSignature !== expectedSignature) {
-            return null;
-        }
-        
-        // 解码载荷
+        if (decodedSignature !== expectedSignature) return null;
         const claims = JSON.parse(atob(encodedClaims));
-        
-        // 检查过期时间
         const now = Math.floor(Date.now() / 1000);
-        if (claims.exp && claims.exp < now) {
-            return null;
-        }
-        
+        if (claims.exp && claims.exp < now) return null;
         return claims;
-    } catch (error) {
-        console.error('JWT验证错误:', error);
-        return null;
-    }
+    } catch (_) { return null; }
 }
 
 /**
@@ -193,10 +194,10 @@ export async function handleUserRegistration(userData, env) {
         await env.USERS.put(email, JSON.stringify(user));
         
         // 生成JWT token
-        const token = generateJWT(
+        const token = await generateJWT(
             { userId: user.id, email: user.email },
             env.JWT_SECRET || 'your-secret-key',
-            604800 // 7天 = 604800秒
+            604800
         );
         
         // 返回用户信息（不包含敏感数据）
@@ -274,10 +275,10 @@ export async function handleUserLogin(credentials, env) {
         await env.USERS.put(email, JSON.stringify(user));
         
         // 生成JWT token
-        const token = generateJWT(
+        const token = await generateJWT(
             { userId: user.id, email: user.email },
             env.JWT_SECRET || 'your-secret-key',
-            604800 // 7天 = 604800秒
+            604800
         );
         
         // 返回用户信息（不包含敏感数据）
@@ -321,42 +322,20 @@ export async function validateUserToken(token, env) {
             };
         }
         
-        // 验证JWT token
-        let claims = verifyJWT(token, env.JWT_SECRET || 'your-secret-key');
+        // 标准HS256验证，失败再尝试旧制式；不再允许“仅解析载荷放行”
+        let claims = await verifyJWT(token, env.JWT_SECRET || 'your-secret-key');
+        let needIssueNewToken = false;
         if (!claims) {
-            // 兼容回退：尝试仅解析载荷（不校验签名），若能找到用户则放行
-            try {
-                const parts = token.split('.');
-                if (parts.length === 3) {
-                    const decoded = JSON.parse(atob(parts[1]));
-                    const emailRaw2 = decoded.email || '';
-                    const emailKey2 = emailRaw2.toLowerCase();
-                    let userData2 = await env.USERS.get(emailKey2);
-                    if (!userData2 && emailRaw2) {
-                        const legacy2 = await env.USERS.get(emailRaw2);
-                        if (legacy2) {
-                            await env.USERS.put(emailKey2, legacy2);
-                            userData2 = legacy2;
-                        }
-                    }
-                    if (userData2) {
-                        const user2 = JSON.parse(userData2);
-                        const userResponse2 = {
-                            id: user2.id,
-                            username: user2.username,
-                            email: user2.email,
-                            createdAt: user2.createdAt,
-                            lastLoginAt: user2.lastLoginAt
-                        };
-                        return { success: true, user: userResponse2 };
-                    }
-                }
-            } catch (_) {}
-            return {
-                success: false,
-                error: 'token无效或已过期',
-                cause: 'jwt_invalid_or_expired'
-            };
+            const legacyClaims = legacyVerifyJWT(token, env.JWT_SECRET || 'your-secret-key');
+            if (!legacyClaims) {
+                return {
+                    success: false,
+                    error: 'token无效或已过期',
+                    cause: 'jwt_invalid_or_expired'
+                };
+            }
+            claims = legacyClaims;
+            needIssueNewToken = true;
         }
         
         // 获取用户数据（统一按小写邮箱作为KV键），兼容旧键（原始大小写）
@@ -413,9 +392,17 @@ export async function validateUserToken(token, env) {
             lastLoginAt: user.lastLoginAt
         };
         
+        let rotatedToken;
+        if (needIssueNewToken) {
+            try {
+                rotatedToken = await generateJWT({ userId: user.id, email: user.email }, env.JWT_SECRET || 'your-secret-key', 604800);
+            } catch (_) {}
+        }
+        
         return {
             success: true,
-            user: userResponse
+            user: userResponse,
+            token: rotatedToken || undefined
         };
         
     } catch (error) {
@@ -772,10 +759,10 @@ export async function handleGoogleLogin(requestData, env) {
         await env.USERS.put(emailLower, JSON.stringify(user));
         
         // 生成JWT token
-        const token = generateJWT(
+        const token = await generateJWT(
             { userId: user.id, email: user.email },
             env.JWT_SECRET || 'your-secret-key',
-            604800 // 7天 = 604800秒
+            604800
         );
         
         // 返回用户信息（不包含敏感数据）
@@ -933,10 +920,10 @@ export async function handleGoogleOAuth(requestData, env) {
         }
         
         // 生成JWT token
-        const token = generateJWT(
+        const token = await generateJWT(
             { userId: user.id, email: user.email },
             env.JWT_SECRET || 'your-secret-key',
-            604800 // 7天 = 604800秒
+            604800
         );
         
         // 返回用户信息（不包含敏感数据）

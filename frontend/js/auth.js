@@ -368,6 +368,10 @@ class AuthManager {
             if (response.ok) {
                 const result = await response.json();
                 if (result.success && result.user) {
+                    // 如后端返回了轮换后的新token（从旧制式迁移到标准HS256），立即替换本地token
+                    if (result.token) {
+                        this.setToken(result.token);
+                    }
                     this.setUser(result.user);
                     this.currentUser = result.user;
                     this.isAuthenticated = true;
