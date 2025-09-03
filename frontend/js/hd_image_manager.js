@@ -31,11 +31,8 @@ class HDImageManager {
             return;
         }
 
-        // 加载今日图片
-        this.loadDailyImages();
-        
-        // 更新统计信息
-        this.updateStats();
+        // 等待 UI 容器注入完成后再加载
+        this.ensureUiReadyThenLoad();
         
         // 设置定时器，每小时更新一次（避免重复设置）
         if (!this._statsTimerId) {
@@ -52,8 +49,8 @@ class HDImageManager {
         if (this._authListenerBound) return;
         const handler = (evt) => {
             try {
-                const loggedIn = (evt && evt.detail && typeof evt.detail.loggedIn === 'boolean')
-                    ? evt.detail.loggedIn
+                const loggedIn = (evt && evt.detail && typeof evt.detail.isAuthenticated === 'boolean')
+                    ? evt.detail.isAuthenticated
                     : (window.authManager && window.authManager.isLoggedIn ? window.authManager.isLoggedIn() : false);
                 if (loggedIn) {
                     // 登录完成后立即加载
@@ -61,9 +58,34 @@ class HDImageManager {
                 }
             } catch (_) {}
         };
-        try { window.addEventListener('auth-changed', handler); this._authListenerBound = true; } catch(_) {}
+        try {
+            // 同时兼容两种事件名
+            window.addEventListener('authChanged', handler);
+            window.addEventListener('auth-changed', handler);
+            this._authListenerBound = true;
+        } catch(_) {}
         // 兜底：页面就绪后再次检查一次登录状态
         try { document.addEventListener('DOMContentLoaded', () => { if (window.authManager?.isLoggedIn?.()) this.init(); }); } catch(_) {}
+    }
+
+    /**
+     * 等待高清图片 UI 容器注入完成后再加载数据
+     */
+    ensureUiReadyThenLoad(maxTries = 25) {
+        const hasContainers = !!document.getElementById('daily-images') || !!document.getElementById('image-stats');
+        if (hasContainers) {
+            // 加载今日图片与统计
+            this.loadDailyImages();
+            this.updateStats();
+            return;
+        }
+        if (maxTries <= 0) {
+            // 超时仍未注入，直接尝试加载一次（容器可能在内部创建）
+            this.loadDailyImages();
+            this.updateStats();
+            return;
+        }
+        setTimeout(() => this.ensureUiReadyThenLoad(maxTries - 1), 200);
     }
 
     /**
