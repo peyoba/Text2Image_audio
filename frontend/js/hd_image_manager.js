@@ -11,10 +11,14 @@ class HDImageManager {
         const apiBase = (window.API_BASE || 'https://text2image-api.peyoba660703.workers.dev');
         this.baseUrl = apiBase.endsWith('/api') ? apiBase : `${apiBase}/api`;
         this.currentImageId = null;
+        this._statsTimerId = null;
+        this._authListenerBound = false;
         
         console.log('HDImageManager 初始化');
         // 初始化
         this.init();
+        // 监听登录状态变化，登录完成后自动加载
+        this.setupAuthListener();
     }
 
     /**
@@ -33,10 +37,33 @@ class HDImageManager {
         // 更新统计信息
         this.updateStats();
         
-        // 设置定时器，每小时更新一次
-        setInterval(() => {
-            this.updateStats();
-        }, 3600000); // 1小时
+        // 设置定时器，每小时更新一次（避免重复设置）
+        if (!this._statsTimerId) {
+            this._statsTimerId = setInterval(() => {
+                this.updateStats();
+            }, 3600000); // 1小时
+        }
+    }
+
+    /**
+     * 监听认证状态变化，认证成功后自动初始化图片模块
+     */
+    setupAuthListener() {
+        if (this._authListenerBound) return;
+        const handler = (evt) => {
+            try {
+                const loggedIn = (evt && evt.detail && typeof evt.detail.loggedIn === 'boolean')
+                    ? evt.detail.loggedIn
+                    : (window.authManager && window.authManager.isLoggedIn ? window.authManager.isLoggedIn() : false);
+                if (loggedIn) {
+                    // 登录完成后立即加载
+                    this.init();
+                }
+            } catch (_) {}
+        };
+        try { window.addEventListener('auth-changed', handler); this._authListenerBound = true; } catch(_) {}
+        // 兜底：页面就绪后再次检查一次登录状态
+        try { document.addEventListener('DOMContentLoaded', () => { if (window.authManager?.isLoggedIn?.()) this.init(); }); } catch(_) {}
     }
 
     /**
