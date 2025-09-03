@@ -108,7 +108,17 @@ export default {
                 logInfo(env, `[Worker Log] Getting daily images for user: ${user.id}`);
                 const result = await cacheManager.getDailyImageList(user.id);
                 return jsonResponse(result, env, result.success ? 200 : 400);
-            } else if (method === "GET" && path.startsWith("/api/images/") && !path.includes("/download/")) {
+            } else if (method === "GET" && path === "/api/images/stats") {
+                const user = await authenticateImageAccess(request, env);
+                if (!user) {
+                    return jsonResponse({ error: '需要登录' }, env, 401);
+                }
+                
+                const cacheManager = new HDImageCacheManager(env);
+                logInfo(env, `[Worker Log] Getting image stats for user: ${user.id}`);
+                const result = await cacheManager.getUserImageStats(user.id);
+                return jsonResponse(result, env, result.success ? 200 : 400);
+            } else if (method === "GET" && path.startsWith("/api/images/") && !path.includes("/download/") && path !== "/api/images/stats") {
                 const user = await authenticateImageAccess(request, env);
                 if (!user) {
                     return jsonResponse({ error: '需要登录' }, env, 401);

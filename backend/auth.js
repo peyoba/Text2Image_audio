@@ -734,6 +734,9 @@ export async function handleGoogleLogin(requestData, env) {
                 picture: googleUser.picture,
                 lastUpdated: new Date().toISOString()
             };
+            if (user.isActive === undefined || user.isActive === false) {
+                user.isActive = true;
+            }
         } else {
             // 创建新用户
             const userId = generateUserId();
@@ -894,6 +897,9 @@ export async function handleGoogleOAuth(requestData, env) {
                 picture: googleUser.picture,
                 locale: googleUser.locale
             };
+            if (user.isActive === undefined || user.isActive === false) {
+                user.isActive = true;
+            }
             user.authProvider = 'google';
             
             await env.USERS.put(emailLower, JSON.stringify(user));
@@ -907,6 +913,7 @@ export async function handleGoogleOAuth(requestData, env) {
                 password: null, // Google用户没有密码
                 createdAt: new Date().toISOString(),
                 lastLoginAt: new Date().toISOString(),
+                isActive: true,
                 authProvider: 'google',
                 googleInfo: {
                     id: googleUser.id,
