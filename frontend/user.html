@@ -100,10 +100,10 @@
       <span class="site-name">AISTONE</span>
     </div>
     <ul class="navbar-menu">
-      <li><a href="/index.html#home">Home</a></li>
-      <li><a href="/about.html" id="about-link">About</a></li>
-      <li><a href="/services.html" id="services-link">Services</a></li>
-      <li><a href="/contact.html" id="contact-link">Contact</a></li>
+      <li><a href="/index.html#home" data-i18n="navHome">首页</a></li>
+      <li><a href="/about.html" id="about-link" data-i18n="navAbout">关于</a></li>
+      <li><a href="/services.html" id="services-link" data-i18n="navServices">服务</a></li>
+      <li><a href="/contact.html" id="contact-link" data-i18n="navContact">联系</a></li>
     </ul>
     <div class="navbar-right">
       <select id="lang-select" class="lang-select">
@@ -181,10 +181,26 @@
         if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') {
           setLanguage(getCurrentLang());
         }
+        // UI 注入后再尝试填充一次账户信息与加载高清模块
+        try { populateAccountInfo(); } catch(_) {}
       });
 
     // 初始化图片管理器与账户信息（避免再次强制调用 init 导致重复校验）
     document.addEventListener('DOMContentLoaded', () => {
+      function populateAccountInfo(){
+        const user = window.authManager?.getCurrentUser?.() || (function(){ try { return JSON.parse(localStorage.getItem('user_info')||'null'); } catch(_) { return null; } })();
+        const greetingEl = document.getElementById('account-greeting');
+        const uname = document.getElementById('profile-username');
+        const email = document.getElementById('profile-email');
+        if (user && uname && email) {
+          // 优先显示后端用户名，回退邮箱
+          uname.value = user.username || user.name || user.email || '';
+          email.value = user.email || '';
+          const nameText = user.username || user.name || user.email || '';
+          const tpl = (typeof getCurrentLang==='function' && getCurrentLang()==='zh') ? '您好，{name}' : 'Hello, {name}';
+          if (greetingEl) greetingEl.textContent = tpl.replace('{name}', nameText);
+        }
+      }
       setTimeout(() => {
         if (window.authManager) {
           if (window.authManager.isLoggedIn && window.authManager.isLoggedIn()) {
@@ -192,20 +208,16 @@
               window.hdImageManager.init();
             }
             // 填充账户信息
-            const user = window.authManager.getCurrentUser?.();
-            const greetingEl = document.getElementById('account-greeting');
-            const uname = document.getElementById('profile-username');
-            const email = document.getElementById('profile-email');
-            if (user && uname && email) {
-              uname.value = user.username || '';
-              email.value = user.email || '';
-              const name = user.username || user.email || '';
-              const tpl = (getCurrentLang()==='zh'? '您好，{name}' : 'Hello, {name}');
-              if (greetingEl) greetingEl.textContent = tpl.replace('{name}', name);
-            }
+            populateAccountInfo();
           }
         }
       }, 300);
+
+      // 监听认证状态变化，登录恢复后刷新账户信息
+      try {
+        window.addEventListener('authChanged', populateAccountInfo);
+        window.addEventListener('auth-changed', populateAccountInfo);
+      } catch(_) {}
 
       // 语言切换
       const langSelect = document.getElementById('lang-select');
