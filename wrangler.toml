@@ -72,4 +72,9 @@ id = "3d9618b06326448888cbbf45f53acce4"
 # KV Namespace 绑定 (用于存储重置密码token)
 [[kv_namespaces]]
 binding = "RESET_TOKENS"
-id = "18ab969ea8594e729c412d4c8e5d6afd" 
+id = "18ab969ea8594e729c412d4c8e5d6afd"
+
+# KV Namespace 绑定 (用于存储用户反馈)
+[[kv_namespaces]]
+binding = "FEEDBACK"
+id = "937caf6061f04708929c2c4084b5c075" 
