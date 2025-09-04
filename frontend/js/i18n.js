@@ -354,7 +354,7 @@ const i18n = {
         hdImageThumbnail: '缩略图',
         hdImageSaving: '正在保存...',
         hdImageStats: '统计信息错误',
-        hdClickToView: '点击查看',
+        hdClickToView: '点击查看高清图片',
         
         // 用户中心
         userCenter: '个人中心',
@@ -766,7 +766,7 @@ const i18n = {
         hdImageThumbnail: 'Thumbnail',
         hdImageSaving: 'Saving...',
         hdImageStats: 'Statistics error',
-        hdClickToView: 'Click to view',
+        hdClickToView: 'Click to view HD image',
         
         // User Center
         userCenter: 'User Center',
