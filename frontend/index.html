@@ -52,12 +52,15 @@
                     try {
                         const msg = (e && e.message || '').toLowerCase();
                         const file = (e && e.filename) || '';
-                        if (
-                            msg.includes('net::err_connection_closed') ||
-                            msg.includes("can't read properties of undefined (reading 'tolowercase')") ||
-                            msg.includes('tolowercase') ||
-                            noisyHosts.some(h => file.includes(h))
-                        ) {
+                                        if (
+                    msg.includes('net::err_connection_closed') ||
+                    msg.includes("can't read properties of undefined (reading 'tolowercase')") ||
+                    msg.includes('tolowercase') ||
+                    msg.includes('content.js') ||
+                    file.includes('content.js') ||
+                    file.includes('extension') ||
+                    noisyHosts.some(h => file.includes(h))
+                ) {
                             e.preventDefault && e.preventDefault();
                             return true;
                         }
