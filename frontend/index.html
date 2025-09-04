@@ -39,28 +39,39 @@
         }
     </script>
     <script>
-        // 过滤第三方脚本报错与被拦截资源噪声
+        // 过滤浏览器扩展和无关错误噪声（保留Google服务正常运行）
         (function(){
             try {
-                const noisyHosts = [
-                    'googletagmanager.com',
-                    'googlesyndication.com',
-                    'clarity.ms',
-                    'static.cloudflareinsights.com'
-                ];
                 window.addEventListener('error', function (e) {
                     try {
                         const msg = (e && e.message || '').toLowerCase();
                         const file = (e && e.filename) || '';
-                                        if (
-                    msg.includes('net::err_connection_closed') ||
-                    msg.includes("can't read properties of undefined (reading 'tolowercase')") ||
-                    msg.includes('tolowercase') ||
-                    msg.includes('content.js') ||
-                    file.includes('content.js') ||
-                    file.includes('extension') ||
-                    noisyHosts.some(h => file.includes(h))
-                ) {
+                        
+                        // 只过滤明确的噪声错误，不影响GA/AdSense
+                        if (
+                            // 网络连接错误
+                            msg.includes('net::err_connection_closed') ||
+                            msg.includes('net::err_blocked_by_client') ||
+                            msg.includes('net::err_failed') ||
+                            
+                            // 浏览器扩展相关错误
+                            msg.includes("can't read properties of undefined (reading 'tolowercase')") ||
+                            msg.includes('tolowercase') ||
+                            msg.includes('content.js') ||
+                            file.includes('content.js') ||
+                            file.includes('extension') ||
+                            file.includes('chrome-extension') ||
+                            file.includes('moz-extension') ||
+                            
+                            // 广告拦截器相关
+                            msg.includes('adblock') ||
+                            msg.includes('ublock') ||
+                            msg.includes('blocked by content blocker') ||
+                            
+                            // 其他已知无害错误
+                            msg.includes('non-error promise rejection captured') ||
+                            msg.includes('script error')
+                        ) {
                             e.preventDefault && e.preventDefault();
                             return true;
                         }
