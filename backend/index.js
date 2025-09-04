@@ -280,6 +280,25 @@ export default {
                     console.error(`[Worker Error] Pollinations image generation failed: ${e.message}`);
                     return jsonResponse({ error: `Pollinations图像生成失败: ${e.message}` }, env, 500);
                 }
+            } else if (method === "POST" && path === "/api/feedback") {
+                const user = await authenticateImageAccess(request, env);
+                if (!user) {
+                    return jsonResponse({ error: '需要登录' }, env, 401);
+                }
+                
+                const requestData = await request.json();
+                logInfo(env, `[Worker Log] Processing feedback submission for user: ${user.id}`);
+                const result = await handleFeedbackSubmission(user, requestData, env);
+                return jsonResponse(result, env, result.success ? 201 : 400);
+            } else if (method === "GET" && path === "/api/feedback/my") {
+                const user = await authenticateImageAccess(request, env);
+                if (!user) {
+                    return jsonResponse({ error: '需要登录' }, env, 401);
+                }
+                
+                logInfo(env, `[Worker Log] Getting feedback list for user: ${user.id}`);
+                const result = await getUserFeedbackList(user, env);
+                return jsonResponse(result, env, result.success ? 200 : 400);
             } else if (method === "POST" && path === "/api/translate") {
                 const requestData = await request.json();
                 const text = requestData.text;
@@ -533,6 +552,145 @@ async function generateAudioFromPollinations(prompt, env, voice = "nova", model 
         const errorTextContent = await response.text();
         logInfo(env, `[Worker Error] Pollinations API 返回非音频内容。Content-Type: ${actualContentType}, 内容片段: ${errorTextContent.substring(0, 500)}...`);
         throw new Error(`API 返回非音频内容，Content-Type: ${actualContentType}`);
+    }
+}
+
+/**
+ * 处理用户反馈提交
+ * @param {Object} user - 用户信息
+ * @param {Object} requestData - 反馈数据
+ * @param {Object} env - 环境变量
+ * @returns {Promise<Object>} 处理结果
+ */
+async function handleFeedbackSubmission(user, requestData, env) {
+    try {
+        const { category, content } = requestData;
+        
+        // 验证必要字段
+        if (!category || !content) {
+            return { success: false, error: '缺少必要参数：category 和 content' };
+        }
+        
+        // 验证内容长度
+        if (content.length > 1000) {
+            return { success: false, error: '反馈内容不能超过1000字符' };
+        }
+        
+        // 基本XSS防护
+        const sanitizedContent = content.replace(/<[^>]*>/g, '').trim();
+        if (!sanitizedContent) {
+            return { success: false, error: '反馈内容不能为空' };
+        }
+        
+        // 防刷检查：同用户10分钟内只能提交1条
+        const rateLimitKey = `feedback_rate_limit:${user.id}`;
+        const lastSubmission = await env.FEEDBACK.get(rateLimitKey);
+        const now = Date.now();
+        
+        if (lastSubmission) {
+            const timeDiff = now - parseInt(lastSubmission);
+            if (timeDiff < 10 * 60 * 1000) { // 10分钟
+                const remainingTime = Math.ceil((10 * 60 * 1000 - timeDiff) / 60000);
+                return { success: false, error: `请等待${remainingTime}分钟后再提交反馈` };
+            }
+        }
+        
+        // 生成反馈ID
+        const feedbackId = `feedback_${user.id}_${now}`;
+        
+        // 构建反馈对象
+        const feedback = {
+            id: feedbackId,
+            userId: user.id,
+            email: user.email,
+            category: category,
+            content: sanitizedContent,
+            created_at: new Date().toISOString(),
+            status: 'pending'
+        };
+        
+        // 保存反馈
+        await env.FEEDBACK.put(feedbackId, JSON.stringify(feedback));
+        
+        // 更新用户反馈列表
+        const userFeedbackKey = `user_feedback:${user.id}`;
+        const existingList = await env.FEEDBACK.get(userFeedbackKey);
+        const feedbackList = existingList ? JSON.parse(existingList) : [];
+        feedbackList.unshift(feedbackId); // 新的在前
+        
+        // 只保留最近20条
+        if (feedbackList.length > 20) {
+            feedbackList.splice(20);
+        }
+        
+        await env.FEEDBACK.put(userFeedbackKey, JSON.stringify(feedbackList));
+        
+        // 设置频率限制
+        await env.FEEDBACK.put(rateLimitKey, now.toString(), { expirationTtl: 600 }); // 10分钟过期
+        
+        return {
+            success: true,
+            message: '反馈提交成功，感谢您的建议！',
+            feedbackId: feedbackId
+        };
+        
+    } catch (error) {
+        console.error('处理反馈提交时出错:', error);
+        return { success: false, error: '提交失败，请稍后重试' };
+    }
+}
+
+/**
+ * 获取用户反馈列表
+ * @param {Object} user - 用户信息
+ * @param {Object} env - 环境变量
+ * @returns {Promise<Object>} 反馈列表
+ */
+async function getUserFeedbackList(user, env) {
+    try {
+        const userFeedbackKey = `user_feedback:${user.id}`;
+        const feedbackListStr = await env.FEEDBACK.get(userFeedbackKey);
+        
+        if (!feedbackListStr) {
+            return {
+                success: true,
+                feedbacks: [],
+                count: 0
+            };
+        }
+        
+        const feedbackIds = JSON.parse(feedbackListStr);
+        const feedbacks = [];
+        
+        // 获取每个反馈的详细信息
+        for (const feedbackId of feedbackIds) {
+            try {
+                const feedbackStr = await env.FEEDBACK.get(feedbackId);
+                if (feedbackStr) {
+                    const feedback = JSON.parse(feedbackStr);
+                    // 只返回必要信息，不包含敏感数据
+                    feedbacks.push({
+                        id: feedback.id,
+                        category: feedback.category,
+                        content: feedback.content,
+                        created_at: feedback.created_at,
+                        status: feedback.status || 'pending'
+                    });
+                }
+            } catch (e) {
+                console.error(`获取反馈详情失败: ${feedbackId}`, e);
+            }
+        }
+        
+        return {
+            success: true,
+            feedbacks: feedbacks,
+            count: feedbacks.length
+        };
+        
+    } catch (error) {
+        console.error('获取用户反馈列表时出错:', error);
+        return { success: false, error: '获取反馈列表失败' };
     }
 }
 

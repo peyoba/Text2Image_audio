@@ -52,3 +52,5 @@
   &_p_a_t_t_e_r_n          *  Display only matching lines.
         ---------------------------------------------------
 		Search is case-sensitive unless changed with -i or -I.
+[33mc50d430[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m docs(plan): add near-term plan (i18n fix, feedback, prompt templates) and index link
+[33mf3ca7d6[m docs: add incident postmortem (2025-09-03) and link from docs/README

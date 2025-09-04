@@ -219,6 +219,25 @@ const i18n = {
         haveAccount: '已有账号？',
         loginNow: '立即登录',
         
+        // 认证消息
+        registerSuccess: '注册成功！',
+        registerFailed: '注册失败',
+        loginSuccess: '登录成功！',
+        loginFailed: '登录失败',
+        logoutSuccess: '已成功登出',
+        networkError: '网络错误，请稍后重试',
+        processing: '处理中...',
+        submit: '提交',
+        
+        // 表单验证
+        passwordMinLength: '至少6位',
+        passwordMismatch: '两次输入的密码不一致',
+        fillEmailPassword: '请填写邮箱与至少6位密码',
+        fillUserInfo: '请输入用户名与邮箱',
+        enterEmail: '请输入邮箱地址',
+        passwordMinSix: '密码长度至少6位',
+        invalidResetLink: '重置链接无效',
+        
         // Google登录和忘记密码
         or: '或',
         googleLogin: '使用Google登录',
@@ -318,6 +337,84 @@ const i18n = {
         ],
         generationResult: '生成结果',
 
+        // 高清图片管理
+        hdImageTooLarge: '图片太大，请重试（最大2MB）',
+        hdImageSaved: '高清图片保存成功！',
+        hdImageSaveFailed: '保存失败',
+        hdImageListFailed: '获取图片列表失败',
+        hdImageLoadError: '获取图片失败',
+        hdImagePrepareDownload: '正在准备下载...',
+        hdImageDownloadSuccess: '下载成功！',
+        hdImageDownloadFailed: '下载失败',
+        hdImageDeleteConfirm: '确定要删除这张图片吗？',
+        hdImageDeleted: '图片删除成功！',
+        hdImageDeleteFailed: '删除失败',
+        hdImageLoadFailed: '加载图片列表失败',
+        hdImageLoadingHD: '正在加载高清图片...',
+        hdImageThumbnail: '缩略图',
+        hdImageSaving: '正在保存...',
+        hdImageStats: '统计信息错误',
+        hdClickToView: '点击查看',
+        
+        // 用户中心
+        userCenter: '个人中心',
+        userUpdateSuccess: '更新成功',
+        userPasswordMismatch: '两次输入的密码不一致',
+        userFeatureComing: '功能开发中，敬请期待',
+        newPassword: '新密码',
+        confirmNewPassword: '确认新密码',
+        
+        // 反馈系统
+        feedbackTitle: '留言与建议',
+        feedbackCategory: '反馈类别',
+        feedbackContent: '反馈内容',
+        feedbackSubmit: '提交反馈',
+        feedbackPlaceholder: '请描述您的问题或建议...',
+        feedbackSuccess: '反馈提交成功，感谢您的建议！',
+        feedbackError: '提交失败，请稍后重试',
+        feedbackEmpty: '反馈内容不能为空',
+        feedbackTooLong: '反馈内容不能超过1000字符',
+        feedbackRateLimit: '请稍后再提交反馈',
+        myFeedback: '我的留言',
+        noFeedback: '暂无留言记录',
+        feedbackStatus: '状态',
+        feedbackTime: '提交时间',
+        feedbackPending: '待处理',
+        feedbackProcessed: '已处理',
+        
+        // 反馈类别
+        feedbackCategories: {
+            bug: '问题反馈',
+            feature: '功能建议',
+            improvement: '体验改进',
+            other: '其他'
+        },
+        
+        // 提示词模板
+        promptTemplates: '常用模板',
+        promptTemplateTitle: '常用提示词模板',
+        templateCategories: {
+            landscape: '风景',
+            portrait: '人像',
+            product: '产品拍摄',
+            avatar: '头像',
+            anime: '二次元',
+            logo: 'Logo/海报'
+        },
+        useTemplate: '使用模板',
+        templateApplied: '模板已应用',
+        
+        // 模态框和弹窗
+        showModal: '显示模态框',
+        closeModal: '关闭模态框',
+        modalNotFound: '模态框未找到',
+        authModalLoadFailed: '加载认证界面失败',
+        authModuleInitSuccess: '认证模块初始化完成',
+        authModuleNotLoaded: '认证模块未加载',
+        imageModuleInitSuccess: '图片管理模块初始化完成',
+        imageModuleNotLoaded: '图片管理模块未加载',
+        userLoggedInInit: '用户已登录，初始化图片管理器',
+        
         // Footer
         footerCopyright: '© 2025 AISTONE',
         footerLinks: [
@@ -538,6 +635,25 @@ const i18n = {
         haveAccount: 'Already have an account?',
         loginNow: 'Login Now',
         
+        // Authentication messages
+        registerSuccess: 'Registration successful!',
+        registerFailed: 'Registration failed',
+        loginSuccess: 'Login successful!',
+        loginFailed: 'Login failed',
+        logoutSuccess: 'Logged out successfully',
+        networkError: 'Network error, please try again later',
+        processing: 'Processing...',
+        submit: 'Submit',
+        
+        // Form validation
+        passwordMinLength: 'At least 6 characters',
+        passwordMismatch: 'Passwords do not match',
+        fillEmailPassword: 'Please fill in email and password (at least 6 characters)',
+        fillUserInfo: 'Please enter username and email',
+        enterEmail: 'Please enter email address',
+        passwordMinSix: 'Password must be at least 6 characters',
+        invalidResetLink: 'Invalid reset link',
+        
         // Google Login and forgot password
         or: 'OR',
         googleLogin: 'Sign in with Google',
@@ -632,6 +748,84 @@ const i18n = {
             { icon: '🎨', title: 'Multi-style Support', desc: 'Across artistic styles, photos, illustrations, anime, etc.' }
         ],
         generationResult: 'Generation Result',
+
+        // HD Image Management
+        hdImageTooLarge: 'Image too large, please retry (max 2MB)',
+        hdImageSaved: 'HD image saved successfully!',
+        hdImageSaveFailed: 'Save failed',
+        hdImageListFailed: 'Failed to get image list',
+        hdImageLoadError: 'Failed to get image',
+        hdImagePrepareDownload: 'Preparing download...',
+        hdImageDownloadSuccess: 'Download succeeded!',
+        hdImageDownloadFailed: 'Download failed',
+        hdImageDeleteConfirm: 'Are you sure you want to delete this image?',
+        hdImageDeleted: 'Image deleted successfully!',
+        hdImageDeleteFailed: 'Delete failed',
+        hdImageLoadFailed: 'Failed to load image list',
+        hdImageLoadingHD: 'Loading HD image...',
+        hdImageThumbnail: 'Thumbnail',
+        hdImageSaving: 'Saving...',
+        hdImageStats: 'Statistics error',
+        hdClickToView: 'Click to view',
+        
+        // User Center
+        userCenter: 'User Center',
+        userUpdateSuccess: 'Update successful',
+        userPasswordMismatch: 'Passwords do not match',
+        userFeatureComing: 'Feature coming soon, stay tuned',
+        newPassword: 'New Password',
+        confirmNewPassword: 'Confirm New Password',
+        
+        // Feedback System
+        feedbackTitle: 'Feedback & Suggestions',
+        feedbackCategory: 'Feedback Category',
+        feedbackContent: 'Feedback Content',
+        feedbackSubmit: 'Submit Feedback',
+        feedbackPlaceholder: 'Please describe your issue or suggestion...',
+        feedbackSuccess: 'Feedback submitted successfully, thank you for your suggestion!',
+        feedbackError: 'Submission failed, please try again later',
+        feedbackEmpty: 'Feedback content cannot be empty',
+        feedbackTooLong: 'Feedback content cannot exceed 1000 characters',
+        feedbackRateLimit: 'Please wait before submitting another feedback',
+        myFeedback: 'My Feedback',
+        noFeedback: 'No feedback records yet',
+        feedbackStatus: 'Status',
+        feedbackTime: 'Submit Time',
+        feedbackPending: 'Pending',
+        feedbackProcessed: 'Processed',
+        
+        // Feedback Categories
+        feedbackCategories: {
+            bug: 'Bug Report',
+            feature: 'Feature Request',
+            improvement: 'User Experience',
+            other: 'Other'
+        },
+        
+        // Prompt Templates
+        promptTemplates: 'Templates',
+        promptTemplateTitle: 'Common Prompt Templates',
+        templateCategories: {
+            landscape: 'Landscape',
+            portrait: 'Portrait',
+            product: 'Product Photography',
+            avatar: 'Avatar',
+            anime: 'Anime',
+            logo: 'Logo/Poster'
+        },
+        useTemplate: 'Use Template',
+        templateApplied: 'Template Applied',
+        
+        // Modals and Popups
+        showModal: 'Show modal',
+        closeModal: 'Close modal',
+        modalNotFound: 'Modal not found',
+        authModalLoadFailed: 'Failed to load authentication interface',
+        authModuleInitSuccess: 'Authentication module initialized successfully',
+        authModuleNotLoaded: 'Authentication module not loaded',
+        imageModuleInitSuccess: 'Image management module initialized successfully',
+        imageModuleNotLoaded: 'Image management module not loaded',
+        userLoggedInInit: 'User logged in, initializing image manager',
 
         // Footer
         footerCopyright: '© 2025 AISTONE',

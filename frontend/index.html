@@ -608,6 +608,14 @@
             <!-- 内容创作区域 -->
             <section class="input-section" id="create" style="margin-top: 20px;">
                 <h2 class="section-title" data-i18n="inputTitle" style="margin-bottom: 12px;">描述文本</h2>
+                
+                <!-- 常用模板按钮 -->
+                <div style="margin-bottom: 12px;">
+                    <button id="template-btn" class="template-btn" data-i18n="promptTemplates">
+                        📝 常用模板
+                    </button>
+                </div>
+                
                 <textarea id="text-input" rows="4" placeholder="请输入描述，如：一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影" style="margin-bottom: 12px;"></textarea>
                 <!-- 快速填充示例按钮区域（移动到此处） -->
                 <div class="examples-quickfill">
@@ -951,6 +959,7 @@
     <script src="js/api_client.js?v=20250809" defer></script>
     <script src="js/ui_handler.js?v=20250809" defer></script>
     <script src="js/ui_enhancements.js?v=20250809" defer></script>
+    <script src="js/prompt_templates.js?v=20250903" defer></script>
     <script src="js/app.js?v=20250809" defer></script>
     <!-- 认证模态交互脚本（保证表单submit被JS接管，避免浏览器默认提交导致405） -->
     <script src="js/auth_modals.js?v=20250902" defer></script>

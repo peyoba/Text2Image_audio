@@ -10,7 +10,7 @@ function setSubmitting(formEl, submitting) {
   const btn = formEl?.querySelector('button[type="submit"]');
   if (btn) {
     btn.disabled = submitting;
-    btn.textContent = submitting ? '处理中...' : (btn.dataset.originText || '提交');
+    btn.textContent = submitting ? t('processing') : (btn.dataset.originText || t('submit'));
   }
 }
 
@@ -32,7 +32,7 @@ function initAuthForms() {
     if (pwd) {
       pwd.addEventListener('input', () => {
         const ok = pwd.value && pwd.value.length >= 6; // 降级为长度校验，避免浏览器对pattern差异
-        pwd.setCustomValidity(ok ? '' : '至少6位');
+        pwd.setCustomValidity(ok ? '' : t('passwordMinLength'));
       });
     }
     const btn = registerForm.querySelector('button[type="submit"]');
@@ -60,7 +60,7 @@ function initAuthForms() {
     if (newPwd && confirmPwd) {
       const validatePassword = () => {
         if (confirmPwd.value && newPwd.value !== confirmPwd.value) {
-          confirmPwd.setCustomValidity('两次输入的密码不一致');
+          confirmPwd.setCustomValidity(t('passwordMismatch'));
         } else {
           confirmPwd.setCustomValidity('');
         }
@@ -86,7 +86,7 @@ async function handleLoginSubmit(e) {
     const email = String(formData.get('email') || '').trim();
     const password = String(formData.get('password') || '');
     if (!email || !password || password.length < 6) {
-      window.authManager?.showMessage('请填写邮箱与至少6位密码', 'error');
+      window.authManager?.showMessage(t('fillEmailPassword'), 'error');
       return;
     }
     const credentials = { email, password };
@@ -98,12 +98,12 @@ async function handleLoginSubmit(e) {
       form.reset();
     }
     if (!result.success) {
-      window.authManager?.showMessage(result.message || '登录失败', 'error');
+      window.authManager?.showMessage(result.message || t('loginFailed'), 'error');
       console.error('Login failed payload:', credentials.email);
     }
   } catch (err) {
     console.error('登录失败: ', err);
-    window.authManager?.showMessage('登录失败，请稍后重试', 'error');
+    window.authManager?.showMessage(t('networkError'), 'error');
   } finally {
     isSubmittingLogin = false;
     setSubmitting(e.target, false);
@@ -121,7 +121,7 @@ async function handleRegisterSubmit(e) {
     const password = String(formData.get('password') || '');
     const confirmPassword = String(formData.get('confirmPassword') || '');
     if (password !== confirmPassword) {
-      window.authManager?.showMessage('两次输入的密码不一致', 'error');
+      window.authManager?.showMessage(t('passwordMismatch'), 'error');
       return;
     }
     if (!password || password.length < 6) {
@@ -213,7 +213,7 @@ async function handleResetPasswordSubmit(e) {
     }
     
     if (newPassword !== confirmNewPassword) {
-      window.authManager?.showMessage('两次输入的密码不一致', 'error');
+      window.authManager?.showMessage(t('passwordMismatch'), 'error');
       return;
     }
     

@@ -953,6 +953,31 @@ footer {
     color: #10182A;
 }
 
+/* 模板按钮 */
+.template-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.template-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.template-btn:active {
+    transform: translateY(0);
+}
+
 .quick-actions {
     display: flex;
     gap: 12px; /* 按钮之间的间距调整 */

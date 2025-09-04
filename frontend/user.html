@@ -158,6 +158,10 @@
       <section>
         <div id="hd-images-ui"></div>
       </section>
+      
+      <section>
+        <div id="feedback-ui"></div>
+      </section>
     </div>
   </div>
 
@@ -165,6 +169,7 @@
   <script src="js/auth_modals.js?v=20250902" defer></script>
   <script src="js/auth.js?v=20250902" defer></script>
   <script src="js/hd_image_manager.js?v=20250809" defer></script>
+  <script src="js/feedback_manager.js?v=20250903" defer></script>
   <div id="auth-modals"></div>
   <script>
     // 注入认证模态
@@ -183,6 +188,20 @@
         }
         // UI 注入后再尝试填充一次账户信息与加载高清模块
         try { populateAccountInfo(); } catch(_) {}
+      });
+    
+    // 注入反馈功能 UI
+    fetch('feedback-ui.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('feedback-ui').innerHTML = html;
+        if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') {
+          setLanguage(getCurrentLang());
+        }
+        // 初始化反馈功能
+        if (window.feedbackManager) {
+          window.feedbackManager.init();
+        }
       });
 
     // 初始化图片管理器与账户信息（避免再次强制调用 init 导致重复校验）

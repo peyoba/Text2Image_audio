@@ -108,7 +108,7 @@ class HDImageManager {
             const sizeInBytes = Math.ceil((imageData.data.length * 3) / 4);
             console.log('HDImageManager: 图片大小:', sizeInBytes, 'bytes');
             if (sizeInBytes > this.maxImageSize) {
-                throw new Error(getCurrentLang() === 'zh' ? '图片太大，请重试（最大2MB）' : 'Image too large, please retry (max 2MB)');
+                throw new Error(t('hdImageTooLarge'));
             }
 
             // 显示保存中状态
@@ -155,7 +155,7 @@ class HDImageManager {
             
             if (result.success) {
                 this.hideSavingStatus();
-                this.showMessage(getCurrentLang() === 'zh' ? '高清图片保存成功！' : 'HD image saved successfully!', 'success');
+                this.showMessage(t('hdImageSaved'), 'success');
                 console.log('HDImageManager: 图片保存成功');
                 
                 // 重新加载图片列表
@@ -165,7 +165,7 @@ class HDImageManager {
                 return result;
             } else {
                 console.error('HDImageManager: 保存失败', result.error);
-                throw new Error(result.error || '保存失败');
+                throw new Error(result.error || t('hdImageSaveFailed'));
             }
         } catch (error) {
             this.hideSavingStatus();
@@ -193,7 +193,7 @@ class HDImageManager {
             if (result && (Array.isArray(result.images) || Array.isArray(result.list))) {
                 return { success: true, images: result.images || result.list, count: result.count || (result.images?.length||0), maxCount: result.maxCount || this.maxImagesPerDay };
             }
-            throw new Error((result && result.error) || (getCurrentLang && getCurrentLang()==='zh' ? '获取图片列表失败' : 'Failed to get image list'));
+            throw new Error((result && result.error) || t('hdImageListFailed'));
         } catch (error) {
             console.error('获取图片列表错误:', error);
             throw error;
@@ -218,7 +218,7 @@ class HDImageManager {
             if (result && (result.success && result.image)) return result.image;
             // 兼容直接返回图片对象
             if (result && result.data && result.width && result.height) return result;
-            throw new Error((result && result.error) || (getCurrentLang && getCurrentLang()==='zh' ? '获取图片失败' : 'Failed to get image'));
+            throw new Error((result && result.error) || t('hdImageLoadError'));
         } catch (error) {
             console.error('获取高清图片错误:', error);
             throw error;
@@ -231,7 +231,7 @@ class HDImageManager {
      */
     async downloadHDImage(imageId) {
         try {
-            this.showMessage('正在准备下载...', 'info');
+            this.showMessage(t('hdImagePrepareDownload'), 'info');
             
             const response = await fetch(`${this.baseUrl}/images/download/${imageId}`, {
                 headers: {
@@ -250,10 +250,10 @@ class HDImageManager {
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
                 
-                this.showMessage(getCurrentLang() === 'zh' ? '下载成功！' : 'Download succeeded!', 'success');
+                this.showMessage(t('hdImageDownloadSuccess'), 'success');
             } else {
                 const error = await response.json();
-                throw new Error(error.error || '下载失败');
+                throw new Error(error.error || t('hdImageDownloadFailed'));
             }
         } catch (error) {
             this.showMessage(error.message, 'error');
@@ -266,7 +266,7 @@ class HDImageManager {
      */
     async deleteImage(imageId) {
         try {
-            if (!confirm('确定要删除这张图片吗？')) {
+            if (!confirm(t('hdImageDeleteConfirm'))) {
                 return;
             }
 
@@ -280,11 +280,11 @@ class HDImageManager {
             const result = await response.json();
             
             if (result.success) {
-                this.showMessage('图片删除成功！', 'success');
+                this.showMessage(t('hdImageDeleted'), 'success');
                 this.loadDailyImages();
                 this.updateStats();
             } else {
-                throw new Error(result.error || '删除失败');
+                throw new Error(result.error || t('hdImageDeleteFailed'));
             }
         } catch (error) {
             this.showMessage(error.message, 'error');
@@ -301,7 +301,7 @@ class HDImageManager {
             this.updateImageCount(result.count, result.maxCount);
         } catch (error) {
             console.error('加载今日图片错误:', error);
-            this.showMessage(getCurrentLang() === 'zh' ? '加载图片列表失败' : 'Failed to load image list', 'error');
+            this.showMessage(t('hdImageLoadFailed'), 'error');
         }
     }
 
@@ -342,7 +342,7 @@ class HDImageManager {
         card.className = 'image-card';
         card.innerHTML = `
             <div class="image-preview">
-                <img class="thumb" alt="缩略图" style="display:none;"/>
+                <img class="thumb" alt="${t('hdImageThumbnail')}" style="display:none;"/>
                     <div class="image-placeholder" data-image-id="${image.id}">
                     <div class="loading-spinner"></div>
                     <span>${t('hdClickToView')}</span>
@@ -398,7 +398,7 @@ class HDImageManager {
      */
     async viewImage(imageId) {
         try {
-            this.showLoading(getCurrentLang() === 'zh' ? '正在加载高清图片...' : 'Loading HD image...');
+            this.showLoading(t('hdImageLoadingHD'));
             
             const result = await this.getHDImage(imageId);
             this.currentImageId = imageId;
