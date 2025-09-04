@@ -19,9 +19,31 @@
 
 ---
 
-# 文生图与文生语音网站
+# AISTONE - 智能AI内容创作平台
 
-本项目是一个基于AI的内容生成Web应用程序，允许用户输入文本，并通过调用 Pollinations API 生成相应的图片或语音。项目采用 Serverless 架构，部署在 Cloudflare 平台上。
+**AISTONE** 是一个革命性的AI驱动内容创作平台，专注于为用户提供高质量、免费的AI图片生成与语音合成服务。我们的使命是让AI内容创作对每个人都触手可及，无论您是专业设计师、内容创作者，还是有创意想法的普通用户。
+
+## 🌟 关于 AISTONE
+
+**AISTONE** 结合了前沿的AI技术与用户友好的设计理念，为全球用户提供：
+
+- **🎨 专业级AI图片生成**：基于先进的Pollinations.AI技术，支持Kontext、FLUX、Turbo等多种AI模型
+- **🎵 自然语音合成**：高质量的文本转语音服务，支持多种音色和语言
+- **🧠 智能提示词优化**：集成DeepSeek AI，自动优化中文描述为高质量英文提示词
+- **🌍 全球化服务**：完整的中英文支持，基于Cloudflare CDN的全球加速
+- **🔒 隐私优先**：零数据留存，所有内容实时处理不存储
+
+### 为什么选择 AISTONE？
+
+1. **完全免费**：所有功能永久免费，无需注册，无使用限制
+2. **专业品质**：采用最新的AI模型，生成效果媲美专业工具
+3. **简单易用**：直观的界面设计，一键生成高质量内容
+4. **技术先进**：Serverless架构，全球CDN加速，毫秒级响应
+5. **持续创新**：定期更新功能，引入最新AI技术
+
+**官方网站**：[https://aistone.org](https://aistone.org)
+
+本项目采用 Serverless 架构，部署在 Cloudflare 平台上，为全球用户提供稳定可靠的AI内容生成服务。
 
 ## 版本
 
@@ -84,8 +106,8 @@ Text2Image_audio/
 ## 🚀 快速开始
 
 ### 在线访问（推荐）
-项目已部署到 Cloudflare 平台，可直接访问：
-- **前端地址**：[即将更新]
+**AISTONE** 已部署到 Cloudflare 平台，可直接访问：
+- **官方网站**：[https://aistone.org](https://aistone.org)
 - **后端API**：`https://text2image-api.peyoba660703.workers.dev`
 
 ### 本地开发
@@ -250,11 +272,17 @@ wrangler deploy
 
 ## 📊 项目状态
 
-**当前版本**：MVP 1.1 (已完成健壮性优化)
-**部署状态**：✅ 生产就绪  
-**前端状态**：✅ 本地开发服务器运行中 (端口8000)  
-**后端状态**：✅ Cloudflare Workers已部署  
-**功能完成度**：90% （核心功能完整）
+**当前版本**：V2.1 (2025-09-03 - 最新功能更新)
+**部署状态**：✅ 生产环境运行中  
+**官方网站**：✅ [https://aistone.org](https://aistone.org)  
+**后端API**：✅ Cloudflare Workers已部署  
+**功能完成度**：98% （所有核心功能完整）
+
+### 🆕 最新更新 (V2.1 - 2025-09-03)
+- ✅ **完整国际化支持**：所有界面和交互完全支持中英文切换
+- ✅ **用户反馈系统**：个人中心新增留言与建议功能，支持分类管理
+- ✅ **提示词模板库**：6大类别×24个专业模板，一键应用高质量提示词
+- ✅ **用户体验优化**：优化所有交互细节，提升整体使用体验
 
 ### 🔄 当前工作重点
 **UI界面现代化优化** (2025-05-24启动)
@@ -285,8 +313,8 @@ wrangler deploy
 
 ---
 
-*最后更新时间：2025-05-24*  
-*项目状态：活跃开发中* 🚀 
+*最后更新时间：2025-09-03*  
+*项目状态：生产环境稳定运行* 🚀 
 
 ## 主要功能
 - 文本生成图片（多尺寸、多风格、可选水印、批量生成）
@@ -313,12 +341,21 @@ wrangler deploy
 - 移动端体验优化、API统计与监控
 - 详细规划见《dev_plan.md》
 
-## 🚀 正式上线公告
+## 🚀 AISTONE 正式上线
 
-本项目已于2025年5月正式上线，欢迎访问体验！
+**AISTONE** 已于2025年5月正式上线，并持续更新优化，欢迎访问体验最新功能！
 
-- **前端正式地址**：[https://aistone.org](https://aistone.org)
-- **后端API入口**：[https://text2image-api.peyoba660703.workers.dev](https://text2image-api.peyoba660703.workers.dev)
+### 🌐 访问地址
+- **官方网站**：[https://aistone.org](https://aistone.org)
+- **后端API**：[https://text2image-api.peyoba660703.workers.dev](https://text2image-api.peyoba660703.workers.dev)
 - **GitHub仓库**：[https://github.com/peyoba/Text2Image_audio](https://github.com/peyoba/Text2Image_audio)
 
-所有功能均已在生产环境稳定运行，详细进展见 [status_report.md](./status_report.md)。 
+### 🎯 立即体验
+访问 [https://aistone.org](https://aistone.org) 即可：
+- 🎨 生成专业级AI图片（支持多种风格和尺寸）
+- 🎵 创建自然流畅的AI语音（支持在线播放和下载）
+- 📝 使用专业提示词模板（6大类别×24个精选模板）
+- 💬 提交反馈建议（个人中心反馈系统）
+- 🌍 享受完整中英文体验（一键语言切换）
+
+所有功能均已在生产环境稳定运行，详细技术文档见 [docs/](./docs/) 目录。 
