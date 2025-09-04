@@ -55,6 +55,7 @@ DEFAULT_AUDIO_VOICE = "nova"
 
 # 认证配置
 JWT_SECRET = "your-super-secret-jwt-key-change-this-in-production"
+ADMIN_KEY = "aistone-admin-2025-secure-key"
 
 # 日志配置
 LOG_LEVEL = "info"

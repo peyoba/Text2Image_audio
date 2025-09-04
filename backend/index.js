@@ -299,6 +299,16 @@ export default {
                 logInfo(env, `[Worker Log] Getting feedback list for user: ${user.id}`);
                 const result = await getUserFeedbackList(user, env);
                 return jsonResponse(result, env, result.success ? 200 : 400);
+            } else if (method === "GET" && path === "/api/admin/feedback") {
+                // 管理员查看所有反馈（简单验证）
+                const adminKey = url.searchParams.get('admin_key');
+                if (adminKey !== env.ADMIN_KEY) {
+                    return jsonResponse({ error: '管理员权限验证失败' }, env, 403);
+                }
+                
+                logInfo(env, `[Worker Log] Admin getting all feedback`);
+                const result = await getAllFeedbackForAdmin(env);
+                return jsonResponse(result, env, result.success ? 200 : 400);
             } else if (method === "POST" && path === "/api/translate") {
                 const requestData = await request.json();
                 const text = requestData.text;
@@ -637,6 +647,58 @@ async function handleFeedbackSubmission(user, requestData, env) {
     } catch (error) {
         console.error('处理反馈提交时出错:', error);
         return { success: false, error: '提交失败，请稍后重试' };
+    }
+}
+
+/**
+ * 管理员获取所有反馈
+ * @param {Object} env - 环境变量
+ * @returns {Promise<Object>} 所有反馈列表
+ */
+async function getAllFeedbackForAdmin(env) {
+    try {
+        // 获取所有以 "feedback_" 开头的键
+        const allKeys = await env.FEEDBACK.list({ prefix: 'feedback_' });
+        const allFeedback = [];
+        
+        // 获取每个反馈的详细信息
+        for (const key of allKeys.keys) {
+            try {
+                const feedbackStr = await env.FEEDBACK.get(key.name);
+                if (feedbackStr) {
+                    const feedback = JSON.parse(feedbackStr);
+                    allFeedback.push(feedback);
+                }
+            } catch (e) {
+                console.error(`获取反馈详情失败: ${key.name}`, e);
+            }
+        }
+        
+        // 按时间倒序排列
+        allFeedback.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        
+        // 计算统计信息
+        const stats = {
+            total: allFeedback.length,
+            pending: allFeedback.filter(f => f.status === 'pending').length,
+            processed: allFeedback.filter(f => f.status === 'processed').length,
+            today: allFeedback.filter(f => {
+                const today = new Date().toISOString().split('T')[0];
+                const feedbackDate = new Date(f.created_at).toISOString().split('T')[0];
+                return feedbackDate === today;
+            }).length
+        };
+        
+        return {
+            success: true,
+            feedbacks: allFeedback,
+            stats: stats,
+            count: allFeedback.length
+        };
+        
+    } catch (error) {
+        console.error('管理员获取反馈列表时出错:', error);
+        return { success: false, error: '获取反馈列表失败' };
     }
 }
 

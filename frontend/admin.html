@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AISTONE 管理员后台</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1f2e;
+            min-height: 100vh;
+        }
+        
+        .admin-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .stat-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #273548;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00CFFF;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: #AAB4D4;
+            font-size: 0.875rem;
+        }
+        
+        .feedback-filters {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #273548;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .filter-label {
+            color: #AAB4D4;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .filter-select {
+            background: #0f172a;
+            color: #e5e7eb;
+            border: 1px solid #273548;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.875rem;
+        }
+        
+        .refresh-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+        
+        .refresh-btn:hover {
+            background: #059669;
+        }
+        
+        .feedback-list {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #273548;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .feedback-header {
+            background: #273548;
+            padding: 16px;
+            font-weight: 600;
+            color: #e5e7eb;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .admin-feedback-item {
+            border-bottom: 1px solid #273548;
+            padding: 16px;
+            transition: background 0.2s;
+        }
+        
+        .admin-feedback-item:hover {
+            background: rgba(30, 41, 59, 0.5);
+        }
+        
+        .admin-feedback-item:last-child {
+            border-bottom: none;
+        }
+        
+        .feedback-meta {
+            display: grid;
+            grid-template-columns: 1fr 120px 100px 120px 100px;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .feedback-user {
+            color: #00CFFF;
+            font-weight: 500;
+        }
+        
+        .feedback-category-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .category-bug { background: #ef4444; color: white; }
+        .category-feature { background: #3b82f6; color: white; }
+        .category-improvement { background: #8b5cf6; color: white; }
+        .category-other { background: #6b7280; color: white; }
+        
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .status-pending { background: #f59e0b; color: #1f2937; }
+        .status-processed { background: #10b981; color: white; }
+        
+        .feedback-content {
+            color: #d1d5db;
+            line-height: 1.5;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            border-left: 3px solid #4f46e5;
+        }
+        
+        .feedback-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-btn {
+            padding: 4px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-process {
+            background: #10b981;
+            color: white;
+        }
+        
+        .btn-process:hover {
+            background: #059669;
+        }
+        
+        .btn-delete {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .btn-delete:hover {
+            background: #dc2626;
+        }
+        
+        .loading-container {
+            text-align: center;
+            padding: 40px;
+            color: #AAB4D4;
+        }
+        
+        .loading-spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid #273548;
+            border-top: 3px solid #4f46e5;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .feedback-meta {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .feedback-filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>🛠️ AISTONE 管理员后台</h1>
+            <p>用户反馈管理系统</p>
+        </div>
+        
+        <!-- 统计面板 -->
+        <div class="admin-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="total-feedback">-</div>
+                <div class="stat-label">总反馈数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pending-feedback">-</div>
+                <div class="stat-label">待处理</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="processed-feedback">-</div>
+                <div class="stat-label">已处理</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="today-feedback">-</div>
+                <div class="stat-label">今日新增</div>
+            </div>
+        </div>
+        
+        <!-- 筛选器 -->
+        <div class="feedback-filters">
+            <div class="filter-group">
+                <label class="filter-label">类别筛选</label>
+                <select id="category-filter" class="filter-select">
+                    <option value="">全部类别</option>
+                    <option value="bug">问题反馈</option>
+                    <option value="feature">功能建议</option>
+                    <option value="improvement">体验改进</option>
+                    <option value="other">其他</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">状态筛选</label>
+                <select id="status-filter" class="filter-select">
+                    <option value="">全部状态</option>
+                    <option value="pending">待处理</option>
+                    <option value="processed">已处理</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">时间筛选</label>
+                <select id="time-filter" class="filter-select">
+                    <option value="">全部时间</option>
+                    <option value="today">今天</option>
+                    <option value="week">本周</option>
+                    <option value="month">本月</option>
+                </select>
+            </div>
+            <button class="refresh-btn" onclick="adminManager.loadAllFeedback()">🔄 刷新数据</button>
+        </div>
+        
+        <!-- 反馈列表 -->
+        <div class="feedback-list">
+            <div class="feedback-header">
+                用户反馈列表
+            </div>
+            <div id="admin-feedback-container">
+                <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <div>正在加载反馈数据...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/i18n.js?v=20250903"></script>
+    <script>
+        /**
+         * 管理员反馈管理器
+         */
+        class AdminFeedbackManager {
+            constructor() {
+                const apiBase = (window.API_BASE || 'https://text2image-api.peyoba660703.workers.dev');
+                this.baseUrl = apiBase.endsWith('/api') ? apiBase : `${apiBase}/api`;
+                this.allFeedback = [];
+                this.filteredFeedback = [];
+                
+                this.init();
+            }
+            
+            async init() {
+                this.setupEventListeners();
+                await this.loadAllFeedback();
+            }
+            
+            setupEventListeners() {
+                // 筛选器事件
+                ['category-filter', 'status-filter', 'time-filter'].forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.addEventListener('change', () => this.applyFilters());
+                    }
+                });
+            }
+            
+            async loadAllFeedback() {
+                const container = document.getElementById('admin-feedback-container');
+                container.innerHTML = `
+                    <div class="loading-container">
+                        <div class="loading-spinner"></div>
+                        <div>正在加载反馈数据...</div>
+                    </div>
+                `;
+                
+                try {
+                    // 调用管理员API获取所有反馈
+                    const adminKey = 'aistone-admin-2025-secure-key'; // 在生产环境中应该更安全地处理
+                    const response = await fetch(`${this.baseUrl}/admin/feedback?admin_key=${encodeURIComponent(adminKey)}`);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.allFeedback = result.feedbacks || [];
+                        this.filteredFeedback = [...this.allFeedback];
+                        this.updateStats(
+                            result.stats.total,
+                            result.stats.pending,
+                            result.stats.processed,
+                            result.stats.today
+                        );
+                        this.renderFeedbackList();
+                    } else {
+                        throw new Error(result.error || '获取反馈失败');
+                    }
+                    
+                } catch (error) {
+                    console.error('加载反馈数据失败:', error);
+                    // 如果API调用失败，显示命令行查看方式
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #AAB4D4;">
+                            <h3>📋 管理员反馈查看方式</h3>
+                            <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #273548; border-radius: 8px; padding: 20px; margin: 20px 0; text-align: left;">
+                                <h4 style="color: #00CFFF; margin-bottom: 12px;">🔧 通过命令行查看：</h4>
+                                <div style="font-family: 'Courier New', monospace; background: #0f172a; padding: 12px; border-radius: 6px; margin: 8px 0;">
+                                    <div style="color: #10b981;"># 查看所有反馈键</div>
+                                    <div style="color: #e5e7eb;">wrangler kv key list --namespace-id="937caf6061f04708929c2c4084b5c075"</div>
+                                </div>
+                                <div style="font-family: 'Courier New', monospace; background: #0f172a; padding: 12px; border-radius: 6px; margin: 8px 0;">
+                                    <div style="color: #10b981;"># 查看具体反馈内容</div>
+                                    <div style="color: #e5e7eb;">wrangler kv key get "feedback_用户ID_时间戳" --namespace-id="937caf6061f04708929c2c4084b5c075"</div>
+                                </div>
+                            </div>
+                            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; border-radius: 8px; padding: 16px; margin: 20px 0;">
+                                <h4 style="color: #ef4444; margin-bottom: 8px;">⚠️ 需要开发管理员API</h4>
+                                <p style="color: #fca5a5; margin: 0;">当前缺少管理员专用的API接口来获取所有用户反馈。需要在后端添加管理员认证和反馈查询接口。</p>
+                            </div>
+                            <button onclick="this.requestAdminAPI()" style="background: #4f46e5; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 16px;">
+                                💻 开发管理员API
+                            </button>
+                        </div>
+                    `;
+                    
+                    this.updateStats(0, 0, 0, 0);
+                    
+                } catch (error) {
+                    console.error('加载反馈数据失败:', error);
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #ef4444;">
+                            <h3>❌ 加载失败</h3>
+                            <p>无法连接到后端API，请检查网络连接或联系技术支持。</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            updateStats(total, pending, processed, today) {
+                document.getElementById('total-feedback').textContent = total;
+                document.getElementById('pending-feedback').textContent = pending;
+                document.getElementById('processed-feedback').textContent = processed;
+                document.getElementById('today-feedback').textContent = today;
+            }
+            
+            renderFeedbackList() {
+                const container = document.getElementById('admin-feedback-container');
+                
+                if (this.filteredFeedback.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #AAB4D4;">
+                            <h3>📭 暂无反馈数据</h3>
+                            <p>还没有用户提交反馈，或者筛选条件过于严格。</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const feedbackHTML = this.filteredFeedback.map(feedback => `
+                    <div class="admin-feedback-item">
+                        <div class="feedback-meta">
+                            <div class="feedback-user">${feedback.email}</div>
+                            <div class="feedback-category-badge category-${feedback.category}">
+                                ${this.getCategoryText(feedback.category)}
+                            </div>
+                            <div class="status-badge status-${feedback.status}">
+                                ${this.getStatusText(feedback.status)}
+                            </div>
+                            <div style="color: #94a3b8; font-size: 0.875rem;">
+                                ${this.formatTime(feedback.created_at)}
+                            </div>
+                            <div class="feedback-actions">
+                                ${feedback.status === 'pending' ? 
+                                    `<button class="action-btn btn-process" onclick="adminManager.markAsProcessed('${feedback.id}')">标记已处理</button>` : ''
+                                }
+                                <button class="action-btn btn-delete" onclick="adminManager.deleteFeedback('${feedback.id}')">删除</button>
+                            </div>
+                        </div>
+                        <div class="feedback-content">${this.escapeHtml(feedback.content)}</div>
+                    </div>
+                `).join('');
+                
+                container.innerHTML = feedbackHTML;
+            }
+            
+            applyFilters() {
+                const categoryFilter = document.getElementById('category-filter').value;
+                const statusFilter = document.getElementById('status-filter').value;
+                const timeFilter = document.getElementById('time-filter').value;
+                
+                this.filteredFeedback = this.allFeedback.filter(feedback => {
+                    // 类别筛选
+                    if (categoryFilter && feedback.category !== categoryFilter) {
+                        return false;
+                    }
+                    
+                    // 状态筛选
+                    if (statusFilter && feedback.status !== statusFilter) {
+                        return false;
+                    }
+                    
+                    // 时间筛选
+                    if (timeFilter) {
+                        const feedbackDate = new Date(feedback.created_at);
+                        const now = new Date();
+                        
+                        switch (timeFilter) {
+                            case 'today':
+                                if (feedbackDate.toDateString() !== now.toDateString()) {
+                                    return false;
+                                }
+                                break;
+                            case 'week':
+                                const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                                if (feedbackDate < weekAgo) {
+                                    return false;
+                                }
+                                break;
+                            case 'month':
+                                const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+                                if (feedbackDate < monthAgo) {
+                                    return false;
+                                }
+                                break;
+                        }
+                    }
+                    
+                    return true;
+                });
+                
+                this.renderFeedbackList();
+            }
+            
+            getCategoryText(category) {
+                const categories = {
+                    bug: '问题反馈',
+                    feature: '功能建议',
+                    improvement: '体验改进',
+                    other: '其他'
+                };
+                return categories[category] || category;
+            }
+            
+            getStatusText(status) {
+                const statuses = {
+                    pending: '待处理',
+                    processed: '已处理'
+                };
+                return statuses[status] || status;
+            }
+            
+            formatTime(timeString) {
+                try {
+                    const date = new Date(timeString);
+                    return date.toLocaleString('zh-CN');
+                } catch (e) {
+                    return timeString;
+                }
+            }
+            
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+            
+            async markAsProcessed(feedbackId) {
+                // 这里需要实现标记为已处理的API
+                alert(`标记反馈 ${feedbackId} 为已处理\n\n需要实现 PATCH /api/admin/feedback/${feedbackId} 接口`);
+            }
+            
+            async deleteFeedback(feedbackId) {
+                if (!confirm('确定要删除这条反馈吗？')) {
+                    return;
+                }
+                
+                // 这里需要实现删除反馈的API
+                alert(`删除反馈 ${feedbackId}\n\n需要实现 DELETE /api/admin/feedback/${feedbackId} 接口`);
+            }
+            
+            requestAdminAPI() {
+                alert('管理员API开发需求已记录！\n\n建议的实现方案：\n1. 添加管理员角色认证\n2. 创建 /api/admin/feedback 接口\n3. 实现反馈状态更新功能\n4. 添加反馈删除功能\n\n请联系开发团队进行实现。');
+            }
+        }
+        
+        // 初始化管理员系统
+        const adminManager = new AdminFeedbackManager();
+    </script>
+</body>
+</html>
