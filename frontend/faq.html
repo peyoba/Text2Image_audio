@@ -193,6 +193,64 @@
                     </div>
 
                     <div class="faq-item">
+                        <h3>AI模型的技术原理是什么？</h3>
+                        <div class="faq-answer">
+                            <p>AISTONE使用先进的深度学习模型：</p>
+                            <ul>
+                                <li><strong>扩散模型：</strong>通过逐步去噪过程生成高质量图像</li>
+                                <li><strong>Transformer架构：</strong>理解文本语义并转换为视觉特征</li>
+                                <li><strong>语音合成：</strong>基于神经网络的端到端语音生成</li>
+                                <li><strong>DeepSeek优化：</strong>使用大语言模型优化提示词质量</li>
+                            </ul>
+                            <p>这些模型经过海量数据训练，能够理解复杂的文本描述并生成相应的多媒体内容。</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>什么是负向提示词？如何使用？</h3>
+                        <div class="faq-answer">
+                            <p>负向提示词是告诉AI不要生成什么内容的指令，能显著提升生成质量：</p>
+                            <ul>
+                                <li><strong>质量控制：</strong>"模糊、低质量、变形、噪点"</li>
+                                <li><strong>风格排除：</strong>"卡通、动画、抽象"（当需要写实时）</li>
+                                <li><strong>内容过滤：</strong>"文字、水印、标识、多余物体"</li>
+                                <li><strong>色彩控制：</strong>"黑白、单色、过饱和"</li>
+                            </ul>
+                            <p>合理使用负向提示词可以让生成结果更符合您的预期。</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>平台的技术架构是什么？</h3>
+                        <div class="faq-answer">
+                            <p>AISTONE采用现代Serverless架构：</p>
+                            <ul>
+                                <li><strong>前端：</strong>基于HTML5/CSS3/JavaScript的响应式单页应用</li>
+                                <li><strong>后端：</strong>部署在Cloudflare Workers的无服务器API</li>
+                                <li><strong>存储：</strong>使用Cloudflare KV进行用户数据和缓存管理</li>
+                                <li><strong>CDN：</strong>全球分布式内容分发网络</li>
+                                <li><strong>安全：</strong>HTTPS加密、JWT认证、CORS跨域保护</li>
+                            </ul>
+                            <p>这种架构确保了高可用性、低延迟和弹性扩展能力。</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>图像生成的算法细节？</h3>
+                        <div class="faq-answer">
+                            <p>图像生成过程包含多个技术步骤：</p>
+                            <ul>
+                                <li><strong>文本编码：</strong>将用户描述转换为数学向量表示</li>
+                                <li><strong>语义理解：</strong>识别对象、风格、构图等视觉元素</li>
+                                <li><strong>噪声扩散：</strong>从随机噪声开始逐步构建图像</li>
+                                <li><strong>特征引导：</strong>根据文本语义引导生成方向</li>
+                                <li><strong>细节完善：</strong>多步迭代优化图像质量和细节</li>
+                            </ul>
+                            <p>整个过程结合了计算机视觉、自然语言处理和生成式AI的最新技术成果。</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
                         <h3>不支持我的浏览器怎么办？</h3>
                         <div class="faq-answer">
                             <p>AISTONE支持所有现代浏览器，包括Chrome、Firefox、Safari、Edge等。建议使用最新版本的浏览器以获得最佳体验。</p>
@@ -299,6 +357,67 @@
                                 <li>出版物</li>
                                 <li>商业展示</li>
                             </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>AI生成图片的分辨率和格式选择？</h3>
+                        <div class="faq-answer">
+                            <p>AISTONE支持多种分辨率和格式选择：</p>
+                            <ul>
+                                <li><strong>标准分辨率：</strong>512x512, 768x768, 1024x1024</li>
+                                <li><strong>自定义尺寸：</strong>支持256-4096像素范围内任意尺寸</li>
+                                <li><strong>常用比例：</strong>1:1(正方形), 16:9(横版), 9:16(竖版), 4:3(传统)</li>
+                                <li><strong>输出格式：</strong>PNG(高质量), JPG(标准), WebP(优化)</li>
+                                <li><strong>质量设置：</strong>支持从draft(草图)到ultra(超高清)的多级质量</li>
+                            </ul>
+                            <p>建议根据用途选择合适的分辨率：网页用图选择768p，打印用图选择1024p以上。</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>如何理解AI生成的随机性？</h3>
+                        <div class="faq-answer">
+                            <p>AI生成具有创意随机性，这是技术特点：</p>
+                            <ul>
+                                <li><strong>种子机制：</strong>每次生成使用不同的随机种子值</li>
+                                <li><strong>创意多样性：</strong>相同描述可产生多种不同的艺术解释</li>
+                                <li><strong>控制方法：</strong>通过更详细的描述减少随机性</li>
+                                <li><strong>重复性：</strong>完全相同的结果无法保证，但风格可以保持一致</li>
+                                <li><strong>优化策略：</strong>多次生成对比选择，或使用"regenerate"功能</li>
+                            </ul>
+                            <p>这种随机性实际上是AI创作的优势，能带来意想不到的创意效果。</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>语音合成支持哪些语言和口音？</h3>
+                        <div class="faq-answer">
+                            <p>AISTONE语音合成支持多语言和地区口音：</p>
+                            <ul>
+                                <li><strong>中文：</strong>标准普通话、台湾国语、粤语</li>
+                                <li><strong>英文：</strong>美式英语、英式英语、澳洲英语</li>
+                                <li><strong>其他语言：</strong>日语、韩语、法语、德语、西班牙语</li>
+                                <li><strong>音色特点：</strong>每种语言都有男声女声选择</li>
+                                <li><strong>情感表达：</strong>支持中性、愉悦、专业等不同语调</li>
+                            </ul>
+                            <p>系统会自动检测输入文本的语言，选择最合适的语音模型进行合成。</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>如何优化提示词以获得更好的结果？</h3>
+                        <div class="faq-answer">
+                            <p>提示词优化是获得理想结果的关键技巧：</p>
+                            <ul>
+                                <li><strong>结构化描述：</strong>主体 + 动作 + 环境 + 风格 + 质量</li>
+                                <li><strong>具体化：</strong>用"金色长发女性"替代"女人"</li>
+                                <li><strong>风格指定：</strong>明确艺术风格如"写实摄影、油画、卡通、素描"</li>
+                                <li><strong>技术参数：</strong>添加"8K、超高清、专业摄影、电影级"等质量词</li>
+                                <li><strong>光线描述：</strong>"柔和自然光、金色时光、戏剧性照明"</li>
+                                <li><strong>构图要求：</strong>"特写、全身、俯视角、对称构图"</li>
+                            </ul>
+                            <p>使用平台的智能优化功能可以自动改进您的提示词质量。</p>
                         </div>
                     </div>
                 </section>
