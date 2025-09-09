@@ -539,6 +539,26 @@ const i18n = {
         hdLabelSeed: '种子:',
         hdLabelTime: '时间:',
         delete: '删除',
+
+        // AI指南页面
+        aiGuideTitle: 'AI图像生成指南',
+        aiGuideMainTitle: 'AI图像生成完整指南',
+        aiGuideSubtitle: '从基础理论到实战技巧，成为AI艺术创作专家',
+        aiGuideAuthor: 'AISTONE技术团队',
+        aiGuideDate: '2025年9月9日',
+        aiGuideReadingTime: '约10分钟阅读',
+
+        // 提示词工程页面
+        promptEngineeringTitle: '提示词工程教程',
+        promptEngineeringMainTitle: '提示词工程专业教程',
+        promptEngineeringSubtitle: '掌握AI图像生成的核心技能 - 从基础语法到高级策略',
+        promptEngineeringAuthor: 'AISTONE专家团队',
+        promptEngineeringDate: '2025年9月9日',
+        promptEngineeringReadingTime: '约12分钟阅读',
+
+        // 关于页面
+        aboutHeroTitle: 'AISTONE - 重新定义内容创作',
+        aboutHeroSubtitle: '基于最新AI技术的专业内容创作平台，为创作者和企业提供高效、智能的图像生成与语音合成解决方案',
     },
     
     en: {
@@ -951,6 +971,26 @@ const i18n = {
         hdLabelSeed: 'Seed:',
         hdLabelTime: 'Time:',
         delete: 'Delete',
+
+        // AI Guide Page
+        aiGuideTitle: 'AI Image Generation Guide',
+        aiGuideMainTitle: 'Complete AI Image Generation Guide',
+        aiGuideSubtitle: 'From basic theory to practical skills, become an AI art creation expert',
+        aiGuideAuthor: 'AISTONE Technical Team',
+        aiGuideDate: 'September 9, 2025',
+        aiGuideReadingTime: 'About 10 minutes read',
+
+        // Prompt Engineering Page
+        promptEngineeringTitle: 'Prompt Engineering Tutorial',
+        promptEngineeringMainTitle: 'Professional Prompt Engineering Tutorial',
+        promptEngineeringSubtitle: 'Master the core skills of AI image generation - from basic syntax to advanced strategies',
+        promptEngineeringAuthor: 'AISTONE Expert Team',
+        promptEngineeringDate: 'September 9, 2025',
+        promptEngineeringReadingTime: 'About 12 minutes read',
+
+        // About Page
+        aboutHeroTitle: 'AISTONE - Redefining Content Creation',
+        aboutHeroSubtitle: 'Professional content creation platform based on the latest AI technology, providing efficient and intelligent image generation and speech synthesis solutions for creators and enterprises',
     }
 };
 

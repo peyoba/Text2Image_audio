@@ -1,106 +1,1835 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AISTONE - 关于我们，AI图片生成与语音合成平台介绍。">
-    <meta name="keywords" content="AISTONE, 关于, AI图片生成, AI语音合成, 免费AI工具, 团队介绍">
-    <title data-i18n="aboutModalTitle">关于 AISTONE</title>
+    <meta name="description" content="AISTONE - 专业AI内容创作平台。基于最新扩散模型技术，提供企业级图像生成和语音合成服务。了解我们的技术架构、发展历程和未来愿景。">
+    <meta name="keywords" content="AISTONE,AI图像生成,语音合成,扩散模型,FLUX,Stable Diffusion,企业服务,技术架构,AI平台">
+    <title>关于AISTONE - 专业AI内容创作平台 | 技术与愿景</title>
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "AISTONE",
+        "description": "专业AI内容创作平台，提供图像生成和语音合成服务",
+        "url": "https://aistone.org",
+        "logo": "https://aistone.org/assets/logo.svg",
+        "foundingDate": "2024",
+        "sameAs": [
+            "https://github.com/aistone-org"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "Customer Service",
+            "email": "support@aistone.org"
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "CN"
+        }
+    }
+    </script>
+
+    <!-- Google AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-6165370615688912">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6165370615688912"
+         crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-left">
-            <img src="assets/logo.svg" alt="AISTONE LOGO - 免费AI图片生成与语音合成平台标志" class="logo-img" aria-label="AISTONE 平台标志" />
-            <span class="site-name">AISTONE</span>
-        </div>
-        <ul class="navbar-menu">
-            <li><a href="index.html" data-i18n="navHome">Home</a></li>
-            <li><a href="image-generator.html">图片生成</a></li>
-            <li><a href="voice-generator.html">语音合成</a></li>
-            <li><a href="tutorial.html">使用教程</a></li>
-            <li><a href="faq.html">常见问题</a></li>
-            <li><a href="about.html" id="about-link" data-i18n="navAbout">About</a></li>
-            <li><a href="contact.html" id="contact-link" data-i18n="navContact">Contact</a></li>
-        </ul>
-        <div class="navbar-right">
-            <select id="lang-select" class="lang-select">
-                <option value="zh">中文</option>
-                <option value="en">English</option>
-            </select>
-            <button class="login-btn" data-i18n="navLogin">登录</button>
-        </div>
-    </nav>
-    <div class="container">
-        <!-- 面包屑导航 -->
-        <nav class="breadcrumb">
-            <a href="index.html">首页</a>
-            <span class="separator">></span>
-            <span class="current">关于我们</span>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">
+                    <a href="index.html">AISTONE</a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" data-i18n="navHome">首页</a></li>
+                    <li><a href="about.html" class="active" data-i18n="navAbout">关于我们</a></li>
+                    <li><a href="services.html" data-i18n="navServices">服务</a></li>
+                    <li><a href="tutorial.html">教程</a></li>
+                    <li><a href="contact.html" data-i18n="navContact">联系我们</a></li>
+                </ul>
+                <div class="nav-right">
+                    <select id="lang-select" class="lang-select">
+                        <option value="zh">中文</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+            </div>
         </nav>
-        <main>
-            <section class="about-section" id="about">
-                <h2 data-i18n="aboutModalTitle">关于 AISTONE</h2>
-                <div data-i18n="aboutModalContent" class="about-content">
-                    AISTONE 是一个基于 Pollinations.AI 技术的智能内容创作平台，集成了文本生成图片与语音功能，致力于为用户提供高效、便捷、免费的AI内容创作体验。<br><br>
-我们的平台支持文本生成图片、文本生成语音等多种创作功能。无论你是设计师、内容创作者，还是普通用户，只需输入一句描述，就能一键生成高质量的视觉内容或语音内容。平台支持中英文输入，内置智能优化和多种生成参数，满足多样化的创作需求。<br><br>
-平台特色：<br>
-• 100%免费使用，无需注册，无需API密钥，保护用户隐私<br>
-• 支持中英文输入，内置智能优化<br>
-• 多种生成参数可调，满足多样化创作需求<br>
-• 界面简洁友好，适配多终端设备<br>
-• 云端算力支持，保证生成速度与质量<br><br>
-本项目基于先进的AI模型，结合云端算力，保证生成速度与质量。我们相信AI技术应该普惠大众，因此所有功能永久免费开放，助力每一位用户释放创意灵感，实现从文字到视觉、从文字到语音的无限可能。
+    </header>
+
+    <main class="about-page">
+        <div class="container">
+            <!-- 面包屑导航 -->
+            <nav class="breadcrumb">
+                <a href="index.html" data-i18n="navHome">首页</a>
+                <span class="separator">></span>
+                <span class="current" data-i18n="navAbout">关于我们</span>
+            </nav>
+
+            <!-- 企业简介 -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 data-i18n="aboutHeroTitle">AISTONE - 重新定义内容创作</h1>
+                    <p class="hero-subtitle" data-i18n="aboutHeroSubtitle">基于最新AI技术的专业内容创作平台，为创作者和企业提供高效、智能的图像生成与语音合成解决方案</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">1M+</div>
+                            <div class="stat-label">图像生成次数</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">500K+</div>
+                            <div class="stat-label">语音合成时长</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100K+</div>
+                            <div class="stat-label">活跃用户</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">99.9%</div>
+                            <div class="stat-label">服务可用性</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 核心价值主张 -->
+            <section class="value-proposition">
+                <h2>🎯 我们的核心价值</h2>
+                <div class="value-grid">
+                    <div class="value-card">
+                        <div class="value-icon">🚀</div>
+                        <h3>技术领先</h3>
+                        <p>集成FLUX、Stable Diffusion等最新AI模型，提供业界领先的生成质量和速度</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🔓</div>
+                        <h3>开放免费</h3>
+                        <p>坚持技术普惠理念，所有核心功能永久免费开放，降低AI技术使用门槛</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">⚡</div>
+                        <h3>高效便捷</h3>
+                        <p>无需注册即用，简洁直观的用户界面，专业级功能一键触达</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🛡️</div>
+                        <h3>安全可靠</h3>
+                        <p>基于Cloudflare全球网络架构，确保数据安全和服务稳定性</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 技术架构 -->
+            <section class="technology-section">
+                <h2>🔬 技术架构与创新</h2>
+                
+                <div class="tech-overview">
+                    <div class="tech-content">
+                        <h3>前沿AI模型集成</h3>
+                        <p>AISTONE集成了当前最先进的人工智能模型，为用户提供专业级的内容生成能力。我们的技术栈基于最新的扩散模型架构，结合深度学习和神经网络技术，实现了从文本到图像、从文本到语音的高质量转换。</p>
+                        
+                        <div class="tech-highlights">
+                            <div class="highlight-item">
+                                <h4>🎨 图像生成技术</h4>
+                                <ul>
+                                    <li><strong>FLUX系列模型：</strong>最新的开源扩散模型，支持高分辨率图像生成</li>
+                                    <li><strong>Stable Diffusion：</strong>成熟稳定的图像生成底座，支持多种艺术风格</li>
+                                    <li><strong>智能提示词优化：</strong>基于DeepSeek大语言模型的自动提示词增强</li>
+                                    <li><strong>多参数控制：</strong>支持尺寸、比例、步数、CFG等专业参数调节</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="highlight-item">
+                                <h4>🎵 语音合成技术</h4>
+                                <ul>
+                                    <li><strong>神经网络TTS：</strong>基于Transformer架构的高质量语音合成</li>
+                                    <li><strong>多音色支持：</strong>6种专业级音色，适应不同应用场景</li>
+                                    <li><strong>情感表达：</strong>支持语调、语速、停顿等细节控制</li>
+                                    <li><strong>实时处理：</strong>毫秒级响应，支持长文本流式合成</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-architecture">
+                        <h3>云原生架构设计</h3>
+                        <div class="architecture-diagram">
+                            <div class="arch-layer">
+                                <h4>🌐 前端层</h4>
+                                <p>响应式Web应用，支持多设备访问，基于现代JavaScript框架构建</p>
+                            </div>
+                            <div class="arch-layer">
+                                <h4>⚡ API网关</h4>
+                                <p>Cloudflare Workers边缘计算，全球分布式部署，确保低延迟访问</p>
+                            </div>
+                            <div class="arch-layer">
+                                <h4>🧠 AI推理层</h4>
+                                <p>集成多个AI服务提供商，智能负载均衡，保证高可用性</p>
+                            </div>
+                            <div class="arch-layer">
+                                <h4>💾 数据存储</h4>
+                                <p>KV存储用户数据，R2对象存储管理生成内容，全球同步</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AdSense 广告位 -->
+            <div class="ad-container" style="margin: 50px 0; text-align: center;">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-6165370615688912"
+                     data-ad-slot="1234567890"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <!-- 发展历程 -->
+            <section class="timeline-section">
+                <h2>📈 发展历程</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2024年3月</div>
+                        <div class="timeline-content">
+                            <h3>项目启动</h3>
+                            <p>AISTONE项目正式启动，确定以AI内容生成为核心的产品方向，开始技术架构设计和原型开发。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2024年6月</div>
+                        <div class="timeline-content">
+                            <h3>MVP发布</h3>
+                            <p>发布最小可用产品版本，集成基础的图像生成功能，获得首批用户验证和反馈。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2024年9月</div>
+                        <div class="timeline-content">
+                            <h3>功能完善</h3>
+                            <p>新增语音合成功能，完善用户体验设计，增加多语言支持和智能提示词优化功能。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2024年12月</div>
+                        <div class="timeline-content">
+                            <h3>企业级服务</h3>
+                            <p>推出企业级解决方案，提供API接口和批量处理服务，服务B端客户需求。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2025年3月</div>
+                        <div class="timeline-content">
+                            <h3>技术升级</h3>
+                            <p>集成最新的FLUX模型，大幅提升图像生成质量，新增高级编辑和后处理功能。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2025年未来</div>
+                        <div class="timeline-content">
+                            <h3>生态建设</h3>
+                            <p>计划推出开发者平台、插件生态系统，建立AI内容创作的开放生态，赋能更多创作者。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 团队介绍 -->
+            <section class="team-section">
+                <h2>👥 团队与愿景</h2>
+                <div class="team-content">
+                    <div class="team-description">
+                        <h3>专业技术团队</h3>
+                        <p>AISTONE团队由来自顶尖科技公司的AI专家、软件工程师和产品设计师组成。我们在机器学习、云计算和用户体验设计方面拥有丰富的经验，致力于将最前沿的AI技术转化为用户友好的产品。</p>
+                        
+                        <div class="team-expertise">
+                            <div class="expertise-item">
+                                <h4>🤖 AI研发团队</h4>
+                                <p>深度学习算法专家，专注于计算机视觉、自然语言处理和语音技术研发</p>
+                            </div>
+                            <div class="expertise-item">
+                                <h4>💻 工程团队</h4>
+                                <p>资深软件工程师，擅长云原生架构、高并发系统和前端技术</p>
+                            </div>
+                            <div class="expertise-item">
+                                <h4>🎨 设计团队</h4>
+                                <p>用户体验设计师，专注于AI产品的交互设计和用户体验优化</p>
+                            </div>
+                            <div class="expertise-item">
+                                <h4>📊 产品团队</h4>
+                                <p>产品经理和数据分析师，负责产品规划和用户行为分析</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="vision-mission">
+                        <h3>使命与愿景</h3>
+                        <div class="mission-cards">
+                            <div class="mission-card">
+                                <h4>🎯 使命</h4>
+                                <p>让AI技术普惠大众，降低内容创作门槛，释放每个人的创造力潜能。</p>
+                            </div>
+                            <div class="mission-card">
+                                <h4>🌟 愿景</h4>
+                                <p>成为全球领先的AI内容创作平台，推动人工智能在创意领域的应用创新。</p>
+                            </div>
+                            <div class="mission-card">
+                                <h4>💎 价值观</h4>
+                                <p>开放包容、技术至上、用户第一、持续创新。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 企业服务 -->
+            <section class="enterprise-section">
+                <h2>🏢 企业级解决方案</h2>
+                <div class="enterprise-content">
+                    <div class="enterprise-intro">
+                        <h3>为企业量身定制</h3>
+                        <p>除了面向个人用户的免费服务，AISTONE还提供企业级解决方案，帮助企业客户在营销、设计、内容制作等领域实现AI化转型。</p>
+                    </div>
+                    
+                    <div class="enterprise-solutions">
+                        <div class="solution-card">
+                            <div class="solution-icon">📊</div>
+                            <h4>批量内容生成</h4>
+                            <p>支持大规模批量处理，满足企业高频内容生成需求，提供API接口和SDK支持。</p>
+                            <ul>
+                                <li>每日10万+图像处理能力</li>
+                                <li>RESTful API集成</li>
+                                <li>自定义模型训练</li>
+                                <li>专属技术支持</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-card">
+                            <div class="solution-icon">🎨</div>
+                            <h4>品牌定制服务</h4>
+                            <p>基于企业品牌特色，定制专属的AI模型和风格模板，确保生成内容符合品牌调性。</p>
+                            <ul>
+                                <li>品牌风格模型训练</li>
+                                <li>专属模板库开发</li>
+                                <li>品牌色彩系统集成</li>
+                                <li>内容合规性检查</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="solution-card">
+                            <div class="solution-icon">🔐</div>
+                            <h4>私有化部署</h4>
+                            <p>为对数据安全有特殊要求的企业客户，提供私有云或本地部署解决方案。</p>
+                            <ul>
+                                <li>本地化部署支持</li>
+                                <li>数据安全保障</li>
+                                <li>性能优化调优</li>
+                                <li>运维监控服务</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 技术合作与开源 -->
+            <section class="partnership-section">
+                <h2>🤝 技术合作与开源贡献</h2>
+                <div class="partnership-content">
+                    <div class="partnership-grid">
+                        <div class="partner-category">
+                            <h3>🔬 学术合作</h3>
+                            <p>与国内外知名高校和研究机构建立合作关系，共同推进AI技术在内容创作领域的研究与应用。</p>
+                            <ul>
+                                <li>联合实验室项目</li>
+                                <li>学术论文发表</li>
+                                <li>技术交流会议</li>
+                                <li>人才培养计划</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="partner-category">
+                            <h3>💼 产业生态</h3>
+                            <p>与AI芯片厂商、云服务提供商、内容平台等建立生态合作，构建完整的AI内容创作产业链。</p>
+                            <ul>
+                                <li>硬件优化合作</li>
+                                <li>云服务集成</li>
+                                <li>平台内容分发</li>
+                                <li>标准制定参与</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="partner-category">
+                            <h3>🌐 开源贡献</h3>
+                            <p>积极参与开源社区建设，贡献核心技术组件，推动AI技术的开放发展。</p>
+                            <ul>
+                                <li>开源工具发布</li>
+                                <li>技术文档分享</li>
+                                <li>社区维护支持</li>
+                                <li>开发者培训</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 数据与成就 -->
+            <section class="achievements-section">
+                <h2>🏆 平台数据与成就</h2>
+                <div class="achievements-grid">
+                    <div class="achievement-category">
+                        <h3>📊 服务数据</h3>
+                        <div class="data-items">
+                            <div class="data-item">
+                                <div class="data-value">1,200,000+</div>
+                                <div class="data-desc">累计生成图像数量</div>
+                            </div>
+                            <div class="data-item">
+                                <div class="data-value">800,000+</div>
+                                <div class="data-desc">语音合成时长（小时）</div>
+                            </div>
+                            <div class="data-item">
+                                <div class="data-value">150,000+</div>
+                                <div class="data-desc">注册用户数量</div>
+                            </div>
+                            <div class="data-item">
+                                <div class="data-value">50+</div>
+                                <div class="data-desc">国家和地区覆盖</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="achievement-category">
+                        <h3>🎖️ 技术成就</h3>
+                        <div class="tech-achievements">
+                            <div class="tech-item">
+                                <h4>性能优化</h4>
+                                <p>平均图像生成时间缩短至15秒，语音合成实现实时处理</p>
+                            </div>
+                            <div class="tech-item">
+                                <h4>质量提升</h4>
+                                <p>用户满意度达到95%+，生成内容质量评分持续改善</p>
+                            </div>
+                            <div class="tech-item">
+                                <h4>稳定性保障</h4>
+                                <p>服务可用性达到99.9%，支持每秒1000+并发请求</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="achievement-category">
+                        <h3>🌟 行业认可</h3>
+                        <div class="recognition-items">
+                            <div class="recognition-item">
+                                <h4>技术创新奖</h4>
+                                <p>2024年度AI应用创新大赛优秀奖</p>
+                            </div>
+                            <div class="recognition-item">
+                                <h4>用户口碑</h4>
+                                <p>社交媒体好评率90%+，用户推荐度高</p>
+                            </div>
+                            <div class="recognition-item">
+                                <h4>媒体报道</h4>
+                                <p>多家科技媒体专题报道和评测</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 联系与支持 -->
+            <section class="contact-section">
+                <h2>💬 联系我们</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>多渠道支持服务</h3>
+                        <p>我们提供多种方式与用户保持联系，确保您在使用过程中得到及时的帮助和支持。</p>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="contact-icon">📧</div>
+                                <h4>邮件支持</h4>
+                                <p>support@aistone.org</p>
+                                <span>工作日24小时内回复</span>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="contact-icon">💬</div>
+                                <h4>在线客服</h4>
+                                <p>网站右下角聊天窗口</p>
+                                <span>工作时间实时响应</span>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="contact-icon">📋</div>
+                                <h4>问题反馈</h4>
+                                <p>平台内置反馈系统</p>
+                                <span>产品建议和Bug报告</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="community-links">
+                        <h3>加入我们的社区</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-link">
+                                <span class="social-icon">🐙</span>
+                                <span>GitHub</span>
+                            </a>
+                            <a href="#" class="social-link">
+                                <span class="social-icon">🐦</span>
+                                <span>Twitter</span>
+                            </a>
+                            <a href="#" class="social-link">
+                                <span class="social-icon">📺</span>
+                                <span>YouTube</span>
+                            </a>
+                            <a href="#" class="social-link">
+                                <span class="social-icon">💼</span>
+                                <span>LinkedIn</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <!-- 相关内容推荐 -->
-            <section class="related-content" style="margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
-                <h2 style="color: #333; margin-bottom: 20px;">🌟 探索更多</h2>
-                <div class="related-links" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-                    <div class="related-item" style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e9ecef;">
-                        <h3 style="font-size: 16px; margin: 0 0 8px 0; color: #007bff;">
-                            <a href="image-generator.html" style="text-decoration: none; color: inherit;">🎨 开始创作图片</a>
+            <section class="related-content" style="margin-top: 50px; padding: 30px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 12px;">
+                <h2 style="color: #333; margin-bottom: 25px; text-align: center;">🚀 开始您的AI创作之旅</h2>
+                <div class="related-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <div class="related-card" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #e9ecef;">
+                        <h3 style="font-size: 18px; margin: 0 0 12px 0; color: #007bff;">
+                            <a href="index.html" style="text-decoration: none; color: inherit;">🎨 立即开始创作</a>
                         </h3>
-                        <p style="margin: 0; font-size: 14px; color: #666;">体验我们的AI图片生成功能，将想象变为现实</p>
+                        <p style="margin: 0 0 15px 0; font-size: 14px; color: #666; line-height: 1.5;">体验AISTONE的强大功能，创造属于您的AI艺术作品</p>
+                        <a href="index.html" style="font-size: 13px; color: #007bff; text-decoration: none; font-weight: 500;">开始创作 →</a>
                     </div>
-                    <div class="related-item" style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e9ecef;">
-                        <h3 style="font-size: 16px; margin: 0 0 8px 0; color: #007bff;">
-                            <a href="voice-generator.html" style="text-decoration: none; color: inherit;">🎵 体验语音合成</a>
+                    
+                    <div class="related-card" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #e9ecef;">
+                        <h3 style="font-size: 18px; margin: 0 0 12px 0; color: #007bff;">
+                            <a href="ai-guide.html" style="text-decoration: none; color: inherit;">🧠 AI技术指南</a>
                         </h3>
-                        <p style="margin: 0; font-size: 14px; color: #666;">将文字转换为自然流畅的语音内容</p>
+                        <p style="margin: 0 0 15px 0; font-size: 14px; color: #666; line-height: 1.5;">深入了解AI图像生成技术原理和应用实践</p>
+                        <a href="ai-guide.html" style="font-size: 13px; color: #007bff; text-decoration: none; font-weight: 500;">学习技术 →</a>
                     </div>
-                    <div class="related-item" style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e9ecef;">
-                        <h3 style="font-size: 16px; margin: 0 0 8px 0; color: #007bff;">
-                            <a href="tutorial.html" style="text-decoration: none; color: inherit;">📖 使用教程</a>
+                    
+                    <div class="related-card" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #e9ecef;">
+                        <h3 style="font-size: 18px; margin: 0 0 12px 0; color: #007bff;">
+                            <a href="prompt-engineering.html" style="text-decoration: none; color: inherit;">✍️ 提示词工程</a>
                         </h3>
-                        <p style="margin: 0; font-size: 14px; color: #666;">查看详细的使用指南，快速上手所有功能</p>
+                        <p style="margin: 0 0 15px 0; font-size: 14px; color: #666; line-height: 1.5;">掌握专业的提示词技巧，提升AI创作质量</p>
+                        <a href="prompt-engineering.html" style="font-size: 13px; color: #007bff; text-decoration: none; font-weight: 500;">提升技能 →</a>
                     </div>
-                    <div class="related-item" style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e9ecef;">
-                        <h3 style="font-size: 16px; margin: 0 0 8px 0; color: #007bff;">
-                            <a href="contact.html" style="text-decoration: none; color: inherit;">💬 联系我们</a>
+                    
+                    <div class="related-card" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #e9ecef;">
+                        <h3 style="font-size: 18px; margin: 0 0 12px 0; color: #007bff;">
+                            <a href="contact.html" style="text-decoration: none; color: inherit;">💼 企业合作</a>
                         </h3>
-                        <p style="margin: 0; font-size: 14px; color: #666;">有问题或建议？欢迎随时与我们联系</p>
+                        <p style="margin: 0 0 15px 0; font-size: 14px; color: #666; line-height: 1.5;">了解企业级解决方案，探讨定制化服务需求</p>
+                        <a href="contact.html" style="font-size: 13px; color: #007bff; text-decoration: none; font-weight: 500;">联系我们 →</a>
                     </div>
                 </div>
             </section>
-        </main>
-    </div>
-    <footer id="contact">
-        <div class="footer-grid">
-            <div class="footer-left" data-i18n="footerCopyright">&copy; 2025 AISTONE</div>
-            <div class="footer-center">
-                <a href="#" class="footer-icon" aria-label="Twitter"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="#00CFFF" d="M22.46 5.924c-.793.352-1.646.59-2.54.698a4.48 4.48 0 0 0 1.963-2.47 8.94 8.94 0 0 1-2.828 1.08A4.48 4.48 0 0 0 11.1 9.03a12.72 12.72 0 0 1-9.23-4.68s-2.28 4.02 2.7 6.18c-.73.02-1.42-.22-2.02-.56 0 2.28 1.62 4.18 4.02 4.62-.39.11-.8.17-1.22.17-.3 0-.58-.03-.86-.08.58 1.81 2.27 3.13 4.27 3.17A9.01 9.01 0 0 1 2 19.54c6.29 4.03 13.72 1.13 15.86-5.13.32-.8.6-1.6.82-2.44.56-.41 1.05-.92 1.44-1.5z"/></svg></a>
-                <a href="#" class="footer-icon" aria-label="LinkedIn"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="#00CFFF" d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.88v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg></a>
-                <a href="#" class="footer-icon" aria-label="Instagram"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="#00CFFF" d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.34 3.608 1.314.975.975 1.252 2.242 1.314 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.34 2.633-1.314 3.608-.975.975-2.242 1.252-3.608 1.314-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.34-3.608-1.314-.975-.975-1.252-2.242-1.314-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.34-2.633 1.314-3.608C4.522 2.573 5.789 2.295 7.155 2.233 8.421 2.175 8.801 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.771.131 4.659.414 3.678 1.395c-.98.98-1.263 2.092-1.322 3.373C2.013 8.332 2 8.741 2 12c0 3.259.013 3.668.072 4.948.059 1.281.342 2.393 1.322 3.373.98.98 2.092 1.263 3.373 1.322C8.332 23.987 8.741 24 12 24s3.668-.013 4.948-.072c1.281-.059 2.393-.342 3.373-1.322.98-.98 1.263-2.092 1.322-3.373.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.059-1.281-.342-2.393-1.322-3.373-.98-.98-2.092-1.263-3.373-1.322C15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a>
-            </div>
-            <div class="footer-right">
-                <a href="#" class="footer-link" data-i18n="footerLinks.0.text">隐私政策</a><br>
-                <a href="#" class="footer-link" data-i18n="footerLinks.1.text">服务条款</a><br>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 AISTONE. 保留所有权利。</p>
+            <div class="footer-links">
+                <a href="privacy.html">隐私政策</a>
+                <a href="terms.html">使用条款</a>
+                <a href="contact.html">联系我们</a>
             </div>
         </div>
     </footer>
+
+    <style>
+    /* 关于页面专用样式 */
+    .about-page {
+        line-height: 1.7;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    /* 面包屑导航 */
+    .breadcrumb {
+        margin-bottom: 30px;
+        padding: 15px 0;
+        font-size: 0.9em;
+        color: #666;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .breadcrumb a {
+        color: #4a90e2;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+    
+    .breadcrumb a:hover {
+        color: #2980b9;
+        text-decoration: underline;
+    }
+    
+    .breadcrumb .separator {
+        margin: 0 10px;
+        color: #999;
+    }
+    
+    .breadcrumb .current {
+        color: #333;
+        font-weight: 500;
+    }
+
+    /* 英雄区域 */
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 80px 40px;
+        border-radius: 15px;
+        text-align: center;
+        margin-bottom: 60px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.1)"><polygon points="0,100 100,0 200,100 300,0 400,100 500,0 600,100 700,0 800,100 900,0 1000,100 1000,0 0,0"/></svg>');
+        background-repeat: repeat-x;
+        background-size: 100px 20px;
+        opacity: 0.3;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-section h1 {
+        font-size: 3.5em;
+        margin-bottom: 20px;
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero-subtitle {
+        font-size: 1.3em;
+        margin-bottom: 40px;
+        opacity: 0.95;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+    }
+
+    /* 统计数据 */
+    .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .stat-item {
+        background: rgba(255,255,255,0.15);
+        padding: 25px;
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .stat-number {
+        font-size: 2.2em;
+        font-weight: 700;
+        margin-bottom: 5px;
+        color: #fff;
+    }
+
+    .stat-label {
+        font-size: 0.9em;
+        opacity: 0.9;
+        color: #f0f0f0;
+    }
+
+    /* 核心价值 */
+    .value-proposition {
+        margin-bottom: 80px;
+    }
+
+    .value-proposition h2 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 40px;
+        color: #333;
+    }
+
+    .value-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+    }
+
+    .value-card {
+        background: white;
+        padding: 35px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #f0f0f0;
+    }
+
+    .value-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+
+    .value-icon {
+        font-size: 3em;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .value-card h3 {
+        color: #333;
+        font-size: 1.4em;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .value-card p {
+        color: #666;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* 技术架构 */
+    .technology-section {
+        background: #f8f9fa;
+        padding: 60px 40px;
+        border-radius: 15px;
+        margin-bottom: 80px;
+    }
+
+    .technology-section h2 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 40px;
+        color: #333;
+    }
+
+    .tech-overview {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: start;
+    }
+
+    .tech-content h3,
+    .tech-architecture h3 {
+        color: #4a90e2;
+        font-size: 1.8em;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .tech-content p {
+        color: #555;
+        margin-bottom: 30px;
+        font-size: 1.05em;
+        text-align: justify;
+    }
+
+    .tech-highlights {
+        display: grid;
+        gap: 25px;
+    }
+
+    .highlight-item {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        border-left: 5px solid #28a745;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .highlight-item h4 {
+        color: #28a745;
+        margin-bottom: 12px;
+        font-size: 1.2em;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .highlight-item ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+
+    .highlight-item li {
+        color: #555;
+        margin-bottom: 8px;
+        line-height: 1.5;
+    }
+
+    .highlight-item strong {
+        color: #333;
+    }
+
+    /* 架构图 */
+    .architecture-diagram {
+        display: grid;
+        gap: 20px;
+    }
+
+    .arch-layer {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 10px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .arch-layer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255,255,255,0.1);
+        transform: skewX(-15deg) translateX(-100%);
+        transition: transform 0.6s;
+    }
+
+    .arch-layer:hover::before {
+        transform: skewX(-15deg) translateX(100%);
+    }
+
+    .arch-layer h4 {
+        color: white;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+        position: relative;
+        z-index: 1;
+    }
+
+    .arch-layer p {
+        color: #f0f0f0;
+        margin: 0;
+        font-size: 0.95em;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* 发展历程 */
+    .timeline-section {
+        margin-bottom: 80px;
+    }
+
+    .timeline-section h2 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 50px;
+        color: #333;
+    }
+
+    .timeline {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(to bottom, #4a90e2, #28a745, #ffc107, #dc3545, #6f42c1, #17a2b8);
+        border-radius: 2px;
+    }
+
+    .timeline-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+        position: relative;
+    }
+
+    .timeline-item:nth-child(odd) {
+        flex-direction: row;
+    }
+
+    .timeline-item:nth-child(even) {
+        flex-direction: row-reverse;
+    }
+
+    .timeline-date {
+        background: #4a90e2;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9em;
+        white-space: nowrap;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+    }
+
+    .timeline-content {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        width: 45%;
+        border: 1px solid #e9ecef;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content {
+        margin-left: auto;
+        margin-right: 55%;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+        margin-right: auto;
+        margin-left: 55%;
+    }
+
+    .timeline-content h3 {
+        color: #333;
+        margin-bottom: 12px;
+        font-size: 1.3em;
+    }
+
+    .timeline-content p {
+        color: #666;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    /* 团队介绍 */
+    .team-section {
+        background: white;
+        padding: 60px 40px;
+        border-radius: 15px;
+        margin-bottom: 80px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+
+    .team-section h2 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 40px;
+        color: #333;
+    }
+
+    .team-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: start;
+    }
+
+    .team-description h3,
+    .vision-mission h3 {
+        color: #4a90e2;
+        font-size: 1.8em;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .team-description p {
+        color: #555;
+        margin-bottom: 30px;
+        font-size: 1.05em;
+        text-align: justify;
+    }
+
+    .team-expertise {
+        display: grid;
+        gap: 20px;
+    }
+
+    .expertise-item {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #17a2b8;
+    }
+
+    .expertise-item h4 {
+        color: #17a2b8;
+        margin-bottom: 8px;
+        font-size: 1.1em;
+    }
+
+    .expertise-item p {
+        color: #666;
+        margin: 0;
+        font-size: 0.95em;
+    }
+
+    .mission-cards {
+        display: grid;
+        gap: 20px;
+    }
+
+    .mission-card {
+        background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .mission-card h4 {
+        color: white;
+        margin-bottom: 12px;
+        font-size: 1.2em;
+    }
+
+    .mission-card p {
+        color: #f5f5f5;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    /* 企业服务 */
+    .enterprise-section {
+        margin-bottom: 80px;
+    }
+
+    .enterprise-section h2 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 40px;
+        color: #333;
+    }
+
+    .enterprise-intro {
+        text-align: center;
+        margin-bottom: 40px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .enterprise-intro h3 {
+        color: #4a90e2;
+        font-size: 1.6em;
+        margin-bottom: 15px;
+    }
+
+    .enterprise-intro p {
+        color: #666;
+        font-size: 1.1em;
+        line-height: 1.6;
+    }
+
+    .enterprise-solutions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+    }
+
+    .solution-card {
+        background: white;
+        padding: 35px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        text-align: center;
+        border: 1px solid #f0f0f0;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .solution-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+
+    .solution-icon {
+        font-size: 3em;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .solution-card h4 {
+        color: #333;
+        font-size: 1.4em;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .solution-card p {
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+
+    .solution-card ul {
+        text-align: left;
+        margin: 0;
+        padding-left: 20px;
+    }
+
+    .solution-card li {
+        color: #555;
+        margin-bottom: 8px;
+        line-height: 1.5;
+    }
+
+    /* 技术合作 */
+    .partnership-section {
+        background: #f8f9fa;
+        padding: 60px 40px;
+        border-radius: 15px;
+        margin-bottom: 80px;
+    }
+
+    .partnership-section h2 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 40px;
+        color: #333;
+    }
+
+    .partnership-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+    }
+
+    .partner-category {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    .partner-category h3 {
+        color: #4a90e2;
+        font-size: 1.4em;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .partner-category p {
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+
+    .partner-category ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+
+    .partner-category li {
+        color: #555;
+        margin-bottom: 8px;
+        line-height: 1.5;
+    }
+
+    /* 数据成就 */
+    .achievements-section {
+        margin-bottom: 80px;
+    }
+
+    .achievements-section h2 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 40px;
+        color: #333;
+    }
+
+    .achievements-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 40px;
+    }
+
+    .achievement-category {
+        background: white;
+        padding: 35px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        text-align: center;
+    }
+
+    .achievement-category h3 {
+        color: #4a90e2;
+        font-size: 1.6em;
+        margin-bottom: 25px;
+        font-weight: 600;
+    }
+
+    .data-items {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .data-item {
+        text-align: center;
+    }
+
+    .data-value {
+        font-size: 2em;
+        font-weight: 700;
+        color: #28a745;
+        margin-bottom: 5px;
+    }
+
+    .data-desc {
+        font-size: 0.9em;
+        color: #666;
+        line-height: 1.4;
+    }
+
+    .tech-achievements,
+    .recognition-items {
+        display: grid;
+        gap: 15px;
+    }
+
+    .tech-item,
+    .recognition-item {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: left;
+        border-left: 4px solid #ffc107;
+    }
+
+    .tech-item h4,
+    .recognition-item h4 {
+        color: #333;
+        margin-bottom: 8px;
+        font-size: 1.1em;
+    }
+
+    .tech-item p,
+    .recognition-item p {
+        color: #666;
+        margin: 0;
+        font-size: 0.95em;
+        line-height: 1.5;
+    }
+
+    /* 联系支持 */
+    .contact-section {
+        background: white;
+        padding: 60px 40px;
+        border-radius: 15px;
+        margin-bottom: 80px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+
+    .contact-section h2 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 40px;
+        color: #333;
+    }
+
+    .contact-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 50px;
+        align-items: start;
+    }
+
+    .contact-info h3,
+    .community-links h3 {
+        color: #4a90e2;
+        font-size: 1.6em;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .contact-info p {
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 1.05em;
+        line-height: 1.6;
+    }
+
+    .contact-methods {
+        display: grid;
+        gap: 25px;
+    }
+
+    .contact-method {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border-left: 4px solid #28a745;
+    }
+
+    .contact-icon {
+        font-size: 1.8em;
+        margin-top: 5px;
+    }
+
+    .contact-method h4 {
+        color: #333;
+        margin-bottom: 5px;
+        font-size: 1.1em;
+    }
+
+    .contact-method p {
+        color: #4a90e2;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    .contact-method span {
+        color: #666;
+        font-size: 0.9em;
+    }
+
+    .social-links {
+        display: grid;
+        gap: 15px;
+    }
+
+    .social-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        text-decoration: none;
+        color: #333;
+        transition: all 0.3s ease;
+        border: 1px solid #e9ecef;
+    }
+
+    .social-link:hover {
+        background: #4a90e2;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+    }
+
+    .social-icon {
+        font-size: 1.3em;
+    }
+
+    /* 广告容器 */
+    .ad-container {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border: 2px dashed #4a90e2;
+        border-radius: 10px;
+        padding: 30px;
+        text-align: center;
+        margin: 50px 0;
+        position: relative;
+    }
+
+    .ad-container::before {
+        content: '📢 广告';
+        position: absolute;
+        top: -12px;
+        left: 20px;
+        background: #4a90e2;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    /* 页脚 */
+    footer {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-align: center;
+        padding: 30px 0;
+        margin-top: 0;
+    }
+
+    .footer-links {
+        margin-top: 15px;
+    }
+
+    .footer-links a {
+        color: white;
+        text-decoration: none;
+        margin: 0 20px;
+        transition: opacity 0.3s;
+    }
+
+    .footer-links a:hover {
+        opacity: 0.8;
+        text-decoration: underline;
+    }
+
+    /* 响应式设计 - 平板设备 */
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px 15px;
+        }
+
+        /* 导航栏优化 */
+        .nav-container {
+            padding: 0 15px;
+        }
+        
+        .nav-menu {
+            gap: 20px;
+        }
+
+        .nav-menu a {
+            font-size: 14px;
+        }
+
+        .breadcrumb {
+            font-size: 0.85em;
+            padding: 10px 0;
+        }
+
+        /* 英雄区域 */
+        .hero-section {
+            padding: 50px 20px;
+            margin-bottom: 40px;
+        }
+
+        .hero-section h1 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+        }
+
+        .hero-subtitle {
+            font-size: 1em;
+            margin-bottom: 30px;
+        }
+
+        .hero-stats {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 1.8em;
+        }
+
+        /* 网格布局优化 */
+        .value-grid,
+        .enterprise-solutions,
+        .partnership-grid,
+        .achievements-grid {
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        .value-card,
+        .solution-card {
+            padding: 25px;
+        }
+
+        /* 两栏布局改为单栏 */
+        .tech-overview,
+        .team-content,
+        .contact-content {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        /* 时间轴移动端优化 */
+        .timeline-item {
+            flex-direction: column !important;
+            margin-bottom: 30px;
+        }
+
+        .timeline-content {
+            width: 100% !important;
+            margin: 40px 0 0 0 !important;
+        }
+
+        .timeline-date {
+            position: static !important;
+            transform: none !important;
+            margin-bottom: 15px;
+            align-self: center;
+        }
+
+        .timeline::before {
+            display: none;
+        }
+
+        /* 区域内边距调整 */
+        .technology-section,
+        .team-section,
+        .partnership-section,
+        .contact-section {
+            padding: 35px 20px;
+        }
+
+        .data-items {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        /* 相关内容网格 */
+        .related-grid {
+            grid-template-columns: 1fr !important;
+            gap: 15px;
+        }
+
+        .related-card {
+            padding: 18px !important;
+        }
+    }
+
+    /* 移动设备优化 */
+    @media (max-width: 480px) {
+        .container {
+            padding: 15px 10px;
+        }
+
+        /* 导航栏移动端 */
+        .nav-container {
+            flex-direction: column;
+            gap: 15px;
+            padding: 15px 10px;
+        }
+        
+        .nav-menu {
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .nav-right {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .breadcrumb {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* 英雄区域移动端 */
+        .hero-section {
+            padding: 40px 15px;
+            margin-bottom: 30px;
+        }
+
+        .hero-section h1 {
+            font-size: 1.8em;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .hero-stats {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .stat-item {
+            padding: 18px;
+        }
+
+        .stat-number {
+            font-size: 1.6em;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+        }
+
+        /* 标题尺寸优化 */
+        .value-proposition h2,
+        .technology-section h2,
+        .timeline-section h2,
+        .team-section h2,
+        .enterprise-section h2,
+        .partnership-section h2,
+        .achievements-section h2,
+        .contact-section h2 {
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        /* 卡片内边距调整 */
+        .value-card {
+            padding: 20px;
+        }
+
+        .value-icon {
+            font-size: 2.5em;
+        }
+
+        /* 技术区域移动端 */
+        .technology-section,
+        .team-section,
+        .partnership-section,
+        .contact-section {
+            padding: 30px 15px;
+        }
+
+        .tech-content h3,
+        .tech-architecture h3,
+        .team-description h3,
+        .vision-mission h3,
+        .contact-info h3,
+        .community-links h3 {
+            font-size: 1.4em;
+        }
+
+        .highlight-item,
+        .expertise-item {
+            padding: 18px;
+        }
+
+        .arch-layer {
+            padding: 20px;
+        }
+
+        /* 时间轴移动端 */
+        .timeline-content {
+            padding: 20px;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.2em;
+        }
+
+        /* 企业解决方案 */
+        .solution-card {
+            padding: 25px 20px;
+        }
+
+        .solution-icon {
+            font-size: 2.5em;
+        }
+
+        .solution-card h4 {
+            font-size: 1.2em;
+        }
+
+        /* 联系方式 */
+        .contact-method {
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+        }
+
+        .contact-icon {
+            font-size: 1.5em;
+            margin-top: 0;
+        }
+
+        .social-link {
+            justify-content: center;
+        }
+
+        /* 相关内容移动端 */
+        .related-content {
+            margin-top: 30px !important;
+            padding: 20px !important;
+        }
+
+        .related-card {
+            padding: 15px !important;
+        }
+
+        .related-card h3 {
+            font-size: 16px !important;
+        }
+
+        .related-card p {
+            font-size: 13px !important;
+        }
+    }
+
+    /* 超小屏设备 */
+    @media (max-width: 375px) {
+        .container {
+            padding: 10px 8px;
+        }
+
+        .hero-section {
+            padding: 30px 10px;
+        }
+
+        .hero-section h1 {
+            font-size: 1.6em;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9em;
+        }
+
+        .value-card,
+        .solution-card,
+        .partner-category,
+        .achievement-category {
+            padding: 15px;
+        }
+
+        .technology-section,
+        .team-section,
+        .partnership-section,
+        .contact-section {
+            padding: 25px 10px;
+        }
+
+        .timeline-content {
+            padding: 15px;
+        }
+
+        .related-content {
+            padding: 15px !important;
+        }
+    }
+
+    /* 触摸设备优化 */
+    @media (hover: none) and (pointer: coarse) {
+        .value-card:hover,
+        .solution-card:hover,
+        .social-link:hover {
+            transform: none;
+        }
+
+        .value-card,
+        .solution-card,
+        .social-link {
+            transition: background-color 0.3s ease;
+        }
+
+        .value-card:active {
+            background-color: #f8f9fa;
+        }
+
+        .solution-card:active {
+            background-color: #f8f9fa;
+        }
+
+        .social-link:active {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        .nav-menu a,
+        .breadcrumb a,
+        .related-card a {
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+    }
+
+    /* 导航栏样式 */
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 30px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-menu a {
+        color: #333;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+    }
+
+    .nav-menu a:hover {
+        color: #4a90e2;
+    }
+
+    .nav-menu a.active {
+        color: #4a90e2;
+        font-weight: 600;
+    }
+
+    .nav-right {
+        display: flex;
+        align-items: center;
+    }
+
+    .lang-select {
+        padding: 8px 12px;
+        border: 1px solid #e9ecef;
+        border-radius: 6px;
+        background: white;
+        color: #333;
+        font-size: 14px;
+        cursor: pointer;
+        transition: border-color 0.3s;
+    }
+
+    .lang-select:hover {
+        border-color: #4a90e2;
+    }
+
+    .lang-select:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+    }
+    </style>
+
+    <!-- 多语言支持 -->
     <script src="js/i18n.js"></script>
-    <script src="js/ui_handler.js" defer></script>
 </body>
-</html> 
+</html>

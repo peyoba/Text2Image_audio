@@ -360,4 +360,101 @@ class ApiClient {
             { id: 'ultrawide', name: '超宽', width: 1920, height: 1080 }
         ];
     }
-} 
+
+    /**
+     * 生成语音（专门为语音页面使用）
+     * @param {Object} options - 语音生成选项
+     * @param {string} options.text - 要转换的文本
+     * @param {string} options.voice - 音色选择
+     * @param {number} options.speed - 语速
+     * @returns {Promise<Object>} 返回包含音频URL的结果对象
+     */
+    async generateVoice(options) {
+        try {
+            const { text, voice = 'nova', speed = 1.0 } = options;
+            
+            console.log(`ApiClient: Generating voice - Text: ${text.substring(0, 50)}..., Voice: ${voice}, Speed: ${speed}`);
+
+            const response = await fetch(`${this.baseUrl}/api/generate`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    text: text,
+                    type: 'audio',
+                    voice: voice,
+                    speed: speed
+                })
+            });
+
+            if (!response.ok) {
+                let errorMessage = `HTTP错误: ${response.status}`;
+                try {
+                    const errorData = await response.json();
+                    errorMessage = errorData.error || errorMessage;
+                } catch (e) {
+                    // 如果无法解析错误信息，使用默认错误
+                }
+                throw new Error(errorMessage);
+            }
+
+            // 对于音频生成，后端应该返回音频的blob数据
+            const audioBlob = await response.blob();
+            
+            // 创建音频URL
+            const audioUrl = URL.createObjectURL(audioBlob);
+            
+            console.log('ApiClient: Voice generation successful, audio URL created');
+            
+            return {
+                success: true,
+                audioUrl: audioUrl,
+                blob: audioBlob
+            };
+
+        } catch (error) {
+            console.error('ApiClient: Voice generation failed:', error);
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
+    /**
+     * 获取可用的语音模型
+     * @returns {Array} 语音模型列表
+     */
+    getAvailableVoiceModels() {
+        return [
+            { id: 'nova', name: 'Nova', description: '女声-清晰自然' },
+            { id: 'alloy', name: 'Alloy', description: '男声-温和友好' },
+            { id: 'echo', name: 'Echo', description: '男声-深沉有力' },
+            { id: 'fable', name: 'Fable', description: '男声-年轻活泼' },
+            { id: 'onyx', name: 'Onyx', description: '男声-磁性成熟' },
+            { id: 'shimmer', name: 'Shimmer', description: '女声-甜美温柔' }
+        ];
+    }
+
+    /**
+     * 获取语速选项
+     * @returns {Array} 语速选项列表
+     */
+    getVoiceSpeedOptions() {
+        return [
+            { value: 0.25, label: '0.25x - 极慢' },
+            { value: 0.5, label: '0.5x - 很慢' },
+            { value: 0.75, label: '0.75x - 慢' },
+            { value: 1.0, label: '1.0x - 正常' },
+            { value: 1.25, label: '1.25x - 稍快' },
+            { value: 1.5, label: '1.5x - 快' },
+            { value: 2.0, label: '2.0x - 很快' },
+            { value: 3.0, label: '3.0x - 极快' },
+            { value: 4.0, label: '4.0x - 超快' }
+        ];
+    }
+}
+
+// 导出到全局作用域
+window.APIClient = new ApiClient(); 
