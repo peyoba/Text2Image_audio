@@ -319,6 +319,12 @@ const i18n = {
         navHome: '首页',
         navImageGen: '图像生成',
         navVoiceGen: '语音合成',
+        navAbout: '关于我们',
+        navAIGuide: 'AI指南',
+        navPromptEngineering: '提示词工程',
+        navTutorial: '使用教程',
+        navFAQ: '常见问题',
+        navContact: '联系我们',
         
         // 语音页面专用翻译
         voiceHeroTitle: 'AISTONE - 免费AI语音合成平台',
@@ -809,6 +815,12 @@ const i18n = {
         navHome: 'Home',
         navImageGen: 'Image Generation',
         navVoiceGen: 'Voice Synthesis',
+        navAbout: 'About',
+        navAIGuide: 'AI Guide',
+        navPromptEngineering: 'Prompt Engineering',
+        navTutorial: 'Tutorial',
+        navFAQ: 'FAQ',
+        navContact: 'Contact',
         
         // Voice page specific translations
         voiceHeroTitle: 'AISTONE - Free AI Voice Synthesis Platform',
