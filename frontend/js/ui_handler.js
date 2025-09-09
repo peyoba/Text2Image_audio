@@ -658,18 +658,155 @@ class UIHandler {
      * 处理语音生成重定向到专业版
      */
     _handleVoiceRedirect(text) {
-        // 创建确认对话框
-        const message = getCurrentLang() === 'zh' 
-            ? '检测到语音生成请求！\n\n为了提供更好的语音合成体验，我们建议您使用专业版语音合成器。\n专业版提供更多音色选择、语速控制等高级功能。\n\n是否跳转到专业版？' 
-            : 'Voice generation detected!\n\nFor a better voice synthesis experience, we recommend using our professional voice synthesizer.\nIt offers more voice options, speed control and advanced features.\n\nRedirect to professional version?';
+        this._showVoiceRedirectModal(text);
+    }
+
+    /**
+     * 显示美观的语音重定向模态框
+     */
+    _showVoiceRedirectModal(text) {
+        // 创建模态框HTML
+        const modalHTML = `
+            <div id="voice-redirect-modal" class="voice-redirect-modal" style="
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                animation: fadeIn 0.3s ease;
+            ">
+                <div class="modal-content" style="
+                    background: white;
+                    border-radius: 12px;
+                    padding: 30px;
+                    max-width: 500px;
+                    width: 90%;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                    animation: slideUp 0.3s ease;
+                    text-align: center;
+                ">
+                    <div class="modal-icon" style="
+                        font-size: 48px;
+                        margin-bottom: 16px;
+                    ">🎵</div>
+                    <h3 style="
+                        margin: 0 0 16px 0;
+                        color: #333;
+                        font-size: 24px;
+                        font-weight: 600;
+                    ">${getCurrentLang() === 'zh' ? '语音生成检测' : 'Voice Generation Detected'}</h3>
+                    <p style="
+                        margin: 0 0 24px 0;
+                        color: #666;
+                        line-height: 1.6;
+                        font-size: 16px;
+                    ">
+                        ${getCurrentLang() === 'zh' 
+                            ? '为了提供更好的语音合成体验，我们建议您使用专业版语音合成器。<br><br><strong>专业版特色：</strong><br>• 6种专业音色选择<br>• 语速调节控制<br>• 高质量音频输出<br>• 专业级用户界面' 
+                            : 'For a better voice synthesis experience, we recommend using our professional voice synthesizer.<br><br><strong>Professional Features:</strong><br>• 6 professional voice options<br>• Speed control<br>• High-quality audio output<br>• Professional user interface'}
+                    </p>
+                    <div class="modal-actions" style="
+                        display: flex;
+                        gap: 12px;
+                        justify-content: center;
+                    ">
+                        <button id="voice-redirect-confirm" class="btn-primary" style="
+                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                            color: white;
+                            border: none;
+                            padding: 12px 24px;
+                            border-radius: 8px;
+                            font-size: 16px;
+                            font-weight: 500;
+                            cursor: pointer;
+                            transition: transform 0.2s;
+                        ">${getCurrentLang() === 'zh' ? '使用专业版' : 'Use Professional Version'}</button>
+                        <button id="voice-redirect-cancel" class="btn-secondary" style="
+                            background: #f8f9fa;
+                            color: #666;
+                            border: 1px solid #ddd;
+                            padding: 12px 24px;
+                            border-radius: 8px;
+                            font-size: 16px;
+                            font-weight: 500;
+                            cursor: pointer;
+                            transition: all 0.2s;
+                        ">${getCurrentLang() === 'zh' ? '取消' : 'Cancel'}</button>
+                    </div>
+                </div>
+            </div>
+            <style>
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; }
+                }
+                @keyframes slideUp {
+                    from { transform: translateY(30px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+                .voice-redirect-modal .btn-primary:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+                }
+                .voice-redirect-modal .btn-secondary:hover {
+                    background: #e9ecef;
+                    border-color: #adb5bd;
+                }
+            </style>
+        `;
+
+        // 添加到页面
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
         
-        if (confirm(message)) {
-            // 将文本内容通过URL参数传递
+        // 绑定事件
+        const modal = document.getElementById('voice-redirect-modal');
+        const confirmBtn = document.getElementById('voice-redirect-confirm');
+        const cancelBtn = document.getElementById('voice-redirect-cancel');
+        
+        confirmBtn.addEventListener('click', () => {
             const encodedText = encodeURIComponent(text);
             const targetUrl = `voice.html?text=${encodedText}&source=main`;
-            
-            // 跳转到专业版语音页面
             window.location.href = targetUrl;
+        });
+        
+        cancelBtn.addEventListener('click', () => {
+            this._closeVoiceRedirectModal();
+        });
+        
+        // 点击背景关闭
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                this._closeVoiceRedirectModal();
+            }
+        });
+        
+        // ESC键关闭
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this._closeVoiceRedirectModal();
+            }
+        });
+    }
+
+    /**
+     * 关闭语音重定向模态框
+     */
+    _closeVoiceRedirectModal() {
+        const modal = document.getElementById('voice-redirect-modal');
+        if (modal) {
+            modal.style.animation = 'fadeOut 0.3s ease';
+            setTimeout(() => {
+                modal.remove();
+            }, 300);
         }
     }
 

@@ -143,79 +143,83 @@
     </script>
 </head>
 <body>
-    <div id="app">
-        <header>
-            <nav>
-                <div class="nav-container">
-                    <div class="logo">
-                        <a href="index.html">
-                            <img src="assets/logo.svg" alt="AISTONE LOGO - AI语音合成平台" class="logo-img" />
-                            <span>AISTONE</span>
-                        </a>
-                    </div>
-                    <ul class="nav-menu">
-                        <li><a href="index.html" data-i18n="navImageGen">图像生成</a></li>
-                        <li><a href="voice.html" class="active" data-i18n="navVoiceGen">语音合成</a></li>
-                        <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
-                        <li><a href="ai-guide.html">AI指南</a></li>
-                        <li><a href="prompt-engineering.html">提示词工程</a></li>
-                        <li><a href="tutorial.html">教程</a></li>
-                        <li><a href="faq.html">常见问题</a></li>
-                        <li><a href="contact.html" data-i18n="navContact">联系我们</a></li>
-                    </ul>
-                    <div class="nav-right">
-                        <button id="lang-toggle" class="lang-toggle" data-i18n="langToggle">中/EN</button>
-                        <button id="auth-toggle" class="auth-btn" data-i18n="loginRegister">登录/注册</button>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img src="assets/logo.svg" alt="AISTONE LOGO - 免费AI语音合成平台标志" class="logo-img" aria-label="AISTONE 平台标志" />
+            <span class="site-name">AISTONE</span>
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="index.html" data-i18n="navHome">首页</a></li>
+            <li><a href="voice.html" class="active" data-i18n="navVoiceGen">语音合成</a></li>
+            <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
+            <li><a href="ai-guide.html">AI指南</a></li>
+            <li><a href="prompt-engineering.html">提示词工程</a></li>
+            <li><a href="tutorial.html">使用教程</a></li>
+            <li><a href="faq.html">常见问题</a></li>
+            <li><a href="contact.html" data-i18n="navContact">联系我们</a></li>
+        </ul>
+        <div class="navbar-right">
+            <select id="lang-select" class="lang-select">
+                <option value="en">English</option>
+                <option value="zh">中文</option>
+            </select>
+            <!-- 登录按钮 -->
+            <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">登录</button>
+            <!-- 用户信息显示区域 -->
+            <div class="user-info" id="nav-user-info" style="display: none;">
+                <div class="user-avatar">
+                    <img src="assets/default-avatar.svg" alt="User avatar" id="userAvatar">
+                </div>
+                <div class="user-details">
+                    <button class="user-menu-toggle" id="userMenuToggle" aria-haspopup="true" aria-expanded="false">
+                        <img src="assets/default-avatar.svg" alt="avatar" class="avatar-inline"/>
+                        <span class="username">用户名</span>
+                        <span class="caret">▾</span>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown" role="menu" aria-labelledby="userMenuToggle" style="display:none;">
+                        <a href="/user.html" class="dropdown-item" data-i18n="userCenter">个人中心</a>
+                        <a href="#" class="dropdown-item" onclick="authManager.logout()" data-i18n="logout">登出</a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主视觉区 -->
+    <section class="hero-section" id="voice-home">
+        <div class="hero-content">
+            <div class="hero-row">
+                <img src="assets/logo.svg" alt="AISTONE LOGO - 免费AI语音合成平台主标志" class="hero-logo-img" aria-label="AISTONE 平台主标志" />
+                <h1 class="hero-title" data-i18n="voiceHeroTitle">AISTONE - 免费AI语音合成平台</h1>
+            </div>
+            <p class="hero-subtitle" data-i18n="voiceHeroSubtitle">文本转语音 • 多种音色 • 完全免费</p>
+            <div class="hero-slogan" data-i18n="voiceHeroSlogan" style="font-size:1.25em;color:#00CFFF;margin:8px 0 0 0;">AI驱动·自然语音·专业级品质！</div>
+            <div class="hero-tags" style="margin-top:12px;">
+                <span class="tag tag-free" data-i18n="tagFree">100% 免费</span>
+                <span class="tag tag-unlimited" data-i18n="tagUnlimited">无限生成</span>
+                <span class="tag tag-no-login" data-i18n="tagNoLogin">无需登录</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <main>
+            <!-- 面包屑导航 -->
+            <nav class="breadcrumb" id="breadcrumb-nav" aria-label="面包屑导航" style="margin-top: 20px;">
+                <ol class="breadcrumb-list">
+                    <li class="breadcrumb-item">
+                        <a href="index.html" class="breadcrumb-link" data-i18n="navHome">首页</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <span class="breadcrumb-current" data-i18n="navVoiceGen">AI语音合成</span>
+                    </li>
+                </ol>
             </nav>
-        </header>
 
-        <main class="voice-page">
-            <div class="container">
-                <!-- 面包屑导航 -->
-                <nav class="breadcrumb">
-                    <a href="index.html" data-i18n="navHome">首页</a>
-                    <span class="separator">></span>
-                    <span class="current" data-i18n="navVoiceGen">AI语音合成</span>
-                </nav>
-
-                <!-- 英雄区域 -->
-                <section class="hero-section voice-hero">
-                    <div class="hero-content">
-                        <div class="hero-logo">
-                            <img src="assets/logo.svg" alt="AISTONE AI语音合成" class="hero-logo-img" />
-                            <h1 class="hero-title" data-i18n="voiceHeroTitle">AISTONE - AI语音合成平台</h1>
-                        </div>
-                        <p class="hero-subtitle" data-i18n="voiceHeroSubtitle">文本转语音 • 多种音色 • 免费无限制</p>
-                        
-                        <!-- 特色展示 -->
-                        <div class="voice-features">
-                            <div class="feature-item">
-                                <span class="feature-icon">🎵</span>
-                                <span class="feature-text" data-i18n="voiceFeature1">多种AI音色</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-icon">🌐</span>
-                                <span class="feature-text" data-i18n="voiceFeature2">中英文支持</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-icon">⚡</span>
-                                <span class="feature-text" data-i18n="voiceFeature3">实时生成</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-icon">🆓</span>
-                                <span class="feature-text" data-i18n="voiceFeature4">完全免费</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 语音合成表单 -->
-                <section class="voice-generator-section">
-                    <div class="generator-card voice-card">
-                        <h2 class="card-title" data-i18n="voiceGeneratorTitle">AI语音合成器</h2>
-                        <p class="card-subtitle" data-i18n="voiceGeneratorDesc">输入文本，AI将为您生成自然流畅的语音</p>
+            <!-- 内容创作区域 -->
+            <section class="input-section" id="create" style="margin-top: 20px;">
+                <h2 class="section-title" data-i18n="voiceInputTitle" style="margin-bottom: 12px;">文本内容</h2>
                         
                         <form id="voice-generation-form" class="voice-form">
                             <!-- 文本输入区域 -->
@@ -455,16 +459,20 @@
                         </div>
                     </div>
                 </section>
-            </div>
         </main>
-
-        <footer>
-            <div class="container">
-                <p>&copy; 2025 AISTONE. <span data-i18n="footerRights">保留所有权利。</span></p>
-                <div class="footer-links">
-                    <a href="privacy.html" data-i18n="footerPrivacy">隐私政策</a>
-                    <a href="terms.html" data-i18n="footerTerms">使用条款</a>
-                    <a href="contact.html" data-i18n="footerContact">联系我们</a>
+        
+        <!-- 页脚区域 -->
+        <footer id="contact">
+            <div class="footer-grid">
+                <div class="footer-left">&copy; 2025 AISTONE</div>
+                <div class="footer-center">
+                    <a href="#" class="footer-icon" aria-label="Twitter"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="#00CFFF" d="M22.46 5.924c-.793.352-1.646.59-2.54.698a4.48 4.48 0 0 0 1.963-2.47 8.94 8.94 0 0 1-2.828 1.08A4.48 4.48 0 0 0 11.1 9.03a12.72 12.72 0 0 1-9.23-4.68s-2.28 4.02 2.7 6.18c-.73.02-1.42-.22-2.02-.56 0 2.28 1.62 4.18 4.02 4.62-.39.11-.8.17-1.22.17-.3 0-.58-.03-.86-.08.58 1.81 2.27 3.13 4.27 3.17A9.01 9.01 0 0 1 2 19.54c6.29 4.03 13.72 1.13 15.86-5.13.32-.8.6-1.6.82-2.44.56-.41 1.05-.92 1.44-1.5z"/></svg></a>
+                    <a href="#" class="footer-icon" aria-label="LinkedIn"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="#00CFFF" d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.88v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg></a>
+                    <a href="#" class="footer-icon" aria-label="Instagram"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="#00CFFF" d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.34 3.608 1.314.975.975 1.252 2.242 1.314 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.34 2.633-1.314 3.608-.975.975-2.242 1.252-3.608 1.314-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.34-3.608-1.314-.975-.975-1.252-2.242-1.314-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.34-2.633 1.314-3.608C4.522 2.573 5.789 2.295 7.155 2.233 8.421 2.175 8.801 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.771.131 4.659.414 3.678 1.395c-.98.98-1.263 2.092-1.322 3.373C2.013 8.332 2 8.741 2 12c0 3.259.013 3.668.072 4.948.059 1.281.342 2.393 1.322 3.373.98.98 2.092 1.263 3.373 1.322C8.332 23.987 8.741 24 12 24s3.668-.013 4.948-.072c1.281-.059 2.393-.342 3.373-1.322.98-.98 1.263-2.092 1.322-3.373.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.059-1.281-.342-2.393-1.322-3.373-.98-.98-2.092-1.263-3.373-1.322C15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a>
+                </div>
+                <div class="footer-right">
+                    <a href="privacy.html" class="footer-link">隐私政策</a><br>
+                    <a href="terms.html" class="footer-link">服务条款</a><br>
                 </div>
             </div>
         </footer>
@@ -483,545 +491,220 @@
     <!-- 认证和用户管理模块 -->
     <script src="js/auth.js?v=20250909" defer></script>
     
+    <!-- V2.0 认证和图片管理模块 -->
+    <script src="js/auth.js?v=20250909" defer></script>
+    <script src="js/hd_image_manager.js?v=20250909" defer></script>
+    
     <!-- 认证界面 -->
     <div id="auth-modals"></div>
-
+    <script>
+        fetch('auth-modals.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('auth-modals').innerHTML = html;
+                
+                // 显示Google登录按钮
+                const googleBtn = document.getElementById('googleLoginBtn');
+                if (googleBtn) {
+                    googleBtn.parentElement.style.display = 'block';
+                    googleBtn.style.display = 'block';
+                }
+                const divider = document.querySelector('.divider');
+                if (divider) {
+                    divider.style.display = 'block';
+                }
+                console.log('Google OAuth 2.0 login ready');
+                
+                // 确保在脚本加载完成后绑定事件
+                const ensureBind = () => {
+                    if (window.initAuthForms) {
+                        window.initAuthForms();
+                    } else {
+                        setTimeout(ensureBind, 100);
+                    }
+                };
+                ensureBind();
+                // 注入后同步当前语言
+                if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') {
+                    setLanguage(getCurrentLang());
+                }
+            })
+            .catch(error => {
+                console.error('加载认证界面失败:', error);
+            });
+    </script>
+    
+    <!-- 用户信息样式（深色主题） -->
     <style>
-    /* 语音页面专用样式 */
-    .voice-page {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-    }
-
-    .voice-hero {
-        background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-        text-align: center;
-        padding: 80px 20px;
-        border-radius: 20px;
-        margin-bottom: 40px;
-        color: white;
-    }
-
-    .voice-hero .hero-title {
-        font-size: 2.5em;
-        margin: 20px 0;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-
-    .voice-hero .hero-subtitle {
-        font-size: 1.2em;
-        opacity: 0.9;
-        margin-bottom: 30px;
-    }
-
-    .voice-features {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .feature-item {
-        background: rgba(255,255,255,0.15);
-        padding: 15px;
-        border-radius: 15px;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255,255,255,0.2);
+    .user-info {
         display: flex;
         align-items: center;
         gap: 10px;
+        padding: 6px 10px;
+        background: rgba(15,23,42,0.7);
+        border: 1px solid #273548;
+        border-radius: 999px;
     }
+    .user-avatar { display: none; }
+    .user-avatar img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+    .user-details { display: flex; flex-direction: row; align-items: center; gap: 10px; position: relative; }
+    .username { font-weight: 600; color: #e5e7eb; font-size: 0.9rem; }
+    .user-actions { display: none; }
 
-    .feature-icon {
-        font-size: 1.5em;
+    /* 下拉菜单样式 */
+    .user-menu-toggle {
+        background: rgba(36, 49, 77, 0.6);
+        color: #e5e7eb;
+        border: 1px solid #2A3A57;
+        border-radius: 999px;
+        padding: 6px 12px 6px 6px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+        background-clip: padding-box;
     }
-
-    .feature-text {
+    .user-menu-toggle:hover { background: rgba(36, 49, 77, 0.85); }
+    .user-menu-toggle .caret { color: #aab4d4; font-size: 0.8rem; }
+    .user-menu-toggle .avatar-inline { width: 22px; height: 22px; border-radius: 50%; background:#0b1220; }
+    .user-dropdown {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 8px);
+        background: #0e1424;
+        border: 1px solid #2A3A57;
+        border-radius: 10px;
+        min-width: 160px;
+        box-shadow: 0 14px 32px rgba(0,0,0,0.45);
+        padding: 8px;
+        z-index: 1000;
+    }
+    .dropdown-item {
+        display: block;
+        padding: 8px 10px;
+        color: #d6def8;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+    .dropdown-item:hover { background: #1a2440; }
+    /* 右上语言下拉与按钮统一深色主题，移除系统白色外观 */
+    .lang-select {
+        background: #0e1424;
+        color: #d6def8;
+        border: 1px solid #2A3A57;
+        border-radius: 999px;
+        padding: 6px 28px 6px 12px;
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+    }
+    
+    .btn {
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 0.875rem;
         font-weight: 500;
-    }
-
-    /* 语音生成器卡片 */
-    .voice-card {
-        background: white;
-        border-radius: 20px;
-        padding: 40px;
-        margin-bottom: 40px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-
-    .voice-card .card-title {
-        font-size: 2em;
-        color: #333;
-        margin-bottom: 10px;
-        text-align: center;
-    }
-
-    .voice-card .card-subtitle {
-        color: #666;
-        text-align: center;
-        margin-bottom: 30px;
-        font-size: 1.1em;
-    }
-
-    /* 文本输入区域 */
-    .input-section {
-        margin-bottom: 30px;
-    }
-
-    .input-label {
-        display: block;
-        margin-bottom: 10px;
-        font-weight: 600;
-        color: #333;
-    }
-
-    .label-text {
-        display: block;
-    }
-
-    .label-hint {
-        font-weight: 400;
-        color: #666;
-        font-size: 0.9em;
-    }
-
-    .voice-text-input {
-        width: 100%;
-        min-height: 120px;
-        padding: 15px;
-        border: 2px solid #e9ecef;
-        border-radius: 12px;
-        font-size: 16px;
-        font-family: inherit;
-        resize: vertical;
-        transition: border-color 0.3s ease;
-    }
-
-    .voice-text-input:focus {
-        outline: none;
-        border-color: #007bff;
-        box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
-    }
-
-    .text-counter {
-        text-align: right;
-        margin-top: 5px;
-        color: #666;
-        font-size: 0.9em;
-    }
-
-    /* 语音选项 */
-    .voice-options {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin-bottom: 25px;
-    }
-
-    .option-group {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .option-label {
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 8px;
-    }
-
-    .voice-select {
-        padding: 12px;
-        border: 2px solid #e9ecef;
-        border-radius: 8px;
-        font-size: 16px;
-        background: white;
         cursor: pointer;
-    }
-
-    .voice-select:focus {
-        outline: none;
-        border-color: #007bff;
-    }
-
-    .speed-control {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .speed-slider {
-        flex: 1;
-        height: 6px;
-        background: #e9ecef;
-        border-radius: 3px;
-        outline: none;
-        cursor: pointer;
-    }
-
-    .speed-display {
-        font-weight: 600;
-        color: #007bff;
-        min-width: 50px;
-        text-align: center;
-    }
-
-    /* 示例文本 */
-    .example-texts {
-        margin-bottom: 30px;
-    }
-
-    .example-buttons {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 10px;
-        margin-top: 10px;
-    }
-
-    .example-btn {
-        background: #f8f9fa;
-        border: 2px solid #e9ecef;
-        border-radius: 8px;
-        padding: 12px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-size: 14px;
-        text-align: left;
-    }
-
-    .example-btn:hover {
-        background: #e9ecef;
-        border-color: #007bff;
-    }
-
-    /* 生成按钮 */
-    .voice-generate-btn {
-        width: 100%;
-        padding: 18px;
-        font-size: 18px;
-        font-weight: 600;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
+        transition: all 0.2s;
         border: none;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-    }
-
-    .voice-generate-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-    }
-
-    .voice-generate-btn:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
-        transform: none;
-    }
-
-    .btn-loading {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .spinner {
-        width: 16px;
-        height: 16px;
-        border: 2px solid rgba(255,255,255,0.3);
-        border-radius: 50%;
-        border-top-color: white;
-        animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-
-    /* 结果区域 */
-    .result-section {
-        margin-top: 30px;
-        padding-top: 30px;
-        border-top: 2px solid #e9ecef;
-    }
-
-    .result-title {
-        font-size: 1.4em;
-        color: #333;
-        margin-bottom: 20px;
-    }
-
-    .audio-player-container {
-        background: #f8f9fa;
-        padding: 20px;
-        border-radius: 12px;
-        margin-bottom: 20px;
-        text-align: center;
-    }
-
-    .audio-player {
-        width: 100%;
-        max-width: 500px;
-    }
-
-    .result-actions {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-bottom: 20px;
-    }
-
-    .action-btn {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 12px 20px;
-        border: 2px solid #e9ecef;
-        border-radius: 8px;
-        background: white;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-weight: 500;
-    }
-
-    .action-btn:hover {
-        background: #f8f9fa;
-        border-color: #007bff;
-        color: #007bff;
-    }
-
-    .result-info {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
-        color: #666;
-        font-size: 0.9em;
-    }
-
-    .info-item {
-        display: flex;
-        gap: 5px;
-    }
-
-    .info-label {
-        font-weight: 600;
-    }
-
-    /* 特色功能区域 */
-    .voice-features-section {
-        margin: 60px 0;
-    }
-
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-    }
-
-    .feature-card {
-        background: white;
-        padding: 30px;
-        border-radius: 15px;
-        text-align: center;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease;
-    }
-
-    .feature-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .feature-icon-large {
-        font-size: 3em;
-        margin-bottom: 20px;
-    }
-
-    .feature-card h3 {
-        color: #333;
-        margin-bottom: 15px;
-        font-size: 1.3em;
-    }
-
-    .feature-card p {
-        color: #666;
-        line-height: 1.6;
-    }
-
-    /* 应用场景区域 */
-    .use-cases-section {
-        margin: 60px 0;
-        background: white;
-        padding: 60px 40px;
-        border-radius: 20px;
-    }
-
-    .use-cases-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
-    }
-
-    .use-case-card {
-        padding: 25px;
-        border: 2px solid #e9ecef;
-        border-radius: 12px;
-        text-align: center;
-        transition: all 0.3s ease;
-    }
-
-    .use-case-card:hover {
-        border-color: #007bff;
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0,123,255,0.1);
-    }
-
-    .use-case-icon {
-        font-size: 2.5em;
-        margin-bottom: 15px;
-    }
-
-    .use-case-card h3 {
-        color: #333;
-        margin-bottom: 10px;
-        font-size: 1.2em;
-    }
-
-    .use-case-card p {
-        color: #666;
-        line-height: 1.5;
-        font-size: 0.95em;
-    }
-
-    /* 相关内容区域 */
-    .related-content {
-        margin: 60px 0;
-        padding: 40px;
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        border-radius: 20px;
-    }
-
-    .related-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-    }
-
-    .related-card {
-        background: white;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
-
-    .related-card h3 {
-        margin: 0 0 10px 0;
-        color: #333;
-    }
-
-    .related-card h3 a {
         text-decoration: none;
-        color: inherit;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
-
-    .related-card p {
-        margin: 0 0 15px 0;
-        color: #666;
-        font-size: 0.95em;
-        line-height: 1.5;
+    
+    .btn-primary {
+        background-color: #4f46e5;
+        color: white;
     }
-
-    .related-link {
-        color: #007bff;
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 0.9em;
+    
+    .btn-primary:hover {
+        background-color: #4338ca;
     }
-
-    .related-link:hover {
-        text-decoration: underline;
+    
+    .btn-outline {
+        background-color: transparent;
+        color: #4f46e5;
+        border: 1px solid #4f46e5;
     }
-
+    
+    .btn-outline:hover {
+        background-color: #4f46e5;
+        color: white;
+    }
+    
+    .btn-small {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+    
     /* 响应式设计 */
-    @media (max-width: 768px) {
-        .voice-hero {
-            padding: 60px 15px;
-        }
-
-        .voice-hero .hero-title {
-            font-size: 2em;
-        }
-
-        .voice-features {
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-
-        .voice-card {
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-
-        .voice-options {
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-
-        .example-buttons {
-            grid-template-columns: 1fr;
-        }
-
-        .result-actions {
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        .action-btn {
-            justify-content: center;
-        }
-
-        .result-info {
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .features-grid,
-        .use-cases-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .use-cases-section {
-            padding: 40px 20px;
-        }
-
-        .related-content {
-            padding: 30px 20px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .voice-hero .hero-title {
-            font-size: 1.8em;
-        }
-
-        .voice-card {
-            padding: 20px;
-        }
-
-        .voice-card .card-title {
-            font-size: 1.6em;
-        }
-
-        .voice-generate-btn {
-            font-size: 16px;
-        }
-    }
+    @media (max-width: 768px) { .user-info { flex-direction: column; text-align: center; } .user-actions { justify-content: center; } }
     </style>
+
+    <!-- 页面初始化 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // 等待所有模块加载完成
+            setTimeout(async () => {
+                // 初始化认证状态
+                if (window.authManager) {
+                    await window.authManager.init();
+                    console.log('认证模块初始化完成');
+                } else {
+                    console.error('认证模块未加载');
+                }
+                
+                // 初始化图片管理
+                if (window.hdImageManager) {
+                    console.log('图片管理模块初始化完成');
+                    // 确保图片管理器正确初始化
+                    if (window.authManager && window.authManager.isLoggedIn()) {
+                        console.log('用户已登录，初始化图片管理器');
+                        window.hdImageManager.init();
+                    }
+                } else {
+                    console.error('图片管理模块未加载');
+                }
+
+                // 测试模态框函数
+                console.log('showModal函数可用:', typeof showModal);
+
+                // 绑定用户菜单下拉
+                const userMenuToggle = document.getElementById('userMenuToggle');
+                const userDropdown = document.getElementById('userDropdown');
+                if (userMenuToggle && userDropdown) {
+                    userMenuToggle.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const shown = userDropdown.style.display === 'block';
+                        userDropdown.style.display = shown ? 'none' : 'block';
+                        userMenuToggle.setAttribute('aria-expanded', (!shown).toString());
+                    });
+                    document.addEventListener('click', () => {
+                        if (userDropdown.style.display === 'block') {
+                            userDropdown.style.display = 'none';
+                            userMenuToggle.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                }
+
+            }, 1000);
+        });
+
+        // 用户个人中心函数
+        function showUserProfile() {
+            // 这里可以跳转到用户个人中心页面或显示用户信息
+            if (window.authManager) {
+                window.authManager.showMessage(t('userCenterDevTip'), 'info');
+            }
+        }
+    </script>
 </body>
 </html>
