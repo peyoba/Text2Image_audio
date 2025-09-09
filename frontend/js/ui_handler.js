@@ -463,17 +463,21 @@ class UIHandler {
             return;
         }
 
-        this.isGenerating = true;
         const text = this.textInput.value.trim();
         const type = this.typeImageRadio.checked ? 'image' : 'audio';
+        
+        // 智能重定向：检测到语音生成时，提示并跳转到专业版
+        if (type === 'audio') {
+            this._handleVoiceRedirect(text);
+            return;
+        }
+
+        // 只处理图像生成
+        this.isGenerating = true;
         this.showLoading(t('loading'));
 
         try {
-            if (type === 'image') {
-                await this._handleImageGeneration(text);
-            } else { // type === 'audio'
-                await this._handleAudioGeneration(text);
-            }
+            await this._handleImageGeneration(text);
         } catch (error) {
             // 优化错误提示
             let msg = error.details && error.details.error ? error.details.error : (error.details && error.details.details ? error.details.details : error.message);
@@ -647,6 +651,25 @@ class UIHandler {
                     if(failedCount === 0) {
                 this.showError(getCurrentLang && getCurrentLang() === 'zh' ? '未能生成任何图片。' : 'No images were generated.');
             }
+        }
+    }
+
+    /**
+     * 处理语音生成重定向到专业版
+     */
+    _handleVoiceRedirect(text) {
+        // 创建确认对话框
+        const message = getCurrentLang() === 'zh' 
+            ? '检测到语音生成请求！\n\n为了提供更好的语音合成体验，我们建议您使用专业版语音合成器。\n专业版提供更多音色选择、语速控制等高级功能。\n\n是否跳转到专业版？' 
+            : 'Voice generation detected!\n\nFor a better voice synthesis experience, we recommend using our professional voice synthesizer.\nIt offers more voice options, speed control and advanced features.\n\nRedirect to professional version?';
+        
+        if (confirm(message)) {
+            // 将文本内容通过URL参数传递
+            const encodedText = encodeURIComponent(text);
+            const targetUrl = `voice.html?text=${encodedText}&source=main`;
+            
+            // 跳转到专业版语音页面
+            window.location.href = targetUrl;
         }
     }
 

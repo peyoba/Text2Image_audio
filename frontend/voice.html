@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- 全局函数必须最先定义 -->
+    <script>
+        // API Base配置（可从localStorage覆盖）
+        (function(){
+            try {
+                var saved = localStorage.getItem('api_base');
+                if (saved && typeof saved === 'string' && saved.trim()) {
+                    window.API_BASE = saved.trim();
+                }
+            } catch (e) { /* 忽略 */ }
+            window.setApiBase = function(url){
+                if (typeof url === 'string' && url.trim()) {
+                    window.API_BASE = url.trim();
+                    try { localStorage.setItem('api_base', window.API_BASE); } catch(e){}
+                }
+            };
+        })();
+
+        // 全局模态框控制函数
+        function showModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'block';
+                console.log('显示模态框:', modalId);
+            } else {
+                console.error('模态框未找到:', modalId);
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                console.log('关闭模态框:', modalId);
+            }
+        }
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AISTONE AI语音合成平台 - 免费的文本转语音服务。支持多种音色，生成自然流畅的AI语音，适合内容创作、播客制作、有声读物等。无需注册，完全免费使用。">
+    <meta name="keywords" content="AI语音合成, 文本转语音, TTS, 语音生成, 免费语音合成, AI声音, 语音制作, 播客制作, AISTONE">
+    <title>AISTONE - 免费AI语音合成平台 | 文本转语音 TTS</title>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aistone.org/voice.html">
+    <meta property="og:title" content="AISTONE - 免费AI语音合成平台">
+    <meta property="og:description" content="免费的AI语音合成服务，支持中英文文本转语音，多种音色选择，生成自然流畅的AI语音。适合内容创作、播客制作等。">
+    <meta property="og:image" content="https://aistone.org/assets/voice-og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://aistone.org/voice.html">
+    <meta property="twitter:title" content="AISTONE - 免费AI语音合成平台">
+    <meta property="twitter:description" content="免费的AI语音合成服务，支持中英文文本转语音，多种音色选择，生成自然流畅的AI语音。">
+    <meta property="twitter:image" content="https://aistone.org/assets/voice-og-image.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://aistone.org/voice.html">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYQPWQ1JTM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FYQPWQ1JTM');
+    </script>
+    
+    <!-- Google AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-6165370615688912">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6165370615688912"
+         crossorigin="anonymous"></script>
+
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "AISTONE AI语音合成",
+        "applicationCategory": "Multimedia",
+        "description": "免费的AI语音合成平台，支持文本转语音TTS服务，多种音色选择，适合内容创作和播客制作",
+        "url": "https://aistone.org/voice.html",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "AISTONE"
+        },
+        "featureList": [
+            "文本转语音TTS",
+            "多种AI音色",
+            "中英文支持",
+            "免费无限制",
+            "实时语音生成",
+            "高质量音频输出"
+        ]
+    }
+    </script>
+
+    <!-- FAQ 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "AI语音合成支持哪些语言？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "支持中文和英文文本转语音，提供多种自然音色选择，适合不同应用场景。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "语音合成是否免费？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "完全免费使用，无需注册登录，支持无限制的语音生成服务。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "支持哪些音色？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "提供多种AI音色包括男声、女声等，支持不同情感和语调的语音输出。"
+                }
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <nav>
+                <div class="nav-container">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="assets/logo.svg" alt="AISTONE LOGO - AI语音合成平台" class="logo-img" />
+                            <span>AISTONE</span>
+                        </a>
+                    </div>
+                    <ul class="nav-menu">
+                        <li><a href="index.html" data-i18n="navImageGen">图像生成</a></li>
+                        <li><a href="voice.html" class="active" data-i18n="navVoiceGen">语音合成</a></li>
+                        <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
+                        <li><a href="ai-guide.html">AI指南</a></li>
+                        <li><a href="prompt-engineering.html">提示词工程</a></li>
+                        <li><a href="tutorial.html">教程</a></li>
+                        <li><a href="faq.html">常见问题</a></li>
+                        <li><a href="contact.html" data-i18n="navContact">联系我们</a></li>
+                    </ul>
+                    <div class="nav-right">
+                        <button id="lang-toggle" class="lang-toggle" data-i18n="langToggle">中/EN</button>
+                        <button id="auth-toggle" class="auth-btn" data-i18n="loginRegister">登录/注册</button>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="voice-page">
+            <div class="container">
+                <!-- 面包屑导航 -->
+                <nav class="breadcrumb">
+                    <a href="index.html" data-i18n="navHome">首页</a>
+                    <span class="separator">></span>
+                    <span class="current" data-i18n="navVoiceGen">AI语音合成</span>
+                </nav>
+
+                <!-- 英雄区域 -->
+                <section class="hero-section voice-hero">
+                    <div class="hero-content">
+                        <div class="hero-logo">
+                            <img src="assets/logo.svg" alt="AISTONE AI语音合成" class="hero-logo-img" />
+                            <h1 class="hero-title" data-i18n="voiceHeroTitle">AISTONE - AI语音合成平台</h1>
+                        </div>
+                        <p class="hero-subtitle" data-i18n="voiceHeroSubtitle">文本转语音 • 多种音色 • 免费无限制</p>
+                        
+                        <!-- 特色展示 -->
+                        <div class="voice-features">
+                            <div class="feature-item">
+                                <span class="feature-icon">🎵</span>
+                                <span class="feature-text" data-i18n="voiceFeature1">多种AI音色</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">🌐</span>
+                                <span class="feature-text" data-i18n="voiceFeature2">中英文支持</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">⚡</span>
+                                <span class="feature-text" data-i18n="voiceFeature3">实时生成</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">🆓</span>
+                                <span class="feature-text" data-i18n="voiceFeature4">完全免费</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 语音合成表单 -->
+                <section class="voice-generator-section">
+                    <div class="generator-card voice-card">
+                        <h2 class="card-title" data-i18n="voiceGeneratorTitle">AI语音合成器</h2>
+                        <p class="card-subtitle" data-i18n="voiceGeneratorDesc">输入文本，AI将为您生成自然流畅的语音</p>
+                        
+                        <form id="voice-generation-form" class="voice-form">
+                            <!-- 文本输入区域 -->
+                            <div class="input-section">
+                                <label for="voice-text-input" class="input-label" data-i18n="voiceTextLabel">
+                                    <span class="label-text">输入文本内容</span>
+                                    <span class="label-hint" data-i18n="voiceTextHint">（支持中文和英文，建议300字以内）</span>
+                                </label>
+                                <textarea 
+                                    id="voice-text-input" 
+                                    class="voice-text-input" 
+                                    placeholder="在这里输入您想要转换为语音的文本..." 
+                                    data-i18n="voiceTextPlaceholder"
+                                    maxlength="1000"
+                                    required
+                                ></textarea>
+                                <div class="text-counter">
+                                    <span id="text-count">0</span> / 1000
+                                </div>
+                            </div>
+
+                            <!-- 语音选项 -->
+                            <div class="voice-options">
+                                <div class="option-group">
+                                    <label class="option-label" data-i18n="voiceModelLabel">音色选择</label>
+                                    <select id="voice-model" class="voice-select">
+                                        <option value="nova" data-i18n="voiceNova">Nova (女声-清晰)</option>
+                                        <option value="alloy" data-i18n="voiceAlloy">Alloy (男声-温和)</option>
+                                        <option value="echo" data-i18n="voiceEcho">Echo (男声-深沉)</option>
+                                        <option value="fable" data-i18n="voiceFable">Fable (男声-年轻)</option>
+                                        <option value="onyx" data-i18n="voiceOnyx">Onyx (男声-磁性)</option>
+                                        <option value="shimmer" data-i18n="voiceShimmer">Shimmer (女声-甜美)</option>
+                                    </select>
+                                </div>
+
+                                <div class="option-group">
+                                    <label class="option-label" data-i18n="voiceSpeedLabel">语速调节</label>
+                                    <div class="speed-control">
+                                        <input type="range" id="voice-speed" min="0.25" max="4.0" value="1.0" step="0.25" class="speed-slider">
+                                        <span class="speed-display" id="speed-display">1.0x</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 示例文本 -->
+                            <div class="example-texts">
+                                <label class="option-label" data-i18n="voiceExamplesLabel">示例文本（点击使用）</label>
+                                <div class="example-buttons">
+                                    <button type="button" class="example-btn" data-text="欢迎使用AISTONE AI语音合成平台，让文字拥有声音的力量！">
+                                        📢 欢迎语
+                                    </button>
+                                    <button type="button" class="example-btn" data-text="Hello! Welcome to AISTONE AI voice synthesis platform. Transform your text into natural speech.">
+                                        🌐 English Demo
+                                    </button>
+                                    <button type="button" class="example-btn" data-text="今天天气真不错，阳光明媚，适合出门散步。希望每一天都能这样美好。">
+                                        ☀️ 日常对话
+                                    </button>
+                                    <button type="button" class="example-btn" data-text="人工智能正在改变我们的世界，语音合成技术让机器拥有了更加自然的表达能力。">
+                                        🤖 科技解说
+                                    </button>
+                                    <button type="button" class="example-btn" data-text="在这个快节奏的时代，我们需要停下脚步，倾听内心的声音，感受生活的美好。">
+                                        💭 情感表达
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- 生成按钮 -->
+                            <button type="submit" id="generate-voice-btn" class="generate-btn voice-generate-btn">
+                                <span class="btn-icon">🎵</span>
+                                <span class="btn-text" data-i18n="generateVoiceBtn">生成语音</span>
+                                <span class="btn-loading" style="display: none;">
+                                    <span class="spinner"></span>
+                                    <span data-i18n="generating">生成中...</span>
+                                </span>
+                            </button>
+                        </form>
+
+                        <!-- 结果区域 -->
+                        <div id="voice-result-section" class="result-section" style="display: none;">
+                            <h3 class="result-title" data-i18n="voiceResultTitle">生成结果</h3>
+                            <div class="audio-player-container">
+                                <audio id="generated-audio" controls class="audio-player">
+                                    您的浏览器不支持音频播放。
+                                </audio>
+                            </div>
+                            
+                            <div class="result-actions">
+                                <button id="download-audio-btn" class="action-btn download-btn">
+                                    <span class="btn-icon">📥</span>
+                                    <span data-i18n="downloadAudio">下载音频</span>
+                                </button>
+                                <button id="share-audio-btn" class="action-btn share-btn">
+                                    <span class="btn-icon">📤</span>
+                                    <span data-i18n="shareAudio">分享</span>
+                                </button>
+                                <button id="save-audio-btn" class="action-btn save-btn" style="display: none;">
+                                    <span class="btn-icon">💾</span>
+                                    <span data-i18n="saveToGallery">保存到个人中心</span>
+                                </button>
+                            </div>
+
+                            <div class="result-info">
+                                <span class="info-item">
+                                    <span class="info-label" data-i18n="voiceLength">时长:</span>
+                                    <span id="voice-duration" class="info-value">--:--</span>
+                                </span>
+                                <span class="info-item">
+                                    <span class="info-label" data-i18n="voiceModel">音色:</span>
+                                    <span id="used-voice-model" class="info-value">--</span>
+                                </span>
+                                <span class="info-item">
+                                    <span class="info-label" data-i18n="voiceSpeed">语速:</span>
+                                    <span id="used-voice-speed" class="info-value">--</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Google AdSense 广告位 -->
+                <div class="ad-section">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-6165370615688912"
+                         data-ad-slot="1234567890"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+
+                <!-- 语音合成特色介绍 -->
+                <section class="voice-features-section">
+                    <h2 class="section-title" data-i18n="voiceFeaturesTitle">AI语音合成特色</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon-large">🎭</div>
+                            <h3 data-i18n="voiceFeatureTitle1">多样音色选择</h3>
+                            <p data-i18n="voiceFeatureDesc1">提供6种不同风格的AI音色，包括男声、女声，适应不同场景需求，让每个声音都有独特的个性。</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon-large">⚡</div>
+                            <h3 data-i18n="voiceFeatureTitle2">实时快速生成</h3>
+                            <p data-i18n="voiceFeatureDesc2">采用先进的AI语音合成技术，支持实时文本转语音，几秒钟即可生成高质量的自然语音。</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon-large">🌍</div>
+                            <h3 data-i18n="voiceFeatureTitle3">中英双语支持</h3>
+                            <p data-i18n="voiceFeatureDesc3">完美支持中文和英文文本转语音，智能识别语言类型，为全球用户提供优质的语音合成服务。</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon-large">🎚️</div>
+                            <h3 data-i18n="voiceFeatureTitle4">灵活语速控制</h3>
+                            <p data-i18n="voiceFeatureDesc4">支持0.25x到4.0x的语速调节，满足不同应用场景，从慢速学习到快速播报，自由控制。</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon-large">🎯</div>
+                            <h3 data-i18n="voiceFeatureTitle5">高质量输出</h3>
+                            <p data-i18n="voiceFeatureDesc5">生成的语音清晰自然，情感表达丰富，适合播客、有声书、教育内容等专业应用场景。</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon-large">💝</div>
+                            <h3 data-i18n="voiceFeatureTitle6">完全免费使用</h3>
+                            <p data-i18n="voiceFeatureDesc6">无需注册，无使用限制，所有功能永久免费开放，让每个人都能享受AI语音合成的便利。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 应用场景 -->
+                <section class="use-cases-section">
+                    <h2 class="section-title" data-i18n="voiceUseCasesTitle">应用场景</h2>
+                    <div class="use-cases-grid">
+                        <div class="use-case-card">
+                            <div class="use-case-icon">🎙️</div>
+                            <h3 data-i18n="voiceUseCase1Title">播客制作</h3>
+                            <p data-i18n="voiceUseCase1Desc">为播客节目制作专业的开场白、介绍语或背景旁白，提升内容的专业度和吸引力。</p>
+                        </div>
+                        
+                        <div class="use-case-card">
+                            <div class="use-case-icon">📚</div>
+                            <h3 data-i18n="voiceUseCase2Title">有声读物</h3>
+                            <p data-i18n="voiceUseCase2Desc">将文字内容转换为有声读物，让阅读更加便捷，适合学习、休闲等多种场景。</p>
+                        </div>
+                        
+                        <div class="use-case-card">
+                            <div class="use-case-icon">🎓</div>
+                            <h3 data-i18n="voiceUseCase3Title">教育培训</h3>
+                            <p data-i18n="voiceUseCase3Desc">制作教学音频、课程讲解、语言学习材料，提升教育内容的可访问性和学习体验。</p>
+                        </div>
+                        
+                        <div class="use-case-card">
+                            <div class="use-case-icon">📢</div>
+                            <h3 data-i18n="voiceUseCase4Title">营销推广</h3>
+                            <p data-i18n="voiceUseCase4Desc">创建产品介绍、广告词、宣传片配音，为营销内容增加声音的感染力和说服力。</p>
+                        </div>
+                        
+                        <div class="use-case-card">
+                            <div class="use-case-icon">🎬</div>
+                            <h3 data-i18n="voiceUseCase5Title">视频制作</h3>
+                            <p data-i18n="voiceUseCase5Desc">为视频内容添加旁白、解说或对话，提升视频的专业性和观看体验。</p>
+                        </div>
+                        
+                        <div class="use-case-card">
+                            <div class="use-case-icon">🔧</div>
+                            <h3 data-i18n="voiceUseCase6Title">辅助工具</h3>
+                            <p data-i18n="voiceUseCase6Desc">为视障人士提供文本朗读服务，或作为语言学习的发音参考工具。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 相关内容推荐 -->
+                <section class="related-content">
+                    <h2 class="section-title" data-i18n="relatedContentTitle">发现更多AI功能</h2>
+                    <div class="related-grid">
+                        <div class="related-card">
+                            <h3><a href="index.html" data-i18n="relatedImageGen">🎨 AI图像生成</a></h3>
+                            <p data-i18n="relatedImageGenDesc">体验强大的AI图像生成功能，从文本描述创造惊艳的视觉作品</p>
+                            <a href="index.html" class="related-link" data-i18n="tryNow">立即体验 →</a>
+                        </div>
+                        
+                        <div class="related-card">
+                            <h3><a href="ai-guide.html" data-i18n="relatedAIGuide">🧠 AI技术指南</a></h3>
+                            <p data-i18n="relatedAIGuideDesc">深入了解AI语音合成技术原理和应用实践</p>
+                            <a href="ai-guide.html" class="related-link" data-i18n="learnMore">了解更多 →</a>
+                        </div>
+                        
+                        <div class="related-card">
+                            <h3><a href="tutorial.html" data-i18n="relatedTutorial">📖 使用教程</a></h3>
+                            <p data-i18n="relatedTutorialDesc">学习如何使用AISTONE平台创作高质量的AI内容</p>
+                            <a href="tutorial.html" class="related-link" data-i18n="startLearning">开始学习 →</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2025 AISTONE. <span data-i18n="footerRights">保留所有权利。</span></p>
+                <div class="footer-links">
+                    <a href="privacy.html" data-i18n="footerPrivacy">隐私政策</a>
+                    <a href="terms.html" data-i18n="footerTerms">使用条款</a>
+                    <a href="contact.html" data-i18n="footerContact">联系我们</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 按依赖顺序加载脚本 -->
+    <script src="js/i18n.js?v=20250909"></script>
+    <script src="js/api_client.js?v=20250909" defer></script>
+    <script src="js/ui_handler.js?v=20250909" defer></script>
+    <script src="js/mobile-interactions.js?v=20250909" defer></script>
+    <script src="js/voice_app.js?v=20250909" defer></script>
+
+    <!-- 认证模态交互脚本 -->
+    <script src="js/auth_modals.js?v=20250902" defer></script>
+    
+    <!-- 认证和用户管理模块 -->
+    <script src="js/auth.js?v=20250902" defer></script>
+    
+    <!-- 认证界面 -->
+    <div id="auth-modals"></div>
+
+    <style>
+    /* 语音页面专用样式 */
+    .voice-page {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+
+    .voice-hero {
+        background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        text-align: center;
+        padding: 80px 20px;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        color: white;
+    }
+
+    .voice-hero .hero-title {
+        font-size: 2.5em;
+        margin: 20px 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .voice-hero .hero-subtitle {
+        font-size: 1.2em;
+        opacity: 0.9;
+        margin-bottom: 30px;
+    }
+
+    .voice-features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .feature-item {
+        background: rgba(255,255,255,0.15);
+        padding: 15px;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.2);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .feature-icon {
+        font-size: 1.5em;
+    }
+
+    .feature-text {
+        font-weight: 500;
+    }
+
+    /* 语音生成器卡片 */
+    .voice-card {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .voice-card .card-title {
+        font-size: 2em;
+        color: #333;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .voice-card .card-subtitle {
+        color: #666;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 1.1em;
+    }
+
+    /* 文本输入区域 */
+    .input-section {
+        margin-bottom: 30px;
+    }
+
+    .input-label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .label-text {
+        display: block;
+    }
+
+    .label-hint {
+        font-weight: 400;
+        color: #666;
+        font-size: 0.9em;
+    }
+
+    .voice-text-input {
+        width: 100%;
+        min-height: 120px;
+        padding: 15px;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        font-size: 16px;
+        font-family: inherit;
+        resize: vertical;
+        transition: border-color 0.3s ease;
+    }
+
+    .voice-text-input:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+    }
+
+    .text-counter {
+        text-align: right;
+        margin-top: 5px;
+        color: #666;
+        font-size: 0.9em;
+    }
+
+    /* 语音选项 */
+    .voice-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 25px;
+    }
+
+    .option-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .option-label {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    .voice-select {
+        padding: 12px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 16px;
+        background: white;
+        cursor: pointer;
+    }
+
+    .voice-select:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+
+    .speed-control {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .speed-slider {
+        flex: 1;
+        height: 6px;
+        background: #e9ecef;
+        border-radius: 3px;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .speed-display {
+        font-weight: 600;
+        color: #007bff;
+        min-width: 50px;
+        text-align: center;
+    }
+
+    /* 示例文本 */
+    .example-texts {
+        margin-bottom: 30px;
+    }
+
+    .example-buttons {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .example-btn {
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        padding: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 14px;
+        text-align: left;
+    }
+
+    .example-btn:hover {
+        background: #e9ecef;
+        border-color: #007bff;
+    }
+
+    /* 生成按钮 */
+    .voice-generate-btn {
+        width: 100%;
+        padding: 18px;
+        font-size: 18px;
+        font-weight: 600;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .voice-generate-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .voice-generate-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .btn-loading {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* 结果区域 */
+    .result-section {
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 2px solid #e9ecef;
+    }
+
+    .result-title {
+        font-size: 1.4em;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .audio-player-container {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .audio-player {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .result-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+
+    .action-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 20px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .action-btn:hover {
+        background: #f8f9fa;
+        border-color: #007bff;
+        color: #007bff;
+    }
+
+    .result-info {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        color: #666;
+        font-size: 0.9em;
+    }
+
+    .info-item {
+        display: flex;
+        gap: 5px;
+    }
+
+    .info-label {
+        font-weight: 600;
+    }
+
+    /* 特色功能区域 */
+    .voice-features-section {
+        margin: 60px 0;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    .feature-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .feature-icon-large {
+        font-size: 3em;
+        margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+        color: #333;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+    }
+
+    .feature-card p {
+        color: #666;
+        line-height: 1.6;
+    }
+
+    /* 应用场景区域 */
+    .use-cases-section {
+        margin: 60px 0;
+        background: white;
+        padding: 60px 40px;
+        border-radius: 20px;
+    }
+
+    .use-cases-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    .use-case-card {
+        padding: 25px;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .use-case-card:hover {
+        border-color: #007bff;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,123,255,0.1);
+    }
+
+    .use-case-icon {
+        font-size: 2.5em;
+        margin-bottom: 15px;
+    }
+
+    .use-case-card h3 {
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+    }
+
+    .use-case-card p {
+        color: #666;
+        line-height: 1.5;
+        font-size: 0.95em;
+    }
+
+    /* 相关内容区域 */
+    .related-content {
+        margin: 60px 0;
+        padding: 40px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 20px;
+    }
+
+    .related-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+
+    .related-card {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .related-card h3 {
+        margin: 0 0 10px 0;
+        color: #333;
+    }
+
+    .related-card h3 a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .related-card p {
+        margin: 0 0 15px 0;
+        color: #666;
+        font-size: 0.95em;
+        line-height: 1.5;
+    }
+
+    .related-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9em;
+    }
+
+    .related-link:hover {
+        text-decoration: underline;
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+        .voice-hero {
+            padding: 60px 15px;
+        }
+
+        .voice-hero .hero-title {
+            font-size: 2em;
+        }
+
+        .voice-features {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .voice-card {
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .voice-options {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .example-buttons {
+            grid-template-columns: 1fr;
+        }
+
+        .result-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .action-btn {
+            justify-content: center;
+        }
+
+        .result-info {
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features-grid,
+        .use-cases-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .use-cases-section {
+            padding: 40px 20px;
+        }
+
+        .related-content {
+            padding: 30px 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .voice-hero .hero-title {
+            font-size: 1.8em;
+        }
+
+        .voice-card {
+            padding: 20px;
+        }
+
+        .voice-card .card-title {
+            font-size: 1.6em;
+        }
+
+        .voice-generate-btn {
+            font-size: 16px;
+        }
+    }
+    </style>
+</body>
+</html>

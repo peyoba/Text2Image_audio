@@ -41,15 +41,15 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AISTONE provides free AI image generation and voice synthesis services. Create high-quality images from text using advanced AI models. No registration required, completely free to use.">
-    <meta name="keywords" content="AISTONE, AI image generator, free AI art, text to image, AI voice synthesis, text to speech, free AI tools, AI content creation">
-    <title>AISTONE - Free AI Image Generator and Voice Synthesis Platform</title>
+    <meta name="description" content="AISTONE - 最佳免费AI图像生成器。支持FLUX、Turbo、Kontext等先进AI模型，从文本描述创造惊艳的AI艺术作品。无需注册，完全免费使用。">
+    <meta name="keywords" content="AISTONE, AI图像生成器, 免费AI绘画, 文本转图像, AI艺术生成, FLUX模型, 免费AI工具, AI创作平台">
+    <title>AISTONE - 免费AI图像生成器 | 最佳AI绘画平台 2025</title>
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://aistone.org/">
-    <meta property="og:title" content="AISTONE - Free AI Image Generator and Voice Synthesis Platform">
-    <meta property="og:description" content="Create stunning AI images and natural voice audio from text. Free AI content generation platform powered by advanced AI models. No registration required.">
+    <meta property="og:title" content="AISTONE - 免费AI图像生成器">
+    <meta property="og:description" content="最佳免费AI图像生成平台，支持FLUX、Turbo、Kontext等先进AI模型。从文本描述创造惊艳的AI艺术作品，无需注册，完全免费使用。">
     <meta property="og:image" content="https://aistone.org/assets/logo.svg">
     <meta property="og:site_name" content="AISTONE">
     <meta property="og:locale" content="en_US">
@@ -58,8 +58,8 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://aistone.org/">
-    <meta property="twitter:title" content="AISTONE - Free AI Image Generator and Voice Synthesis Platform">
-    <meta property="twitter:description" content="Create stunning AI images and natural voice audio from text. Free AI content generation platform powered by advanced AI models.">
+    <meta property="twitter:title" content="AISTONE - 免费AI图像生成器">
+    <meta property="twitter:description" content="最佳免费AI图像生成平台，支持FLUX、Turbo、Kontext等先进AI模型。从文本描述创造惊艳的AI艺术作品。">
     <meta property="twitter:image" content="https://aistone.org/assets/logo.svg">
     <meta property="twitter:site" content="@aistone_ai">
     <meta property="twitter:creator" content="@aistone_ai">
@@ -504,7 +504,7 @@
         <ul class="navbar-menu">
             <li><a href="#home">Home</a></li>
             <li><a href="image-generator.html">图片生成</a></li>
-            <li><a href="voice-generator.html">语音合成</a></li>
+            <li><a href="voice.html" data-i18n="navVoiceGen">语音合成</a></li>
             <li><a href="tutorial.html">使用教程</a></li>
             <li><a href="faq.html">常见问题</a></li>
             <li><a href="about.html" id="about-link">关于我们</a></li>
@@ -542,9 +542,9 @@
         <div class="hero-content">
             <div class="hero-row">
                 <img src="assets/logo.svg" alt="AISTONE LOGO - 免费AI图片生成与语音合成平台主标志" class="hero-logo-img" aria-label="AISTONE 平台主标志" />
-                <h1 class="hero-title" data-i18n="heroTitle">AISTONE - 免费AI图片生成与语音合成平台</h1>
+                <h1 class="hero-title" data-i18n="heroTitle">AISTONE - 免费AI图像生成平台</h1>
             </div>
-            <p class="hero-subtitle" data-i18n="heroSubtitle">图片·语音·无限免费生成</p>
+            <p class="hero-subtitle" data-i18n="heroSubtitle">文本到图像 • AI艺术生成 • 完全免费</p>
             <div class="hero-slogan" data-i18n="heroSlogan" style="font-size:1.25em;color:#00CFFF;margin:8px 0 0 0;">AI驱动·一键生成·释放你的创意！</div>
             <div class="hero-tags" style="margin-top:12px;">
                 <span class="tag tag-free" data-i18n="tagFree">100% 免费</span>
@@ -609,6 +609,9 @@
                     <label for="type-image" data-i18n="typeImage">生成图片</label>
                     <input type="radio" id="type-audio" name="generation-type" value="audio">
                     <label for="type-audio" data-i18n="typeAudio">生成语音</label>
+                    <a href="voice.html" class="pro-version-link" style="font-size: 0.85em; color: #007bff; text-decoration: none; margin-left: 8px;">
+                        🎯 使用专业版
+                    </a>
                     <!-- 新增：提示信息 -->
                     <span class="type-hint" id="type-hint" data-i18n="imageHint">💡 图片生成支持多种尺寸和数量选择</span>
                 </div>
@@ -926,6 +929,7 @@
     <script src="js/ui_handler.js?v=20250809" defer></script>
     <script src="js/ui_enhancements.js?v=20250809" defer></script>
     <script src="js/prompt_templates.js?v=20250903" defer></script>
+    <script src="js/mobile-interactions.js?v=20250909" defer></script>
     <script src="js/app.js?v=20250809" defer></script>
     <!-- 认证模态交互脚本（保证表单submit被JS接管，避免浏览器默认提交导致405） -->
     <script src="js/auth_modals.js?v=20250902" defer></script>
