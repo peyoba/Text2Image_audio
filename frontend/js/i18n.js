@@ -325,6 +325,11 @@ const i18n = {
         navTutorial: '使用教程',
         navFAQ: '常见问题',
         navContact: '联系我们',
+        navServices: '我们的服务',
+        navLogin: '登录',
+        
+        // 面包屑导航
+        breadcrumbHome: '首页',
         
         // 语音页面专用翻译
         voiceHeroTitle: 'AISTONE - 免费AI语音合成平台',
@@ -611,6 +616,21 @@ const i18n = {
         aiGuideAuthor: 'AISTONE技术团队',
         aiGuideDate: '2025年9月9日',
         aiGuideReadingTime: '约10分钟阅读',
+        
+        // AI指南目录
+        aiGuideTocTitle: '📋 目录',
+        aiGuideToc1: '1. AI图像生成技术概述',
+        aiGuideToc2: '2. 主流AI模型深度解析',
+        aiGuideToc3: '3. 提示词工程实战技巧',
+        aiGuideToc4: '4. 高质量图像生成策略',
+        aiGuideToc5: '5. 常见问题与解决方案',
+        aiGuideToc6: '6. 进阶创作技巧与工作流',
+        
+        // AI指南第一章
+        aiGuideChapter1Title: '🧠 1. AI图像生成技术概述',
+        aiGuideWhatIsTitle: '什么是AI图像生成？',
+        aiGuideWhatIsDesc: 'AI图像生成是一种利用深度学习技术，通过文本描述自动创建图像的革命性技术。这项技术基于大规模的图像-文本数据集训练，能够理解自然语言描述并将其转换为视觉内容。',
+        aiGuideTechHistoryTitle: '🔥 技术发展历程',
 
         // 提示词工程页面
         promptEngineeringTitle: '提示词工程教程',
@@ -619,10 +639,32 @@ const i18n = {
         promptEngineeringAuthor: 'AISTONE专家团队',
         promptEngineeringDate: '2025年9月9日',
         promptEngineeringReadingTime: '约12分钟阅读',
+        
+        // 提示词工程课程概览
+        promptOverviewTitle: '🎯 课程概览',
+        promptBasicSyntaxTitle: '🚀 基础语法',
+        promptBasicSyntaxDesc: '掌握提示词的基本结构和组织原则',
+        promptWeightControlTitle: '⚡ 权重控制',
+        promptWeightControlDesc: '学会精确控制各元素的重要性',
+        promptNegativeTitle: '🚫 负面提示词',
+        promptNegativeDesc: '排除不需要的元素，提升生成质量',
+        promptStyleTitle: '🎨 风格融合',
+        promptStyleDesc: '创造独特的艺术风格和视觉效果',
 
         // 关于页面
         aboutHeroTitle: 'AISTONE - 重新定义内容创作',
         aboutHeroSubtitle: '基于最新AI技术的专业内容创作平台，为创作者和企业提供高效、智能的图像生成与语音合成解决方案',
+        
+        // 服务页面相关内容推荐
+        relatedContentTitle: '🚀 立即体验',
+        relatedImageGenTitle: '🎨 AI图片生成',
+        relatedImageGenDesc: '体验我们的核心服务，将想法转化为精美图像',
+        relatedVoiceGenTitle: '🎵 AI语音合成',
+        relatedVoiceGenDesc: '将文字转换为自然语音，完全免费使用',
+        relatedTutorialTitle: '📖 快速上手',
+        relatedTutorialDesc: '学习如何使用各项功能，获得最佳体验',
+        relatedAboutTitle: 'ℹ️ 了解技术',
+        relatedAboutDesc: '深入了解我们的AI技术和平台愿景',
     },
     
     en: {
@@ -821,6 +863,11 @@ const i18n = {
         navTutorial: 'Tutorial',
         navFAQ: 'FAQ',
         navContact: 'Contact',
+        navServices: 'Services',
+        navLogin: 'Login',
+        
+        // Breadcrumb navigation
+        breadcrumbHome: 'Home',
         
         // Voice page specific translations
         voiceHeroTitle: 'AISTONE - Free AI Voice Synthesis Platform',
@@ -1107,6 +1154,21 @@ const i18n = {
         aiGuideAuthor: 'AISTONE Technical Team',
         aiGuideDate: 'September 9, 2025',
         aiGuideReadingTime: 'About 10 minutes read',
+        
+        // AI Guide Table of Contents
+        aiGuideTocTitle: '📋 Table of Contents',
+        aiGuideToc1: '1. AI Image Generation Technology Overview',
+        aiGuideToc2: '2. Mainstream AI Models Deep Analysis',
+        aiGuideToc3: '3. Prompt Engineering Practical Skills',
+        aiGuideToc4: '4. High-Quality Image Generation Strategies',
+        aiGuideToc5: '5. Common Issues and Solutions',
+        aiGuideToc6: '6. Advanced Creation Techniques and Workflows',
+        
+        // AI Guide Chapter 1
+        aiGuideChapter1Title: '🧠 1. AI Image Generation Technology Overview',
+        aiGuideWhatIsTitle: 'What is AI Image Generation?',
+        aiGuideWhatIsDesc: 'AI image generation is a revolutionary technology that uses deep learning to automatically create images from text descriptions. This technology is trained on large-scale image-text datasets, enabling it to understand natural language descriptions and convert them into visual content.',
+        aiGuideTechHistoryTitle: '🔥 Technology Development History',
 
         // Prompt Engineering Page
         promptEngineeringTitle: 'Prompt Engineering Tutorial',
@@ -1119,6 +1181,17 @@ const i18n = {
         // About Page
         aboutHeroTitle: 'AISTONE - Redefining Content Creation',
         aboutHeroSubtitle: 'Professional content creation platform based on the latest AI technology, providing efficient and intelligent image generation and speech synthesis solutions for creators and enterprises',
+        
+        // Services page related content recommendations
+        relatedContentTitle: '🚀 Try Now',
+        relatedImageGenTitle: '🎨 AI Image Generation',
+        relatedImageGenDesc: 'Experience our core service, transform ideas into stunning visuals',
+        relatedVoiceGenTitle: '🎵 AI Voice Synthesis',
+        relatedVoiceGenDesc: 'Convert text to natural speech, completely free to use',
+        relatedTutorialTitle: '📖 Quick Start',
+        relatedTutorialDesc: 'Learn how to use all features for the best experience',
+        relatedAboutTitle: 'ℹ️ Learn Technology',
+        relatedAboutDesc: 'Discover our AI technology and platform vision in depth',
     }
 };
 

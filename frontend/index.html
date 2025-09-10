@@ -5,16 +5,26 @@
     <script>
         // API Base配置（可从localStorage覆盖）
         (function(){
+            // 设置默认API Base URL
+            window.API_BASE = 'https://text2image-api.peyoba660703.workers.dev';
+            
             try {
                 var saved = localStorage.getItem('api_base');
                 if (saved && typeof saved === 'string' && saved.trim()) {
                     window.API_BASE = saved.trim();
                 }
-            } catch (e) { /* 忽略 */ }
+            } catch (e) { 
+                console.warn('无法从localStorage读取api_base配置，使用默认值');
+            }
+            
             window.setApiBase = function(url){
                 if (typeof url === 'string' && url.trim()) {
                     window.API_BASE = url.trim();
-                    try { localStorage.setItem('api_base', window.API_BASE); } catch(e){}
+                    try { 
+                        localStorage.setItem('api_base', window.API_BASE); 
+                    } catch(e){
+                        console.warn('无法保存api_base配置到localStorage');
+                    }
                 }
             };
         })();
@@ -163,14 +173,6 @@
         "https://aistone.org"
       ]
     }
-    </script>
-    
-    <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "rxuoksphbr");
     </script>
     
     <!-- FAQ结构化数据 -->

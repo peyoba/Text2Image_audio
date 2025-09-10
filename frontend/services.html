@@ -17,13 +17,16 @@
         <ul class="navbar-menu">
             <li><a href="/index.html" data-i18n="navHome">Home</a></li>
             <li><a href="/about.html" id="about-link" data-i18n="navAbout">About</a></li>
+            <li><a href="/ai-guide.html" id="ai-guide-link" data-i18n="navAiGuide">AI Guide</a></li>
+            <li><a href="/prompt-engineering.html" id="prompt-engineering-link" data-i18n="navPromptEngineering">Prompt Engineering</a></li>
             <li><a href="/services.html" id="services-link" data-i18n="navServices">Services</a></li>
+            <li><a href="/faq.html" id="faq-link" data-i18n="navFAQ">FAQ</a></li>
             <li><a href="/contact.html" id="contact-link" data-i18n="navContact">Contact</a></li>
         </ul>
         <div class="navbar-right">
             <select id="lang-select" class="lang-select">
-                <option value="zh">中文</option>
                 <option value="en">English</option>
+                <option value="zh">中文</option>
             </select>
             <button class="login-btn" data-i18n="navLogin">登录</button>
         </div>
@@ -31,9 +34,9 @@
     <div class="container">
         <!-- 面包屑导航 -->
         <nav class="breadcrumb">
-            <a href="index.html">首页</a>
+            <a href="index.html" data-i18n="breadcrumbHome">首页</a>
             <span class="separator">></span>
-            <span class="current">我们的服务</span>
+            <span class="current" data-i18n="servicesModalTitle">我们的服务</span>
         </nav>
         <main>
             <section class="services-section" id="services">
@@ -52,31 +55,31 @@
 
             <!-- 相关内容推荐 -->
             <section class="related-content" style="margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
-                <h2 style="color: #333; margin-bottom: 20px;">🚀 立即体验</h2>
+                <h2 style="color: #333; margin-bottom: 20px;" data-i18n="relatedContentTitle">🚀 立即体验</h2>
                 <div class="related-links" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
                     <div class="related-item" style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e9ecef;">
                         <h3 style="font-size: 16px; margin: 0 0 8px 0; color: #007bff;">
-                            <a href="index.html" style="text-decoration: none; color: inherit;">🎨 AI图片生成</a>
+                            <a href="index.html" style="text-decoration: none; color: inherit;" data-i18n="relatedImageGenTitle">🎨 AI图片生成</a>
                         </h3>
-                        <p style="margin: 0; font-size: 14px; color: #666;">体验我们的核心服务，将想法转化为精美图像</p>
+                        <p style="margin: 0; font-size: 14px; color: #666;" data-i18n="relatedImageGenDesc">体验我们的核心服务，将想法转化为精美图像</p>
                     </div>
                     <div class="related-item" style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e9ecef;">
                         <h3 style="font-size: 16px; margin: 0 0 8px 0; color: #007bff;">
-                            <a href="voice.html" style="text-decoration: none; color: inherit;">🎵 AI语音合成</a>
+                            <a href="voice.html" style="text-decoration: none; color: inherit;" data-i18n="relatedVoiceGenTitle">🎵 AI语音合成</a>
                         </h3>
-                        <p style="margin: 0; font-size: 14px; color: #666;">将文字转换为自然语音，完全免费使用</p>
+                        <p style="margin: 0; font-size: 14px; color: #666;" data-i18n="relatedVoiceGenDesc">将文字转换为自然语音，完全免费使用</p>
                     </div>
                     <div class="related-item" style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e9ecef;">
                         <h3 style="font-size: 16px; margin: 0 0 8px 0; color: #007bff;">
-                            <a href="tutorial.html" style="text-decoration: none; color: inherit;">📖 快速上手</a>
+                            <a href="tutorial.html" style="text-decoration: none; color: inherit;" data-i18n="relatedTutorialTitle">📖 快速上手</a>
                         </h3>
-                        <p style="margin: 0; font-size: 14px; color: #666;">学习如何使用各项功能，获得最佳体验</p>
+                        <p style="margin: 0; font-size: 14px; color: #666;" data-i18n="relatedTutorialDesc">学习如何使用各项功能，获得最佳体验</p>
                     </div>
                     <div class="related-item" style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e9ecef;">
                         <h3 style="font-size: 16px; margin: 0 0 8px 0; color: #007bff;">
-                            <a href="about.html" style="text-decoration: none; color: inherit;">ℹ️ 了解技术</a>
+                            <a href="about.html" style="text-decoration: none; color: inherit;" data-i18n="relatedAboutTitle">ℹ️ 了解技术</a>
                         </h3>
-                        <p style="margin: 0; font-size: 14px; color: #666;">深入了解我们的AI技术和平台愿景</p>
+                        <p style="margin: 0; font-size: 14px; color: #666;" data-i18n="relatedAboutDesc">深入了解我们的AI技术和平台愿景</p>
                     </div>
                 </div>
             </section>
@@ -98,5 +101,21 @@
     </footer>
     <script src="js/i18n.js"></script>
     <script src="js/ui_handler.js" defer></script>
+    <script src="js/auth.js" defer></script>
+    <script>
+        // 基本模态框支持
+        function showModal(message, callback) {
+            if (confirm(message)) {
+                if (callback) callback();
+            }
+        }
+        
+        // 确保页面加载后初始化多语言支持
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.initializeLanguageSupport) {
+                window.initializeLanguageSupport();
+            }
+        });
+    </script>
 </body>
 </html> 
