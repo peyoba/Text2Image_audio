@@ -96,7 +96,7 @@ const i18n = {
         aistoneVoiceDesc: 'Transform text into natural speech with AISTONE\'s state-of-the-art voice synthesis technology.',
         aistoneFreePlatform: 'AISTONE Free Platform',
         aistoneFreeDesc: 'Enjoy AISTONE\'s complete feature set completely free - no registration, no limits, no hidden costs.',
-
+        
         // Image generator page
         imageGeneratorTitle: 'AISTONE - AI Image Generator',
         imageGeneratorSubtitle: 'AI-Driven · One-Click Generation · Unleash Creativity',
@@ -740,7 +740,7 @@ const i18n = {
         promptEngineeringDate: '2025年9月9日',
         promptEngineeringReadingTime: '约12分钟阅读',
         
-        // 提示词工程课程概览
+        // 提示词工程课程概览（中文）
         promptOverviewTitle: '🎯 课程概览',
         promptBasicSyntaxTitle: '🚀 基础语法',
         promptBasicSyntaxDesc: '掌握提示词的基本结构和组织原则',
@@ -1270,10 +1270,20 @@ const i18n = {
         aiGuideWhatIsDesc: 'AI image generation is a revolutionary technology that uses deep learning to automatically create images from text descriptions. This technology is trained on large-scale image-text datasets, enabling it to understand natural language descriptions and convert them into visual content.',
         aiGuideTechHistoryTitle: '🔥 Technology Development History',
 
-        // Prompt Engineering Page
+        // Prompt Engineering Page（英文）
         promptEngineeringTitle: 'Prompt Engineering Tutorial',
         promptEngineeringMainTitle: 'Professional Prompt Engineering Tutorial',
         promptEngineeringSubtitle: 'Master the core skills of AI image generation - from basic syntax to advanced strategies',
+        // Prompt overview (English)
+        promptOverviewTitle: '🎯 Course Overview',
+        promptBasicSyntaxTitle: '🚀 Basic Syntax',
+        promptBasicSyntaxDesc: 'Master the basic structure and organization of prompts',
+        promptWeightControlTitle: '⚡ Weight Control',
+        promptWeightControlDesc: 'Learn to precisely control the importance of each element',
+        promptNegativeTitle: '🚫 Negative Prompts',
+        promptNegativeDesc: 'Exclude unwanted elements to improve generation quality',
+        promptStyleTitle: '🎨 Style Fusion',
+        promptStyleDesc: 'Create unique artistic styles and visual effects',
         promptEngineeringAuthor: 'AISTONE Expert Team',
         promptEngineeringDate: 'September 9, 2025',
         promptEngineeringReadingTime: 'About 12 minutes read',

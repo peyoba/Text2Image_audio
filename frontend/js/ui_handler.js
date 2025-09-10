@@ -237,14 +237,7 @@ class UIHandler {
         const inputTitleEl = document.querySelector('.input-section h2');
         if (inputTitleEl) inputTitleEl.textContent = t('inputTitle');
 
-        // 更新导航栏菜单项（所有页面）
-        const navMenu = document.querySelectorAll('.navbar-menu li a');
-        if (navMenu.length >= 4) {
-            navMenu[0].textContent = t('navHome');
-            navMenu[1].textContent = t('navAbout');
-            navMenu[2].textContent = t('navServices');
-            navMenu[3].textContent = t('navContact');
-        }
+        // 导航栏文案交由 data-i18n 与 setLanguage 统一更新，避免覆盖页面自定义顺序
         // 更新登录按钮（所有页面）
         const loginBtn = document.querySelector('.login-btn');
         if (loginBtn) loginBtn.textContent = t('navLogin');
