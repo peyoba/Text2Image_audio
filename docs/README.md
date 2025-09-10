@@ -29,6 +29,59 @@
 - 环境变量管理
 - 监控和维护
 
+### 🔧 本地开发环境配置
+
+#### 环境变量设置
+
+在项目根目录创建 `api.env` 文件：
+
+```env
+# Cloudflare KV 存储配置
+KV_NAMESPACE_ID=your_kv_namespace_id
+
+# 日志级别控制
+LOG_LEVEL=error
+
+# API 基础 URL
+API_BASE_URL=https://text2image-api.your-domain.workers.dev
+
+# 认证系统配置（可选）
+JWT_SECRET=your_jwt_secret_key
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
+
+#### 本地调试流程
+
+1. **环境准备**
+   ```powershell
+   # 安装项目依赖
+   npm install
+   
+   # 安装 Cloudflare Wrangler CLI
+   npm install -g wrangler
+   ```
+
+2. **启动开发服务器**
+   ```powershell
+   # 启动前端静态服务器
+   npx http-server frontend -p 8080
+   
+   # 启动后端 Worker 开发服务器
+   wrangler dev --env development
+   ```
+
+3. **访问地址**
+   - 前端开发环境：http://localhost:8080
+   - 后端 API 服务：http://localhost:8787
+   - Worker 控制台：https://dash.cloudflare.com
+
+4. **调试工具**
+   - 浏览器开发者工具（网络面板）
+   - Cloudflare Workers 控制台日志
+   - `wrangler tail` 实时日志监控
+   - `wrangler dev --inspect` 调试模式
+
 ### 📈 [开发进度与规划](./DEVELOPMENT_PROGRESS.md)
 项目发展历程和规划：
 - 开发迭代历程

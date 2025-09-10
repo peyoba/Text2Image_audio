@@ -45,7 +45,7 @@
                 <span class="separator">></span>
                 <span class="current">常见问题</span>
             </nav>
-            <h1>常见问题 FAQ</h1>
+            <h1 data-i18n="faqTitle">常见问题 FAQ</h1>
             <div class="faq-content">
 
                 <section class="faq-intro">
@@ -56,30 +56,30 @@
                     <h2>基础使用问题</h2>
 
                     <div class="faq-item">
-                        <h3>AISTONE 是否永久免费？</h3>
-                        <div class="faq-answer">
-                            <p>是的，AISTONE 平台的所有核心功能都是永久免费的，无需注册，无次数限制。您可以完全免费使用图片生成和语音合成功能。</p>
+                        <h3 data-i18n="faqQ1">AISTONE 是否永久免费？</h3>
+                        <div class="faq-answer" data-i18n="faqA1">
+                            是的，AISTONE 平台的所有核心功能都是永久免费的，无需注册，无次数限制。您可以完全免费使用图片生成和语音合成功能。
                         </div>
                     </div>
 
                     <div class="faq-item">
-                        <h3>使用平台需要登录吗？</h3>
-                        <div class="faq-answer">
-                            <p>不需要登录即可使用基本功能。但注册用户可以享受额外的功能，如保存生成历史、高清图片缓存、个人中心等。</p>
+                        <h3 data-i18n="faqQ2">使用平台需要登录吗？</h3>
+                        <div class="faq-answer" data-i18n="faqA2">
+                            不需要登录即可使用基本功能。但注册用户可以享受额外的功能，如保存生成历史、高清图片缓存、个人中心等。
                         </div>
                     </div>
 
                     <div class="faq-item">
-                        <h3>支持哪些输入语言？</h3>
-                        <div class="faq-answer">
-                            <p>支持中文和英文输入。平台会自动识别输入语言，并提供相应的AI模型进行处理。界面也支持中英文切换。</p>
+                        <h3 data-i18n="faqQ3">支持哪些输入语言？</h3>
+                        <div class="faq-answer" data-i18n="faqA3">
+                            支持中文和英文输入。平台会自动识别输入语言，并提供相应的AI模型进行处理。界面也支持中英文切换。
                         </div>
                     </div>
 
                     <div class="faq-item">
-                        <h3>生成的内容有版权吗？</h3>
-                        <div class="faq-answer">
-                            <p>您对使用AISTONE生成的内容享有完整的所有权，可以自由用于商业和个人用途，无需额外授权或付费。</p>
+                        <h3 data-i18n="faqQ4">生成的内容有版权吗？</h3>
+                        <div class="faq-answer" data-i18n="faqA4">
+                            您对使用AISTONE生成的内容享有完整的所有权，可以自由用于商业和个人用途，无需额外授权或付费。
                         </div>
                     </div>
                 </section>
@@ -172,16 +172,9 @@
                     <h2>技术问题</h2>
 
                     <div class="faq-item">
-                        <h3>为什么生成速度慢？</h3>
-                        <div class="faq-answer">
-                            <p>可能的原因：</p>
-                            <ul>
-                                <li>高峰期用户较多</li>
-                                <li>描述文本过长或复杂</li>
-                                <li>选择了高质量模型</li>
-                                <li>网络连接问题</li>
-                            </ul>
-                            <p>建议选择Turbo模型以加快速度，或稍后重试。</p>
+                        <h3 data-i18n="faqQ6">生成速度慢或失败怎么办？</h3>
+                        <div class="faq-answer" data-i18n="faqA6">
+                            如遇高峰期可能稍慢，请耐心等待或稍后重试。如持续失败请联系客服。
                         </div>
                     </div>
 
@@ -696,5 +689,27 @@
         line-height: 1.4;
     }
     </style>
+    <script src="js/i18n.js"></script>
+    <script src="js/ui_handler.js" defer></script>
+    <script src="js/auth_modals.js" defer></script>
+    <div id="auth-modals"></div>
+    <script>
+        fetch('auth-modals.html')
+            .then(r => r.text())
+            .then(html => {
+                const mount = document.getElementById('auth-modals');
+                if (mount) mount.innerHTML = html;
+                const ensureBind = () => {
+                    if (window.initAuthForms) {
+                        window.initAuthForms();
+                    } else { setTimeout(ensureBind, 100); }
+                };
+                ensureBind();
+                if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') {
+                    setLanguage(getCurrentLang());
+                }
+            })
+            .catch(err => console.error('加载认证界面失败:', err));
+    </script>
 </body>
 </html>

@@ -96,6 +96,56 @@ const i18n = {
         aistoneVoiceDesc: 'Transform text into natural speech with AISTONE\'s state-of-the-art voice synthesis technology.',
         aistoneFreePlatform: 'AISTONE Free Platform',
         aistoneFreeDesc: 'Enjoy AISTONE\'s complete feature set completely free - no registration, no limits, no hidden costs.',
+
+        // Image generator page
+        imageGeneratorTitle: 'AISTONE - AI Image Generator',
+        imageGeneratorSubtitle: 'AI-Driven · One-Click Generation · Unleash Creativity',
+        imageGeneratorSlogan: 'Generate high-quality AI images for free, supporting various styles and sizes',
+        breadcrumbImageGenerator: 'AI Image Generator',
+
+        // About page
+        aboutStatImages: 'Image Generations',
+        aboutStatVoice: 'Voice Synthesis Duration',
+        aboutStatUsers: 'Active Users',
+        aboutStatUptime: 'Service Uptime',
+        aboutCoreValuesTitle: '🎯 Our Core Values',
+        aboutTechLeadTitle: 'Technical Leadership',
+        aboutTechLeadDesc: 'Integrating latest AI models like FLUX and Stable Diffusion, providing industry-leading generation quality and speed',
+        aboutOpenFreeTitle: 'Open & Free',
+        aboutOpenFreeDesc: 'Adhering to technology accessibility principles, all core features are permanently free, lowering AI technology barriers',
+        aboutEfficientTitle: 'Efficient & Convenient',
+        aboutEfficientDesc: 'Use without registration, intuitive user interface, professional features at your fingertips',
+        aboutSecureTitle: 'Secure & Reliable',
+        aboutSecureDesc: 'Based on Cloudflare global network architecture, ensuring data security and service stability',
+
+        // Tutorial page
+        tutorialStep1Title: 'Step 1: Access Platform',
+        tutorialStep1Desc: 'Open your browser and visit <a href="https://aistone.org">https://aistone.org</a>, no registration required to start using.',
+        tutorialStep2Title: 'Step 2: Choose Generation Type',
+        tutorialStep2Desc: 'On the page, select the type of content you want to generate:',
+        tutorialImageGen: 'Generate Images:',
+        tutorialImageGenDesc: 'Convert text descriptions into high-quality images',
+        tutorialVoiceGen: 'Generate Voice:',
+        tutorialVoiceGenDesc: 'Convert text into natural and fluent speech',
+
+        // AI Guide page
+        aiGuideCoreTechTitle: 'Core Technical Principles',
+        aiGuideCoreTechDesc: '<strong>Diffusion Models</strong> are currently the most mainstream AI image generation technology. They mimic the diffusion process in physics:',
+        aiGuideForwardProcess: 'Forward Process:',
+        aiGuideForwardProcessDesc: 'Gradually add noise to clear images until they become pure noise',
+        aiGuideReverseProcess: 'Reverse Process:',
+        aiGuideReverseProcessDesc: 'AI learns to gradually denoise from noise, reconstructing meaningful images',
+        aiGuideConditionalControl: 'Conditional Control:',
+        aiGuideConditionalControlDesc: 'Convert prompts to mathematical vectors through text encoders to guide the generation process',
+        aiGuideTechAdvantagesTitle: '💡 Technical Advantages',
+        aiGuideHighQuality: 'High Quality Output:',
+        aiGuideHighQualityDesc: 'Can generate professional-grade images at 8K resolution',
+        aiGuideStyleDiversity: 'Style Diversity:',
+        aiGuideStyleDiversityDesc: 'Supports various artistic styles including photography, painting, and illustration',
+        aiGuideUnlimitedCreativity: 'Unlimited Creativity:',
+        aiGuideUnlimitedCreativityDesc: 'Can create scenes and concepts that don\'t exist in reality',
+        aiGuideCostEffective: 'Cost Effective:',
+        aiGuideCostEffectiveDesc: 'Significantly reduces time and cost for visual content creation',
         
         // About AISTONE section
         aboutAistone: 'About AISTONE',
@@ -263,6 +313,56 @@ const i18n = {
         aistoneVoiceDesc: '使用 AISTONE 最先进的语音合成技术，将文本转换为自然语音。',
         aistoneFreePlatform: 'AISTONE 免费平台',
         aistoneFreeDesc: '享受 AISTONE 完整功能集，完全免费 - 无需注册，无限制，无隐藏费用。',
+
+        // 图片生成器页面
+        imageGeneratorTitle: 'AISTONE - AI图片生成器',
+        imageGeneratorSubtitle: 'AI驱动·一键生成·释放创意',
+        imageGeneratorSlogan: '免费生成高质量AI图片，支持多种风格和尺寸',
+        breadcrumbImageGenerator: 'AI图片生成器',
+
+        // 关于页面
+        aboutStatImages: '图像生成次数',
+        aboutStatVoice: '语音合成时长',
+        aboutStatUsers: '活跃用户',
+        aboutStatUptime: '服务可用性',
+        aboutCoreValuesTitle: '🎯 我们的核心价值',
+        aboutTechLeadTitle: '技术领先',
+        aboutTechLeadDesc: '集成FLUX、Stable Diffusion等最新AI模型，提供业界领先的生成质量和速度',
+        aboutOpenFreeTitle: '开放免费',
+        aboutOpenFreeDesc: '坚持技术普惠理念，所有核心功能永久免费开放，降低AI技术使用门槛',
+        aboutEfficientTitle: '高效便捷',
+        aboutEfficientDesc: '无需注册即用，简洁直观的用户界面，专业级功能一键触达',
+        aboutSecureTitle: '安全可靠',
+        aboutSecureDesc: '基于Cloudflare全球网络架构，确保数据安全和服务稳定性',
+
+        // 教程页面
+        tutorialStep1Title: '步骤1：访问平台',
+        tutorialStep1Desc: '打开浏览器访问 <a href="https://aistone.org">https://aistone.org</a>，无需注册即可开始使用。',
+        tutorialStep2Title: '步骤2：选择生成类型',
+        tutorialStep2Desc: '在页面上选择您想要生成的内容类型：',
+        tutorialImageGen: '生成图片：',
+        tutorialImageGenDesc: '将文本描述转换为高质量图片',
+        tutorialVoiceGen: '生成语音：',
+        tutorialVoiceGenDesc: '将文本转换为自然流畅的语音',
+
+        // AI指南页面
+        aiGuideCoreTechTitle: '核心技术原理',
+        aiGuideCoreTechDesc: '<strong>扩散模型（Diffusion Models）</strong>是目前最主流的AI图像生成技术。它模仿物理学中的扩散过程：',
+        aiGuideForwardProcess: '正向过程：',
+        aiGuideForwardProcessDesc: '将清晰图像逐步添加噪声，直到变成纯噪声',
+        aiGuideReverseProcess: '逆向过程：',
+        aiGuideReverseProcessDesc: 'AI学会从噪声中逐步去噪，重构出有意义的图像',
+        aiGuideConditionalControl: '条件控制：',
+        aiGuideConditionalControlDesc: '通过文本编码器将提示词转换为数学向量，引导生成过程',
+        aiGuideTechAdvantagesTitle: '💡 技术优势',
+        aiGuideHighQuality: '高质量输出：',
+        aiGuideHighQualityDesc: '能够生成8K分辨率的专业级图像',
+        aiGuideStyleDiversity: '风格多样性：',
+        aiGuideStyleDiversityDesc: '支持摄影、绘画、插画等各种艺术风格',
+        aiGuideUnlimitedCreativity: '创意无限：',
+        aiGuideUnlimitedCreativityDesc: '可以创造现实中不存在的场景和概念',
+        aiGuideCostEffective: '成本效益：',
+        aiGuideCostEffectiveDesc: '大幅降低视觉内容创作的时间和成本',
         
         // About AISTONE 部分
         aboutAistone: '关于 AISTONE',

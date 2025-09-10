@@ -29,7 +29,7 @@
                 <option value="en">English</option>
                 <option value="zh">中文</option>
             </select>
-            <button class="login-btn" data-i18n="navLogin">登录</button>
+            <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">登录</button>
         </div>
     </nav>
     <div class="container">
@@ -106,5 +106,25 @@
     </footer>
     <script src="js/i18n.js"></script>
     <script src="js/ui_handler.js" defer></script>
+    <script src="js/auth_modals.js" defer></script>
+    <div id="auth-modals"></div>
+    <script>
+        fetch('auth-modals.html')
+            .then(r => r.text())
+            .then(html => {
+                const mount = document.getElementById('auth-modals');
+                if (mount) mount.innerHTML = html;
+                const ensureBind = () => {
+                    if (window.initAuthForms) {
+                        window.initAuthForms();
+                    } else { setTimeout(ensureBind, 100); }
+                };
+                ensureBind();
+                if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') {
+                    setLanguage(getCurrentLang());
+                }
+            })
+            .catch(err => console.error('加载认证界面失败:', err));
+    </script>
 </body>
 </html> 

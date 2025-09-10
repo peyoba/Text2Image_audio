@@ -45,6 +45,63 @@
 
 本项目采用 Serverless 架构，部署在 Cloudflare 平台上，为全球用户提供稳定可靠的AI内容生成服务。
 
+## 🛠️ 本地开发环境
+
+### 环境变量配置
+
+在项目根目录创建 `api.env` 文件，配置以下环境变量：
+
+```env
+# Cloudflare KV 存储
+KV_NAMESPACE_ID=your_kv_namespace_id
+
+# 日志级别
+LOG_LEVEL=error
+
+# API 配置
+API_BASE_URL=https://text2image-api.your-domain.workers.dev
+
+# 认证配置（可选）
+JWT_SECRET=your_jwt_secret_key
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
+
+### 本地调试步骤
+
+1. **安装依赖**
+   ```powershell
+   npm install
+   ```
+
+2. **启动本地开发服务器**
+   ```powershell
+   # 启动前端开发服务器
+   npx http-server frontend -p 8080
+
+   # 启动后端 Worker 开发服务器
+   wrangler dev
+   ```
+
+3. **访问本地环境**
+   - 前端：http://localhost:8080
+   - 后端 API：http://localhost:8787
+
+4. **调试工具**
+   - 使用浏览器开发者工具查看网络请求
+   - 使用 Cloudflare Workers 控制台查看日志
+   - 使用 `wrangler tail` 实时查看 Worker 日志
+
+### 生产环境部署
+
+```powershell
+# 部署 Worker
+wrangler deploy
+
+# 部署 Pages（通过 GitHub 自动部署）
+git push origin main
+```
+
 ## 版本
 
 ### V2.0 (2025-08-09)

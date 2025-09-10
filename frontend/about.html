@@ -96,19 +96,19 @@
                     <div class="hero-stats">
                         <div class="stat-item">
                             <div class="stat-number">1M+</div>
-                            <div class="stat-label">图像生成次数</div>
+                            <div class="stat-label" data-i18n="aboutStatImages">图像生成次数</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-number">500K+</div>
-                            <div class="stat-label">语音合成时长</div>
+                            <div class="stat-label" data-i18n="aboutStatVoice">语音合成时长</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-number">100K+</div>
-                            <div class="stat-label">活跃用户</div>
+                            <div class="stat-label" data-i18n="aboutStatUsers">活跃用户</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-number">99.9%</div>
-                            <div class="stat-label">服务可用性</div>
+                            <div class="stat-label" data-i18n="aboutStatUptime">服务可用性</div>
                         </div>
                     </div>
                 </div>
@@ -116,27 +116,27 @@
 
             <!-- 核心价值主张 -->
             <section class="value-proposition">
-                <h2>🎯 我们的核心价值</h2>
+                <h2 data-i18n="aboutCoreValuesTitle">🎯 我们的核心价值</h2>
                 <div class="value-grid">
                     <div class="value-card">
                         <div class="value-icon">🚀</div>
-                        <h3>技术领先</h3>
-                        <p>集成FLUX、Stable Diffusion等最新AI模型，提供业界领先的生成质量和速度</p>
+                        <h3 data-i18n="aboutTechLeadTitle">技术领先</h3>
+                        <p data-i18n="aboutTechLeadDesc">集成FLUX、Stable Diffusion等最新AI模型，提供业界领先的生成质量和速度</p>
                     </div>
                     <div class="value-card">
                         <div class="value-icon">🔓</div>
-                        <h3>开放免费</h3>
-                        <p>坚持技术普惠理念，所有核心功能永久免费开放，降低AI技术使用门槛</p>
+                        <h3 data-i18n="aboutOpenFreeTitle">开放免费</h3>
+                        <p data-i18n="aboutOpenFreeDesc">坚持技术普惠理念，所有核心功能永久免费开放，降低AI技术使用门槛</p>
                     </div>
                     <div class="value-card">
                         <div class="value-icon">⚡</div>
-                        <h3>高效便捷</h3>
-                        <p>无需注册即用，简洁直观的用户界面，专业级功能一键触达</p>
+                        <h3 data-i18n="aboutEfficientTitle">高效便捷</h3>
+                        <p data-i18n="aboutEfficientDesc">无需注册即用，简洁直观的用户界面，专业级功能一键触达</p>
                     </div>
                     <div class="value-card">
                         <div class="value-icon">🛡️</div>
-                        <h3>安全可靠</h3>
-                        <p>基于Cloudflare全球网络架构，确保数据安全和服务稳定性</p>
+                        <h3 data-i18n="aboutSecureTitle">安全可靠</h3>
+                        <p data-i18n="aboutSecureDesc">基于Cloudflare全球网络架构，确保数据安全和服务稳定性</p>
                     </div>
                 </div>
             </section>
@@ -1849,6 +1849,25 @@
     <!-- JavaScript 文件 -->
     <script src="js/i18n.js?v=20250909"></script>
     <script src="js/auth.js?v=20250909" defer></script>
+    <script src="js/auth_modals.js?v=20250909" defer></script>
+    <div id="auth-modals"></div>
+    <script>
+        fetch('auth-modals.html')
+            .then(response => response.text())
+            .then(html => {
+                const mount = document.getElementById('auth-modals');
+                if (mount) mount.innerHTML = html;
+                const ensureBind = () => {
+                    if (window.initAuthForms) { window.initAuthForms(); }
+                    else { setTimeout(ensureBind, 100); }
+                };
+                ensureBind();
+                if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') {
+                    setLanguage(getCurrentLang());
+                }
+            })
+            .catch(error => { console.error('加载认证界面失败:', error); });
+    </script>
     
     <!-- 认证界面 -->
     <div id="auth-modals"></div>
