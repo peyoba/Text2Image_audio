@@ -42,19 +42,19 @@
         <div class="container">
             <!-- 面包屑导航 -->
             <nav class="breadcrumb">
-                <a href="index.html">首页</a>
+                <a href="index.html" data-i18n="navHome">首页</a>
                 <span class="separator">></span>
-                <span class="current">常见问题</span>
+                <span class="current" data-i18n="navFAQ">常见问题</span>
             </nav>
             <h1 data-i18n="faqTitle">常见问题 FAQ</h1>
             <div class="faq-content">
 
                 <section class="faq-intro">
-                    <p>这里收集了用户最常遇到的问题和解答。如果您没有找到需要的答案，请通过页面底部联系我们。</p>
+                    <p data-i18n="faqIntro">这里收集了用户最常遇到的问题和解答。如果您没有找到需要的答案，请通过页面底部联系我们。</p>
                 </section>
 
                 <section class="faq-section">
-                    <h2>基础使用问题</h2>
+                    <h2 data-i18n="faqBasicTitle">基础使用问题</h2>
 
                     <div class="faq-item">
                         <h3 data-i18n="faqQ1">AISTONE 是否永久免费？</h3>
@@ -86,85 +86,85 @@
                 </section>
 
                 <section class="faq-section">
-                    <h2>图片生成功能</h2>
+                    <h2 data-i18n="faqImageGenTitle">图片生成功能</h2>
 
                     <div class="faq-item">
-                        <h3>支持哪些图片格式和尺寸？</h3>
+                        <h3 data-i18n="faqQ5">支持哪些图片格式和尺寸？</h3>
                         <div class="faq-answer">
-                            <p>支持多种主流格式（JPG、PNG等）和尺寸比例：1:1（方形）、16:9（横版）、9:16（竖版）、4:3（传统比例）等。还支持自定义尺寸设置（256-4096像素）。</p>
+                            <p data-i18n="faqA5">支持多种主流格式（JPG、PNG等）和尺寸比例：1:1（方形）、16:9（横版）、9:16（竖版）、4:3（传统比例）等。还支持自定义尺寸设置（256-4096像素）。</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
-                        <h3>可以生成多张图片吗？</h3>
+                        <h3 data-i18n="faqQ6">可以生成多张图片吗？</h3>
                         <div class="faq-answer">
-                            <p>是的，您可以选择生成1张、2张或4张图片。系统会根据您的描述生成多个变体，方便您进行比较和选择。</p>
+                            <p data-i18n="faqA6">是的，您可以选择生成1张、2张或4张图片。系统会根据您的描述生成多个变体，方便您进行比较和选择。</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
-                        <h3>什么是AI模型？如何选择？</h3>
+                        <h3 data-i18n="faqQ7">什么是AI模型？如何选择？</h3>
                         <div class="faq-answer">
-                            <p>AI模型是生成图片的算法引擎：</p>
+                            <p data-i18n="faqA7">AI模型是生成图片的算法引擎：</p>
                             <ul>
-                                <li><strong>FLUX：</strong>高质量艺术创作，适合大多数场景</li>
-                                <li><strong>Turbo：</strong>快速生成，适合原型设计</li>
-                                <li><strong>Kontext：</strong>图像到图像生成，适合图片编辑</li>
+                                <li><strong data-i18n="faqFluxModel">FLUX：</strong><span data-i18n="faqFluxModelDesc">高质量艺术创作，适合大多数场景</span></li>
+                                <li><strong data-i18n="faqTurboModel">Turbo：</strong><span data-i18n="faqTurboModelDesc">快速生成，适合原型设计</span></li>
+                                <li><strong data-i18n="faqKontextModel">Kontext：</strong><span data-i18n="faqKontextModelDesc">图像到图像生成，适合图片编辑</span></li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="faq-item">
-                        <h3>生成图片需要多长时间？</h3>
+                        <h3 data-i18n="faqQ8">生成图片需要多长时间？</h3>
                         <div class="faq-answer">
-                            <p>通常需要10-30秒，具体时间取决于描述复杂度、选择的模型和当前服务器负载。Turbo模型生成速度最快。</p>
+                            <p data-i18n="faqA8">通常需要10-30秒，具体时间取决于描述复杂度、选择的模型和当前服务器负载。Turbo模型生成速度最快。</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
-                        <h3>图片质量不佳怎么办？</h3>
+                        <h3 data-i18n="faqQ9">图片质量不佳怎么办？</h3>
                         <div class="faq-answer">
-                            <p>尝试以下方法改善质量：</p>
+                            <p data-i18n="faqA9">尝试以下方法改善质量：</p>
                             <ul>
-                                <li>使用更详细的描述</li>
-                                <li>选择FLUX模型</li>
-                                <li>使用更高分辨率</li>
-                                <li>利用智能优化功能</li>
-                                <li>添加负向提示词排除不需要的元素</li>
+                                <li data-i18n="faqQualityTip1">使用更详细的描述</li>
+                                <li data-i18n="faqQualityTip2">选择FLUX模型</li>
+                                <li data-i18n="faqQualityTip3">使用更高分辨率</li>
+                                <li data-i18n="faqQualityTip4">利用智能优化功能</li>
+                                <li data-i18n="faqQualityTip5">添加负向提示词排除不需要的元素</li>
                             </ul>
                         </div>
                     </div>
                 </section>
 
                 <section class="faq-section">
-                    <h2>语音合成功能</h2>
+                    <h2 data-i18n="faqVoiceGenTitle">语音合成功能</h2>
 
                     <div class="faq-item">
-                        <h3>支持哪些语音音色？</h3>
+                        <h3 data-i18n="faqQ10">支持哪些语音音色？</h3>
                         <div class="faq-answer">
-                            <p>提供6种专业语音音色：</p>
+                            <p data-i18n="faqA10">提供6种专业语音音色：</p>
                             <ul>
-                                <li><strong>Alloy：</strong>专业女声</li>
-                                <li><strong>Echo：</strong>温暖男声</li>
-                                <li><strong>Fable：</strong>英国女声</li>
-                                <li><strong>Onyx：</strong>深沉男声</li>
-                                <li><strong>Nova：</strong>活泼女声</li>
-                                <li><strong>Shimmer：</strong>轻快女声</li>
+                                <li><strong data-i18n="faqVoiceAlloy">Alloy：</strong><span data-i18n="faqVoiceAlloyDesc">专业女声</span></li>
+                                <li><strong data-i18n="faqVoiceEcho">Echo：</strong><span data-i18n="faqVoiceEchoDesc">温暖男声</span></li>
+                                <li><strong data-i18n="faqVoiceFable">Fable：</strong><span data-i18n="faqVoiceFableDesc">英国女声</span></li>
+                                <li><strong data-i18n="faqVoiceOnyx">Onyx：</strong><span data-i18n="faqVoiceOnyxDesc">深沉男声</span></li>
+                                <li><strong data-i18n="faqVoiceNova">Nova：</strong><span data-i18n="faqVoiceNovaDesc">活泼女声</span></li>
+                                <li><strong data-i18n="faqVoiceShimmer">Shimmer：</strong><span data-i18n="faqVoiceShimmerDesc">轻快女声</span></li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="faq-item">
-                        <h3>可以下载生成的语音吗？</h3>
+                        <h3 data-i18n="faqQ11">可以下载生成的语音吗？</h3>
                         <div class="faq-answer">
-                            <p>是的，生成完成后可以在线播放，也可以下载音频文件（WAV格式）到本地使用。</p>
+                            <p data-i18n="faqA11">是的，生成完成后可以在线播放，也可以下载音频文件（WAV格式）到本地使用。</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
-                        <h3>语音合成的质量如何？</h3>
+                        <h3 data-i18n="faqQ12">语音合成的质量如何？</h3>
                         <div class="faq-answer">
-                            <p>采用先进的AI语音合成技术，生成自然流畅的语音，支持中文和英文，适合制作视频、播客、语音内容等各种场景。</p>
+                            <p data-i18n="faqA12">采用先进的AI语音合成技术，生成自然流畅的语音，支持中文和英文，适合制作视频、播客、语音内容等各种场景。</p>
                         </div>
                     </div>
                 </section>
