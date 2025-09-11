@@ -332,6 +332,7 @@ const i18n = {
         // 快捷操作
         clearButton: '清空',
         optimizeButton: '优化',
+        translateButton: '翻译',
         randomButton: '随机',
         
         // 状态提示
@@ -543,6 +544,10 @@ const i18n = {
         generateVoiceBtn: '生成语音',
         voiceResultTitle: '生成结果',
         downloadAudio: '下载音频',
+        copyLink: '复制链接',
+        fileSize: '文件大小:',
+        logsTitle: '调用日志',
+        historyTitle: '历史记录',
         shareAudio: '分享',
         saveToGallery: '保存到个人中心',
         voiceLength: '时长',
@@ -853,6 +858,13 @@ const i18n = {
         
         // 服务页面相关内容推荐
         relatedContentTitle: '🚀 立即体验',
+        relatedImageGen: '🎨 AI图片生成',
+        tryNow: '立即体验 →',
+        relatedAIGuide: '🧠 AI技术指南',
+        relatedAIGuideDesc: '深入了解AI语音合成技术原理和应用实践',
+        learnMore: '了解更多 →',
+        relatedTutorial: '📖 使用教程',
+        startLearning: '开始学习 →',
         relatedImageGenTitle: '🎨 AI图片生成',
         relatedImageGenDesc: '体验我们的核心服务，将想法转化为精美图像',
         relatedVoiceGenTitle: '🎵 AI语音合成',
@@ -924,6 +936,7 @@ const i18n = {
         // Quick actions
         clearButton: 'Clear',
         optimizeButton: 'Optimize',
+        translateButton: 'Translate',
         randomButton: 'Random',
         
         // Status messages
@@ -1081,6 +1094,10 @@ const i18n = {
         generateVoiceBtn: 'Generate Voice',
         voiceResultTitle: 'Generation Result',
         downloadAudio: 'Download Audio',
+        copyLink: 'Copy link',
+        fileSize: 'File Size:',
+        logsTitle: 'Logs',
+        historyTitle: 'History',
         shareAudio: 'Share',
         saveToGallery: 'Save to Personal Center',
         voiceLength: 'Duration:',
@@ -1390,6 +1407,13 @@ const i18n = {
         
         // Services page related content recommendations
         relatedContentTitle: '🚀 Try Now',
+        relatedImageGen: '🎨 AI Image Generation',
+        tryNow: 'Try Now →',
+        relatedAIGuide: '🧠 AI Guide',
+        relatedAIGuideDesc: 'Learn AI voice tech principles and practices',
+        learnMore: 'Learn More →',
+        relatedTutorial: '📖 Tutorial',
+        startLearning: 'Start Learning →',
         relatedImageGenTitle: '🎨 AI Image Generation',
         relatedImageGenDesc: 'Experience our core service, transform ideas into stunning visuals',
         relatedVoiceGenTitle: '🎵 AI Voice Synthesis',

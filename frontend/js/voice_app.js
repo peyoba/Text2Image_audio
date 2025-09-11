@@ -725,9 +725,9 @@ class VoiceApp {
     }
 }
 
-// 添加动画CSS
-const style = document.createElement('style');
-style.textContent = `
+// 添加动画CSS（避免与其它脚本重名）
+const voiceAnimationsStyleEl = document.createElement('style');
+voiceAnimationsStyleEl.textContent = `
     @keyframes slideInRight {
         from {
             transform: translateX(100%);
@@ -750,7 +750,7 @@ style.textContent = `
         }
     }
 `;
-document.head.appendChild(style);
+document.head.appendChild(voiceAnimationsStyleEl);
 
 // 页面加载完成后初始化应用
 document.addEventListener('DOMContentLoaded', () => {

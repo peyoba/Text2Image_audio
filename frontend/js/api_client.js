@@ -402,7 +402,7 @@ class ApiClient {
             
             console.log(`ApiClient: Generating voice - Text: ${text.substring(0, 50)}..., Voice: ${voice}, Speed: ${speed}`);
 
-            const response = await fetch(`${this.baseUrl}/api/generate`, {
+            const response = await fetch(`${this.getBaseUrl()}/api/generate`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -428,6 +428,12 @@ class ApiClient {
 
             // 对于音频生成，后端应该返回音频的blob数据
             const audioBlob = await response.blob();
+            const mimeType = audioBlob.type || response.headers.get('content-type') || '';
+            let fileExtension = 'wav';
+            const lowerMime = (mimeType || '').toLowerCase();
+            if (lowerMime.includes('mpeg') || lowerMime.includes('mp3')) fileExtension = 'mp3';
+            else if (lowerMime.includes('ogg')) fileExtension = 'ogg';
+            else if (lowerMime.includes('wav') || lowerMime.includes('wave') || lowerMime.includes('x-wav')) fileExtension = 'wav';
             
             // 创建音频URL
             const audioUrl = URL.createObjectURL(audioBlob);
@@ -437,7 +443,9 @@ class ApiClient {
             return {
                 success: true,
                 audioUrl: audioUrl,
-                blob: audioBlob
+                blob: audioBlob,
+                mimeType,
+                fileExtension
             };
 
         } catch (error) {
