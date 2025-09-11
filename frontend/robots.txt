@@ -25,6 +25,7 @@ Disallow: /auth-modals.html
 Disallow: /feedback-ui.html
 Disallow: /hd-images-ui.html
 Disallow: /admin.html
+Disallow: /admin/
 
 # 设置爬取延迟
 Crawl-delay: 1
