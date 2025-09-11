@@ -2,6 +2,44 @@
 
 ## 项目当前状态总览
 
+## 🆕 最新开发进展 (2025-09-11)
+
+### ✅ 今日完成
+1. **SEO 与索引修复**
+   - 规范化 robots.txt 通配：屏蔽后台与片段页，保留静态资源抓取
+   - 为 index/about/services/contact/faq/tutorial/ai-guide/prompt-engineering/voice/image-generator 等补齐 canonical 与 hreflang
+   - 为 auth/google/callback.html、user.html、admin.html 添加 meta robots noindex
+   - 更新 sitemap.xml 的 lastmod；站内指向 index.html 的链接统一为根路径 `/`
+   - 已提交并推送，建议在 GSC 触发“验证修复”
+
+2. **语音合成页（/voice）重构与增强**
+   - 与首页 UI 逻辑解耦，修复初始化阻塞与重定向冲突
+   - 新增：进度条、调用日志折叠、波形可视化、历史记录列表、复制链接、正确扩展名下载
+   - 文本工具：优化、翻译、清空
+   - i18n 键补齐；布局与视觉统一（更大的输入框与主按钮、一致字号、示例按钮网格）
+
+3. **TTS 正确性修复（所有音色）**
+   - 前端：向 `/api/generate` 发送 `mode='tts'` 与 `speed`；支持 `window.API_BASE`/localStorage 覆盖
+   - 后端：强化 TTS 指令（只朗读原文，不翻译不发挥），传递 `speed` 参数并附加 `mode=tts`
+   - 结果：Alloy / Echo / Fable / Onyx / Shimmer 与 Nova 一致按输入文本朗读
+
+4. **缺陷修复**
+   - 移除 `voice.html` 重复引入的 `auth.js`
+   - 避免全局样式变量重名（`voice_app.js`）
+
+### 📦 关键提交
+- `b87da91`, `45f5af3`: SEO 基础修复与内部链接统一
+- `38043b3`: 语音页初步解耦与加载顺序修复
+- `48785eb`: 热修复（去重 auth.js、补齐 i18n 键、下载后缀）
+- `688724f`: 语音页 UI/布局统一
+- `7c6faf6`: 全音色强制 TTS + 语速参数
+
+### 🔭 下一步
+- 真实波形（WebAudio AnalyserNode）
+- 音色试听与预设展示
+- 语音任务保存到个人中心
+- 持续跟进 GSC 验证结果并按 URL 精修
+
 ## 🆕 最新开发进展 (2025-09-08)
 
 ### ✅ 本轮已完成的关键任务
@@ -41,7 +79,7 @@
 - **技术架构**: Cloudflare Pages + Workers (Serverless)
 - **主要功能**: AI图片生成、语音合成、用户管理系统
 - **部署状态**: 生产环境运行中 (https://aistone.org)
-- **报告日期**: 2025-09-08 (最新更新)
+- **报告日期**: 2025-09-11 (最新更新)
 
 ### 📊 代码统计数据
 - **总代码行数**: 8,959 行
