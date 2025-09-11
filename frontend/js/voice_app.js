@@ -33,17 +33,16 @@ class VoiceApp {
     }
 
     async waitForDependencies() {
+        // 仅依赖 APIClient 即可运行，避免因其他脚本加载异常导致语音页失效
         const maxWait = 10000; // 最大等待10秒
         const startTime = Date.now();
-        
         while (Date.now() - startTime < maxWait) {
-            if (window.APIClient && window.UIHandler) {
+            if (window.APIClient) {
                 return Promise.resolve();
             }
             await new Promise(resolve => setTimeout(resolve, 100));
         }
-        
-        throw new Error('依赖加载超时');
+        throw new Error('依赖加载超时: APIClient 未准备就绪');
     }
 
     setupEventListeners() {
@@ -52,6 +51,15 @@ class VoiceApp {
         if (form) {
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
+                this.generateVoice();
+            });
+        }
+        // 兜底：按钮点击也触发，防止某些浏览器/自定义表单行为导致 submit 未触发
+        const generateBtn = document.getElementById('generate-voice-btn');
+        if (generateBtn) {
+            generateBtn.addEventListener('click', (e) => {
+                // 如果不是表单原生提交，依然手动触发
+                if (form) e.preventDefault();
                 this.generateVoice();
             });
         }
