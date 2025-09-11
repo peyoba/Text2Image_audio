@@ -8,7 +8,12 @@ class VoiceApp {
         this.apiClient = null;
         this.uiHandler = null;
         this.currentAudioUrl = null;
+        this.currentAudioBlob = null;
         this.isGenerating = false;
+        this.abortController = null;
+        this.waveformCtx = null;
+        this.waveformAnimation = null;
+        this.logs = [];
         
         this.init();
     }
@@ -24,6 +29,8 @@ class VoiceApp {
                 this.setupSpeedSlider();
                 this.setupExamples();
                 this.handleUrlParameters(); // 处理URL参数
+                this.initWaveform();
+                this.restoreHistory();
                 console.log('语音应用初始化完成');
             })
             .catch(error => {
@@ -70,6 +77,12 @@ class VoiceApp {
             downloadBtn.addEventListener('click', () => this.downloadAudio());
         }
 
+        // 复制链接按钮
+        const copyBtn = document.getElementById('copy-audio-url-btn');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', () => this.copyAudioUrl());
+        }
+
         // 分享按钮
         const shareBtn = document.getElementById('share-audio-btn');
         if (shareBtn) {
@@ -88,7 +101,17 @@ class VoiceApp {
             audioPlayer.addEventListener('loadedmetadata', () => {
                 this.updateAudioInfo();
             });
+            audioPlayer.addEventListener('play', () => this.startWaveform());
+            audioPlayer.addEventListener('pause', () => this.stopWaveform());
         }
+
+        // 文本按钮
+        const optimizeBtn = document.getElementById('optimize-voice-text-btn');
+        const translateBtn = document.getElementById('translate-voice-text-btn');
+        const clearBtn = document.getElementById('clear-voice-text-btn');
+        if (optimizeBtn) optimizeBtn.addEventListener('click', () => this.optimizeText());
+        if (translateBtn) translateBtn.addEventListener('click', () => this.translateText());
+        if (clearBtn) clearBtn.addEventListener('click', () => this.clearText());
     }
 
     setupTextCounter() {
@@ -195,6 +218,7 @@ class VoiceApp {
 
         this.isGenerating = true;
         this.updateGenerateButton(true);
+        this.updateProgress(2, '准备中...');
 
         try {
             const requestData = {
@@ -204,14 +228,19 @@ class VoiceApp {
             };
 
             console.log('开始语音生成，参数:', requestData);
+            this.log(`请求: ${JSON.stringify(requestData)}`);
 
             // 调用API生成语音
+            this.abortController = new AbortController();
             const response = await this.apiClient.generateVoice(requestData);
 
             if (response.success && response.audioUrl) {
                 this.currentAudioUrl = response.audioUrl;
+                this.currentAudioBlob = response.blob || null;
                 this.displayVoiceResult(response);
                 this.showSuccess('语音生成成功！');
+                this.updateProgress(100, '完成');
+                this.saveHistory();
             } else {
                 throw new Error(response.error || '语音生成失败');
             }
@@ -219,9 +248,12 @@ class VoiceApp {
         } catch (error) {
             console.error('语音生成错误:', error);
             this.showError('语音生成失败: ' + error.message);
+            this.log(`错误: ${error.message}`);
         } finally {
             this.isGenerating = false;
             this.updateGenerateButton(false);
+            this.updateProgress(0);
+            this.abortController = null;
         }
     }
 
@@ -247,6 +279,12 @@ class VoiceApp {
             speed: document.getElementById('voice-speed').value,
             text: document.getElementById('voice-text-input').value
         };
+
+        // 文件大小
+        const fileSizeEl = document.getElementById('voice-filesize');
+        if (fileSizeEl && this.currentAudioBlob && this.currentAudioBlob.size) {
+            fileSizeEl.textContent = this.formatBytes(this.currentAudioBlob.size);
+        }
 
         // 显示保存按钮（如果用户已登录）
         if (window.AuthManager && window.AuthManager.isLoggedIn()) {
@@ -301,13 +339,13 @@ class VoiceApp {
         }
 
         try {
-            const response = await fetch(this.currentAudioUrl);
-            const blob = await response.blob();
+            const blob = this.currentAudioBlob || (await (await fetch(this.currentAudioUrl)).blob());
             
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `aistone_voice_${Date.now()}.wav`;
+            const ext = (response && response.fileExtension) || 'wav';
+            a.download = `aistone_voice_${Date.now()}.${ext}`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -317,6 +355,28 @@ class VoiceApp {
         } catch (error) {
             console.error('下载失败:', error);
             this.showError('音频下载失败，请重试');
+        }
+    }
+
+    async copyAudioUrl() {
+        if (!this.currentAudioUrl) {
+            this.showError('当前没有可复制的音频链接');
+            return;
+        }
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(this.currentAudioUrl);
+            } else {
+                const ta = document.createElement('textarea');
+                ta.value = this.currentAudioUrl;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+            this.showSuccess('音频链接已复制');
+        } catch (e) {
+            this.showError('复制失败，请手动复制');
         }
     }
 
@@ -418,6 +478,195 @@ class VoiceApp {
             generateBtn.disabled = false;
             if (btnText) btnText.style.display = 'inline';
             if (btnLoading) btnLoading.style.display = 'none';
+        }
+    }
+
+    updateProgress(percent = 0, label = '') {
+        const bar = document.getElementById('voice-progress-bar');
+        const box = document.getElementById('voice-progress');
+        const text = document.getElementById('voice-progress-label');
+        if (!bar || !box) return;
+        if (percent > 0 && percent < 100) {
+            box.style.display = 'block';
+            bar.style.width = `${Math.max(2, Math.min(100, percent))}%`;
+            if (text) text.textContent = label || '处理中...';
+        } else if (percent >= 100) {
+            bar.style.width = '100%';
+            if (text) text.textContent = label || '完成';
+            setTimeout(() => { if (box) box.style.display = 'none'; }, 600);
+        } else {
+            box.style.display = 'none';
+            bar.style.width = '0%';
+        }
+    }
+
+    log(message) {
+        const ts = new Date().toLocaleTimeString();
+        const line = `[${ts}] ${message}`;
+        this.logs.push(line);
+        const el = document.getElementById('voice-log');
+        if (el) {
+            el.textContent += (el.textContent ? '\n' : '') + line;
+            el.scrollTop = el.scrollHeight;
+        }
+    }
+
+    initWaveform() {
+        const canvas = document.getElementById('voice-waveform');
+        if (!canvas) return;
+        this.waveformCtx = canvas.getContext('2d');
+        // 初始清屏
+        this.waveformCtx.fillStyle = '#0e1424';
+        this.waveformCtx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    startWaveform() {
+        const audio = document.getElementById('generated-audio');
+        const canvas = document.getElementById('voice-waveform');
+        if (!audio || !canvas || !this.waveformCtx) return;
+        const ctx = this.waveformCtx;
+        const width = canvas.width;
+        const height = canvas.height;
+        cancelAnimationFrame(this.waveformAnimation);
+        const draw = () => {
+            // 轻量级占位波形：随时间滚动的条形动画
+            ctx.fillStyle = '#0e1424';
+            ctx.fillRect(0, 0, width, height);
+            const now = performance.now() / 200;
+            const bars = 64;
+            const barWidth = width / bars;
+            for (let i = 0; i < bars; i++) {
+                const h = (Math.sin(now + i * 0.5) * 0.5 + 0.5) * (height * 0.8);
+                ctx.fillStyle = '#00cfff';
+                const x = i * barWidth + 1;
+                const y = (height - h) / 2;
+                ctx.fillRect(x, y, Math.max(1, barWidth - 2), h);
+            }
+            this.waveformAnimation = requestAnimationFrame(draw);
+        };
+        this.waveformAnimation = requestAnimationFrame(draw);
+    }
+
+    stopWaveform() {
+        cancelAnimationFrame(this.waveformAnimation);
+    }
+
+    formatBytes(bytes) {
+        if (!bytes && bytes !== 0) return '--';
+        const sizes = ['B', 'KB', 'MB', 'GB'];
+        const i = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), sizes.length - 1);
+        const val = bytes / Math.pow(1024, i);
+        return `${val.toFixed(val >= 100 ? 0 : val >= 10 ? 1 : 2)} ${sizes[i]}`;
+    }
+
+    saveHistory() {
+        try {
+            const item = {
+                t: Date.now(),
+                text: (this.lastGenerationParams && this.lastGenerationParams.text) || '',
+                voice: (this.lastGenerationParams && this.lastGenerationParams.voice) || '',
+                speed: (this.lastGenerationParams && this.lastGenerationParams.speed) || '1.0',
+                url: this.currentAudioUrl || ''
+            };
+            const key = 'voice_history';
+            const list = JSON.parse(localStorage.getItem(key) || '[]');
+            list.unshift(item);
+            localStorage.setItem(key, JSON.stringify(list.slice(0, 10)));
+            this.renderHistory(list.slice(0, 10));
+            document.getElementById('voice-history-section').style.display = 'block';
+        } catch(e) {}
+    }
+
+    restoreHistory() {
+        try {
+            const key = 'voice_history';
+            const list = JSON.parse(localStorage.getItem(key) || '[]');
+            if (list.length) {
+                this.renderHistory(list);
+                const sec = document.getElementById('voice-history-section');
+                if (sec) sec.style.display = 'block';
+            }
+        } catch(e) {}
+    }
+
+    renderHistory(list) {
+        const ul = document.getElementById('voice-history-list');
+        if (!ul) return;
+        ul.innerHTML = '';
+        list.forEach((it, idx) => {
+            const li = document.createElement('li');
+            li.style.cssText = 'padding:10px; background:#0e1424; border:1px solid #2A3A57; border-radius:8px; display:flex; align-items:center; gap:10px;';
+            const meta = document.createElement('div');
+            meta.style.cssText = 'flex:1; color:#AAB4D4;';
+            meta.innerHTML = `<div style="font-size:12px;">${new Date(it.t).toLocaleString()} • ${it.voice} • ${it.speed}x</div><div style="font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width: 100%;">${(it.text || '').replace(/[\n\r]+/g,' ').slice(0,120)}</div>`;
+            const play = document.createElement('button');
+            play.className = 'action-btn';
+            play.textContent = '▶ 播放';
+            play.addEventListener('click', () => {
+                const audio = document.getElementById('generated-audio');
+                if (audio) {
+                    audio.src = it.url;
+                    audio.play();
+                }
+            });
+            const copy = document.createElement('button');
+            copy.className = 'action-btn';
+            copy.textContent = '复制链接';
+            copy.addEventListener('click', async () => {
+                try { await navigator.clipboard.writeText(it.url); this.showSuccess('已复制'); } catch(e) { this.showError('复制失败'); }
+            });
+            li.appendChild(meta);
+            li.appendChild(play);
+            li.appendChild(copy);
+            ul.appendChild(li);
+        });
+    }
+
+    async optimizeText() {
+        const textInput = document.getElementById('voice-text-input');
+        if (!textInput || !textInput.value.trim()) {
+            this.showError('请先输入文本');
+            return;
+        }
+        try {
+            this.updateProgress(15, '优化文本...');
+            const optimized = await this.apiClient.optimizeText(textInput.value.trim());
+            textInput.value = optimized;
+            textInput.dispatchEvent(new Event('input'));
+            this.showSuccess('优化完成');
+        } catch (e) {
+            this.showError('优化失败，请稍后重试');
+        } finally {
+            this.updateProgress(0);
+        }
+    }
+
+    async translateText() {
+        const textInput = document.getElementById('voice-text-input');
+        const lang = (window.getCurrentLang && window.getCurrentLang()) || 'zh';
+        if (!textInput || !textInput.value.trim()) {
+            this.showError('请先输入文本');
+            return;
+        }
+        try {
+            this.updateProgress(15, '翻译中...');
+            const target = lang === 'zh' ? 'en' : 'zh';
+            const translated = await this.apiClient.translateText(textInput.value.trim(), target);
+            textInput.value = translated;
+            textInput.dispatchEvent(new Event('input'));
+            this.showSuccess('翻译完成');
+        } catch (e) {
+            this.showError('翻译失败，请稍后重试');
+        } finally {
+            this.updateProgress(0);
+        }
+    }
+
+    clearText() {
+        const textInput = document.getElementById('voice-text-input');
+        if (textInput) {
+            textInput.value = '';
+            textInput.dispatchEvent(new Event('input'));
         }
     }
 

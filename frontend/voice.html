@@ -244,6 +244,13 @@
                                 </div>
                             </div>
 
+                            <!-- 文本操作按钮 -->
+                            <div class="voice-text-actions" style="display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 16px 0;">
+                                <button type="button" id="optimize-voice-text-btn" class="btn btn-outline btn-small" data-i18n="optimizeButton">优化</button>
+                                <button type="button" id="translate-voice-text-btn" class="btn btn-outline btn-small" data-i18n="translateButton">翻译</button>
+                                <button type="button" id="clear-voice-text-btn" class="btn btn-outline btn-small" data-i18n="clearButton">清空</button>
+                            </div>
+
                             <!-- 语音选项 -->
                             <div class="voice-options">
                                 <div class="option-group">
@@ -303,16 +310,29 @@
                         <!-- 结果区域 -->
                         <div id="voice-result-section" class="result-section" style="display: none;">
                             <h3 class="result-title" data-i18n="voiceResultTitle">生成结果</h3>
+                            <!-- 进度条 -->
+                            <div id="voice-progress" class="voice-progress" style="display:none;">
+                                <div class="voice-progress-bar" id="voice-progress-bar" style="width:0%;"></div>
+                                <div class="voice-progress-label" id="voice-progress-label">准备中...</div>
+                            </div>
                             <div class="audio-player-container">
                                 <audio id="generated-audio" controls class="audio-player">
                                     您的浏览器不支持音频播放。
                                 </audio>
+                            </div>
+                            <!-- 波形可视化 -->
+                            <div class="waveform-container" style="margin:10px 0 0 0;">
+                                <canvas id="voice-waveform" width="800" height="120" style="width:100%; height:120px; background:#0e1424; border:1px solid #2A3A57; border-radius:8px;"></canvas>
                             </div>
                             
                             <div class="result-actions">
                                 <button id="download-audio-btn" class="action-btn download-btn">
                                     <span class="btn-icon">📥</span>
                                     <span data-i18n="downloadAudio">下载音频</span>
+                                </button>
+                                <button id="copy-audio-url-btn" class="action-btn share-btn">
+                                    <span class="btn-icon">🔗</span>
+                                    <span data-i18n="copyLink">复制链接</span>
                                 </button>
                                 <button id="share-audio-btn" class="action-btn share-btn">
                                     <span class="btn-icon">📤</span>
@@ -337,7 +357,22 @@
                                     <span class="info-label" data-i18n="voiceSpeed">语速:</span>
                                     <span id="used-voice-speed" class="info-value">--</span>
                                 </span>
+                                <span class="info-item">
+                                    <span class="info-label" data-i18n="fileSize">文件大小:</span>
+                                    <span id="voice-filesize" class="info-value">--</span>
+                                </span>
                             </div>
+                            <!-- 调用日志 -->
+                            <details id="voice-log-panel" style="margin-top:10px;">
+                                <summary data-i18n="logsTitle">调用日志</summary>
+                                <pre id="voice-log" style="max-height:200px; overflow:auto; background:#0e1424; border:1px solid #2A3A57; padding:8px; border-radius:8px; color:#AAB4D4; font-size:12px;"></pre>
+                            </details>
+                        </div>
+
+                        <!-- 历史记录 -->
+                        <div id="voice-history-section" style="display:none; margin-top:16px;">
+                            <h3 class="section-title" data-i18n="historyTitle">历史记录</h3>
+                            <ul id="voice-history-list" style="list-style:none; padding-left:0; display:flex; flex-direction:column; gap:8px;"></ul>
                         </div>
                     </div>
                 </section>
@@ -650,6 +685,16 @@
     
     /* 响应式设计 */
     @media (max-width: 768px) { .user-info { flex-direction: column; text-align: center; } .user-actions { justify-content: center; } }
+    </style>
+    <!-- 语音页面增强样式 -->
+    <style>
+        .voice-progress { position: relative; background: #0e1424; border: 1px solid #2A3A57; border-radius: 8px; height: 10px; margin: 8px 0 12px 0; }
+        .voice-progress-bar { position:absolute; left:0; top:0; bottom:0; background:#00CFFF; border-radius:8px; transition: width .3s ease; }
+        .voice-progress-label { margin-top: 6px; color:#AAB4D4; font-size:12px; }
+        .result-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+        .action-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 12px; border:1px solid #2A3A57; border-radius:8px; background:#0e1424; color:#d6def8; cursor:pointer; }
+        .action-btn:hover { background:#121a2d; }
+        .audio-player { width: 100%; }
     </style>
 
     <!-- 页面初始化 -->

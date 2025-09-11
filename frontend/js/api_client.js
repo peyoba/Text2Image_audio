@@ -3,10 +3,37 @@
  */
 class ApiClient {
     constructor() {
-        this.baseUrl = 'https://text2image-api.peyoba660703.workers.dev';
+        // 允许通过 window.API_BASE 或 localStorage 覆盖后端地址
+        try {
+            const saved = (typeof window !== 'undefined' && window.API_BASE)
+                || (typeof localStorage !== 'undefined' && localStorage.getItem('api_base'));
+            this.baseUrl = (saved && typeof saved === 'string' && saved.trim())
+                ? saved.trim()
+                : 'https://text2image-api.peyoba660703.workers.dev';
+        } catch (e) {
+            this.baseUrl = 'https://text2image-api.peyoba660703.workers.dev';
+        }
         this.maxPollingAttempts = 60; // 最大轮询次数 (60 * 2秒 = 2分钟)
         this.pollingInterval = 2000; // 轮询间隔 (2秒)
         console.log('ApiClient initialized with baseUrl:', this.baseUrl); // 添加初始化日志
+    }
+
+    getBaseUrl() {
+        try {
+            if (typeof window !== 'undefined' && window.API_BASE && window.API_BASE.trim()) {
+                return window.API_BASE.trim();
+            }
+        } catch (e) {}
+        return this.baseUrl;
+    }
+
+    setBaseUrl(url) {
+        if (typeof url === 'string' && url.trim()) {
+            this.baseUrl = url.trim();
+            try { if (typeof localStorage !== 'undefined') localStorage.setItem('api_base', this.baseUrl); } catch(e){}
+            if (typeof window !== 'undefined') window.API_BASE = this.baseUrl;
+            console.log('ApiClient baseUrl updated to:', this.baseUrl);
+        }
     }
 
     /**
@@ -17,7 +44,7 @@ class ApiClient {
      * @returns {Promise<Object|ArrayBuffer>} - 返回任务结果或直接返回ArrayBuffer (音频)
      */
     async submitGenerationTask(text, type, options = {}) {
-        const requestUrl = `${this.baseUrl}/api/generate`;
+        const requestUrl = `${this.getBaseUrl()}/api/generate`;
         console.log(`ApiClient: Submitting task to ${requestUrl} - Type: ${type}, Text: ${text.substring(0, 50)}..., Options:`, options);
         
         const payload = {
@@ -159,7 +186,7 @@ class ApiClient {
      */
     async getGeneratedImage(imageId) {
         try {
-            const response = await fetch(`${this.baseUrl}/image/${imageId}`);
+            const response = await fetch(`${this.getBaseUrl()}/image/${imageId}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -177,7 +204,7 @@ class ApiClient {
      */
     async getGeneratedAudio(audioId) {
         try {
-            const response = await fetch(`${this.baseUrl}/audio/${audioId}`);
+            const response = await fetch(`${this.getBaseUrl()}/audio/${audioId}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -212,7 +239,7 @@ class ApiClient {
         try {
             console.log(`ApiClient: Optimizing text: ${text.substring(0, 50)}...`);
             
-            const response = await fetch('https://text2image-api.peyoba660703.workers.dev/api/optimize', {
+            const response = await fetch(`${this.getBaseUrl()}/api/optimize`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -248,7 +275,7 @@ class ApiClient {
         try {
             console.log(`ApiClient: Translating text to ${targetLang}: ${text.substring(0, 50)}...`);
             
-            const response = await fetch('https://text2image-api.peyoba660703.workers.dev/api/translate', {
+            const response = await fetch(`${this.getBaseUrl()}/api/translate`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -301,7 +328,7 @@ class ApiClient {
             console.log(`ApiClient: Generating image with Pollinations - Prompt: ${prompt.substring(0, 50)}..., Model: ${model}, Size: ${width}x${height}`);
 
             // 通过后端代理调用Pollinations.AI
-            const response = await fetch(`${this.baseUrl}/api/pollinations/image`, {
+            const response = await fetch(`${this.getBaseUrl()}/api/pollinations/image`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
