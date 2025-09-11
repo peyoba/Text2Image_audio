@@ -411,7 +411,8 @@ class ApiClient {
                     text: text,
                     type: 'audio',
                     voice: voice,
-                    speed: speed
+                    speed: speed,
+                    mode: 'tts'
                 })
             });
 

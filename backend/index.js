@@ -235,9 +235,9 @@ export default {
                 } else if (genType === 'audio') {
                     const voice = requestData.voice || env.DEFAULT_AUDIO_VOICE || 'nova';
                     const model = requestData.model || env.DEFAULT_AUDIO_MODEL || 'openai-audio';
-                    // const outputFormat = requestData.output_format || 'mp3'; // output_format was defined in python but not used for request.
-                    logInfo(env, `[Worker Log] Processing audio generation for prompt: '${textPrompt.substring(0, 50)}...'`);
-                    const audioArrayBuffer = await generateAudioFromPollinations(textPrompt, env, voice, model);
+                    const speed = requestData.speed || 1.0;
+                    logInfo(env, `[Worker Log] Processing audio generation for prompt: '${textPrompt.substring(0, 50)}...', voice: ${voice}, speed: ${speed}`);
+                    const audioArrayBuffer = await generateAudioFromPollinations(textPrompt, env, voice, model, speed);
                     
                     let audioContentType = "audio/mpeg"; // Default for mp3
                     // TODO: Determine actual audio content type from Pollinations response if possible, or make it configurable
@@ -513,7 +513,7 @@ async function generateImageFromPollinations(prompt, env, width, height, seed, n
     return await response.arrayBuffer();
 }
 
-async function generateAudioFromPollinations(prompt, env, voice = "nova", model = "openai-audio") {
+async function generateAudioFromPollinations(prompt, env, voice = "nova", model = "openai-audio", speed = 1.0) {
     let textApiBase = env.POLLINATIONS_TEXT_API_BASE || "https://text.pollinations.ai";
     if (!textApiBase) {
         console.error("[Worker Error] Text API base URL not provided in env.POLLINATIONS_TEXT_API_BASE");
@@ -523,15 +523,17 @@ async function generateAudioFromPollinations(prompt, env, voice = "nova", model 
         textApiBase = textApiBase + '/';
     }
 
-    // 添加 'Say: ' 前缀
-    const instructionalPrefix = "Say: ";
-    const engineeredPrompt = `${instructionalPrefix}${prompt}`;
+    // 强化TTS指令，强制逐字朗读且不添加多余内容
+    const engineeredPrompt = `Read out exactly and only the following text, with natural prosody. Do not translate, do not summarize, and do not add any extra words. 只朗读下面文本，不要添加任何额外内容，也不要翻译或改写。文本："""${prompt}"""`;
     const encodedPrompt = encodeURIComponent(engineeredPrompt);
     
     const params = new URLSearchParams({
         model: model,
         voice: voice
     });
+    // 可选参数：语速和模式（若API不支持将被忽略）
+    if (speed && Number(speed) !== 1.0) params.append('speed', speed);
+    params.append('mode', 'tts');
     const fullUrl = `${textApiBase}${encodedPrompt}?${params.toString()}`;
     logInfo(env, `[Worker Log] 向 Pollinations Text(Audio) API 发送请求: ${fullUrl}`);
 

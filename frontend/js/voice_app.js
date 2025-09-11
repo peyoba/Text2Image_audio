@@ -340,11 +340,14 @@ class VoiceApp {
 
         try {
             const blob = this.currentAudioBlob || (await (await fetch(this.currentAudioUrl)).blob());
-            
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            const ext = (response && response.fileExtension) || 'wav';
+            const mime = (blob && blob.type || '').toLowerCase();
+            let ext = 'wav';
+            if (mime.includes('mpeg') || mime.includes('mp3')) ext = 'mp3';
+            else if (mime.includes('ogg')) ext = 'ogg';
+            else if (mime.includes('wav') || mime.includes('wave') || mime.includes('x-wav')) ext = 'wav';
             a.download = `aistone_voice_${Date.now()}.${ext}`;
             document.body.appendChild(a);
             a.click();
