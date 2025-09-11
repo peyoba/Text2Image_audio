@@ -17,8 +17,14 @@ Allow: /js/
 Disallow: /api/
 Disallow: /backend/
 Disallow: /node_modules/
-Disallow: /.*\.json$
-Disallow: /.*\.md$
+# 使用 Google 支持的通配符规则，避免错误的正则写法
+Disallow: /*.json$
+Disallow: /*.md$
+Disallow: /auth/
+Disallow: /auth-modals.html
+Disallow: /feedback-ui.html
+Disallow: /hd-images-ui.html
+Disallow: /admin.html
 
 # 设置爬取延迟
 Crawl-delay: 1
