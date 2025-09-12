@@ -77,6 +77,8 @@ class VoiceApp {
             downloadBtn.addEventListener('click', () => this.downloadAudio());
         }
 
+        // （已移除）按当前语速导出按钮
+
         // 复制链接按钮
         const copyBtn = document.getElementById('copy-audio-url-btn');
         if (copyBtn) {
@@ -95,11 +97,15 @@ class VoiceApp {
             saveBtn.addEventListener('click', () => this.saveAudio());
         }
 
-        // 音频播放完成事件
+        // 音频事件：加载后同步播放速度、播放/暂停控制波形
         const audioPlayer = document.getElementById('generated-audio');
         if (audioPlayer) {
             audioPlayer.addEventListener('loadedmetadata', () => {
                 this.updateAudioInfo();
+                // 应用当前滑块速率到播放器
+                const slider = document.getElementById('voice-speed');
+                const rate = slider ? Math.max(0.25, Math.min(4.0, parseFloat(slider.value) || 1.0)) : 1.0;
+                try { audioPlayer.playbackRate = rate; } catch(e) {}
             });
             audioPlayer.addEventListener('play', () => this.startWaveform());
             audioPlayer.addEventListener('pause', () => this.stopWaveform());
@@ -140,8 +146,33 @@ class VoiceApp {
         const speedDisplay = document.getElementById('speed-display');
         
         if (speedSlider && speedDisplay) {
+            // 恢复上次选择的语速
+            try {
+                const saved = localStorage.getItem('voice_speed');
+                if (saved && !isNaN(parseFloat(saved))) {
+                    speedSlider.value = String(saved);
+                }
+            } catch(e) {}
+
+            // 初始显示 & 应用到播放器
+            const applyPlaybackRate = () => {
+                const rate = Math.max(0.25, Math.min(4.0, parseFloat(speedSlider.value) || 1.0));
+                speedDisplay.textContent = rate + 'x';
+                const audio = document.getElementById('generated-audio');
+                if (audio) {
+                    try { audio.playbackRate = rate; } catch(e) {}
+                }
+            };
+            applyPlaybackRate();
+
+            // 滑动时实时生效
             speedSlider.addEventListener('input', () => {
-                speedDisplay.textContent = speedSlider.value + 'x';
+                applyPlaybackRate();
+            });
+
+            // 变更后持久化
+            speedSlider.addEventListener('change', () => {
+                try { localStorage.setItem('voice_speed', String(speedSlider.value)); } catch(e) {}
             });
         }
     }
@@ -361,6 +392,7 @@ class VoiceApp {
         }
     }
 
+
     async copyAudioUrl() {
         if (!this.currentAudioUrl) {
             this.showError('当前没有可复制的音频链接');
@@ -564,13 +596,11 @@ class VoiceApp {
 
     saveHistory() {
         try {
-            const item = {
-                t: Date.now(),
-                text: (this.lastGenerationParams && this.lastGenerationParams.text) || '',
-                voice: (this.lastGenerationParams && this.lastGenerationParams.voice) || '',
-                speed: (this.lastGenerationParams && this.lastGenerationParams.speed) || '1.0',
-                url: this.currentAudioUrl || ''
-            };
+            const text = (this.lastGenerationParams && this.lastGenerationParams.text) || '';
+            const voice = (this.lastGenerationParams && this.lastGenerationParams.voice) || '';
+            const speed = (this.lastGenerationParams && this.lastGenerationParams.speed) || '1.0';
+            const deepLink = `${location.origin}${location.pathname}?text=${encodeURIComponent(text)}&voice=${encodeURIComponent(voice)}&speed=${encodeURIComponent(speed)}&auto=1`;
+            const item = { t: Date.now(), text, voice, speed, link: deepLink };
             const key = 'voice_history';
             const list = JSON.parse(localStorage.getItem(key) || '[]');
             list.unshift(item);
@@ -604,19 +634,17 @@ class VoiceApp {
             meta.innerHTML = `<div style="font-size:12px;">${new Date(it.t).toLocaleString()} • ${it.voice} • ${it.speed}x</div><div style="font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width: 100%;">${(it.text || '').replace(/[\n\r]+/g,' ').slice(0,120)}</div>`;
             const play = document.createElement('button');
             play.className = 'action-btn';
-            play.textContent = '▶ 播放';
+            play.textContent = '▶ 生成并播放';
             play.addEventListener('click', () => {
-                const audio = document.getElementById('generated-audio');
-                if (audio) {
-                    audio.src = it.url;
-                    audio.play();
-                }
+                const params = new URLSearchParams({ text: it.text || '', voice: it.voice || 'nova', speed: String(it.speed || '1.0'), auto: '1' });
+                const url = `${location.pathname}?${params.toString()}`;
+                location.href = url;
             });
             const copy = document.createElement('button');
             copy.className = 'action-btn';
-            copy.textContent = '复制链接';
+            copy.textContent = '复制深链';
             copy.addEventListener('click', async () => {
-                try { await navigator.clipboard.writeText(it.url); this.showSuccess('已复制'); } catch(e) { this.showError('复制失败'); }
+                try { await navigator.clipboard.writeText(it.link || ''); this.showSuccess('已复制'); } catch(e) { this.showError('复制失败'); }
             });
             li.appendChild(meta);
             li.appendChild(play);

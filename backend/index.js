@@ -523,8 +523,12 @@ async function generateAudioFromPollinations(prompt, env, voice = "nova", model 
         textApiBase = textApiBase + '/';
     }
 
-    // 强化TTS指令，强制逐字朗读且不添加多余内容
-    const engineeredPrompt = `Read out exactly and only the following text, with natural prosody. Do not translate, do not summarize, and do not add any extra words. 只朗读下面文本，不要添加任何额外内容，也不要翻译或改写。文本："""${prompt}"""`;
+    // 强化TTS指令，强制逐字朗读且不添加多余内容；附加语速提示（部分API可能忽略speed参数）
+    const normalizedSpeed = (typeof speed !== 'undefined' && !isNaN(Number(speed))) ? Math.max(0.25, Math.min(4.0, Number(speed))) : 1.0;
+    const speedInstruction = normalizedSpeed !== 1.0
+        ? ` Speak at approximately ${normalizedSpeed}x speed while keeping natural prosody; do not unnaturally shorten or lengthen pauses. 语速要求：约 ${normalizedSpeed} 倍速，保持自然节奏，不要不自然地缩短或拉长停顿。`
+        : '';
+    const engineeredPrompt = `Read out exactly and only the following text, with natural prosody.${speedInstruction} Do not translate, do not summarize, and do not add any extra words. 只朗读下面文本，不要添加任何额外内容，也不要翻译或改写。文本："""${prompt}"""`;
     const encodedPrompt = encodeURIComponent(engineeredPrompt);
     
     const params = new URLSearchParams({
