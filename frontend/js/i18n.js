@@ -857,9 +857,9 @@ const i18n = {
         aboutHeroSubtitle: '基于最新AI技术的专业内容创作平台，为创作者和企业提供高效、智能的图像生成与语音合成解决方案',
         
         // 服务页面相关内容推荐
-        relatedContentTitle: '🚀 立即体验',
+        relatedContentTitle: '✨ 继续探索',
         relatedImageGen: '🎨 AI图片生成',
-        tryNow: '立即体验 →',
+        tryNow: '前往体验 →',
         relatedAIGuide: '🧠 AI技术指南',
         relatedAIGuideDesc: '深入了解AI语音合成技术原理和应用实践',
         learnMore: '了解更多 →',

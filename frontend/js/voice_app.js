@@ -28,6 +28,11 @@ class VoiceApp {
                 this.setupTextCounter();
                 this.setupSpeedSlider();
                 this.setupExamples();
+                this.populateVoiceExamples();
+                // 语言切换时，动态刷新语音示例
+                document.addEventListener('languageChanged', () => {
+                    this.populateVoiceExamples();
+                });
                 this.handleUrlParameters(); // 处理URL参数
                 this.initWaveform();
                 this.restoreHistory();
@@ -192,10 +197,44 @@ class VoiceApp {
         });
     }
 
+    // 根据当前语言填充示例按钮（中英分别填充对应文本）
+    populateVoiceExamples() {
+        const lang = (window.getCurrentLang && window.getCurrentLang()) || (document.documentElement.lang || 'zh');
+        const isZh = (lang || '').toLowerCase().startsWith('zh');
+        const examplesZh = [
+            { label: '📢 欢迎语', text: '欢迎使用AISTONE AI语音合成平台，让文字拥有声音的力量！' },
+            { label: '☀️ 日常对话', text: '今天天气真不错，阳光明媚，适合出门散步。希望每一天都能这样美好。' },
+            { label: '🤖 科技解说', text: '人工智能正在改变我们的世界，语音合成技术让机器拥有了更加自然的表达能力。' },
+            { label: '💭 情感表达', text: '在这个快节奏的时代，我们需要停下脚步，倾听内心的声音，感受生活的美好。' },
+            { label: '📚 学习讲解', text: '本节课程我们将一起学习如何高效地做笔记，并用自己的语言复述重点内容。' }
+        ];
+        const examplesEn = [
+            { label: '📢 Welcome', text: 'Hello! Welcome to the AISTONE AI voice synthesis platform. Turn your text into natural speech.' },
+            { label: '☀️ Daily Talk', text: 'Today is a beautiful day with sunshine. It is perfect for a relaxing walk outside.' },
+            { label: '🤖 Tech Narration', text: 'Artificial intelligence is transforming our world. Text-to-speech brings more natural expression to machines.' },
+            { label: '💭 Emotion', text: 'In this fast-paced era, we should slow down and listen to our inner voice, appreciating the beauty of life.' },
+            { label: '📚 Learning Intro', text: 'In this lesson, we will learn how to take effective notes and summarize key points in our own words.' }
+        ];
+
+        const list = isZh ? examplesZh : examplesEn;
+        const btns = Array.from(document.querySelectorAll('.example-btn[data-text]'));
+        if (!btns.length) return;
+        const n = Math.min(btns.length, list.length);
+        for (let i = 0; i < n; i++) {
+            const btn = btns[i];
+            const ex = list[i];
+            btn.textContent = ex.label;
+            btn.dataset.text = ex.text;
+        }
+    }
+
     handleUrlParameters() {
         // 解析URL参数
         const urlParams = new URLSearchParams(window.location.search);
         const text = urlParams.get('text');
+        const voice = urlParams.get('voice');
+        const speed = urlParams.get('speed');
+        const auto = urlParams.get('auto');
         const source = urlParams.get('source');
         
         if (text) {
@@ -214,11 +253,43 @@ class VoiceApp {
                 textInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
+
+        // 同步音色
+        if (voice) {
+            const voiceModel = document.getElementById('voice-model');
+            if (voiceModel) {
+                voiceModel.value = voice;
+            }
+        }
+
+        // 同步语速
+        if (speed) {
+            const speedSlider = document.getElementById('voice-speed');
+            const speedDisplay = document.getElementById('speed-display');
+            if (speedSlider) {
+                speedSlider.value = String(speed);
+                if (speedDisplay) speedDisplay.textContent = `${parseFloat(speedSlider.value) || 1.0}x`;
+                const audio = document.getElementById('generated-audio');
+                if (audio) { try { audio.playbackRate = parseFloat(speedSlider.value) || 1.0; } catch(e) {} }
+            }
+        }
         
         // 清理URL参数（可选，保持URL简洁）
-        if (text || source) {
+        // 注意：含 auto=1 时保留一次，以便回退后还能从历史中返回；生成后再清理
+        const shouldCleanNow = (text || source || voice || speed) && auto !== '1';
+        if (shouldCleanNow) {
             const cleanUrl = window.location.pathname;
             window.history.replaceState({}, document.title, cleanUrl);
+        }
+
+        // 自动生成
+        if (auto === '1' && text) {
+            this.generateVoice();
+            // 生成触发后立即清理URL，避免刷新重复生成
+            setTimeout(() => {
+                const cleanUrl = window.location.pathname;
+                window.history.replaceState({}, document.title, cleanUrl);
+            }, 0);
         }
     }
 
