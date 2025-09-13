@@ -1783,7 +1783,6 @@ const i18n = {
             },
             chapter6: {
                 title: '🚀 6. Advanced Creation Techniques & Workflows',
-                workflowTitle: 'Professional Workflow',
                 html: `
                         <div class="workflow-step">
                             <h4>Step 1: Concept</h4>
@@ -1793,128 +1792,9 @@ const i18n = {
                                 <li>Choose style and technical requirements</li>
                                 <li>Draft visual plan</li>
                             </ul>
-                        </div>`,
-                advancedTitle: 'Advanced Techniques',
-                advancedHTML: `
-                        <div class="technique">
-                            <h4>🎨 Style Fusion</h4>
-                            <p>Combine multiple artistic styles to create unique visuals:</p>
-                            <ul>
-                                <li><strong>Classic Blend:</strong> "Oil painting style for modern cityscapes"</li>
-                                <li><strong>Cross-era Fusion:</strong> "Baroque style sci-fi scene"</li>
-                                <li><strong>Mixed Media:</strong> "Watercolor techniques in photography"</li>
-                            </ul>
-                        </div>
-                        <div class="technique">
-                            <h4>🔄 Iterative Optimization</h4>
-                            <p>Systematic iteration to reach ideal results:</p>
-                            <ol>
-                                <li>Start from a base version and record each change</li>
-                                <li>Change one variable at a time</li>
-                                <li>Save intermediate versions</li>
-                                <li>Review and summarize winning patterns</li>
-                            </ol>
-                        </div>
-                        <div class="technique">
-                            <h4>📐 Composition Control</h4>
-                            <p>Precisely control composition and visual guidance:</p>
-                            <ul>
-                                <li><strong>Golden Ratio:</strong> Focal point at intersections</li>
-                                <li><strong>Leading Lines:</strong> S-curves and paths</li>
-                                <li><strong>Symmetry:</strong> Perfect symmetry and mirror frames</li>
-                                <li><strong>Depth Layers:</strong> Foreground, midground, background</li>
-                            </ul>
-                        </div>`,
-                businessTitle: 'Business Use Cases',
-                businessHTML: `
-                        <div class="application">
-                            <h4>🏢 Branding Design</h4>
-                            <ul>
-                                <li>Logo concepts and variants</li>
-                                <li>Visual identity system</li>
-                                <li>Packaging exploration</li>
-                                <li>Corporate posters</li>
-                            </ul>
-                        </div>
-                        <div class="application">
-                            <h4>📱 Social Media</h4>
-                            <ul>
-                                <li>Instagram/Weibo visuals</li>
-                                <li>Short video thumbnails</li>
-                                <li>Holiday themes</li>
-                                <li>Profile avatars and covers</li>
-                            </ul>
-                        </div>
-                        <div class="application">
-                            <h4>🎯 Ad Creatives</h4>
-                            <ul>
-                                <li>Product showcase</li>
-                                <li>Scenario-based marketing assets</li>
-                                <li>Concept exploration</li>
-                                <li>A/B testing materials</li>
-                            </ul>
-                        </div>
-                        <div class="application">
-                            <h4>🎮 Entertainment</h4>
-                            <ul>
-                                <li>Game character prototypes</li>
-                                <li>Novel illustrations</li>
-                                <li>Concept art</li>
-                                <li>Virtual scene building</li>
-                            </ul>
-                        </div>`,
-                trendsTitle: '🔮 Future Trends',
-                trendsHTML: `
-                        <div class="trend-item">
-                            <h4>Real-time Generation</h4>
-                            <p>Millisecond-level responses, real-time editing and preview.</p>
-                        </div>
-                        <div class="trend-item">
-                            <h4>Multimodal Fusion</h4>
-                            <p>Text, voice and gesture inputs work together for natural UX.</p>
-                        </div>
-                        <div class="trend-item">
-                            <h4>Personalization</h4>
-                            <p>AI learns user preferences and offers tailored suggestions.</p>
-                        </div>
-                        <div class="trend-item">
-                            <h4>Copyright & Ethics</h4>
-                            <p>Governance on rights, attribution and responsible AI.</p>
                         </div>`
             }
         },
-        relatedHTML: `
-            <h2 style="color: #333; margin-bottom: 25px; text-align: center;">📚 Recommended Reading</h2>
-            <div class="related-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                <div class="related-card" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #e9ecef;">
-                    <h3 style="font-size: 18px; margin: 0 0 12px 0; color: #007bff;">
-                        <a href="prompt-engineering.html" style="text-decoration: none; color: inherit;">🎯 Prompt Engineering Tutorial</a>
-                    </h3>
-                    <p style="margin: 0 0 15px 0; font-size: 14px; color: #666; line-height: 1.5;">Master weights, style fusion and negative prompts</p>
-                    <a href="prompt-engineering.html" style="font-size: 13px; color: #007bff; text-decoration: none; font-weight: 500;">Read Full Tutorial →</a>
-                </div>
-                <div class="related-card" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #e9ecef;">
-                    <h3 style="font-size: 18px; margin: 0 0 12px 0; color: #007bff;">
-                        <a href="tutorial.html" style="text-decoration: none; color: inherit;">📖 AISTONE Tutorial</a>
-                    </h3>
-                    <p style="margin: 0 0 15px 0; font-size: 14px; color: #666; line-height: 1.5;">From beginner to advanced, learn all platform features</p>
-                    <a href="tutorial.html" style="font-size: 13px; color: #007bff; text-decoration: none; font-weight: 500;">Start Learning →</a>
-                </div>
-                <div class="related-card" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #e9ecef;">
-                    <h3 style="font-size: 18px; margin: 0 0 12px 0; color: #007bff;">
-                        <a href="/" style="text-decoration: none; color: inherit;">🚀 Start Creating</a>
-                    </h3>
-                    <p style="margin: 0 0 15px 0; font-size: 14px; color: #666; line-height: 1.5;">Put theory into practice with your first AI artwork</p>
-                    <a href="/" style="font-size: 13px; color: #007bff; text-decoration: none; font-weight: 500;">Create Now →</a>
-                </div>
-                <div class="related-card" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #e9ecef;">
-                    <h3 style="font-size: 18px; margin: 0 0 12px 0; color: #007bff;">
-                        <a href="faq.html" style="text-decoration: none; color: inherit;">❓ FAQ</a>
-                    </h3>
-                    <p style="margin: 0 0 15px 0; font-size: 14px; color: #666; line-height: 1.5;">Find answers to common issues and solutions</p>
-                    <a href="faq.html" style="font-size: 13px; color: #007bff; text-decoration: none; font-weight: 500;">Find Answers →</a>
-                </div>
-            </div>`
 
         // Prompt Engineering Page（英文）
         promptEngineeringTitle: 'Prompt Engineering Tutorial',
