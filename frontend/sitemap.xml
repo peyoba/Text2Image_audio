@@ -8,8 +8,7 @@
         <lastmod>2025-09-07</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://aistone.org/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://aistone.org/"/>
+        
     </url>
     
     <!-- 关于我们页面 -->
@@ -92,13 +91,7 @@
         <priority>0.6</priority>
     </url>
 
-    <!-- 个人中心页面 -->
-    <url>
-        <loc>https://aistone.org/user.html</loc>
-        <lastmod>2025-09-07</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-    </url>
+    
     
     <!-- 图片生成器页面 -->
     <url>
