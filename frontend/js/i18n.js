@@ -1962,11 +1962,7 @@ const i18n = {
 function getCurrentLang() {
     const storedLang = localStorage.getItem('preferred_language');
     console.log('从localStorage获取语言:', storedLang); // 调试日志
-    if (!storedLang) return 'en';
-    const lower = String(storedLang).toLowerCase();
-    if (lower.startsWith('zh')) return 'zh';
-    if (lower.startsWith('en')) return 'en';
-    return 'en';
+    return storedLang || 'en'; // 默认使用英文
 }
 
 // 更新语言切换按钮状态
@@ -1974,7 +1970,7 @@ function updateLanguageButtons() {
     const currentLang = getCurrentLang();
     const langSelect = document.getElementById('lang-select');
     if (langSelect) {
-        langSelect.value = currentLang === 'zh' ? 'zh' : 'en';
+        langSelect.value = currentLang;
     }
 }
 
@@ -2001,12 +1997,6 @@ function getNestedI18nValue(lang, keyPath) {
 // 设置语言
 function setLanguage(lang) {
             // console.log('[i18n] setLanguage called, lang=', lang);
-    // 兼容 zh-CN / en-US 等写法
-    if (typeof lang === 'string') {
-        const lower = lang.toLowerCase();
-        if (lower.startsWith('zh')) lang = 'zh';
-        else if (lower.startsWith('en')) lang = 'en';
-    }
     if (i18n[lang]) {
         try {
             // 保存语言设置
