@@ -1548,6 +1548,253 @@ const i18n = {
         aiGuideWhatIsTitle: 'What is AI Image Generation?',
         aiGuideWhatIsDesc: 'AI image generation is a revolutionary technology that uses deep learning to automatically create images from text descriptions. This technology is trained on large-scale image-text datasets, enabling it to understand natural language descriptions and convert them into visual content.',
         aiGuideTechHistoryTitle: '🔥 Technology Development History',
+        // AI Guide Chapters - English rich HTML containers
+        aiGuide: {
+            chapter2: {
+                title: '🎯 2. In-depth Analysis of Mainstream AI Models',
+                modelComparisonHTML: `
+                        <h3>FLUX Model Series</h3>
+                        <div class="model-card">
+                            <h4>FLUX.1 [pro]</h4>
+                            <ul>
+                                <li><strong>Features:</strong> Highest quality commercial model with photo-grade output</li>
+                                <li><strong>Best for:</strong> Commercial ads, product showcase, professional illustrations</li>
+                                <li><strong>Advantages:</strong> Accurate color reproduction, rich details, professional composition</li>
+                                <li><strong>Suggested size:</strong> 1024x1024 or higher</li>
+                            </ul>
+                        </div>
+
+                        <div class="model-card">
+                            <h4>FLUX.1 [dev]</h4>
+                            <ul>
+                                <li><strong>Features:</strong> Developer version balancing quality and speed</li>
+                                <li><strong>Best for:</strong> Prototyping, concept art, creative exploration</li>
+                                <li><strong>Advantages:</strong> Fast generation, low resource usage, stable results</li>
+                                <li><strong>Suggested size:</strong> 512x512 to 1024x1024</li>
+                            </ul>
+                        </div>
+
+                        <h3>Stable Diffusion Family</h3>
+                        <div class="model-card">
+                            <h4>Stable Diffusion XL (SDXL)</h4>
+                            <ul>
+                                <li><strong>Features:</strong> High-resolution expert with native 1024x1024 output</li>
+                                <li><strong>Best for:</strong> Art creation, concept design, style experiments</li>
+                                <li><strong>Advantages:</strong> Open-source, strong community, highly customizable</li>
+                                <li><strong>Ecosystem:</strong> Supports LoRA, ControlNet and more</li>
+                            </ul>
+                        </div>
+
+                        <h3>Other Notable Models</h3>
+                        <div class="model-card">
+                            <h4>Midjourney</h4>
+                            <ul>
+                                <li><strong>Features:</strong> Strong artistic expression and color performance</li>
+                                <li><strong>Advantages:</strong> Unique creative styles, active community, constant updates</li>
+                                <li><strong>Best for:</strong> Art creation, concept art, illustration design</li>
+                            </ul>
+                        </div>`,
+                selectionHTML: `
+                        <h3>🎯 Model Selection Guide</h3>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Needs</th>
+                                    <th>Recommended Model</th>
+                                    <th>Reason</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Commercial Photography</td>
+                                    <td>FLUX.1 [pro]</td>
+                                    <td>Accurate colors, rich details</td>
+                                </tr>
+                                <tr>
+                                    <td>Rapid Prototyping</td>
+                                    <td>FLUX.1 [dev]</td>
+                                    <td>Fast and stable</td>
+                                </tr>
+                                <tr>
+                                    <td>Art Creation</td>
+                                    <td>Midjourney</td>
+                                    <td>Unique style, highly creative</td>
+                                </tr>
+                                <tr>
+                                    <td>Customization</td>
+                                    <td>Stable Diffusion</td>
+                                    <td>Open-source and highly extensible</td>
+                                </tr>
+                            </tbody>
+                        </table>`
+            },
+            chapter3: {
+                title: '✍️ 3. Prompt Engineering in Practice',
+                basicTitle: 'Basic Structure of Prompts',
+                basicHTML: `
+                        <div class="structure-element">
+                            <h4>1. Subject</h4>
+                            <p>Clearly describe the core subject or object</p>
+                            <div class="example">
+                                <strong>Example:</strong> "A young Asian woman", "Modern skyscraper", "Ancient forest"
+                            </div>
+                        </div>
+                        <div class="structure-element">
+                            <h4>2. Action/State</h4>
+                            <p>Describe what the subject is doing or its state</p>
+                            <div class="example">
+                                <strong>Example:</strong> "Smiling", "Standing still", "Dancing in the sunlight"
+                            </div>
+                        </div>
+                        <div class="structure-element">
+                            <h4>3. Environment</h4>
+                            <p>Set the time, place and environmental conditions</p>
+                            <div class="example">
+                                <strong>Example:</strong> "In a cherry blossom park", "City skyline background", "Seaside at sunset"
+                            </div>
+                        </div>
+                        <div class="structure-element">
+                            <h4>4. Style</h4>
+                            <p>Specify artistic style and visual effects</p>
+                            <div class="example">
+                                <strong>Example:</strong> "Professional portrait photography", "Watercolor", "Cyberpunk aesthetics"
+                            </div>
+                        </div>
+                        <div class="structure-element">
+                            <h4>5. Technical</h4>
+                            <p>Specify quality, composition and technical requirements</p>
+                            <div class="example">
+                                <strong>Example:</strong> "8K", "Depth of field", "Cinematic lighting"
+                            </div>
+                        </div>`,
+                advancedTitle: 'Advanced Prompt Techniques',
+                advancedHTML: `
+                        <h4>🎨 Weight Control</h4>
+                        <ul>
+                            <li><strong>Emphasize important elements:</strong> (important:1.2)</li>
+                            <li><strong>De-emphasize secondary elements:</strong> [secondary:0.8]</li>
+                            <li><strong>Exclude unwanted:</strong> Use negative prompts</li>
+                        </ul>
+                        <h4>🎯 Composition Control</h4>
+                        <ul>
+                            <li><strong>Perspective:</strong> Low-angle, bird-eye, first-person</li>
+                            <li><strong>Depth of Field:</strong> Shallow DOF, bokeh, pan-focus</li>
+                            <li><strong>Rules:</strong> Rule of thirds, centered, symmetry</li>
+                        </ul>
+                        <h4>💡 Lighting Control</h4>
+                        <ul>
+                            <li><strong>Light Source:</strong> Natural, artificial, neon</li>
+                            <li><strong>Direction:</strong> Side light, backlight, top light</li>
+                            <li><strong>Quality:</strong> Soft, dramatic, even</li>
+                        </ul>`,
+                examplesHTML: `
+                        <h3>🌟 High-quality Prompt Examples</h3>
+                        <div class="example-category">
+                            <h4>Portrait Photography</h4>
+                            <div class="prompt-example">
+                                <div class="prompt-text">"Professional business portrait of a confident woman ... 8K, studio lighting"</div>
+                                <div class="prompt-analysis"><strong>Analysis:</strong> Covers subject, clothing, environment, technical parameters and style</div>
+                            </div>
+                        </div>`
+            },
+            chapter4: {
+                title: '🏆 4. High-Quality Image Generation Strategies',
+                paramsTitle: 'Parameter Optimization',
+                paramsHTML: `
+                        <div class="parameter-section">
+                            <h4>Resolution</h4>
+                            <ul>
+                                <li><strong>1024x1024:</strong> Standard high quality for most uses</li>
+                                <li><strong>1536x1024:</strong> Wide aspect, great for banners</li>
+                                <li><strong>1024x1536:</strong> Portrait aspect, great for posters</li>
+                                <li><strong>2048x2048:</strong> Ultra-high for print</li>
+                            </ul>
+                        </div>
+                        <div class="parameter-section">
+                            <h4>Steps & Samplers</h4>
+                            <ul>
+                                <li><strong>Recommended steps:</strong> 20–50</li>
+                                <li><strong>DPM++:</strong> Quality first</li>
+                                <li><strong>Euler:</strong> Faster iterations</li>
+                                <li><strong>DDIM:</strong> Stable for batches</li>
+                            </ul>
+                        </div>
+                        <div class="parameter-section">
+                            <h4>CFG Scale</h4>
+                            <ul>
+                                <li><strong>7–12:</strong> Balanced</li>
+                                <li><strong>4–6:</strong> More creative, artsy</li>
+                                <li><strong>13–20:</strong> Strict prompt following</li>
+                            </ul>
+                        </div>`,
+                qualityTitle: 'Quality Improvement Tips',
+                qualityHTML: `
+                        <div class="tip-category">
+                            <h4>🎯 Prompt Optimization</h4>
+                            <ul>
+                                <li><strong>Be specific:</strong> Replace vague words with concrete details</li>
+                                <li><strong>Style keywords:</strong> Add "high quality", "cinematic", etc.</li>
+                                <li><strong>Reference masters:</strong> Mention famous photographers/artists</li>
+                                <li><strong>Technical terms:</strong> Use professional photography terms</li>
+                            </ul>
+                        </div>
+                        <div class="tip-category">
+                            <h4>🚫 Negative Prompt Strategy</h4>
+                            <ul>
+                                <li><strong>Quality exclusion:</strong> low quality, blurry, pixelated, deformed</li>
+                                <li><strong>Composition exclusion:</strong> cropped, cutoff, incomplete</li>
+                                <li><strong>Style exclusion:</strong> cartoon, anime, doodle (if photorealism needed)</li>
+                                <li><strong>Element exclusion:</strong> watermark, text, signature, border</li>
+                            </ul>
+                        </div>`,
+                postTitle: 'Post-processing Optimization',
+                postHTML: `
+                        <h4>🔧 AI Tools</h4>
+                        <ul>
+                            <li><strong>Upscale:</strong> Real-ESRGAN for higher resolution</li>
+                            <li><strong>Face restore:</strong> GFPGAN for facial details</li>
+                            <li><strong>Detail enhancement:</strong> Img2Img for local edits</li>
+                            <li><strong>Color correction:</strong> ControlNet for color/light control</li>
+                        </ul>
+                        <h4>📸 Traditional Editing</h4>
+                        <ul>
+                            <li><strong>Color balance:</strong> Adjust temperature and hue</li>
+                            <li><strong>Sharpening:</strong> Moderate sharpening for clarity</li>
+                            <li><strong>Denoise:</strong> Reduce noise for cleaner images</li>
+                            <li><strong>Composition:</strong> Crop and follow visual rules</li>
+                        </ul>`
+            },
+            chapter5: {
+                title: '🔧 5. Common Issues and Solutions',
+                html: `
+                        <div class="problem-solution">
+                            <h4>❌ Issue: Blurry images</h4>
+                            <div class="solutions">
+                                <h5>💡 Solutions:</h5>
+                                <ul>
+                                    <li>Increase resolution to 1024x1024 or higher</li>
+                                    <li>Add "high quality", "sharp", "rich details"</li>
+                                    <li>Adjust CFG Scale to 7–12</li>
+                                    <li>Increase steps to 25–40</li>
+                                    <li>Add negatives like "blurry, low quality, pixelated"</li>
+                                </ul>
+                            </div>
+                        </div>`
+            },
+            chapter6: {
+                title: '🚀 6. Advanced Creation Techniques & Workflows',
+                html: `
+                        <div class="workflow-step">
+                            <h4>Step 1: Concept</h4>
+                            <ul>
+                                <li>Define goals and usage</li>
+                                <li>Collect references</li>
+                                <li>Choose style and technical requirements</li>
+                                <li>Draft visual plan</li>
+                            </ul>
+                        </div>`
+            }
+        },
 
         // Prompt Engineering Page（英文）
         promptEngineeringTitle: 'Prompt Engineering Tutorial',
