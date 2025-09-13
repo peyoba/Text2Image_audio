@@ -47,14 +47,14 @@
             <span class="site-name">AISTONE</span>
         </div>
         <ul class="navbar-menu">
-            <li><a href="/" data-i18n="navHome">首页</a></li>
-            <li><a href="voice.html" data-i18n="navVoiceGen">语音合成</a></li>
-            <li><a href="about.html" class="active" data-i18n="navAbout">关于我们</a></li>
-            <li><a href="ai-guide.html" data-i18n="navAIGuide">AI指南</a></li>
-            <li><a href="prompt-engineering.html" data-i18n="navPromptEngineering">提示词工程</a></li>
-            <li><a href="tutorial.html" data-i18n="navTutorial">使用教程</a></li>
-            <li><a href="faq.html" data-i18n="navFAQ">常见问题</a></li>
-            <li><a href="contact.html" data-i18n="navContact">联系我们</a></li>
+            <li><a href="/" data-i18n="navHome">Home</a></li>
+            <li><a href="voice.html" data-i18n="navVoiceGen">Voice</a></li>
+            <li><a href="about.html" class="active" data-i18n="navAbout">About</a></li>
+            <li><a href="ai-guide.html" data-i18n="navAIGuide">AI Guide</a></li>
+            <li><a href="prompt-engineering.html" data-i18n="navPromptEngineering">Prompt</a></li>
+            <li><a href="tutorial.html" data-i18n="navTutorial">Tutorial</a></li>
+            <li><a href="faq.html" data-i18n="navFAQ">FAQ</a></li>
+            <li><a href="contact.html" data-i18n="navContact">Contact</a></li>
         </ul>
         <div class="navbar-right">
             <select id="lang-select" class="lang-select">
@@ -62,7 +62,7 @@
                 <option value="zh">中文</option>
             </select>
             <!-- 登录按钮 -->
-            <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">登录</button>
+            <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">Login</button>
             <!-- 用户信息显示区域 -->
             <div class="user-info" id="nav-user-info" style="display: none;">
                 <div class="user-details">
@@ -84,16 +84,16 @@
         <div class="container">
             <!-- 面包屑导航 -->
             <nav class="breadcrumb">
-                <a href="/" data-i18n="navHome">首页</a>
+                <a href="/" data-i18n="navHome">Home</a>
                 <span class="separator">></span>
-                <span class="current" data-i18n="navAbout">关于我们</span>
+                <span class="current" data-i18n="navAbout">About</span>
             </nav>
 
             <!-- 企业简介 -->
             <section class="hero-section about-hero-refined">
                 <div class="hero-content">
                     <h1 data-i18n="aboutHeroTitle">AISTONE - 重新定义内容创作</h1>
-                    <p class="hero-subtitle" data-i18n="aboutHeroSubtitle">基于最新AI技术的专业内容创作平台，为创作者和企业提供高效、智能的图像生成与语音合成解决方案</p>
+                    <p class="hero-subtitle" data-i18n="aboutHeroSubtitle">Professional AI content platform powered by the latest models, delivering efficient image generation and voice synthesis for creators and enterprises.</p>
                     <div class="hero-stats">
                         <div class="stat-item">
                             <div class="stat-number">1M+</div>
@@ -117,43 +117,43 @@
 
             <!-- 核心价值主张 -->
             <section class="value-proposition">
-                <h2 data-i18n="aboutCoreValuesTitle">🎯 我们的核心价值</h2>
+                <h2 data-i18n="aboutCoreValuesTitle">🎯 Our Core Values</h2>
                 <div class="value-grid">
                     <div class="value-card">
                         <div class="value-icon">🚀</div>
-                        <h3 data-i18n="aboutTechLeadTitle">技术领先</h3>
-                        <p data-i18n="aboutTechLeadDesc">集成FLUX、Stable Diffusion等最新AI模型，提供业界领先的生成质量和速度</p>
+                        <h3 data-i18n="aboutTechLeadTitle">Technical Leadership</h3>
+                        <p data-i18n="aboutTechLeadDesc">Integrates FLUX, Stable Diffusion and more to offer industry‑leading quality and speed.</p>
                     </div>
                     <div class="value-card">
                         <div class="value-icon">🔓</div>
-                        <h3 data-i18n="aboutOpenFreeTitle">开放免费</h3>
-                        <p data-i18n="aboutOpenFreeDesc">坚持技术普惠理念，所有核心功能永久免费开放，降低AI技术使用门槛</p>
+                        <h3 data-i18n="aboutOpenFreeTitle">Open & Free</h3>
+                        <p data-i18n="aboutOpenFreeDesc">Core features are permanently free to lower the barrier to AI creation.</p>
                     </div>
                     <div class="value-card">
                         <div class="value-icon">⚡</div>
-                        <h3 data-i18n="aboutEfficientTitle">高效便捷</h3>
-                        <p data-i18n="aboutEfficientDesc">无需注册即用，简洁直观的用户界面，专业级功能一键触达</p>
+                        <h3 data-i18n="aboutEfficientTitle">Efficient & Convenient</h3>
+                        <p data-i18n="aboutEfficientDesc">Use instantly without sign‑up. Clean UI with professional features at hand.</p>
                     </div>
                     <div class="value-card">
                         <div class="value-icon">🛡️</div>
-                        <h3 data-i18n="aboutSecureTitle">安全可靠</h3>
-                        <p data-i18n="aboutSecureDesc">基于Cloudflare全球网络架构，确保数据安全和服务稳定性</p>
+                        <h3 data-i18n="aboutSecureTitle">Secure & Reliable</h3>
+                        <p data-i18n="aboutSecureDesc">Cloudflare‑backed global architecture ensures data security and stability.</p>
                     </div>
                 </div>
             </section>
 
             <!-- 技术架构 -->
             <section class="technology-section">
-                <h2 data-i18n="aboutTechArchTitle">🔬 技术架构与创新</h2>
+                <h2 data-i18n="aboutTechArchTitle">🔬 Technology Architecture & Innovation</h2>
                 
                 <div class="tech-overview">
                     <div class="tech-content">
-                        <h3 data-i18n="aboutTechIntegrationTitle">前沿AI模型集成</h3>
-                        <p data-i18n="aboutTechIntegrationDesc">AISTONE集成了当前最先进的人工智能模型，为用户提供专业级的内容生成能力。我们的技术栈基于最新的扩散模型架构，结合深度学习和神经网络技术，实现了从文本到图像、从文本到语音的高质量转换。</p>
+                        <h3 data-i18n="aboutTechIntegrationTitle">Cutting‑edge AI Model Integration</h3>
+                        <p data-i18n="aboutTechIntegrationDesc">AISTONE integrates state‑of‑the‑art models. Our stack is built on modern diffusion architectures and deep learning to achieve high‑quality text‑to‑image and text‑to‑speech generation.</p>
                         
                         <div class="tech-highlights">
                             <div class="highlight-item">
-                                <h4 data-i18n="aboutImageTechTitle">🎨 图像生成技术</h4>
+                                <h4 data-i18n="aboutImageTechTitle">🎨 Image Generation Technology</h4>
                                 <ul>
                                     <li><strong data-i18n="aboutFluxModel">FLUX系列模型：</strong><span data-i18n="aboutFluxModelDesc">最新的开源扩散模型，支持高分辨率图像生成</span></li>
                                     <li><strong data-i18n="aboutStableDiffusion">Stable Diffusion：</strong><span data-i18n="aboutStableDiffusionDesc">成熟稳定的图像生成底座，支持多种艺术风格</span></li>
@@ -163,7 +163,7 @@
                             </div>
                             
                             <div class="highlight-item">
-                                <h4 data-i18n="aboutVoiceTechTitle">🎵 语音合成技术</h4>
+                                <h4 data-i18n="aboutVoiceTechTitle">🎵 Voice Synthesis Technology</h4>
                                 <ul>
                                     <li><strong data-i18n="aboutNeuralTTS">神经网络TTS：</strong><span data-i18n="aboutNeuralTTSDesc">基于Transformer架构的高质量语音合成</span></li>
                                     <li><strong data-i18n="aboutMultiVoice">多音色支持：</strong><span data-i18n="aboutMultiVoiceDesc">6种专业级音色，适应不同应用场景</span></li>
@@ -175,23 +175,23 @@
                     </div>
                     
                     <div class="tech-architecture">
-                        <h3 data-i18n="aboutCloudArchTitle">云原生架构设计</h3>
+                        <h3 data-i18n="aboutCloudArchTitle">Cloud‑native Architecture</h3>
                         <div class="architecture-diagram">
                             <div class="arch-layer">
-                                <h4 data-i18n="aboutFrontendLayer">🌐 前端层</h4>
-                                <p data-i18n="aboutFrontendLayerDesc">响应式Web应用，支持多设备访问，基于现代JavaScript框架构建</p>
+                                <h4 data-i18n="aboutFrontendLayer">🌐 Frontend Layer</h4>
+                                <p data-i18n="aboutFrontendLayerDesc">Responsive web app for multi‑device access, built with modern JavaScript.</p>
                             </div>
                             <div class="arch-layer">
-                                <h4 data-i18n="aboutAPIGateway">⚡ API网关</h4>
-                                <p data-i18n="aboutAPIGatewayDesc">Cloudflare Workers边缘计算，全球分布式部署，确保低延迟访问</p>
+                                <h4 data-i18n="aboutAPIGateway">⚡ API Gateway</h4>
+                                <p data-i18n="aboutAPIGatewayDesc">Cloudflare Workers edge network for globally distributed low‑latency access.</p>
                             </div>
                             <div class="arch-layer">
-                                <h4 data-i18n="aboutAIInferenceLayer">🧠 AI推理层</h4>
-                                <p data-i18n="aboutAIInferenceLayerDesc">集成多个AI服务提供商，智能负载均衡，保证高可用性</p>
+                                <h4 data-i18n="aboutAIInferenceLayer">🧠 AI Inference Layer</h4>
+                                <p data-i18n="aboutAIInferenceLayerDesc">Multiple providers with smart load balancing ensure high availability.</p>
                             </div>
                             <div class="arch-layer">
-                                <h4 data-i18n="aboutDataStorage">💾 数据存储</h4>
-                                <p data-i18n="aboutDataStorageDesc">KV存储用户数据，R2对象存储管理生成内容，全球同步</p>
+                                <h4 data-i18n="aboutDataStorage">💾 Data Storage</h4>
+                                <p data-i18n="aboutDataStorageDesc">KV for user data, R2 object storage for generated assets, globally synced.</p>
                             </div>
                         </div>
                     </div>
@@ -448,25 +448,25 @@
 
             <!-- 联系与支持 -->
             <section class="contact-section">
-                <h2 data-i18n="aboutContactTitle">💬 联系我们</h2>
+                <h2 data-i18n="aboutContactTitle">💬 Contact Us</h2>
                 <div class="contact-content">
                     <div class="contact-info">
-                        <h3 data-i18n="aboutContactSupportTitle">多渠道支持服务</h3>
-                        <p data-i18n="aboutContactSupportDesc">我们提供多种方式与用户保持联系，确保您在使用过程中得到及时的帮助和支持。</p>
+                        <h3 data-i18n="aboutContactSupportTitle">Multi‑channel Support</h3>
+                        <p data-i18n="aboutContactSupportDesc">We provide various ways to stay connected and ensure you get timely help.</p>
                         
                         <div class="contact-methods">
                             <div class="contact-method">
                                 <div class="contact-icon">📧</div>
-                                <h4 data-i18n="aboutContactEmail">邮件支持</h4>
+                                <h4 data-i18n="aboutContactEmail">Email Support</h4>
                                 <p>support@aistone.org</p>
-                                <span data-i18n="aboutContactEmailSla">工作日24小时内回复</span>
+                                <span data-i18n="aboutContactEmailSla">Response within 24 hours (business days)</span>
                             </div>
                             
                             <div class="contact-method">
                                 <div class="contact-icon">💬</div>
-                                <h4 data-i18n="aboutContactChat">在线客服</h4>
-                                <p data-i18n="aboutContactChatDesc">网站右下角聊天窗口</p>
-                                <span data-i18n="aboutContactChatSla">工作时间实时响应</span>
+                                <h4 data-i18n="aboutContactChat">Live Chat</h4>
+                                <p data-i18n="aboutContactChatDesc">Chat window at the bottom‑right of the site</p>
+                                <span data-i18n="aboutContactChatSla">Real‑time during business hours</span>
                             </div>
                             
                             <div class="contact-method">
