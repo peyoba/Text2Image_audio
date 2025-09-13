@@ -2239,28 +2239,28 @@ document.addEventListener('languageChanged', () => {
 });
 
 // 初始化时更新页面文本
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('[i18n] DOMContentLoaded, initializing i18n...');
-    
+function initI18n() {
+    console.log('[i18n] initializing i18n...');
     // 初始化语言选择器
     const langSelect = document.getElementById('lang-select');
+    const currentLang = getCurrentLang();
     if (langSelect) {
-        // 设置初始语言
-        const currentLang = getCurrentLang();
-        langSelect.value = currentLang;
-        document.documentElement.lang = currentLang;
-        
-        // 添加change事件监听器
+        langSelect.value = currentLang === 'zh' ? 'zh' : 'en';
         langSelect.addEventListener('change', (e) => {
             console.log('[i18n] lang-select changed:', e.target.value);
             setLanguage(e.target.value);
         });
     }
-    
-    // 更新页面文本 - 使用setLanguage确保所有data-i18n元素正确处理
-    const currentLang = getCurrentLang();
+    // 使用setLanguage确保所有data-i18n元素正确处理
     setLanguage(currentLang);
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initI18n);
+} else {
+    // 文档已就绪，立即初始化
+    initI18n();
+}
 
 // 将函数设为全局变量
 window.getCurrentLang = getCurrentLang;
