@@ -1881,9 +1881,7 @@ const i18n = {
                             <h4>Copyright & Ethics</h4>
                             <p>Governance on rights, attribution and responsible AI.</p>
                         </div>`
-            }
-        },
-        relatedHTML: `
+                relatedHTML: `
             <h2 style="color: #333; margin-bottom: 25px; text-align: center;">📚 Recommended Reading</h2>
             <div class="related-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
                 <div class="related-card" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #e9ecef;">
@@ -1915,6 +1913,8 @@ const i18n = {
                     <a href="faq.html" style="font-size: 13px; color: #007bff; text-decoration: none; font-weight: 500;">Find Answers →</a>
                 </div>
             </div>`
+            }
+        },
 
         // Prompt Engineering Page（英文）
         promptEngineeringTitle: 'Prompt Engineering Tutorial',
