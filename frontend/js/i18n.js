@@ -1880,8 +1880,9 @@ const i18n = {
                         <div class="trend-item">
                             <h4>Copyright & Ethics</h4>
                             <p>Governance on rights, attribution and responsible AI.</p>
-                        </div>`
-                relatedHTML: `
+                        </div>`,
+            },
+            relatedHTML: `
             <h2 style="color: #333; margin-bottom: 25px; text-align: center;">📚 Recommended Reading</h2>
             <div class="related-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
                 <div class="related-card" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #e9ecef;">
