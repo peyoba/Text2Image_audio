@@ -1959,10 +1959,13 @@ function initI18n() {
     const currentLang = getCurrentLang();
     if (langSelect) {
         langSelect.value = currentLang === 'zh' ? 'zh' : 'en';
-        langSelect.addEventListener('change', (e) => {
-            console.log('[i18n] lang-select changed:', e.target.value);
-            setLanguage(e.target.value);
-        });
+        // 防止重复绑定
+        if (!langSelect.__i18nBound) {
+            langSelect.addEventListener('change', (e) => {
+                setLanguage(e.target.value);
+            });
+            langSelect.__i18nBound = true;
+        }
     }
     // 使用setLanguage确保所有data-i18n元素正确处理
     setLanguage(currentLang);
