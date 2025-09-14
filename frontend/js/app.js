@@ -47,23 +47,16 @@ class App {
             langSelect.value = currentLang;
             console.log('设置语言选择器初始值:', currentLang);
 
-            if (!langSelect.__i18nBound) {
-                let lastValue = langSelect.value;
-                let timer = null;
-                langSelect.addEventListener('change', (e) => {
-                    const newVal = e.target.value;
-                    if (newVal === lastValue) return;
-                    lastValue = newVal;
-                    if (timer) clearTimeout(timer);
-                    timer = setTimeout(() => {
-                        const success = setLanguage(newVal);
-                        if (!success) {
-                            langSelect.value = getCurrentLang();
-                        }
-                    }, 0);
-                });
-                langSelect.__i18nBound = true;
-            }
+            // 添加事件监听器
+            langSelect.addEventListener('change', (e) => {
+                console.log('语言选择器变化:', e.target.value);
+                const success = setLanguage(e.target.value);
+                if (!success) {
+                    console.error('语言切换失败');
+                    // 恢复原来的选择
+                    langSelect.value = getCurrentLang();
+                }
+            });
         } else {
             console.error('未找到语言选择器元素');
         }

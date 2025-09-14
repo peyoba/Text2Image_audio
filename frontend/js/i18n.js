@@ -167,18 +167,6 @@ const i18n = {
         aboutSolutionPrivate: 'Private Deployment',
 
         aboutPartnerTitle: '🤝 Partnerships & Open Source',
-        aboutPartnerAcademyItem1: 'Joint lab projects',
-        aboutPartnerAcademyItem2: 'Academic publications',
-        aboutPartnerAcademyItem3: 'Technical exchange conferences',
-        aboutPartnerAcademyItem4: 'Talent cultivation programs',
-        aboutPartnerIndustryItem1: 'Hardware optimization cooperation',
-        aboutPartnerIndustryItem2: 'Cloud service integration',
-        aboutPartnerIndustryItem3: 'Platform content distribution',
-        aboutPartnerIndustryItem4: 'Standards participation',
-        aboutPartnerOpenItem1: 'Open-source tool releases',
-        aboutPartnerOpenItem2: 'Technical documentation sharing',
-        aboutPartnerOpenItem3: 'Community support',
-        aboutPartnerOpenItem4: 'Developer training',
         aboutPartnerAcademy: '🔬 Academic Cooperation',
         aboutPartnerAcademyDesc: 'Work with universities and institutes to advance AI research and application in creation.',
         aboutPartnerIndustry: '💼 Industrial Ecosystem',
@@ -188,24 +176,8 @@ const i18n = {
 
         aboutAchievementsTitle: '🏆 Platform Data & Achievements',
         aboutAchievementsService: '📊 Service Data',
-        aboutDataImages: 'Total generated images',
-        aboutDataAudioHours: 'Voice synthesis hours',
-        aboutDataUsers: 'Registered users',
-        aboutDataRegions: 'Countries and regions',
         aboutAchievementsTech: '🎖️ Technical Achievements',
-        aboutTechPerf: 'Performance Optimization',
-        aboutTechPerfDesc: 'Average image generation reduced to 15s; real-time voice processing achieved',
-        aboutTechQuality: 'Quality Improvement',
-        aboutTechQualityDesc: 'User satisfaction 95%+; continuous improvement in quality ratings',
-        aboutTechStability: 'Stability Assurance',
-        aboutTechStabilityDesc: '99.9% availability; supports 1000+ RPS',
         aboutAchievementsIndustry: '🌟 Industry Recognition',
-        aboutIndustryAward: 'Technology Innovation Award',
-        aboutIndustryAwardDesc: 'Outstanding award in 2024 AI Application Innovation Contest',
-        aboutIndustryReputation: 'User Reputation',
-        aboutIndustryReputationDesc: '90%+ positive on social media, highly recommended',
-        aboutIndustryMedia: 'Media Coverage',
-        aboutIndustryMediaDesc: 'Featured by multiple tech media and reviews',
 
         aboutContactTitle: '💬 Contact Us',
         aboutContactSupportTitle: 'Multi-channel Support',
@@ -592,18 +564,6 @@ const i18n = {
         aboutSolutionPrivate: '私有化部署',
 
         aboutPartnerTitle: '🤝 技术合作与开源贡献',
-        aboutPartnerAcademyItem1: '联合实验室项目',
-        aboutPartnerAcademyItem2: '学术论文发表',
-        aboutPartnerAcademyItem3: '技术交流会议',
-        aboutPartnerAcademyItem4: '人才培养计划',
-        aboutPartnerIndustryItem1: '硬件优化合作',
-        aboutPartnerIndustryItem2: '云服务集成',
-        aboutPartnerIndustryItem3: '平台内容分发',
-        aboutPartnerIndustryItem4: '标准制定参与',
-        aboutPartnerOpenItem1: '开源工具发布',
-        aboutPartnerOpenItem2: '技术文档分享',
-        aboutPartnerOpenItem3: '社区维护支持',
-        aboutPartnerOpenItem4: '开发者培训',
         aboutPartnerAcademy: '🔬 学术合作',
         aboutPartnerAcademyDesc: '与国内外知名高校和研究机构建立合作关系，共同推进AI技术在内容创作领域的研究与应用。',
         aboutPartnerIndustry: '💼 产业生态',
@@ -613,24 +573,8 @@ const i18n = {
 
         aboutAchievementsTitle: '🏆 平台数据与成就',
         aboutAchievementsService: '📊 服务数据',
-        aboutDataImages: '累计生成图像数量',
-        aboutDataAudioHours: '语音合成时长（小时）',
-        aboutDataUsers: '注册用户数量',
-        aboutDataRegions: '国家和地区覆盖',
         aboutAchievementsTech: '🎖️ 技术成就',
-        aboutTechPerf: '性能优化',
-        aboutTechPerfDesc: '平均图像生成时间缩短至15秒，语音合成实现实时处理',
-        aboutTechQuality: '质量提升',
-        aboutTechQualityDesc: '用户满意度达到95%+，生成内容质量评分持续改善',
-        aboutTechStability: '稳定性保障',
-        aboutTechStabilityDesc: '服务可用性达到99.9%，支持每秒1000+并发请求',
         aboutAchievementsIndustry: '🌟 行业认可',
-        aboutIndustryAward: '技术创新奖',
-        aboutIndustryAwardDesc: '2024年度AI应用创新大赛优秀奖',
-        aboutIndustryReputation: '用户口碑',
-        aboutIndustryReputationDesc: '社交媒体好评率90%+，用户推荐度高',
-        aboutIndustryMedia: '媒体报道',
-        aboutIndustryMediaDesc: '多家科技媒体专题报道和评测',
 
         aboutContactTitle: '💬 联系我们',
         aboutContactSupportTitle: '多渠道支持服务',
@@ -1110,7 +1054,7 @@ const i18n = {
         relatedAboutDesc: '深入了解我们的AI技术和平台愿景',
     },
     
-    en_extra: {
+    en: {
         // Title and description
         title: 'AISTONE',
         subtitle: 'Image · Audio · Unlimited Free Generation',
@@ -1663,11 +1607,8 @@ const i18n = {
 // 获取当前语言
 function getCurrentLang() {
     const storedLang = localStorage.getItem('preferred_language');
-    const lower = String(storedLang || '').toLowerCase();
-    if (!lower) return 'en';
-    if (lower.startsWith('zh')) return 'zh';
-    if (lower.startsWith('en')) return 'en';
-    return 'en';
+    console.log('从localStorage获取语言:', storedLang); // 调试日志
+    return storedLang || 'en'; // 默认使用英文
 }
 
 // 更新语言切换按钮状态
@@ -1675,7 +1616,7 @@ function updateLanguageButtons() {
     const currentLang = getCurrentLang();
     const langSelect = document.getElementById('lang-select');
     if (langSelect) {
-        langSelect.value = currentLang === 'zh' ? 'zh' : 'en';
+        langSelect.value = currentLang;
     }
 }
 
@@ -1702,23 +1643,16 @@ function getNestedI18nValue(lang, keyPath) {
 // 设置语言
 function setLanguage(lang) {
             // console.log('[i18n] setLanguage called, lang=', lang);
-    if (typeof lang === 'string') {
-        const lower = lang.toLowerCase();
-        if (lower.startsWith('zh')) lang = 'zh';
-        else if (lower.startsWith('en')) lang = 'en';
-    }
     if (i18n[lang]) {
         try {
             // 保存语言设置
         localStorage.setItem('preferred_language', lang);
-            // 同步选择器显示
-            try { updateLanguageButtons(); } catch (_) {}
             // 设置HTML lang属性，使用标准的语言代码
             const langCode = lang === 'zh' ? 'zh-CN' : 'en';
             document.documentElement.lang = langCode;
             // console.log('[i18n] 语言已保存到localStorage:', lang, 'HTML lang属性设置为:', langCode);
             
-            // 更新所有带有data-i18n属性的元素（包含导航、面包屑、页脚等）
+            // 更新所有带有data-i18n属性的元素
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 const value = getNestedI18nValue(lang, key);
@@ -1732,20 +1666,6 @@ function setLanguage(lang) {
                     }
                 }
             });
-
-            // 兜底：明确刷新顶部导航文本（有些页面脚本顺序可能导致未同步）
-            const navContainer = document.querySelector('.navbar-menu');
-            if (navContainer) {
-                const navMap = [
-                    'navHome', 'navVoiceGen', 'navAbout', 'navAIGuide',
-                    'navPromptEngineering', 'navTutorial', 'navFAQ', 'navContact'
-                ];
-                navMap.forEach(key => {
-                    const el = navContainer.querySelector(`[data-i18n="${key}"]`);
-                    const val = getNestedI18nValue(lang, key);
-                    if (el && val) el.textContent = val;
-                });
-            }
 
             // 更新特定元素
             const elements = {
@@ -1961,13 +1881,10 @@ function initI18n() {
     const currentLang = getCurrentLang();
     if (langSelect) {
         langSelect.value = currentLang === 'zh' ? 'zh' : 'en';
-        // 防止重复绑定
-        if (!langSelect.__i18nBound) {
-            langSelect.addEventListener('change', (e) => {
-                setLanguage(e.target.value);
-            });
-            langSelect.__i18nBound = true;
-        }
+        langSelect.addEventListener('change', (e) => {
+            console.log('[i18n] lang-select changed:', e.target.value);
+            setLanguage(e.target.value);
+        });
     }
     // 使用setLanguage确保所有data-i18n元素正确处理
     setLanguage(currentLang);
