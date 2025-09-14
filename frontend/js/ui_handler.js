@@ -86,11 +86,15 @@ class UIHandler {
         const langSelect = document.getElementById('lang-select');
         if (langSelect) {
             langSelect.value = currentLang;
-            langSelect.addEventListener('change', (e) => {
-                if (e.target.value !== getCurrentLang()) {
-                    setLanguage(e.target.value);
-                }
-            });
+            if (!langSelect.__i18nBound) {
+                langSelect.addEventListener('change', (e) => {
+                    const val = e.target.value;
+                    if (val !== getCurrentLang()) {
+                        setLanguage(val);
+                    }
+                });
+                langSelect.__i18nBound = true;
+            }
         }
     }
 

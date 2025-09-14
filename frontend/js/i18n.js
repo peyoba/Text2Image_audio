@@ -1711,6 +1711,8 @@ function setLanguage(lang) {
         try {
             // 保存语言设置
         localStorage.setItem('preferred_language', lang);
+            // 同步选择器显示
+            try { updateLanguageButtons(); } catch (_) {}
             // 设置HTML lang属性，使用标准的语言代码
             const langCode = lang === 'zh' ? 'zh-CN' : 'en';
             document.documentElement.lang = langCode;
