@@ -120,6 +120,12 @@ const i18n = {
 
         // About page - extra keys
         aboutTimelineTitle: '📈 Milestones',
+        aboutTimelineDate1: 'Mar 2024',
+        aboutTimelineDate2: 'Jun 2024',
+        aboutTimelineDate3: 'Sep 2024',
+        aboutTimelineDate4: 'Dec 2024',
+        aboutTimelineDate5: 'Mar 2025',
+        aboutTimelineDate6: 'Future 2025',
         aboutTimelineKickoff: 'Project Kickoff',
         aboutTimelineKickoffDesc: 'AISTONE officially launched with a focus on AI content generation, starting technical architecture design and prototyping.',
         aboutTimelineMvp: 'MVP Release',
@@ -1021,6 +1027,13 @@ const i18n = {
         // 关于页面
         aboutHeroTitle: 'AISTONE - 重新定义内容创作',
         aboutHeroSubtitle: '基于最新AI技术的专业内容创作平台，为创作者和企业提供高效、智能的图像生成与语音合成解决方案',
+        // About extra dates
+        aboutTimelineDate1: '2024年3月',
+        aboutTimelineDate2: '2024年6月',
+        aboutTimelineDate3: '2024年9月',
+        aboutTimelineDate4: '2024年12月',
+        aboutTimelineDate5: '2025年3月',
+        aboutTimelineDate6: '2025年未来',
         
         // 服务页面相关内容推荐
         relatedContentTitle: '✨ 继续探索',
