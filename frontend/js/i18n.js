@@ -1663,8 +1663,11 @@ const i18n = {
 // 获取当前语言
 function getCurrentLang() {
     const storedLang = localStorage.getItem('preferred_language');
-    console.log('从localStorage获取语言:', storedLang); // 调试日志
-    return storedLang || 'en'; // 默认使用英文
+    const lower = String(storedLang || '').toLowerCase();
+    if (!lower) return 'en';
+    if (lower.startsWith('zh')) return 'zh';
+    if (lower.startsWith('en')) return 'en';
+    return 'en';
 }
 
 // 更新语言切换按钮状态
@@ -1672,7 +1675,7 @@ function updateLanguageButtons() {
     const currentLang = getCurrentLang();
     const langSelect = document.getElementById('lang-select');
     if (langSelect) {
-        langSelect.value = currentLang;
+        langSelect.value = currentLang === 'zh' ? 'zh' : 'en';
     }
 }
 
@@ -1699,6 +1702,11 @@ function getNestedI18nValue(lang, keyPath) {
 // 设置语言
 function setLanguage(lang) {
             // console.log('[i18n] setLanguage called, lang=', lang);
+    if (typeof lang === 'string') {
+        const lower = lang.toLowerCase();
+        if (lower.startsWith('zh')) lang = 'zh';
+        else if (lower.startsWith('en')) lang = 'en';
+    }
     if (i18n[lang]) {
         try {
             // 保存语言设置
@@ -1708,7 +1716,7 @@ function setLanguage(lang) {
             document.documentElement.lang = langCode;
             // console.log('[i18n] 语言已保存到localStorage:', lang, 'HTML lang属性设置为:', langCode);
             
-            // 更新所有带有data-i18n属性的元素
+            // 更新所有带有data-i18n属性的元素（包含导航、面包屑、页脚等）
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 const value = getNestedI18nValue(lang, key);
@@ -1722,6 +1730,20 @@ function setLanguage(lang) {
                     }
                 }
             });
+
+            // 兜底：明确刷新顶部导航文本（有些页面脚本顺序可能导致未同步）
+            const navContainer = document.querySelector('.navbar-menu');
+            if (navContainer) {
+                const navMap = [
+                    'navHome', 'navVoiceGen', 'navAbout', 'navAIGuide',
+                    'navPromptEngineering', 'navTutorial', 'navFAQ', 'navContact'
+                ];
+                navMap.forEach(key => {
+                    const el = navContainer.querySelector(`[data-i18n="${key}"]`);
+                    const val = getNestedI18nValue(lang, key);
+                    if (el && val) el.textContent = val;
+                });
+            }
 
             // 更新特定元素
             const elements = {
