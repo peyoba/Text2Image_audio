@@ -33,7 +33,12 @@ export default {
         logInfo(env, `[Worker Log] Received request: ${method} ${path}`);
         let headersLog = "[Worker Log] Request Headers: ";
         for (let pair of request.headers.entries()) {
-            headersLog += `\n  ${pair[0]}: ${pair[1]}`;
+            const k = pair[0];
+            let v = pair[1];
+            if (["authorization", "cookie", "set-cookie"].includes(k.toLowerCase())) {
+                v = "[REDACTED]";
+            }
+            headersLog += `\n  ${k}: ${v}`;
         }
         logInfo(env, headersLog);
 
@@ -169,7 +174,8 @@ export default {
                         }
                     );
                     
-                    return addCorsHeaders(response.headers, env);
+                    addCorsHeaders(response.headers, env);
+                    return response;
                 } else {
                     return jsonResponse({ error: result.error }, env, 404);
                 }
@@ -183,16 +189,6 @@ export default {
                 const cacheManager = new HDImageCacheManager(env);
                 logInfo(env, `[Worker Log] Deleting image: ${imageId} for user: ${user.id}`);
                 const result = await cacheManager.deleteImage(user.id, imageId);
-                return jsonResponse(result, env, result.success ? 200 : 400);
-            } else if (method === "GET" && path === "/api/images/stats") {
-                const user = await authenticateImageAccess(request, env);
-                if (!user) {
-                    return jsonResponse({ error: '需要登录' }, env, 401);
-                }
-                
-                const cacheManager = new HDImageCacheManager(env);
-                logInfo(env, `[Worker Log] Getting image stats for user: ${user.id}`);
-                const result = await cacheManager.getUserImageStats(user.id);
                 return jsonResponse(result, env, result.success ? 200 : 400);
             } else if (method === "POST" && path === "/api/optimize") {
                 const requestData = await request.json();
@@ -490,7 +486,7 @@ async function generateImageFromPollinations(prompt, env, width, height, seed, n
     if (height) params.append('height', height);
     if (seed && seed !== -1) params.append('seed', seed);
     if (nologo) params.append('nologo', nologo);
-    if (negative) params.append('negative', encodeURIComponent(negative));
+    if (negative) params.append('negative', negative);
     if (model) params.append('model', model);
 
     const fullUrl = `${imageApiBase}${promptPath}${encodedPrompt}?${params.toString()}`;

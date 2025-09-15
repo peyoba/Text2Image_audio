@@ -1,114 +1,23 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-*.manifest
-*.spec
-pip-log.txt
-pip-delete-this-directory.txt
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.log
-.hypothesis/
-.pytest_cache/
-cover/
-instance/
-.webassets-cache
-
-# Virtualenv
-venv/
-env/
-ENV/
-.venv/
-.env/
-.direnv/
-
-# Node.js
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-# package-lock.json # 通常建议提交lock文件，除非有特定原因
-# yarn.lock # 通常建议提交lock文件
-pnpm-lock.yaml
-lerna-debug.log
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-Desktop.ini
-
-# IDE / Editor
-.idea/
-.vscode/
-*.swp
-*~
-
-# Cloudflare Workers
-.wrangler/
-wrangler.toml.bak
-worker-configuration.json
-
-# Environment & Config
+# Sensitive env files
+api.env
+.env
+.env.*
 *.env
-.env.local
-.env.development
-.env.production
-secrets.txt
-config.local.js
-
-# Generated content
-backend/generated_audio/
-backend/temp/
-frontend/generated/
-*.tmp
-*.temp
 
 # Logs
 logs/
-*.log.*
-access.log
-error.log
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Backup files
-*.bak
-*.backup
-*~.nib
-local.properties
+# Build artifacts
+/dist/
+/.wrangler/
 
-# Custom project files
-TODO.txt
-NOTES.md
-temp_*
-draft_* 
+# OS/editor
+.DS_Store
+Thumbs.db
+
+# Dependencies (optional to keep untracked)
+/node_modules/ 
