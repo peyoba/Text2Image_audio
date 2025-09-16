@@ -325,17 +325,27 @@ export async function validateUserToken(token, env) {
         // 标准HS256验证，失败再尝试旧制式；不再允许“仅解析载荷放行”
         let claims = await verifyJWT(token, env.JWT_SECRET || 'your-secret-key');
         let needIssueNewToken = false;
+        const allowLegacy = String((env.JWT_ALLOW_LEGACY === undefined ? 'true' : env.JWT_ALLOW_LEGACY)).toLowerCase() !== 'false';
         if (!claims) {
-            const legacyClaims = legacyVerifyJWT(token, env.JWT_SECRET || 'your-secret-key');
-            if (!legacyClaims) {
+            if (allowLegacy) {
+                const legacyClaims = legacyVerifyJWT(token, env.JWT_SECRET || 'your-secret-key');
+                if (!legacyClaims) {
+                    return {
+                        success: false,
+                        error: 'token无效或已过期',
+                        cause: 'jwt_invalid_or_expired'
+                    };
+                }
+                console.warn('[Auth Warning] 使用了 legacy JWT 验证路径。建议设置 JWT_ALLOW_LEGACY=false 后逐步迁移。');
+                claims = legacyClaims;
+                needIssueNewToken = true; // 触发轮转
+            } else {
                 return {
                     success: false,
                     error: 'token无效或已过期',
                     cause: 'jwt_invalid_or_expired'
                 };
             }
-            claims = legacyClaims;
-            needIssueNewToken = true;
         }
         
         // 获取用户数据（统一按小写邮箱作为KV键），兼容旧键（原始大小写）

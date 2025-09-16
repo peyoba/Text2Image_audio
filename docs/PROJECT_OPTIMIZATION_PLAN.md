@@ -81,6 +81,8 @@
   - GOOGLE_CLIENT_ID（必填，缺失会告警）
   - GOOGLE_CLIENT_SECRET（或历史 GOOGLE_CLIENT_SECRET_NEW，建议迁移到前者）
   - GOOGLE_REDIRECT_URI（优先）；若缺失且存在 FRONTEND_URL，则拼接 /auth/google/callback；否则回退 https://aistone.org/auth/google/callback
+- 认证迁移：
+  - JWT_ALLOW_LEGACY（默认开启true以保持兼容；置为 false 可禁用旧制式JWT验证，建议灰度）
 
 - 前端主要调用链
   - window.APIClient（frontend/js/api_client.js）统一封装：
