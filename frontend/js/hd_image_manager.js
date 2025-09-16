@@ -34,11 +34,23 @@ class HDImageManager {
         // 等待 UI 容器注入完成后再加载
         this.ensureUiReadyThenLoad();
         
-        // 设置定时器，每小时更新一次（避免重复设置）
+        // 设置定时器（灰度可调），避免重复设置
         if (!this._statsTimerId) {
-            this._statsTimerId = setInterval(() => {
-                this.updateStats();
-            }, 3600000); // 1小时
+            const getIntervalMs = () => {
+                try {
+                    // 允许 window.HD_STATS_POLL_INTERVAL_MS 或 localStorage 覆盖；0 表示关闭
+                    const g = (typeof window !== 'undefined' && typeof window.HD_STATS_POLL_INTERVAL_MS !== 'undefined') ? Number(window.HD_STATS_POLL_INTERVAL_MS) : undefined;
+                    const ls = (typeof localStorage !== 'undefined') ? Number(localStorage.getItem('hd_stats_poll_ms')) : undefined;
+                    const v = (typeof g === 'number' && !isNaN(g)) ? g : ((typeof ls === 'number' && !isNaN(ls)) ? ls : 3600000);
+                    return Math.max(0, v);
+                } catch(_) { return 3600000; }
+            };
+            const interval = getIntervalMs();
+            if (interval > 0) {
+                this._statsTimerId = setInterval(() => {
+                    this.updateStats();
+                }, interval);
+            }
         }
     }
 
