@@ -65,6 +65,23 @@
   - 管理与前端：ADMIN_KEY、FRONTEND_URL
   - OAuth：GOOGLE_CLIENT_SECRET_NEW（client_id/redirect_uri 现有硬编码）
 
+## 环境变量清单（部署核对）
+- 必需（生产）：
+  - JWT_SECRET：用于 HS256 JWT 签名；不可使用默认；必须保密
+- 推荐/可选：
+  - FRONTEND_URL：前端根地址（用于构造 OAuth 回调）；如无则回退历史硬编码
+  - ADMIN_KEY：管理员查看反馈的简易校验键
+- 第三方服务：
+  - DEEPSEEK_API_KEY、DEEPSEEK_API_URL（默认 https://api.siliconflow.cn/v1/chat/completions）、DEEPSEEK_MODEL
+  - POLLINATIONS_IMAGE_API_BASE（默认 https://image.pollinations.ai）
+  - POLLINATIONS_TEXT_API_BASE（默认 https://text.pollinations.ai）
+  物流配送系统 - POLLINATIONS_API_TOKEN（如需鉴权）
+  - DEFAULT_AUDIO_VOICE、DEFAULT_AUDIO_MODEL（音频默认）
+- Google OAuth（已统一，支持回退并打印告警）：
+  - GOOGLE_CLIENT_ID（必填，缺失会告警）
+  - GOOGLE_CLIENT_SECRET（或历史 GOOGLE_CLIENT_SECRET_NEW，建议迁移到前者）
+  - GOOGLE_REDIRECT_URI（优先）；若缺失且存在 FRONTEND_URL，则拼接 /auth/google/callback；否则回退 https://aistone.org/auth/google/callback
+
 - 前端主要调用链
   - window.APIClient（frontend/js/api_client.js）统一封装：
     - submitGenerationTask(text, type, options)：POST /api/generate（image→JSON base64，audio→ArrayBuffer/Blob）
@@ -134,10 +151,10 @@
 - [ ] P1-4 统一日志脱敏与格式
 - [x] P2-1 补充安全头（不改变现有 CORS 行为）
 - [x] P2-2 统一错误状态码与响应 JSON 结构（不影响前端依赖字段）
-- [ ] P3-1 统一 Google OAuth ENV（向后兼容告警）
-- [ ] P3-2 动态 redirect_uri（环境自适应）
+- [x] P3-1 统一 Google OAuth ENV（向后兼容告警）
+- [x] P3-2 动态 redirect_uri（环境自适应）
 - [ ] P3-3 legacy JWT 轮转与移除（开关+观测）
-- [ ] P4-1 清理未使用/未实现客户端方法或加 @deprecated
+- [x] P4-1 清理未使用/未实现客户端方法或加 @deprecated
 - [ ] P4-2 收敛初始化与事件订阅，减少全局变量
 - [ ] P4-3 拆分大文件与样式模块（仅结构）
 - [ ] P5-1 轮询频率灰度优化
