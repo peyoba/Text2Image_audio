@@ -1,3 +1,19 @@
+// DEBUG 日志抑制（默认关闭），与 app.js 逻辑一致，尽早执行
+(function(){
+    try {
+        var qs = new URLSearchParams(location.search || '');
+        var debugFlag = (window.DEBUG === true)
+            || qs.get('debug') === '1'
+            || (typeof localStorage !== 'undefined' && (localStorage.getItem('DEBUG') === '1' || localStorage.getItem('debug') === '1'));
+        if (!debugFlag) {
+            var noop = function(){};
+            console.debug = noop;
+            console.info = noop;
+            console.log = noop;
+        }
+    } catch(_) {}
+})();
+
 /**
  * 多语言配置文件
  * 支持中文和英文
