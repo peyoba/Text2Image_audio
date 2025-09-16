@@ -1,3 +1,18 @@
+(function(){
+    try {
+        var qs = new URLSearchParams(location.search || '');
+        var debugFlag = (window.DEBUG === true)
+            || qs.get('debug') === '1'
+            || (typeof localStorage !== 'undefined' && (localStorage.getItem('DEBUG') === '1' || localStorage.getItem('debug') === '1'));
+        if (!debugFlag) {
+            var noop = function(){};
+            console.debug = noop;
+            console.info = noop;
+            console.log = noop;
+        }
+    } catch(_) {}
+})();
+
 /**
  * 主应用类，负责初始化和协调各个组件
  */

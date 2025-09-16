@@ -158,12 +158,12 @@
 验收：无用户可感知变化，指标可见。
 
 ## 任务清单（执行顺序）
-- [ ] P0-1 新增 .gitignore 忽略敏感文件；发布密钥轮换提示
-- [ ] P0-2 删除前端 token 调试日志与冗余 console 噪音
-- [ ] P1-1 修复下载接口返回 undefined 的问题
-- [ ] P1-2 去重 GET /api/images/stats 路由分支
-- [ ] P1-3 修复 Pollinations 负面词二次编码
-- [ ] P1-4 统一日志脱敏与格式
+- [x] P0-1 新增 .gitignore 忽略敏感文件；发布密钥轮换提示
+- [x] P0-2 删除前端 token 调试日志与冗余 console 噪音
+- [x] P1-1 修复下载接口返回 undefined 的问题
+- [x] P1-2 去重 GET /api/images/stats 路由分支
+- [x] P1-3 修复 Pollinations 负面词二次编码
+- [x] P1-4 统一日志脱敏与格式
 - [x] P2-1 补充安全头（不改变现有 CORS 行为）
 - [x] P2-2 统一错误状态码与响应 JSON 结构（不影响前端依赖字段）
 - [x] P3-1 统一 Google OAuth ENV（向后兼容告警）
