@@ -1,6 +1,14 @@
 /**
  * UI处理器类，处理所有用户界面交互
  */
+// 文件内分区说明（仅注释，无行为变化）：
+// - 初始化与语言：constructor, initLanguageSwitcher, updatePageText
+// - 事件绑定：bindEvents, _bindNewOptionsEvents
+// - 输入校验与加载指示：validateInput, showLoading, hideLoading, showError, hideError, hideResults
+// - 生成流程：handleGenerate, _handleImageGeneration, showImageResult, showAudioResult
+// - 图片选项与布局：_toggleImageOptions, _handleAspectRatioChange
+// - 语音重定向：_handleVoiceRedirect, _showVoiceRedirectModal, _closeVoiceRedirectModal
+// - 其他工具：_shouldUsePollinations, _ensureLoadingIsHidden, _getImageOptions, _handleBreadcrumbVisibility
 class UIHandler {
     constructor() {
         // 初始化apiClient
