@@ -23,7 +23,7 @@ function logInfo(env, ...args) {
     }
 }
 
-// --- Lightweight, opt-in metrics (default off) ---
+// --- 轻量可选的指标埋点（默认关闭） ---
 function metricsEnabled(env) {
     try { return String(env.METRICS_ENABLED || 'false').toLowerCase() === 'true'; } catch(_) { return false; }
 }

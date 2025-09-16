@@ -1,9 +1,10 @@
 /**
- * EventBus skeleton (not wired). Can be used later for decoupled communication.
+ * 事件总线骨架（未接入）。
+ * 用于后续实现解耦的模块间通信，当前仅提供最小能力。
  */
 export class EventBus {
     constructor() {
-        this.handlers = new Map(); // event -> Set<fn>
+        this.handlers = new Map(); // 事件名 -> 订阅函数集合
     }
 
     on(eventName, handler) {
@@ -12,6 +13,7 @@ export class EventBus {
         const set = this.handlers.get(eventName);
         set.add(handler);
         return () => {
+            // 取消订阅
             try { set.delete(handler); } catch (_) {}
         };
     }

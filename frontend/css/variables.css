@@ -1,6 +1,6 @@
-/* Design tokens (read-only import). Changing values should be done via controlled rollout. */
+/* 设计令牌（只读引入）。变量值的修改应走可控灰度发布，避免回归。*/
 :root {
-    /* Brand colors */
+    /* 品牌色 */
     --color-brand-primary: #00CFFF;
     --color-brand-secondary: #667eea;
     --color-surface-0: #151c29;
@@ -9,17 +9,17 @@
     --color-text-primary: #AAB4D4;
     --color-text-contrast: #181f2e;
 
-    /* Shadows */
+    /* 阴影 */
     --shadow-card: 0 2px 12px rgba(0,207,255,0.10);
 
-    /* Radii */
+    /* 圆角 */
     --radius-xs: 6px;
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 18px;
     --radius-xl: 24px;
 
-    /* Spacing */
+    /* 间距 */
     --space-1: 4px;
     --space-2: 8px;
     --space-3: 12px;
