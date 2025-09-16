@@ -856,5 +856,7 @@ document.head.appendChild(voiceAnimationsStyleEl);
 
 // 页面加载完成后初始化应用
 document.addEventListener('DOMContentLoaded', () => {
-    window.VoiceApp = new VoiceApp();
+    if (!window.VoiceApp) {
+        window.VoiceApp = new VoiceApp();
+    }
 });

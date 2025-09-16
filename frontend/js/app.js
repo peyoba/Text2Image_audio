@@ -27,11 +27,15 @@ class App {
         // 初始化语言选择器
         this.initializeLanguageSelector();
         
-        // 初始化UI处理器
-        window.uiHandler = new UIHandler();
+        // 初始化UI处理器（幂等）
+        if (!window.uiHandler) {
+            window.uiHandler = new UIHandler();
+        }
         
-        // 初始化UI增强功能
-        window.uiEnhancements = new UIEnhancements();
+        // 初始化UI增强功能（幂等）
+        if (!window.uiEnhancements) {
+            window.uiEnhancements = new UIEnhancements();
+        }
 
         console.log('应用初始化完成');
     }
