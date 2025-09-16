@@ -813,17 +813,35 @@ export async function handleGoogleOAuth(requestData, env) {
         }
         
         // 交换授权码获取访问令牌
+        const clientId = env.GOOGLE_CLIENT_ID || '432588178769-n7vgnnmsh8l118heqmgtj92iir4i4n3s.apps.googleusercontent.com';
+        const clientSecret = env.GOOGLE_CLIENT_SECRET || env.GOOGLE_CLIENT_SECRET_NEW || 'GOCSPX-placeholder';
+        // 优先使用显式配置的回调；否则尝试从 FRONTEND_URL 推导；最后回退到历史硬编码
+        const redirectUri = env.GOOGLE_REDIRECT_URI
+            || ((env.FRONTEND_URL && typeof env.FRONTEND_URL === 'string')
+                ? `${String(env.FRONTEND_URL).replace(/\/$/, '')}/auth/google/callback`
+                : 'https://aistone.org/auth/google/callback');
+
+        if (!env.GOOGLE_CLIENT_ID) {
+            console.warn('[Auth Warning] GOOGLE_CLIENT_ID 未设置，使用了内置回退值（仅用于兼容，建议尽快在环境变量中配置）。');
+        }
+        if (!env.GOOGLE_CLIENT_SECRET && !env.GOOGLE_CLIENT_SECRET_NEW) {
+            console.warn('[Auth Warning] GOOGLE_CLIENT_SECRET 未设置，使用了占位符，OAuth 可能会失败。');
+        }
+        if (!env.GOOGLE_REDIRECT_URI && !env.FRONTEND_URL) {
+            console.warn('[Auth Warning] 未配置 GOOGLE_REDIRECT_URI/FRONTEND_URL，使用了历史硬编码回调地址。');
+        }
+
         const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: new URLSearchParams({
-                client_id: '432588178769-n7vgnnmsh8l118heqmgtj92iir4i4n3s.apps.googleusercontent.com',
-                client_secret: env.GOOGLE_CLIENT_SECRET_NEW || 'GOCSPX-placeholder', // 需要在环境变量中设置
+                client_id: clientId,
+                client_secret: clientSecret,
                 code: code,
                 grant_type: 'authorization_code',
-                redirect_uri: 'https://aistone.org/auth/google/callback' // 必须与Google Cloud Console配置完全一致
+                redirect_uri: redirectUri
             })
         });
 
