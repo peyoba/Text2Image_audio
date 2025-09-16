@@ -3,6 +3,7 @@
  * 处理语音生成、播放、下载等功能
  */
 
+// 语音模块：状态/UI/API 分区（文件内重组，零行为变化）
 class VoiceApp {
     constructor() {
         this.apiClient = null;
@@ -57,6 +58,7 @@ class VoiceApp {
         throw new Error('依赖加载超时: APIClient 未准备就绪');
     }
 
+    // 事件：初始化交互
     setupEventListeners() {
         // 语音生成表单提交
         const form = document.getElementById('voice-generation-form');
@@ -125,6 +127,7 @@ class VoiceApp {
         if (clearBtn) clearBtn.addEventListener('click', () => this.clearText());
     }
 
+    // UI：文本计数字段
     setupTextCounter() {
         const textInput = document.getElementById('voice-text-input');
         const textCount = document.getElementById('text-count');
@@ -146,6 +149,7 @@ class VoiceApp {
         }
     }
 
+    // UI：语速滑块
     setupSpeedSlider() {
         const speedSlider = document.getElementById('voice-speed');
         const speedDisplay = document.getElementById('speed-display');
@@ -182,6 +186,7 @@ class VoiceApp {
         }
     }
 
+    // UI：示例填充
     setupExamples() {
         const exampleBtns = document.querySelectorAll('.example-btn[data-text]');
         const textInput = document.getElementById('voice-text-input');
@@ -198,6 +203,7 @@ class VoiceApp {
     }
 
     // 根据当前语言填充示例按钮（中英分别填充对应文本）
+    // 数据：根据语言填充示例
     populateVoiceExamples() {
         const lang = (window.getCurrentLang && window.getCurrentLang()) || (document.documentElement.lang || 'zh');
         const isZh = (lang || '').toLowerCase().startsWith('zh');
@@ -228,6 +234,7 @@ class VoiceApp {
         }
     }
 
+    // 数据：解析URL参数并可触发自动生成
     handleUrlParameters() {
         // 解析URL参数
         const urlParams = new URLSearchParams(window.location.search);
@@ -293,6 +300,7 @@ class VoiceApp {
         }
     }
 
+    // API：发起语音生成
     async generateVoice() {
         if (this.isGenerating) return;
 
@@ -359,6 +367,7 @@ class VoiceApp {
         }
     }
 
+    // UI：显示生成结果
     displayVoiceResult(response) {
         const resultSection = document.getElementById('voice-result-section');
         const audioPlayer = document.getElementById('generated-audio');
@@ -397,6 +406,7 @@ class VoiceApp {
         }
     }
 
+    // UI：更新播放器信息
     updateAudioInfo() {
         const audioPlayer = document.getElementById('generated-audio');
         const durationElement = document.getElementById('voice-duration');
@@ -434,6 +444,7 @@ class VoiceApp {
         }
     }
 
+    // 动作：下载音频
     async downloadAudio() {
         if (!this.currentAudioUrl) {
             this.showError('没有可下载的音频文件');
@@ -464,6 +475,7 @@ class VoiceApp {
     }
 
 
+    // 动作：复制音频URL
     async copyAudioUrl() {
         if (!this.currentAudioUrl) {
             this.showError('当前没有可复制的音频链接');
@@ -486,6 +498,7 @@ class VoiceApp {
         }
     }
 
+    // 动作：分享
     async shareAudio() {
         if (!this.currentAudioUrl) {
             this.showError('没有可分享的音频文件');
@@ -511,6 +524,7 @@ class VoiceApp {
         }
     }
 
+    // 动作：分享降级
     fallbackShare() {
         // 降级分享方案：复制链接
         const url = window.location.href;
@@ -531,6 +545,7 @@ class VoiceApp {
         }
     }
 
+    // 动作：保存到个人中心（占位）
     async saveAudio() {
         if (!this.currentAudioUrl) {
             this.showError('没有可保存的音频文件');
@@ -569,6 +584,7 @@ class VoiceApp {
         }
     }
 
+    // UI：生成按钮状态
     updateGenerateButton(isLoading) {
         const generateBtn = document.getElementById('generate-voice-btn');
         if (!generateBtn) return;
@@ -587,6 +603,7 @@ class VoiceApp {
         }
     }
 
+    // UI：进度条
     updateProgress(percent = 0, label = '') {
         const bar = document.getElementById('voice-progress-bar');
         const box = document.getElementById('voice-progress');
@@ -606,6 +623,7 @@ class VoiceApp {
         }
     }
 
+    // 工具：日志
     log(message) {
         const ts = new Date().toLocaleTimeString();
         const line = `[${ts}] ${message}`;
@@ -617,6 +635,7 @@ class VoiceApp {
         }
     }
 
+    // 可视化：初始化波形
     initWaveform() {
         const canvas = document.getElementById('voice-waveform');
         if (!canvas) return;
@@ -626,6 +645,7 @@ class VoiceApp {
         this.waveformCtx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
+    // 可视化：启动波形动画
     startWaveform() {
         const audio = document.getElementById('generated-audio');
         const canvas = document.getElementById('voice-waveform');
@@ -653,10 +673,12 @@ class VoiceApp {
         this.waveformAnimation = requestAnimationFrame(draw);
     }
 
+    // 可视化：停止波形动画
     stopWaveform() {
         cancelAnimationFrame(this.waveformAnimation);
     }
 
+    // 工具：格式化字节
     formatBytes(bytes) {
         if (!bytes && bytes !== 0) return '--';
         const sizes = ['B', 'KB', 'MB', 'GB'];
@@ -665,6 +687,7 @@ class VoiceApp {
         return `${val.toFixed(val >= 100 ? 0 : val >= 10 ? 1 : 2)} ${sizes[i]}`;
     }
 
+    // 历史：保存记录
     saveHistory() {
         try {
             const text = (this.lastGenerationParams && this.lastGenerationParams.text) || '';
@@ -681,6 +704,7 @@ class VoiceApp {
         } catch(e) {}
     }
 
+    // 历史：恢复记录
     restoreHistory() {
         try {
             const key = 'voice_history';
@@ -693,6 +717,7 @@ class VoiceApp {
         } catch(e) {}
     }
 
+    // 历史：渲染记录
     renderHistory(list) {
         const ul = document.getElementById('voice-history-list');
         if (!ul) return;
@@ -724,6 +749,7 @@ class VoiceApp {
         });
     }
 
+    // API：优化文本
     async optimizeText() {
         const textInput = document.getElementById('voice-text-input');
         if (!textInput || !textInput.value.trim()) {
@@ -743,6 +769,7 @@ class VoiceApp {
         }
     }
 
+    // API：翻译文本
     async translateText() {
         const textInput = document.getElementById('voice-text-input');
         const lang = (window.getCurrentLang && window.getCurrentLang()) || 'zh';
@@ -764,6 +791,7 @@ class VoiceApp {
         }
     }
 
+    // UI：清空文本
     clearText() {
         const textInput = document.getElementById('voice-text-input');
         if (textInput) {
@@ -772,6 +800,7 @@ class VoiceApp {
         }
     }
 
+    // UI：提示
     showSuccess(message) {
         this.showMessage(message, 'success');
     }
