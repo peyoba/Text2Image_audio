@@ -162,7 +162,7 @@
 - [x] P4-1 清理未使用/未实现客户端方法或加 @deprecated
 - [x] P4-2 收敛初始化与事件订阅，减少全局变量
 - [ ] P4-3 拆分大文件与样式模块（仅结构）
-- [ ] P5-1 轮询频率灰度优化
+- [x] P5-1 轮询频率灰度优化
 - [x] P5-2 重试策略分类与上限
 - [ ] P5-3 监控与告警埋点
 
@@ -179,3 +179,11 @@
 - 每步独立提交，可单独回滚；高风险改动使用开关/灰度，异常时立即关闭或回滚。
 
 > 下一步：先执行 Phase 0（文档与 .gitignore 与日志清理），随后进行 Phase 1 的三项无风险修复，步步回归验证，确保零功能/零视觉回归。
+
+## 前端运行时配置（window/localStorage）
+- API 基址：
+  - window.API_BASE 或 localStorage 'api_base'（覆盖后端基址）
+- 高清统计轮询间隔（毫秒）：
+  - window.HD_STATS_POLL_INTERVAL_MS 或 localStorage 'hd_stats_poll_ms'（默认 3600000；0 表示关闭）
+- 语速记忆：
+  - localStorage 'voice_speed'（记忆语速）
