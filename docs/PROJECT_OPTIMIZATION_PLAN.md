@@ -75,7 +75,7 @@
   - DEEPSEEK_API_KEY、DEEPSEEK_API_URL（默认 https://api.siliconflow.cn/v1/chat/completions）、DEEPSEEK_MODEL
   - POLLINATIONS_IMAGE_API_BASE（默认 https://image.pollinations.ai）
   - POLLINATIONS_TEXT_API_BASE（默认 https://text.pollinations.ai）
-  物流配送系统 - POLLINATIONS_API_TOKEN（如需鉴权）
+  - POLLINATIONS_API_TOKEN（如需鉴权）
   - DEFAULT_AUDIO_VOICE、DEFAULT_AUDIO_MODEL（音频默认）
 - Google OAuth（已统一，支持回退并打印告警）：
   - GOOGLE_CLIENT_ID（必填，缺失会告警）
@@ -83,6 +83,9 @@
   - GOOGLE_REDIRECT_URI（优先）；若缺失且存在 FRONTEND_URL，则拼接 /auth/google/callback；否则回退 https://aistone.org/auth/google/callback
 - 认证迁移：
   - JWT_ALLOW_LEGACY（默认开启true以保持兼容；置为 false 可禁用旧制式JWT验证，建议灰度）
+- 重试策略：
+  - RETRY_MAX_ATTEMPTS / FETCH_RETRY_MAX：覆盖后端重试最大次数（默认 8）
+  - RETRY_INITIAL_DELAY_MS / FETCH_RETRY_INITIAL_DELAY_MS：覆盖初始回退延迟（默认 1500ms）
 
 - 前端主要调用链
   - window.APIClient（frontend/js/api_client.js）统一封装：
@@ -155,12 +158,12 @@
 - [x] P2-2 统一错误状态码与响应 JSON 结构（不影响前端依赖字段）
 - [x] P3-1 统一 Google OAuth ENV（向后兼容告警）
 - [x] P3-2 动态 redirect_uri（环境自适应）
-- [ ] P3-3 legacy JWT 轮转与移除（开关+观测）
+- [x] P3-3 legacy JWT 轮转与移除（开关+观测）
 - [x] P4-1 清理未使用/未实现客户端方法或加 @deprecated
-- [ ] P4-2 收敛初始化与事件订阅，减少全局变量
+- [x] P4-2 收敛初始化与事件订阅，减少全局变量
 - [ ] P4-3 拆分大文件与样式模块（仅结构）
 - [ ] P5-1 轮询频率灰度优化
-- [ ] P5-2 重试策略分类与上限
+- [x] P5-2 重试策略分类与上限
 - [ ] P5-3 监控与告警埋点
 
 ## 回归清单

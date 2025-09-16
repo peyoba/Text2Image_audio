@@ -762,6 +762,11 @@ async function getUserFeedbackList(user, env) {
 
 // 通用的带有重试逻辑的fetch函数
 async function fetchWithRetry(url, options, apiName, env, maxRetries = 8, initialDelay = 1500) {
+    // 允许通过 ENV 覆盖默认重试配置（不改变默认行为）
+    const envMax = parseInt(env.RETRY_MAX_ATTEMPTS || env.FETCH_RETRY_MAX || '', 10);
+    if (!isNaN(envMax) && envMax >= 0) maxRetries = envMax;
+    const envDelay = parseInt(env.RETRY_INITIAL_DELAY_MS || env.FETCH_RETRY_INITIAL_DELAY_MS || '', 10);
+    if (!isNaN(envDelay) && envDelay >= 0) initialDelay = envDelay;
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
         try {
             const response = await fetch(url, options);
