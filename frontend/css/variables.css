@@ -1,0 +1,39 @@
+/* Design tokens (read-only import). Changing values should be done via controlled rollout. */
+:root {
+    /* Brand colors */
+    --color-brand-primary: #00CFFF;
+    --color-brand-secondary: #667eea;
+    --color-surface-0: #151c29;
+    --color-surface-1: #1A223A;
+    --color-surface-2: #232B45;
+    --color-text-primary: #AAB4D4;
+    --color-text-contrast: #181f2e;
+
+    /* Shadows */
+    --shadow-card: 0 2px 12px rgba(0,207,255,0.10);
+
+    /* Radii */
+    --radius-xs: 6px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+
+    /* Spacing */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-surface-0: #0f1420;
+        --color-surface-1: #141a2a;
+        --color-surface-2: #1a2032;
+    }
+}
+
+
