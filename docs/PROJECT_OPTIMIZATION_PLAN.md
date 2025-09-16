@@ -9,6 +9,79 @@
 - 中风险（需回归）：安全响应头与 CORS 补充、错误码与响应格式标准化（不影响前端逻辑前提下）。
 - 高风险（需灰度/开关）：OAuth 配置收敛与动态回调、legacy JWT 清理、轮询频率优化、路由与控制器重构。
 
+## 代码现状与模块映射
+- 目录结构概览
+  - backend/
+    - index.js：Cloudflare Worker 入口与路由分发、CORS/错误处理、外部API调用（DeepSeek、Pollinations）、反馈与统计
+    - auth.js：用户注册/登录、JWT 生成与验证（HS256，含 legacy 兼容）、忘记/重置密码、Google 登录与 OAuth（含令牌交换）
+    - image_cache.js：高清图片缓存（KV，按用户+日期分桶，24h 过期）、列表/统计/删除、访问鉴权中间件
+  - frontend/
+    - html：index、image-generator、voice、user 等页面
+    - js：api_client（统一后端调用）、hd_image_manager（高清图保存/列表/下载）、voice_app（语音生成/播放）、ui_handler、auth/auth_modals、i18n 等
+    - css：style.css（全站样式）
+  - docs/：说明文档与本优化计划
+  - wrangler.toml：Workers 与 KV/变量配置
+  - package.json：项目元数据与脚本
+
+- 后端路由总览（index.js）
+  | Method | Path | 说明 | 认证 |
+  | --- | --- | --- | --- |
+  | OPTIONS | 任意 | CORS 预检 | 否 |
+  | POST | /api/auth/register | 用户注册 | 否 |
+  | POST | /api/auth/login | 用户登录 | 否 |
+  | GET | /api/auth/validate | 校验 JWT | 否（读取头或 Cookie） |
+  | POST | /api/auth/forgot-password | 发送重置链接（返回resetUrl用于开发） | 否 |
+  | POST | /api/auth/reset-password | 重置密码 | 否 |
+  | POST | /api/auth/google-login | Google ID Token 登录 | 否 |
+  | POST | /api/auth/google-oauth | OAuth 授权码交换登录 | 否 |
+  | POST | /api/images/save | 保存高清图（Base64） | 是 |
+  | GET | /api/images/daily | 当日图片列表（元数据） | 是 |
+  | GET | /api/images/stats | 用户图片统计 | 是 |
+  | GET | /api/images/:id | 获取单张高清图 JSON（含base64） | 是 |
+  | GET | /api/images/download/:id | 下载高清图（二进制/附件） | 是 |
+  | DELETE | /api/images/:id | 删除图片 | 是 |
+  | POST | /api/optimize | DeepSeek 提示词优化（返回优化文本） | 否 |
+  | POST | /api/generate | 统一生成入口：image→Pollinations; audio→Pollinations-Text | 否 |
+  | POST | /api/pollinations/image | 代理直连 Pollinations 图像（返回base64） | 否 |
+  | POST | /api/feedback | 提交反馈（含防刷） | 是 |
+  | GET | /api/feedback/my | 我的反馈列表 | 是 |
+  | GET | /api/admin/feedback | 管理员获取全部反馈（?admin_key=） | 否（以键校验） |
+  | POST | /api/translate | DeepSeek 翻译（负面词英译） | 否 |
+
+- 数据与KV命名空间
+  - USERS：用户对象（键为邮箱小写），含 id/username/email/passwordHash/salt/时间戳/googleInfo 等
+  - IMAGES_CACHE：键 `hd_images:{userId}:{YYYY-MM-DD}` → 当日图片数组（含 base64 原图、尺寸、模型、seed、negative、质量标记）
+  - FEEDBACK：
+    - `feedback_{userId}_{ts}`：反馈详情对象
+    - `user_feedback:{userId}`：该用户反馈ID列表（最多20条）
+    - `feedback_rate_limit:{userId}`：10分钟频控时间戳
+  - RESET_TOKENS：重置密码 token → 记录（24h 过期）
+
+- 外部依赖与环境变量（env）
+  - DeepSeek：DEEPSEEK_API_KEY、DEEPSEEK_API_URL（默认 siliconflow.cn/v1/chat/completions）、DEEPSEEK_MODEL
+  - Pollinations：POLLINATIONS_IMAGE_API_BASE（默认 https://image.pollinations.ai）、POLLINATIONS_TEXT_API_BASE（默认 https://text.pollinations.ai）、POLLINATIONS_API_TOKEN
+  - 音频默认：DEFAULT_AUDIO_VOICE、DEFAULT_AUDIO_MODEL
+  - 认证：JWT_SECRET（当前存在默认 `'your-secret-key'` 作为兜底，不推荐）
+  - 管理与前端：ADMIN_KEY、FRONTEND_URL
+  - OAuth：GOOGLE_CLIENT_SECRET_NEW（client_id/redirect_uri 现有硬编码）
+
+- 前端主要调用链
+  - window.APIClient（frontend/js/api_client.js）统一封装：
+    - submitGenerationTask(text, type, options)：POST /api/generate（image→JSON base64，audio→ArrayBuffer/Blob）
+    - optimizeText(text)：POST /api/optimize
+    - translateText(text, lang)：POST /api/translate
+    - generateImageWithPollinations(prompt, options)：POST /api/pollinations/image（后端代理）
+    - voice：generateVoice(options) → /api/generate（audio）
+  - 高清图：frontend/js/hd_image_manager.js 负责保存/列表/下载（需 Bearer Token，token 由 window.authManager 提供）
+  - 语音：frontend/js/voice_app.js 负责生成与播放（使用 Blob URL）
+  - UI：frontend/js/ui_handler.js 绑定事件与渲染；auth/auth_modals.js 处理登录弹窗
+
+- 关键约束与现状结论
+  - 后端采用单文件路由链（index.js）+ 功能模块（auth/image_cache）结构，逻辑清晰但路由较长；已修复：下载响应返回、重复 stats 路由、负面词二次编码、敏感头日志脱敏
+  - CORS 当前放行 *，允许 Authorization；未启用凭据；后续将补充安全头但保持行为不变
+  - OAuth 存在硬编码 client_id/redirect_uri 与非常规 ENV 名称，新计划将统一并动态化
+  - 前端通过全局 APIClient 与 window.authManager 交互，个别模块有控制台调试输出（已移除 token 日志）
+
 ## 分阶段计划
 ### Phase 0：项目卫生（不影响功能/显示）
 1) 文档与指引：落盘本计划、完善部署/ENV 清单与回滚入口。
