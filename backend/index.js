@@ -175,6 +175,7 @@ export default {
                     );
                     
                     addCorsHeaders(response.headers, env);
+                    addSecurityHeaders(response.headers, env);
                     return response;
                 } else {
                     return jsonResponse({ error: result.error }, env, 404);
@@ -245,6 +246,7 @@ export default {
                     const audioRespHeaders = new Headers();
                     audioRespHeaders.append('Content-Type', audioContentType);
                     addCorsHeaders(audioRespHeaders, env);
+                    addSecurityHeaders(audioRespHeaders, env);
                     
                     return new Response(audioArrayBuffer, { status: 200, headers: audioRespHeaders });
                 }
@@ -812,6 +814,7 @@ function jsonResponse(body, env, status = 200, additionalHeaders = {}) {
         ...additionalHeaders
     });
     addCorsHeaders(headers, env); // Add CORS headers here
+    addSecurityHeaders(headers, env);
 
     // Log final response headers for jsonResponse
     let finalHeadersLog = "[Worker Log] jsonResponse final headers: ";
@@ -846,15 +849,18 @@ function makeCorsResponse(request, env) { // Added request parameter
         }
     }
     
+    const headers = new Headers(corsHeaders);
+    addSecurityHeaders(headers, env);
+
     let headersLog = "[Worker Log] makeCorsResponse returning headers: ";
-    for (let key in corsHeaders) {
-        headersLog += `\n  ${key}: ${corsHeaders[key]}`;
+    for (let pair of headers.entries()) {
+        headersLog += `\n  ${pair[0]}: ${pair[1]}`;
     }
     logInfo(env, headersLog);
 
     return new Response(null, {
         status: 204, // No Content for preflight
-        headers: corsHeaders
+        headers: headers
     });
 }
 
@@ -871,3 +877,19 @@ function addCorsHeaders(responseHeaders, env) { // responseHeaders should be a H
     logInfo(env, headersLog);
     // No need to return, as Headers object is modified by reference
 } 
+
+// Helper for Security headers (no behavior change)
+function addSecurityHeaders(responseHeaders, env) {
+    // Minimal, safe defaults that do not alter existing CORS behavior
+    responseHeaders.set("Vary", "Origin");
+    responseHeaders.set("X-Content-Type-Options", "nosniff");
+    responseHeaders.set("Referrer-Policy", "no-referrer-when-downgrade");
+    // Conservative Permissions-Policy: features not used by the app are disabled
+    responseHeaders.set("Permissions-Policy", "camera=(), microphone=(), geolocation=(), interest-cohort=()");
+
+    let headersLog = "[Worker Log] addSecurityHeaders added headers: ";
+    for (let pair of responseHeaders.entries()) {
+        headersLog += `\n  ${pair[0]}: ${pair[1]}`;
+    }
+    logInfo(env, headersLog);
+}
