@@ -112,6 +112,7 @@ class ApiClient {
      * @param {string} taskStatusUrl - 任务状态查询的完整URL或相对路径 (例如 /api/tasks/task_id)
      * @returns {Promise<Object>} - 返回任务状态信息
      */
+    // @deprecated 后端当前未提供 /tasks/:id 查询路由；仅保留以兼容旧调用路径
     async getTaskStatus(taskStatusUrl) {
         // 如果 taskStatusUrl 不是以 http 开头，则假定它是相对路径并拼接 baseUrl
         const fullUrl = taskStatusUrl.startsWith('http') ? taskStatusUrl : `${this.baseUrl}/tasks/${taskStatusUrl.split('/').pop()}`;
@@ -184,6 +185,7 @@ class ApiClient {
      * @param {string} imageId - 图片ID
      * @returns {Promise<string>} - 返回图片的base64数据
      */
+    // @deprecated 后端未提供 /image/:id 路由；请改用 /api/images/:id（需要认证）
     async getGeneratedImage(imageId) {
         try {
             const response = await fetch(`${this.getBaseUrl()}/image/${imageId}`);
@@ -202,6 +204,7 @@ class ApiClient {
      * @param {string} audioId - 音频ID
      * @returns {Promise<ArrayBuffer>} - 返回音频数据
      */
+    // @deprecated 后端未提供 /audio/:id 路由；音频请直接使用 /api/generate (type=audio) 的返回
     async getGeneratedAudio(audioId) {
         try {
             const response = await fetch(`${this.getBaseUrl()}/audio/${audioId}`);
