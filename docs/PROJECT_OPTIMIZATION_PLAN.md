@@ -174,7 +174,7 @@
 - [ ] P4-3 拆分大文件与样式模块（仅结构）
 - [x] P5-1 轮询频率灰度优化
 - [x] P5-2 重试策略分类与上限
-- [ ] P5-3 监控与告警埋点
+- [x] P5-3 监控与告警埋点
 
 ## 回归清单
 - 功能：
@@ -197,3 +197,7 @@
   - window.HD_STATS_POLL_INTERVAL_MS 或 localStorage 'hd_stats_poll_ms'（默认 3600000；0 表示关闭）
 - 语速记忆：
   - localStorage 'voice_speed'（记忆语速）
+
+- 监控相关ENV（新增，可选）：
+  - METRICS_ENABLED：'true' 开启结构化指标日志（默认 false）
+  - METRICS_SAMPLE_RATE：采样率 0~1（例如 0.1 表示10% 采样；默认 0）

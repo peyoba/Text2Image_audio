@@ -23,6 +23,29 @@ function logInfo(env, ...args) {
     }
 }
 
+// --- Lightweight, opt-in metrics (default off) ---
+function metricsEnabled(env) {
+    try { return String(env.METRICS_ENABLED || 'false').toLowerCase() === 'true'; } catch(_) { return false; }
+}
+
+function shouldSample(env) {
+    try {
+        const rate = parseFloat(env.METRICS_SAMPLE_RATE || '0');
+        if (isNaN(rate) || rate <= 0) return false;
+        const clamped = Math.max(0, Math.min(1, rate));
+        return Math.random() < clamped;
+    } catch(_) { return false; }
+}
+
+function recordMetric(env, name, data) {
+    try {
+        if (!metricsEnabled(env)) return;
+        if (!shouldSample(env)) return;
+        const payload = { name, ts: Date.now(), ...data };
+        console.log('[METRIC]', JSON.stringify(payload));
+    } catch(_) {}
+}
+
 export default {
     async fetch(request, env, ctx) {
         const url = new URL(request.url);
@@ -159,6 +182,7 @@ export default {
                 const imageId = path.split('/').pop();
                 const cacheManager = new HDImageCacheManager(env);
                 logInfo(env, `[Worker Log] Downloading HD image: ${imageId} for user: ${user.id}`);
+                const t0 = Date.now();
                 const result = await cacheManager.getHDImage(user.id, imageId);
                 
                 if (result.success) {
@@ -176,6 +200,8 @@ export default {
                     
                     addCorsHeaders(response.headers, env);
                     addSecurityHeaders(response.headers, env);
+                    const dt = Date.now() - t0;
+                    recordMetric(env, 'download_image', { dt_ms: dt, image_id: imageId });
                     return response;
                 } else {
                     return jsonResponse({ error: result.error }, env, 404);
@@ -214,6 +240,7 @@ export default {
                 }
 
                 if (genType === 'image') {
+                    const t0 = Date.now();
                     // --- Use Actual Parameters from Request (directly from requestData) ---
                     const actualPrompt = requestData.text; 
                     const actualWidth = requestData.width; // Directly from requestData
@@ -228,8 +255,11 @@ export default {
                     const imageArrayBuffer = await generateImageFromPollinations(actualPrompt, env, actualWidth, actualHeight, seed, actualNologo, negative, model);
                     // Convert ArrayBuffer to Base64 string
                     const base64Image = arrayBufferToBase64(imageArrayBuffer);
+                    const dt = Date.now() - t0;
+                    recordMetric(env, 'generate_image', { dt_ms: dt, model, w: actualWidth, h: actualHeight, seed: typeof seed === 'number' ? seed : undefined });
                     return jsonResponse({ type: genType, data: base64Image, format: "base64", content_type: "image/jpeg" }, env); // Assuming jpeg
                 } else if (genType === 'audio') {
+                    const t0 = Date.now();
                     const voice = requestData.voice || env.DEFAULT_AUDIO_VOICE || 'nova';
                     const model = requestData.model || env.DEFAULT_AUDIO_MODEL || 'openai-audio';
                     const speed = requestData.speed || 1.0;
@@ -248,6 +278,8 @@ export default {
                     addCorsHeaders(audioRespHeaders, env);
                     addSecurityHeaders(audioRespHeaders, env);
                     
+                    const dt = Date.now() - t0;
+                    recordMetric(env, 'generate_audio', { dt_ms: dt, model, voice, speed });
                     return new Response(audioArrayBuffer, { status: 200, headers: audioRespHeaders });
                 }
             } else if (method === "POST" && path === "/api/pollinations/image") {
@@ -262,11 +294,13 @@ export default {
                     logInfo(env, `[Worker Log] Processing Pollinations image generation - Prompt: ${prompt.substring(0, 50)}..., Model: ${model}, Size: ${width}x${height}`);
                     
                     // 使用现有的generateImageFromPollinations函数，添加negative参数和model参数
+                    const t0 = Date.now();
                     const imageArrayBuffer = await generateImageFromPollinations(prompt, env, width, height, seed, nologo, '', model);
                     
                     // 转换为Base64字符串
                     const base64Image = arrayBufferToBase64(imageArrayBuffer);
-                    
+                    const dt = Date.now() - t0;
+                    recordMetric(env, 'proxy_pollinations_image', { dt_ms: dt, model, w: width, h: height });
                     return jsonResponse({ 
                         type: 'image', 
                         data: base64Image, 
