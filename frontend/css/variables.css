@@ -15,6 +15,10 @@
     --color-accent-blue: #4a90e2;
     --color-accent-blue-dark: #2980b9;
 
+    /* 中性色（等值替换用，保持回退） */
+    --color-border-muted: #e9ecef; /* 细边框灰 */
+    --color-surface-muted: #f8f9fa; /* 浅灰背景 */
+
     /* 阴影 */
     --shadow-card: 0 2px 12px rgba(0,207,255,0.10);
 
