@@ -7,7 +7,7 @@
     padding: 12px 24px;
     margin: 0 auto;
     max-width: 1366px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     margin-bottom: 16px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(45, 54, 80, 0.3);
@@ -134,8 +134,8 @@ main {
 /* 输入区域 - 卡片化设计 */
 .input-section, .output-section {
     background: var(--color-surface-1);
-    border-radius: 18px;
-    box-shadow: 0 2px 12px rgba(0,207,255,0.10);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
     padding: 28px 24px;
     margin-bottom: 24px;
     border: 1.5px solid #2D3650;
@@ -176,7 +176,7 @@ main {
 
 .example-card {
     position: relative;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -356,7 +356,7 @@ textarea#text-input:focus {
     margin-left: 20px;
     padding: 4px 8px;
     background: rgba(102, 126, 234, 0.05);
-    border-radius: 6px;
+    border-radius: var(--radius-xs);
     border: 1px solid rgba(102, 126, 234, 0.1);
 }
 
@@ -458,8 +458,8 @@ button#generate-button:hover, button#generate-button:focus {
 /* 输出区域 - 卡片化设计 */
 .output-section {
     background: var(--color-surface-2);
-    border-radius: 18px;
-    box-shadow: 0 2px 12px rgba(0,207,255,0.10);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
     padding: 28px 24px;
     margin-top: 0; /* 移除margin，使用grid gap */
     padding-top: 25px; /* 移除之前的border-top样式 */
@@ -565,7 +565,7 @@ button#generate-button:hover, button#generate-button:focus {
     max-height: 250px; /* 多图时限制更小的高度 */
     width: auto;
     height: auto;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     border: 1px solid rgba(102, 126, 234, 0.2);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
@@ -582,7 +582,7 @@ button#generate-button:hover, button#generate-button:focus {
     margin-top: 10px;
     padding: 8px 12px;
     background: rgba(102, 126, 234, 0.05);
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     font-size: 0.9em;
     color: var(--color-brand-secondary);
     text-align: center;
@@ -602,7 +602,7 @@ button#generate-button:hover, button#generate-button:focus {
     padding: 6px 12px;
     background: rgba(102, 126, 234, 0.1);
     border: 1px solid rgba(102, 126, 234, 0.3);
-    border-radius: 6px;
+    border-radius: var(--radius-xs);
     font-size: 0.85em;
     color: var(--color-brand-secondary);
     cursor: pointer;
@@ -1302,8 +1302,8 @@ footer {
 /* 生成器区块卡片化升级 */
 .input-section, .output-section {
     background: var(--color-surface-2);
-    border-radius: 18px;
-    box-shadow: 0 2px 12px rgba(0,207,255,0.10);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
     padding: 20px 20px;
     margin-bottom: 20px;
     border: 1.5px solid #2D3650;
@@ -1323,7 +1323,7 @@ footer {
 .hero-logo-img {
     height: 120px;
     width: 120px;
-    border-radius: 24px;
+    border-radius: var(--radius-xl);
     margin-bottom: 18px;
     box-shadow: none;
     display: block;

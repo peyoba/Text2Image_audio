@@ -139,7 +139,7 @@ class VoiceApp {
                 
                 // 接近限制时变色提醒
                 if (count > 800) {
-                    textCount.style.color = '#e74c3c';
+                    textCount.style.color = (window.VOICE_MESSAGE_COLORS && window.VOICE_MESSAGE_COLORS.error) || '#e74c3c';
                 } else if (count > 600) {
                     textCount.style.color = '#f39c12';
                 } else {
@@ -394,7 +394,8 @@ class VoiceApp {
         // 文件大小
         const fileSizeEl = document.getElementById('voice-filesize');
         if (fileSizeEl && this.currentAudioBlob && this.currentAudioBlob.size) {
-            fileSizeEl.textContent = this.formatBytes(this.currentAudioBlob.size);
+            const fmt = (window.formatBytesSafe) || this.formatBytes.bind(this);
+            fileSizeEl.textContent = fmt(this.currentAudioBlob.size);
         }
 
         // 显示保存按钮（如果用户已登录）
@@ -426,7 +427,7 @@ class VoiceApp {
 
             // 更新音色信息
             if (modelElement) {
-                const voiceNames = {
+                const voiceNames = (window.VOICE_NAMES) || {
                     'nova': 'Nova (女声)',
                     'alloy': 'Alloy (男声)',
                     'echo': 'Echo (男声)',
@@ -641,7 +642,7 @@ class VoiceApp {
         if (!canvas) return;
         this.waveformCtx = canvas.getContext('2d');
         // 初始清屏
-        this.waveformCtx.fillStyle = '#0e1424';
+        this.waveformCtx.fillStyle = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || '#0e1424';
         this.waveformCtx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
@@ -656,14 +657,14 @@ class VoiceApp {
         cancelAnimationFrame(this.waveformAnimation);
         const draw = () => {
             // 轻量级占位波形：随时间滚动的条形动画
-            ctx.fillStyle = '#0e1424';
+            ctx.fillStyle = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || '#0e1424';
             ctx.fillRect(0, 0, width, height);
             const now = performance.now() / 200;
             const bars = 64;
             const barWidth = width / bars;
             for (let i = 0; i < bars; i++) {
                 const h = (Math.sin(now + i * 0.5) * 0.5 + 0.5) * (height * 0.8);
-                ctx.fillStyle = '#00cfff';
+                ctx.fillStyle = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bar) || '#00cfff';
                 const x = i * barWidth + 1;
                 const y = (height - h) / 2;
                 ctx.fillRect(x, y, Math.max(1, barWidth - 2), h);
@@ -835,7 +836,7 @@ class VoiceApp {
         `;
 
         // 不同类型的背景色
-        const colors = {
+        const colors = (window.VOICE_MESSAGE_COLORS) || {
             success: '#28a745',
             error: '#dc3545',
             info: '#17a2b8'
