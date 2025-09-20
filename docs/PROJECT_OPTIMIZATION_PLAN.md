@@ -8,8 +8,13 @@
 - 已完成（零功能/零视觉回归）：
   - 安全与稳定：下载响应修复、去重重复路由、负面词二次编码修复、日志脱敏、安全头补充
   - 认证与OAuth：统一ENV、动态redirect_uri、JWT旧制式开关（默认兼容）
-  - 前端可维护性：初始化幂等化、移除敏感日志、VoiceApp与UIHandler文件内分区、HD统计轮询灰度开关、引入CSS变量基线（零视觉回归）、创建JS模块骨架（未接入）
-  - 文档：优化计划、部署/ENV清单、前端运行时配置、监控与告警方案
+  - 前端可维护性：
+    - 初始化幂等化、移除敏感日志、VoiceApp 与 UIHandler 文件内分区、HD 统计轮询灰度开关
+    - CSS 变量等值替换：在 index/voice/image-generator/admin 等页面将品牌色/圆角/阴影等用语义变量替代；全局 footer 社交图标颜色以 CSS 覆盖为变量（保持内联回退），实现零视觉回归
+    - 语音模块常量/函数迁移：抽离只读常量与纯函数至 `frontend/js/modules/voice_constants.js`，`voice.html/voice_app.js` 接入变量与常量（保留回退）
+  - 后端调用稳健性：DeepSeek 两处请求统一使用 `fetchWithRetry`，重试上限与初始延迟可通过 `RETRY_MAX_ATTEMPTS`/`RETRY_INITIAL_DELAY_MS` 覆盖
+  - CORS 灰度：新增 `ALLOWED_ORIGINS` 与 `CORS_STRICT` 白名单配置，默认行为保持不变
+  - 文档：优化计划、部署/ENV 清单、前端运行时配置、监控与告警方案
 - 下一步建议（可选、零风险起步）：
   - UI现代化规划与渐进式实施（不改业务交互，先做样式与组件分层）
   - 监控面板化：将关键指标汇总至单页说明或外部仪表盘

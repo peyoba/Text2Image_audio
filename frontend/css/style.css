@@ -1852,7 +1852,7 @@ footer {
     
     .nav ul.mobile-menu-open li a:hover,
     .nav ul.mobile-menu-open li a:active {
-        background: #007bff;
+        background: var(--color-link-primary, #007bff);
         color: white;
         transform: translateY(-2px);
     }
@@ -1891,7 +1891,7 @@ footer {
     .form-control:focus,
     .input-field:focus,
     textarea:focus {
-        border-color: #007bff;
+        border-color: var(--color-link-primary, #007bff);
         outline: none;
         box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
     }
@@ -2060,7 +2060,7 @@ footer {
     bottom: 20px;
     left: 20px;
     right: 20px;
-    background: #007bff;
+    background: var(--color-link-primary, #007bff);
     color: white;
     padding: 15px;
     border-radius: 12px;
@@ -2076,7 +2076,7 @@ footer {
 
 .pwa-install-prompt button {
     background: white;
-    color: #007bff;
+    color: var(--color-link-primary, #007bff);
     border: none;
     padding: 10px 20px;
     border-radius: 8px;

@@ -8,6 +8,12 @@
     --color-surface-2: #232B45;
     --color-text-primary: #AAB4D4;
     --color-text-contrast: #181f2e;
+    /* 链接主色（等值替换用，保持回退） */
+    --color-link-primary: #007bff;
+
+    /* 次要高亮蓝（等值替换用，保持回退） */
+    --color-accent-blue: #4a90e2;
+    --color-accent-blue-dark: #2980b9;
 
     /* 阴影 */
     --shadow-card: 0 2px 12px rgba(0,207,255,0.10);
