@@ -67,26 +67,26 @@
     body { background: #0b1220; color: #e5e7eb; }
     .container { max-width: 1100px; margin: 20px auto; padding: 24px 28px; }
     .page-header { display:flex; align-items:center; justify-content:space-between; margin: 8px 0 18px; }
-    .back-link { color:#00CFFF; text-decoration:none; }
-    .card { background:#0f172a; border:1px solid #273548; border-radius:12px; padding:18px; }
+    .back-link { color: var(--color-brand-primary, #00CFFF); text-decoration:none; }
+    .card { background:#0f172a; border:1px solid #273548; border-radius:var(--radius-md); padding:18px; }
     /* 复用首页用户信息与下拉样式 */
     .user-info { display:flex; align-items:center; gap:10px; padding:6px 10px; background:rgba(15,23,42,0.7); border:1px solid #273548; border-radius:999px; }
     .user-avatar img { width:28px; height:28px; border-radius:50%; object-fit:cover; }
     .user-details { display:flex; flex-direction:row; align-items:center; gap:10px; position:relative; }
     .username { font-weight:600; color:#e5e7eb; font-size:0.9rem; }
-    .user-menu-toggle { background:rgba(36,49,77,0.6); color:#e5e7eb; border:1px solid #2A3A57; border-radius:999px; padding:6px 12px 6px 6px; display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-size:0.85rem; box-shadow:0 4px 18px rgba(0,0,0,0.25); appearance:none; -webkit-appearance:none; outline:none; background-clip:padding-box; }
+    .user-menu-toggle { background:rgba(36,49,77,0.6); color:#e5e7eb; border:1px solid var(--color-accent-border, #2A3A57); border-radius:999px; padding:6px 12px 6px 6px; display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-size:0.85rem; box-shadow:0 4px 18px rgba(0,0,0,0.25); appearance:none; -webkit-appearance:none; outline:none; background-clip:padding-box; }
     .user-menu-toggle:hover { background:rgba(36,49,77,0.85); }
-    .user-menu-toggle .caret { color:#aab4d4; font-size:0.8rem; }
+    .user-menu-toggle .caret { color:var(--color-text-primary, #aab4d4); font-size:0.8rem; }
     .user-menu-toggle .avatar-inline { width:22px; height:22px; border-radius:50%; background:#0b1220; }
     .user-menu-toggle .username { display:inline-block; color:#e5e7eb; max-width:160px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .user-dropdown { position:absolute; right:0; top:calc(100% + 8px); background:#0e1424; border:1px solid #2A3A57; border-radius:10px; min-width:160px; box-shadow:0 14px 32px rgba(0,0,0,0.45); padding:8px; z-index:1000; }
-    .dropdown-item { display:block; padding:8px 10px; color:#d6def8; text-decoration:none; border-radius:8px; font-size:0.9rem; white-space:nowrap; }
-    .dropdown-item:hover { background:#1a2440; }
+    .user-dropdown { position:absolute; right:0; top:calc(100% + 8px); background:var(--color-wave-bg, #0e1424); border:1px solid var(--color-accent-border, #2A3A57); border-radius:10px; min-width:160px; box-shadow:0 14px 32px rgba(0,0,0,0.45); padding:8px; z-index:1000; }
+    .dropdown-item { display:block; padding:8px 10px; color:var(--color-text-muted-2, #d6def8); text-decoration:none; border-radius:var(--radius-sm); font-size:0.9rem; white-space:nowrap; }
+    .dropdown-item:hover { background: var(--color-accent-dark, #1a2440); }
     /* 语言选择下拉，统一胶囊深色主题 */
     .lang-select {
-      background:#0e1424;
-      color:#d6def8;
-      border:1px solid #2A3A57;
+      background:var(--color-wave-bg, #0e1424);
+      color:var(--color-text-muted-2, #d6def8);
+      border:1px solid var(--color-accent-border, #2A3A57);
       border-radius:999px;
       padding:6px 28px 6px 12px;
       appearance:none;

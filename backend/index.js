@@ -46,6 +46,24 @@ function recordMetric(env, name, data) {
     } catch(_) {}
 }
 
+// ---- CORS 白名单（灰度支持）----
+function parseAllowedOrigins(env) {
+    try {
+        const raw = String(env.ALLOWED_ORIGINS || '').trim();
+        if (!raw) return [];
+        return raw.split(/[\s,]+/).map(o => o.trim()).filter(Boolean);
+    } catch (_) { return []; }
+}
+
+function computeAllowedOrigin(request, env) {
+    const list = parseAllowedOrigins(env);
+    if (!list.length) return '*'; // 默认放开，零回归
+    const strict = String(env.CORS_STRICT || 'false').toLowerCase() === 'true';
+    const origin = (request && (request.headers.get('Origin') || request.headers.get('origin'))) || '';
+    if (origin && list.includes(origin)) return origin; // 命中白名单
+    return strict ? 'null' : '*';
+}
+
 export default {
     async fetch(request, env, ctx) {
         const url = new URL(request.url);
@@ -70,7 +88,7 @@ export default {
             logInfo(env, "[Worker Log] Access-Control-Request-Method:", request.headers.get("Access-Control-Request-Method"));
             logInfo(env, "[Worker Log] Access-Control-Request-Headers:", request.headers.get("Access-Control-Request-Headers"));
             logInfo(env, "[Worker Log] Calling makeCorsResponse for OPTIONS request.");
-            return makeCorsResponse(request, env); // Pass request to makeCorsResponse
+            return makeCorsResponse(request, env); // 预检请求按白名单/回退处理
         }
 
         // CORS Preflight (This block might be redundant now due to the explicit check above, but keep for other scenarios if any)
@@ -198,7 +216,7 @@ export default {
                         }
                     );
                     
-                    addCorsHeaders(response.headers, env);
+                    addCorsHeaders(response.headers, env, request);
                     addSecurityHeaders(response.headers, env);
                     const dt = Date.now() - t0;
                     recordMetric(env, 'download_image', { dt_ms: dt, image_id: imageId });
@@ -275,7 +293,7 @@ export default {
 
                     const audioRespHeaders = new Headers();
                     audioRespHeaders.append('Content-Type', audioContentType);
-                    addCorsHeaders(audioRespHeaders, env);
+                    addCorsHeaders(audioRespHeaders, env, request);
                     addSecurityHeaders(audioRespHeaders, env);
                     
                     const dt = Date.now() - t0;
@@ -370,11 +388,16 @@ export default {
                         messages: [{ role: "user", content: prompt }],
                         temperature: 0.2
                     };
-                    const response = await fetch(deepseekApiUrl, {
-                        method: "POST",
-                        headers: headers,
-                        body: JSON.stringify(payload)
-                    });
+                    const response = await fetchWithRetry(
+                        deepseekApiUrl,
+                        {
+                            method: "POST",
+                            headers: headers,
+                            body: JSON.stringify(payload)
+                        },
+                        "DeepSeek Chat Completions",
+                        env
+                    );
 
                     if (!response.ok) {
                         console.error(`[Worker Error] DeepSeek API call failed for translation with status: ${response.status}`);
@@ -457,11 +480,16 @@ async function optimizePromptWithDeepseek(textPrompt, env) {
     logInfo(env, `[Worker Log] 向 DeepSeek API 发送请求 (JS fetch): URL=${deepseekApiUrl}`);
     
     try {
-        const response = await fetch(deepseekApiUrl, {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify(payload)
-        });
+        const response = await fetchWithRetry(
+            deepseekApiUrl,
+            {
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify(payload)
+            },
+            "DeepSeek Chat Completions",
+            env
+        );
 
         if (!response.ok) {
             const errorContent = await response.text();
@@ -871,8 +899,9 @@ function jsonResponse(body, env, status = 200, additionalHeaders = {}) {
 // Helper for CORS preflight
 function makeCorsResponse(request, env) { // Added request parameter
     logInfo(env, "[Worker Log] makeCorsResponse called.");
+    const allowOrigin = computeAllowedOrigin(request, env);
     const corsHeaders = {
-        "Access-Control-Allow-Origin": "*", // Allow all origins
+        "Access-Control-Allow-Origin": allowOrigin,
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS", // Specify allowed methods
         "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With", // Specify allowed headers
         "Access-Control-Max-Age": "86400", // Cache preflight response for 1 day
@@ -903,9 +932,10 @@ function makeCorsResponse(request, env) { // Added request parameter
     });
 }
 
-function addCorsHeaders(responseHeaders, env) { // responseHeaders should be a Headers object
+function addCorsHeaders(responseHeaders, env, request) { // responseHeaders should be a Headers object
     logInfo(env, "[Worker Log] addCorsHeaders called.");
-    responseHeaders.set("Access-Control-Allow-Origin", "*");
+    const allowOrigin = computeAllowedOrigin(request, env);
+    responseHeaders.set("Access-Control-Allow-Origin", allowOrigin);
     responseHeaders.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS"); // Should match makeCorsResponse
     responseHeaders.set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With"); // Should match
 

@@ -26,6 +26,12 @@
     --space-4: 16px;
     --space-5: 20px;
     --space-6: 24px;
+
+    /* 语音页与深色组件专用（等值替换，零视觉回归） */
+    --color-wave-bg: #0e1424; /* 语音波形/深色容器背景 */
+    --color-accent-border: #2A3A57; /* 深色容器描边 */
+    --color-accent-dark: #121a2d; /* 深色悬停背景 */
+    --color-text-muted-2: #d6def8; /* 次级浅色文字 */
 }
 
 @media (prefers-color-scheme: dark) {

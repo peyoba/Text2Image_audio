@@ -96,6 +96,9 @@
 - 重试策略：
   - RETRY_MAX_ATTEMPTS / FETCH_RETRY_MAX：覆盖后端重试最大次数（默认 8）
   - RETRY_INITIAL_DELAY_MS / FETCH_RETRY_INITIAL_DELAY_MS：覆盖初始回退延迟（默认 1500ms）
+ - CORS（灰度白名单，不改默认）：
+   - ALLOWED_ORIGINS：允许来源白名单，逗号或空格分隔；未配置时保持 `*`
+   - CORS_STRICT：为 `true` 时，非白名单来源返回 `null`；默认为 `false`
 
 - 前端主要调用链
   - window.APIClient（frontend/js/api_client.js）统一封装：

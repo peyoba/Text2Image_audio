@@ -745,6 +745,10 @@ footer {
     color: rgba(255, 255, 255, 0.8);
 }
 
+.footer-icon svg path, footer .footer-icon path {
+    fill: var(--color-brand-primary, #00CFFF);
+}
+
 /* 响应式调整 - 增强版 */
 @media (max-width: 900px) {
     .container {

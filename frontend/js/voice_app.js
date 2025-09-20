@@ -725,9 +725,10 @@ class VoiceApp {
         ul.innerHTML = '';
         list.forEach((it, idx) => {
             const li = document.createElement('li');
-            li.style.cssText = 'padding:10px; background:#0e1424; border:1px solid #2A3A57; border-radius:8px; display:flex; align-items:center; gap:10px;';
+            const bg = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || '#0e1424';
+            li.style.cssText = `padding:10px; background:${bg}; border:1px solid #2A3A57; border-radius: var(--radius-sm); display:flex; align-items:center; gap:10px;`;
             const meta = document.createElement('div');
-            meta.style.cssText = 'flex:1; color:#AAB4D4;';
+            meta.style.cssText = 'flex:1; color: var(--color-text-primary);';
             meta.innerHTML = `<div style="font-size:12px;">${new Date(it.t).toLocaleString()} • ${it.voice} • ${it.speed}x</div><div style="font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width: 100%;">${(it.text || '').replace(/[\n\r]+/g,' ').slice(0,120)}</div>`;
             const play = document.createElement('button');
             play.className = 'action-btn';

@@ -237,6 +237,11 @@ Cloudflare自动提供免费SSL证书，确保以下设置：
 | `GOOGLE_CLIENT_SECRET` | 否 | Google OAuth密钥 | `xxx-xxx` |
 | `LOG_LEVEL` | 否 | 日志级别 | `info` |
 | `DEFAULT_AUDIO_VOICE` | 否 | 默认语音音色 | `nova` |
+| `DEFAULT_AUDIO_MODEL` | 否 | 默认语音模型 | `openai-audio` |
+| `ALLOWED_ORIGINS` | 否 | CORS 允许的来源白名单（用逗号或空格分隔；未设置则为 `*`） | `https://aistone.org https://www.aistone.org` |
+| `CORS_STRICT` | 否 | 严格模式：非白名单来源返回 `null`（默认 `false`） | `true` |
+| `RETRY_MAX_ATTEMPTS` | 否 | 后端外部请求重试最大次数（覆盖默认 8） | `6` |
+| `RETRY_INITIAL_DELAY_MS` | 否 | 后端外部请求首次回退延迟（覆盖默认 1500ms） | `1000` |
 
 ### 2. KV存储配置
 
@@ -245,18 +250,20 @@ Cloudflare自动提供免费SSL证书，确保以下设置：
 | `USERS` | 用户数据存储 | JSON |
 | `IMAGES_CACHE` | 图片缓存存储 | Base64 |
 
-### 3. CORS配置
+### 3. CORS配置（灰度白名单，零回归）
 
-确保Worker中的CORS设置允许前端域名：
+- 默认行为：当未设置 `ALLOWED_ORIGINS` 时，后端返回 `Access-Control-Allow-Origin: *`（与现有行为一致）。
+- 设置白名单：配置 `ALLOWED_ORIGINS`（逗号或空格分隔），后端将对命中来源返回该 `Origin`，否则按 `CORS_STRICT` 决定：
+  - `CORS_STRICT=false`（默认）：非白名单来源仍回退 `*`。
+  - `CORS_STRICT=true`：非白名单来源返回 `null`，用于严格跨域控制（建议先预发灰度）。
 
-```javascript
-const corsHeaders = {
-    'Access-Control-Allow-Origin': 'https://aistone.org',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Max-Age': '86400',
-};
+示例（Workers 环境变量）：
 ```
+ALLOWED_ORIGINS="https://aistone.org https://www.aistone.org"
+CORS_STRICT="false"
+```
+
+注意：仅在需要收紧跨域策略时启用白名单；默认不配置即可保持现网无感知。
 
 ## 监控和维护
 

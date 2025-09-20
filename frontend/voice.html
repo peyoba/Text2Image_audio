@@ -194,7 +194,7 @@
                 <h1 class="hero-title" data-i18n="voiceHeroTitle">AISTONE - 免费AI语音合成平台</h1>
             </div>
             <p class="hero-subtitle" data-i18n="voiceHeroSubtitle">文本转语音 • 多种音色 • 完全免费</p>
-            <div class="hero-slogan" data-i18n="voiceHeroSlogan" style="font-size:1.25em;color:#00CFFF;margin:8px 0 0 0;">AI驱动·自然语音·专业级品质！</div>
+            <div class="hero-slogan" data-i18n="voiceHeroSlogan" style="font-size:1.25em;color: var(--color-brand-primary);margin:8px 0 0 0;">AI驱动·自然语音·专业级品质！</div>
             <div class="hero-tags" style="margin-top:12px;">
                 <span class="tag tag-free" data-i18n="tagFree">100% 免费</span>
                 <span class="tag tag-unlimited" data-i18n="tagUnlimited">无限生成</span>
@@ -319,7 +319,7 @@
                             </div>
                             <!-- 波形可视化 -->
                             <div class="waveform-container" style="margin:10px 0 0 0;">
-                                <canvas id="voice-waveform" width="800" height="120" style="width:100%; height:120px; background:#0e1424; border:1px solid #2A3A57; border-radius:8px;"></canvas>
+                                <canvas id="voice-waveform" width="800" height="120" style="width:100%; height:120px; background: var(--color-wave-bg, #0e1424); border:1px solid var(--color-accent-border, #2A3A57); border-radius: var(--radius-sm);"></canvas>
                             </div>
                             
                             <div class="result-actions">
@@ -362,7 +362,7 @@
                             <!-- 调用日志 -->
                             <details id="voice-log-panel" style="margin-top:10px;">
                                 <summary data-i18n="logsTitle">调用日志</summary>
-                                <pre id="voice-log" style="max-height:200px; overflow:auto; background:#0e1424; border:1px solid #2A3A57; padding:8px; border-radius:8px; color:#AAB4D4; font-size:12px;"></pre>
+                                <pre id="voice-log" style="max-height:200px; overflow:auto; background: var(--color-wave-bg, #0e1424); border:1px solid var(--color-accent-border, #2A3A57); padding:8px; border-radius: var(--radius-sm); color: var(--color-text-primary); font-size:12px;"></pre>
                             </details>
                         </div>
 
@@ -520,7 +520,7 @@
     .user-menu-toggle {
         background: rgba(36, 49, 77, 0.6);
         color: #e5e7eb;
-        border: 1px solid #2A3A57;
+        border: 1px solid var(--color-accent-border, #2A3A57);
         border-radius: 999px;
         padding: 6px 12px 6px 6px;
         display: inline-flex;
@@ -541,8 +541,8 @@
         position: absolute;
         right: 0;
         top: calc(100% + 8px);
-        background: #0e1424;
-        border: 1px solid #2A3A57;
+        background: var(--color-wave-bg, #0e1424);
+        border: 1px solid var(--color-accent-border, #2A3A57);
         border-radius: 10px;
         min-width: 160px;
         box-shadow: 0 14px 32px rgba(0,0,0,0.45);
@@ -552,18 +552,18 @@
     .dropdown-item {
         display: block;
         padding: 8px 10px;
-        color: #d6def8;
+        color: var(--color-text-muted-2, #d6def8);
         text-decoration: none;
-        border-radius: 8px;
+        border-radius: var(--radius-sm, 8px);
         font-size: 0.9rem;
         white-space: nowrap;
     }
-    .dropdown-item:hover { background: #1a2440; }
+    .dropdown-item:hover { background: var(--color-accent-dark, #1a2440); }
     /* 右上语言下拉与按钮统一深色主题，移除系统白色外观 */
     .lang-select {
-        background: #0e1424;
-        color: #d6def8;
-        border: 1px solid #2A3A57;
+        background: var(--color-wave-bg, #0e1424);
+        color: var(--color-text-muted-2, #d6def8);
+        border: 1px solid var(--color-accent-border, #2A3A57);
         border-radius: 999px;
         padding: 6px 28px 6px 12px;
         appearance: none;
@@ -613,43 +613,47 @@
     /* 响应式设计 */
     @media (max-width: 768px) { .user-info { flex-direction: column; text-align: center; } .user-actions { justify-content: center; } }
     </style>
+    <style>
+        /* 页脚社交图标品牌色使用CSS变量（等值覆盖内联fill，零视觉回归） */
+        footer .footer-icon path { fill: var(--color-brand-primary, #00CFFF); }
+    </style>
     <!-- 语音页面增强样式 -->
     <style>
-        .voice-progress { position: relative; background: #0e1424; border: 1px solid #2A3A57; border-radius: 8px; height: 10px; margin: 8px 0 12px 0; }
-        .voice-progress-bar { position:absolute; left:0; top:0; bottom:0; background:#00CFFF; border-radius:8px; transition: width .3s ease; }
-        .voice-progress-label { margin-top: 6px; color:#AAB4D4; font-size:12px; }
+        .voice-progress { position: relative; background: var(--color-wave-bg); border: 1px solid var(--color-accent-border); border-radius: var(--radius-sm); height: 10px; margin: 8px 0 12px 0; }
+        .voice-progress-bar { position:absolute; left:0; top:0; bottom:0; background: var(--color-brand-primary); border-radius: var(--radius-sm); transition: width .3s ease; }
+        .voice-progress-label { margin-top: 6px; color: var(--color-text-primary); font-size:12px; }
         .result-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
-        .action-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 12px; border:1px solid #2A3A57; border-radius:8px; background:#0e1424; color:#d6def8; cursor:pointer; }
-        .action-btn:hover { background:#121a2d; }
+        .action-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 12px; border:1px solid var(--color-accent-border); border-radius: var(--radius-sm); background: var(--color-wave-bg); color: var(--color-text-muted-2); cursor:pointer; }
+        .action-btn:hover { background: var(--color-accent-dark); }
         .audio-player { width: 100%; }
 
         /* 语音页专属排版与控件尺寸（不影响其它页面） */
         .voice-page .section-title { font-size: 1.25rem; line-height: 1.3; color: #d6def8; }
-        .voice-page .input-label .label-text { font-size: 0.95rem; font-weight: 600; color:#d6def8; }
-        .voice-page .input-label .label-hint { font-size: 0.85rem; color:#AAB4D4; margin-left: 6px; }
+        .voice-page .input-label .label-text { font-size: 0.95rem; font-weight: 600; color: var(--color-text-muted-2); }
+        .voice-page .input-label .label-hint { font-size: 0.85rem; color: var(--color-text-primary); margin-left: 6px; }
         .voice-page .voice-form { margin-top: 8px; }
-        .voice-page .voice-text-input { min-height: 160px; font-size: 1rem; line-height: 1.6; padding: 14px 16px; border-radius: 10px; border:1px solid #2A3A57; background:#0e1424; color:#d6def8; }
-        .voice-page .text-counter { margin-top: 6px; font-size: 0.85rem; color:#AAB4D4; }
+        .voice-page .voice-text-input { min-height: 160px; font-size: 1rem; line-height: 1.6; padding: 14px 16px; border-radius: 10px; border:1px solid var(--color-accent-border); background: var(--color-wave-bg); color: var(--color-text-muted-2); }
+        .voice-page .text-counter { margin-top: 6px; font-size: 0.85rem; color: var(--color-text-primary); }
 
         .voice-page .voice-options { display:flex; gap: 18px; flex-wrap: wrap; margin-top: 10px; }
         .voice-page .option-group { display:flex; flex-direction: column; gap: 6px; }
         .voice-page .option-label { font-size: 0.95rem; color:#d6def8; }
-        .voice-page .voice-select { height: 40px; min-width: 220px; font-size: 0.95rem; padding: 6px 10px; border-radius: 10px; border:1px solid #2A3A57; background:#0e1424; color:#d6def8; }
+        .voice-page .voice-select { height: 40px; min-width: 220px; font-size: 0.95rem; padding: 6px 10px; border-radius: 10px; border:1px solid var(--color-accent-border, #2A3A57); background: var(--color-wave-bg, #0e1424); color: var(--color-text-muted-2, #d6def8); }
         .voice-page .speed-control { display:flex; align-items:center; gap: 10px; }
         .voice-page .speed-slider { width: 240px; height: 6px; }
-        .voice-page .speed-display { font-size: 0.95rem; color:#d6def8; }
+        .voice-page .speed-display { font-size: 0.95rem; color: var(--color-text-muted-2); }
 
         .voice-page .example-texts { margin-top: 10px; }
         .voice-page .example-buttons { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
-        .voice-page .example-btn { padding: 10px 12px; border:1px solid #2A3A57; background:#0e1424; color:#d6def8; border-radius:10px; cursor:pointer; font-size: 0.95rem; text-align: left; }
-        .voice-page .example-btn:hover { background:#121a2d; }
+        .voice-page .example-btn { padding: 10px 12px; border:1px solid var(--color-accent-border); background: var(--color-wave-bg); color: var(--color-text-muted-2); border-radius:10px; cursor:pointer; font-size: 0.95rem; text-align: left; }
+        .voice-page .example-btn:hover { background: var(--color-accent-dark); }
 
-        .voice-page .voice-generate-btn { font-size: 1rem; padding: 12px 22px; border-radius: 12px; background:#00CFFF; color:#0b1220; border:none; min-width: 220px; font-weight: 700; box-shadow: 0 6px 18px rgba(0,207,255,0.18); }
+        .voice-page .voice-generate-btn { font-size: 1rem; padding: 12px 22px; border-radius: var(--radius-md); background: var(--color-brand-primary); color: var(--color-text-contrast); border:none; min-width: 220px; font-weight: 700; box-shadow: 0 6px 18px rgba(0,207,255,0.18); }
         .voice-page .voice-generate-btn .btn-icon { margin-right: 6px; }
         .voice-page .voice-generate-btn:disabled { opacity: .7; }
 
         .voice-page .result-section { margin-top: 16px; }
-        .voice-page .info-item { display:inline-flex; align-items:center; gap:6px; margin-right: 14px; font-size: 0.95rem; color:#AAB4D4; }
+        .voice-page .info-item { display:inline-flex; align-items:center; gap:6px; margin-right: 14px; font-size: 0.95rem; color: var(--color-text-primary); }
         .voice-page .info-value { color:#d6def8; }
 
         /* 小屏优化 */
@@ -667,7 +671,7 @@
         .voice-features-section, .use-cases-section, .related-content { margin-top: 16px; max-width: 980px; margin-left:auto; margin-right:auto; }
         .voice-features-section .section-title, .use-cases-section .section-title, .related-content .section-title { text-align:center; }
         .related-content .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; max-width: 980px; margin: 8px auto 0 auto; }
-        .related-content .related-card { background:#0e1424; border:1px solid #2A3A57; border-radius:10px; padding:12px; }
+        .related-content .related-card { background: var(--color-wave-bg); border:1px solid var(--color-accent-border); border-radius:10px; padding:12px; }
         @media (max-width: 640px) {
             .pill { padding:6px 12px; font-size:0.88rem; }
         }
