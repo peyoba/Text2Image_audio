@@ -452,7 +452,12 @@
     <!-- 语音波形渲染模块（在 voice_app.js 之前加载） -->
     <script src="js/modules/ui_utils.js?v=20250909" defer></script>
     <script src="js/modules/voice_waveform.js?v=20250909" defer></script>
+    <script src="js/modules/voice_ui_controls.js?v=20250909" defer></script>
+    <script src="js/modules/voice_logger.js?v=20250909" defer></script>
+    <script src="js/modules/voice_examples.js?v=20250909" defer></script>
     <script src="js/modules/voice_text_tools.js?v=20250909" defer></script>
+    <script src="js/modules/voice_download.js?v=20250909" defer></script>
+    <script src="js/modules/voice_share.js?v=20250909" defer></script>
     <script src="js/modules/voice_history.js?v=20250909" defer></script>
     <script src="js/voice_app.js?v=20250909" defer></script>
 
@@ -592,7 +597,7 @@
     
     .btn-primary {
         background-color: var(--color-cta-primary, #4f46e5);
-        color: white;
+        color: var(--color-surface-on-light-white, #fff);
     }
     
     .btn-primary:hover {
@@ -607,7 +612,7 @@
     
     .btn-outline:hover {
         background-color: var(--color-cta-primary, #4f46e5);
-        color: white;
+        color: var(--color-surface-on-light-white, #fff);
     }
     
     .btn-small {

@@ -28,11 +28,24 @@ class VoiceApp {
                 this.setupEventListeners();
                 this.setupTextCounter();
                 this.setupSpeedSlider();
-                this.setupExamples();
-                this.populateVoiceExamples();
+        // 优先使用模块化示例工具
+        if (window.VoiceExamples && typeof window.VoiceExamples.bind === 'function') {
+            try { window.VoiceExamples.bind('.example-btn[data-text]', '#voice-text-input'); } catch (_) {}
+        } else {
+            this.setupExamples();
+        }
+        if (window.VoiceExamples && typeof window.VoiceExamples.populate === 'function') {
+            try { window.VoiceExamples.populate(); } catch (_) {}
+        } else {
+            this.populateVoiceExamples();
+        }
                 // 语言切换时，动态刷新语音示例
                 document.addEventListener('languageChanged', () => {
+                if (window.VoiceExamples && typeof window.VoiceExamples.populate === 'function') {
+                    try { window.VoiceExamples.populate(); } catch (_) {}
+                } else {
                     this.populateVoiceExamples();
+                }
                 });
                 this.handleUrlParameters(); // 处理URL参数
                 this.initWaveform();
@@ -453,22 +466,26 @@ class VoiceApp {
         }
 
         try {
-            const blob = this.currentAudioBlob || (await (await fetch(this.currentAudioUrl)).blob());
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            const mime = (blob && blob.type || '').toLowerCase();
-            let ext = 'wav';
-            if (mime.includes('mpeg') || mime.includes('mp3')) ext = 'mp3';
-            else if (mime.includes('ogg')) ext = 'ogg';
-            else if (mime.includes('wav') || mime.includes('wave') || mime.includes('x-wav')) ext = 'wav';
-            a.download = `aistone_voice_${Date.now()}.${ext}`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-
-            this.showSuccess('音频下载已开始');
+            // 优先使用模块化下载器
+            if (window.VoiceDownload && typeof window.VoiceDownload.download === 'function') {
+                await window.VoiceDownload.download({ url: this.currentAudioUrl, blob: this.currentAudioBlob, filenameBase: 'aistone_voice_' + Date.now() });
+            } else {
+                const blob = this.currentAudioBlob || (await (await fetch(this.currentAudioUrl)).blob());
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                const mime = (blob && blob.type || '').toLowerCase();
+                let ext = 'wav';
+                if (mime.includes('mpeg') || mime.includes('mp3')) ext = 'mp3';
+                else if (mime.includes('ogg')) ext = 'ogg';
+                else if (mime.includes('wav') || mime.includes('wave') || mime.includes('x-wav')) ext = 'wav';
+                a.download = `aistone_voice_${Date.now()}.${ext}`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                this.showSuccess('音频下载已开始');
+            }
         } catch (error) {
             console.error('下载失败:', error);
             this.showError('音频下载失败，请重试');
@@ -511,7 +528,17 @@ class VoiceApp {
             return;
         }
 
-        // 检查Web Share API支持
+        // 优先使用模块化分享
+        if (window.VoiceShare && typeof window.VoiceShare.share === 'function') {
+            await window.VoiceShare.share({
+                title: 'AISTONE语音合成',
+                text: '我使用AISTONE生成了一段AI语音，快来听听吧！',
+                url: window.location.href
+            });
+            return;
+        }
+        
+        // 回退：原实现
         if (navigator.share) {
             try {
                 await navigator.share({
@@ -596,12 +623,14 @@ class VoiceApp {
 
     // UI：生成按钮状态
     updateGenerateButton(isLoading) {
+        // 优先使用模块化控件
+        if (window.VoiceUIControls && typeof window.VoiceUIControls.updateGenerateButton === 'function') {
+            try { window.VoiceUIControls.updateGenerateButton(!!isLoading); return; } catch (_) {}
+        }
         const generateBtn = document.getElementById('generate-voice-btn');
         if (!generateBtn) return;
-
         const btnText = generateBtn.querySelector('.btn-text');
         const btnLoading = generateBtn.querySelector('.btn-loading');
-
         if (isLoading) {
             generateBtn.disabled = true;
             if (btnText) btnText.style.display = 'none';
@@ -615,6 +644,10 @@ class VoiceApp {
 
     // UI：进度条
     updateProgress(percent = 0, label = '') {
+        // 优先使用模块化控件
+        if (window.VoiceUIControls && typeof window.VoiceUIControls.updateProgress === 'function') {
+            try { window.VoiceUIControls.updateProgress(percent, label); return; } catch (_) {}
+        }
         const bar = document.getElementById('voice-progress-bar');
         const box = document.getElementById('voice-progress');
         const text = document.getElementById('voice-progress-label');
@@ -635,6 +668,10 @@ class VoiceApp {
 
     // 工具：日志
     log(message) {
+        if (window.VoiceLogger && typeof window.VoiceLogger.log === 'function') {
+            try { window.VoiceLogger.log(message); } catch (_) {}
+            return;
+        }
         const ts = new Date().toLocaleTimeString();
         const line = `[${ts}] ${message}`;
         this.logs.push(line);
