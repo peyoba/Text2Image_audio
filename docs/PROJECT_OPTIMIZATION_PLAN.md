@@ -31,6 +31,8 @@
       - 抽离语音UI控件：新增 `frontend/js/modules/voice_ui_controls.js`（统一生成按钮与进度条的UI更新），在 `voice.html` 引入并于 `voice_app.js` 优先使用（保留本地回退）
       - 抽离语音日志：新增 `frontend/js/modules/voice_logger.js`（统一页面日志输出），在 `voice.html` 引入并于 `voice_app.js` 优先使用（保留本地回退）
       - 抽离语音示例：新增 `frontend/js/modules/voice_examples.js`（示例按钮绑定与文案填充），在 `voice.html` 引入并于 `voice_app.js` 优先使用（保留本地回退）
+      - 抽离结果渲染：新增 `frontend/js/modules/voice_result_renderer.js`（统一结果区渲染与尺寸展示），在 `voice.html` 引入并于 `voice_app.js` 优先使用（保留本地回退）
+      - 抽离URL参数处理：新增 `frontend/js/modules/voice_url_params.js`（解析/应用/清理URL参数与auto生成），在 `voice.html` 引入并于 `voice_app.js` 优先使用（保留本地回退）
     - 残留颜色变量化（收尾）：
       - 统一 CTA 蓝与悬停：`#4f46e5/#4338ca` → `--color-cta-primary/--color-cta-primary-dark`（`image-generator.html`、`auth-modals.html`、`js/prompt_templates.js`）
       - 统一白色文本/背景：`white/#fff` → `--color-surface-on-light-white`（`css/style.css` 等多处、`auth/google/callback.html`、`hd-images-ui.html`、`admin.html`）

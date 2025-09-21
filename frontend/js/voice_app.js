@@ -47,7 +47,12 @@ class VoiceApp {
                     this.populateVoiceExamples();
                 }
                 });
-                this.handleUrlParameters(); // 处理URL参数
+                // 处理URL参数（优先模块化）
+                if (window.VoiceUrlParams && typeof window.VoiceUrlParams.applyAndMaybeAutoGenerate === 'function') {
+                    try { window.VoiceUrlParams.applyAndMaybeAutoGenerate(); } catch (_) {}
+                } else {
+                    this.handleUrlParameters(); // 回退
+                }
                 this.initWaveform();
                 this.restoreHistory();
                 console.log('语音应用初始化完成');
@@ -382,41 +387,31 @@ class VoiceApp {
 
     // UI：显示生成结果
     displayVoiceResult(response) {
-        const resultSection = document.getElementById('voice-result-section');
-        const audioPlayer = document.getElementById('generated-audio');
-
-        if (!resultSection || !audioPlayer) return;
-
-        // 设置音频源
-        audioPlayer.src = response.audioUrl;
-        audioPlayer.load();
-
-        // 显示结果区域
-        resultSection.style.display = 'block';
-        
-        // 滚动到结果区域
-        resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
         // 存储生成参数用于信息显示
         this.lastGenerationParams = {
             voice: document.getElementById('voice-model').value,
             speed: document.getElementById('voice-speed').value,
             text: document.getElementById('voice-text-input').value
         };
-
-        // 文件大小
+        // 优先使用结果渲染器
+        if (window.VoiceResultRenderer && typeof window.VoiceResultRenderer.display === 'function') {
+            try { window.VoiceResultRenderer.display(response, { blob: this.currentAudioBlob, lastParams: this.lastGenerationParams }); return; } catch (_) {}
+        }
+        const resultSection = document.getElementById('voice-result-section');
+        const audioPlayer = document.getElementById('generated-audio');
+        if (!resultSection || !audioPlayer) return;
+        audioPlayer.src = response.audioUrl;
+        audioPlayer.load();
+        resultSection.style.display = 'block';
+        resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         const fileSizeEl = document.getElementById('voice-filesize');
         if (fileSizeEl && this.currentAudioBlob && this.currentAudioBlob.size) {
             const fmt = (window.formatBytesSafe) || this.formatBytes.bind(this);
             fileSizeEl.textContent = fmt(this.currentAudioBlob.size);
         }
-
-        // 显示保存按钮（如果用户已登录）
         if (window.AuthManager && window.AuthManager.isLoggedIn()) {
             const saveBtn = document.getElementById('save-audio-btn');
-            if (saveBtn) {
-                saveBtn.style.display = 'inline-flex';
-            }
+            if (saveBtn) { saveBtn.style.display = 'inline-flex'; }
         }
     }
 
