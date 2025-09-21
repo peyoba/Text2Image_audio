@@ -816,7 +816,13 @@ class VoiceApp {
         }
         try {
             this.updateProgress(15, '优化文本...');
-            const optimized = await this.apiClient.optimizeText(textInput.value.trim());
+            // 优先使用模块化文本工具
+            let optimized;
+            if (window.VoiceTextTools && typeof window.VoiceTextTools.optimize === 'function') {
+                optimized = await window.VoiceTextTools.optimize(textInput.value.trim());
+            } else {
+                optimized = await this.apiClient.optimizeText(textInput.value.trim());
+            }
             textInput.value = optimized;
             textInput.dispatchEvent(new Event('input'));
             this.showSuccess('优化完成');
@@ -838,7 +844,13 @@ class VoiceApp {
         try {
             this.updateProgress(15, '翻译中...');
             const target = lang === 'zh' ? 'en' : 'zh';
-            const translated = await this.apiClient.translateText(textInput.value.trim(), target);
+            // 优先使用模块化文本工具
+            let translated;
+            if (window.VoiceTextTools && typeof window.VoiceTextTools.translate === 'function') {
+                translated = await window.VoiceTextTools.translate(textInput.value.trim(), target);
+            } else {
+                translated = await this.apiClient.translateText(textInput.value.trim(), target);
+            }
             textInput.value = translated;
             textInput.dispatchEvent(new Event('input'));
             this.showSuccess('翻译完成');

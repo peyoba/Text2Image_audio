@@ -24,6 +24,8 @@
     - 模块化拆分（阶段性）：
       - 抽离图片显示工具：新增 `frontend/js/modules/image_display.js`，在 `index.html/image-generator.html` 引入并于 `ui_handler.js` 优先调用（保留回退）
       - 抽离语音波形渲染：新增 `frontend/js/modules/voice_waveform.js`，在 `voice.html` 引入并于 `voice_app.js` 优先调用（保留回退）
+      - 抽离语音历史存储：新增 `frontend/js/modules/voice_history.js`，在 `voice.html` 引入并于 `voice_app.js` 优先使用（保留 localStorage 回退）
+      - 抽离语音文本工具：新增 `frontend/js/modules/voice_text_tools.js`，在 `voice.html` 引入并于 `voice_app.js` 优先使用 `optimize/translate`（保留原 APIClient 回退）
     - 残留颜色变量化（收尾）：
       - 统一 CTA 蓝与悬停：`#4f46e5/#4338ca` → `--color-cta-primary/--color-cta-primary-dark`（`image-generator.html`、`auth-modals.html`、`js/prompt_templates.js`）
       - 统一白色文本/背景：`white/#fff` → `--color-surface-on-light-white`（`css/style.css` 等多处、`auth/google/callback.html`、`hd-images-ui.html`、`admin.html`）
