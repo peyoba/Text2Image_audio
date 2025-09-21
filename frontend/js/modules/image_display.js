@@ -183,7 +183,7 @@
         img.style.cssText = 'max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px;box-shadow:0 10px 50px rgba(0,0,0,0.5);';
         var close = document.createElement('div');
         close.textContent = '✕';
-        close.style.cssText = 'position:absolute;top:20px;right:30px;color:white;font-size:30px;font-weight:bold;user-select:none;';
+        close.style.cssText = 'position:absolute;top:20px;right:30px;color:var(--color-surface-on-light-white, #fff);font-size:30px;font-weight:bold;user-select:none;';
         modal.appendChild(img);
         modal.appendChild(close);
         modal.onclick = function (e) { if (e.target === modal || e.target === close) document.body.removeChild(modal); };
