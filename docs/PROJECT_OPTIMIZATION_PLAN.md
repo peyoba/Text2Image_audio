@@ -21,6 +21,14 @@
       - **全站页面覆盖**：style.css, terms.html, privacy.html, tutorial.html, faq.html, ai-guide.html, prompt-engineering.html, about.html, services.html, contact.html 等，保持全部带回退值，确保零视觉回归
       - **技术亮点**：语义化命名、向后兼容、维护性大幅提升
     - 语音模块常量/函数迁移：抽离只读常量与纯函数至 `frontend/js/modules/voice_constants.js`，`voice.html/voice_app.js` 接入变量与常量（保留回退）
+    - 模块化拆分（阶段性）：
+      - 抽离图片显示工具：新增 `frontend/js/modules/image_display.js`，在 `index.html/image-generator.html` 引入并于 `ui_handler.js` 优先调用（保留回退）
+      - 抽离语音波形渲染：新增 `frontend/js/modules/voice_waveform.js`，在 `voice.html` 引入并于 `voice_app.js` 优先调用（保留回退）
+    - 残留颜色变量化（收尾）：
+      - 统一 CTA 蓝与悬停：`#4f46e5/#4338ca` → `--color-cta-primary/--color-cta-primary-dark`（`image-generator.html`、`auth-modals.html`、`js/prompt_templates.js`）
+      - 统一白色文本/背景：`white/#fff` → `--color-surface-on-light-white`（`css/style.css` 等多处、`auth/google/callback.html`、`hd-images-ui.html`、`admin.html`）
+      - 深色表面/描边统一：`#0f172a/#273548` → `--color-surface-deep/--color-accent-border`（`feedback-ui.html` 等）
+      - 次级浅色文字统一：`#e5e7eb` → `--color-text-verylight`（导航/表单/提示文案若干处）
   - 后端调用稳健性：DeepSeek 两处请求统一使用 `fetchWithRetry`，重试上限与初始延迟可通过 `RETRY_MAX_ATTEMPTS`/`RETRY_INITIAL_DELAY_MS` 覆盖
   - CORS 灰度：新增 `ALLOWED_ORIGINS` 与 `CORS_STRICT` 白名单配置，默认行为保持不变
   - 文档：优化计划、部署/ENV 清单、前端运行时配置、监控与告警方案
