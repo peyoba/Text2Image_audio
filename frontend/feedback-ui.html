@@ -7,7 +7,7 @@
     <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
       <div>
         <label for="feedback-category" data-i18n="feedbackCategory">反馈类别</label>
-        <select id="feedback-category" name="category" required style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #273548; background: #0f172a; color: #e5e7eb; margin-top: 4px;">
+        <select id="feedback-category" name="category" required style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--color-accent-border, #273548); background: var(--color-surface-deep, #0f172a); color: var(--color-text-verylight, #e5e7eb); margin-top: 4px;">
           <option value="bug" data-i18n="feedbackCategories.bug">问题反馈</option>
           <option value="feature" data-i18n="feedbackCategories.feature">功能建议</option>
           <option value="improvement" data-i18n="feedbackCategories.improvement">体验改进</option>
@@ -25,7 +25,7 @@
           required 
           data-i18n="feedbackPlaceholder"
           placeholder="请描述您的问题或建议..."
-          style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #273548; background: #0f172a; color: #e5e7eb; margin-top: 4px; resize: vertical; font-family: inherit;"
+          style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--color-accent-border, #273548); background: var(--color-surface-deep, #0f172a); color: var(--color-text-verylight, #e5e7eb); margin-top: 4px; resize: vertical; font-family: inherit;"
         ></textarea>
         <div style="text-align: right; margin-top: 4px; color: #94a3b8; font-size: 0.875rem;">
           <span id="content-counter">0</span>/1000
@@ -38,7 +38,7 @@
   
   <!-- 我的反馈列表 -->
   <div class="feedback-list">
-    <h3 data-i18n="myFeedback" style="margin: 0 0 12px 0; color: #e5e7eb;">我的留言</h3>
+    <h3 data-i18n="myFeedback" style="margin: 0 0 12px 0; color: var(--color-text-verylight, #e5e7eb);">我的留言</h3>
     <div id="feedback-items">
       <div class="loading" id="feedback-loading" style="display: none;">
         <div class="loading-spinner"></div>
@@ -59,8 +59,8 @@
 }
 
 .feedback-item {
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid #273548;
+  background: var(--overlay-surface-strong, rgba(15, 23, 42, 0.8));
+  border: 1px solid var(--color-accent-border, #273548);
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 12px;
@@ -68,7 +68,7 @@
 }
 
 .feedback-item:hover {
-  border-color: #334155;
+  border-color: var(--color-border-alt, #334155);
   transform: translateY(-1px);
 }
 
@@ -80,8 +80,8 @@
 }
 
 .feedback-category {
-  background: #4f46e5;
-  color: white;
+  background: var(--color-cta-primary, #4f46e5);
+  color: var(--color-surface-on-light-white, #fff);
   padding: 2px 8px;
   border-radius: 4px;
   font-size: 0.75rem;
@@ -101,25 +101,25 @@
 }
 
 .feedback-status.processed {
-  background: #10b981;
-  color: white;
+  background: var(--color-success, #10b981);
+  color: var(--color-surface-on-light-white, #fff);
 }
 
 .feedback-content {
-  color: #d1d5db;
+  color: var(--color-text-secondary, #94a3b8);
   line-height: 1.5;
   margin-bottom: 8px;
 }
 
 .feedback-time {
-  color: #9ca3af;
+  color: var(--color-text-secondary, #94a3b8);
   font-size: 0.875rem;
 }
 
 .empty-state {
   text-align: center;
   padding: 32px;
-  color: #9ca3af;
+  color: var(--color-text-secondary, #94a3b8);
 }
 
 .empty-icon {
@@ -137,14 +137,14 @@
   justify-content: center;
   gap: 8px;
   padding: 24px;
-  color: #9ca3af;
+  color: var(--color-text-secondary, #94a3b8);
 }
 
 .loading-spinner {
   width: 16px;
   height: 16px;
   border: 2px solid #374151;
-  border-top: 2px solid #4f46e5;
+  border-top: 2px solid var(--color-cta-primary, #4f46e5);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
