@@ -849,6 +849,10 @@ class VoiceApp {
     }
 
     showMessage(message, type = 'info') {
+        // 优先使用全局 UIUtils.toast 统一提示（保留本地回退）
+        if (window.UIUtils && typeof window.UIUtils.toast === 'function') {
+            try { window.UIUtils.toast(String(message || ''), type || 'info'); return; } catch (_) {}
+        }
         // 创建消息提示
         const messageEl = document.createElement('div');
         messageEl.className = `voice-message voice-message-${type}`;
