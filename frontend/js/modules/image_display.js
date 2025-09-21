@@ -165,8 +165,11 @@
                 document.body.removeChild(a);
             } catch (_) {}
         });
-        if (window.uiEnhancements && window.uiEnhancements.updateResultStatus) {
-            window.uiEnhancements.updateResultStatus('\uD83D\uDCC1 ' + ((window.getCurrentLang && window.getCurrentLang()==='zh') ? ('开始下载 ' + imageUrls.length + ' 张图片') : ('Started download of ' + imageUrls.length + ' images')), 'success');
+        var msg = (window.getCurrentLang && window.getCurrentLang()==='zh') ? ('\uD83D\uDCC1 开始下载 ' + imageUrls.length + ' 张图片') : ('\uD83D\uDCC1 Started download of ' + imageUrls.length + ' images');
+        if (window.UIUtils && typeof window.UIUtils.toast === 'function') {
+            try { window.UIUtils.toast(msg, 'success'); } catch (_) {}
+        } else if (window.uiEnhancements && window.uiEnhancements.updateResultStatus) {
+            window.uiEnhancements.updateResultStatus(msg, 'success');
         }
     }
 
@@ -193,14 +196,24 @@
 
     function copyImageData(imageUrl) {
         if (!imageUrl) return;
+        // 优先使用 UIUtils 统一复制与提示
+        if (window.UIUtils && typeof window.UIUtils.copyText === 'function') {
+            try { return window.UIUtils.copyText(String(imageUrl || '')); } catch (_) {}
+        }
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(imageUrl).then(function(){
-                if (window.uiEnhancements && window.uiEnhancements.updateResultStatus) {
-                    window.uiEnhancements.updateResultStatus('\uD83D\uDCCB ' + ((window.getCurrentLang && window.getCurrentLang()==='zh') ? '图片链接已复制到剪贴板' : 'Image link copied to clipboard'), 'success');
+                var ok = (window.getCurrentLang && window.getCurrentLang()==='zh') ? '\uD83D\uDCCB 图片链接已复制到剪贴板' : '\uD83D\uDCCB Image link copied to clipboard';
+                if (window.UIUtils && typeof window.UIUtils.toast === 'function') {
+                    try { window.UIUtils.toast(ok, 'success'); } catch (_) {}
+                } else if (window.uiEnhancements && window.uiEnhancements.updateResultStatus) {
+                    window.uiEnhancements.updateResultStatus(ok, 'success');
                 }
             }).catch(function(){
-                if (window.uiEnhancements && window.uiEnhancements.updateResultStatus) {
-                    window.uiEnhancements.updateResultStatus((window.getCurrentLang && window.getCurrentLang()==='zh') ? '复制失败，请手动复制' : 'Copy failed, please copy manually', 'error');
+                var fail = (window.getCurrentLang && window.getCurrentLang()==='zh') ? '复制失败，请手动复制' : 'Copy failed, please copy manually';
+                if (window.UIUtils && typeof window.UIUtils.toast === 'function') {
+                    try { window.UIUtils.toast(fail, 'error'); } catch (_) {}
+                } else if (window.uiEnhancements && window.uiEnhancements.updateResultStatus) {
+                    window.uiEnhancements.updateResultStatus(fail, 'error');
                 }
             });
         }
