@@ -23,6 +23,7 @@
     --shadow-card: 0 2px 12px rgba(0,207,255,0.10);
 
     /* 圆角 */
+    --radius-2xs: 4px;
     --radius-xs: 6px;
     --radius-sm: 8px;
     --radius-md: 12px;
@@ -42,6 +43,35 @@
     --color-accent-border: #2A3A57; /* 深色容器描边 */
     --color-accent-dark: #121a2d; /* 深色悬停背景 */
     --color-text-muted-2: #d6def8; /* 次级浅色文字 */
+    /* CTA 与细节色（等值替换，零视觉回归） */
+    --color-cta-primary: #4f46e5; /* 主CTA按钮/链接 */
+    --color-cta-primary-dark: #4338ca; /* CTA悬停态 */
+    --color-text-verylight: #e5e7eb; /* 更浅的文本色 */
+    --color-avatar-bg: #0b1220; /* 头像占位背景 */
+    --color-accent-border-strong: #273548; /* 更深的描边 */
+    --color-accent-border-hover: #2f4b7a; /* 描边悬停态 */
+    /* Admin/状态语义色（等值替换，零视觉回归） */
+    --color-admin-surface: #1a1f2e; /* 管理后台基础背景 */
+    --color-surface-deep: #0f172a; /* 更深背景（下拉/代码块） */
+    --overlay-surface-strong: rgba(15,23,42,0.8); /* 深色叠加背景 */
+    --overlay-surface-hover: rgba(30,41,59,0.5); /* 列表 hover 叠加 */
+    --color-info: #3b82f6; /* 信息 */
+    --color-success: #10b981; /* 成功 */
+    --color-success-dark: #059669; /* 成功 hover */
+    --color-danger: #ef4444; /* 危险 */
+    --color-danger-dark: #dc2626; /* 危险 hover */
+    --color-warning: #f59e0b; /* 警告 */
+    --color-warning-text: #1f2937; /* 警告文本 */
+    --color-purple: #8b5cf6; /* 改进 */
+    --color-gray-500: #6b7280; /* 其他/中性标签 */
+    --color-text-secondary: #94a3b8; /* 次级文字 */
+    --color-danger-soft: #fca5a5; /* 轻危险文字 */
+    --color-border-alt: #334155; /* 次级边框 */
+    /* 其他中性边框（等值替换，零视觉回归） */
+    --color-border-soft: #ddd; /* 细浅灰边框 */
+    --color-border-subtle: #adb5bd; /* 更深一些的灰边框 */
+    --color-border-alt-2: #dee2e6; /* 辅助浅灰边框 */
+    --color-border-neutral: #e0e0e0; /* 中性边框 */
 }
 
 @media (prefers-color-scheme: dark) {

@@ -10,7 +10,14 @@
   - 认证与OAuth：统一ENV、动态redirect_uri、JWT旧制式开关（默认兼容）
   - 前端可维护性：
     - 初始化幂等化、移除敏感日志、VoiceApp 与 UIHandler 文件内分区、HD 统计轮询灰度开关
-    - CSS 变量等值替换：在 index/voice/image-generator/admin 等页面将品牌色/圆角/阴影等用语义变量替代；全局 footer 社交图标颜色以 CSS 覆盖为变量（保持内联回退），实现零视觉回归
+    - CSS 变量等值替换：
+      - 链接主色/蓝色系：全站 `#007bff` 统一为 `var(--color-link-primary, #007bff)`；`#4a90e2/#2980b9` 统一为 `var(--color-accent-blue)` 系列
+      - 品牌色：`#00CFFF` 保持回退并以变量覆盖全局 footer 图标
+      - 中性色：`#e9ecef/#f8f9fa` 全站迁移为 `--color-border-muted/--color-surface-muted`
+      - 其他中性灰：增加 `--color-border-soft/#ddd`、`--color-border-subtle/#adb5bd`、`--color-border-alt-2/#dee2e6`、`--color-border-neutral/#e0e0e0` 并替换命中处（tutorial/contact/style.css/ui_handler.js/faq/privacy/terms）
+      - 语音页（voice）：深色背景/描边/悬停与浅色文本统一变量（`--color-wave-bg/--color-accent-border/--color-accent-dark/--color-text-muted-2`），CTA 紫色系统一为 `--color-cta-primary` 系列
+      - 管理后台（admin）：引入 `--radius-2xs` 并统一圆角；深色/状态/CTA/次级文字等语义变量（success/warning/danger/info/purple/gray-500 等），同时替换模板内联中的硬编码色
+      - 页面覆盖：index/voice/image-generator/admin/about/services/faq/tutorial/privacy/terms/contact 等，保持全部带回退值，确保零视觉回归
     - 语音模块常量/函数迁移：抽离只读常量与纯函数至 `frontend/js/modules/voice_constants.js`，`voice.html/voice_app.js` 接入变量与常量（保留回退）
   - 后端调用稳健性：DeepSeek 两处请求统一使用 `fetchWithRetry`，重试上限与初始延迟可通过 `RETRY_MAX_ATTEMPTS`/`RETRY_INITIAL_DELAY_MS` 覆盖
   - CORS 灰度：新增 `ALLOWED_ORIGINS` 与 `CORS_STRICT` 白名单配置，默认行为保持不变

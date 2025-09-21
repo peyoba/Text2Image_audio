@@ -1005,8 +1005,8 @@ footer {
 
 /* 清空按钮 */
 #clear-btn:hover {
-    background-color: #e9ecef;
-    border-color: #dee2e6;
+    background-color: var(--color-border-muted, #e9ecef);
+    border-color: var(--color-border-alt-2, #dee2e6);
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(220, 53, 69, 0.15);
 }
@@ -1843,11 +1843,11 @@ footer {
     .nav ul.mobile-menu-open li a {
         padding: 15px;
         border-radius: 8px;
-        background: #f8f9fa;
+    background: var(--color-surface-muted, #f8f9fa);
         text-align: center;
         font-weight: 500;
         transition: all 0.3s ease;
-        border: 1px solid #e9ecef;
+    border: 1px solid var(--color-border-muted, #e9ecef);
     }
     
     .nav ul.mobile-menu-open li a:hover,
@@ -1883,7 +1883,7 @@ footer {
     textarea {
         font-size: 16px !important; /* 防止iOS自动缩放 */
         border-radius: 12px;
-        border: 2px solid #e9ecef;
+    border: 2px solid var(--color-border-muted, #e9ecef);
         padding: 16px;
         transition: border-color 0.3s ease;
     }
@@ -1981,7 +1981,7 @@ footer {
     }
     
     .long-press-menu button:hover {
-        background: #f8f9fa;
+    background: var(--color-surface-muted, #f8f9fa);
     }
 }
 

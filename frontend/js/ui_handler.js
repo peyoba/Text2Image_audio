@@ -728,9 +728,9 @@ class UIHandler {
                             transition: transform 0.2s;
                         ">${getCurrentLang() === 'zh' ? '使用专业版' : 'Use Professional Version'}</button>
                         <button id="voice-redirect-cancel" class="btn-secondary" style="
-                            background: #f8f9fa;
+                            background: var(--color-surface-muted, #f8f9fa);
                             color: #666;
-                            border: 1px solid #ddd;
+                            border: 1px solid var(--color-border-soft, #ddd);
                             padding: 12px 24px;
                             border-radius: 8px;
                             font-size: 16px;
@@ -759,8 +759,8 @@ class UIHandler {
                     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
                 }
                 .voice-redirect-modal .btn-secondary:hover {
-                    background: #e9ecef;
-                    border-color: #adb5bd;
+                    background: var(--color-border-muted, #e9ecef);
+                    border-color: var(--color-border-subtle, #adb5bd);
                 }
             </style>
         `;
