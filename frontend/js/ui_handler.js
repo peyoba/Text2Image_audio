@@ -1173,14 +1173,22 @@ function copyImageData(imageData) {
     if (window.ImageDisplay && typeof window.ImageDisplay.copyImageData === 'function') {
         try { return window.ImageDisplay.copyImageData(imageData); } catch (_) {}
     }
+    // 优先使用 UIUtils 模块
+    if (window.UIUtils && typeof window.UIUtils.copyText === 'function') {
+        try { return window.UIUtils.copyText(String(imageData || '')); } catch (_) {}
+    }
     navigator.clipboard.writeText(imageData).then(() => {
-        // 显示复制成功提示
-        if (window.uiEnhancements) {
+        // 显示复制成功提示（优先 UIUtils，其次回退）
+        if (window.UIUtils && typeof window.UIUtils.toast === 'function') {
+            try { window.UIUtils.toast('📋 图片链接已复制到剪贴板', 'success'); } catch (_) {}
+        } else if (window.uiEnhancements) {
             window.uiEnhancements.updateResultStatus('📋 图片链接已复制到剪贴板', 'success');
         }
     }).catch(() => {
-        // 显示复制失败提示
-        if (window.uiEnhancements) {
+        // 显示复制失败提示（优先 UIUtils，其次回退）
+        if (window.UIUtils && typeof window.UIUtils.toast === 'function') {
+            try { window.UIUtils.toast('复制失败，请手动复制', 'error'); } catch (_) {}
+        } else if (window.uiEnhancements) {
             window.uiEnhancements.updateResultStatus('复制失败，请手动复制', 'error');
         }
     });
