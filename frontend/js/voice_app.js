@@ -741,7 +741,7 @@ class VoiceApp {
         list.forEach((it, idx) => {
             const li = document.createElement('li');
             const bg = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || '#0e1424';
-            li.style.cssText = `padding:10px; background:${bg}; border:1px solid #2A3A57; border-radius: var(--radius-sm); display:flex; align-items:center; gap:10px;`;
+            li.style.cssText = `padding:10px; background:${bg}; border:1px solid var(--color-accent-border, #2A3A57); border-radius: var(--radius-sm); display:flex; align-items:center; gap:10px;`;
             const meta = document.createElement('div');
             meta.style.cssText = 'flex:1; color: var(--color-text-primary);';
             meta.innerHTML = `<div style="font-size:12px;">${new Date(it.t).toLocaleString()} • ${it.voice} • ${it.speed}x</div><div style="font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width: 100%;">${(it.text || '').replace(/[\n\r]+/g,' ').slice(0,120)}</div>`;
@@ -843,7 +843,7 @@ class VoiceApp {
             right: 20px;
             padding: 15px 20px;
             border-radius: 8px;
-            color: white;
+            color: var(--color-surface-on-light-white, #fff);
             font-weight: 500;
             z-index: 10000;
             animation: slideInRight 0.3s ease;
@@ -853,9 +853,9 @@ class VoiceApp {
 
         // 不同类型的背景色
         const colors = (window.VOICE_MESSAGE_COLORS) || {
-            success: '#28a745',
-            error: '#dc3545',
-            info: '#17a2b8'
+            success: 'var(--color-success, #28a745)',
+            error: 'var(--color-danger, #dc3545)',
+            info: 'var(--color-info, #17a2b8)'
         };
         messageEl.style.backgroundColor = colors[type] || colors.info;
 
