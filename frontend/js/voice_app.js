@@ -720,21 +720,44 @@ class VoiceApp {
             const speed = (this.lastGenerationParams && this.lastGenerationParams.speed) || '1.0';
             const deepLink = `${location.origin}${location.pathname}?text=${encodeURIComponent(text)}&voice=${encodeURIComponent(voice)}&speed=${encodeURIComponent(speed)}&auto=1`;
             const item = { t: Date.now(), text, voice, speed, link: deepLink };
+
+            // 优先使用模块化存储
+            if (window.VoiceHistory && typeof window.VoiceHistory.saveItem === 'function') {
+                try { window.VoiceHistory.saveItem(item); } catch (_) {}
+                let list = [];
+                try { list = (window.VoiceHistory.load && window.VoiceHistory.load()) || []; } catch (_) { list = []; }
+                if (Array.isArray(list) && list.length) {
+                    this.renderHistory(list);
+                    const sec = document.getElementById('voice-history-section');
+                    if (sec) sec.style.display = 'block';
+                    return;
+                }
+            }
+
+            // 回退实现：localStorage 直接写入
             const key = 'voice_history';
             const list = JSON.parse(localStorage.getItem(key) || '[]');
             list.unshift(item);
             localStorage.setItem(key, JSON.stringify(list.slice(0, 10)));
             this.renderHistory(list.slice(0, 10));
-            document.getElementById('voice-history-section').style.display = 'block';
+            const sec = document.getElementById('voice-history-section');
+            if (sec) sec.style.display = 'block';
         } catch(e) {}
     }
 
     // 历史：恢复记录
     restoreHistory() {
         try {
-            const key = 'voice_history';
-            const list = JSON.parse(localStorage.getItem(key) || '[]');
-            if (list.length) {
+            // 优先使用模块化存储
+            let list;
+            if (window.VoiceHistory && typeof window.VoiceHistory.load === 'function') {
+                try { list = window.VoiceHistory.load(); } catch (_) { list = []; }
+            }
+            if (!Array.isArray(list)) {
+                const key = 'voice_history';
+                list = JSON.parse(localStorage.getItem(key) || '[]');
+            }
+            if (Array.isArray(list) && list.length) {
                 this.renderHistory(list);
                 const sec = document.getElementById('voice-history-section');
                 if (sec) sec.style.display = 'block';

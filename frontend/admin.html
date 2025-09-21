@@ -17,7 +17,7 @@
         
         .admin-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            color: var(--color-surface-on-light-white, #fff);
             padding: 20px;
             border-radius: var(--radius-md, 12px);
             margin-bottom: 24px;
@@ -86,7 +86,7 @@
         
         .refresh-btn {
             background: var(--color-success, #10b981);
-            color: white;
+            color: var(--color-surface-on-light-white, #fff);
             border: none;
             padding: 8px 16px;
             border-radius: var(--radius-xs, 6px);
@@ -149,10 +149,10 @@
             text-align: center;
         }
         
-        .category-bug { background: var(--color-danger, #ef4444); color: white; }
-        .category-feature { background: var(--color-info, #3b82f6); color: white; }
-        .category-improvement { background: var(--color-purple, #8b5cf6); color: white; }
-        .category-other { background: var(--color-gray-500, #6b7280); color: white; }
+        .category-bug { background: var(--color-danger, #ef4444); color: var(--color-surface-on-light-white, #fff); }
+        .category-feature { background: var(--color-info, #3b82f6); color: var(--color-surface-on-light-white, #fff); }
+        .category-improvement { background: var(--color-purple, #8b5cf6); color: var(--color-surface-on-light-white, #fff); }
+        .category-other { background: var(--color-gray-500, #6b7280); color: var(--color-surface-on-light-white, #fff); }
         
         .status-badge {
             padding: 4px 8px;
@@ -163,7 +163,7 @@
         }
         
         .status-pending { background: var(--color-warning, #f59e0b); color: var(--color-warning-text, #1f2937); }
-        .status-processed { background: var(--color-success, #10b981); color: white; }
+        .status-processed { background: var(--color-success, #10b981); color: var(--color-surface-on-light-white, #fff); }
         
         .feedback-content {
             color: var(--color-text-secondary, #94a3b8);
@@ -405,7 +405,7 @@
                                 <h4 style="color: var(--color-danger, #ef4444); margin-bottom: 8px;">⚠️ 需要开发管理员API</h4>
                                 <p style="color: var(--color-danger-soft, #fca5a5); margin: 0;">当前缺少管理员专用的API接口来获取所有用户反馈。需要在后端添加管理员认证和反馈查询接口。</p>
                             </div>
-                            <button onclick="this.requestAdminAPI()" style="background: var(--color-cta-primary, #4f46e5); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 16px;">
+                            <button onclick="this.requestAdminAPI()" style="background: var(--color-cta-primary, #4f46e5); color: var(--color-surface-on-light-white, #fff); border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 16px;">
                                 💻 开发管理员API
                             </button>
                         </div>

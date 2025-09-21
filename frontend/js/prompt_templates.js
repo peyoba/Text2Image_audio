@@ -296,14 +296,14 @@ class PromptTemplateManager {
             }
 
             .template-category:hover {
-                border-color: #4f46e5;
-                color: #4f46e5;
+                border-color: var(--color-cta-primary, #4f46e5);
+                color: var(--color-cta-primary, #4f46e5);
             }
 
             .template-category.active {
-                background: #4f46e5;
-                border-color: #4f46e5;
-                color: white;
+                background: var(--color-cta-primary, #4f46e5);
+                border-color: var(--color-cta-primary, #4f46e5);
+                color: var(--color-surface-on-light-white, #fff);
             }
 
             .template-list {
@@ -320,7 +320,7 @@ class PromptTemplateManager {
             }
 
             .template-item:hover {
-                border-color: #4f46e5;
+                border-color: var(--color-cta-primary, #4f46e5);
                 transform: translateY(-2px);
                 box-shadow: 0 8px 24px rgba(79, 70, 229, 0.1);
             }
@@ -339,7 +339,7 @@ class PromptTemplateManager {
             }
 
             .template-use-btn {
-                background: #4f46e5;
+                background: var(--color-cta-primary, #4f46e5);
                 color: white;
                 border: none;
                 padding: 6px 12px;
@@ -350,7 +350,7 @@ class PromptTemplateManager {
             }
 
             .template-use-btn:hover {
-                background: #4338ca;
+                background: var(--color-cta-primary-dark, #4338ca);
                 transform: translateY(-1px);
             }
 
@@ -363,7 +363,7 @@ class PromptTemplateManager {
                 background: rgba(0, 0, 0, 0.2);
                 padding: 8px;
                 border-radius: 6px;
-                border-left: 3px solid #4f46e5;
+                border-left: 3px solid var(--color-cta-primary, #4f46e5);
             }
 
             .template-negative {

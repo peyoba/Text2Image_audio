@@ -29,6 +29,13 @@
       - 统一白色文本/背景：`white/#fff` → `--color-surface-on-light-white`（`css/style.css` 等多处、`auth/google/callback.html`、`hd-images-ui.html`、`admin.html`）
       - 深色表面/描边统一：`#0f172a/#273548` → `--color-surface-deep/--color-accent-border`（`feedback-ui.html` 等）
       - 次级浅色文字统一：`#e5e7eb` → `--color-text-verylight`（导航/表单/提示文案若干处）
+    - UI 交互一致性（UIUtils 接入）：
+      - 新增 `frontend/js/modules/ui_utils.js`（提供 `toast(message,type)` 与 `copyText(text)`，使用CSS变量，带回退）
+      - 在 `index.html`、`image-generator.html`、`voice.html` 引入模块脚本（业务脚本之前加载）
+      - 接入改造：
+        - `ui_handler.js`：复制与提示优先 `UIUtils.copyText/UIUtils.toast`，保留 `ImageDisplay` 与 `uiEnhancements` 回退
+        - `mobile-interactions.js`：`copyImage/copyLink/showToast` 优先 `UIUtils`，保留动画 toast 与降级逻辑
+        - `voice_app.js`：`copyAudioUrl/fallbackShare` 优先 `UIUtils`，保留原有回退与旧浏览器支持
   - 后端调用稳健性：DeepSeek 两处请求统一使用 `fetchWithRetry`，重试上限与初始延迟可通过 `RETRY_MAX_ATTEMPTS`/`RETRY_INITIAL_DELAY_MS` 覆盖
   - CORS 灰度：新增 `ALLOWED_ORIGINS` 与 `CORS_STRICT` 白名单配置，默认行为保持不变
   - 文档：优化计划、部署/ENV 清单、前端运行时配置、监控与告警方案
