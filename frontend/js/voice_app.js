@@ -483,6 +483,11 @@ class VoiceApp {
             return;
         }
         try {
+            // 优先使用 UIUtils.copyText（自带提示），失败回退原实现
+            if (window.UIUtils && typeof window.UIUtils.copyText === 'function') {
+                await window.UIUtils.copyText(this.currentAudioUrl);
+                return;
+            }
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 await navigator.clipboard.writeText(this.currentAudioUrl);
             } else {
@@ -529,7 +534,11 @@ class VoiceApp {
     fallbackShare() {
         // 降级分享方案：复制链接
         const url = window.location.href;
-        
+        // 优先使用 UIUtils
+        if (window.UIUtils && typeof window.UIUtils.copyText === 'function') {
+            window.UIUtils.copyText(url);
+            return;
+        }
         if (navigator.clipboard) {
             navigator.clipboard.writeText(url).then(() => {
                 this.showSuccess('页面链接已复制到剪贴板');
@@ -757,7 +766,16 @@ class VoiceApp {
             copy.className = 'action-btn';
             copy.textContent = '复制深链';
             copy.addEventListener('click', async () => {
-                try { await navigator.clipboard.writeText(it.link || ''); this.showSuccess('已复制'); } catch(e) { this.showError('复制失败'); }
+                try {
+                    if (window.UIUtils && typeof window.UIUtils.copyText === 'function') {
+                        await window.UIUtils.copyText(it.link || '');
+                        return;
+                    }
+                    await navigator.clipboard.writeText(it.link || '');
+                    this.showSuccess('已复制');
+                } catch(e) {
+                    this.showError('复制失败');
+                }
             });
             li.appendChild(meta);
             li.appendChild(play);
