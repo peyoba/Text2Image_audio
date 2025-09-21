@@ -72,6 +72,46 @@
     --color-border-subtle: #adb5bd; /* 更深一些的灰边框 */
     --color-border-alt-2: #dee2e6; /* 辅助浅灰边框 */
     --color-border-neutral: #e0e0e0; /* 中性边框 */
+
+    /* 亮面文字与浅色背景（用于白底内容页） */
+    --color-surface-white: #fff; /* 纯白背景 */
+    --color-surface-verylight: #f9f9f9; /* 非常浅的灰白背景 */
+    --color-surface-info-soft: #e8f4fd; /* 信息提示浅蓝底 */
+    --color-text-on-light-strong: #333; /* 白底正文强对比 */
+    --color-text-on-light: #555; /* 白底正文默认 */
+    --color-text-on-light-muted: #666; /* 白底次级文字 */
+    --color-text-on-light-subtle: #888; /* 白底更次级文字 */
+    --color-text-on-light-darker: #222; /* 白底更深文字 */
+
+    /* 深色表面与描边（扩展） */
+    --color-surface-dark-2: #232B3E; /* 深色容器（与 surface-2 接近） */
+    --color-surface-dark-alt: #10182A; /* 深色替代表面 */
+    --color-surface-dark-3: #262b35; /* 深色卡片背景 */
+    --color-border-dark-1: #2D3650; /* 深色描边 */
+
+    /* 输入与浅色描边扩展 */
+    --color-border-input: #d1d9e6; /* 输入框描边 */
+    --color-border-input-2: #e1e8ed; /* 更浅的输入描边 */
+
+    /* 渐变与强调色（扩展） */
+    --color-accent-purple-strong: #764ba2; /* 强紫色强调（渐变端点） */
+    --color-cta-blue-start: #0099E6; /* CTA 渐变蓝起点 */
+    --color-cta-blue-end: #005F99; /* CTA 渐变蓝终点 */
+    --color-cta-blue-hover-end: #4F8CFF; /* CTA hover 渐变终点 */
+    --color-cta-success: #2ecc71; /* 成功 CTA 绿 */
+    --color-cta-success-dark: #27ae60; /* 成功 CTA 绿（深） */
+
+    /* 提示与错误（浅底） */
+    --color-error: #e74c3c; /* 错误红 */
+    --color-error-bg-1: #fdecec; /* 错误浅底渐变起 */
+    --color-error-bg-2: #fdf2f2; /* 错误浅底渐变止 */
+    --color-warning-gold: #FFD700; /* 金色（评分星等） */
+
+    /* 其他文本色（扩展） */
+    --color-text-light-2: #E3E6F3; /* 更亮的浅色文字 */
+    --color-text-light-3: #e0e6f6; /* 浅蓝白文字 */
+    --color-text-brand-soft: #bfc7e6; /* 品牌相关柔和文字 */
+    --color-text-light-4: #e0e6f8; /* 更浅蓝白文字 */
 }
 
 @media (prefers-color-scheme: dark) {

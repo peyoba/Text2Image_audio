@@ -109,7 +109,7 @@ header {
 
 header h1 {
     /* 渐变色标题 */
-    background: linear-gradient(135deg, var(--color-brand-secondary) 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--color-brand-secondary) 0%, var(--color-accent-purple-strong, #764ba2) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -120,7 +120,7 @@ header h1 {
 
 header p {
     font-size: 1.15em; /* 稍微增大字体 */
-    color: #666;
+    color: var(--color-text-on-light-muted, #666);
     margin: 0;
 }
 
@@ -138,7 +138,7 @@ main {
     box-shadow: var(--shadow-card);
     padding: 28px 24px;
     margin-bottom: 24px;
-    border: 1.5px solid #2D3650;
+    border: 1.5px solid var(--color-border-dark-1, #2D3650);
     color: var(--color-text-primary);
 }
 
@@ -181,7 +181,7 @@ main {
     cursor: pointer;
     transition: all 0.3s ease;
     aspect-ratio: 1;
-    background: #fff;
+    background: var(--color-surface-white, #fff);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -234,16 +234,16 @@ main {
 
 .tool-group label {
     font-size: 0.9em;
-    color: #555;
+    color: var(--color-text-on-light, #555);
     font-weight: 500;
 }
 
 .tool-select {
     padding: 8px 12px;
-    border: 2px solid #e1e8ed;
+    border: 2px solid var(--color-border-input-2, #e1e8ed);
     border-radius: 8px;
     font-size: 0.95em;
-    background: white;
+    background: var(--color-surface-white, #fff);
     transition: all 0.3s ease;
     cursor: pointer;
 }
@@ -259,26 +259,26 @@ main {
 .negative-prompt,
 .options,
 .image-options {
-    background: #232B3E;
+    background: var(--color-surface-dark-2, #232B3E);
     border-radius: 12px;
     padding: 0 0 0 0; /* 移除原有内边距，左右对齐 */
-    border: 1px solid #2D3650;
+    border: 1px solid var(--color-border-dark-1, #2D3650);
     margin-bottom: 18px;
-    color: #E3E6F3;
+    color: var(--color-text-light-2, #E3E6F3);
 }
 
 .negative-prompt input,
 .image-options select,
 .image-options input[type="number"] {
-    color: #222;
-    background: #fff;
+    color: var(--color-text-on-light-darker, #222);
+    background: var(--color-surface-white, #fff);
 }
 
 /* 主文本输入框样式 */
 textarea#text-input {
     width: 100%;
     padding: 12px 15px;
-    border: 1px solid #d1d9e6; /* 与其他输入框统一 */
+    border: 1px solid var(--color-border-input, #d1d9e6); /* 与其他输入框统一 */
     border-radius: 8px;
     font-size: 1em;
     line-height: 1.5;
@@ -327,18 +327,18 @@ textarea#text-input:focus {
     display: flex;
     align-items: center;
     gap: 15px;
-    background: #232B3E !important;
+    background: var(--color-surface-dark-2, #232B3E) !important;
     padding: 18px 18px 12px 18px;
     border-radius: 12px;
-    border: 1px solid #2D3650;
+    border: 1px solid var(--color-border-dark-1, #2D3650);
     flex-wrap: wrap;
-    color: #E3E6F3;
+    color: var(--color-text-light-2, #E3E6F3);
 }
 .options label {
     margin-right: 8px;
     cursor: pointer;
     font-weight: 500;
-    color: #E3E6F3 !important;
+    color: var(--color-text-light-2, #E3E6F3) !important;
     font-size: 1.05em;
 }
 
@@ -362,12 +362,12 @@ textarea#text-input:focus {
 
 /* 图片选项区域 - 独立卡片 */
 .image-options {
-    background: #232B3E !important;
+    background: var(--color-surface-dark-2, #232B3E) !important;
     border-radius: 12px;
     padding: 20px;
-    border: 1px solid #2D3650;
+    border: 1px solid var(--color-border-dark-1, #2D3650);
     margin-bottom: 25px;
-    color: #E3E6F3;
+    color: var(--color-text-light-2, #E3E6F3);
 }
 
 .image-options h3 {
@@ -388,7 +388,7 @@ textarea#text-input:focus {
 
 .image-options label {
     font-weight: 500;
-    color: #E3E6F3 !important;
+    color: var(--color-text-light-2, #E3E6F3) !important;
     margin-right: 10px;
     font-size: 1.05em;
 }
@@ -396,7 +396,7 @@ textarea#text-input:focus {
 .image-options select,
 .image-options input[type="number"] {
     padding: 8px 12px;
-    border: 2px solid #e1e8ed;
+    border: 2px solid var(--color-border-input-2, #e1e8ed);
     border-radius: 8px;
     font-size: 1em;
     transition: all 0.3s ease;
@@ -435,7 +435,7 @@ textarea#text-input:focus {
 }
 
 button#generate-button {
-    background: linear-gradient(90deg, #0099E6 0%, #005F99 100%);
+    background: linear-gradient(90deg, var(--color-cta-blue-start, #0099E6) 0%, var(--color-cta-blue-end, #005F99) 100%);
     color: #fff;
     font-size: 1.18em;
     font-weight: bold;
@@ -450,7 +450,7 @@ button#generate-button {
 }
 
 button#generate-button:hover, button#generate-button:focus {
-    background: linear-gradient(90deg, var(--color-brand-primary) 0%, #4F8CFF 100%);
+    background: linear-gradient(90deg, var(--color-brand-primary) 0%, var(--color-cta-blue-hover-end, #4F8CFF) 100%);
     box-shadow: 0 4px 16px rgba(0,207,255,0.18);
     cursor: pointer;
 }
@@ -493,7 +493,7 @@ button#generate-button:hover, button#generate-button:focus {
 .result-container {
     margin-top: 20px; /* 增加间距 */
     padding: 25px; /* 增加内边距 */
-    background: linear-gradient(135deg, #ffffff 0%, #fbfcff 100%);
+    background: linear-gradient(135deg, var(--color-surface-white, #ffffff) 0%, #fbfcff 100%);
     border-radius: 16px; /* 更大圆角 */
     border: 1px solid rgba(102, 126, 234, 0.1);
     /* 现代化阴影 */
@@ -629,7 +629,7 @@ button#generate-button:hover, button#generate-button:focus {
     display: inline-block;
     margin-top: 15px; /* 增加间距 */
     padding: 12px 24px; /* 增大按钮 */
-    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    background: linear-gradient(135deg, var(--color-cta-success, #2ecc71) 0%, var(--color-cta-success-dark, #27ae60) 100%);
     color: white;
     text-decoration: none;
     border-radius: 12px; /* 更大圆角 */
@@ -674,7 +674,7 @@ button#generate-button:hover, button#generate-button:focus {
     width: 16px; /* 增大尺寸 */
     height: 16px;
     margin: 0 8px; /* 增加间距 */
-    background: linear-gradient(135deg, var(--color-brand-secondary) 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--color-brand-secondary) 0%, var(--color-accent-purple-strong, #764ba2) 100%);
     border-radius: 50%;
     animation: bouncing-loader 1.4s infinite ease-in-out both;
     /* 现代化阴影 */
@@ -706,7 +706,7 @@ button#generate-button:hover, button#generate-button:focus {
     flex-direction: column;
     align-items: center;
     padding: 30px; /* 增加内边距 */
-    background: linear-gradient(135deg, #ffffff 0%, #fbfcff 100%);
+    background: linear-gradient(135deg, var(--color-surface-white, #ffffff) 0%, #fbfcff 100%);
     border-radius: 16px; /* 更大圆角 */
     color: var(--color-brand-secondary);
     border: 1px solid rgba(102, 126, 234, 0.1);
@@ -724,9 +724,9 @@ button#generate-button:hover, button#generate-button:focus {
 
 /* 错误提示 */
 .error-text {
-    color: #e74c3c;
-    background: linear-gradient(135deg, #fdecec 0%, #fdf2f2 100%);
-    border: 2px solid #e74c3c;
+    color: var(--color-error, #e74c3c);
+    background: linear-gradient(135deg, var(--color-error-bg-1, #fdecec) 0%, var(--color-error-bg-2, #fdf2f2) 100%);
+    border: 2px solid var(--color-error, #e74c3c);
     padding: 20px 25px; /* 增加内边距 */
     border-radius: 12px; /* 更大圆角 */
     margin-top: 20px; /* 增加间距 */
@@ -885,7 +885,7 @@ footer {
 .lang-btn {
     background: transparent;
     color: var(--color-text-primary);
-    border: 2px solid #2D3650;
+    border: 2px solid var(--color-border-dark-1, #2D3650);
     border-radius: 8px;
     padding: 6px 18px;
     font-size: 1em;
@@ -936,7 +936,7 @@ footer {
 
 .example-btn {
     /* 现代化渐变按钮 */
-    background: #10182A;
+    background: var(--color-surface-dark-alt, #10182A);
     color: var(--color-brand-primary);
     padding: 10px 28px;
     border: 2px solid var(--color-brand-primary);
@@ -955,12 +955,12 @@ footer {
 
 .example-btn:hover {
     background: var(--color-brand-primary);
-    color: #10182A;
+    color: var(--color-surface-dark-alt, #10182A);
 }
 
 /* 模板按钮 */
 .template-btn {
-    background: linear-gradient(135deg, var(--color-brand-secondary) 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--color-brand-secondary) 0%, var(--color-accent-purple-strong, #764ba2) 100%);
     color: white;
     border: none;
     padding: 8px 16px;
@@ -1030,7 +1030,7 @@ footer {
 .inspiration-title {
     margin: 0 0 14px 0;
     font-weight: 600;
-    color: #764ba2;
+    color: var(--color-accent-purple-strong, #764ba2);
     font-size: 1.08em;
 }
 .inspiration-grid {
@@ -1042,7 +1042,7 @@ footer {
     position: relative;
     border-radius: 10px;
     overflow: hidden;
-    background: #fff;
+    background: var(--color-surface-white, #fff);
     box-shadow: 0 2px 10px rgba(102, 126, 234, 0.08);
     transition: box-shadow 0.2s, transform 0.2s;
 }
@@ -1074,7 +1074,7 @@ footer {
 .navbar {
     width: 100%;
     min-width: 0;
-    background: #10182A;
+    background: var(--color-surface-dark-alt, #10182A);
     color: var(--color-text-primary);
     display: flex;
     align-items: center;
@@ -1097,7 +1097,7 @@ footer {
     font-size: 1.7em;
     font-weight: 800;
     letter-spacing: 2.5px;
-    color: #e0e6f8;
+    color: var(--color-text-light-4, #e0e6f8);
     margin-left: 6px;
 }
 .navbar-menu {
@@ -1211,7 +1211,7 @@ footer {
 .hero-title {
     font-size: 2.8em;
     font-weight: bold;
-    color: #bfc7e6;
+    color: var(--color-text-brand-soft, #bfc7e6);
     letter-spacing: 2px;
     margin: 0;
     text-align: left;
@@ -1231,8 +1231,8 @@ footer {
 }
 .tag, .tag-free, .tag-unlimited, .tag-no-login {
     display: inline-block;
-    background: #262b35;
-    color: #e0e6f6 !important;
+    background: var(--color-surface-dark-3, #262b35);
+    color: var(--color-text-light-3, #e0e6f6) !important;
     border-radius: 18px;
     padding: 6px 22px;
     font-size: 1em;
@@ -1352,7 +1352,7 @@ footer {
 .hero-title {
     font-size: 2.8em;
     font-weight: bold;
-    color: #bfc7e6;
+    color: var(--color-text-brand-soft, #bfc7e6);
     letter-spacing: 2px;
     margin: 0;
 }
@@ -1399,7 +1399,7 @@ footer {
 .lang-select {
     background: transparent;
     color: var(--color-text-primary);
-    border: 2px solid #2D3650;
+    border: 2px solid var(--color-border-dark-1, #2D3650);
     border-radius: 8px;
     padding: 6px 18px;
     font-size: 1em;
@@ -1501,7 +1501,7 @@ footer {
   background: var(--color-surface-1);
   margin: 7% auto;
   padding: 48px 44px 36px 44px;
-  border: 1.5px solid #2D3650;
+  border: 1.5px solid var(--color-border-dark-1, #2D3650);
   border-radius: 22px;
   width: 98%;
   max-width: 820px;
@@ -1563,15 +1563,15 @@ footer {
 #negative-prompt {
     width: 100%;
     padding: 12px 15px;
-    border: 1px solid #d1d9e6;
+    border: 1px solid var(--color-border-input, #d1d9e6);
     border-radius: 8px;
     font-size: 1.1em;
     line-height: 1.5;
     margin-top: 8px;
     margin-bottom: 0;
     box-sizing: border-box;
-    background: #fff;
-    color: #222;
+    background: var(--color-surface-white, #fff);
+    color: var(--color-text-on-light-darker, #222);
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 #negative-prompt:focus {
