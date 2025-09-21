@@ -452,11 +452,19 @@ class MobileInteractionsManager {
             await navigator.clipboard.write([
                 new ClipboardItem({ [blob.type]: blob })
             ]);
-            
-            this.showToast('图片已复制到剪贴板');
+
+            if (window.UIUtils && typeof window.UIUtils.toast === 'function') {
+                window.UIUtils.toast('图片已复制到剪贴板', 'success');
+            } else {
+                this.showToast('图片已复制到剪贴板', 'success');
+            }
         } catch (error) {
             console.error('复制图片失败:', error);
-            this.showToast('复制失败');
+            if (window.UIUtils && typeof window.UIUtils.toast === 'function') {
+                window.UIUtils.toast('复制失败', 'error');
+            } else {
+                this.showToast('复制失败', 'error');
+            }
         }
     }
     
@@ -483,10 +491,15 @@ class MobileInteractionsManager {
     
     copyLink(element) {
         const url = element.href || element.querySelector('a')?.href || window.location.href;
-        
+        // 优先使用 UIUtils 文本复制（存在时直接返回，UIUtils 内部自带提示）
+        if (window.UIUtils && typeof window.UIUtils.copyText === 'function') {
+            window.UIUtils.copyText(url);
+            return;
+        }
+
         if (navigator.clipboard) {
             navigator.clipboard.writeText(url).then(() => {
-                this.showToast('链接已复制');
+                this.showToast('链接已复制', 'success');
             });
         } else {
             // 降级方案
@@ -496,8 +509,8 @@ class MobileInteractionsManager {
             textArea.select();
             document.execCommand('copy');
             document.body.removeChild(textArea);
-            
-            this.showToast('链接已复制');
+
+            this.showToast('链接已复制', 'success');
         }
     }
     
@@ -531,7 +544,11 @@ class MobileInteractionsManager {
     /**
      * 显示提示信息
      */
-    showToast(message) {
+    showToast(message, type) {
+        // 若全局 UIUtils 可用，则统一委派（保留本地回退）
+        if (window.UIUtils && typeof window.UIUtils.toast === 'function') {
+            try { window.UIUtils.toast(message, type || 'info'); return; } catch (_) {}
+        }
         const toast = document.createElement('div');
         toast.className = 'mobile-toast';
         toast.textContent = message;
