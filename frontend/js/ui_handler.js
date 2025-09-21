@@ -405,11 +405,19 @@ class UIHandler {
             return;
         }
 
-        // 使用新的显示函数
-        if (validImages.length === 1) {
-            displayImageResult(validImages[0], 1);
+        // 优先使用 ImageDisplay 模块（存在时），否则回退到内置实现
+        if (window.ImageDisplay && typeof window.ImageDisplay.showSingle === 'function' && typeof window.ImageDisplay.showMultiple === 'function') {
+            if (validImages.length === 1) {
+                window.ImageDisplay.showSingle(validImages[0]);
+            } else {
+                window.ImageDisplay.showMultiple(validImages);
+            }
         } else {
-            displayImageResult(validImages, validImages.length);
+            if (validImages.length === 1) {
+                displayImageResult(validImages[0], 1);
+            } else {
+                displayImageResult(validImages, validImages.length);
+            }
         }
         
         // 隐藏音频结果容器
