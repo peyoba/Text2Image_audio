@@ -541,7 +541,7 @@ class MobileInteractionsManager {
             left: 50%;
             transform: translateX(-50%);
             background: rgba(0,0,0,0.8);
-            color: white;
+            color: var(--color-surface-on-light-white, #fff);
             padding: 12px 20px;
             border-radius: 20px;
             font-size: 14px;
