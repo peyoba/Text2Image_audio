@@ -913,25 +913,27 @@ window.UIHandler = UIHandler;
  * @param {number} numImages - 图片数量
  */
 function displayImageResult(imageData, numImages = 1) {
+    // 优先委派到 ImageDisplay 模块
+    if (window.ImageDisplay && typeof window.ImageDisplay.showSingle === 'function' && typeof window.ImageDisplay.showMultiple === 'function') {
+        if (Array.isArray(imageData)) {
+            window.ImageDisplay.showMultiple(imageData);
+        } else {
+            window.ImageDisplay.showSingle(imageData);
+        }
+        return;
+    }
+    // 回退：维持原有逻辑
     const imageContainer = document.getElementById('image-result-container');
-    
     if (!imageContainer) {
         console.error('图片容器元素未找到');
         return;
     }
-
-    // 清空之前的内容
     imageContainer.innerHTML = '';
-
     if (Array.isArray(imageData)) {
-        // 多图片显示
         displayMultipleImages(imageContainer, imageData);
     } else {
-        // 单图片显示
         displaySingleImage(imageContainer, imageData);
     }
-
-    // 显示容器
     imageContainer.style.display = 'block';
 }
 
@@ -1121,7 +1123,7 @@ function showImageModal(imageData, index = 1) {
         position: absolute;
         top: 20px;
         right: 30px;
-        color: white;
+        color: var(--color-surface-on-light-white, #fff);
         font-size: 30px;
         font-weight: bold;
         cursor: pointer;
@@ -1135,7 +1137,7 @@ function showImageModal(imageData, index = 1) {
         bottom: 20px;
         left: 50%;
         transform: translateX(-50%);
-        color: white;
+        color: var(--color-surface-on-light-white, #fff);
         font-size: 14px;
         text-align: center;
     `;
@@ -1167,6 +1169,10 @@ function showImageModal(imageData, index = 1) {
  * 复制图片数据
  */
 function copyImageData(imageData) {
+    // 优先委派到 ImageDisplay 模块
+    if (window.ImageDisplay && typeof window.ImageDisplay.copyImageData === 'function') {
+        try { return window.ImageDisplay.copyImageData(imageData); } catch (_) {}
+    }
     navigator.clipboard.writeText(imageData).then(() => {
         // 显示复制成功提示
         if (window.uiEnhancements) {
@@ -1184,6 +1190,10 @@ function copyImageData(imageData) {
  * 下载所有图片
  */
 function downloadAllImages(imageDataArray) {
+    // 优先委派到 ImageDisplay 模块
+    if (window.ImageDisplay && typeof window.ImageDisplay.downloadAll === 'function') {
+        try { return window.ImageDisplay.downloadAll(imageDataArray); } catch (_) {}
+    }
     imageDataArray.forEach((imageData, index) => {
         const link = document.createElement('a');
         link.href = imageData;
@@ -1207,5 +1217,9 @@ function downloadAllImages(imageDataArray) {
  * 显示图片网格视图
  */
 function showImageGrid(imageDataArray) {
+    // 优先委派到 ImageDisplay 模块（用 showImageModal 作简化）
+    if (window.ImageDisplay && typeof window.ImageDisplay.showImageModal === 'function') {
+        try { return window.ImageDisplay.showImageModal(imageDataArray && imageDataArray[0], 1); } catch (_) {}
+    }
     showImageModal(imageDataArray[0], 1); // 暂时显示第一张，后续可扩展为网格查看器
 } 
