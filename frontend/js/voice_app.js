@@ -638,16 +638,26 @@ class VoiceApp {
 
     // 可视化：初始化波形
     initWaveform() {
+        // 优先使用模块化渲染器
+        if (window.VoiceWaveform && typeof window.VoiceWaveform.init === 'function') {
+            window.VoiceWaveform.init('voice-waveform');
+            return;
+        }
         const canvas = document.getElementById('voice-waveform');
         if (!canvas) return;
         this.waveformCtx = canvas.getContext('2d');
-        // 初始清屏
+        // 初始清屏（回退实现）
         this.waveformCtx.fillStyle = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || '#0e1424';
         this.waveformCtx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
     // 可视化：启动波形动画
     startWaveform() {
+        // 优先使用模块化渲染器
+        if (window.VoiceWaveform && typeof window.VoiceWaveform.start === 'function') {
+            window.VoiceWaveform.start('voice-waveform');
+            return;
+        }
         const audio = document.getElementById('generated-audio');
         const canvas = document.getElementById('voice-waveform');
         if (!audio || !canvas || !this.waveformCtx) return;
@@ -656,7 +666,7 @@ class VoiceApp {
         const height = canvas.height;
         cancelAnimationFrame(this.waveformAnimation);
         const draw = () => {
-            // 轻量级占位波形：随时间滚动的条形动画
+            // 轻量级占位波形：随时间滚动的条形动画（回退实现）
             ctx.fillStyle = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || '#0e1424';
             ctx.fillRect(0, 0, width, height);
             const now = performance.now() / 200;
@@ -676,6 +686,11 @@ class VoiceApp {
 
     // 可视化：停止波形动画
     stopWaveform() {
+        // 优先使用模块化渲染器
+        if (window.VoiceWaveform && typeof window.VoiceWaveform.stop === 'function') {
+            window.VoiceWaveform.stop('voice-waveform');
+            return;
+        }
         cancelAnimationFrame(this.waveformAnimation);
     }
 
