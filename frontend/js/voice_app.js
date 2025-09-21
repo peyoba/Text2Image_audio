@@ -139,11 +139,11 @@ class VoiceApp {
                 
                 // 接近限制时变色提醒
                 if (count > 800) {
-                    textCount.style.color = (window.VOICE_MESSAGE_COLORS && window.VOICE_MESSAGE_COLORS.error) || '#e74c3c';
+                    textCount.style.color = (window.VOICE_MESSAGE_COLORS && window.VOICE_MESSAGE_COLORS.error) || 'var(--color-error-text, #e74c3c)';
                 } else if (count > 600) {
-                    textCount.style.color = '#f39c12';
+                    textCount.style.color = 'var(--color-warning, #f39c12)';
                 } else {
-                    textCount.style.color = '#666';
+                    textCount.style.color = 'var(--color-text-primary, #666)';
                 }
             });
         }

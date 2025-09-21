@@ -690,7 +690,7 @@ class UIHandler {
                 animation: fadeIn 0.3s ease;
             ">
                 <div class="modal-content" style="
-                    background: white;
+                    background: var(--color-surface-on-light-white, #fff);
                     border-radius: 12px;
                     padding: 30px;
                     max-width: 500px;
@@ -705,13 +705,13 @@ class UIHandler {
                     ">🎵</div>
                     <h3 style="
                         margin: 0 0 16px 0;
-                        color: #333;
+                        color: var(--color-text-on-light-strong, #333);
                         font-size: 24px;
                         font-weight: 600;
                     ">${getCurrentLang() === 'zh' ? '语音生成检测' : 'Voice Generation Detected'}</h3>
                     <p style="
                         margin: 0 0 24px 0;
-                        color: #666;
+                        color: var(--color-text-on-light-muted, #666);
                         line-height: 1.6;
                         font-size: 16px;
                     ">
@@ -725,7 +725,7 @@ class UIHandler {
                         justify-content: center;
                     ">
                         <button id="voice-redirect-confirm" class="btn-primary" style="
-                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                            background: linear-gradient(135deg, var(--color-brand-secondary, #667eea) 0%, var(--color-accent-purple-strong, #764ba2) 100%);
                             color: white;
                             border: none;
                             padding: 12px 24px;
@@ -737,7 +737,7 @@ class UIHandler {
                         ">${getCurrentLang() === 'zh' ? '使用专业版' : 'Use Professional Version'}</button>
                         <button id="voice-redirect-cancel" class="btn-secondary" style="
                             background: var(--color-surface-muted, #f8f9fa);
-                            color: #666;
+                            color: var(--color-text-on-light-muted, #666);
                             border: 1px solid var(--color-border-soft, #ddd);
                             padding: 12px 24px;
                             border-radius: 8px;
@@ -954,7 +954,7 @@ function displaySingleImage(container, imageData) {
     
     img.onerror = function() {
         console.error('图片加载失败');
-        container.innerHTML = '<p style="color: #e74c3c; text-align: center;">图片加载失败，请重试</p>';
+        container.innerHTML = '<p style="color: var(--color-error-text, #e74c3c); text-align: center;">图片加载失败，请重试</p>';
     };
 
     container.appendChild(img);
