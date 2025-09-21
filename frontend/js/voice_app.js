@@ -169,38 +169,28 @@ class VoiceApp {
 
     // UI：语速滑块
     setupSpeedSlider() {
+        // 优先使用模块化语速控制
+        if (window.VoiceSpeed && typeof window.VoiceSpeed.init === 'function') {
+            try { window.VoiceSpeed.init({ sliderId: 'voice-speed', displayId: 'speed-display', audioId: 'generated-audio', storageKey: 'voice_speed' }); return; } catch (_) {}
+        }
         const speedSlider = document.getElementById('voice-speed');
         const speedDisplay = document.getElementById('speed-display');
-        
         if (speedSlider && speedDisplay) {
-            // 恢复上次选择的语速
             try {
                 const saved = localStorage.getItem('voice_speed');
                 if (saved && !isNaN(parseFloat(saved))) {
                     speedSlider.value = String(saved);
                 }
             } catch(e) {}
-
-            // 初始显示 & 应用到播放器
             const applyPlaybackRate = () => {
                 const rate = Math.max(0.25, Math.min(4.0, parseFloat(speedSlider.value) || 1.0));
                 speedDisplay.textContent = rate + 'x';
                 const audio = document.getElementById('generated-audio');
-                if (audio) {
-                    try { audio.playbackRate = rate; } catch(e) {}
-                }
+                if (audio) { try { audio.playbackRate = rate; } catch(e) {} }
             };
             applyPlaybackRate();
-
-            // 滑动时实时生效
-            speedSlider.addEventListener('input', () => {
-                applyPlaybackRate();
-            });
-
-            // 变更后持久化
-            speedSlider.addEventListener('change', () => {
-                try { localStorage.setItem('voice_speed', String(speedSlider.value)); } catch(e) {}
-            });
+            speedSlider.addEventListener('input', () => { applyPlaybackRate(); });
+            speedSlider.addEventListener('change', () => { try { localStorage.setItem('voice_speed', String(speedSlider.value)); } catch(e) {} });
         }
     }
 
@@ -579,37 +569,24 @@ class VoiceApp {
 
     // 动作：保存到个人中心（占位）
     async saveAudio() {
-        if (!this.currentAudioUrl) {
-            this.showError('没有可保存的音频文件');
-            return;
-        }
-
-        if (!window.AuthManager || !window.AuthManager.isLoggedIn()) {
-            this.showError('请先登录再保存音频');
-            return;
-        }
-
+        if (!this.currentAudioUrl) { this.showError('没有可保存的音频文件'); return; }
         try {
-            // 这里应该调用保存音频到用户个人中心的API
-            // 暂时显示功能开发中的提示
-            this.showInfo('音频保存功能正在开发中，敬请期待！');
-            
-            // TODO: 实现音频保存到用户个人中心
-            /*
-            const saveResult = await this.apiClient.saveAudio({
-                audioUrl: this.currentAudioUrl,
-                text: this.lastGenerationParams.text,
-                voice: this.lastGenerationParams.voice,
-                speed: this.lastGenerationParams.speed
-            });
-
-            if (saveResult.success) {
-                this.showSuccess('音频已保存到个人中心');
-            } else {
-                throw new Error(saveResult.error || '保存失败');
+            // 优先使用模块化保存
+            if (window.VoiceSave && typeof window.VoiceSave.save === 'function') {
+                await window.VoiceSave.save({
+                    audioUrl: this.currentAudioUrl,
+                    text: (this.lastGenerationParams && this.lastGenerationParams.text) || '',
+                    voice: (this.lastGenerationParams && this.lastGenerationParams.voice) || '',
+                    speed: (this.lastGenerationParams && this.lastGenerationParams.speed) || '1.0'
+                });
+                return;
             }
-            */
-
+            // 回退提示
+            if (!window.AuthManager || !window.AuthManager.isLoggedIn()) {
+                this.showError('请先登录再保存音频');
+                return;
+            }
+            this.showInfo('音频保存功能正在开发中，敬请期待！');
         } catch (error) {
             console.error('保存音频失败:', error);
             this.showError('音频保存失败: ' + error.message);
