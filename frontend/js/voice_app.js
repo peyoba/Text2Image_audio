@@ -665,7 +665,7 @@ class VoiceApp {
         if (!canvas) return;
         this.waveformCtx = canvas.getContext('2d');
         // 初始清屏（回退实现）
-        this.waveformCtx.fillStyle = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || '#0e1424';
+        this.waveformCtx.fillStyle = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || 'var(--color-wave-bg, #0e1424)';
         this.waveformCtx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
@@ -685,7 +685,7 @@ class VoiceApp {
         cancelAnimationFrame(this.waveformAnimation);
         const draw = () => {
             // 轻量级占位波形：随时间滚动的条形动画（回退实现）
-            ctx.fillStyle = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || '#0e1424';
+            ctx.fillStyle = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || 'var(--color-wave-bg, #0e1424)';
             ctx.fillRect(0, 0, width, height);
             const now = performance.now() / 200;
             const bars = 64;
@@ -781,7 +781,7 @@ class VoiceApp {
         ul.innerHTML = '';
         list.forEach((it, idx) => {
             const li = document.createElement('li');
-            const bg = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || '#0e1424';
+            const bg = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || 'var(--color-wave-bg, #0e1424)';
             li.style.cssText = `padding:10px; background:${bg}; border:1px solid var(--color-accent-border, #2A3A57); border-radius: var(--radius-sm); display:flex; align-items:center; gap:10px;`;
             const meta = document.createElement('div');
             meta.style.cssText = 'flex:1; color: var(--color-text-primary);';

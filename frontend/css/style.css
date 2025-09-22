@@ -1825,7 +1825,7 @@ footer {
         top: 100%;
         left: 0;
         right: 0;
-        background: white;
+        background: var(--color-surface-on-light-white, #fff);
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         border-radius: 0 0 12px 12px;
         padding: 20px;
@@ -1950,7 +1950,7 @@ footer {
     /* 长按菜单样式 */
     .long-press-menu {
         position: fixed;
-        background: white;
+        background: var(--color-surface-on-light-white, #fff);
         border-radius: 12px;
         box-shadow: 0 8px 32px rgba(0,0,0,0.2);
         padding: 10px;
@@ -2075,7 +2075,7 @@ footer {
 }
 
 .pwa-install-prompt button {
-    background: white;
+    background: var(--color-surface-on-light-white, #fff);
     color: var(--color-link-primary, #007bff);
     border: none;
     padding: 10px 20px;

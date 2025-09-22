@@ -1,5 +1,5 @@
 <!-- 高清图片管理界面 -->
-<div class="hd-images-section" style="background:#111827;color:#e5e7eb;border:1px solid #273548;box-shadow:none;">
+<div class="hd-images-section" style="background:#111827;color:var(--color-text-verylight, #e5e7eb);border:1px solid var(--color-accent-border-strong, #273548);box-shadow:none;">
     <div class="section-header">
         <h2 data-i18n="hdTitle">📸 今日高清图片</h2>
         <div class="section-actions">
@@ -10,7 +10,7 @@
     </div>
     
     <!-- 统计信息 -->
-    <div class="image-stats" id="image-stats" style="background:#0f172a;border:1px solid #273548;color:#e5e7eb;">
+    <div class="image-stats" id="image-stats" style="background:#0f172a;border:1px solid var(--color-accent-border-strong, #273548);color:var(--color-text-verylight, #e5e7eb);">
         <div class="stat-item">
             <span class="stat-label" data-i18n="hdGeneratedLabel">已生成:</span>
             <span class="stat-value">0/3</span>
@@ -146,7 +146,7 @@
 
 .image-card {
     background: #0f172a;
-    border: 1px solid #273548;
+    border: 1px solid var(--color-accent-border-strong, #273548);
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -162,7 +162,7 @@
 .image-preview {
     position: relative;
     height: 200px;
-    background: #0b1220;
+    background: var(--color-avatar-bg, #0b1220);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -187,7 +187,7 @@
 .loading-spinner {
     width: 24px;
     height: 24px;
-    border: 2px solid #e5e7eb;
+    border: 2px solid var(--color-text-verylight, #e5e7eb);
     border-top: 2px solid #3b82f6;
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -206,7 +206,7 @@
     margin: 0 0 12px 0;
     font-size: 0.95rem;
     font-weight: 600;
-    color: #e5e7eb;
+    color: var(--color-text-verylight, #e5e7eb);
     line-height: 1.4;
 }
 
@@ -346,7 +346,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 24px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--color-text-verylight, #e5e7eb);
 }
 
 .modal-header h3 {
@@ -424,7 +424,7 @@
 
 .modal-footer {
     padding: 20px 24px;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid var(--color-text-verylight, #e5e7eb);
     display: flex;
     gap: 12px;
     justify-content: flex-end;
@@ -455,7 +455,7 @@
 .loading-spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid #e5e7eb;
+    border: 3px solid var(--color-text-verylight, #e5e7eb);
     border-top: 3px solid #3b82f6;
     border-radius: 50%;
     animation: spin 1s linear infinite;

@@ -24,7 +24,7 @@
 
   // 波形可视化颜色（Canvas）
   window.VOICE_WAVEFORM_COLORS = window.VOICE_WAVEFORM_COLORS || {
-    bg: '#0e1424',
+    bg: 'var(--color-wave-bg, #0e1424)',
     bar: '#00cfff'
   };
 

@@ -1,0 +1,177 @@
+E:\cursor\Github\Text2Image_audio\frontend\about.html:1011: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:1018: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:1068: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:1135: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:1184: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:1254: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:1347: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:1373: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:1383: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:1394: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:1759: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:1814: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:593: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:698: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:774: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:813: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:838: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:899: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:904: white-space: nowrap;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:912: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\about.html:944: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\admin.html:194: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\admin.html:203: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1004: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1012: border-bottom: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1026: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1088: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1113: background: #f8f9fa;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1133: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1158: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1191: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1211: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1232: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1319: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1329: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1340: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1434: white-space: nowrap;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1771: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:932: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:939: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\css\style.css:1828: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\css\style.css:1953: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\css\style.css:2078: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\faq.html:619: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\faq.html:626: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\faq.html:659: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\hd-images-ui.html:13: <div class="image-stats" id="image-stats" style="background:#0f172a;border:1px solid #273548;color:#e5e7eb;">
+E:\cursor\Github\Text2Image_audio\frontend\hd-images-ui.html:190: border: 2px solid #e5e7eb;
+E:\cursor\Github\Text2Image_audio\frontend\hd-images-ui.html:2: <div class="hd-images-section" style="background:#111827;color:#e5e7eb;border:1px solid #273548;box-shadow:none;">
+E:\cursor\Github\Text2Image_audio\frontend\hd-images-ui.html:209: color: #e5e7eb;
+E:\cursor\Github\Text2Image_audio\frontend\hd-images-ui.html:349: border-bottom: 1px solid #e5e7eb;
+E:\cursor\Github\Text2Image_audio\frontend\hd-images-ui.html:427: border-top: 1px solid #e5e7eb;
+E:\cursor\Github\Text2Image_audio\frontend\hd-images-ui.html:458: border: 3px solid #e5e7eb;
+E:\cursor\Github\Text2Image_audio\frontend\image-generator.html:419: .username { font-weight: 600; color: #e5e7eb; font-size: 0.9rem; }
+E:\cursor\Github\Text2Image_audio\frontend\image-generator.html:424: color: #e5e7eb;
+E:\cursor\Github\Text2Image_audio\frontend\image-generator.html:425: border: 1px solid #2A3A57;
+E:\cursor\Github\Text2Image_audio\frontend\image-generator.html:446: background: #0e1424;
+E:\cursor\Github\Text2Image_audio\frontend\image-generator.html:447: border: 1px solid #2A3A57;
+E:\cursor\Github\Text2Image_audio\frontend\image-generator.html:461: white-space: nowrap;
+E:\cursor\Github\Text2Image_audio\frontend\image-generator.html:466: background: #0e1424;
+E:\cursor\Github\Text2Image_audio\frontend\image-generator.html:468: border: 1px solid #2A3A57;
+E:\cursor\Github\Text2Image_audio\frontend\image-generator.html:69: <meta name="theme-color" content="#4F46E5">
+E:\cursor\Github\Text2Image_audio\frontend\index.html:1000: border: 1px solid #2A3A57;
+E:\cursor\Github\Text2Image_audio\frontend\index.html:1021: background: #0e1424;
+E:\cursor\Github\Text2Image_audio\frontend\index.html:1022: border: 1px solid #2A3A57;
+E:\cursor\Github\Text2Image_audio\frontend\index.html:1036: white-space: nowrap;
+E:\cursor\Github\Text2Image_audio\frontend\index.html:1041: background: #0e1424;
+E:\cursor\Github\Text2Image_audio\frontend\index.html:1043: border: 1px solid #2A3A57;
+E:\cursor\Github\Text2Image_audio\frontend\index.html:1066: background-color: #4f46e5;
+E:\cursor\Github\Text2Image_audio\frontend\index.html:1067: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\index.html:1071: background-color: #4338ca;
+E:\cursor\Github\Text2Image_audio\frontend\index.html:1076: color: #4f46e5;
+E:\cursor\Github\Text2Image_audio\frontend\index.html:1077: border: 1px solid #4f46e5;
+E:\cursor\Github\Text2Image_audio\frontend\index.html:1081: background-color: #4f46e5;
+E:\cursor\Github\Text2Image_audio\frontend\index.html:1082: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\index.html:84: <meta name="theme-color" content="#4F46E5">
+E:\cursor\Github\Text2Image_audio\frontend\index.html:85: <meta name="msapplication-TileColor" content="#4F46E5">
+E:\cursor\Github\Text2Image_audio\frontend\index.html:993: .username { font-weight: 600; color: #e5e7eb; font-size: 0.9rem; }
+E:\cursor\Github\Text2Image_audio\frontend\index.html:999: color: #e5e7eb;
+E:\cursor\Github\Text2Image_audio\frontend\js\modules\voice_constants.js:27: bg: '#0e1424',
+E:\cursor\Github\Text2Image_audio\frontend\js\modules\voice_waveform.js:22: return (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || '#0e1424';
+E:\cursor\Github\Text2Image_audio\frontend\js\prompt_templates.js:252: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\js\prompt_templates.js:259: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\js\prompt_templates.js:30: prompt: 'Snow-capped mountain peaks, pristine white snow, blue sky, alpine scenery, wide angle landscape, sharp details, professional nature photography',
+E:\cursor\Github\Text2Image_audio\frontend\js\prompt_templates.js:337: color: #e5e7eb;
+E:\cursor\Github\Text2Image_audio\frontend\js\prompt_templates.js:343: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\js\prompt_templates.js:55: nameEn: 'Black White Portrait',
+E:\cursor\Github\Text2Image_audio\frontend\js\prompt_templates.js:56: prompt: 'Classic black and white portrait, dramatic contrast, timeless elegance, professional lighting, sharp focus, artistic composition',
+E:\cursor\Github\Text2Image_audio\frontend\js\prompt_templates.js:64: prompt: 'Professional product photography, clean white background, soft shadows, studio lighting, high resolution, commercial quality, detailed texture',
+E:\cursor\Github\Text2Image_audio\frontend\js\ui_handler.js:729: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\js\voice_app.js:668: this.waveformCtx.fillStyle = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || '#0e1424';
+E:\cursor\Github\Text2Image_audio\frontend\js\voice_app.js:688: ctx.fillStyle = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || '#0e1424';
+E:\cursor\Github\Text2Image_audio\frontend\js\voice_app.js:784: const bg = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || '#0e1424';
+E:\cursor\Github\Text2Image_audio\frontend\js\voice_app.js:788: meta.innerHTML = `<div style="font-size:12px;">${new Date(it.t).toLocaleString()} • ${it.voice} • ${it.speed}x</div><div style="font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width: 100%;">${(it.text || '').replace(/[\n\r]+/g,' ').slice(0,120)}</div>`;
+E:\cursor\Github\Text2Image_audio\frontend\privacy.html:218: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\privacy.html:225: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1049: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1062: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1067: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1118: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1187: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1194: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1251: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1263: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1278: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1311: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1312: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1406: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1432: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1433: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1442: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1503: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1504: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1561: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1568: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1588: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1589: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1623: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1633: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1634: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1643: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1679: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1686: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1709: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1710: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1719: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1734: background: #f8f9fa;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1758: background: #f8f9fa;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1777: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1780: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1793: background: #f8f9fa;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1805: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1806: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1815: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1847: background: #f8f9fa;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1889: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1890: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1899: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1910: background: #f8f9fa;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1927: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1930: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1939: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1940: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1957: background: #f8f9fa;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1990: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:1993: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2031: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2032: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2052: background: #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2062: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2067: background: #f8f9fa;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2109: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2116: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2119: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2142: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2143: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2160: background: #f8f9fa;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2197: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2207: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2218: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2309: border-bottom: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2790: border: 1px solid #e9ecef;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:2792: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:712: "((luxury Swiss watch:1.5)), (premium stainless steel case:1.3), (sapphire crystal:1.2), (elegant black leather strap:1.2), ((professional product photography:1.4)), (studio lighting:1.3), white background, (macro detail shot:1.2), (reflections and highlights:1.1), commercial quality"<br><br>
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:753: <div class="template-prompt">"((fashion clothing display:1.4)), (clean white background:1.3), (professional fashion photography:1.3), (perfect fit:1.2), commercial lighting"</div>
+E:\cursor\Github\Text2Image_audio\frontend\terms.html:289: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\terms.html:296: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\tutorial.html:510: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\tutorial.html:517: color: white;
+E:\cursor\Github\Text2Image_audio\frontend\tutorial.html:550: background: white;
+E:\cursor\Github\Text2Image_audio\frontend\user.html:155: <input id="profile-username" type="text" style="padding:8px;border-radius:8px;border:1px solid #273548;background:#0f172a;color:#e5e7eb;" />
+E:\cursor\Github\Text2Image_audio\frontend\user.html:164: <input id="new-password" type="password" placeholder="新密码" style="width:100%;padding:8px;border-radius:8px;border:1px solid #273548;background:#0f172a;color:#e5e7eb;margin-bottom:8px;"/>
+E:\cursor\Github\Text2Image_audio\frontend\user.html:165: <input id="confirm-password" type="password" placeholder="确认新密码" style="width:100%;padding:8px;border-radius:8px;border:1px solid #273548;background:#0f172a;color:#e5e7eb;"/>
+E:\cursor\Github\Text2Image_audio\frontend\user.html:67: body { background: #0b1220; color: #e5e7eb; }
+E:\cursor\Github\Text2Image_audio\frontend\user.html:76: .username { font-weight:600; color:#e5e7eb; font-size:0.9rem; }
+E:\cursor\Github\Text2Image_audio\frontend\user.html:81: .user-menu-toggle .username { display:inline-block; color:#e5e7eb; max-width:160px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+E:\cursor\Github\Text2Image_audio\frontend\voice.html:573: white-space: nowrap;

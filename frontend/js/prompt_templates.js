@@ -234,7 +234,7 @@ class PromptTemplateManager {
                 max-width: 800px;
                 max-height: 80vh;
                 overflow: hidden;
-                border: 1px solid #273548;
+                border: 1px solid var(--color-accent-border-strong, #273548);
                 box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             }
 
@@ -243,20 +243,20 @@ class PromptTemplateManager {
                 justify-content: space-between;
                 align-items: center;
                 padding: 20px 24px;
-                border-bottom: 1px solid #273548;
+                border-bottom: 1px solid var(--color-accent-border-strong, #273548);
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             }
 
             .template-modal-header h2 {
                 margin: 0;
-                color: white;
+                color: var(--color-surface-on-light-white, #fff);
                 font-size: 1.25rem;
             }
 
             .template-modal-close {
                 background: none;
                 border: none;
-                color: white;
+                color: var(--color-surface-on-light-white, #fff);
                 font-size: 1.5rem;
                 cursor: pointer;
                 padding: 4px 8px;
@@ -279,14 +279,14 @@ class PromptTemplateManager {
                 padding: 16px 24px 0;
                 gap: 8px;
                 flex-wrap: wrap;
-                border-bottom: 1px solid #273548;
+                border-bottom: 1px solid var(--color-accent-border-strong, #273548);
                 background: #151c29;
             }
 
             .template-category {
                 padding: 8px 16px;
                 background: transparent;
-                border: 1px solid #273548;
+                border: 1px solid var(--color-accent-border-strong, #273548);
                 color: #AAB4D4;
                 border-radius: 20px;
                 cursor: pointer;
@@ -312,7 +312,7 @@ class PromptTemplateManager {
 
             .template-item {
                 background: rgba(15, 23, 42, 0.8);
-                border: 1px solid #273548;
+                border: 1px solid var(--color-accent-border-strong, #273548);
                 border-radius: 12px;
                 padding: 16px;
                 margin-bottom: 16px;
@@ -334,13 +334,13 @@ class PromptTemplateManager {
 
             .template-item-name {
                 font-weight: 600;
-                color: #e5e7eb;
+                color: var(--color-text-verylight, #e5e7eb);
                 font-size: 1rem;
             }
 
             .template-use-btn {
                 background: var(--color-cta-primary, #4f46e5);
-                color: white;
+                color: var(--color-surface-on-light-white, #fff);
                 border: none;
                 padding: 6px 12px;
                 border-radius: 6px;

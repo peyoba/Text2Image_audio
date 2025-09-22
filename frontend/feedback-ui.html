@@ -7,7 +7,7 @@
     <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
       <div>
         <label for="feedback-category" data-i18n="feedbackCategory">反馈类别</label>
-        <select id="feedback-category" name="category" required style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--color-accent-border, #273548); background: var(--color-surface-deep, #0f172a); color: var(--color-text-verylight, #e5e7eb); margin-top: 4px;">
+        <select id="feedback-category" name="category" required style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--color-accent-border, var(--color-accent-border-strong, #273548)); background: var(--color-surface-deep, #0f172a); color: var(--color-text-verylight, #e5e7eb); margin-top: 4px;">
           <option value="bug" data-i18n="feedbackCategories.bug">问题反馈</option>
           <option value="feature" data-i18n="feedbackCategories.feature">功能建议</option>
           <option value="improvement" data-i18n="feedbackCategories.improvement">体验改进</option>
@@ -25,7 +25,7 @@
           required 
           data-i18n="feedbackPlaceholder"
           placeholder="请描述您的问题或建议..."
-          style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--color-accent-border, #273548); background: var(--color-surface-deep, #0f172a); color: var(--color-text-verylight, #e5e7eb); margin-top: 4px; resize: vertical; font-family: inherit;"
+          style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--color-accent-border, var(--color-accent-border-strong, #273548)); background: var(--color-surface-deep, #0f172a); color: var(--color-text-verylight, #e5e7eb); margin-top: 4px; resize: vertical; font-family: inherit;"
         ></textarea>
         <div style="text-align: right; margin-top: 4px; color: #94a3b8; font-size: 0.875rem;">
           <span id="content-counter">0</span>/1000
@@ -60,7 +60,7 @@
 
 .feedback-item {
   background: var(--overlay-surface-strong, rgba(15, 23, 42, 0.8));
-  border: 1px solid var(--color-accent-border, #273548);
+  border: 1px solid var(--color-accent-border, var(--color-accent-border-strong, #273548));
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 12px;

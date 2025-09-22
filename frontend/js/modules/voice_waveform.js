@@ -19,7 +19,7 @@
   }
 
   function bgColor() {
-    return (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || '#0e1424';
+    return (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || 'var(--color-wave-bg, #0e1424)';
   }
 
   function barColor() {

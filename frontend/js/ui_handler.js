@@ -726,7 +726,7 @@ class UIHandler {
                     ">
                         <button id="voice-redirect-confirm" class="btn-primary" style="
                             background: linear-gradient(135deg, var(--color-brand-secondary, #667eea) 0%, var(--color-accent-purple-strong, #764ba2) 100%);
-                            color: white;
+                            color: var(--color-surface-on-light-white, #fff);
                             border: none;
                             padding: 12px 24px;
                             border-radius: 8px;

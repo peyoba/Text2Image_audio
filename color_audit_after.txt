@@ -1,0 +1,12 @@
+E:\cursor\Github\Text2Image_audio\frontend\about.html:904: white-space: nowrap;
+E:\cursor\Github\Text2Image_audio\frontend\ai-guide.html:1434: white-space: nowrap;
+E:\cursor\Github\Text2Image_audio\frontend\image-generator.html:461: white-space: nowrap;
+E:\cursor\Github\Text2Image_audio\frontend\index.html:1036: white-space: nowrap;
+E:\cursor\Github\Text2Image_audio\frontend\js\prompt_templates.js:30: prompt: 'Snow-capped mountain peaks, pristine white snow, blue sky, alpine scenery, wide angle landscape, sharp details, professional nature photography',
+E:\cursor\Github\Text2Image_audio\frontend\js\prompt_templates.js:55: nameEn: 'Black White Portrait',
+E:\cursor\Github\Text2Image_audio\frontend\js\prompt_templates.js:56: prompt: 'Classic black and white portrait, dramatic contrast, timeless elegance, professional lighting, sharp focus, artistic composition',
+E:\cursor\Github\Text2Image_audio\frontend\js\prompt_templates.js:64: prompt: 'Professional product photography, clean white background, soft shadows, studio lighting, high resolution, commercial quality, detailed texture',
+E:\cursor\Github\Text2Image_audio\frontend\js\voice_app.js:788: meta.innerHTML = `<div style="font-size:12px;">${new Date(it.t).toLocaleString()} • ${it.voice} • ${it.speed}x</div><div style="font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width: 100%;">${(it.text || '').replace(/[\n\r]+/g,' ').slice(0,120)}</div>`;
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:712: "((luxury Swiss watch:1.5)), (premium stainless steel case:1.3), (sapphire crystal:1.2), (elegant black leather strap:1.2), ((professional product photography:1.4)), (studio lighting:1.3), white background, (macro detail shot:1.2), (reflections and highlights:1.1), commercial quality"<br><br>
+E:\cursor\Github\Text2Image_audio\frontend\prompt-engineering.html:753: <div class="template-prompt">"((fashion clothing display:1.4)), (clean white background:1.3), (professional fashion photography:1.3), (perfect fit:1.2), commercial lighting"</div>
+E:\cursor\Github\Text2Image_audio\frontend\voice.html:573: white-space: nowrap;
