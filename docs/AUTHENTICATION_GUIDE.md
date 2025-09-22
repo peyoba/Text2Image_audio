@@ -30,12 +30,12 @@
 <!-- 在body部分引入认证模态框 -->
 <div id="authContainer"></div>
 <script>
-    // 动态加载认证模态框
-    fetch('auth-modals.html')
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('authContainer').innerHTML = html;
-        });
+  // 动态加载认证模态框
+  fetch("auth-modals.html")
+    .then((response) => response.text())
+    .then((html) => {
+      document.getElementById("authContainer").innerHTML = html;
+    });
 </script>
 ```
 
@@ -45,25 +45,25 @@
 
 ```html
 <div class="nav-auth">
-    <!-- 认证按钮区域 -->
-    <div class="auth-buttons">
-        <button class="btn btn-primary" onclick="showModal('loginModal')">登录</button>
-        <button class="btn btn-outline" onclick="showModal('registerModal')">注册</button>
+  <!-- 认证按钮区域 -->
+  <div class="auth-buttons">
+    <button class="btn btn-primary" onclick="showModal('loginModal')">登录</button>
+    <button class="btn btn-outline" onclick="showModal('registerModal')">注册</button>
+  </div>
+
+  <!-- 用户信息显示区域 -->
+  <div class="user-info" style="display: none;">
+    <div class="user-avatar">
+      <img src="assets/default-avatar.svg" alt="用户头像" id="userAvatar" />
     </div>
-    
-    <!-- 用户信息显示区域 -->
-    <div class="user-info" style="display: none;">
-        <div class="user-avatar">
-            <img src="assets/default-avatar.svg" alt="用户头像" id="userAvatar">
-        </div>
-        <div class="user-details">
-            <span class="username">用户名</span>
-            <div class="user-actions">
-                <button class="btn btn-small" onclick="showUserProfile()">个人中心</button>
-                <button class="btn btn-small btn-outline" onclick="authManager.logout()">登出</button>
-            </div>
-        </div>
+    <div class="user-details">
+      <span class="username">用户名</span>
+      <div class="user-actions">
+        <button class="btn btn-small" onclick="showUserProfile()">个人中心</button>
+        <button class="btn btn-small btn-outline" onclick="authManager.logout()">登出</button>
+      </div>
     </div>
+  </div>
 </div>
 ```
 
@@ -111,7 +111,9 @@ id = "your_actual_kv_namespace_id" # 替换为实际的ID
 ## Google OAuth 2.0 配置
 
 ### 问题描述
+
 当前遇到的错误：
+
 ```
 错误 401: invalid_client
 The OAuth client was not found.
@@ -142,7 +144,6 @@ The OAuth client was not found.
      https://aistone.org
      http://localhost:3000  (开发环境)
      ```
-   
    - **授权的重定向 URI**：
      ```
      https://aistone.org/auth/google/callback
@@ -152,12 +153,14 @@ The OAuth client was not found.
 #### 2. 获取新的客户端 ID
 
 配置完成后，你会得到：
+
 - **Client ID**: `xxx-xxx.apps.googleusercontent.com`
 - **Client Secret**: `xxx-xxx` (需要设置到后端环境变量)
 
 #### 3. 更新代码
 
 需要将新的 Client ID 更新到以下位置：
+
 - `frontend/js/auth_modals.js` 第260行
 - `backend/auth.js` 第758行
 
@@ -166,6 +169,7 @@ The OAuth client was not found.
 **当前 Client ID**: `894036062262-8h0btc9vnrp4tj9v1gm8ljvj6b6d2m7i.apps.googleusercontent.com`
 
 如果这个 Client ID 是正确的，请检查：
+
 1. 是否在 Google Cloud Console 中添加了正确的回调URL
 2. 是否启用了必要的 API
 3. OAuth 同意屏幕是否正确配置
@@ -177,6 +181,7 @@ The OAuth client was not found.
 **POST** `/api/auth/register`
 
 **请求体：**
+
 ```json
 {
   "username": "用户名",
@@ -186,6 +191,7 @@ The OAuth client was not found.
 ```
 
 **响应：**
+
 ```json
 {
   "success": true,
@@ -205,6 +211,7 @@ The OAuth client was not found.
 **POST** `/api/auth/login`
 
 **请求体：**
+
 ```json
 {
   "email": "邮箱地址",
@@ -213,6 +220,7 @@ The OAuth client was not found.
 ```
 
 **响应：**
+
 ```json
 {
   "success": true,
@@ -233,11 +241,13 @@ The OAuth client was not found.
 **GET** `/api/auth/validate`
 
 **请求头：**
+
 ```
 Authorization: Bearer JWT_TOKEN
 ```
 
 **响应：**
+
 ```json
 {
   "success": true,
@@ -339,6 +349,7 @@ curl -X GET https://your-worker.your-subdomain.workers.dev/api/auth/validate \
 ### 1. 第三方登录
 
 可以集成以下OAuth提供商：
+
 - Google登录
 - GitHub登录
 - 微信登录

@@ -5,11 +5,7 @@
     "node": true,
     "es2021": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:import/recommended",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:import/recommended", "plugin:prettier/recommended"],
   "parserOptions": {
     "ecmaVersion": 2021,
     "sourceType": "script"
@@ -19,6 +15,7 @@
     "prefer-const": ["warn", { "ignoreReadBeforeAssign": true }],
     "no-unused-vars": ["warn", { "args": "none", "ignoreRestSiblings": true }],
     "no-console": "off",
+    "no-empty": "warn",
     "import/order": [
       "warn",
       {
@@ -29,9 +26,38 @@
   },
   "overrides": [
     {
-      "files": ["frontend/**/*.js", "backend/**/*.js"],
-      "parserOptions": { "sourceType": "script" }
+      "files": ["backend/**/*.js"],
+      "parserOptions": { "sourceType": "module" }
+    },
+    {
+      "files": ["frontend/js/modules/**/*.js"],
+      "parserOptions": { "sourceType": "module" }
+    },
+    {
+      "files": ["frontend/js/**/*.js"],
+      "rules": {
+        "no-undef": "off"
+      },
+      "globals": {
+        "t": "readonly",
+        "getCurrentLang": "readonly",
+        "setLanguage": "readonly",
+        "closeModal": "readonly",
+        "showModal": "readonly",
+        "ApiClient": "readonly",
+        "UIHandler": "readonly",
+        "UIEnhancements": "readonly",
+        "uiHandler": "writable",
+        "authManager": "readonly",
+        "ImageDisplay": "readonly",
+        "UIUtils": "readonly"
+      }
+    },
+    {
+      "files": ["frontend/js/i18n.js"],
+      "rules": {
+        "no-dupe-keys": "off"
+      }
     }
   ]
 }
-

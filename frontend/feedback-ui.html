@@ -1,50 +1,78 @@
 <!-- 反馈功能UI -->
 <div class="card feedback-section">
   <h2 data-i18n="feedbackTitle">留言与建议</h2>
-  
+
   <!-- 反馈提交表单 -->
-  <form id="feedback-form" style="margin-bottom: 24px;">
-    <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+  <form id="feedback-form" style="margin-bottom: 24px">
+    <div style="display: grid; grid-template-columns: 1fr; gap: 12px">
       <div>
         <label for="feedback-category" data-i18n="feedbackCategory">反馈类别</label>
-        <select id="feedback-category" name="category" required style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--color-accent-border, var(--color-accent-border-strong, #273548)); background: var(--color-surface-deep, #0f172a); color: var(--color-text-verylight, #e5e7eb); margin-top: 4px;">
+        <select
+          id="feedback-category"
+          name="category"
+          required
+          style="
+            width: 100%;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid var(--color-accent-border, var(--color-accent-border-strong, #273548));
+            background: var(--color-surface-deep, #0f172a);
+            color: var(--color-text-verylight, #e5e7eb);
+            margin-top: 4px;
+          "
+        >
           <option value="bug" data-i18n="feedbackCategories.bug">问题反馈</option>
           <option value="feature" data-i18n="feedbackCategories.feature">功能建议</option>
           <option value="improvement" data-i18n="feedbackCategories.improvement">体验改进</option>
           <option value="other" data-i18n="feedbackCategories.other">其他</option>
         </select>
       </div>
-      
+
       <div>
         <label for="feedback-content" data-i18n="feedbackContent">反馈内容</label>
-        <textarea 
-          id="feedback-content" 
-          name="content" 
-          rows="4" 
-          maxlength="1000" 
-          required 
+        <textarea
+          id="feedback-content"
+          name="content"
+          rows="4"
+          maxlength="1000"
+          required
           data-i18n="feedbackPlaceholder"
           placeholder="请描述您的问题或建议..."
-          style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--color-accent-border, var(--color-accent-border-strong, #273548)); background: var(--color-surface-deep, #0f172a); color: var(--color-text-verylight, #e5e7eb); margin-top: 4px; resize: vertical; font-family: inherit;"
+          style="
+            width: 100%;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid var(--color-accent-border, var(--color-accent-border-strong, #273548));
+            background: var(--color-surface-deep, #0f172a);
+            color: var(--color-text-verylight, #e5e7eb);
+            margin-top: 4px;
+            resize: vertical;
+            font-family: inherit;
+          "
         ></textarea>
-        <div style="text-align: right; margin-top: 4px; color: #94a3b8; font-size: 0.875rem;">
+        <div style="text-align: right; margin-top: 4px; color: #94a3b8; font-size: 0.875rem">
           <span id="content-counter">0</span>/1000
         </div>
       </div>
-      
+
       <button type="submit" class="btn btn-primary" data-i18n="feedbackSubmit">提交反馈</button>
     </div>
   </form>
-  
+
   <!-- 我的反馈列表 -->
   <div class="feedback-list">
-    <h3 data-i18n="myFeedback" style="margin: 0 0 12px 0; color: var(--color-text-verylight, #e5e7eb);">我的留言</h3>
+    <h3
+      data-i18n="myFeedback"
+      style="margin: 0 0 12px 0; color: var(--color-text-verylight, #e5e7eb)"
+    >
+      我的留言
+    </h3>
     <div id="feedback-items">
-      <div class="loading" id="feedback-loading" style="display: none;">
+      <div class="loading" id="feedback-loading" style="display: none">
         <div class="loading-spinner"></div>
         <span>加载中...</span>
       </div>
-      <div id="feedback-empty" class="empty-state" style="display: none;">
+      <div id="feedback-empty" class="empty-state" style="display: none">
         <div class="empty-icon">💬</div>
         <div class="empty-text" data-i18n="noFeedback">暂无留言记录</div>
       </div>
@@ -54,111 +82,115 @@
 </div>
 
 <style>
-.feedback-section {
-  margin-top: 24px;
-}
-
-.feedback-item {
-  background: var(--overlay-surface-strong, rgba(15, 23, 42, 0.8));
-  border: 1px solid var(--color-accent-border, var(--color-accent-border-strong, #273548));
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 12px;
-  transition: all 0.3s ease;
-}
-
-.feedback-item:hover {
-  border-color: var(--color-border-alt, #334155);
-  transform: translateY(-1px);
-}
-
-.feedback-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.feedback-category {
-  background: var(--color-cta-primary, #4f46e5);
-  color: var(--color-surface-on-light-white, #fff);
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.feedback-status {
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.feedback-status.pending {
-  background: #f59e0b;
-  color: #1f2937;
-}
-
-.feedback-status.processed {
-  background: var(--color-success, #10b981);
-  color: var(--color-surface-on-light-white, #fff);
-}
-
-.feedback-content {
-  color: var(--color-text-secondary, #94a3b8);
-  line-height: 1.5;
-  margin-bottom: 8px;
-}
-
-.feedback-time {
-  color: var(--color-text-secondary, #94a3b8);
-  font-size: 0.875rem;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 32px;
-  color: var(--color-text-secondary, #94a3b8);
-}
-
-.empty-icon {
-  font-size: 2rem;
-  margin-bottom: 8px;
-}
-
-.empty-text {
-  font-size: 0.875rem;
-}
-
-.loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 24px;
-  color: var(--color-text-secondary, #94a3b8);
-}
-
-.loading-spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid #374151;
-  border-top: 2px solid var(--color-cta-primary, #4f46e5);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@media (max-width: 768px) {
-  .feedback-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+  .feedback-section {
+    margin-top: 24px;
   }
-}
+
+  .feedback-item {
+    background: var(--overlay-surface-strong, rgba(15, 23, 42, 0.8));
+    border: 1px solid var(--color-accent-border, var(--color-accent-border-strong, #273548));
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .feedback-item:hover {
+    border-color: var(--color-border-alt, #334155);
+    transform: translateY(-1px);
+  }
+
+  .feedback-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .feedback-category {
+    background: var(--color-cta-primary, #4f46e5);
+    color: var(--color-surface-on-light-white, #fff);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .feedback-status {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .feedback-status.pending {
+    background: #f59e0b;
+    color: #1f2937;
+  }
+
+  .feedback-status.processed {
+    background: var(--color-success, #10b981);
+    color: var(--color-surface-on-light-white, #fff);
+  }
+
+  .feedback-content {
+    color: var(--color-text-secondary, #94a3b8);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .feedback-time {
+    color: var(--color-text-secondary, #94a3b8);
+    font-size: 0.875rem;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 32px;
+    color: var(--color-text-secondary, #94a3b8);
+  }
+
+  .empty-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+
+  .empty-text {
+    font-size: 0.875rem;
+  }
+
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px;
+    color: var(--color-text-secondary, #94a3b8);
+  }
+
+  .loading-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #374151;
+    border-top: 2px solid var(--color-cta-primary, #4f46e5);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .feedback-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  }
 </style>

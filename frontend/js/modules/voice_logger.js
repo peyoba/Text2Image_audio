@@ -5,20 +5,18 @@
  * window.VoiceLogger.log(message: string)
  */
 (function () {
-  'use strict';
+  "use strict";
 
   function log(message) {
     try {
       var ts = new Date().toLocaleTimeString();
-      var line = '[' + ts + '] ' + String(message == null ? '' : message);
-      var el = document.getElementById('voice-log');
+      var line = "[" + ts + "] " + String(message == null ? "" : message);
+      var el = document.getElementById("voice-log");
       if (!el) return;
-      el.textContent += (el.textContent ? '\n' : '') + line;
+      el.textContent += (el.textContent ? "\n" : "") + line;
       el.scrollTop = el.scrollHeight;
     } catch (_) {}
   }
 
   window.VoiceLogger = { log: log };
 })();
-
-

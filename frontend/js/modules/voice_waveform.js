@@ -5,42 +5,50 @@
  * Methods: init(canvas | id), start(canvas | id), stop(canvas | id), clear(canvas | id)
  */
 (function () {
-  'use strict';
+  "use strict";
 
   var states = {};
 
   function resolveCanvas(target) {
-    if (!target) target = 'voice-waveform';
-    if (typeof target === 'string') {
+    if (!target) target = "voice-waveform";
+    if (typeof target === "string") {
       return document.getElementById(target) || null;
     }
-    if (target && typeof target.getContext === 'function') return target;
+    if (target && typeof target.getContext === "function") return target;
     return null;
   }
 
   function bgColor() {
-    return (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) || 'var(--color-wave-bg, #0e1424)';
+    return (
+      (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) ||
+      "var(--color-wave-bg, #0e1424)"
+    );
   }
 
   function barColor() {
-    return (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bar) || '#00cfff';
+    return (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bar) || "#00cfff";
   }
 
   function getKey(canvas) {
-    return (canvas && canvas.id) ? canvas.id : 'voice-waveform';
+    return canvas && canvas.id ? canvas.id : "voice-waveform";
   }
 
   function init(target) {
     var canvas = resolveCanvas(target);
     if (!canvas) return null;
-    var ctx = canvas.getContext('2d');
+    var ctx = canvas.getContext("2d");
     ctx.fillStyle = bgColor();
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     var key = getKey(canvas);
     var state = states[key] || { canvas: canvas, ctx: ctx, animationId: 0 };
     state.canvas = canvas;
     state.ctx = ctx;
-    if (state.animationId) { try { cancelAnimationFrame(state.animationId); } catch(_) {} state.animationId = 0; }
+    if (state.animationId) {
+      try {
+        cancelAnimationFrame(state.animationId);
+      } catch (_) {}
+      state.animationId = 0;
+    }
     states[key] = state;
     return state;
   }
@@ -50,7 +58,12 @@
     if (!state) return;
     var canvas = state.canvas;
     var ctx = state.ctx;
-    if (state.animationId) { try { cancelAnimationFrame(state.animationId); } catch(_) {} state.animationId = 0; }
+    if (state.animationId) {
+      try {
+        cancelAnimationFrame(state.animationId);
+      } catch (_) {}
+      state.animationId = 0;
+    }
 
     function draw() {
       try {
@@ -80,7 +93,9 @@
     var key = getKey(canvas);
     var state = states[key];
     if (state && state.animationId) {
-      try { cancelAnimationFrame(state.animationId); } catch(_) {}
+      try {
+        cancelAnimationFrame(state.animationId);
+      } catch (_) {}
       state.animationId = 0;
     }
   }
@@ -96,8 +111,6 @@
     init: init,
     start: start,
     stop: stop,
-    clear: clear
+    clear: clear,
   };
 })();
-
-

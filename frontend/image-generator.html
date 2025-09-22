@@ -1,350 +1,548 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <!-- 全局函数必须最先定义 -->
     <script>
-        // API Base配置（可从localStorage覆盖）
-        (function(){
+      // API Base配置（可从localStorage覆盖）
+      (function () {
+        try {
+          var saved = localStorage.getItem("api_base");
+          if (saved && typeof saved === "string" && saved.trim()) {
+            window.API_BASE = saved.trim();
+          }
+        } catch (e) {
+          /* 忽略 */
+        }
+        window.setApiBase = function (url) {
+          if (typeof url === "string" && url.trim()) {
+            window.API_BASE = url.trim();
             try {
-                var saved = localStorage.getItem('api_base');
-                if (saved && typeof saved === 'string' && saved.trim()) {
-                    window.API_BASE = saved.trim();
-                }
-            } catch (e) { /* 忽略 */ }
-            window.setApiBase = function(url){
-                if (typeof url === 'string' && url.trim()) {
-                    window.API_BASE = url.trim();
-                    try { localStorage.setItem('api_base', window.API_BASE); } catch(e){}
-                }
-            };
-        })();
+              localStorage.setItem("api_base", window.API_BASE);
+            } catch (e) {}
+          }
+        };
+      })();
 
-        // 全局模态框控制函数
-        function showModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = 'block';
-                console.log('显示模态框:', modalId);
-            } else {
-                console.error('模态框未找到:', modalId);
-            }
+      // 全局模态框控制函数
+      function showModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.style.display = "block";
+          console.log("显示模态框:", modalId);
+        } else {
+          console.error("模态框未找到:", modalId);
         }
+      }
 
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = 'none';
-                console.log('关闭模态框:', modalId);
-            }
+      function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.style.display = "none";
+          console.log("关闭模态框:", modalId);
         }
+      }
     </script>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AISTONE AI Image Generator - Free AI Art Creator powered by Pollinations.AI technology. Create stunning AI images with GPT Image, FLUX, Turbo models. Text-to-image generation, AI art creation, digital art maker. Perfect for designers, content creators, marketers.">
-    <meta name="keywords" content="AI IMAGE generator, AISTONE, AI image generator, free AI art, text to image, AI art creator, digital art">
-    <title>AISTONE - AI Image Generator | Free AI Art Creator | Text-to-Image | 免费AI图片生成器</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="AISTONE AI Image Generator - Free AI Art Creator powered by Pollinations.AI technology. Create stunning AI images with GPT Image, FLUX, Turbo models. Text-to-image generation, AI art creation, digital art maker. Perfect for designers, content creators, marketers."
+    />
+    <meta
+      name="keywords"
+      content="AI IMAGE generator, AISTONE, AI image generator, free AI art, text to image, AI art creator, digital art"
+    />
+    <title>
+      AISTONE - AI Image Generator | Free AI Art Creator | Text-to-Image | 免费AI图片生成器
+    </title>
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://aistone.org/image-generator.html">
-    <meta property="og:title" content="AISTONE - AI Image Generator | Free AI Art Creator | Text-to-Image">
-    <meta property="og:description" content="Free AI Image Generator powered by Pollinations.AI technology. Create stunning AI images with GPT Image, FLUX, Turbo models. Perfect for designers, content creators, marketers.">
-    <meta property="og:image" content="https://aistone.org/assets/logo.svg">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aistone.org/image-generator.html" />
+    <meta
+      property="og:title"
+      content="AISTONE - AI Image Generator | Free AI Art Creator | Text-to-Image"
+    />
+    <meta
+      property="og:description"
+      content="Free AI Image Generator powered by Pollinations.AI technology. Create stunning AI images with GPT Image, FLUX, Turbo models. Perfect for designers, content creators, marketers."
+    />
+    <meta property="og:image" content="https://aistone.org/assets/logo.svg" />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://aistone.org/image-generator.html">
-    <meta property="twitter:title" content="AISTONE - AI Image Generator | Free AI Art Creator">
-    <meta property="twitter:description" content="Free AI Image Generator powered by Pollinations.AI technology. Create stunning AI images with advanced AI models.">
-    <meta property="twitter:image" content="https://aistone.org/assets/logo.svg">
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://aistone.org/image-generator.html" />
+    <meta property="twitter:title" content="AISTONE - AI Image Generator | Free AI Art Creator" />
+    <meta
+      property="twitter:description"
+      content="Free AI Image Generator powered by Pollinations.AI technology. Create stunning AI images with advanced AI models."
+    />
+    <meta property="twitter:image" content="https://aistone.org/assets/logo.svg" />
 
     <!-- Additional SEO Meta Tags -->
-    <meta name="author" content="AISTONE - AI Image Generator">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    <meta name="language" content="en,zh-CN">
-    <meta name="revisit-after" content="3 days">
-    <meta name="distribution" content="global">
-    <meta name="rating" content="general">
-    <meta name="theme-color" content="var(--color-cta-primary, #4f46e5)">
+    <meta name="author" content="AISTONE - AI Image Generator" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="language" content="en,zh-CN" />
+    <meta name="revisit-after" content="3 days" />
+    <meta name="distribution" content="global" />
+    <meta name="rating" content="general" />
+    <meta name="theme-color" content="#4F46E5" />
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://aistone.org/image-generator.html">
-    
-    <!-- Robots: ensure indexable -->
-    
+    <link rel="canonical" href="https://aistone.org/image-generator.html" />
 
-    <link rel="stylesheet" href="css/style.css">
+    <!-- Robots: ensure indexable -->
+
+    <link rel="stylesheet" href="css/style.css" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYQPWQ1JTM"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-FYQPWQ1JTM');
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-FYQPWQ1JTM");
     </script>
 
     <!-- Google AdSense -->
-    <meta name="google-adsense-account" content="ca-pub-6165370615688912">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6165370615688912"
-         crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-6165370615688912" />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6165370615688912"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- Microsoft Clarity -->
     <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "so1145dysz");
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "so1145dysz");
     </script>
 
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "AISTONE AI Image Generator",
-      "description": "Free AI Image Generator powered by Pollinations.AI technology. Create stunning AI images with GPT Image, FLUX, Turbo models.",
-      "url": "https://aistone.org/image-generator.html",
-      "inLanguage": ["en", "zh-CN"],
-      "mainEntity": {
-        "@type": "SoftwareApplication",
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
         "name": "AISTONE AI Image Generator",
-        "applicationCategory": "MultimediaApplication",
-        "operatingSystem": "Web Browser",
-        "description": "Free AI Image Generator powered by Pollinations.AI technology. Create stunning AI images with advanced AI models.",
+        "description": "Free AI Image Generator powered by Pollinations.AI technology. Create stunning AI images with GPT Image, FLUX, Turbo models.",
         "url": "https://aistone.org/image-generator.html",
-        "author": {
-          "@type": "Organization",
-          "name": "AISTONE"
-        },
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "CNY",
-          "availability": "https://schema.org/InStock"
+        "inLanguage": ["en", "zh-CN"],
+        "mainEntity": {
+          "@type": "SoftwareApplication",
+          "name": "AISTONE AI Image Generator",
+          "applicationCategory": "MultimediaApplication",
+          "operatingSystem": "Web Browser",
+          "description": "Free AI Image Generator powered by Pollinations.AI technology. Create stunning AI images with advanced AI models.",
+          "url": "https://aistone.org/image-generator.html",
+          "author": {
+            "@type": "Organization",
+            "name": "AISTONE"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY",
+            "availability": "https://schema.org/InStock"
+          }
         }
       }
-    }
     </script>
-</head>
-<body>
+  </head>
+  <body>
     <!-- 顶部导航栏 -->
     <nav class="navbar">
-        <div class="navbar-left">
-            <img src="assets/logo.svg" alt="AISTONE LOGO - 免费AI图片生成与语音合成平台标志" class="logo-img" aria-label="AISTONE 平台标志" />
-            <span class="site-name">AISTONE</span>
-        </div>
-        <ul class="navbar-menu">
-            <li><a href="/" data-i18n="navHome">首页</a></li>
-            <li><a href="voice.html" data-i18n="navVoiceGen">语音合成</a></li>
-            <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
-            <li><a href="ai-guide.html" data-i18n="navAIGuide">AI指南</a></li>
-            <li><a href="prompt-engineering.html" data-i18n="navPromptEngineering">提示词工程</a></li>
-            <li><a href="tutorial.html" data-i18n="navTutorial">使用教程</a></li>
-            <li><a href="faq.html" data-i18n="navFAQ">常见问题</a></li>
-            <li><a href="contact.html" data-i18n="navContact">联系我们</a></li>
-        </ul>
-        <div class="navbar-right">
-            <select id="lang-select" class="lang-select">
-                <option value="en">English</option>
-                <option value="zh">中文</option>
-            </select>
-            <!-- 登录按钮 -->
-            <button class="login-btn" onclick="showModal('loginModal')">登录</button>
-            <!-- 用户信息显示区域 -->
-            <div class="user-info" id="nav-user-info" style="display: none;">
-                <div class="user-avatar">
-                    <img src="assets/default-avatar.svg" alt="User avatar" id="userAvatar">
-                </div>
-                <div class="user-details">
-                    <button class="user-menu-toggle" id="userMenuToggle" aria-haspopup="true" aria-expanded="false">
-                        <img src="assets/default-avatar.svg" alt="avatar" class="avatar-inline"/>
-                        <span class="username">用户名</span>
-                        <span class="caret">▾</span>
-                    </button>
-                    <div class="user-dropdown" id="userDropdown" role="menu" aria-labelledby="userMenuToggle" style="display:none;">
-                        <a href="user.html" class="dropdown-item" data-i18n="userCenter">个人中心</a>
-                        <a href="#" class="dropdown-item" onclick="authManager.logout()" data-i18n="logout">登出</a>
-                    </div>
-                </div>
+      <div class="navbar-left">
+        <img
+          src="assets/logo.svg"
+          alt="AISTONE LOGO - 免费AI图片生成与语音合成平台标志"
+          class="logo-img"
+          aria-label="AISTONE 平台标志"
+        />
+        <span class="site-name">AISTONE</span>
+      </div>
+      <ul class="navbar-menu">
+        <li><a href="/" data-i18n="navHome">首页</a></li>
+        <li><a href="voice.html" data-i18n="navVoiceGen">语音合成</a></li>
+        <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
+        <li><a href="ai-guide.html" data-i18n="navAIGuide">AI指南</a></li>
+        <li><a href="prompt-engineering.html" data-i18n="navPromptEngineering">提示词工程</a></li>
+        <li><a href="tutorial.html" data-i18n="navTutorial">使用教程</a></li>
+        <li><a href="faq.html" data-i18n="navFAQ">常见问题</a></li>
+        <li><a href="contact.html" data-i18n="navContact">联系我们</a></li>
+      </ul>
+      <div class="navbar-right">
+        <select id="lang-select" class="lang-select">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+        </select>
+        <!-- 登录按钮 -->
+        <button class="login-btn" onclick="showModal('loginModal')">登录</button>
+        <!-- 用户信息显示区域 -->
+        <div class="user-info" id="nav-user-info" style="display: none">
+          <div class="user-avatar">
+            <img src="assets/default-avatar.svg" alt="User avatar" id="userAvatar" />
+          </div>
+          <div class="user-details">
+            <button
+              class="user-menu-toggle"
+              id="userMenuToggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img src="assets/default-avatar.svg" alt="avatar" class="avatar-inline" />
+              <span class="username">用户名</span>
+              <span class="caret">▾</span>
+            </button>
+            <div
+              class="user-dropdown"
+              id="userDropdown"
+              role="menu"
+              aria-labelledby="userMenuToggle"
+              style="display: none"
+            >
+              <a href="user.html" class="dropdown-item" data-i18n="userCenter">个人中心</a>
+              <a href="#" class="dropdown-item" onclick="authManager.logout()" data-i18n="logout"
+                >登出</a
+              >
             </div>
+          </div>
         </div>
+      </div>
     </nav>
 
     <!-- 主视觉区 -->
     <section class="hero-section">
-        <div class="hero-content">
-            <div class="hero-row">
-                <img src="assets/logo.svg" alt="AISTONE LOGO - 免费AI图片生成平台主标志" class="hero-logo-img" aria-label="AISTONE 平台主标志" />
-                <h1 class="hero-title" data-i18n="imageGeneratorTitle">AISTONE - AI图片生成器</h1>
-            </div>
-            <p class="hero-subtitle" data-i18n="imageGeneratorSubtitle">AI驱动·一键生成·释放创意</p>
-            <div class="hero-slogan" data-i18n="imageGeneratorSlogan" style="font-size:1.25em;color:var(--color-brand-primary, #00CFFF);margin:8px 0 0 0;">免费生成高质量AI图片，支持多种风格和尺寸</div>
-            <div class="hero-tags" style="margin-top:12px;">
-                <span class="tag tag-free" data-i18n="tagFree">100% 免费</span>
-                <span class="tag tag-unlimited" data-i18n="tagUnlimited">无限生成</span>
-                <span class="tag tag-no-login" data-i18n="tagNoLogin">无需登录</span>
-            </div>
+      <div class="hero-content">
+        <div class="hero-row">
+          <img
+            src="assets/logo.svg"
+            alt="AISTONE LOGO - 免费AI图片生成平台主标志"
+            class="hero-logo-img"
+            aria-label="AISTONE 平台主标志"
+          />
+          <h1 class="hero-title" data-i18n="imageGeneratorTitle">AISTONE - AI图片生成器</h1>
         </div>
+        <p class="hero-subtitle" data-i18n="imageGeneratorSubtitle">AI驱动·一键生成·释放创意</p>
+        <div
+          class="hero-slogan"
+          data-i18n="imageGeneratorSlogan"
+          style="font-size: 1.25em; color: var(--color-brand-primary, #00cfff); margin: 8px 0 0 0"
+        >
+          免费生成高质量AI图片，支持多种风格和尺寸
+        </div>
+        <div class="hero-tags" style="margin-top: 12px">
+          <span class="tag tag-free" data-i18n="tagFree">100% 免费</span>
+          <span class="tag tag-unlimited" data-i18n="tagUnlimited">无限生成</span>
+          <span class="tag tag-no-login" data-i18n="tagNoLogin">无需登录</span>
+        </div>
+      </div>
     </section>
 
     <div class="container">
-        <main>
-            <!-- 面包屑导航 -->
-            <nav class="breadcrumb" id="breadcrumb-nav" aria-label="面包屑导航">
-                <ol class="breadcrumb-list">
-                    <li class="breadcrumb-item">
-                        <a href="/" class="breadcrumb-link" data-i18n="navHome">首页</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <span class="breadcrumb-current" data-i18n="breadcrumbImageGenerator">AI图片生成器</span>
-                    </li>
-                </ol>
-            </nav>
+      <main>
+        <!-- 面包屑导航 -->
+        <nav class="breadcrumb" id="breadcrumb-nav" aria-label="面包屑导航">
+          <ol class="breadcrumb-list">
+            <li class="breadcrumb-item">
+              <a href="/" class="breadcrumb-link" data-i18n="navHome">首页</a>
+            </li>
+            <li class="breadcrumb-item">
+              <span class="breadcrumb-current" data-i18n="breadcrumbImageGenerator"
+                >AI图片生成器</span
+              >
+            </li>
+          </ol>
+        </nav>
 
-            <!-- 内容创作区域 -->
-            <section class="input-section" id="create" style="margin-top: 20px;">
-                <h2 class="section-title" data-i18n="inputTitle" style="margin-bottom: 12px;">描述文本</h2>
+        <!-- 内容创作区域 -->
+        <section class="input-section" id="create" style="margin-top: 20px">
+          <h2 class="section-title" data-i18n="inputTitle" style="margin-bottom: 12px">描述文本</h2>
 
-                <!-- 常用模板按钮 -->
-                <div style="margin-bottom: 12px;">
-                    <button id="template-btn" class="template-btn" data-i18n="promptTemplates">
-                        📝 常用模板
-                    </button>
-                </div>
+          <!-- 常用模板按钮 -->
+          <div style="margin-bottom: 12px">
+            <button id="template-btn" class="template-btn" data-i18n="promptTemplates">
+              📝 常用模板
+            </button>
+          </div>
 
-                <textarea id="text-input" rows="4" placeholder="请输入描述，如：一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影" style="margin-bottom: 12px;"></textarea>
-                <!-- 快速填充示例按钮区域 -->
-                <div class="examples-quickfill">
-                    <span class="examples-label" data-i18n="quickFillLabel"></span>
-                    <button class="example-btn" data-type="image" data-i18n-name="examples.cat.name"></button>
-                    <button class="example-btn" data-type="image" data-i18n-name="examples.dragon.name"></button>
-                    <button class="example-btn" data-type="image" data-i18n-name="examples.lake.name"></button>
-                </div>
-                <!-- 恢复快捷操作按钮 -->
-                <div class="quick-actions">
-                    <button id="clear-btn">清空</button>
-                    <button id="optimize-btn" title="自动优化提示词，提升出图效果">✨ 智能优化</button>
-                    <button id="random-btn">🎲 随机示例</button>
-                </div>
+          <textarea
+            id="text-input"
+            rows="4"
+            placeholder="请输入描述，如：一只可爱的猫咪在草地上玩耍，阳光明媚，高清摄影"
+            style="margin-bottom: 12px"
+          ></textarea>
+          <!-- 快速填充示例按钮区域 -->
+          <div class="examples-quickfill">
+            <span class="examples-label" data-i18n="quickFillLabel"></span>
+            <button
+              class="example-btn"
+              data-type="image"
+              data-i18n-name="examples.cat.name"
+            ></button>
+            <button
+              class="example-btn"
+              data-type="image"
+              data-i18n-name="examples.dragon.name"
+            ></button>
+            <button
+              class="example-btn"
+              data-type="image"
+              data-i18n-name="examples.lake.name"
+            ></button>
+          </div>
+          <!-- 恢复快捷操作按钮 -->
+          <div class="quick-actions">
+            <button id="clear-btn">清空</button>
+            <button id="optimize-btn" title="自动优化提示词，提升出图效果">✨ 智能优化</button>
+            <button id="random-btn">🎲 随机示例</button>
+          </div>
 
-                <div class="negative-prompt">
-                    <h3 class="section-title" data-i18n="negativePromptLabel"></h3>
-                    <input type="text" id="negative-prompt" data-i18n="negativePromptPlaceholder">
-                </div>
+          <div class="negative-prompt">
+            <h3 class="section-title" data-i18n="negativePromptLabel"></h3>
+            <input type="text" id="negative-prompt" data-i18n="negativePromptPlaceholder" />
+          </div>
 
-                <div class="options">
-                    <h3 class="section-title" data-i18n="generationType">生成类型</h3>
-                    <input type="radio" id="type-image" name="generation-type" value="image" checked>
-                    <label for="type-image" data-i18n="typeImage">生成图片</label>
-                    <span class="type-hint" id="type-hint" data-i18n="imageHint">💡 图片生成支持多种尺寸和数量选择</span>
-                </div>
+          <div class="options">
+            <h3 class="section-title" data-i18n="generationType">生成类型</h3>
+            <input type="radio" id="type-image" name="generation-type" value="image" checked />
+            <label for="type-image" data-i18n="typeImage">生成图片</label>
+            <span class="type-hint" id="type-hint" data-i18n="imageHint"
+              >💡 图片生成支持多种尺寸和数量选择</span
+            >
+          </div>
 
-                <div class="image-options" id="image-generation-options">
-                    <h3 class="section-title" data-i18n="imageOptions">图片选项</h3>
+          <div class="image-options" id="image-generation-options">
+            <h3 class="section-title" data-i18n="imageOptions">图片选项</h3>
 
-                    <!-- AI模型选择 -->
-                    <div>
-                        <label for="option-ai-model" data-i18n="aiModel">AI模型</label>
-                        <select id="option-ai-model" name="option-ai-model">
-                            <option value="flux" selected data-i18n="aiModelFlux">FLUX - High Quality Art Creation</option>
-                            <option value="turbo" data-i18n="aiModelTurbo">Turbo - Fast Generation</option>
-                            <option value="kontext" data-i18n="aiModelKontext">Kontext - Image-to-Image Generation</option>
-                        </select>
-                        <small class="model-hint" data-i18n="modelHint">💡 Different models suit different scenarios: FLUX for art creation, Turbo for fast prototyping, Kontext for image editing</small>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" id="option-nologo" name="option-nologo" checked>
-                        <label for="option-nologo" data-i18n="noLogo">去除水印</label>
-                    </div>
-                    <div>
-                        <label for="option-aspect-ratio" data-i18n="aspectRatio">宽高比例</label>
-                        <select id="option-aspect-ratio" name="option-aspect-ratio">
-                            <option value="1:1" data-width="1024" data-height="1024" selected data-i18n="aspectRatioSquare">Square (1:1 - 1024x1024)</option>
-                            <option value="16:9" data-width="1280" data-height="720" data-i18n="aspectRatioLandscape">Landscape (16:9 - 1280x720)</option>
-                            <option value="9:16" data-width="720" data-height="1280" data-i18n="aspectRatioPortrait">Portrait (9:16 - 720x1280)</option>
-                            <option value="4:3" data-width="1024" data-height="768" data-i18n="aspectRatioStandard">Standard (4:3 - 1024x768)</option>
-                            <option value="3:4" data-width="768" data-height="1024" data-i18n="aspectRatioStandardVertical">Standard Vertical (3:4 - 768x1024)</option>
-                            <option value="16:9-2k" data-width="2560" data-height="1440" data-i18n="aspectRatioLandscape2K">Landscape 2K (16:9 - 2560x1440)</option>
-                            <option value="9:16-2k" data-width="1440" data-height="2560" data-i18n="aspectRatioPortrait2K">Portrait 2K (9:16 - 1440x2560)</option>
-                            <option value="16:9-4k" data-width="3840" data-height="2160" data-i18n="aspectRatioLandscape4K">Landscape 4K (16:9 - 3840x2160)</option>
-                            <option value="9:16-4k" data-width="2160" data-height="3840" data-i18n="aspectRatioPortrait4K">Portrait 4K (9:16 - 2160x3840)</option>
-                            <option value="custom" data-i18n="aspectRatioCustom">Custom Dimensions</option>
-                        </select>
-                    </div>
-                    <div id="custom-dimensions-container" style="display:none;">
-                        <label for="option-width" data-i18n="width">宽度 (px)</label>
-                        <input type="number" id="option-width" name="option-width" placeholder="For example: 1024" min="256" max="4096" step="64">
-                        <label for="option-height" data-i18n="height">高度 (px)</label>
-                        <input type="number" id="option-height" name="option-height" placeholder="For example: 1024" min="256" max="4096" step="64">
-                    </div>
-                    <div>
-                        <label for="option-num-images" data-i18n="numImages">生成数量</label>
-                        <select id="option-num-images" name="option-num-images">
-                            <option value="1" selected data-i18n="oneImage">1 Image</option>
-                            <option value="2" data-i18n="twoImages">2 Images</option>
-                            <option value="4" data-i18n="fourImages">4 Images</option>
-                        </select>
-                    </div>
-                </div>
-
-                <button id="generate-button" aria-label="开始生成图片" data-i18n="generateButton">开始生成</button>
-            </section>
-
-            <!-- 生成结果区域 -->
-            <section class="output-section" id="results" style="margin-top: 20px;">
-                <h2 data-i18n="generationResult" style="margin-bottom: 12px;">生成结果</h2>
-
-                <!-- 结果状态提示 -->
-                <div class="result-status" id="result-status" style="display: none;">
-                    <span class="status-icon">ℹ️</span>
-                    <span class="status-text" data-i18n="preparingContent">正在准备内容...</span>
-                </div>
-
-                <div id="loading-indicator" class="loading" style="display: none;">
-                    <div class="bouncing-loader">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>
-                    <p data-i18n="generatingContent">正在生成内容，请稍候...</p>
-                </div>
-
-                <div id="error-message" class="error-text" style="display: none;"></div>
-
-                <div id="image-result-container" class="result-container image-container" style="display: none;">
-                    <!-- 图片将由JS动态添加到这里 -->
-                </div>
-            </section>
-
-            <!-- Google AdSense 广告位 -->
-            <section class="ad-section" style="margin: 40px 0; text-align: center;">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-6165370615688912"
-                     data-ad-slot="1234567890"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-            </section>
-        </main>
-
-        <!-- 页脚区域 -->
-        <footer id="contact">
-            <div class="footer-grid">
-                <div class="footer-left">&copy; 2025 AISTONE</div>
-                <div class="footer-center">
-                    <a href="#" class="footer-icon" aria-label="Twitter"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="#00CFFF" d="M22.46 5.924c-.793.352-1.646.59-2.54.698a4.48 4.48 0 0 0 1.963-2.47 8.94 8.94 0 0 1-2.828 1.08A4.48 4.48 0 0 0 11.1 9.03a12.72 12.72 0 0 1-9.23-4.68s-2.28 4.02 2.7 6.18c-.73.02-1.42-.22-2.02-.56 0 2.28 1.62 4.18 4.02 4.62-.39.11-.8.17-1.22.17-.3 0-.58-.03-.86-.08.58 1.81 2.27 3.13 4.27 3.17A9.01 9.01 0 0 1 2 19.54c6.29 4.03 13.72 1.13 15.86-5.13.32-.8.6-1.6.82-2.44.56-.41 1.05-.92 1.44-1.5z"/></svg></a>
-                    <a href="#" class="footer-icon" aria-label="LinkedIn"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="#00CFFF" d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.88v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg></a>
-                    <a href="#" class="footer-icon" aria-label="Instagram"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="#00CFFF" d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.34 3.608 1.314.975.975 1.252 2.242 1.314 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.34 2.633-1.314 3.608-.975.975-2.242 1.252-3.608 1.314-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.34-3.608-1.314-.975-.975-1.252-2.242-1.314-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.34-2.633 1.314-3.608C4.522 2.573 5.789 2.295 7.155 2.233 8.421 2.175 8.801 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.771.131 4.659.414 3.678 1.395c-.98.98-1.263 2.092-1.322 3.373C2.013 8.332 2 8.741 2 12c0 3.259.013 3.668.072 4.948.059 1.281.342 2.393 1.322 3.373.98.98 2.092 1.263 3.373 1.322C8.332 23.987 8.741 24 12 24s3.668-.013 4.948-.072c1.281-.059 2.393-.342 3.373-1.322.98-.98 1.263-2.092 1.322-3.373.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.059-1.281-.342-2.393-1.322-3.373-.98-.98-2.092-1.263-3.373-1.322C15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a>
-                </div>
-                <div class="footer-right">
-                    <a href="privacy.html" class="footer-link">隐私政策</a><br>
-                    <a href="terms.html" class="footer-link">服务条款</a><br>
-                </div>
+            <!-- AI模型选择 -->
+            <div>
+              <label for="option-ai-model" data-i18n="aiModel">AI模型</label>
+              <select id="option-ai-model" name="option-ai-model">
+                <option value="flux" selected data-i18n="aiModelFlux">
+                  FLUX - High Quality Art Creation
+                </option>
+                <option value="turbo" data-i18n="aiModelTurbo">Turbo - Fast Generation</option>
+                <option value="kontext" data-i18n="aiModelKontext">
+                  Kontext - Image-to-Image Generation
+                </option>
+              </select>
+              <small class="model-hint" data-i18n="modelHint"
+                >💡 Different models suit different scenarios: FLUX for art creation, Turbo for fast
+                prototyping, Kontext for image editing</small
+              >
             </div>
-        </footer>
+
+            <div>
+              <input type="checkbox" id="option-nologo" name="option-nologo" checked />
+              <label for="option-nologo" data-i18n="noLogo">去除水印</label>
+            </div>
+            <div>
+              <label for="option-aspect-ratio" data-i18n="aspectRatio">宽高比例</label>
+              <select id="option-aspect-ratio" name="option-aspect-ratio">
+                <option
+                  value="1:1"
+                  data-width="1024"
+                  data-height="1024"
+                  selected
+                  data-i18n="aspectRatioSquare"
+                >
+                  Square (1:1 - 1024x1024)
+                </option>
+                <option
+                  value="16:9"
+                  data-width="1280"
+                  data-height="720"
+                  data-i18n="aspectRatioLandscape"
+                >
+                  Landscape (16:9 - 1280x720)
+                </option>
+                <option
+                  value="9:16"
+                  data-width="720"
+                  data-height="1280"
+                  data-i18n="aspectRatioPortrait"
+                >
+                  Portrait (9:16 - 720x1280)
+                </option>
+                <option
+                  value="4:3"
+                  data-width="1024"
+                  data-height="768"
+                  data-i18n="aspectRatioStandard"
+                >
+                  Standard (4:3 - 1024x768)
+                </option>
+                <option
+                  value="3:4"
+                  data-width="768"
+                  data-height="1024"
+                  data-i18n="aspectRatioStandardVertical"
+                >
+                  Standard Vertical (3:4 - 768x1024)
+                </option>
+                <option
+                  value="16:9-2k"
+                  data-width="2560"
+                  data-height="1440"
+                  data-i18n="aspectRatioLandscape2K"
+                >
+                  Landscape 2K (16:9 - 2560x1440)
+                </option>
+                <option
+                  value="9:16-2k"
+                  data-width="1440"
+                  data-height="2560"
+                  data-i18n="aspectRatioPortrait2K"
+                >
+                  Portrait 2K (9:16 - 1440x2560)
+                </option>
+                <option
+                  value="16:9-4k"
+                  data-width="3840"
+                  data-height="2160"
+                  data-i18n="aspectRatioLandscape4K"
+                >
+                  Landscape 4K (16:9 - 3840x2160)
+                </option>
+                <option
+                  value="9:16-4k"
+                  data-width="2160"
+                  data-height="3840"
+                  data-i18n="aspectRatioPortrait4K"
+                >
+                  Portrait 4K (9:16 - 2160x3840)
+                </option>
+                <option value="custom" data-i18n="aspectRatioCustom">Custom Dimensions</option>
+              </select>
+            </div>
+            <div id="custom-dimensions-container" style="display: none">
+              <label for="option-width" data-i18n="width">宽度 (px)</label>
+              <input
+                type="number"
+                id="option-width"
+                name="option-width"
+                placeholder="For example: 1024"
+                min="256"
+                max="4096"
+                step="64"
+              />
+              <label for="option-height" data-i18n="height">高度 (px)</label>
+              <input
+                type="number"
+                id="option-height"
+                name="option-height"
+                placeholder="For example: 1024"
+                min="256"
+                max="4096"
+                step="64"
+              />
+            </div>
+            <div>
+              <label for="option-num-images" data-i18n="numImages">生成数量</label>
+              <select id="option-num-images" name="option-num-images">
+                <option value="1" selected data-i18n="oneImage">1 Image</option>
+                <option value="2" data-i18n="twoImages">2 Images</option>
+                <option value="4" data-i18n="fourImages">4 Images</option>
+              </select>
+            </div>
+          </div>
+
+          <button id="generate-button" aria-label="开始生成图片" data-i18n="generateButton">
+            开始生成
+          </button>
+        </section>
+
+        <!-- 生成结果区域 -->
+        <section class="output-section" id="results" style="margin-top: 20px">
+          <h2 data-i18n="generationResult" style="margin-bottom: 12px">生成结果</h2>
+
+          <!-- 结果状态提示 -->
+          <div class="result-status" id="result-status" style="display: none">
+            <span class="status-icon">ℹ️</span>
+            <span class="status-text" data-i18n="preparingContent">正在准备内容...</span>
+          </div>
+
+          <div id="loading-indicator" class="loading" style="display: none">
+            <div class="bouncing-loader">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <p data-i18n="generatingContent">正在生成内容，请稍候...</p>
+          </div>
+
+          <div id="error-message" class="error-text" style="display: none"></div>
+
+          <div
+            id="image-result-container"
+            class="result-container image-container"
+            style="display: none"
+          >
+            <!-- 图片将由JS动态添加到这里 -->
+          </div>
+        </section>
+
+        <!-- Google AdSense 广告位 -->
+        <section class="ad-section" style="margin: 40px 0; text-align: center">
+          <ins
+            class="adsbygoogle"
+            style="display: block"
+            data-ad-client="ca-pub-6165370615688912"
+            data-ad-slot="1234567890"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          ></ins>
+        </section>
+      </main>
+
+      <!-- 页脚区域 -->
+      <footer id="contact">
+        <div class="footer-grid">
+          <div class="footer-left">&copy; 2025 AISTONE</div>
+          <div class="footer-center">
+            <a href="#" class="footer-icon" aria-label="Twitter"
+              ><svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+                <path
+                  fill="#00CFFF"
+                  d="M22.46 5.924c-.793.352-1.646.59-2.54.698a4.48 4.48 0 0 0 1.963-2.47 8.94 8.94 0 0 1-2.828 1.08A4.48 4.48 0 0 0 11.1 9.03a12.72 12.72 0 0 1-9.23-4.68s-2.28 4.02 2.7 6.18c-.73.02-1.42-.22-2.02-.56 0 2.28 1.62 4.18 4.02 4.62-.39.11-.8.17-1.22.17-.3 0-.58-.03-.86-.08.58 1.81 2.27 3.13 4.27 3.17A9.01 9.01 0 0 1 2 19.54c6.29 4.03 13.72 1.13 15.86-5.13.32-.8.6-1.6.82-2.44.56-.41 1.05-.92 1.44-1.5z"
+                /></svg
+            ></a>
+            <a href="#" class="footer-icon" aria-label="LinkedIn"
+              ><svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+                <path
+                  fill="#00CFFF"
+                  d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.88v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"
+                /></svg
+            ></a>
+            <a href="#" class="footer-icon" aria-label="Instagram"
+              ><svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+                <path
+                  fill="#00CFFF"
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.34 3.608 1.314.975.975 1.252 2.242 1.314 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.34 2.633-1.314 3.608-.975.975-2.242 1.252-3.608 1.314-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.34-3.608-1.314-.975-.975-1.252-2.242-1.314-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.34-2.633 1.314-3.608C4.522 2.573 5.789 2.295 7.155 2.233 8.421 2.175 8.801 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.771.131 4.659.414 3.678 1.395c-.98.98-1.263 2.092-1.322 3.373C2.013 8.332 2 8.741 2 12c0 3.259.013 3.668.072 4.948.059 1.281.342 2.393 1.322 3.373.98.98 2.092 1.263 3.373 1.322C8.332 23.987 8.741 24 12 24s3.668-.013 4.948-.072c1.281-.059 2.393-.342 3.373-1.322.98-.98 1.263-2.092 1.322-3.373.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.059-1.281-.342-2.393-1.322-3.373-.98-.98-2.092-1.263-3.373-1.322C15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"
+                /></svg
+            ></a>
+          </div>
+          <div class="footer-right">
+            <a href="privacy.html" class="footer-link">隐私政策</a><br />
+            <a href="terms.html" class="footer-link">服务条款</a><br />
+          </div>
+        </div>
+      </footer>
     </div>
 
     <!-- 按依赖顺序加载脚本 -->
@@ -366,63 +564,82 @@
     <!-- 认证界面 -->
     <div id="auth-modals"></div>
     <script>
-        fetch('auth-modals.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('auth-modals').innerHTML = html;
+      fetch("auth-modals.html")
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById("auth-modals").innerHTML = html;
 
-                // 显示Google登录按钮
-                const googleBtn = document.getElementById('googleLoginBtn');
-                if (googleBtn) {
-                    googleBtn.parentElement.style.display = 'block';
-                    googleBtn.style.display = 'block';
-                }
-                const divider = document.querySelector('.divider');
-                if (divider) {
-                    divider.style.display = 'block';
-                }
-                console.log('Google OAuth 2.0 login ready');
+          // 显示Google登录按钮
+          const googleBtn = document.getElementById("googleLoginBtn");
+          if (googleBtn) {
+            googleBtn.parentElement.style.display = "block";
+            googleBtn.style.display = "block";
+          }
+          const divider = document.querySelector(".divider");
+          if (divider) {
+            divider.style.display = "block";
+          }
+          console.log("Google OAuth 2.0 login ready");
 
-                // 确保在脚本加载完成后绑定事件
-                const ensureBind = () => {
-                    if (window.initAuthForms) {
-                        window.initAuthForms();
-                    } else {
-                        setTimeout(ensureBind, 100);
-                    }
-                };
-                ensureBind();
-                // 注入后同步当前语言
-                if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') {
-                    setLanguage(getCurrentLang());
-                }
-            })
-            .catch(error => {
-                console.error('加载认证界面失败:', error);
-            });
+          // 确保在脚本加载完成后绑定事件
+          const ensureBind = () => {
+            if (window.initAuthForms) {
+              window.initAuthForms();
+            } else {
+              setTimeout(ensureBind, 100);
+            }
+          };
+          ensureBind();
+          // 注入后同步当前语言
+          if (typeof setLanguage === "function" && typeof getCurrentLang === "function") {
+            setLanguage(getCurrentLang());
+          }
+        })
+        .catch((error) => {
+          console.error("加载认证界面失败:", error);
+        });
     </script>
 
     <!-- 用户信息样式 -->
     <style>
-    .user-info {
+      .user-info {
         display: flex;
         align-items: center;
         gap: 10px;
         padding: 6px 10px;
-        background: rgba(15,23,42,0.7);
+        background: rgba(15, 23, 42, 0.7);
         border: 1px solid var(--color-accent-border-strong, #273548);
         border-radius: 999px;
-    }
-    .user-avatar { display: none; }
-    .user-avatar img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
-    .user-details { display: flex; flex-direction: row; align-items: center; gap: 10px; position: relative; }
-    .username { font-weight: 600; color: var(--color-text-verylight, #e5e7eb); font-size: 0.9rem; }
-    .user-actions { display: none; }
+      }
+      .user-avatar {
+        display: none;
+      }
+      .user-avatar img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      .user-details {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+      }
+      .username {
+        font-weight: 600;
+        color: var(--color-text-verylight, #e5e7eb);
+        font-size: 0.9rem;
+      }
+      .user-actions {
+        display: none;
+      }
 
-    .user-menu-toggle {
+      .user-menu-toggle {
         background: rgba(36, 49, 77, 0.6);
         color: var(--color-text-verylight, #e5e7eb);
-        border: 1px solid var(--color-accent-border, #2A3A57);
+        border: 1px solid var(--color-accent-border, #2a3a57);
         border-radius: 999px;
         padding: 6px 12px 6px 6px;
         display: inline-flex;
@@ -430,28 +647,38 @@
         gap: 6px;
         cursor: pointer;
         font-size: 0.85rem;
-        box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
         appearance: none;
         -webkit-appearance: none;
         outline: none;
         background-clip: padding-box;
-    }
-    .user-menu-toggle:hover { background: rgba(36, 49, 77, 0.85); }
-    .user-menu-toggle .caret { color: #aab4d4; font-size: 0.8rem; }
-    .user-menu-toggle .avatar-inline { width: 22px; height: 22px; border-radius: 50%; background:var(--color-avatar-bg, #0b1220); }
-    .user-dropdown {
+      }
+      .user-menu-toggle:hover {
+        background: rgba(36, 49, 77, 0.85);
+      }
+      .user-menu-toggle .caret {
+        color: #aab4d4;
+        font-size: 0.8rem;
+      }
+      .user-menu-toggle .avatar-inline {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--color-avatar-bg, #0b1220);
+      }
+      .user-dropdown {
         position: absolute;
         right: 0;
         top: calc(100% + 8px);
         background: var(--color-wave-bg, #0e1424);
-        border: 1px solid var(--color-accent-border, #2A3A57);
+        border: 1px solid var(--color-accent-border, #2a3a57);
         border-radius: 10px;
         min-width: 160px;
-        box-shadow: 0 14px 32px rgba(0,0,0,0.45);
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
         padding: 8px;
         z-index: 1000;
-    }
-    .dropdown-item {
+      }
+      .dropdown-item {
         display: block;
         padding: 8px 10px;
         color: #d6def8;
@@ -459,21 +686,23 @@
         border-radius: 8px;
         font-size: 0.9rem;
         white-space: nowrap;
-    }
-    .dropdown-item:hover { background: #1a2440; }
+      }
+      .dropdown-item:hover {
+        background: #1a2440;
+      }
 
-    .lang-select {
+      .lang-select {
         background: var(--color-wave-bg, #0e1424);
         color: #d6def8;
-        border: 1px solid var(--color-accent-border, #2A3A57);
+        border: 1px solid var(--color-accent-border, #2a3a57);
         border-radius: 999px;
         padding: 6px 28px 6px 12px;
         appearance: none;
         -webkit-appearance: none;
         outline: none;
-    }
+      }
 
-    .btn {
+      .btn {
         padding: 8px 16px;
         border-radius: 6px;
         font-size: 0.875rem;
@@ -485,103 +714,110 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-    }
+      }
 
-    .btn-primary {
+      .btn-primary {
         background-color: var(--color-cta-primary, #4f46e5);
         color: var(--color-surface-on-light-white, #fff);
-    }
+      }
 
-    .btn-primary:hover {
+      .btn-primary:hover {
         background-color: var(--color-cta-primary-dark, #4338ca);
-    }
+      }
 
-    .btn-outline {
+      .btn-outline {
         background-color: transparent;
         color: var(--color-cta-primary, #4f46e5);
         border: 1px solid var(--color-cta-primary, #4f46e5);
-    }
+      }
 
-    .btn-outline:hover {
+      .btn-outline:hover {
         background-color: var(--color-cta-primary, #4f46e5);
         color: var(--color-surface-on-light-white, #fff);
-    }
+      }
 
-    .btn-small {
+      .btn-small {
         padding: 4px 8px;
         font-size: 0.75rem;
-    }
+      }
 
-    @media (max-width: 768px) { .user-info { flex-direction: column; text-align: center; } .user-actions { justify-content: center; } }
+      @media (max-width: 768px) {
+        .user-info {
+          flex-direction: column;
+          text-align: center;
+        }
+        .user-actions {
+          justify-content: center;
+        }
+      }
     </style>
 
     <!-- 页面初始化 -->
     <script>
-        document.addEventListener('DOMContentLoaded', async function() {
-            // 等待所有模块加载完成
-            setTimeout(async () => {
-                // 初始化认证状态
-                if (window.authManager) {
-                    await window.authManager.init();
-                    console.log('认证模块初始化完成');
-                } else {
-                    console.error('认证模块未加载');
-                }
+      document.addEventListener("DOMContentLoaded", async function () {
+        // 等待所有模块加载完成
+        setTimeout(async () => {
+          // 初始化认证状态
+          if (window.authManager) {
+            await window.authManager.init();
+            console.log("认证模块初始化完成");
+          } else {
+            console.error("认证模块未加载");
+          }
 
-                // 初始化图片管理
-                if (window.hdImageManager) {
-                    console.log('图片管理模块初始化完成');
-                    if (window.authManager && window.authManager.isLoggedIn()) {
-                        console.log('用户已登录，初始化图片管理器');
-                        window.hdImageManager.init();
-                    }
-                } else {
-                    console.error('图片管理模块未加载');
-                }
-
-                // 测试模态框函数
-                console.log('showModal函数可用:', typeof showModal);
-
-                // 绑定用户菜单下拉
-                const userMenuToggle = document.getElementById('userMenuToggle');
-                const userDropdown = document.getElementById('userDropdown');
-                if (userMenuToggle && userDropdown) {
-                    userMenuToggle.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const shown = userDropdown.style.display === 'block';
-                        userDropdown.style.display = shown ? 'none' : 'block';
-                        userMenuToggle.setAttribute('aria-expanded', (!shown).toString());
-                    });
-                    document.addEventListener('click', () => {
-                        if (userDropdown.style.display === 'block') {
-                            userDropdown.style.display = 'none';
-                            userMenuToggle.setAttribute('aria-expanded', 'false');
-                        }
-                    });
-                }
-
-            }, 1000);
-        });
-
-        // 用户个人中心函数
-        function showUserProfile() {
-            if (window.authManager) {
-                window.authManager.showMessage(t('userCenterDevTip'), 'info');
+          // 初始化图片管理
+          if (window.hdImageManager) {
+            console.log("图片管理模块初始化完成");
+            if (window.authManager && window.authManager.isLoggedIn()) {
+              console.log("用户已登录，初始化图片管理器");
+              window.hdImageManager.init();
             }
+          } else {
+            console.error("图片管理模块未加载");
+          }
+
+          // 测试模态框函数
+          console.log("showModal函数可用:", typeof showModal);
+
+          // 绑定用户菜单下拉
+          const userMenuToggle = document.getElementById("userMenuToggle");
+          const userDropdown = document.getElementById("userDropdown");
+          if (userMenuToggle && userDropdown) {
+            userMenuToggle.addEventListener("click", (e) => {
+              e.stopPropagation();
+              const shown = userDropdown.style.display === "block";
+              userDropdown.style.display = shown ? "none" : "block";
+              userMenuToggle.setAttribute("aria-expanded", (!shown).toString());
+            });
+            document.addEventListener("click", () => {
+              if (userDropdown.style.display === "block") {
+                userDropdown.style.display = "none";
+                userMenuToggle.setAttribute("aria-expanded", "false");
+              }
+            });
+          }
+        }, 1000);
+      });
+
+      // 用户个人中心函数
+      function showUserProfile() {
+        if (window.authManager) {
+          window.authManager.showMessage(t("userCenterDevTip"), "info");
         }
+      }
     </script>
 
     <!-- AdSense 广告初始化 -->
     <script>
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                try {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                } catch (e) {
-                    console.log('AdSense initialization failed:', e);
-                }
-            }, 1000);
-        });
+      window.addEventListener("load", function () {
+        setTimeout(() => {
+          try {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          } catch (e) {
+            console.log("AdSense initialization failed:", e);
+          }
+        }, 1000);
+      });
     </script>
-</body>
+  </body>
 </html>

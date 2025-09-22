@@ -7,11 +7,13 @@
 ## 技术架构
 
 ### 前端
+
 - **技术栈**: HTML5 + CSS3 + 原生JavaScript
 - **部署平台**: Cloudflare Pages（推荐）或静态服务器
 - **域名**: https://aistone.org（生产环境）
 
 ### 后端
+
 - **技术栈**: JavaScript (ES Modules)
 - **部署平台**: Cloudflare Workers
 - **API地址**: https://text2image-api.peyoba660703.workers.dev
@@ -21,12 +23,14 @@
 ### 1. 环境要求
 
 #### 开发环境
-- Node.js 16+ 
+
+- Node.js 16+
 - npm 或 yarn
 - Git
 - 文本编辑器（推荐VS Code）
 
 #### 云服务账号
+
 - Cloudflare账号（免费版即可）
 - Google Cloud Console账号（用于OAuth）
 - DeepSeek API账号（用于AI优化功能）
@@ -34,11 +38,13 @@
 ### 2. 获取必要的API密钥
 
 #### DeepSeek API
+
 1. 访问 https://api.siliconflow.cn/
 2. 注册账号并获取API Key
 3. 记录API密钥，稍后在环境变量中配置
 
 #### Google OAuth 2.0
+
 1. 访问 https://console.cloud.google.com/
 2. 创建新项目或选择现有项目
 3. 启用Google+ API
@@ -100,6 +106,7 @@ LOG_LEVEL = "info"
 ### 3. 启动本地开发
 
 #### 后端开发
+
 ```bash
 # 启动Cloudflare Workers本地开发
 npx wrangler dev
@@ -109,6 +116,7 @@ npx wrangler dev --port 8787
 ```
 
 #### 前端开发
+
 ```bash
 # 进入前端目录
 cd frontend
@@ -125,10 +133,12 @@ npx http-server -p 8000
 ### 4. 验证本地环境
 
 访问以下地址验证环境：
+
 - 前端: http://localhost:8000
 - 后端API: http://localhost:8787（或wrangler显示的地址）
 
 测试API端点：
+
 ```bash
 # 测试生成接口
 curl -X POST http://localhost:8787/api/generate \
@@ -200,6 +210,7 @@ curl -X POST https://your-worker.workers.dev/api/generate \
 #### 2.2 环境变量配置
 
 在Pages设置中配置环境变量：
+
 - `NODE_VERSION`: `18`
 - `API_BASE_URL`: `https://your-worker.workers.dev`
 
@@ -214,6 +225,7 @@ curl -X POST https://your-worker.workers.dev/api/generate \
 #### 3.1 DNS配置
 
 在域名注册商处设置NS记录指向Cloudflare：
+
 ```
 ns1.cloudflare.com
 ns2.cloudflare.com
@@ -222,6 +234,7 @@ ns2.cloudflare.com
 #### 3.2 SSL证书
 
 Cloudflare自动提供免费SSL证书，确保以下设置：
+
 - SSL/TLS模式: "Full (strict)"
 - 自动HTTPS重写: 启用
 - Always Use HTTPS: 启用
@@ -230,25 +243,25 @@ Cloudflare自动提供免费SSL证书，确保以下设置：
 
 ### 1. 环境变量说明
 
-| 变量名 | 必需 | 说明 | 示例值 |
-|--------|------|------|--------|
-| `DEEPSEEK_API_KEY` | 是 | DeepSeek API密钥 | `sk-xxxxx` |
-| `JWT_SECRET` | 是 | JWT加密密钥 | `your-secret-key` |
-| `GOOGLE_CLIENT_SECRET` | 否 | Google OAuth密钥 | `xxx-xxx` |
-| `LOG_LEVEL` | 否 | 日志级别 | `info` |
-| `DEFAULT_AUDIO_VOICE` | 否 | 默认语音音色 | `nova` |
-| `DEFAULT_AUDIO_MODEL` | 否 | 默认语音模型 | `openai-audio` |
-| `ALLOWED_ORIGINS` | 否 | CORS 允许的来源白名单（用逗号或空格分隔；未设置则为 `*`） | `https://aistone.org https://www.aistone.org` |
-| `CORS_STRICT` | 否 | 严格模式：非白名单来源返回 `null`（默认 `false`） | `true` |
-| `RETRY_MAX_ATTEMPTS` | 否 | 后端外部请求重试最大次数（覆盖默认 8） | `6` |
-| `RETRY_INITIAL_DELAY_MS` | 否 | 后端外部请求首次回退延迟（覆盖默认 1500ms） | `1000` |
+| 变量名                   | 必需 | 说明                                                      | 示例值                                        |
+| ------------------------ | ---- | --------------------------------------------------------- | --------------------------------------------- |
+| `DEEPSEEK_API_KEY`       | 是   | DeepSeek API密钥                                          | `sk-xxxxx`                                    |
+| `JWT_SECRET`             | 是   | JWT加密密钥                                               | `your-secret-key`                             |
+| `GOOGLE_CLIENT_SECRET`   | 否   | Google OAuth密钥                                          | `xxx-xxx`                                     |
+| `LOG_LEVEL`              | 否   | 日志级别                                                  | `info`                                        |
+| `DEFAULT_AUDIO_VOICE`    | 否   | 默认语音音色                                              | `nova`                                        |
+| `DEFAULT_AUDIO_MODEL`    | 否   | 默认语音模型                                              | `openai-audio`                                |
+| `ALLOWED_ORIGINS`        | 否   | CORS 允许的来源白名单（用逗号或空格分隔；未设置则为 `*`） | `https://aistone.org https://www.aistone.org` |
+| `CORS_STRICT`            | 否   | 严格模式：非白名单来源返回 `null`（默认 `false`）         | `true`                                        |
+| `RETRY_MAX_ATTEMPTS`     | 否   | 后端外部请求重试最大次数（覆盖默认 8）                    | `6`                                           |
+| `RETRY_INITIAL_DELAY_MS` | 否   | 后端外部请求首次回退延迟（覆盖默认 1500ms）               | `1000`                                        |
 
 ### 2. KV存储配置
 
-| Binding名 | 用途 | 数据类型 |
-|-----------|------|----------|
-| `USERS` | 用户数据存储 | JSON |
-| `IMAGES_CACHE` | 图片缓存存储 | Base64 |
+| Binding名      | 用途         | 数据类型 |
+| -------------- | ------------ | -------- |
+| `USERS`        | 用户数据存储 | JSON     |
+| `IMAGES_CACHE` | 图片缓存存储 | Base64   |
 
 ### 3. CORS配置（灰度白名单，零回归）
 
@@ -258,6 +271,7 @@ Cloudflare自动提供免费SSL证书，确保以下设置：
   - `CORS_STRICT=true`：非白名单来源返回 `null`，用于严格跨域控制（建议先预发灰度）。
 
 示例（Workers 环境变量）：
+
 ```
 ALLOWED_ORIGINS="https://aistone.org https://www.aistone.org"
 CORS_STRICT="false"
@@ -270,6 +284,7 @@ CORS_STRICT="false"
 ### 1. 日志查看
 
 #### Worker日志
+
 ```bash
 # 实时查看Worker日志
 npx wrangler tail
@@ -279,18 +294,22 @@ npx wrangler tail --format=pretty
 ```
 
 #### Pages部署日志
+
 在Cloudflare Dashboard的Pages项目中查看部署历史和日志。
 
 ### 2. 性能监控
 
 #### 关键指标
+
 - API响应时间
 - 错误率
 - 用户活跃度
 - 资源使用量
 
 #### Cloudflare Analytics
+
 在Dashboard中查看：
+
 - Workers Analytics
 - Pages Analytics
 - Security insights
@@ -298,6 +317,7 @@ npx wrangler tail --format=pretty
 ### 3. 备份策略
 
 #### KV数据备份
+
 ```bash
 # 备份用户数据
 npx wrangler kv:key list --binding=USERS > users_backup.json
@@ -307,6 +327,7 @@ npx wrangler kv:key list --binding=IMAGES_CACHE > images_backup.json
 ```
 
 #### 代码备份
+
 - GitHub自动备份
 - 定期创建release版本
 - 重要更新前创建分支
@@ -316,6 +337,7 @@ npx wrangler kv:key list --binding=IMAGES_CACHE > images_backup.json
 ### 1. 常见问题
 
 #### 部署失败
+
 ```bash
 # 检查wrangler配置
 npx wrangler whoami
@@ -326,12 +348,14 @@ npx wrangler deploy --compatibility-date=2024-05-01
 ```
 
 #### API调用失败
+
 1. 检查环境变量配置
 2. 验证KV Namespace绑定
 3. 查看Worker日志排查错误
 4. 测试外部API连通性
 
 #### 前端资源加载失败
+
 1. 检查Pages部署状态
 2. 验证构建输出目录
 3. 确认CORS配置
@@ -340,12 +364,14 @@ npx wrangler deploy --compatibility-date=2024-05-01
 ### 2. 调试技巧
 
 #### 启用调试模式
+
 ```toml
 [env.development.vars]
 LOG_LEVEL = "debug"
 ```
 
 #### 本地测试生产配置
+
 ```bash
 # 使用生产环境变量进行本地测试
 npx wrangler dev --env production
@@ -354,6 +380,7 @@ npx wrangler dev --env production
 ### 3. 回滚策略
 
 #### Worker回滚
+
 ```bash
 # 查看部署历史
 npx wrangler deployments list
@@ -363,6 +390,7 @@ npx wrangler rollback [deployment-id]
 ```
 
 #### Pages回滚
+
 在Cloudflare Dashboard的Pages项目中选择历史部署进行回滚。
 
 ## 成本控制
@@ -370,16 +398,19 @@ npx wrangler rollback [deployment-id]
 ### 1. Cloudflare免费额度
 
 #### Workers
+
 - 100,000 请求/天
 - 10ms CPU时间/请求
 - 128MB 内存
 
 #### Pages
+
 - 500 构建/月
 - 20,000 文件
 - 无限流量
 
 #### KV存储
+
 - 100,000 读取操作/天
 - 1,000 写入操作/天
 - 1GB 存储空间

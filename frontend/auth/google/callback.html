@@ -1,146 +1,189 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Google Login - Processing...</title>
-    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="robots" content="noindex, nofollow, noarchive" />
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: #f5f5f5;
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: #f5f5f5;
+      }
+      .loading {
+        text-align: center;
+        padding: 2rem;
+        background: var(--color-surface-on-light-white, #fff);
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .spinner {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #4285f4;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
         }
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            background: var(--color-surface-on-light-white, #fff);
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        100% {
+          transform: rotate(360deg);
         }
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #4285f4;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="loading">
-        <div class="spinner"></div>
-        <p>Processing Google login...</p>
-        <p><small>正在处理Google登录...</small></p>
+      <div class="spinner"></div>
+      <p>Processing Google login...</p>
+      <p><small>正在处理Google登录...</small></p>
     </div>
 
     <script>
-        // 解析URL参数
-        const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code');
-        const error = urlParams.get('error');
-        const state = urlParams.get('state');
+      // 解析URL参数
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get("code");
+      const error = urlParams.get("error");
+      const state = urlParams.get("state");
 
-        // 读取 API_BASE（与站点一致），否则回退到已部署的 Workers
-        function getApiBase() {
-            try {
-                const saved = localStorage.getItem('api_base');
-                if (saved && saved.trim()) return saved.trim().replace(/\/$/, '') + '/api';
-            } catch (_) {}
-            return 'https://text2image-api.peyoba660703.workers.dev/api';
+      // 读取 API_BASE（与站点一致），否则回退到已部署的 Workers
+      function getApiBase() {
+        try {
+          const saved = localStorage.getItem("api_base");
+          if (saved && saved.trim()) return saved.trim().replace(/\/$/, "") + "/api";
+        } catch (_) {}
+        return "https://text2image-api.peyoba660703.workers.dev/api";
+      }
+
+      function writeTokenAndUser(token, user) {
+        try {
+          localStorage.setItem("auth_token", token);
+        } catch (_) {}
+        try {
+          localStorage.setItem("user_info", JSON.stringify(user));
+        } catch (_) {}
+        try {
+          const isHTTPS = location.protocol === "https:";
+          const attrs = [
+            "auth_token=" + encodeURIComponent(token),
+            "path=/",
+            "max-age=" + 7 * 24 * 60 * 60,
+          ];
+          const parts = location.hostname.split(".");
+          if (parts.length >= 2 && !/^\d+\.\d+\.\d+\.\d+$/.test(location.hostname)) {
+            const apex = parts.slice(-2).join(".");
+            attrs.push("domain=." + apex);
+          }
+          if (isHTTPS) {
+            attrs.push("Secure");
+            attrs.push("SameSite=None");
+          } else {
+            attrs.push("SameSite=Lax");
+          }
+          document.cookie = attrs.join("; ");
+        } catch (_) {}
+      }
+
+      if (error) {
+        // 登录错误
+        if (window.opener) {
+          try {
+            window.opener.postMessage({ type: "GOOGLE_AUTH_ERROR", error }, window.location.origin);
+          } catch (_) {
+            // 回退到通配，最大化送达
+            window.opener.postMessage({ type: "GOOGLE_AUTH_ERROR", error }, "*");
+          }
         }
-
-        function writeTokenAndUser(token, user) {
-            try { localStorage.setItem('auth_token', token); } catch(_){}
-            try { localStorage.setItem('user_info', JSON.stringify(user)); } catch(_){}
-            try {
-                const isHTTPS = location.protocol === 'https:';
-                const attrs = [
-                    'auth_token=' + encodeURIComponent(token),
-                    'path=/',
-                    'max-age=' + (7*24*60*60)
-                ];
-                const parts = location.hostname.split('.');
-                if (parts.length >= 2 && !/^\d+\.\d+\.\d+\.\d+$/.test(location.hostname)) {
-                    const apex = parts.slice(-2).join('.');
-                    attrs.push('domain=.' + apex);
-                }
-                if (isHTTPS) { attrs.push('Secure'); attrs.push('SameSite=None'); } else { attrs.push('SameSite=Lax'); }
-                document.cookie = attrs.join('; ');
-            } catch(_){}
-        }
-
-        if (error) {
-            // 登录错误
-            if (window.opener) {
+        window.close();
+      } else if (code) {
+        // 优先：回调页直接与后端交换 code 获取 JWT，写入本地，再通知父窗口
+        (async () => {
+          try {
+            const api = getApiBase();
+            const resp = await fetch(api + "/auth/google-oauth", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ code, state }),
+            });
+            const data = await resp.json().catch(() => ({}));
+            if (resp.ok && data && data.success && data.token) {
+              writeTokenAndUser(data.token, data.user);
+              if (window.opener) {
                 try {
-                    window.opener.postMessage({ type: 'GOOGLE_AUTH_ERROR', error }, window.location.origin);
-                } catch(_) {
-                    // 回退到通配，最大化送达
-                    window.opener.postMessage({ type: 'GOOGLE_AUTH_ERROR', error }, '*');
+                  window.opener.postMessage(
+                    { type: "GOOGLE_AUTH_LOGIN_READY" },
+                    window.location.origin
+                  );
+                } catch (_) {
+                  window.opener.postMessage({ type: "GOOGLE_AUTH_LOGIN_READY" }, "*");
                 }
+                // 800ms 兜底：若主窗口未及时校验，则直接携带 token+user 再发一次
+                setTimeout(() => {
+                  try {
+                    window.opener.postMessage(
+                      { type: "GOOGLE_AUTH_TOKEN", token: data.token, user: data.user },
+                      window.location.origin
+                    );
+                  } catch (_) {
+                    window.opener.postMessage(
+                      { type: "GOOGLE_AUTH_TOKEN", token: data.token, user: data.user },
+                      "*"
+                    );
+                  }
+                }, 800);
+              }
+            } else {
+              // 回退到仅发送 code 的老路径
+              if (window.opener) {
+                try {
+                  window.opener.postMessage(
+                    { type: "GOOGLE_AUTH_SUCCESS", code, state },
+                    window.location.origin
+                  );
+                } catch (_) {
+                  window.opener.postMessage({ type: "GOOGLE_AUTH_SUCCESS", code, state }, "*");
+                }
+              }
             }
-            window.close();
-        } else if (code) {
-            // 优先：回调页直接与后端交换 code 获取 JWT，写入本地，再通知父窗口
-            (async () => {
-                try {
-                    const api = getApiBase();
-                    const resp = await fetch(api + '/auth/google-oauth', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ code, state })
-                    });
-                    const data = await resp.json().catch(() => ({}));
-                    if (resp.ok && data && data.success && data.token) {
-                        writeTokenAndUser(data.token, data.user);
-                        if (window.opener) {
-                            try { window.opener.postMessage({ type: 'GOOGLE_AUTH_LOGIN_READY' }, window.location.origin); }
-                            catch(_) { window.opener.postMessage({ type: 'GOOGLE_AUTH_LOGIN_READY' }, '*'); }
-                            // 800ms 兜底：若主窗口未及时校验，则直接携带 token+user 再发一次
-                            setTimeout(() => {
-                                try { window.opener.postMessage({ type: 'GOOGLE_AUTH_TOKEN', token: data.token, user: data.user }, window.location.origin); }
-                                catch(_) { window.opener.postMessage({ type: 'GOOGLE_AUTH_TOKEN', token: data.token, user: data.user }, '*'); }
-                            }, 800);
-                        }
-                    } else {
-                        // 回退到仅发送 code 的老路径
-                        if (window.opener) {
-                            try { window.opener.postMessage({ type: 'GOOGLE_AUTH_SUCCESS', code, state }, window.location.origin); }
-                            catch(_) { window.opener.postMessage({ type: 'GOOGLE_AUTH_SUCCESS', code, state }, '*'); }
-                        }
-                    }
-                } catch (e) {
-                    // 失败则回退到仅发送 code
-                    if (window.opener) {
-                        try { window.opener.postMessage({ type: 'GOOGLE_AUTH_SUCCESS', code, state }, window.location.origin); }
-                        catch(_) { window.opener.postMessage({ type: 'GOOGLE_AUTH_SUCCESS', code, state }, '*'); }
-                    }
-                } finally {
-                    window.close();
-                }
-            })();
-        } else {
-            // 未知状态
+          } catch (e) {
+            // 失败则回退到仅发送 code
             if (window.opener) {
-                try {
-                    window.opener.postMessage({ type: 'GOOGLE_AUTH_ERROR', error: 'unknown_error' }, window.location.origin);
-                } catch(_) {
-                    window.opener.postMessage({ type: 'GOOGLE_AUTH_ERROR', error: 'unknown_error' }, '*');
-                }
+              try {
+                window.opener.postMessage(
+                  { type: "GOOGLE_AUTH_SUCCESS", code, state },
+                  window.location.origin
+                );
+              } catch (_) {
+                window.opener.postMessage({ type: "GOOGLE_AUTH_SUCCESS", code, state }, "*");
+              }
             }
+          } finally {
             window.close();
+          }
+        })();
+      } else {
+        // 未知状态
+        if (window.opener) {
+          try {
+            window.opener.postMessage(
+              { type: "GOOGLE_AUTH_ERROR", error: "unknown_error" },
+              window.location.origin
+            );
+          } catch (_) {
+            window.opener.postMessage({ type: "GOOGLE_AUTH_ERROR", error: "unknown_error" }, "*");
+          }
         }
+        window.close();
+      }
     </script>
-</body>
+  </body>
 </html>

@@ -6,14 +6,14 @@
  *  - saveItem(item): void (keeps latest 10)
  */
 (function () {
-  'use strict';
+  "use strict";
 
-  var STORAGE_KEY = 'voice_history';
+  var STORAGE_KEY = "voice_history";
   var MAX_ITEMS = 10;
 
   function load() {
     try {
-      var raw = localStorage.getItem(STORAGE_KEY) || '[]';
+      var raw = localStorage.getItem(STORAGE_KEY) || "[]";
       var list = JSON.parse(raw);
       if (!Array.isArray(list)) return [];
       return list;
@@ -23,7 +23,7 @@
   }
 
   function saveItem(item) {
-    if (!item || typeof item !== 'object') return;
+    if (!item || typeof item !== "object") return;
     try {
       var list = load();
       list.unshift(item);
@@ -34,8 +34,6 @@
 
   window.VoiceHistory = {
     load: load,
-    saveItem: saveItem
+    saveItem: saveItem,
   };
 })();
-
-

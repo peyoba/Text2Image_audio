@@ -1,586 +1,721 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tutorial - How to Use AISTONE AI Generators</title>
-    <meta name="description" content="Complete tutorial for AISTONE's AI image and voice generators. Step-by-step guide to create high-quality AI content.">
-    <meta name="keywords" content="AISTONE tutorial, how to use, AI image generator guide, AI voice generator guide, step-by-step tutorial">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="canonical" href="https://aistone.org/tutorial.html">
+    <meta
+      name="description"
+      content="Complete tutorial for AISTONE's AI image and voice generators. Step-by-step guide to create high-quality AI content."
+    />
+    <meta
+      name="keywords"
+      content="AISTONE tutorial, how to use, AI image generator guide, AI voice generator guide, step-by-step tutorial"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="canonical" href="https://aistone.org/tutorial.html" />
 
     <!-- Google AdSense -->
-    <meta name="google-adsense-account" content="ca-pub-6165370615688912">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6165370615688912"
-         crossorigin="anonymous"></script>
-</head>
-<body>
+    <meta name="google-adsense-account" content="ca-pub-6165370615688912" />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6165370615688912"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
     <nav class="navbar">
-        <div class="navbar-left">
-            <img src="assets/logo.svg" alt="AISTONE LOGO - 免费AI图片生成与语音合成平台标志" class="logo-img" aria-label="AISTONE 平台标志" />
-            <span class="site-name">AISTONE</span>
-        </div>
-        <ul class="navbar-menu">
-            <li><a href="/" data-i18n="navHome">首页</a></li>
-            <li><a href="voice.html" data-i18n="navVoiceGen">语音合成</a></li>
-            <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
-            <li><a href="ai-guide.html" data-i18n="navAIGuide">AI指南</a></li>
-            <li><a href="prompt-engineering.html" data-i18n="navPromptEngineering">提示词工程</a></li>
-            <li><a href="tutorial.html" class="active" data-i18n="navTutorial">使用教程</a></li>
-            <li><a href="faq.html" data-i18n="navFAQ">常见问题</a></li>
-            <li><a href="contact.html" data-i18n="navContact">联系我们</a></li>
-        </ul>
-        <div class="navbar-right">
-            <select id="lang-select" class="lang-select">
-                <option value="en">English</option>
-                <option value="zh">中文</option>
-            </select>
-            <!-- 登录按钮 -->
-            <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">登录</button>
-            <!-- 用户信息显示区域 -->
-            <div class="user-info" id="nav-user-info" style="display: none;">
-                <div class="user-avatar">
-                    <img src="assets/default-avatar.svg" alt="User avatar" id="userAvatar">
-                </div>
-                <div class="user-details">
-                    <button class="user-menu-toggle" id="userMenuToggle" aria-haspopup="true" aria-expanded="false">
-                        <img src="assets/default-avatar.svg" alt="avatar" class="avatar-inline"/>
-                        <span class="username">用户名</span>
-                        <span class="caret">▾</span>
-                    </button>
-                    <div class="user-dropdown" id="userDropdown" role="menu" aria-labelledby="userMenuToggle" style="display:none;">
-                        <a href="/user.html" class="dropdown-item" data-i18n="userCenter">个人中心</a>
-                        <a href="#" class="dropdown-item" onclick="authManager.logout()" data-i18n="logout">登出</a>
-                    </div>
-                </div>
+      <div class="navbar-left">
+        <img
+          src="assets/logo.svg"
+          alt="AISTONE LOGO - 免费AI图片生成与语音合成平台标志"
+          class="logo-img"
+          aria-label="AISTONE 平台标志"
+        />
+        <span class="site-name">AISTONE</span>
+      </div>
+      <ul class="navbar-menu">
+        <li><a href="/" data-i18n="navHome">首页</a></li>
+        <li><a href="voice.html" data-i18n="navVoiceGen">语音合成</a></li>
+        <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
+        <li><a href="ai-guide.html" data-i18n="navAIGuide">AI指南</a></li>
+        <li><a href="prompt-engineering.html" data-i18n="navPromptEngineering">提示词工程</a></li>
+        <li><a href="tutorial.html" class="active" data-i18n="navTutorial">使用教程</a></li>
+        <li><a href="faq.html" data-i18n="navFAQ">常见问题</a></li>
+        <li><a href="contact.html" data-i18n="navContact">联系我们</a></li>
+      </ul>
+      <div class="navbar-right">
+        <select id="lang-select" class="lang-select">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+        </select>
+        <!-- 登录按钮 -->
+        <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">
+          登录
+        </button>
+        <!-- 用户信息显示区域 -->
+        <div class="user-info" id="nav-user-info" style="display: none">
+          <div class="user-avatar">
+            <img src="assets/default-avatar.svg" alt="User avatar" id="userAvatar" />
+          </div>
+          <div class="user-details">
+            <button
+              class="user-menu-toggle"
+              id="userMenuToggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img src="assets/default-avatar.svg" alt="avatar" class="avatar-inline" />
+              <span class="username">用户名</span>
+              <span class="caret">▾</span>
+            </button>
+            <div
+              class="user-dropdown"
+              id="userDropdown"
+              role="menu"
+              aria-labelledby="userMenuToggle"
+              style="display: none"
+            >
+              <a href="/user.html" class="dropdown-item" data-i18n="userCenter">个人中心</a>
+              <a href="#" class="dropdown-item" onclick="authManager.logout()" data-i18n="logout"
+                >登出</a
+              >
             </div>
+          </div>
         </div>
+      </div>
     </nav>
 
     <main class="tutorial-page">
-        <div class="container">
-            <!-- 面包屑导航 -->
-            <nav class="breadcrumb">
-                <a href="/">首页</a>
-                <span class="separator">></span>
-                <span class="current">使用教程</span>
-            </nav>
-            <h1 data-i18n="relatedTutorialTitle">📖 快速上手</h1>
-            <div class="tutorial-content">
+      <div class="container">
+        <!-- 面包屑导航 -->
+        <nav class="breadcrumb">
+          <a href="/">首页</a>
+          <span class="separator">></span>
+          <span class="current">使用教程</span>
+        </nav>
+        <h1 data-i18n="relatedTutorialTitle">📖 快速上手</h1>
+        <div class="tutorial-content">
+          <section class="tutorial-intro">
+            <h2 data-i18n="tutorialWelcomeTitle">欢迎使用AISTONE</h2>
+            <p data-i18n="tutorialWelcomeDesc">
+              AISTONE是一个强大的AI内容生成平台，支持文本转图片和文本转语音功能。本教程将帮助您快速上手，充分发挥平台的功能。
+            </p>
+          </section>
 
-                <section class="tutorial-intro">
-                    <h2 data-i18n="tutorialWelcomeTitle">欢迎使用AISTONE</h2>
-                    <p data-i18n="tutorialWelcomeDesc">AISTONE是一个强大的AI内容生成平台，支持文本转图片和文本转语音功能。本教程将帮助您快速上手，充分发挥平台的功能。</p>
-                </section>
-
-                <section class="tutorial-section">
-                    <h2 data-i18n="tutorialQuickStartTitle">1. 快速开始</h2>
-                    <div class="tutorial-step">
-                        <h3 data-i18n="tutorialStep1Title">步骤1：访问平台</h3>
-                        <p data-i18n="tutorialStep1Desc">打开浏览器访问 <a href="https://aistone.org">https://aistone.org</a>，无需注册即可开始使用。</p>
-                    </div>
-
-                    <div class="tutorial-step">
-                        <h3 data-i18n="tutorialStep2Title">步骤2：选择生成类型</h3>
-                        <p data-i18n="tutorialStep2Desc">在页面上选择您想要生成的内容类型：</p>
-                        <ul>
-                            <li><strong data-i18n="tutorialImageGen">生成图片：</strong><span data-i18n="tutorialImageGenDesc">将文本描述转换为高质量图片</span></li>
-                            <li><strong data-i18n="tutorialVoiceGen">生成语音：</strong><span data-i18n="tutorialVoiceGenDesc">将文本转换为自然流畅的语音</span></li>
-                        </ul>
-                    </div>
-
-                    <div class="tutorial-step">
-                        <h3 data-i18n="tutorialStep3Title">步骤3：输入描述文本</h3>
-                        <p data-i18n="tutorialStep3Desc">在文本输入框中输入您的描述内容：</p>
-                        <div class="example-box">
-                            <strong>图片示例：</strong> "一只可爱的猫咪在阳光明媚的花园里玩耍，背景是绿色的草地和蓝色的天空，高清摄影风格"
-                        </div>
-                        <div class="example-box">
-                            <strong>语音示例：</strong> "欢迎使用AISTONE AI语音合成平台，这是一个功能强大的AI工具。"
-                        </div>
-                    </div>
-
-                    <div class="tutorial-step">
-                        <h3 data-i18n="tutorialStep4Title">步骤4：点击生成</h3>
-                        <p data-i18n="tutorialStep4Desc">点击"开始生成"按钮，AI将开始处理您的请求。通常需要10-30秒完成生成。</p>
-                    </div>
-                </section>
-
-                <section class="tutorial-section">
-                    <h2 data-i18n="tutorialImageFeaturesTitle">2. 图片生成功能详解</h2>
-
-                    <div class="tutorial-step">
-                        <h3 data-i18n="tutorialModelSelectionTitle">AI模型选择</h3>
-                        <p data-i18n="tutorialModelSelectionDesc">AISTONE提供多种AI模型供选择：</p>
-                        <ul>
-                            <li><strong>FLUX：</strong>高质量艺术创作，适合大多数场景</li>
-                            <li><strong>Turbo：</strong>快速生成，适合原型设计</li>
-                            <li><strong>Kontext：</strong>图像到图像生成，适合图片编辑</li>
-                        </ul>
-                    </div>
-
-                    <div class="tutorial-step">
-                        <h3>尺寸和比例设置</h3>
-                        <p>支持多种预设尺寸：</p>
-                        <ul>
-                            <li><strong>1:1：</strong>方形图片，适合头像和社交媒体</li>
-                            <li><strong>16:9：</strong>横版图片，适合横幅和视频缩略图</li>
-                            <li><strong>9:16：</strong>竖版图片，适合手机壁纸和故事</li>
-                            <li><strong>4:3：</strong>传统比例，适合打印和展示</li>
-                            <li><strong>自定义：</strong>可设置任意尺寸（256-4096像素）</li>
-                        </ul>
-                    </div>
-
-                    <div class="tutorial-step">
-                        <h3>高级选项</h3>
-                        <ul>
-                            <li><strong>去除水印：</strong>生成无水印的高质量图片</li>
-                            <li><strong>生成数量：</strong>可同时生成1/2/4张图片</li>
-                            <li><strong>负向提示词：</strong>排除不需要的元素</li>
-                        </ul>
-                    </div>
-
-                    <div class="tutorial-step">
-                        <h3>智能优化功能</h3>
-                        <p>使用DeepSeek AI自动优化您的提示词：</p>
-                        <ul>
-                            <li>自动改进描述质量</li>
-                            <li>添加艺术风格建议</li>
-                            <li>优化生成效果</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section class="tutorial-section">
-                    <h2>3. 语音合成功能详解</h2>
-
-                    <div class="tutorial-step">
-                        <h3>语音音色选择</h3>
-                        <p>支持多种专业语音音色：</p>
-                        <ul>
-                            <li><strong>Alloy：</strong>专业女声，适合播报和解说</li>
-                            <li><strong>Echo：</strong>温暖男声，适合叙述和故事</li>
-                            <li><strong>Fable：</strong>英国女声，适合教育内容</li>
-                            <li><strong>Onyx：</strong>深沉男声，适合正式场合</li>
-                            <li><strong>Nova：</strong>活泼女声，适合轻松内容</li>
-                            <li><strong>Shimmer：</strong>轻快女声，适合广告和宣传</li>
-                        </ul>
-                    </div>
-
-                    <div class="tutorial-step">
-                        <h3>语音播放和下载</h3>
-                        <p>生成完成后可以：</p>
-                        <ul>
-                            <li>在线播放音频</li>
-                            <li>下载音频文件</li>
-                            <li>分享给他人</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section class="tutorial-section">
-                    <h2>4. 提示词编写技巧</h2>
-
-                    <div class="tutorial-step">
-                        <h3>基本原则</h3>
-                        <ul>
-                            <li><strong>具体描述：</strong>越详细的描述生成的效果越好</li>
-                            <li><strong>艺术风格：</strong>明确指定风格，如"写实"、"卡通"、"油画"等</li>
-                            <li><strong>构图元素：</strong>描述主体、背景、光线、色彩等</li>
-                            <li><strong>技术参数：</strong>可添加"高清"、"4K"、"摄影"等质量描述</li>
-                        </ul>
-                    </div>
-
-                    <div class="tutorial-step">
-                        <h3>优秀提示词示例</h3>
-                        <div class="example-box">
-                            <strong>风景图片：</strong> "宁静的湖边日落，粉色天空倒映在平静的水面上，远处山脉 silhouette，高清摄影，专业级构图"
-                        </div>
-                        <div class="example-box">
-                            <strong>人物肖像：</strong> "年轻女性肖像，微笑，蓝色眼睛，金色长发，柔和自然光，专业人像摄影，8K分辨率"
-                        </div>
-                        <div class="example-box">
-                            <strong>产品展示：</strong> "白色背景上的智能手机，产品摄影风格，专业照明，展示屏幕和功能，商业级质量"
-                        </div>
-                    </div>
-
-                    <div class="tutorial-step">
-                        <h3>负向提示词使用</h3>
-                        <p>在负向提示词框中输入要排除的元素：</p>
-                        <div class="example-box">
-                            <strong>示例：</strong> "模糊，低质量，变形，文字，水印，杂乱背景，多余物体"
-                        </div>
-                    </div>
-                </section>
-
-                <section class="tutorial-section">
-                    <h2>5. 高级功能</h2>
-
-                    <div class="tutorial-step">
-                        <h3>常用模板</h3>
-                        <p>平台提供预设的提示词模板：</p>
-                        <ul>
-                            <li><strong>风景模板：</strong>各种自然景观场景</li>
-                            <li><strong>人像模板：</strong>不同风格的人物肖像</li>
-                            <li><strong>产品模板：</strong>商业产品展示</li>
-                            <li><strong>艺术模板：</strong>各种艺术风格</li>
-                        </ul>
-                    </div>
-
-                    <div class="tutorial-step">
-                        <h3>用户系统</h3>
-                        <p>注册用户可以享受额外功能：</p>
-                        <ul>
-                            <li>保存和管理生成的历史记录</li>
-                            <li>高清图片缓存和批量下载</li>
-                            <li>个人中心和偏好设置</li>
-                            <li>更快的生成速度</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section class="tutorial-section">
-                    <h2>6. 故障排除</h2>
-
-                    <div class="tutorial-step">
-                        <h3>常见问题</h3>
-                        <dl>
-                            <dt>生成速度慢怎么办？</dt>
-                            <dd>高峰期可能需要等待，请稍后重试，或选择Turbo模型以加快速度。</dd>
-
-                            <dt>生成结果不满意？</dt>
-                            <dd>尝试调整提示词，添加更多细节，或使用智能优化功能。</dd>
-
-                            <dt>无法播放语音？</dt>
-                            <dd>请检查浏览器设置，确保支持音频播放，或尝试下载文件。</dd>
-
-                            <dt>图片质量不佳？</dt>
-                            <dd>尝试使用更高分辨率，选择FLUX模型，或优化提示词描述。</dd>
-                        </dl>
-                    </div>
-                </section>
-
-                <section class="tutorial-section">
-                    <h2>7. 最佳实践</h2>
-
-                    <div class="tutorial-step">
-                        <h3>创作建议</h3>
-                        <ul>
-                            <li><strong>从小开始：</strong>从简单描述开始，逐步添加细节</li>
-                            <li><strong>多次尝试：</strong>不同提示词可能产生不同效果</li>
-                            <li><strong>学习借鉴：</strong>参考优秀示例，学习提示词技巧</li>
-                            <li><strong>保持更新：</strong>关注平台更新和新功能</li>
-                        </ul>
-                    </div>
-
-                    <div class="tutorial-step">
-                        <h3>效率提升</h3>
-                        <ul>
-                            <li>使用常用模板快速开始</li>
-                            <li>保存满意的提示词以备后用</li>
-                            <li>批量生成多个变体进行比较</li>
-                            <li>利用智能优化功能改进描述</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <!-- AdSense 广告位 -->
-                <div class="ad-container" style="margin: 30px 0; text-align: center;">
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-client="ca-pub-6165370615688912"
-                         data-ad-slot="1234567890"
-                         data-ad-format="auto"
-                         data-full-width-responsive="true"></ins>
-                    <script>
-                         (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>
-
-                <section class="tutorial-section">
-                    <h2>8. 获取帮助</h2>
-                    <div class="tutorial-step">
-                        <h3>联系我们</h3>
-                        <p>如果您在使用过程中遇到问题或需要帮助：</p>
-                        <ul>
-                            <li><strong>查看FAQ：</strong>访问常见问题页面获取解答</li>
-                            <li><strong>联系客服：</strong>通过页面底部联系方式获取帮助</li>
-                            <li><strong>技术支持：</strong>发送邮件至 support@aistone.org</li>
-                            <li><strong>社区交流：</strong>关注我们的社交媒体获取最新资讯</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <!-- 相关内容推荐 -->
-                <section class="related-content" style="margin-top: 40px; padding: 20px; background: var(--color-surface-muted, #f8f9fa); border-radius: 8px;">
-                    <h2 style="color: #333; margin-bottom: 20px;">📚 相关内容推荐</h2>
-                    <div class="related-links" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-                        <div class="related-item" style="background: var(--color-surface-on-light-white, #fff); padding: 15px; border-radius: 6px; border: 1px solid var(--color-border-muted, #e9ecef);">
-                            <h3 style="font-size: 16px; margin: 0 0 8px 0; color: var(--color-link-primary, #007bff);">
-                                <a href="faq.html" style="text-decoration: none; color: inherit;">❓ 常见问题解答</a>
-                            </h3>
-                            <p style="margin: 0; font-size: 14px; color: #666;">遇到问题？查看用户最常问的问题和详细解答</p>
-                        </div>
-                        <div class="related-item" style="background: var(--color-surface-on-light-white, #fff); padding: 15px; border-radius: 6px; border: 1px solid var(--color-border-muted, #e9ecef);">
-                            <h3 style="font-size: 16px; margin: 0 0 8px 0; color: var(--color-link-primary, #007bff);">
-                                <a href="/" style="text-decoration: none; color: inherit;">🎨 立即生成图片</a>
-                            </h3>
-                            <p style="margin: 0; font-size: 14px; color: #666;">学会了使用方法？现在就开始创作您的第一张AI图片</p>
-                        </div>
-                        <div class="related-item" style="background: var(--color-surface-on-light-white, #fff); padding: 15px; border-radius: 6px; border: 1px solid var(--color-border-muted, #e9ecef);">
-                            <h3 style="font-size: 16px; margin: 0 0 8px 0; color: var(--color-link-primary, #007bff);">
-                                <a href="voice.html" style="text-decoration: none; color: inherit;">🎵 体验语音合成</a>
-                            </h3>
-                            <p style="margin: 0; font-size: 14px; color: #666;">尝试我们的AI语音合成功能，将文字转换为自然语音</p>
-                        </div>
-                        <div class="related-item" style="background: var(--color-surface-on-light-white, #fff); padding: 15px; border-radius: 6px; border: 1px solid var(--color-border-muted, #e9ecef);">
-                            <h3 style="font-size: 16px; margin: 0 0 8px 0; color: var(--color-link-primary, #007bff);">
-                                <a href="about.html" style="text-decoration: none; color: inherit;">ℹ️ 了解AISTONE</a>
-                            </h3>
-                            <p style="margin: 0; font-size: 14px; color: #666;">了解我们的技术原理、发展历程和未来规划</p>
-                        </div>
-                    </div>
-                </section>
+          <section class="tutorial-section">
+            <h2 data-i18n="tutorialQuickStartTitle">1. 快速开始</h2>
+            <div class="tutorial-step">
+              <h3 data-i18n="tutorialStep1Title">步骤1：访问平台</h3>
+              <p data-i18n="tutorialStep1Desc">
+                打开浏览器访问
+                <a href="https://aistone.org">https://aistone.org</a>，无需注册即可开始使用。
+              </p>
             </div>
+
+            <div class="tutorial-step">
+              <h3 data-i18n="tutorialStep2Title">步骤2：选择生成类型</h3>
+              <p data-i18n="tutorialStep2Desc">在页面上选择您想要生成的内容类型：</p>
+              <ul>
+                <li>
+                  <strong data-i18n="tutorialImageGen">生成图片：</strong
+                  ><span data-i18n="tutorialImageGenDesc">将文本描述转换为高质量图片</span>
+                </li>
+                <li>
+                  <strong data-i18n="tutorialVoiceGen">生成语音：</strong
+                  ><span data-i18n="tutorialVoiceGenDesc">将文本转换为自然流畅的语音</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="tutorial-step">
+              <h3 data-i18n="tutorialStep3Title">步骤3：输入描述文本</h3>
+              <p data-i18n="tutorialStep3Desc">在文本输入框中输入您的描述内容：</p>
+              <div class="example-box">
+                <strong>图片示例：</strong>
+                "一只可爱的猫咪在阳光明媚的花园里玩耍，背景是绿色的草地和蓝色的天空，高清摄影风格"
+              </div>
+              <div class="example-box">
+                <strong>语音示例：</strong> "欢迎使用AISTONE
+                AI语音合成平台，这是一个功能强大的AI工具。"
+              </div>
+            </div>
+
+            <div class="tutorial-step">
+              <h3 data-i18n="tutorialStep4Title">步骤4：点击生成</h3>
+              <p data-i18n="tutorialStep4Desc">
+                点击"开始生成"按钮，AI将开始处理您的请求。通常需要10-30秒完成生成。
+              </p>
+            </div>
+          </section>
+
+          <section class="tutorial-section">
+            <h2 data-i18n="tutorialImageFeaturesTitle">2. 图片生成功能详解</h2>
+
+            <div class="tutorial-step">
+              <h3 data-i18n="tutorialModelSelectionTitle">AI模型选择</h3>
+              <p data-i18n="tutorialModelSelectionDesc">AISTONE提供多种AI模型供选择：</p>
+              <ul>
+                <li><strong>FLUX：</strong>高质量艺术创作，适合大多数场景</li>
+                <li><strong>Turbo：</strong>快速生成，适合原型设计</li>
+                <li><strong>Kontext：</strong>图像到图像生成，适合图片编辑</li>
+              </ul>
+            </div>
+
+            <div class="tutorial-step">
+              <h3>尺寸和比例设置</h3>
+              <p>支持多种预设尺寸：</p>
+              <ul>
+                <li><strong>1:1：</strong>方形图片，适合头像和社交媒体</li>
+                <li><strong>16:9：</strong>横版图片，适合横幅和视频缩略图</li>
+                <li><strong>9:16：</strong>竖版图片，适合手机壁纸和故事</li>
+                <li><strong>4:3：</strong>传统比例，适合打印和展示</li>
+                <li><strong>自定义：</strong>可设置任意尺寸（256-4096像素）</li>
+              </ul>
+            </div>
+
+            <div class="tutorial-step">
+              <h3>高级选项</h3>
+              <ul>
+                <li><strong>去除水印：</strong>生成无水印的高质量图片</li>
+                <li><strong>生成数量：</strong>可同时生成1/2/4张图片</li>
+                <li><strong>负向提示词：</strong>排除不需要的元素</li>
+              </ul>
+            </div>
+
+            <div class="tutorial-step">
+              <h3>智能优化功能</h3>
+              <p>使用DeepSeek AI自动优化您的提示词：</p>
+              <ul>
+                <li>自动改进描述质量</li>
+                <li>添加艺术风格建议</li>
+                <li>优化生成效果</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="tutorial-section">
+            <h2>3. 语音合成功能详解</h2>
+
+            <div class="tutorial-step">
+              <h3>语音音色选择</h3>
+              <p>支持多种专业语音音色：</p>
+              <ul>
+                <li><strong>Alloy：</strong>专业女声，适合播报和解说</li>
+                <li><strong>Echo：</strong>温暖男声，适合叙述和故事</li>
+                <li><strong>Fable：</strong>英国女声，适合教育内容</li>
+                <li><strong>Onyx：</strong>深沉男声，适合正式场合</li>
+                <li><strong>Nova：</strong>活泼女声，适合轻松内容</li>
+                <li><strong>Shimmer：</strong>轻快女声，适合广告和宣传</li>
+              </ul>
+            </div>
+
+            <div class="tutorial-step">
+              <h3>语音播放和下载</h3>
+              <p>生成完成后可以：</p>
+              <ul>
+                <li>在线播放音频</li>
+                <li>下载音频文件</li>
+                <li>分享给他人</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="tutorial-section">
+            <h2>4. 提示词编写技巧</h2>
+
+            <div class="tutorial-step">
+              <h3>基本原则</h3>
+              <ul>
+                <li><strong>具体描述：</strong>越详细的描述生成的效果越好</li>
+                <li><strong>艺术风格：</strong>明确指定风格，如"写实"、"卡通"、"油画"等</li>
+                <li><strong>构图元素：</strong>描述主体、背景、光线、色彩等</li>
+                <li><strong>技术参数：</strong>可添加"高清"、"4K"、"摄影"等质量描述</li>
+              </ul>
+            </div>
+
+            <div class="tutorial-step">
+              <h3>优秀提示词示例</h3>
+              <div class="example-box">
+                <strong>风景图片：</strong> "宁静的湖边日落，粉色天空倒映在平静的水面上，远处山脉
+                silhouette，高清摄影，专业级构图"
+              </div>
+              <div class="example-box">
+                <strong>人物肖像：</strong>
+                "年轻女性肖像，微笑，蓝色眼睛，金色长发，柔和自然光，专业人像摄影，8K分辨率"
+              </div>
+              <div class="example-box">
+                <strong>产品展示：</strong>
+                "白色背景上的智能手机，产品摄影风格，专业照明，展示屏幕和功能，商业级质量"
+              </div>
+            </div>
+
+            <div class="tutorial-step">
+              <h3>负向提示词使用</h3>
+              <p>在负向提示词框中输入要排除的元素：</p>
+              <div class="example-box">
+                <strong>示例：</strong> "模糊，低质量，变形，文字，水印，杂乱背景，多余物体"
+              </div>
+            </div>
+          </section>
+
+          <section class="tutorial-section">
+            <h2>5. 高级功能</h2>
+
+            <div class="tutorial-step">
+              <h3>常用模板</h3>
+              <p>平台提供预设的提示词模板：</p>
+              <ul>
+                <li><strong>风景模板：</strong>各种自然景观场景</li>
+                <li><strong>人像模板：</strong>不同风格的人物肖像</li>
+                <li><strong>产品模板：</strong>商业产品展示</li>
+                <li><strong>艺术模板：</strong>各种艺术风格</li>
+              </ul>
+            </div>
+
+            <div class="tutorial-step">
+              <h3>用户系统</h3>
+              <p>注册用户可以享受额外功能：</p>
+              <ul>
+                <li>保存和管理生成的历史记录</li>
+                <li>高清图片缓存和批量下载</li>
+                <li>个人中心和偏好设置</li>
+                <li>更快的生成速度</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="tutorial-section">
+            <h2>6. 故障排除</h2>
+
+            <div class="tutorial-step">
+              <h3>常见问题</h3>
+              <dl>
+                <dt>生成速度慢怎么办？</dt>
+                <dd>高峰期可能需要等待，请稍后重试，或选择Turbo模型以加快速度。</dd>
+
+                <dt>生成结果不满意？</dt>
+                <dd>尝试调整提示词，添加更多细节，或使用智能优化功能。</dd>
+
+                <dt>无法播放语音？</dt>
+                <dd>请检查浏览器设置，确保支持音频播放，或尝试下载文件。</dd>
+
+                <dt>图片质量不佳？</dt>
+                <dd>尝试使用更高分辨率，选择FLUX模型，或优化提示词描述。</dd>
+              </dl>
+            </div>
+          </section>
+
+          <section class="tutorial-section">
+            <h2>7. 最佳实践</h2>
+
+            <div class="tutorial-step">
+              <h3>创作建议</h3>
+              <ul>
+                <li><strong>从小开始：</strong>从简单描述开始，逐步添加细节</li>
+                <li><strong>多次尝试：</strong>不同提示词可能产生不同效果</li>
+                <li><strong>学习借鉴：</strong>参考优秀示例，学习提示词技巧</li>
+                <li><strong>保持更新：</strong>关注平台更新和新功能</li>
+              </ul>
+            </div>
+
+            <div class="tutorial-step">
+              <h3>效率提升</h3>
+              <ul>
+                <li>使用常用模板快速开始</li>
+                <li>保存满意的提示词以备后用</li>
+                <li>批量生成多个变体进行比较</li>
+                <li>利用智能优化功能改进描述</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- AdSense 广告位 -->
+          <div class="ad-container" style="margin: 30px 0; text-align: center">
+            <ins
+              class="adsbygoogle"
+              style="display: block"
+              data-ad-client="ca-pub-6165370615688912"
+              data-ad-slot="1234567890"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            ></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+
+          <section class="tutorial-section">
+            <h2>8. 获取帮助</h2>
+            <div class="tutorial-step">
+              <h3>联系我们</h3>
+              <p>如果您在使用过程中遇到问题或需要帮助：</p>
+              <ul>
+                <li><strong>查看FAQ：</strong>访问常见问题页面获取解答</li>
+                <li><strong>联系客服：</strong>通过页面底部联系方式获取帮助</li>
+                <li><strong>技术支持：</strong>发送邮件至 support@aistone.org</li>
+                <li><strong>社区交流：</strong>关注我们的社交媒体获取最新资讯</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- 相关内容推荐 -->
+          <section
+            class="related-content"
+            style="
+              margin-top: 40px;
+              padding: 20px;
+              background: var(--color-surface-muted, #f8f9fa);
+              border-radius: 8px;
+            "
+          >
+            <h2 style="color: #333; margin-bottom: 20px">📚 相关内容推荐</h2>
+            <div
+              class="related-links"
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 15px;
+              "
+            >
+              <div
+                class="related-item"
+                style="
+                  background: var(--color-surface-on-light-white, #fff);
+                  padding: 15px;
+                  border-radius: 6px;
+                  border: 1px solid var(--color-border-muted, #e9ecef);
+                "
+              >
+                <h3
+                  style="
+                    font-size: 16px;
+                    margin: 0 0 8px 0;
+                    color: var(--color-link-primary, #007bff);
+                  "
+                >
+                  <a href="faq.html" style="text-decoration: none; color: inherit"
+                    >❓ 常见问题解答</a
+                  >
+                </h3>
+                <p style="margin: 0; font-size: 14px; color: #666">
+                  遇到问题？查看用户最常问的问题和详细解答
+                </p>
+              </div>
+              <div
+                class="related-item"
+                style="
+                  background: var(--color-surface-on-light-white, #fff);
+                  padding: 15px;
+                  border-radius: 6px;
+                  border: 1px solid var(--color-border-muted, #e9ecef);
+                "
+              >
+                <h3
+                  style="
+                    font-size: 16px;
+                    margin: 0 0 8px 0;
+                    color: var(--color-link-primary, #007bff);
+                  "
+                >
+                  <a href="/" style="text-decoration: none; color: inherit">🎨 立即生成图片</a>
+                </h3>
+                <p style="margin: 0; font-size: 14px; color: #666">
+                  学会了使用方法？现在就开始创作您的第一张AI图片
+                </p>
+              </div>
+              <div
+                class="related-item"
+                style="
+                  background: var(--color-surface-on-light-white, #fff);
+                  padding: 15px;
+                  border-radius: 6px;
+                  border: 1px solid var(--color-border-muted, #e9ecef);
+                "
+              >
+                <h3
+                  style="
+                    font-size: 16px;
+                    margin: 0 0 8px 0;
+                    color: var(--color-link-primary, #007bff);
+                  "
+                >
+                  <a href="voice.html" style="text-decoration: none; color: inherit"
+                    >🎵 体验语音合成</a
+                  >
+                </h3>
+                <p style="margin: 0; font-size: 14px; color: #666">
+                  尝试我们的AI语音合成功能，将文字转换为自然语音
+                </p>
+              </div>
+              <div
+                class="related-item"
+                style="
+                  background: var(--color-surface-on-light-white, #fff);
+                  padding: 15px;
+                  border-radius: 6px;
+                  border: 1px solid var(--color-border-muted, #e9ecef);
+                "
+              >
+                <h3
+                  style="
+                    font-size: 16px;
+                    margin: 0 0 8px 0;
+                    color: var(--color-link-primary, #007bff);
+                  "
+                >
+                  <a href="about.html" style="text-decoration: none; color: inherit"
+                    >ℹ️ 了解AISTONE</a
+                  >
+                </h3>
+                <p style="margin: 0; font-size: 14px; color: #666">
+                  了解我们的技术原理、发展历程和未来规划
+                </p>
+              </div>
+            </div>
+          </section>
         </div>
+      </div>
     </main>
 
     <!-- 相关内容推荐 -->
     <section class="related-content">
-        <div class="container">
-            <h3>相关内容推荐</h3>
-            <div class="related-links">
-                <div class="related-item">
-                    <h4><a href="faq.html">常见问题解答</a></h4>
-                    <p>解决使用过程中遇到的常见问题，提供详细的故障排除指南。</p>
-                </div>
-                <div class="related-item">
-                    <h4><a href="/">AI图片生成器</a></h4>
-                    <p>立即体验我们的AI图片生成功能，创造令人惊艳的艺术作品。</p>
-                </div>
-                <div class="related-item">
-                    <h4><a href="voice.html">AI语音合成器</a></h4>
-                    <p>将文本转换为自然流畅的语音，支持多种音色和语言。</p>
-                </div>
-                <div class="related-item">
-                    <h4><a href="about.html">关于AISTONE</a></h4>
-                    <p>了解我们的技术架构、团队背景和产品愿景。</p>
-                </div>
-            </div>
+      <div class="container">
+        <h3>相关内容推荐</h3>
+        <div class="related-links">
+          <div class="related-item">
+            <h4><a href="faq.html">常见问题解答</a></h4>
+            <p>解决使用过程中遇到的常见问题，提供详细的故障排除指南。</p>
+          </div>
+          <div class="related-item">
+            <h4><a href="/">AI图片生成器</a></h4>
+            <p>立即体验我们的AI图片生成功能，创造令人惊艳的艺术作品。</p>
+          </div>
+          <div class="related-item">
+            <h4><a href="voice.html">AI语音合成器</a></h4>
+            <p>将文本转换为自然流畅的语音，支持多种音色和语言。</p>
+          </div>
+          <div class="related-item">
+            <h4><a href="about.html">关于AISTONE</a></h4>
+            <p>了解我们的技术架构、团队背景和产品愿景。</p>
+          </div>
         </div>
+      </div>
     </section>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2025 AISTONE. 保留所有权利。</p>
-            <div class="footer-links">
-                <a href="privacy.html">隐私政策</a>
-                <a href="terms.html">使用条款</a>
-                <a href="contact.html">联系我们</a>
-            </div>
+      <div class="container">
+        <p>&copy; 2025 AISTONE. 保留所有权利。</p>
+        <div class="footer-links">
+          <a href="privacy.html">隐私政策</a>
+          <a href="terms.html">使用条款</a>
+          <a href="contact.html">联系我们</a>
         </div>
+      </div>
     </footer>
 
     <style>
-    /* 面包屑导航样式 */
-    .breadcrumb {
+      /* 面包屑导航样式 */
+      .breadcrumb {
         margin-bottom: 20px;
         padding: 10px 0;
         font-size: 0.9em;
         color: var(--color-text-on-light-muted, #666);
-    }
-    
-    .breadcrumb a {
+      }
+
+      .breadcrumb a {
         color: var(--color-accent-blue, #4a90e2);
         text-decoration: none;
         transition: color 0.3s;
-    }
-    
-    .breadcrumb a:hover {
+      }
+
+      .breadcrumb a:hover {
         color: var(--color-accent-blue-dark, #2980b9);
         text-decoration: underline;
-    }
-    
-    .breadcrumb .separator {
+      }
+
+      .breadcrumb .separator {
         margin: 0 8px;
         color: var(--color-text-on-light-subtle, #999);
-    }
-    
-    .breadcrumb .current {
+      }
+
+      .breadcrumb .current {
         color: var(--color-text-on-light-strong, #333);
         font-weight: 500;
-    }
+      }
 
-    .tutorial-page {
+      .tutorial-page {
         max-width: 900px;
         margin: 0 auto;
         padding: 40px 20px;
         line-height: 1.6;
-    }
+      }
 
-    .tutorial-content {
+      .tutorial-content {
         background: var(--color-surface-white, #fff);
         padding: 30px;
         border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
 
-    .tutorial-content h1 {
+      .tutorial-content h1 {
         color: var(--color-text-on-light-strong, #333);
         margin-bottom: 30px;
         font-size: 2.5em;
         text-align: center;
-    }
+      }
 
-    .tutorial-content h2 {
+      .tutorial-content h2 {
         color: var(--color-accent-blue, #4a90e2);
         margin-top: 40px;
         margin-bottom: 20px;
         font-size: 1.5em;
         border-left: 4px solid var(--color-accent-blue, #4a90e2);
         padding-left: 15px;
-    }
+      }
 
-    .tutorial-content h3 {
+      .tutorial-content h3 {
         color: var(--color-text-on-light-strong, #333);
         margin-top: 25px;
         margin-bottom: 10px;
         font-size: 1.2em;
-    }
+      }
 
-    .tutorial-content p, .tutorial-content li {
+      .tutorial-content p,
+      .tutorial-content li {
         color: var(--color-text-on-light-muted, #666);
         margin-bottom: 10px;
-    }
+      }
 
-    .tutorial-content ul, .tutorial-content ol {
+      .tutorial-content ul,
+      .tutorial-content ol {
         margin-left: 20px;
         margin-bottom: 20px;
-    }
+      }
 
-    .tutorial-intro {
+      .tutorial-intro {
         text-align: center;
         margin-bottom: 40px;
         padding: 20px;
         background: var(--color-surface-muted, #f8f9fa);
         border-radius: 8px;
-    }
+      }
 
-    .tutorial-step {
+      .tutorial-step {
         margin-bottom: 30px;
         padding: 20px;
         background: var(--color-surface-muted, #f8f9fa);
         border-radius: 8px;
         border-left: 4px solid var(--color-accent-blue, #4a90e2);
-    }
+      }
 
-    .example-box {
+      .example-box {
         background: var(--color-surface-info-soft, #e8f4fd);
         padding: 15px;
         border-radius: 5px;
         margin: 10px 0;
         border-left: 4px solid var(--color-accent-blue, #4a90e2);
-    }
+      }
 
-    .example-box strong {
+      .example-box strong {
         color: var(--color-accent-blue, #4a90e2);
-    }
+      }
 
-    dl dt {
+      dl dt {
         font-weight: bold;
         color: var(--color-text-on-light-strong, #333);
         margin-top: 15px;
-    }
+      }
 
-    dl dd {
+      dl dd {
         margin-left: 20px;
         color: var(--color-text-on-light-muted, #666);
         margin-bottom: 15px;
-    }
+      }
 
-    .ad-container {
+      .ad-container {
         background: var(--color-surface-verylight, #f9f9f9);
         border: 1px dashed var(--color-border-soft, #ddd);
         border-radius: 5px;
         padding: 20px;
-    }
+      }
 
-    footer {
+      footer {
         background: #333;
         color: var(--color-surface-on-light-white, #fff);
         text-align: center;
         padding: 20px 0;
         margin-top: 50px;
-    }
+      }
 
-    .footer-links a {
+      .footer-links a {
         color: var(--color-surface-on-light-white, #fff);
         text-decoration: none;
         margin: 0 15px;
-    }
+      }
 
-    .footer-links a:hover {
+      .footer-links a:hover {
         text-decoration: underline;
-    }
+      }
 
-    /* 相关内容推荐样式 */
-    .related-content {
+      /* 相关内容推荐样式 */
+      .related-content {
         background: var(--color-surface-muted, #f8f9fa);
         padding: 40px 0;
         margin-top: 30px;
         border-top: 1px solid var(--color-border-muted, #e9ecef);
-    }
+      }
 
-    .related-content h3 {
+      .related-content h3 {
         text-align: center;
         color: var(--color-text-on-light-strong, #333);
         margin-bottom: 30px;
         font-size: 1.5em;
-    }
+      }
 
-    .related-links {
+      .related-links {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
         max-width: 1000px;
         margin: 0 auto;
-    }
+      }
 
-    .related-item {
+      .related-item {
         background: var(--color-surface-on-light-white, #fff);
         padding: 20px;
         border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease;
-    }
+      }
 
-    .related-item:hover {
+      .related-item:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      }
 
-    .related-item h4 {
+      .related-item h4 {
         margin: 0 0 10px 0;
         color: var(--color-accent-blue, #4a90e2);
-    }
+      }
 
-    .related-item h4 a {
+      .related-item h4 a {
         color: var(--color-accent-blue, #4a90e2);
         text-decoration: none;
         transition: color 0.3s ease;
-    }
+      }
 
-    .related-item h4 a:hover {
+      .related-item h4 a:hover {
         color: var(--color-accent-blue-dark, #2980b9);
         text-decoration: underline;
-    }
+      }
 
-    .related-item p {
+      .related-item p {
         margin: 0;
         color: var(--color-text-on-light-muted, #666);
         font-size: 0.9em;
         line-height: 1.4;
-    }
+      }
     </style>
-</body>
+  </body>
 </html>

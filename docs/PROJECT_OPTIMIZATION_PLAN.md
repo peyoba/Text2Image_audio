@@ -1,10 +1,12 @@
 # 项目优化计划（Text2Image_audio）
 
 ## 目标与约束
+
 - 目标：提升安全性、稳定性、一致性、可读性与可维护性，并增强 AI 可读性/可排障性。
 - 约束：零功能回归、零视觉变化、零接口契约破坏；小步提交、可回滚、每步回归验证。
 
 ## 完成摘要（截至当前）
+
 - 已完成（零功能/零视觉回归）：
   - 安全与稳定：下载响应修复、去重重复路由、负面词二次编码修复、日志脱敏、安全头补充
   - 认证与OAuth：统一ENV、动态redirect_uri、JWT旧制式开关（默认兼容）
@@ -55,11 +57,13 @@
   - 监控面板化：将关键指标汇总至单页说明或外部仪表盘
 
 ## 风险分级
+
 - 低风险（立即执行）：文档、.gitignore、删除危险日志、修复明显返回值/重复路由/重复编码问题。
 - 中风险（需回归）：安全响应头与 CORS 补充、错误码与响应格式标准化（不影响前端逻辑前提下）。
 - 高风险（需灰度/开关）：OAuth 配置收敛与动态回调、legacy JWT 清理、轮询频率优化、路由与控制器重构。
 
 ## 代码现状与模块映射
+
 - 目录结构概览
   - backend/
     - index.js：Cloudflare Worker 入口与路由分发、CORS/错误处理、外部API调用（DeepSeek、Pollinations）、反馈与统计
@@ -116,6 +120,7 @@
   - OAuth：GOOGLE_CLIENT_SECRET_NEW（client_id/redirect_uri 现有硬编码）
 
 ## 环境变量清单（部署核对）
+
 - 必需（生产）：
   - JWT_SECRET：用于 HS256 JWT 签名；不可使用默认；必须保密
 - 推荐/可选：
@@ -136,9 +141,9 @@
 - 重试策略：
   - RETRY_MAX_ATTEMPTS / FETCH_RETRY_MAX：覆盖后端重试最大次数（默认 8）
   - RETRY_INITIAL_DELAY_MS / FETCH_RETRY_INITIAL_DELAY_MS：覆盖初始回退延迟（默认 1500ms）
- - CORS（灰度白名单，不改默认）：
-   - ALLOWED_ORIGINS：允许来源白名单，逗号或空格分隔；未配置时保持 `*`
-   - CORS_STRICT：为 `true` 时，非白名单来源返回 `null`；默认为 `false`
+- CORS（灰度白名单，不改默认）：
+  - ALLOWED_ORIGINS：允许来源白名单，逗号或空格分隔；未配置时保持 `*`
+  - CORS_STRICT：为 `true` 时，非白名单来源返回 `null`；默认为 `false`
 
 - 前端主要调用链
   - window.APIClient（frontend/js/api_client.js）统一封装：
@@ -153,54 +158,62 @@
 
 - 关键约束与现状结论
   - 后端采用单文件路由链（index.js）+ 功能模块（auth/image_cache）结构，逻辑清晰但路由较长；已修复：下载响应返回、重复 stats 路由、负面词二次编码、敏感头日志脱敏
-  - CORS 当前放行 *，允许 Authorization；未启用凭据；后续将补充安全头但保持行为不变
+  - CORS 当前放行 \*，允许 Authorization；未启用凭据；后续将补充安全头但保持行为不变
   - OAuth 存在硬编码 client_id/redirect_uri 与非常规 ENV 名称，新计划将统一并动态化
   - 前端通过全局 APIClient 与 window.authManager 交互，个别模块有控制台调试输出（已移除 token 日志）
 
 ## 分阶段计划
+
 ### Phase 0：项目卫生（不影响功能/显示）
-1) 文档与指引：落盘本计划、完善部署/ENV 清单与回滚入口。
-2) 版本控制与密钥防泄漏：新增 .gitignore（忽略 api.env、*.env、*.log、logs/ 等）；要求轮换已暴露密钥。
-3) 危险日志检查：删除前端 token 调试输出与冗余 console 噪音。
+
+1. 文档与指引：落盘本计划、完善部署/ENV 清单与回滚入口。
+2. 版本控制与密钥防泄漏：新增 .gitignore（忽略 api.env、_.env、_.log、logs/ 等）；要求轮换已暴露密钥。
+3. 危险日志检查：删除前端 token 调试输出与冗余 console 噪音。
 
 验收：启动/构建与 UI 行为均不变。
 
 ### Phase 1：后端稳定性修复（零视觉）
-1) 下载接口：/api/images/download/* 修复返回 undefined（先加头再返回 Response 对象）。
-2) 路由去重：去除重复的 GET /api/images/stats 分支（保留可达分支）。
-3) Pollinations：移除负面词参数的二次编码，仅用 URLSearchParams 处理。
-4) 日志规范：脱敏 Authorization/Cookie；统一日志等级与格式。
+
+1. 下载接口：/api/images/download/\* 修复返回 undefined（先加头再返回 Response 对象）。
+2. 路由去重：去除重复的 GET /api/images/stats 分支（保留可达分支）。
+3. Pollinations：移除负面词参数的二次编码，仅用 URLSearchParams 处理。
+4. 日志规范：脱敏 Authorization/Cookie；统一日志等级与格式。
 
 验收：接口契约与页面行为均不变；下载稳定。
 
 ### Phase 2：一致性与安全头（小步）
-1) 响应头：在不改变 CORS 策略的前提下，补充 Vary: Origin、X-Content-Type-Options: nosniff、Referrer-Policy、Permissions-Policy 等安全头。
-2) 状态码与 JSON：失败返回 4xx/5xx，保持前端预期字段，统一 Result 结构。
+
+1. 响应头：在不改变 CORS 策略的前提下，补充 Vary: Origin、X-Content-Type-Options: nosniff、Referrer-Policy、Permissions-Policy 等安全头。
+2. 状态码与 JSON：失败返回 4xx/5xx，保持前端预期字段，统一 Result 结构。
 
 验收：前端正常，网络面板无新增告警。
 
 ### Phase 3：OAuth/JWT 一致性（灰度）
-1) 统一 ENV：GOOGLE_CLIENT_ID/GOOGLE_CLIENT_SECRET，旧变量仅作兼容并打印告警。
-2) 动态回调：redirect_uri 基于 ENV/部署域动态化，移除硬编码。
-3) legacy JWT：给出轮转期（开关+观测），到期移除旧制式。
+
+1. 统一 ENV：GOOGLE_CLIENT_ID/GOOGLE_CLIENT_SECRET，旧变量仅作兼容并打印告警。
+2. 动态回调：redirect_uri 基于 ENV/部署域动态化，移除硬编码。
+3. legacy JWT：给出轮转期（开关+观测），到期移除旧制式。
 
 验收：生产/本地 Google 登录均正常，无 redirect_uri_mismatch。
 
 ### Phase 4：前端可维护性与 AI 友好
-1) 契约清理：删除未实现/未使用的 API 客户端方法或标注 @deprecated。
-2) 初始化收敛：减少全局 window.*；集中入口初始化与订阅，避免重复监听。
-3) 结构拆分：把超长文件（voice_app/ui_handler）拆为 API/状态/视图/可视化/历史模块；CSS 按页面/组件拆分并引入 CSS 变量（颜色/间距）。
+
+1. 契约清理：删除未实现/未使用的 API 客户端方法或标注 @deprecated。
+2. 初始化收敛：减少全局 window.\*；集中入口初始化与订阅，避免重复监听。
+3. 结构拆分：把超长文件（voice_app/ui_handler）拆为 API/状态/视图/可视化/历史模块；CSS 按页面/组件拆分并引入 CSS 变量（颜色/间距）。
 
 验收：构建后 UI 与交互与当前一致。
 
 ### Phase 5：性能与运维（可选）
-1) 轮询策略：将每秒 /api/images/stats 改为本地倒计时 + 低频服务端刷新（灰度开关）。
-2) 重试策略：对 429/5xx 分类与上限，必要时熔断与告警。
-3) 监控指标：DeepSeek/Pollinations 失败率、P95/P99、下载成功率。
+
+1. 轮询策略：将每秒 /api/images/stats 改为本地倒计时 + 低频服务端刷新（灰度开关）。
+2. 重试策略：对 429/5xx 分类与上限，必要时熔断与告警。
+3. 监控指标：DeepSeek/Pollinations 失败率、P95/P99、下载成功率。
 
 验收：无用户可感知变化，指标可见。
 
 ## 任务清单（执行顺序）
+
 - [x] P0-1 新增 .gitignore 忽略敏感文件；发布密钥轮换提示
 - [x] P0-2 删除前端 token 调试日志与冗余 console 噪音
 - [x] P1-1 修复下载接口返回 undefined 的问题
@@ -223,6 +236,7 @@
 **项目优化进度：19/20 (95%)**
 
 ## 回归清单
+
 - 功能：
   - 图片：优化→生成→多图显示→下载→自动保存（登录态）→列表/统计→删除
   - 语音：生成→播放→下载→复制分享→历史
@@ -232,24 +246,28 @@
 - 端到端：本地 wrangler dev 与生产域对照；网络面板无新增 4xx/5xx/安全告警。
 
 ## 回滚策略
+
 - 每步独立提交，可单独回滚；高风险改动使用开关/灰度，异常时立即关闭或回滚。
 
 ## 今日工作总结（CSS变量化重构完成）
 
 ### 🎯 主要成就
+
 - **CSS变量体系建立**：新增50+个语义化CSS变量到 `frontend/css/variables.css`
 - **全站颜色统一**：完成10个文件的硬编码颜色替换，包括所有HTML页面和全局样式
 - **零视觉回归**：所有替换保持原有视觉效果，带完整回退值
 - **维护性大幅提升**：未来颜色调整只需修改CSS变量定义
 
 ### 📊 技术亮点
+
 - **语义化命名**：如 `--color-text-on-light-strong`、`--color-surface-muted` 等
 - **向后兼容**：每个变量都有回退值，如 `var(--color-primary, #007bff)`
 - **全站覆盖**：style.css, terms.html, privacy.html, tutorial.html, faq.html, ai-guide.html, prompt-engineering.html, about.html, services.html, contact.html
 
 ### 🚀 项目价值
+
 - **安全性提升**：修复了多个安全漏洞
-- **稳定性增强**：解决了下载、路由等关键问题  
+- **稳定性增强**：解决了下载、路由等关键问题
 - **可维护性大幅提升**：CSS变量化使样式管理更加规范
 - **AI友好性**：代码结构更清晰，便于AI理解和维护
 - **零功能回归**：所有改进都保持了原有功能完整性
@@ -257,6 +275,7 @@
 > 下一步：项目优化计划进度95%，仅剩可选的大文件拆分任务。建议先提交当前工作，然后根据实际需求决定是否继续后续优化。
 
 ## 前端运行时配置（window/localStorage）
+
 - API 基址：
   - window.API_BASE 或 localStorage 'api_base'（覆盖后端基址）
 - 高清统计轮询间隔（毫秒）：

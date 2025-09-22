@@ -1,134 +1,271 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact AISTONE support for AI image generation and voice synthesis. Get help with features, technical issues, partnerships, and media inquiries.">
-    <meta name="keywords" content="AISTONE, contact, support, customer service, AI image generator, AI voice synthesis, free AI tools, technical support, partnership, help center">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Contact AISTONE support for AI image generation and voice synthesis. Get help with features, technical issues, partnerships, and media inquiries."
+    />
+    <meta
+      name="keywords"
+      content="AISTONE, contact, support, customer service, AI image generator, AI voice synthesis, free AI tools, technical support, partnership, help center"
+    />
     <title data-i18n="contactModalTitle">Contact Us - AISTONE | AI Image & Voice Support</title>
-    <link rel="canonical" href="https://aistone.org/contact.html">
-    <link rel="alternate" hreflang="en" href="https://aistone.org/contact.html">
-    <link rel="alternate" hreflang="zh" href="https://aistone.org/contact.html">
-    <link rel="alternate" hreflang="x-default" href="https://aistone.org/contact.html">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+    <link rel="canonical" href="https://aistone.org/contact.html" />
+    <link rel="alternate" hreflang="en" href="https://aistone.org/contact.html" />
+    <link rel="alternate" hreflang="zh" href="https://aistone.org/contact.html" />
+    <link rel="alternate" hreflang="x-default" href="https://aistone.org/contact.html" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
     <nav class="navbar">
-        <div class="navbar-left">
-            <img src="assets/logo.svg" alt="AISTONE LOGO - 免费AI图片生成与语音合成平台标志" class="logo-img" aria-label="AISTONE 平台标志" />
-            <span class="site-name">AISTONE</span>
-        </div>
-        <ul class="navbar-menu">
-            <li><a href="/" data-i18n="navHome">首页</a></li>
-            <li><a href="voice.html" data-i18n="navVoiceGen">语音合成</a></li>
-            <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
-            <li><a href="ai-guide.html" data-i18n="navAIGuide">AI指南</a></li>
-            <li><a href="prompt-engineering.html" data-i18n="navPromptEngineering">提示词工程</a></li>
-            <li><a href="tutorial.html" data-i18n="navTutorial">使用教程</a></li>
-            <li><a href="faq.html" data-i18n="navFAQ">常见问题</a></li>
-            <li><a href="contact.html" class="active" data-i18n="navContact">联系我们</a></li>
-        </ul>
-        <div class="navbar-right">
-            <select id="lang-select" class="lang-select">
-                <option value="en">English</option>
-                <option value="zh">中文</option>
-            </select>
-            <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">登录</button>
-        </div>
+      <div class="navbar-left">
+        <img
+          src="assets/logo.svg"
+          alt="AISTONE LOGO - 免费AI图片生成与语音合成平台标志"
+          class="logo-img"
+          aria-label="AISTONE 平台标志"
+        />
+        <span class="site-name">AISTONE</span>
+      </div>
+      <ul class="navbar-menu">
+        <li><a href="/" data-i18n="navHome">首页</a></li>
+        <li><a href="voice.html" data-i18n="navVoiceGen">语音合成</a></li>
+        <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
+        <li><a href="ai-guide.html" data-i18n="navAIGuide">AI指南</a></li>
+        <li><a href="prompt-engineering.html" data-i18n="navPromptEngineering">提示词工程</a></li>
+        <li><a href="tutorial.html" data-i18n="navTutorial">使用教程</a></li>
+        <li><a href="faq.html" data-i18n="navFAQ">常见问题</a></li>
+        <li><a href="contact.html" class="active" data-i18n="navContact">联系我们</a></li>
+      </ul>
+      <div class="navbar-right">
+        <select id="lang-select" class="lang-select">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+        </select>
+        <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">
+          登录
+        </button>
+      </div>
     </nav>
     <div class="container">
-        <!-- 面包屑导航 -->
-        <nav class="breadcrumb">
-            <a href="/">首页</a>
-            <span class="separator">></span>
-            <span class="current">联系我们</span>
-        </nav>
-        <main>
-            <section class="contact-section" id="contact">
-                <h1 data-i18n="contactModalTitle">联系我们</h1>
-                <div data-i18n="contactModalContent" class="contact-content">
-                    如果您在使用 AISTONE 的过程中有任何问题或建议，欢迎随时与我们联系！<br><br>
-                    我们致力于为用户提供最优质的服务体验，无论是技术问题、功能建议还是合作咨询，我们都将认真对待并及时回复。<br><br>
-                    联系方式：<br>
-                    • 邮箱：<a href="mailto:support@aistone.org">support@aistone.org</a><br>
-                    • 官方网站：<a href="https://aistone.org" target="_blank">https://aistone.org</a><br>
-                    • 技术支持：24/7在线支持<br><br>
-                    服务范围：<br>
-                    • <b>产品反馈与建议：</b>我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈<br>
-                    • <b>技术支持：</b>遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决<br>
-                    • <b>商务合作：</b>如果您有商务合作需求，欢迎通过邮箱联系我们<br>
-                    • <b>媒体采访：</b>媒体朋友如需采访或报道，请提前预约<br><br>
-                    我们会在1-2个工作日内回复您的信息。感谢您的关注与支持！
-                </div>
-            </section>
+      <!-- 面包屑导航 -->
+      <nav class="breadcrumb">
+        <a href="/">首页</a>
+        <span class="separator">></span>
+        <span class="current">联系我们</span>
+      </nav>
+      <main>
+        <section class="contact-section" id="contact">
+          <h1 data-i18n="contactModalTitle">联系我们</h1>
+          <div data-i18n="contactModalContent" class="contact-content">
+            如果您在使用 AISTONE 的过程中有任何问题或建议，欢迎随时与我们联系！<br /><br />
+            我们致力于为用户提供最优质的服务体验，无论是技术问题、功能建议还是合作咨询，我们都将认真对待并及时回复。<br /><br />
+            联系方式：<br />
+            • 邮箱：<a href="mailto:support@aistone.org">support@aistone.org</a><br />
+            • 官方网站：<a href="https://aistone.org" target="_blank">https://aistone.org</a><br />
+            • 技术支持：24/7在线支持<br /><br />
+            服务范围：<br />
+            •
+            <b>产品反馈与建议：</b
+            >我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈<br />
+            • <b>技术支持：</b>遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决<br />
+            • <b>商务合作：</b>如果您有商务合作需求，欢迎通过邮箱联系我们<br />
+            • <b>媒体采访：</b>媒体朋友如需采访或报道，请提前预约<br /><br />
+            我们会在1-2个工作日内回复您的信息。感谢您的关注与支持！
+          </div>
+        </section>
 
-            <!-- 相关内容推荐 -->
-            <section class="related-content" style="margin-top: 40px; padding: 20px; background: var(--color-surface-muted, #f8f9fa); border-radius: 8px;">
-                <h2 style="color: #333; margin-bottom: 20px;" data-i18n="contactHelpTitle">📞 获取帮助</h2>
-                <div class="related-links" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-                    <div class="related-item" style="background: var(--color-surface-on-light-white, #fff); padding: 15px; border-radius: 6px; border: 1px solid var(--color-border-muted, #e9ecef);">
-                        <h3 style="font-size: 16px; margin: 0 0 8px 0; color: var(--color-link-primary, #007bff);">
-                            <a href="faq.html" style="text-decoration: none; color: inherit;" data-i18n="contactHelpFAQTitle">❓ 常见问题解答</a>
-                        </h3>
-                        <p style="margin: 0; font-size: 14px; color: #666;" data-i18n="contactHelpFAQDesc">先查看FAQ，也许您的问题已有详细解答</p>
-                    </div>
-                    <div class="related-item" style="background: var(--color-surface-on-light-white, #fff); padding: 15px; border-radius: 6px; border: 1px solid var(--color-border-muted, #e9ecef);">
-                        <h3 style="font-size: 16px; margin: 0 0 8px 0; color: var(--color-link-primary, #007bff);">
-                            <a href="tutorial.html" style="text-decoration: none; color: inherit;" data-i18n="contactHelpTutorialTitle">📖 使用教程</a>
-                        </h3>
-                        <p style="margin: 0; font-size: 14px; color: #666;" data-i18n="contactHelpTutorialDesc">完整的操作指南，帮您快速上手平台功能</p>
-                    </div>
-                    <div class="related-item" style="background: var(--color-surface-on-light-white, #fff); padding: 15px; border-radius: 6px; border: 1px solid var(--color-border-muted, #e9ecef);">
-                        <h3 style="font-size: 16px; margin: 0 0 8px 0; color: var(--color-link-primary, #007bff);">
-                            <a href="about.html" style="text-decoration: none; color: inherit;" data-i18n="contactHelpAboutTitle">ℹ️ 关于AISTONE</a>
-                        </h3>
-                        <p style="margin: 0; font-size: 14px; color: #666;" data-i18n="contactHelpAboutDesc">了解我们的平台理念和技术背景</p>
-                    </div>
-                    <div class="related-item" style="background: var(--color-surface-on-light-white, #fff); padding: 15px; border-radius: 6px; border: 1px solid var(--color-border-muted, #e9ecef);">
-                        <h3 style="font-size: 16px; margin: 0 0 8px 0; color: var(--color-link-primary, #007bff);">
-                            <a href="/" style="text-decoration: none; color: inherit;" data-i18n="contactHelpHomeTitle">🏠 返回首页</a>
-                        </h3>
-                        <p style="margin: 0; font-size: 14px; color: #666;" data-i18n="contactHelpHomeDesc">回到主页开始使用AI生成功能</p>
-                    </div>
-                </div>
-            </section>
-        </main>
+        <!-- 相关内容推荐 -->
+        <section
+          class="related-content"
+          style="
+            margin-top: 40px;
+            padding: 20px;
+            background: var(--color-surface-muted, #f8f9fa);
+            border-radius: 8px;
+          "
+        >
+          <h2 style="color: #333; margin-bottom: 20px" data-i18n="contactHelpTitle">📞 获取帮助</h2>
+          <div
+            class="related-links"
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 15px;
+            "
+          >
+            <div
+              class="related-item"
+              style="
+                background: var(--color-surface-on-light-white, #fff);
+                padding: 15px;
+                border-radius: 6px;
+                border: 1px solid var(--color-border-muted, #e9ecef);
+              "
+            >
+              <h3
+                style="
+                  font-size: 16px;
+                  margin: 0 0 8px 0;
+                  color: var(--color-link-primary, #007bff);
+                "
+              >
+                <a
+                  href="faq.html"
+                  style="text-decoration: none; color: inherit"
+                  data-i18n="contactHelpFAQTitle"
+                  >❓ 常见问题解答</a
+                >
+              </h3>
+              <p style="margin: 0; font-size: 14px; color: #666" data-i18n="contactHelpFAQDesc">
+                先查看FAQ，也许您的问题已有详细解答
+              </p>
+            </div>
+            <div
+              class="related-item"
+              style="
+                background: var(--color-surface-on-light-white, #fff);
+                padding: 15px;
+                border-radius: 6px;
+                border: 1px solid var(--color-border-muted, #e9ecef);
+              "
+            >
+              <h3
+                style="
+                  font-size: 16px;
+                  margin: 0 0 8px 0;
+                  color: var(--color-link-primary, #007bff);
+                "
+              >
+                <a
+                  href="tutorial.html"
+                  style="text-decoration: none; color: inherit"
+                  data-i18n="contactHelpTutorialTitle"
+                  >📖 使用教程</a
+                >
+              </h3>
+              <p
+                style="margin: 0; font-size: 14px; color: #666"
+                data-i18n="contactHelpTutorialDesc"
+              >
+                完整的操作指南，帮您快速上手平台功能
+              </p>
+            </div>
+            <div
+              class="related-item"
+              style="
+                background: var(--color-surface-on-light-white, #fff);
+                padding: 15px;
+                border-radius: 6px;
+                border: 1px solid var(--color-border-muted, #e9ecef);
+              "
+            >
+              <h3
+                style="
+                  font-size: 16px;
+                  margin: 0 0 8px 0;
+                  color: var(--color-link-primary, #007bff);
+                "
+              >
+                <a
+                  href="about.html"
+                  style="text-decoration: none; color: inherit"
+                  data-i18n="contactHelpAboutTitle"
+                  >ℹ️ 关于AISTONE</a
+                >
+              </h3>
+              <p style="margin: 0; font-size: 14px; color: #666" data-i18n="contactHelpAboutDesc">
+                了解我们的平台理念和技术背景
+              </p>
+            </div>
+            <div
+              class="related-item"
+              style="
+                background: var(--color-surface-on-light-white, #fff);
+                padding: 15px;
+                border-radius: 6px;
+                border: 1px solid var(--color-border-muted, #e9ecef);
+              "
+            >
+              <h3
+                style="
+                  font-size: 16px;
+                  margin: 0 0 8px 0;
+                  color: var(--color-link-primary, #007bff);
+                "
+              >
+                <a
+                  href="/"
+                  style="text-decoration: none; color: inherit"
+                  data-i18n="contactHelpHomeTitle"
+                  >🏠 返回首页</a
+                >
+              </h3>
+              <p style="margin: 0; font-size: 14px; color: #666" data-i18n="contactHelpHomeDesc">
+                回到主页开始使用AI生成功能
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
     <footer id="contact">
-        <div class="footer-grid">
-            <div class="footer-left" data-i18n="footerCopyright">&copy; 2025 AISTONE</div>
-            <div class="footer-center">
-                <a href="#" class="footer-icon" aria-label="Twitter"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="#00CFFF" d="M22.46 5.924c-.793.352-1.646.59-2.54.698a4.48 4.48 0 0 0 1.963-2.47 8.94 8.94 0 0 1-2.828 1.08A4.48 4.48 0 0 0 11.1 9.03a12.72 12.72 0 0 1-9.23-4.68s-2.28 4.02 2.7 6.18c-.73.02-1.42-.22-2.02-.56 0 2.28 1.62 4.18 4.02 4.62-.39.11-.8.17-1.22.17-.3 0-.58-.03-.86-.08.58 1.81 2.27 3.13 4.27 3.17A9.01 9.01 0 0 1 2 19.54c6.29 4.03 13.72 1.13 15.86-5.13.32-.8.6-1.6.82-2.44.56-.41 1.05-.92 1.44-1.5z"/></svg></a>
-                <a href="#" class="footer-icon" aria-label="LinkedIn"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="#00CFFF" d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.88v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg></a>
-                <a href="#" class="footer-icon" aria-label="Instagram"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="#00CFFF" d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.34 3.608 1.314.975.975 1.252 2.242 1.314 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.34 2.633-1.314 3.608-.975.975-2.242 1.252-3.608 1.314-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.34-3.608-1.314-.975-.975-1.252-2.242-1.314-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.34-2.633 1.314-3.608C4.522 2.573 5.789 2.295 7.155 2.233 8.421 2.175 8.801 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.771.131 4.659.414 3.678 1.395c-.98.98-1.263 2.092-1.322 3.373C2.013 8.332 2 8.741 2 12c0 3.259.013 3.668.072 4.948.059 1.281.342 2.393 1.322 3.373.98.98 2.092 1.263 3.373 1.322C8.332 23.987 8.741 24 12 24s3.668-.013 4.948-.072c1.281-.059 2.393-.342 3.373-1.322.98-.98 1.263-2.092 1.322-3.373.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.059-1.281-.342-2.393-1.322-3.373-.98-.98-2.092-1.263-3.373-1.322C15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a>
-            </div>
-            <div class="footer-right">
-                <a href="#" class="footer-link" data-i18n="footerLinks.0.text">隐私政策</a><br>
-                <a href="#" class="footer-link" data-i18n="footerLinks.1.text">服务条款</a><br>
-            </div>
+      <div class="footer-grid">
+        <div class="footer-left" data-i18n="footerCopyright">&copy; 2025 AISTONE</div>
+        <div class="footer-center">
+          <a href="#" class="footer-icon" aria-label="Twitter"
+            ><svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+              <path
+                fill="#00CFFF"
+                d="M22.46 5.924c-.793.352-1.646.59-2.54.698a4.48 4.48 0 0 0 1.963-2.47 8.94 8.94 0 0 1-2.828 1.08A4.48 4.48 0 0 0 11.1 9.03a12.72 12.72 0 0 1-9.23-4.68s-2.28 4.02 2.7 6.18c-.73.02-1.42-.22-2.02-.56 0 2.28 1.62 4.18 4.02 4.62-.39.11-.8.17-1.22.17-.3 0-.58-.03-.86-.08.58 1.81 2.27 3.13 4.27 3.17A9.01 9.01 0 0 1 2 19.54c6.29 4.03 13.72 1.13 15.86-5.13.32-.8.6-1.6.82-2.44.56-.41 1.05-.92 1.44-1.5z"
+              /></svg
+          ></a>
+          <a href="#" class="footer-icon" aria-label="LinkedIn"
+            ><svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+              <path
+                fill="#00CFFF"
+                d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.88v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"
+              /></svg
+          ></a>
+          <a href="#" class="footer-icon" aria-label="Instagram"
+            ><svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+              <path
+                fill="#00CFFF"
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.34 3.608 1.314.975.975 1.252 2.242 1.314 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.34 2.633-1.314 3.608-.975.975-2.242 1.252-3.608 1.314-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.34-3.608-1.314-.975-.975-1.252-2.242-1.314-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.34-2.633 1.314-3.608C4.522 2.573 5.789 2.295 7.155 2.233 8.421 2.175 8.801 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.771.131 4.659.414 3.678 1.395c-.98.98-1.263 2.092-1.322 3.373C2.013 8.332 2 8.741 2 12c0 3.259.013 3.668.072 4.948.059 1.281.342 2.393 1.322 3.373.98.98 2.092 1.263 3.373 1.322C8.332 23.987 8.741 24 12 24s3.668-.013 4.948-.072c1.281-.059 2.393-.342 3.373-1.322.98-.98 1.263-2.092 1.322-3.373.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.059-1.281-.342-2.393-1.322-3.373-.98-.98-2.092-1.263-3.373-1.322C15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"
+              /></svg
+          ></a>
         </div>
+        <div class="footer-right">
+          <a href="#" class="footer-link" data-i18n="footerLinks.0.text">隐私政策</a><br />
+          <a href="#" class="footer-link" data-i18n="footerLinks.1.text">服务条款</a><br />
+        </div>
+      </div>
     </footer>
     <script src="js/i18n.js"></script>
     <script src="js/ui_handler.js" defer></script>
     <script src="js/auth_modals.js" defer></script>
     <div id="auth-modals"></div>
     <script>
-        fetch('auth-modals.html')
-            .then(r => r.text())
-            .then(html => {
-                const mount = document.getElementById('auth-modals');
-                if (mount) mount.innerHTML = html;
-                const ensureBind = () => {
-                    if (window.initAuthForms) {
-                        window.initAuthForms();
-                    } else { setTimeout(ensureBind, 100); }
-                };
-                ensureBind();
-                if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') {
-                    setLanguage(getCurrentLang());
-                }
-            })
-            .catch(err => console.error('加载认证界面失败:', err));
+      fetch("auth-modals.html")
+        .then((r) => r.text())
+        .then((html) => {
+          const mount = document.getElementById("auth-modals");
+          if (mount) mount.innerHTML = html;
+          const ensureBind = () => {
+            if (window.initAuthForms) {
+              window.initAuthForms();
+            } else {
+              setTimeout(ensureBind, 100);
+            }
+          };
+          ensureBind();
+          if (typeof setLanguage === "function" && typeof getCurrentLang === "function") {
+            setLanguage(getCurrentLang());
+          }
+        })
+        .catch((err) => console.error("加载认证界面失败:", err));
     </script>
-</body>
-</html> 
+  </body>
+</html>

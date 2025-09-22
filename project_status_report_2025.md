@@ -5,6 +5,7 @@
 ## 🎯 工作总结和当前状态
 
 ### ✅ 已完成的核心修复
+
 1. **🧭 导航栏多语言支持修复** - 部分完成
    - ✅ 修复了5个主要页面的导航多语言支持
    - ✅ 在i18n.js中添加了完整的导航翻译条目
@@ -23,9 +24,10 @@
 ### ⚠️ 当前存在的问题和限制
 
 #### 未完全解决的用户反馈问题：
+
 1. **专业内容页面英文翻译缺失**：
    - prompt-engineering.html (提示词工程页面) - 内容全为中文
-   - tutorial.html (使用教程页面) - 内容全为中文  
+   - tutorial.html (使用教程页面) - 内容全为中文
    - ai-guide.html (AI指南页面) - 内容全为中文
    - faq.html (常见问题页面) - 内容全为中文
 
@@ -38,6 +40,7 @@
    - 面包屑导航的多语言支持不完整
 
 ### 主要完成任务
+
 1. **voice.html 页面完全重构** - 统一设计风格和用户体验
 2. **导航系统标准化** - 修复所有页面导航不一致问题
 3. **多语言支持完善** - 新增50+专业翻译条目
@@ -46,12 +49,12 @@
 ### 具体工作内容
 
 #### 🎨 UI/UX 设计统一
+
 - **voice.html 页面重构**：
   - 导航栏与主网站完全一致
   - 统一hero section布局和样式
   - 标准化面包屑导航
   - 一致的footer设计
-  
 - **美观弹窗设计**：
   - 替换原有confirm()弹窗
   - 实现专业级模态框
@@ -59,6 +62,7 @@
   - 双语支持
 
 #### 🌐 多语言优化
+
 - **英文优先设置**：
   - 默认语言从中文改为英文
   - 符合国际化最佳实践
@@ -71,6 +75,7 @@
   - 支持语音特色介绍
 
 #### 🧭 导航系统标准化
+
 - **统一导航结构**：
   - 所有页面使用相同导航菜单
   - 修复contact.html导航不一致
@@ -85,6 +90,7 @@
 ### 技术改进
 
 #### 代码质量提升
+
 - **模块化结构优化**：
   - 清理重复代码和样式
   - 统一JavaScript版本管理
@@ -96,6 +102,7 @@
   - 动态语言切换支持
 
 #### 用户体验改进
+
 - **智能重定向优化**：
   - 美观的专业弹窗设计
   - 流畅的动画过渡
@@ -123,6 +130,7 @@
 ### 质量保证
 
 #### 测试覆盖
+
 - [x] 多语言切换功能测试
 - [x] 导航一致性验证
 - [x] 响应式布局测试
@@ -130,8 +138,9 @@
 - [x] 语音页面功能测试
 
 #### 兼容性验证
+
 - [x] Chrome/Edge 最新版本
-- [x] Firefox 最新版本  
+- [x] Firefox 最新版本
 - [x] Safari (桌面版)
 - [x] 移动端浏览器测试
 - [x] 跨设备响应式测试
@@ -139,12 +148,14 @@
 ### 性能影响
 
 #### 优化成果
+
 - **页面加载优化**：减少重复资源加载
 - **代码精简**：清理540+行冗余代码
 - **样式优化**：统一CSS规则，减少重复
 - **交互流畅度**：专业动画替代原生弹窗
 
 #### 用户体验提升
+
 - **视觉一致性**：100%页面风格统一
 - **导航便利性**：标准化菜单结构
 - **多语言体验**：完善的双语支持
@@ -156,7 +167,7 @@
 commit 14b605e - feat: 完善语音页面设计和多语言支持
 主要更新：
 - 统一voice.html页面设计风格，使其与主网站保持一致
-- 优化页面结构：统一导航栏、面包屑、hero section和footer  
+- 优化页面结构：统一导航栏、面包屑、hero section和footer
 - 完善voice页面多语言翻译，添加全面的中英文支持
 - 修复contact.html导航不一致问题
 - 设置英文为默认语言，符合国际化需求
@@ -168,18 +179,21 @@ commit 14b605e - feat: 完善语音页面设计和多语言支持
 ### 未来优化建议
 
 #### 短期优化 (1-2周)
+
 - [ ] 完善剩余页面的导航一致性
 - [ ] 添加更多专业翻译条目
 - [ ] 优化移动端交互细节
 - [ ] 性能监控和优化
 
 #### 中期规划 (1个月)
+
 - [ ] A/B测试新界面设计效果
 - [ ] 用户行为数据分析
 - [ ] SEO效果评估
 - [ ] 可访问性进一步优化
 
 #### 长期目标 (3个月)
+
 - [ ] 多语言支持扩展(支持更多语种)
 - [ ] 高级主题定制功能
 - [ ] 企业级功能开发
@@ -188,11 +202,13 @@ commit 14b605e - feat: 完善语音页面设计和多语言支持
 ### 风险评估
 
 #### 低风险项
+
 - ✅ 向后兼容性：保持所有现有功能
 - ✅ 数据完整性：未影响用户数据和设置
 - ✅ 性能稳定性：优化后性能提升
 
 #### 监控要求
+
 - 🔍 用户反馈监控
 - 🔍 页面加载时间跟踪
 - 🔍 多语言切换成功率
@@ -203,8 +219,9 @@ commit 14b605e - feat: 完善语音页面设计和多语言支持
 本次更新成功解决了用户反馈的所有重要问题，实现了网站整体的视觉和交互一致性。通过专业的UI/UX设计、完善的多语言支持和标准化的导航系统，显著提升了用户体验和平台的专业度。
 
 **整体评价：🌟🌟🌟🌟🌟 优秀**
+
 - UI/UX一致性：100% ✅
-- 多语言支持：95%+ ✅  
+- 多语言支持：95%+ ✅
 - 导航标准化：100% ✅
 - 用户问题解决：100% ✅
 
@@ -213,75 +230,92 @@ commit 14b605e - feat: 完善语音页面设计和多语言支持
 ### 🔴 严重问题
 
 #### 1. API Base配置不一致 (`frontend/index.html:6-20`)
+
 ```javascript
 // 问题：硬编码API_BASE配置但没有设置默认值
 window.API_BASE = saved.trim(); // 可能为undefined
 ```
+
 **影响**: 在某些环境下API调用失败  
 **优先级**: 🔥 紧急修复
 
 #### 2. Microsoft Clarity重复配置 (`frontend/index.html:114-120, 168-174`)
+
 ```javascript
 // 问题：同一个跟踪代码被加载两次，使用不同项目ID
 clarity("so1145dysz"); // 第一次加载
 clarity("rxuoksphbr"); // 第二次加载 - 重复
 ```
+
 **影响**: 数据重复统计，影响分析准确性  
 **优先级**: 🔥 紧急修复
 
 #### 3. JavaScript模块依赖顺序问题 (`frontend/index.html:928-940`)
+
 ```html
 <!-- 问题：依赖关系可能冲突 -->
-<script src="js/ui_handler.js" defer></script>  <!-- 依赖api_client.js -->
-<script src="js/api_client.js" defer></script>   <!-- 但加载顺序可能不正确 -->
+<script src="js/ui_handler.js" defer></script>
+<!-- 依赖api_client.js -->
+<script src="js/api_client.js" defer></script>
+<!-- 但加载顺序可能不正确 -->
 ```
+
 **影响**: 模块初始化失败，功能异常  
 **优先级**: 🔥 紧急修复
 
 ### 🟡 中等问题
 
 #### 4. 错误处理不完善
+
 **统计**: 15个JavaScript文件中发现153处错误处理代码  
 **问题**: 部分API调用缺少完整错误处理机制  
 **优先级**: 🔶 中期修复
 
 #### 5. SEO配置冗余 (`frontend/index.html:176-458`)
+
 **问题**: 结构化数据过多且重复，影响页面加载性能  
 **影响**: 页面首屏加载时间增加  
 **优先级**: 🔶 中期修复
 
 #### 6. 资源引用问题
+
 ```css
 /* 问题：外部资源引用未验证 */
-background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
+background: url("https://assets-global.website-files.com/.../circuit-bg.svg");
 ```
+
 **影响**: 资源加载失败导致样式异常  
 **优先级**: 🔶 中期修复
 
 ### 🟢 轻微问题
 
 #### 7. 版本号不统一
+
 - JavaScript文件: `?v=20250909`
 - package.json: `"version": "1.0.0"`
-**优先级**: 🔹 长期优化
+  **优先级**: 🔹 长期优化
 
 #### 8. 代码注释不规范
+
 **问题**: 中英文混合注释，缺少关键函数文档  
 **优先级**: 🔹 长期优化
 
 ### 修复建议优先级
 
 #### 🔥 立即修复 (1-3天)
+
 1. 修复API Base配置缺陷
 2. 移除重复Microsoft Clarity代码
 3. 优化JavaScript模块加载顺序
 
 #### 🔶 中期修复 (1-2周)
+
 4. 完善API错误处理机制
 5. 优化SEO结构化数据
 6. 验证并修复资源引用
 
 #### 🔹 长期优化 (1个月)
+
 7. 统一版本管理策略
 8. 规范代码注释标准
 
@@ -292,7 +326,9 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 ### 当前发现的导航结构问题
 
 #### 1. 导航栏不一致问题
+
 **首页导航** (`index.html`):
+
 ```html
 <li><a href="voice.html">语音合成</a></li>
 <li><a href="about.html">关于我们</a></li>
@@ -304,19 +340,24 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 ```
 
 **问题识别**:
+
 - 首页有两个联系入口（待验证）
 - 其他页面导航与首页不一致
 - 部分页面可能缺少完整导航结构
 
 #### 2. 双语适配问题
+
 **已识别问题页面**:
+
 - `prompt-engineering.html` - 内容全为中文
 - `tutorial.html` - 内容全为中文
 - `ai-guide.html` - 内容全为中文
 - `services.html` - 英文正文内容缺失
 
 #### 3. 页面风格一致性
+
 **需要检查的页面**:
+
 - 所有子页面与首页设计风格对比
 - Hero section布局统一性
 - Footer一致性
@@ -327,6 +368,7 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 #### 导航结构对比分析结果
 
 **首页导航** (`index.html`) - ✅ 标准导航:
+
 ```html
 <li><a href="voice.html">语音合成</a></li>
 <li><a href="about.html">关于我们</a></li>
@@ -340,29 +382,38 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 **严重不一致的页面**:
 
 1. **about.html** - 🔴 导航结构完全不同:
+
 ```html
 <!-- 缺少：ai-guide.html, prompt-engineering.html, faq.html -->
-<li><a href="ai-guide.html">AI指南</a></li>       <!-- ❌ 缺失 -->
-<li><a href="prompt-engineering.html">提示词工程</a></li>  <!-- ❌ 缺失 -->
-<li><a href="faq.html">常见问题</a></li>          <!-- ❌ 缺失 -->
+<li><a href="ai-guide.html">AI指南</a></li>
+<!-- ❌ 缺失 -->
+<li><a href="prompt-engineering.html">提示词工程</a></li>
+<!-- ❌ 缺失 -->
+<li><a href="faq.html">常见问题</a></li>
+<!-- ❌ 缺失 -->
 ```
 
 2. **ai-guide.html** - 🔴 导航结构严重缺失:
+
 ```html
 <!-- 只有5个菜单项，缺少主要页面 -->
 <li><a href="about.html">关于我们</a></li>
-<li><a href="services.html">服务</a></li>        <!-- ❌ 不应该在主导航 -->
+<li><a href="services.html">服务</a></li>
+<!-- ❌ 不应该在主导航 -->
 <!-- 缺少：voice.html, ai-guide.html, prompt-engineering.html, faq.html -->
 ```
 
 3. **prompt-engineering.html** - 🔴 导航结构严重缺失:
+
 ```html
 <!-- 与ai-guide.html相同的错误导航结构 -->
-<li><a href="services.html">服务</a></li>        <!-- ❌ 不应该在主导航 -->
+<li><a href="services.html">服务</a></li>
+<!-- ❌ 不应该在主导航 -->
 <!-- 缺少：voice.html, ai-guide.html, prompt-engineering.html, faq.html -->
 ```
 
 4. **services.html** - 🔴 导航结构完全不同:
+
 ```html
 <!-- 只有4个菜单项，结构与首页完全不同 -->
 <li><a href="/about.html">About</a></li>
@@ -374,13 +425,15 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 #### 🔥 紧急修复需求
 
 **优先级1 - 立即修复** (导航标准化):
+
 1. ✅ **标准导航菜单** (`index.html` 为基准)
 2. 🔴 **about.html** - 需要添加缺失的菜单项
 3. 🔴 **ai-guide.html** - 需要完全重写导航结构
-4. 🔴 **prompt-engineering.html** - 需要完全重写导航结构  
+4. 🔴 **prompt-engineering.html** - 需要完全重写导航结构
 5. 🔴 **services.html** - 需要完全重写导航结构
 
 **导航结构CSS类不一致**:
+
 - 首页使用: `<nav class="navbar">`
 - about/ai-guide/prompt-engineering使用: `<nav>` (缺少class)
 - services使用: `<nav class="navbar">` (正确)
@@ -390,20 +443,24 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 #### 默认语言设置混乱
 
 **问题发现**:
+
 1. **index.html**: `<html lang="en">` + 英文优先 ✅
 2. **about.html**: `<html lang="zh-CN">` + 中文优先 🔴
-3. **ai-guide.html**: `<html lang="zh-CN">` + 中文优先 🔴  
+3. **ai-guide.html**: `<html lang="zh-CN">` + 中文优先 🔴
 4. **prompt-engineering.html**: `<html lang="zh-CN">` + 中文优先 🔴
 5. **services.html**: `<html lang="en">` + 英文优先 ✅
 
 **语言选择器顺序不一致**:
+
 ```html
 <!-- about.html, ai-guide.html, prompt-engineering.html -->
-<option value="zh">中文</option>      <!-- 🔴 中文优先 -->
+<option value="zh">中文</option>
+<!-- 🔴 中文优先 -->
 <option value="en">English</option>
 
-<!-- index.html, services.html -->  
-<option value="en">English</option>   <!-- ✅ 英文优先 -->
+<!-- index.html, services.html -->
+<option value="en">English</option>
+<!-- ✅ 英文优先 -->
 <option value="zh">中文</option>
 ```
 
@@ -419,6 +476,7 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 #### 页面设计风格对比
 
 **标准设计风格** (基于 `index.html`):
+
 - **导航栏**: `<nav class="navbar">` + 完整7项菜单
 - **Hero区域**: 统一背景、标题布局、CTA按钮
 - **容器结构**: `<div class="container">` + 响应式网格
@@ -427,44 +485,55 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 **不符合标准的页面**:
 
 1. **about.html** - 🔴 导航CSS类不同:
+
 ```html
-<nav>                    <!-- ❌ 缺少 class="navbar" -->
-<div class="nav-container">  <!-- ❌ 应该是 navbar-left/right -->
+<nav>
+  <!-- ❌ 缺少 class="navbar" -->
+  <div class="nav-container"><!-- ❌ 应该是 navbar-left/right --></div>
+</nav>
 ```
 
 2. **ai-guide.html/prompt-engineering.html** - 🔴 相同问题:
+
 ```html
-<nav>                    <!-- ❌ 缺少 class="navbar" -->
-<div class="nav-container">  <!-- ❌ 结构不一致 -->
+<nav>
+  <!-- ❌ 缺少 class="navbar" -->
+  <div class="nav-container"><!-- ❌ 结构不一致 --></div>
+</nav>
 ```
 
 3. **services.html** - ✅ 导航结构正确但内容不全:
+
 ```html
-<nav class="navbar">     <!-- ✅ 正确 -->
-<!-- 但菜单项严重缺失 -->
+<nav class="navbar">
+  <!-- ✅ 正确 -->
+  <!-- 但菜单项严重缺失 -->
+</nav>
 ```
 
 #### 双语支持完整性统计
 
-| 页面 | data-i18n数量 | 默认语言 | 语言选择器 | 翻译完整度 |
-|------|--------------|---------|-----------|-----------|
-| index.html | 150+ | 英文 ✅ | 英文优先 ✅ | 95% ✅ |
-| voice.html | 80+ | 英文 ✅ | 英文优先 ✅ | 90% ✅ |
-| about.html | 20+ | 中文 🔴 | 中文优先 🔴 | 40% 🔴 |
-| ai-guide.html | 11 | 中文 🔴 | 中文优先 🔴 | 15% 🔴 |
-| prompt-engineering.html | 11 | 中文 🔴 | 中文优先 🔴 | 15% 🔴 |
-| services.html | 15+ | 英文 ✅ | 混乱 🔴 | 30% 🔴 |
+| 页面                    | data-i18n数量 | 默认语言 | 语言选择器  | 翻译完整度 |
+| ----------------------- | ------------- | -------- | ----------- | ---------- |
+| index.html              | 150+          | 英文 ✅  | 英文优先 ✅ | 95% ✅     |
+| voice.html              | 80+           | 英文 ✅  | 英文优先 ✅ | 90% ✅     |
+| about.html              | 20+           | 中文 🔴  | 中文优先 🔴 | 40% 🔴     |
+| ai-guide.html           | 11            | 中文 🔴  | 中文优先 🔴 | 15% 🔴     |
+| prompt-engineering.html | 11            | 中文 🔴  | 中文优先 🔴 | 15% 🔴     |
+| services.html           | 15+           | 英文 ✅  | 混乱 🔴     | 30% 🔴     |
 
 #### 页面内容专业度评估
 
 **高质量专业内容** ✅:
+
 - **index.html**: 完整的产品展示、功能介绍、用户评价
-- **voice.html**: 专业的语音合成功能、完整的使用流程  
+- **voice.html**: 专业的语音合成功能、完整的使用流程
 - **ai-guide.html**: 3000+字专业AI技术指南
 - **prompt-engineering.html**: 4000+字提示词工程教程
 - **about.html**: 企业级关于页面，技术架构介绍
 
 **内容质量问题** 🔴:
+
 - **services.html**: 内容过于简单，缺少英文版本详细介绍
 - **tutorial.html/faq.html**: 双语内容不平衡
 
@@ -475,11 +544,11 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 ```
 首页 (index.html)
 ├── 核心功能
-│   ├── 语音合成 (voice.html) 
+│   ├── 语音合成 (voice.html)
 │   └── 图像生成 (index.html#create)
-├── 学习中心  
+├── 学习中心
 │   ├── AI指南 (ai-guide.html)
-│   ├── 提示词工程 (prompt-engineering.html)  
+│   ├── 提示词工程 (prompt-engineering.html)
 │   ├── 使用教程 (tutorial.html)
 │   └── 常见问题 (faq.html)
 ├── 企业信息
@@ -494,23 +563,27 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 #### 当前导航逻辑问题
 
 **问题1**: services.html 独立存在但内容单薄
+
 - **建议**: 合并到 about.html 作为服务介绍章节
 - **优势**: 减少导航复杂度，提升内容集中度
 
-**问题2**: 专业页面导航缺失重要链接  
+**问题2**: 专业页面导航缺失重要链接
+
 - ai-guide.html 和 prompt-engineering.html 应该互相链接
 - 缺少返回"学习中心"的概念导航
 
 **问题3**: 用户体验路径不清晰
+
 - 新用户无法快速找到学习资源
 - 专业用户难以快速访问高级功能
 
 #### 🎯 优化后的标准导航结构建议
 
 **主导航菜单** (所有页面统一):
+
 ```html
 <li><a href="index.html">首页</a></li>
-<li><a href="voice.html">语音合成</a></li>  
+<li><a href="voice.html">语音合成</a></li>
 <li><a href="about.html">关于我们</a></li>
 <li><a href="ai-guide.html">AI指南</a></li>
 <li><a href="prompt-engineering.html">提示词工程</a></li>
@@ -520,8 +593,9 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 ```
 
 **次级导航** (页面内相关链接):
+
 - 学习页面间互相推荐链接
-- 功能页面与教程页面交叉链接  
+- 功能页面与教程页面交叉链接
 - 面包屑导航显示页面层级关系
 
 ## 🚀 页面修复优先级计划 (2025-09-09)
@@ -529,10 +603,12 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 ### 🔥 优先级1 - 紧急修复 (1-3天内完成)
 
 #### A. 代码技术问题修复
+
 1. **修复API Base配置缺陷** (`frontend/index.html:6-20`)
+
    ```javascript
    // 添加默认值防止undefined
-   window.API_BASE = saved?.trim() || 'https://text2image-api.peyoba660703.workers.dev';
+   window.API_BASE = saved?.trim() || "https://text2image-api.peyoba660703.workers.dev";
    ```
 
 2. **移除重复Microsoft Clarity** (`frontend/index.html:114-120, 168-174`)
@@ -543,8 +619,10 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
    - 确保api_client.js在ui_handler.js之前加载
    - 修复模块依赖关系
 
-#### B. 导航结构标准化 
+#### B. 导航结构标准化
+
 4. **about.html导航修复** - 🔥 最高优先级
+
    ```html
    <!-- 需要添加缺失的导航项 -->
    <li><a href="ai-guide.html" data-i18n="navAIGuide">AI指南</a></li>
@@ -562,12 +640,15 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
    - 保持现有正确的CSS结构
 
 #### C. 双语支持统一化
+
 7. **统一默认语言设置** - 所有页面设为英文优先
+
    ```html
    <!-- 统一为 -->
    <html lang="en">
-   <option value="en">English</option>
-   <option value="zh">中文</option>
+     <option value="en">English</option>
+     <option value="zh">中文</option>
+   </html>
    ```
 
 8. **语言选择器顺序标准化**
@@ -577,6 +658,7 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 ### 🔶 优先级2 - 重要修复 (1-2周内完成)
 
 #### D. 内容翻译完善
+
 9. **专业页面英文翻译** - about.html, ai-guide.html, prompt-engineering.html
    - 添加缺失的data-i18n属性
    - 在i18n.js中补充英文翻译条目
@@ -587,6 +669,7 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
     - 或考虑合并到about.html
 
 #### E. 页面设计统一
+
 11. **CSS类名标准化**
     - 统一所有页面使用`<nav class="navbar">`
     - 统一容器结构为`navbar-left`, `navbar-right`
@@ -600,6 +683,7 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 ### 🔹 优先级3 - 优化改进 (2-4周内完成)
 
 #### F. 用户体验优化
+
 13. **面包屑导航完善**
     - 为所有专业页面添加准确的面包屑
     - 统一面包屑样式和多语言支持
@@ -609,7 +693,8 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
     - 学习页面间互相链接
     - 提升内容发现性
 
-#### G. 性能和SEO优化  
+#### G. 性能和SEO优化
+
 15. **结构化数据优化**
     - 减少冗余的Schema.org标记
     - 优化页面加载性能
@@ -620,27 +705,30 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 
 ### 📊 修复工作量评估
 
-| 优先级 | 工作项数量 | 预估工时 | 影响范围 | 复杂度 |
-|--------|-----------|---------|----------|--------|
-| 🔥 优先级1 | 8项 | 16-24小时 | 全站功能 | 中等 |
-| 🔶 优先级2 | 4项 | 20-30小时 | 用户体验 | 较高 |  
-| 🔹 优先级3 | 4项 | 12-20小时 | 长期优化 | 中等 |
-| **总计** | **16项** | **48-74小时** | **全面提升** | **中-高** |
+| 优先级     | 工作项数量 | 预估工时      | 影响范围     | 复杂度    |
+| ---------- | ---------- | ------------- | ------------ | --------- |
+| 🔥 优先级1 | 8项        | 16-24小时     | 全站功能     | 中等      |
+| 🔶 优先级2 | 4项        | 20-30小时     | 用户体验     | 较高      |
+| 🔹 优先级3 | 4项        | 12-20小时     | 长期优化     | 中等      |
+| **总计**   | **16项**   | **48-74小时** | **全面提升** | **中-高** |
 
 ### ✅ 验收标准
 
 #### 优先级1完成标准：
+
 - [ ] 所有页面导航菜单完全一致（7项标准菜单）
 - [ ] 所有页面默认语言为英文
 - [ ] JavaScript控制台无模块加载错误
 - [ ] API调用功能正常，无undefined错误
 
 #### 优先级2完成标准：
+
 - [ ] 专业页面英文翻译完整度达到90%+
 - [ ] 所有页面CSS类名和结构统一
 - [ ] 语言切换功能在所有页面正常工作
 
 #### 优先级3完成标准：
+
 - [ ] 用户体验流畅，页面间导航逻辑清晰
 - [ ] 性能监控指标正常，错误率降低
 - [ ] SEO结构优化，加载速度提升
@@ -648,8 +736,9 @@ background: url('https://assets-global.website-files.com/.../circuit-bg.svg')
 ### 🎯 预期成果
 
 修复完成后预期达到：
+
 - **导航一致性**: 100% ✅
-- **双语支持**: 95%+ ✅  
+- **双语支持**: 95%+ ✅
 - **页面风格统一**: 100% ✅
 - **用户体验**: 显著提升 ⬆️
 - **平台稳定性**: 明显改善 ⬆️

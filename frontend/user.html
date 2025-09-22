@@ -1,310 +1,543 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="userCenter">User Center - AISTONE Account</title>
-  <meta name="description" content="AISTONE User Center — manage your HD images, preferences, and account information after login." />
-  <meta name="keywords" content="AISTONE user center, account, HD images, preferences, profile management">
-  <link rel="canonical" href="https://aistone.org/user.html" />
-  <meta name="robots" content="noindex, nofollow, noarchive">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="css/style.css" rel="stylesheet">
-  <script>
-    // API Base：可被localStorage覆盖，确保与首页一致
-    (function(){
-      try {
-        var saved = localStorage.getItem('api_base');
-        if (saved && typeof saved === 'string' && saved.trim()) {
-          window.API_BASE = saved.trim();
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="userCenter">User Center - AISTONE Account</title>
+    <meta
+      name="description"
+      content="AISTONE User Center — manage your HD images, preferences, and account information after login."
+    />
+    <meta
+      name="keywords"
+      content="AISTONE user center, account, HD images, preferences, profile management"
+    />
+    <link rel="canonical" href="https://aistone.org/user.html" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="css/style.css" rel="stylesheet" />
+    <script>
+      // API Base：可被localStorage覆盖，确保与首页一致
+      (function () {
+        try {
+          var saved = localStorage.getItem("api_base");
+          if (saved && typeof saved === "string" && saved.trim()) {
+            window.API_BASE = saved.trim();
+          }
+        } catch (e) {}
+        window.setApiBase = function (url) {
+          if (typeof url === "string" && url.trim()) {
+            window.API_BASE = url.trim();
+            try {
+              localStorage.setItem("api_base", window.API_BASE);
+            } catch (e) {}
+          }
+        };
+      })();
+      // 全局模态框函数（与首页一致）
+      function showModal(modalId) {
+        var m = document.getElementById(modalId);
+        if (m) {
+          m.style.display = "block";
         }
-      } catch (e) {}
-      window.setApiBase = function(url){
-        if (typeof url === 'string' && url.trim()) {
-          window.API_BASE = url.trim();
-          try { localStorage.setItem('api_base', window.API_BASE); } catch(e){}
+      }
+      function closeModal(modalId) {
+        var m = document.getElementById(modalId);
+        if (m) {
+          m.style.display = "none";
         }
-      };
-    })();
-    // 全局模态框函数（与首页一致）
-    function showModal(modalId){ var m=document.getElementById(modalId); if(m){ m.style.display='block'; } }
-    function closeModal(modalId){ var m=document.getElementById(modalId); if(m){ m.style.display='none'; } }
-  </script>
-  <script>
-    // 过滤第三方脚本报错与被拦截资源噪声
-    (function(){
-      try {
-        var noisyHosts = ['googletagmanager.com','googlesyndication.com','clarity.ms','static.cloudflareinsights.com'];
-        window.addEventListener('error', function (e) {
-          try {
-            var msg = (e && e.message || '').toLowerCase();
-            var file = (e && e.filename) || '';
-            if (
-              msg.indexOf('net::err_connection_closed')>=0 ||
-              msg.indexOf("can't read properties of undefined (reading 'tolowercase')")>=0 ||
-              msg.indexOf('tolowercase')>=0 ||
-              noisyHosts.some(function(h){ return file.indexOf(h)>=0; })
-            ) {
-              e.preventDefault && e.preventDefault();
-              return true;
-            }
-          } catch(_) {}
-        }, true);
-        window.addEventListener('unhandledrejection', function (e) {
-          try {
-            var reason = (e && e.reason && (''+e.reason).toLowerCase()) || '';
-            if (reason.indexOf('net::err_connection_closed')>=0) {
-              e.preventDefault && e.preventDefault();
-              return true;
-            }
-          } catch(_) {}
-        });
-      } catch(_) {}
-    })();
-  </script>
-  <style>
-    body { background: var(--color-avatar-bg, #0b1220); color: var(--color-text-verylight, #e5e7eb); }
-    .container { max-width: 1100px; margin: 20px auto; padding: 24px 28px; }
-    .page-header { display:flex; align-items:center; justify-content:space-between; margin: 8px 0 18px; }
-    .back-link { color: var(--color-brand-primary, #00CFFF); text-decoration:none; }
-    .card { background:#0f172a; border:1px solid var(--color-accent-border-strong, #273548); border-radius:var(--radius-md); padding:18px; }
-    /* 复用首页用户信息与下拉样式 */
-    .user-info { display:flex; align-items:center; gap:10px; padding:6px 10px; background:rgba(15,23,42,0.7); border:1px solid var(--color-accent-border-strong, #273548); border-radius:999px; }
-    .user-avatar img { width:28px; height:28px; border-radius:50%; object-fit:cover; }
-    .user-details { display:flex; flex-direction:row; align-items:center; gap:10px; position:relative; }
-    .username { font-weight:600; color:var(--color-text-verylight, #e5e7eb); font-size:0.9rem; }
-    .user-menu-toggle { background:rgba(36,49,77,0.6); color:var(--color-text-verylight, #e5e7eb); border:1px solid var(--color-accent-border, #2A3A57); border-radius:999px; padding:6px 12px 6px 6px; display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-size:0.85rem; box-shadow:0 4px 18px rgba(0,0,0,0.25); appearance:none; -webkit-appearance:none; outline:none; background-clip:padding-box; }
-    .user-menu-toggle:hover { background:rgba(36,49,77,0.85); }
-    .user-menu-toggle .caret { color:var(--color-text-primary, #aab4d4); font-size:0.8rem; }
-    .user-menu-toggle .avatar-inline { width:22px; height:22px; border-radius:50%; background:var(--color-avatar-bg, #0b1220); }
-    .user-menu-toggle .username { display:inline-block; color:var(--color-text-verylight, #e5e7eb); max-width:160px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .user-dropdown { position:absolute; right:0; top:calc(100% + 8px); background:var(--color-wave-bg, #0e1424); border:1px solid var(--color-accent-border, #2A3A57); border-radius:10px; min-width:160px; box-shadow:0 14px 32px rgba(0,0,0,0.45); padding:8px; z-index:1000; }
-    .dropdown-item { display:block; padding:8px 10px; color:var(--color-text-muted-2, #d6def8); text-decoration:none; border-radius:var(--radius-sm); font-size:0.9rem; white-space:nowrap; }
-    .dropdown-item:hover { background: var(--color-accent-dark, #1a2440); }
-    /* 语言选择下拉，统一胶囊深色主题 */
-    .lang-select {
-      background:var(--color-wave-bg, #0e1424);
-      color:var(--color-text-muted-2, #d6def8);
-      border:1px solid var(--color-accent-border, #2A3A57);
-      border-radius:999px;
-      padding:6px 28px 6px 12px;
-      appearance:none;
-      -webkit-appearance:none;
-      outline:none;
-    }
-  </style>
-</head>
-<body>
-  <nav class="navbar" style="border-radius:0; max-width:1366px; margin:0 auto;">
-    <div class="navbar-left">
-      <img src="assets/logo.svg" alt="AISTONE LOGO" class="logo-img" />
-      <span class="site-name">AISTONE</span>
-    </div>
-    <ul class="navbar-menu">
-      <li><a href="/" data-i18n="navHome">首页</a></li>
-      <li><a href="voice.html" data-i18n="navVoiceGen">语音合成</a></li>
-      <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
-      <li><a href="ai-guide.html" data-i18n="navAIGuide">AI指南</a></li>
-      <li><a href="prompt-engineering.html" data-i18n="navPromptEngineering">提示词工程</a></li>
-      <li><a href="tutorial.html" data-i18n="navTutorial">使用教程</a></li>
-      <li><a href="faq.html" data-i18n="navFAQ">常见问题</a></li>
-      <li><a href="contact.html" data-i18n="navContact">联系我们</a></li>
-    </ul>
-    <div class="navbar-right">
-      <select id="lang-select" class="lang-select">
-        <option value="en">English</option>
-        <option value="zh">中文</option>
-      </select>
-      <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">登录</button>
-      <div class="user-info" id="nav-user-info" style="display:none; background:transparent; border:none; box-shadow:none;">
-        <div class="user-details">
-          <button class="user-menu-toggle" id="userMenuToggle" aria-haspopup="true" aria-expanded="false">
-            <img src="assets/default-avatar.svg" alt="avatar" class="avatar-inline"/>
-            <span class="username">用户名</span>
-            <span class="caret">▾</span>
-          </button>
-          <div class="user-dropdown" id="userDropdown" role="menu" aria-labelledby="userMenuToggle" style="display:none;">
-            <a href="/user.html" class="dropdown-item" data-i18n="userCenter">个人中心</a>
-            <a href="#" class="dropdown-item" onclick="authManager.logout()" data-i18n="logout">登出</a>
+      }
+    </script>
+    <script>
+      // 过滤第三方脚本报错与被拦截资源噪声
+      (function () {
+        try {
+          var noisyHosts = [
+            "googletagmanager.com",
+            "googlesyndication.com",
+            "clarity.ms",
+            "static.cloudflareinsights.com",
+          ];
+          window.addEventListener(
+            "error",
+            function (e) {
+              try {
+                var msg = ((e && e.message) || "").toLowerCase();
+                var file = (e && e.filename) || "";
+                if (
+                  msg.indexOf("net::err_connection_closed") >= 0 ||
+                  msg.indexOf("can't read properties of undefined (reading 'tolowercase')") >= 0 ||
+                  msg.indexOf("tolowercase") >= 0 ||
+                  noisyHosts.some(function (h) {
+                    return file.indexOf(h) >= 0;
+                  })
+                ) {
+                  e.preventDefault && e.preventDefault();
+                  return true;
+                }
+              } catch (_) {}
+            },
+            true
+          );
+          window.addEventListener("unhandledrejection", function (e) {
+            try {
+              var reason = (e && e.reason && ("" + e.reason).toLowerCase()) || "";
+              if (reason.indexOf("net::err_connection_closed") >= 0) {
+                e.preventDefault && e.preventDefault();
+                return true;
+              }
+            } catch (_) {}
+          });
+        } catch (_) {}
+      })();
+    </script>
+    <style>
+      body {
+        background: var(--color-avatar-bg, #0b1220);
+        color: var(--color-text-verylight, #e5e7eb);
+      }
+      .container {
+        max-width: 1100px;
+        margin: 20px auto;
+        padding: 24px 28px;
+      }
+      .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 8px 0 18px;
+      }
+      .back-link {
+        color: var(--color-brand-primary, #00cfff);
+        text-decoration: none;
+      }
+      .card {
+        background: #0f172a;
+        border: 1px solid var(--color-accent-border-strong, #273548);
+        border-radius: var(--radius-md);
+        padding: 18px;
+      }
+      /* 复用首页用户信息与下拉样式 */
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 10px;
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid var(--color-accent-border-strong, #273548);
+        border-radius: 999px;
+      }
+      .user-avatar img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      .user-details {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+      }
+      .username {
+        font-weight: 600;
+        color: var(--color-text-verylight, #e5e7eb);
+        font-size: 0.9rem;
+      }
+      .user-menu-toggle {
+        background: rgba(36, 49, 77, 0.6);
+        color: var(--color-text-verylight, #e5e7eb);
+        border: 1px solid var(--color-accent-border, #2a3a57);
+        border-radius: 999px;
+        padding: 6px 12px 6px 6px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+        background-clip: padding-box;
+      }
+      .user-menu-toggle:hover {
+        background: rgba(36, 49, 77, 0.85);
+      }
+      .user-menu-toggle .caret {
+        color: var(--color-text-primary, #aab4d4);
+        font-size: 0.8rem;
+      }
+      .user-menu-toggle .avatar-inline {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--color-avatar-bg, #0b1220);
+      }
+      .user-menu-toggle .username {
+        display: inline-block;
+        color: var(--color-text-verylight, #e5e7eb);
+        max-width: 160px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .user-dropdown {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 8px);
+        background: var(--color-wave-bg, #0e1424);
+        border: 1px solid var(--color-accent-border, #2a3a57);
+        border-radius: 10px;
+        min-width: 160px;
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+        padding: 8px;
+        z-index: 1000;
+      }
+      .dropdown-item {
+        display: block;
+        padding: 8px 10px;
+        color: var(--color-text-muted-2, #d6def8);
+        text-decoration: none;
+        border-radius: var(--radius-sm);
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
+      .dropdown-item:hover {
+        background: var(--color-accent-dark, #1a2440);
+      }
+      /* 语言选择下拉，统一胶囊深色主题 */
+      .lang-select {
+        background: var(--color-wave-bg, #0e1424);
+        color: var(--color-text-muted-2, #d6def8);
+        border: 1px solid var(--color-accent-border, #2a3a57);
+        border-radius: 999px;
+        padding: 6px 28px 6px 12px;
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar" style="border-radius: 0; max-width: 1366px; margin: 0 auto">
+      <div class="navbar-left">
+        <img src="assets/logo.svg" alt="AISTONE LOGO" class="logo-img" />
+        <span class="site-name">AISTONE</span>
+      </div>
+      <ul class="navbar-menu">
+        <li><a href="/" data-i18n="navHome">首页</a></li>
+        <li><a href="voice.html" data-i18n="navVoiceGen">语音合成</a></li>
+        <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
+        <li><a href="ai-guide.html" data-i18n="navAIGuide">AI指南</a></li>
+        <li><a href="prompt-engineering.html" data-i18n="navPromptEngineering">提示词工程</a></li>
+        <li><a href="tutorial.html" data-i18n="navTutorial">使用教程</a></li>
+        <li><a href="faq.html" data-i18n="navFAQ">常见问题</a></li>
+        <li><a href="contact.html" data-i18n="navContact">联系我们</a></li>
+      </ul>
+      <div class="navbar-right">
+        <select id="lang-select" class="lang-select">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+        </select>
+        <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">
+          登录
+        </button>
+        <div
+          class="user-info"
+          id="nav-user-info"
+          style="display: none; background: transparent; border: none; box-shadow: none"
+        >
+          <div class="user-details">
+            <button
+              class="user-menu-toggle"
+              id="userMenuToggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img src="assets/default-avatar.svg" alt="avatar" class="avatar-inline" />
+              <span class="username">用户名</span>
+              <span class="caret">▾</span>
+            </button>
+            <div
+              class="user-dropdown"
+              id="userDropdown"
+              role="menu"
+              aria-labelledby="userMenuToggle"
+              style="display: none"
+            >
+              <a href="/user.html" class="dropdown-item" data-i18n="userCenter">个人中心</a>
+              <a href="#" class="dropdown-item" onclick="authManager.logout()" data-i18n="logout"
+                >登出</a
+              >
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </nav>
-
-  <div class="container">
-    <!-- 面包屑导航 -->
-    <nav class="breadcrumb">
-      <a href="/">首页</a>
-      <span class="separator">></span>
-      <span class="current">个人中心</span>
     </nav>
-    <div class="page-header">
-      <h1 data-i18n="userCenter">个人中心</h1>
-      <a class="back-link" href="/">← <span data-i18n="navHome">首页</span></a>
-    </div>
 
-    <div class="grid-two" style="display:grid;grid-template-columns:1fr 2fr;gap:18px;align-items:start;">
-      <section class="card">
-        <h2 style="margin:0 0 12px 0;" data-i18n="userAccountTitle">账户资料</h2>
-        <div id="account-info">
-          <div id="account-greeting" style="margin-bottom:10px;"></div>
-          <div style="display:grid;grid-template-columns:120px 1fr;gap:8px 12px;align-items:center;">
-            <label data-i18n="userUsername">用户名</label>
-            <input id="profile-username" type="text" style="padding:8px;border-radius:8px;border:1px solid var(--color-accent-border-strong, #273548);background:#0f172a;color:var(--color-text-verylight, #e5e7eb);" />
-            <label data-i18n="userEmail">邮箱</label>
-            <input id="profile-email" type="email" disabled style="padding:8px;border-radius:8px;border:1px solid var(--color-accent-border-strong, #273548);background:#0f172a;color:#94a3b8;" />
+    <div class="container">
+      <!-- 面包屑导航 -->
+      <nav class="breadcrumb">
+        <a href="/">首页</a>
+        <span class="separator">></span>
+        <span class="current">个人中心</span>
+      </nav>
+      <div class="page-header">
+        <h1 data-i18n="userCenter">个人中心</h1>
+        <a class="back-link" href="/">← <span data-i18n="navHome">首页</span></a>
+      </div>
+
+      <div
+        class="grid-two"
+        style="display: grid; grid-template-columns: 1fr 2fr; gap: 18px; align-items: start"
+      >
+        <section class="card">
+          <h2 style="margin: 0 0 12px 0" data-i18n="userAccountTitle">账户资料</h2>
+          <div id="account-info">
+            <div id="account-greeting" style="margin-bottom: 10px"></div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 120px 1fr;
+                gap: 8px 12px;
+                align-items: center;
+              "
+            >
+              <label data-i18n="userUsername">用户名</label>
+              <input
+                id="profile-username"
+                type="text"
+                style="
+                  padding: 8px;
+                  border-radius: 8px;
+                  border: 1px solid var(--color-accent-border-strong, #273548);
+                  background: #0f172a;
+                  color: var(--color-text-verylight, #e5e7eb);
+                "
+              />
+              <label data-i18n="userEmail">邮箱</label>
+              <input
+                id="profile-email"
+                type="email"
+                disabled
+                style="
+                  padding: 8px;
+                  border-radius: 8px;
+                  border: 1px solid var(--color-accent-border-strong, #273548);
+                  background: #0f172a;
+                  color: #94a3b8;
+                "
+              />
+            </div>
+            <button
+              id="btn-update-profile"
+              class="btn btn-primary"
+              style="margin-top: 12px"
+              data-i18n="userUpdateProfile"
+            >
+              更新资料
+            </button>
           </div>
-          <button id="btn-update-profile" class="btn btn-primary" style="margin-top:12px;" data-i18n="userUpdateProfile">更新资料</button>
-        </div>
-        <hr style="border-color:var(--color-accent-border-strong, #273548);margin:16px 0;" />
-        <div id="change-password">
-          <h3 style="margin:0 0 10px 0;" data-i18n="userChangePasswordTitle">修改密码</h3>
-          <input id="new-password" type="password" placeholder="新密码" style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--color-accent-border-strong, #273548);background:#0f172a;color:var(--color-text-verylight, #e5e7eb);margin-bottom:8px;"/>
-          <input id="confirm-password" type="password" placeholder="确认新密码" style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--color-accent-border-strong, #273548);background:#0f172a;color:var(--color-text-verylight, #e5e7eb);"/>
-          <button id="btn-save-password" class="btn btn-outline" style="margin-top:12px;" data-i18n="userSave">保存</button>
-        </div>
-      </section>
+          <hr style="border-color: var(--color-accent-border-strong, #273548); margin: 16px 0" />
+          <div id="change-password">
+            <h3 style="margin: 0 0 10px 0" data-i18n="userChangePasswordTitle">修改密码</h3>
+            <input
+              id="new-password"
+              type="password"
+              placeholder="新密码"
+              style="
+                width: 100%;
+                padding: 8px;
+                border-radius: 8px;
+                border: 1px solid var(--color-accent-border-strong, #273548);
+                background: #0f172a;
+                color: var(--color-text-verylight, #e5e7eb);
+                margin-bottom: 8px;
+              "
+            />
+            <input
+              id="confirm-password"
+              type="password"
+              placeholder="确认新密码"
+              style="
+                width: 100%;
+                padding: 8px;
+                border-radius: 8px;
+                border: 1px solid var(--color-accent-border-strong, #273548);
+                background: #0f172a;
+                color: var(--color-text-verylight, #e5e7eb);
+              "
+            />
+            <button
+              id="btn-save-password"
+              class="btn btn-outline"
+              style="margin-top: 12px"
+              data-i18n="userSave"
+            >
+              保存
+            </button>
+          </div>
+        </section>
 
-      <section>
-        <div id="hd-images-ui"></div>
-      </section>
-      
-      <section>
-        <div id="feedback-ui"></div>
-      </section>
+        <section>
+          <div id="hd-images-ui"></div>
+        </section>
+
+        <section>
+          <div id="feedback-ui"></div>
+        </section>
+      </div>
     </div>
-  </div>
 
-  <script src="js/i18n.js?v=20250909"></script>
-  <script src="js/auth_modals.js?v=20250909" defer></script>
-  <script src="js/auth.js?v=20250909" defer></script>
-  <script src="js/hd_image_manager.js?v=20250909" defer></script>
-  <script src="js/feedback_manager.js?v=20250909" defer></script>
-  <div id="auth-modals"></div>
-  <script>
-    // 注入认证模态
-    fetch('auth-modals.html').then(r=>r.text()).then(html=>{
-      document.getElementById('auth-modals').innerHTML = html;
-      window.initAuthForms && window.initAuthForms();
-      if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') setLanguage(getCurrentLang());
-    });
-    // 注入高清图片管理 UI
-    fetch('hd-images-ui.html')
-      .then(r => r.text())
-      .then(html => {
-        document.getElementById('hd-images-ui').innerHTML = html;
-        if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') {
-          setLanguage(getCurrentLang());
-        }
-        // UI 注入后再尝试填充一次账户信息与加载高清模块
-        try { populateAccountInfo(); } catch(_) {}
-      });
-    
-    // 注入反馈功能 UI
-    fetch('feedback-ui.html')
-      .then(r => r.text())
-      .then(html => {
-        document.getElementById('feedback-ui').innerHTML = html;
-        if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') {
-          setLanguage(getCurrentLang());
-        }
-        // 初始化反馈功能
-        if (window.feedbackManager) {
-          window.feedbackManager.init();
-        }
-      });
-
-    // 初始化图片管理器与账户信息（避免再次强制调用 init 导致重复校验）
-    document.addEventListener('DOMContentLoaded', () => {
-      function populateAccountInfo(){
-        const user = window.authManager?.getCurrentUser?.() || (function(){ try { return JSON.parse(localStorage.getItem('user_info')||'null'); } catch(_) { return null; } })();
-        const greetingEl = document.getElementById('account-greeting');
-        const uname = document.getElementById('profile-username');
-        const email = document.getElementById('profile-email');
-        if (user && uname && email) {
-          // 优先显示后端用户名，回退邮箱
-          uname.value = user.username || user.name || user.email || '';
-          email.value = user.email || '';
-          const nameText = user.username || user.name || user.email || '';
-          const tpl = (typeof getCurrentLang==='function' && getCurrentLang()==='zh') ? '您好，{name}' : 'Hello, {name}';
-          if (greetingEl) greetingEl.textContent = tpl.replace('{name}', nameText);
-        }
-      }
-      setTimeout(() => {
-        if (window.authManager) {
-          if (window.authManager.isLoggedIn && window.authManager.isLoggedIn()) {
-            if (window.hdImageManager && window.hdImageManager.init) {
-              window.hdImageManager.init();
-            }
-            // 填充账户信息
+    <script src="js/i18n.js?v=20250909"></script>
+    <script src="js/auth_modals.js?v=20250909" defer></script>
+    <script src="js/auth.js?v=20250909" defer></script>
+    <script src="js/hd_image_manager.js?v=20250909" defer></script>
+    <script src="js/feedback_manager.js?v=20250909" defer></script>
+    <div id="auth-modals"></div>
+    <script>
+      // 注入认证模态
+      fetch("auth-modals.html")
+        .then((r) => r.text())
+        .then((html) => {
+          document.getElementById("auth-modals").innerHTML = html;
+          window.initAuthForms && window.initAuthForms();
+          if (typeof setLanguage === "function" && typeof getCurrentLang === "function")
+            setLanguage(getCurrentLang());
+        });
+      // 注入高清图片管理 UI
+      fetch("hd-images-ui.html")
+        .then((r) => r.text())
+        .then((html) => {
+          document.getElementById("hd-images-ui").innerHTML = html;
+          if (typeof setLanguage === "function" && typeof getCurrentLang === "function") {
+            setLanguage(getCurrentLang());
+          }
+          // UI 注入后再尝试填充一次账户信息与加载高清模块
+          try {
             populateAccountInfo();
-          }
-        }
-      }, 300);
-
-      // 监听认证状态变化，登录恢复后刷新账户信息
-      try {
-        window.addEventListener('authChanged', populateAccountInfo);
-        window.addEventListener('auth-changed', populateAccountInfo);
-      } catch(_) {}
-
-      // 语言切换
-      const langSelect = document.getElementById('lang-select');
-      if (langSelect) {
-        langSelect.value = getCurrentLang();
-        langSelect.addEventListener('change', (e)=> setLanguage(e.target.value));
-      }
-
-      // 同步meta描述
-      const applyUserMeta = ()=>{
-        const lang = getCurrentLang();
-        const meta = document.querySelector('meta[name="description"]');
-        if (meta && window.i18n && window.i18n[lang] && window.i18n[lang].userMetaDescription) {
-          meta.content = window.i18n[lang].userMetaDescription;
-        }
-      };
-      applyUserMeta();
-      document.addEventListener('languageChanged', applyUserMeta);
-
-      // 用户菜单下拉
-      const userMenuToggle = document.getElementById('userMenuToggle');
-      const userDropdown = document.getElementById('userDropdown');
-      if (userMenuToggle && userDropdown) {
-        userMenuToggle.addEventListener('click', (e)=>{
-          e.stopPropagation();
-          const shown = userDropdown.style.display === 'block';
-          userDropdown.style.display = shown ? 'none' : 'block';
-          userMenuToggle.setAttribute('aria-expanded', (!shown).toString());
+          } catch (_) {}
         });
-        document.addEventListener('click', ()=>{
-          if (userDropdown.style.display === 'block') {
-            userDropdown.style.display = 'none';
-            userMenuToggle.setAttribute('aria-expanded', 'false');
+
+      // 注入反馈功能 UI
+      fetch("feedback-ui.html")
+        .then((r) => r.text())
+        .then((html) => {
+          document.getElementById("feedback-ui").innerHTML = html;
+          if (typeof setLanguage === "function" && typeof getCurrentLang === "function") {
+            setLanguage(getCurrentLang());
+          }
+          // 初始化反馈功能
+          if (window.feedbackManager) {
+            window.feedbackManager.init();
           }
         });
-      }
 
-      // 保存资料按钮（演示）
-      const updateBtn = document.getElementById('btn-update-profile');
-      updateBtn?.addEventListener('click', ()=>{
-        window.authManager?.showMessage(t('userUpdateSuccess') || '更新成功', 'success');
-      });
-
-      // 修改密码（演示）
-      const savePwdBtn = document.getElementById('btn-save-password');
-      savePwdBtn?.addEventListener('click', ()=>{
-        const p1 = document.getElementById('new-password')?.value || '';
-        const p2 = document.getElementById('confirm-password')?.value || '';
-        if (p1 !== p2) {
-          window.authManager?.showMessage(t('userPasswordMismatch') || '两次输入的密码不一致', 'error');
-          return;
+      // 初始化图片管理器与账户信息（避免再次强制调用 init 导致重复校验）
+      document.addEventListener("DOMContentLoaded", () => {
+        function populateAccountInfo() {
+          const user =
+            window.authManager?.getCurrentUser?.() ||
+            (function () {
+              try {
+                return JSON.parse(localStorage.getItem("user_info") || "null");
+              } catch (_) {
+                return null;
+              }
+            })();
+          const greetingEl = document.getElementById("account-greeting");
+          const uname = document.getElementById("profile-username");
+          const email = document.getElementById("profile-email");
+          if (user && uname && email) {
+            // 优先显示后端用户名，回退邮箱
+            uname.value = user.username || user.name || user.email || "";
+            email.value = user.email || "";
+            const nameText = user.username || user.name || user.email || "";
+            const tpl =
+              typeof getCurrentLang === "function" && getCurrentLang() === "zh"
+                ? "您好，{name}"
+                : "Hello, {name}";
+            if (greetingEl) greetingEl.textContent = tpl.replace("{name}", nameText);
+          }
         }
-        window.authManager?.showMessage(t('userFeatureComing') || '功能开发中，敬请期待', 'info');
+        setTimeout(() => {
+          if (window.authManager) {
+            if (window.authManager.isLoggedIn && window.authManager.isLoggedIn()) {
+              if (window.hdImageManager && window.hdImageManager.init) {
+                window.hdImageManager.init();
+              }
+              // 填充账户信息
+              populateAccountInfo();
+            }
+          }
+        }, 300);
+
+        // 监听认证状态变化，登录恢复后刷新账户信息
+        try {
+          window.addEventListener("authChanged", populateAccountInfo);
+          window.addEventListener("auth-changed", populateAccountInfo);
+        } catch (_) {}
+
+        // 语言切换
+        const langSelect = document.getElementById("lang-select");
+        if (langSelect) {
+          langSelect.value = getCurrentLang();
+          langSelect.addEventListener("change", (e) => setLanguage(e.target.value));
+        }
+
+        // 同步meta描述
+        const applyUserMeta = () => {
+          const lang = getCurrentLang();
+          const meta = document.querySelector('meta[name="description"]');
+          if (meta && window.i18n && window.i18n[lang] && window.i18n[lang].userMetaDescription) {
+            meta.content = window.i18n[lang].userMetaDescription;
+          }
+        };
+        applyUserMeta();
+        document.addEventListener("languageChanged", applyUserMeta);
+
+        // 用户菜单下拉
+        const userMenuToggle = document.getElementById("userMenuToggle");
+        const userDropdown = document.getElementById("userDropdown");
+        if (userMenuToggle && userDropdown) {
+          userMenuToggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const shown = userDropdown.style.display === "block";
+            userDropdown.style.display = shown ? "none" : "block";
+            userMenuToggle.setAttribute("aria-expanded", (!shown).toString());
+          });
+          document.addEventListener("click", () => {
+            if (userDropdown.style.display === "block") {
+              userDropdown.style.display = "none";
+              userMenuToggle.setAttribute("aria-expanded", "false");
+            }
+          });
+        }
+
+        // 保存资料按钮（演示）
+        const updateBtn = document.getElementById("btn-update-profile");
+        updateBtn?.addEventListener("click", () => {
+          window.authManager?.showMessage(t("userUpdateSuccess") || "更新成功", "success");
+        });
+
+        // 修改密码（演示）
+        const savePwdBtn = document.getElementById("btn-save-password");
+        savePwdBtn?.addEventListener("click", () => {
+          const p1 = document.getElementById("new-password")?.value || "";
+          const p2 = document.getElementById("confirm-password")?.value || "";
+          if (p1 !== p2) {
+            window.authManager?.showMessage(
+              t("userPasswordMismatch") || "两次输入的密码不一致",
+              "error"
+            );
+            return;
+          }
+          window.authManager?.showMessage(t("userFeatureComing") || "功能开发中，敬请期待", "info");
+        });
       });
-    });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
-

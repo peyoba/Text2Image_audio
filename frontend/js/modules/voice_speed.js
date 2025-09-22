@@ -10,7 +10,7 @@
  * })
  */
 (function () {
-  'use strict';
+  "use strict";
 
   function clampRate(value) {
     var v = parseFloat(value);
@@ -22,12 +22,16 @@
 
   function applyToAudio(audio, rate) {
     if (!audio) return;
-    try { audio.playbackRate = rate; } catch (_) {}
+    try {
+      audio.playbackRate = rate;
+    } catch (_) {}
   }
 
   function showOnDisplay(display, rate) {
     if (!display) return;
-    try { display.textContent = String(rate) + 'x'; } catch (_) {}
+    try {
+      display.textContent = String(rate) + "x";
+    } catch (_) {}
   }
 
   function loadSaved(key) {
@@ -35,25 +39,31 @@
       var saved = localStorage.getItem(key);
       var n = parseFloat(saved);
       return isNaN(n) ? null : n;
-    } catch (_) { return null; }
+    } catch (_) {
+      return null;
+    }
   }
 
   function persist(key, value) {
-    try { localStorage.setItem(key, String(value)); } catch (_) {}
+    try {
+      localStorage.setItem(key, String(value));
+    } catch (_) {}
   }
 
   function init(options) {
     options = options || {};
-    var slider = document.getElementById(options.sliderId || 'voice-speed');
-    var display = document.getElementById(options.displayId || 'speed-display');
-    var audio = document.getElementById(options.audioId || 'generated-audio');
-    var storageKey = options.storageKey || 'voice_speed';
+    var slider = document.getElementById(options.sliderId || "voice-speed");
+    var display = document.getElementById(options.displayId || "speed-display");
+    var audio = document.getElementById(options.audioId || "generated-audio");
+    var storageKey = options.storageKey || "voice_speed";
     if (!slider || !display) return;
 
     // restore saved
     var restored = loadSaved(storageKey);
     if (restored != null) {
-      try { slider.value = String(restored); } catch (_) {}
+      try {
+        slider.value = String(restored);
+      } catch (_) {}
     }
 
     // apply initial
@@ -62,14 +72,14 @@
     applyToAudio(audio, rate);
 
     // live update on input
-    slider.addEventListener('input', function () {
+    slider.addEventListener("input", function () {
       var r = clampRate(slider.value);
       showOnDisplay(display, r);
       applyToAudio(audio, r);
     });
 
     // persist on change
-    slider.addEventListener('change', function () {
+    slider.addEventListener("change", function () {
       var r = clampRate(slider.value);
       persist(storageKey, r);
     });
@@ -77,5 +87,3 @@
 
   window.VoiceSpeed = { init: init };
 })();
-
-

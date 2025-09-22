@@ -1,125 +1,123 @@
 /* 设计令牌（只读引入）。变量值的修改应走可控灰度发布，避免回归。*/
 :root {
-    /* 品牌色 */
-    --color-brand-primary: #00CFFF;
-    --color-brand-secondary: #667eea;
-    --color-surface-0: #151c29;
-    --color-surface-1: #1A223A;
-    --color-surface-2: #232B45;
-    --color-text-primary: #AAB4D4;
-    --color-text-contrast: #181f2e;
-    /* 链接主色（等值替换用，保持回退） */
-    --color-link-primary: #007bff;
+  /* 品牌色 */
+  --color-brand-primary: #00cfff;
+  --color-brand-secondary: #667eea;
+  --color-surface-0: #151c29;
+  --color-surface-1: #1a223a;
+  --color-surface-2: #232b45;
+  --color-text-primary: #aab4d4;
+  --color-text-contrast: #181f2e;
+  /* 链接主色（等值替换用，保持回退） */
+  --color-link-primary: #007bff;
 
-    /* 次要高亮蓝（等值替换用，保持回退） */
-    --color-accent-blue: #4a90e2;
-    --color-accent-blue-dark: #2980b9;
+  /* 次要高亮蓝（等值替换用，保持回退） */
+  --color-accent-blue: #4a90e2;
+  --color-accent-blue-dark: #2980b9;
 
-    /* 中性色（等值替换用，保持回退） */
-    --color-border-muted: #e9ecef; /* 细边框灰 */
-    --color-surface-muted: #f8f9fa; /* 浅灰背景 */
+  /* 中性色（等值替换用，保持回退） */
+  --color-border-muted: #e9ecef; /* 细边框灰 */
+  --color-surface-muted: #f8f9fa; /* 浅灰背景 */
 
-    /* 阴影 */
-    --shadow-card: 0 2px 12px rgba(0,207,255,0.10);
+  /* 阴影 */
+  --shadow-card: 0 2px 12px rgba(0, 207, 255, 0.1);
 
-    /* 圆角 */
-    --radius-2xs: 4px;
-    --radius-xs: 6px;
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 18px;
-    --radius-xl: 24px;
+  /* 圆角 */
+  --radius-2xs: 4px;
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
 
-    /* 间距 */
-    --space-1: 4px;
-    --space-2: 8px;
-    --space-3: 12px;
-    --space-4: 16px;
-    --space-5: 20px;
-    --space-6: 24px;
+  /* 间距 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
 
-    /* 语音页与深色组件专用（等值替换，零视觉回归） */
-    --color-wave-bg: #0e1424; /* 语音波形/深色容器背景 */
-    --color-accent-border: #2A3A57; /* 深色容器描边 */
-    --color-accent-dark: #121a2d; /* 深色悬停背景 */
-    --color-text-muted-2: #d6def8; /* 次级浅色文字 */
-    /* CTA 与细节色（等值替换，零视觉回归） */
-    --color-cta-primary: #4f46e5; /* 主CTA按钮/链接 */
-    --color-cta-primary-dark: #4338ca; /* CTA悬停态 */
-    --color-text-verylight: #e5e7eb; /* 更浅的文本色 */
-    --color-avatar-bg: #0b1220; /* 头像占位背景 */
-    --color-accent-border-strong: #273548; /* 更深的描边 */
-    --color-accent-border-hover: #2f4b7a; /* 描边悬停态 */
-    /* Admin/状态语义色（等值替换，零视觉回归） */
-    --color-admin-surface: #1a1f2e; /* 管理后台基础背景 */
-    --color-surface-deep: #0f172a; /* 更深背景（下拉/代码块） */
-    --overlay-surface-strong: rgba(15,23,42,0.8); /* 深色叠加背景 */
-    --overlay-surface-hover: rgba(30,41,59,0.5); /* 列表 hover 叠加 */
-    --color-info: #3b82f6; /* 信息 */
-    --color-success: #10b981; /* 成功 */
-    --color-success-dark: #059669; /* 成功 hover */
-    --color-danger: #ef4444; /* 危险 */
-    --color-danger-dark: #dc2626; /* 危险 hover */
-    --color-warning: #f59e0b; /* 警告 */
-    --color-warning-text: #1f2937; /* 警告文本 */
-    --color-purple: #8b5cf6; /* 改进 */
-    --color-gray-500: #6b7280; /* 其他/中性标签 */
-    --color-text-secondary: #94a3b8; /* 次级文字 */
-    --color-danger-soft: #fca5a5; /* 轻危险文字 */
-    --color-border-alt: #334155; /* 次级边框 */
-    /* 其他中性边框（等值替换，零视觉回归） */
-    --color-border-soft: #ddd; /* 细浅灰边框 */
-    --color-border-subtle: #adb5bd; /* 更深一些的灰边框 */
-    --color-border-alt-2: #dee2e6; /* 辅助浅灰边框 */
-    --color-border-neutral: #e0e0e0; /* 中性边框 */
+  /* 语音页与深色组件专用（等值替换，零视觉回归） */
+  --color-wave-bg: #0e1424; /* 语音波形/深色容器背景 */
+  --color-accent-border: #2a3a57; /* 深色容器描边 */
+  --color-accent-dark: #121a2d; /* 深色悬停背景 */
+  --color-text-muted-2: #d6def8; /* 次级浅色文字 */
+  /* CTA 与细节色（等值替换，零视觉回归） */
+  --color-cta-primary: #4f46e5; /* 主CTA按钮/链接 */
+  --color-cta-primary-dark: #4338ca; /* CTA悬停态 */
+  --color-text-verylight: #e5e7eb; /* 更浅的文本色 */
+  --color-avatar-bg: #0b1220; /* 头像占位背景 */
+  --color-accent-border-strong: #273548; /* 更深的描边 */
+  --color-accent-border-hover: #2f4b7a; /* 描边悬停态 */
+  /* Admin/状态语义色（等值替换，零视觉回归） */
+  --color-admin-surface: #1a1f2e; /* 管理后台基础背景 */
+  --color-surface-deep: #0f172a; /* 更深背景（下拉/代码块） */
+  --overlay-surface-strong: rgba(15, 23, 42, 0.8); /* 深色叠加背景 */
+  --overlay-surface-hover: rgba(30, 41, 59, 0.5); /* 列表 hover 叠加 */
+  --color-info: #3b82f6; /* 信息 */
+  --color-success: #10b981; /* 成功 */
+  --color-success-dark: #059669; /* 成功 hover */
+  --color-danger: #ef4444; /* 危险 */
+  --color-danger-dark: #dc2626; /* 危险 hover */
+  --color-warning: #f59e0b; /* 警告 */
+  --color-warning-text: #1f2937; /* 警告文本 */
+  --color-purple: #8b5cf6; /* 改进 */
+  --color-gray-500: #6b7280; /* 其他/中性标签 */
+  --color-text-secondary: #94a3b8; /* 次级文字 */
+  --color-danger-soft: #fca5a5; /* 轻危险文字 */
+  --color-border-alt: #334155; /* 次级边框 */
+  /* 其他中性边框（等值替换，零视觉回归） */
+  --color-border-soft: #ddd; /* 细浅灰边框 */
+  --color-border-subtle: #adb5bd; /* 更深一些的灰边框 */
+  --color-border-alt-2: #dee2e6; /* 辅助浅灰边框 */
+  --color-border-neutral: #e0e0e0; /* 中性边框 */
 
-    /* 亮面文字与浅色背景（用于白底内容页） */
-    --color-surface-white: #fff; /* 纯白背景 */
-    --color-surface-verylight: #f9f9f9; /* 非常浅的灰白背景 */
-    --color-surface-info-soft: #e8f4fd; /* 信息提示浅蓝底 */
-    --color-text-on-light-strong: #333; /* 白底正文强对比 */
-    --color-text-on-light: #555; /* 白底正文默认 */
-    --color-text-on-light-muted: #666; /* 白底次级文字 */
-    --color-text-on-light-subtle: #888; /* 白底更次级文字 */
-    --color-text-on-light-darker: #222; /* 白底更深文字 */
+  /* 亮面文字与浅色背景（用于白底内容页） */
+  --color-surface-white: #fff; /* 纯白背景 */
+  --color-surface-verylight: #f9f9f9; /* 非常浅的灰白背景 */
+  --color-surface-info-soft: #e8f4fd; /* 信息提示浅蓝底 */
+  --color-text-on-light-strong: #333; /* 白底正文强对比 */
+  --color-text-on-light: #555; /* 白底正文默认 */
+  --color-text-on-light-muted: #666; /* 白底次级文字 */
+  --color-text-on-light-subtle: #888; /* 白底更次级文字 */
+  --color-text-on-light-darker: #222; /* 白底更深文字 */
 
-    /* 深色表面与描边（扩展） */
-    --color-surface-dark-2: #232B3E; /* 深色容器（与 surface-2 接近） */
-    --color-surface-dark-alt: #10182A; /* 深色替代表面 */
-    --color-surface-dark-3: #262b35; /* 深色卡片背景 */
-    --color-border-dark-1: #2D3650; /* 深色描边 */
+  /* 深色表面与描边（扩展） */
+  --color-surface-dark-2: #232b3e; /* 深色容器（与 surface-2 接近） */
+  --color-surface-dark-alt: #10182a; /* 深色替代表面 */
+  --color-surface-dark-3: #262b35; /* 深色卡片背景 */
+  --color-border-dark-1: #2d3650; /* 深色描边 */
 
-    /* 输入与浅色描边扩展 */
-    --color-border-input: #d1d9e6; /* 输入框描边 */
-    --color-border-input-2: #e1e8ed; /* 更浅的输入描边 */
+  /* 输入与浅色描边扩展 */
+  --color-border-input: #d1d9e6; /* 输入框描边 */
+  --color-border-input-2: #e1e8ed; /* 更浅的输入描边 */
 
-    /* 渐变与强调色（扩展） */
-    --color-accent-purple-strong: #764ba2; /* 强紫色强调（渐变端点） */
-    --color-cta-blue-start: #0099E6; /* CTA 渐变蓝起点 */
-    --color-cta-blue-end: #005F99; /* CTA 渐变蓝终点 */
-    --color-cta-blue-hover-end: #4F8CFF; /* CTA hover 渐变终点 */
-    --color-cta-success: #2ecc71; /* 成功 CTA 绿 */
-    --color-cta-success-dark: #27ae60; /* 成功 CTA 绿（深） */
+  /* 渐变与强调色（扩展） */
+  --color-accent-purple-strong: #764ba2; /* 强紫色强调（渐变端点） */
+  --color-cta-blue-start: #0099e6; /* CTA 渐变蓝起点 */
+  --color-cta-blue-end: #005f99; /* CTA 渐变蓝终点 */
+  --color-cta-blue-hover-end: #4f8cff; /* CTA hover 渐变终点 */
+  --color-cta-success: #2ecc71; /* 成功 CTA 绿 */
+  --color-cta-success-dark: #27ae60; /* 成功 CTA 绿（深） */
 
-    /* 提示与错误（浅底） */
-    --color-error: #e74c3c; /* 错误红 */
-    --color-error-bg-1: #fdecec; /* 错误浅底渐变起 */
-    --color-error-bg-2: #fdf2f2; /* 错误浅底渐变止 */
-    --color-warning-gold: #FFD700; /* 金色（评分星等） */
+  /* 提示与错误（浅底） */
+  --color-error: #e74c3c; /* 错误红 */
+  --color-error-bg-1: #fdecec; /* 错误浅底渐变起 */
+  --color-error-bg-2: #fdf2f2; /* 错误浅底渐变止 */
+  --color-warning-gold: #ffd700; /* 金色（评分星等） */
 
-    /* 其他文本色（扩展） */
-    --color-text-light-2: #E3E6F3; /* 更亮的浅色文字 */
-    --color-text-light-3: #e0e6f6; /* 浅蓝白文字 */
-    --color-text-brand-soft: #bfc7e6; /* 品牌相关柔和文字 */
-    --color-text-light-4: #e0e6f8; /* 更浅蓝白文字 */
+  /* 其他文本色（扩展） */
+  --color-text-light-2: #e3e6f3; /* 更亮的浅色文字 */
+  --color-text-light-3: #e0e6f6; /* 浅蓝白文字 */
+  --color-text-brand-soft: #bfc7e6; /* 品牌相关柔和文字 */
+  --color-text-light-4: #e0e6f8; /* 更浅蓝白文字 */
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --color-surface-0: #0f1420;
-        --color-surface-1: #141a2a;
-        --color-surface-2: #1a2032;
-    }
+  :root {
+    --color-surface-0: #0f1420;
+    --color-surface-1: #141a2a;
+    --color-surface-2: #1a2032;
+  }
 }
-
-

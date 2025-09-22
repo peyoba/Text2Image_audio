@@ -15,7 +15,9 @@ Click the links below to see examples in your browser:
 - **Generate Audio 🗣️:** [`https://text.pollinations.ai/respond_with_a_small_hypnosis_urging_to_donate_to_pollinations_its_a_joke?model=openai-audio&voice=nova`](https://text.pollinations.ai/respond_with_a_small_hypnosis_urging_to_donate_to_pollinations_its_a_joke?model=openai-audio&voice=nova)
 
 ---
+
 ## Summary / Navigation
+
 - [Pollinations.AI API Documentation](#pollinationsai-api-documentation)
   - [Quickstart](#quickstart)
   - [Summary / Navigation](#summary--navigation)
@@ -35,6 +37,7 @@ Click the links below to see examples in your browser:
   - [Real-time Feeds API 🔄](#real-time-feeds-api-)
   - [Authentication & Tiers 🔑](#authentication--tiers-)
   - [License 📜](#license-)
+
 ---
 
 # Generate Image API 🖼️
@@ -54,7 +57,7 @@ Generates an image based on a text description.
 | `seed`     | No       | Seed for reproducible results.                                                     |         |
 | `width`    | No       | Width of the generated image in pixels.                                            | 1024    |
 | `height`   | No       | Height of the generated image in pixels.                                           | 1024    |
-| `image`    | No       | URL of input image for image-to-image generation/editing (kontext model).    |         |
+| `image`    | No       | URL of input image for image-to-image generation/editing (kontext model).          |         |
 | `nologo`   | No       | Set to `true` to disable the Pollinations logo overlay (for registered users).     | `false` |
 | `private`  | No       | Set to `true` to prevent the image from appearing in the public feed.              | `false` |
 | `enhance`  | No       | Set to `true` to enhance the prompt using an LLM for more detail.                  | `false` |
@@ -117,7 +120,6 @@ except requests.exceptions.RequestException as e:
 
 </details>
 
-
 ### 2. List Available Image Models 📜
 
 `GET https://image.pollinations.ai/models`
@@ -167,20 +169,20 @@ Generates text based on a simple prompt. This endpoint is ideal for straightforw
 
 **Parameters:**
 
-| Parameter            | Required | Description                                                                                | Options                   | Default  |
-| :------------------- | :------- | :----------------------------------------------------------------------------------------- | :------------------------ | :------- |
-| `prompt`             | Yes      | Text prompt for the AI. Should be URL-encoded.                                             |                           |          |
-| `model`              | No       | Model for generation. See [Available Text Models](#list-available-text-models-).           | `openai`, `mistral`, etc. | `openai` |
-| `seed`               | No       | Seed for reproducible results.                                                             |                           |          |
-| `temperature`        | No       | Controls randomness in output. Higher values make output more random.                      | `0.0` to `3.0`            |          |
-| `top_p`              | No       | Nucleus sampling parameter. Controls diversity via cumulative probability.                 | `0.0` to `1.0`            |          |
-| `presence_penalty`   | No       | Penalizes tokens based on their presence in the text so far.                              | `-2.0` to `2.0`           |          |
-| `frequency_penalty`  | No       | Penalizes tokens based on their frequency in the text so far.                             | `-2.0` to `2.0`           |          |
-| `json`               | No       | Set to `true` to receive the response formatted as a JSON string.                          | `true` / `false`          | `false`  |
-| `system`             | No       | System prompt to guide AI behavior. Should be URL-encoded.                                 |                           |          |
-| `stream`             | No       | Set to `true` for streaming responses via Server-Sent Events (SSE). Handle `data:` chunks. | `true` / `false`          | `false`  |
-| `private`            | No       | Set to `true` to prevent the response from appearing in the public feed.                   | `true` / `false`          | `false`  |
-| `referrer`           | No\*     | Referrer URL/Identifier. See [Referrer Section](#referrer).                                |                           |          |
+| Parameter           | Required | Description                                                                                | Options                   | Default  |
+| :------------------ | :------- | :----------------------------------------------------------------------------------------- | :------------------------ | :------- |
+| `prompt`            | Yes      | Text prompt for the AI. Should be URL-encoded.                                             |                           |          |
+| `model`             | No       | Model for generation. See [Available Text Models](#list-available-text-models-).           | `openai`, `mistral`, etc. | `openai` |
+| `seed`              | No       | Seed for reproducible results.                                                             |                           |          |
+| `temperature`       | No       | Controls randomness in output. Higher values make output more random.                      | `0.0` to `3.0`            |          |
+| `top_p`             | No       | Nucleus sampling parameter. Controls diversity via cumulative probability.                 | `0.0` to `1.0`            |          |
+| `presence_penalty`  | No       | Penalizes tokens based on their presence in the text so far.                               | `-2.0` to `2.0`           |          |
+| `frequency_penalty` | No       | Penalizes tokens based on their frequency in the text so far.                              | `-2.0` to `2.0`           |          |
+| `json`              | No       | Set to `true` to receive the response formatted as a JSON string.                          | `true` / `false`          | `false`  |
+| `system`            | No       | System prompt to guide AI behavior. Should be URL-encoded.                                 |                           |          |
+| `stream`            | No       | Set to `true` for streaming responses via Server-Sent Events (SSE). Handle `data:` chunks. | `true` / `false`          | `false`  |
+| `private`           | No       | Set to `true` to prevent the response from appearing in the public feed.                   | `true` / `false`          | `false`  |
+| `referrer`          | No\*     | Referrer URL/Identifier. See [Referrer Section](#referrer).                                |                           |          |
 
 **Return:** Generated text (plain text or JSON string if `json=true`) 📝. If `stream=true`, returns an SSE stream.
 
@@ -253,8 +255,6 @@ except requests.exceptions.RequestException as e:
 
 ---
 
-
-
 ### 2. List Available Text Models 📜
 
 `GET https://text.pollinations.ai/models`
@@ -283,16 +283,16 @@ url = "https://text.pollinations.ai/models"
 try:
     response = requests.get(url)
     response.raise_for_status()
-    models_data = response.json() 
+    models_data = response.json()
     print("Available Text Models & Voices:")
     print(json.dumps(models_data, indent=2))
-    
+
     # Example of how you might parse specific parts based on the expected structure:
     # If `models_data` is a list of dictionaries, you can extract model IDs:
     # if isinstance(models_data, list):
     #    model_ids = [m.get('id') for m in models_data if m.get('id')]
     #    print("\nModel IDs:", model_ids)
-    
+
     # If `models_data` is a dictionary where keys are model IDs, and values contain details:
     # if isinstance(models_data, dict):
     #     print("\nAvailable Voices (from openai-audio model details):")
@@ -309,7 +309,6 @@ except requests.exceptions.RequestException as e:
 </details>
 
 ---
-
 
 ### 3. Text & Multimodal (OpenAI Compatible POST) 🧠💬🖼️🎤⚙️
 
@@ -350,7 +349,7 @@ This endpoint follows the OpenAI Chat Completions API format for inputs where ap
 
 | Parameter                      | Description                                                                                                                                                      | Notes                                                                                                                 |
 | :----------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------- |
-| `messages`                     | An array of message objects (`role`: `system`, `user`, `assistant`). Used for Chat, Vision, STT.                                                                   | Required for most tasks.                                                                                              |
+| `messages`                     | An array of message objects (`role`: `system`, `user`, `assistant`). Used for Chat, Vision, STT.                                                                 | Required for most tasks.                                                                                              |
 | `model`                        | The model identifier. See [Available Text Models](#list-available-text-models-).                                                                                 | Required. e.g., `openai` (Chat/Vision), `openai-large` (Vision), `claude-hybridspace` (Vision), `openai-audio` (STT). |
 | `seed`                         | Seed for reproducible results (Text Generation).                                                                                                                 | Optional.                                                                                                             |
 | `temperature`                  | Controls randomness in output. Higher values make output more random (Text Generation).                                                                          | Optional. Range: `0.0` to `3.0`.                                                                                      |
@@ -485,8 +484,6 @@ except Exception as e:
 
 </details>
 
-
-
 ### 4. Text-to-Speech (GET) 📝➡️🎙️
 
 `GET https://text.pollinations.ai/{prompt}?model=openai-audio&voice={voice}`
@@ -495,10 +492,10 @@ Generates speech audio from text using a simple GET request. This method is best
 
 **Parameters:**
 
-| Parameter | Required | Description                                                                              | Options                                                   | Default        |
-| :-------- | :------- | :--------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :------------- |
-| `prompt`  | Yes      | Text to synthesize. Must be URL-encoded.                                                 |                                                           |                |
-| `model`   | Yes      | Must be `openai-audio` for Text-to-Speech functionality.                                 | `openai-audio`                                            | `openai-audio` |
+| Parameter | Required | Description                                                                                                | Options                                                   | Default        |
+| :-------- | :------- | :--------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :------------- |
+| `prompt`  | Yes      | Text to synthesize. Must be URL-encoded.                                                                   |                                                           |                |
+| `model`   | Yes      | Must be `openai-audio` for Text-to-Speech functionality.                                                   | `openai-audio`                                            | `openai-audio` |
 | `voice`   | No       | The voice to use for synthesis. See available voices via [List Text Models](#list-available-text-models-). | e.g., `alloy`, `echo`, `fable`, `onyx`, `nova`, `shimmer` | `alloy`        |
 
 **Return:** Audio file (MP3 format, `Content-Type: audio/mpeg`) 🎧 directly as the response body.
@@ -544,7 +541,7 @@ try:
         with open(output_filename, 'wb') as f:
             f.write(response.content)
         print(f"Audio saved successfully as {output_filename}")
-        
+
     else:
         print("Error: Expected audio response, but received unexpected content type or data.")
         print(f"Content-Type: {response.headers.get('Content-Type')}")
@@ -611,7 +608,7 @@ def transcribe_audio(audio_path, question="Transcribe this audio"):
 
     # Determine audio format (simple check by extension). Only WAV and MP3 are currently supported.
     audio_format = audio_path.split('.')[-1].lower()
-    supported_formats = ['mp3', 'wav'] 
+    supported_formats = ['mp3', 'wav']
     if audio_format not in supported_formats:
          print(f"Warning: Potentially unsupported audio format '{audio_format}'. Only {', '.join(supported_formats)} are officially supported.")
          return None # Or raise an error if strict
@@ -648,15 +645,14 @@ def transcribe_audio(audio_path, question="Transcribe this audio"):
 
 # --- Usage Example (Uncomment to run) ---
 # # Replace 'path/to/your/audio.wav' with an actual audio file path (e.g., 'sample.wav' or 'sample.mp3')
-# transcript = transcribe_audio('path/to/your/audio.wav') 
+# transcript = transcribe_audio('path/to/your/audio.wav')
 # if transcript:
 #     print("Transcription:", transcript)
 # else:
 #     print("Transcription failed.")
 ```
 
-</details>
----
+## </details>
 
 # Vision Capabilities (Image Input) 🖼️➡️📝
 
@@ -804,7 +800,6 @@ def analyze_local_image(image_path, question="What's in this image?"):
 
 ---
 
-
 # Function Calling ⚙️
 
 - **Models:** Check compatibility using the [List Text Models](#list-available-text-models-) endpoint (e.g., `openai` models often support this).
@@ -915,7 +910,7 @@ try:
     if response_data.get("choices", [{}])[0].get("message", {}).get("tool_calls"):
         print("\n--- Model requested tool call ---")
         # Assuming only one tool call for simplicity; iterate tool_calls for multiple
-        tool_call = response_data["choices"][0]["message"]["tool_calls"][0] 
+        tool_call = response_data["choices"][0]["message"]["tool_calls"][0]
         function_name = tool_call["function"]["name"]
         function_args = json.loads(tool_call["function"]["arguments"])
 
@@ -927,7 +922,7 @@ try:
             )
 
             # Append the assistant's request (with tool_calls) to the message history
-            messages.append(response_data["choices"][0]["message"]) 
+            messages.append(response_data["choices"][0]["message"])
             # Append the tool's response to the message history
             messages.append(
                 {
@@ -976,7 +971,6 @@ except Exception as e:
 **Rate Limits:** (Inherits base text API limits, potentially subject to specific model constraints). See [Tiers](#tiers--rate-limits) for details.
 
 ---
-
 
 # MCP Server for AI Assistants 🤖🔧
 
@@ -1029,7 +1023,8 @@ To install:
     - `sendUserMessage: (message: { role: 'user', content: string | Array<any> }) => void`: A function to send a new user message to the chat.
     - `messages: Array<{role: string, content: string}>`: The current array of messages in the conversation (including user and assistant messages).
 
-**Documentation & Playground:** 
+**Documentation & Playground:**
+
 - **README:** [https://github.com/pollinations/pollinations/blob/master/pollinations-react/README.md](https://github.com/pollinations/pollinations/blob/master/pollinations-react/README.md)
 - **PLAYGROUND:** Experiment with the hooks live at [https://react-hooks.pollinations.ai/](https://react-hooks.pollinations.ai/)
 
@@ -1099,7 +1094,7 @@ def connect_image_feed():
                          # You can further process image_data here, e.g., display in a UI, log to a database, etc.
                      except json.JSONDecodeError:
                          print(f"\nReceived non-JSON data from image feed: {event.data}")
-                         
+
         except requests.exceptions.RequestException as e:
             print(f"\nConnection error to image feed: {e}. Reconnecting in 10 seconds...")
             time.sleep(10) # Wait before attempting to reconnect
@@ -1207,7 +1202,6 @@ def connect_text_feed():
 
 </details>
 
-
 ---
 
 # Authentication & Tiers 🔑
@@ -1221,11 +1215,12 @@ Choose the authentication approach that best fits your workflow—whether you're
 ### Getting Started
 
 **Visit [auth.pollinations.ai](https://auth.pollinations.ai) to:**
+
 - Set up and register your application's referrer
 - Create API tokens for backend applications
 - Manage your authentication settings
 
-> **Security Best Practice**: Never expose API tokens in frontend code! 
+> **Security Best Practice**: Never expose API tokens in frontend code!
 > Frontend web applications should rely on referrer-based authentication.
 
 ### Authentication Methods
@@ -1240,11 +1235,13 @@ For **frontend web applications** that call our APIs directly from the browser, 
 - **No token needed** - keeping your frontend secure by avoiding exposure of sensitive credentials.
 
 **How to Use Referrers:**
+
 1. **Automatic (Browser)**: When your web app makes API calls, browsers automatically send the `Referer` header.
 2. **Manual (Optional)**: Add `?referrer=your-app-identifier` to API requests for more specific identification.
 3. **Register**: Visit [auth.pollinations.ai](https://auth.pollinations.ai) to register your domain for increased rate limits and benefits.
 
 **Example API call with explicit referrer:**
+
 ```
 https://image.pollinations.ai/prompt/a%20beautiful%20landscape?referrer=mywebapp.com
 ```
@@ -1253,11 +1250,11 @@ https://image.pollinations.ai/prompt/a%20beautiful%20landscape?referrer=mywebapp
 
 For **backend services, scripts, and server applications**, tokens provide the highest priority access and are the **recommended method for non-browser environments**. Tokens can be provided using any of these methods:
 
-| Method | Description | Example |
-| :--- | :--- | :--- |
+| Method               | Description                                  | Example                            |
+| :------------------- | :------------------------------------------- | :--------------------------------- |
 | Authorization Header | Standard Bearer token approach (recommended) | `Authorization: Bearer YOUR_TOKEN` |
-| Query Parameter | Token as URL parameter | `?token=YOUR_TOKEN` |
-| Request Body | Token in POST request body | `{ "token": "YOUR_TOKEN" }` |
+| Query Parameter      | Token as URL parameter                       | `?token=YOUR_TOKEN`                |
+| Request Body         | Token in POST request body                   | `{ "token": "YOUR_TOKEN" }`        |
 
 **Bearer Authentication (Recommended for Backend)**
 
@@ -1272,34 +1269,36 @@ curl https://text.pollinations.ai/openai \
     "messages": [
       {"role": "user", "content": "Tell me about yourself."}
     ]
-  }'  
+  }'
 ```
 
 ### Tiers & Rate Limits
 
 Pollinations.AI offers different access tiers, each with varying rate limits and model availability.
 
-| Tier | Rate Limit | Model Pack | Description |
-|------|-------------|--------|-------------|
-| anonymous | 15 seconds | Limited | Default tier for unauthenticated requests. |
-| **Seed** | 5 seconds | Standard | Access for registered applications via [auth.pollinations.ai](https://auth.pollinations.ai). |
-| **Flower** | 3 seconds | Advanced | Enhanced access with faster rate limits and a wider range of models. |
-| **Nectar** | None | Advanced | Unlimited usage, typically for enterprise or high-volume partners. |
+| Tier       | Rate Limit | Model Pack | Description                                                                                  |
+| ---------- | ---------- | ---------- | -------------------------------------------------------------------------------------------- |
+| anonymous  | 15 seconds | Limited    | Default tier for unauthenticated requests.                                                   |
+| **Seed**   | 5 seconds  | Standard   | Access for registered applications via [auth.pollinations.ai](https://auth.pollinations.ai). |
+| **Flower** | 3 seconds  | Advanced   | Enhanced access with faster rate limits and a wider range of models.                         |
+| **Nectar** | None       | Advanced   | Unlimited usage, typically for enterprise or high-volume partners.                           |
 
 **How to Access Tiers:**
-1. Get access to **Seed** tier: Visit ***[auth.pollinations.ai](https://auth.pollinations.ai)*** to register your application's referrer or create a token.
+
+1. Get access to **Seed** tier: Visit **_[auth.pollinations.ai](https://auth.pollinations.ai)_** to register your application's referrer or create a token.
 2. Higher tiers (Flower and Nectar) are available through [auth.pollinations.ai](https://auth.pollinations.ai).
 
 ### API Update (starting **2025.03.31**) 📅
 
 To ensure sustainability and provide a clear distinction between free and supported usage:
+
 - **Generate Image** responses may show the Pollinations.AI logo 🖼️. This can be disabled for registered users by setting `nologo=true` in the request parameters.
 - **Generate Text** responses may include a link to pollinations.ai 🔗. This behavior might be adjusted or removed for higher tiers.
 
 **For the best experience and to avoid these features:**
+
 - **Web Applications**: Register your referrer at [auth.pollinations.ai](https://auth.pollinations.ai).
 - **Backend Services**: Use API tokens instead of referrers (see [Authentication section](#authentication-)).
-
 
 ---
 

@@ -5,18 +5,19 @@
 ## 重要规范
 
 **文档和代码规范：**
+
 - 所有 Markdown 文档必须使用中文编写
 - 所有代码注释必须使用中文
-- 与用户的所有对话必须使用中文
--每次工作完成之后主动总结并记录当前工作进度和内容到Claude.md中，随时记录当前的项目状态和开发进度
--每一项任务完成，随时总结并更新工作进度和计划到Claude.md和PROJECT_STATUS_REPORT_2025.md  
+- 与用户的所有对话必须使用中文 -每次工作完成之后主动总结并记录当前工作进度和内容到Claude.md中，随时记录当前的项目状态和开发进度 -每一项任务完成，随时总结并更新工作进度和计划到Claude.md和PROJECT_STATUS_REPORT_2025.md
+
 ## 项目概述
 
 AISTONE 是部署在 Cloudflare 上的无服务器 AI 内容创作平台，提供免费的文本生成图像和文本转语音服务。平台采用分离架构，前端为静态资源 (Cloudflare Pages)，后端为 API 服务 (Cloudflare Workers)。
 
 ## 📊 最新开发状态 (2025-09-09)
 
-### ✅ 已完成优化 
+### ✅ 已完成优化
+
 1. **安全配置迁移** - wrangler.toml 中的敏感配置已正确迁移到 Cloudflare 环境变量
 2. **面包屑导航完善** - 为 privacy.html 和 terms.html 页面添加了面包屑导航
 3. **相关内容推荐系统** - 为 tutorial.html 和 faq.html 添加了相关内容推荐区域，增强用户体验
@@ -35,6 +36,7 @@ AISTONE 是部署在 Cloudflare 上的无服务器 AI 内容创作平台，提�
 16. **🔧 多语言系统完善** - 新增面包屑导航、服务页面相关内容推荐等关键区域的中英文翻译支持
 
 ### 🚀 智能语音重定向系统特色
+
 - **智能检测** - 自动识别主页语音生成请求，友好提示专业版优势
 - **无缝跳转** - 通过URL参数自动传递用户输入，保证数据不丢失
 - **双语支持** - 中英文确认对话框，适应不同用户需求
@@ -42,22 +44,27 @@ AISTONE 是部署在 Cloudflare 上的无服务器 AI 内容创作平台，提�
 - **专业分离** - 主页专注图像生成，voice.html提供完整语音合成体验
 
 ### 📋 新增专业内容特色
+
 - **ai-guide.html** - 超过3000字的专业AI技术指南，涵盖扩散模型原理、技术架构、实战案例
 - **prompt-engineering.html** - 超过4000字的提示词工程教程，包含语法规则、权重控制、风格融合等高级技巧
 - **about.html** - 企业级关于页面，展示技术实力、发展历程、团队愿景和企业服务
 
 ### 🎨 UI/UX 一致性优化成果
+
 - **统一设计语言** - voice.html页面完全重构，与主网站保持视觉和交互一致性
 - **标准化导航** - 所有页面使用统一导航结构，包含完整的功能页面链接
 - **美观弹窗设计** - 替换原有丑陋的confirm()弹窗，使用专业级模态框设计
 - **响应式布局优化** - 确保所有页面在不同设备上都有一致的用户体验
 
 ### 🌐 国际化支持完善
+
 - **英文优先策略** - 设置英文为默认语言，符合国际化最佳实践
 - **完整双语覆盖** - voice.html页面新增超过50个专业翻译条目
 - **语音功能翻译** - 完整覆盖语音合成功能的所有界面元素和提示信息
 - **语言切换优化** - 统一所有页面的语言选择器，确保切换体验一致
+
 ### 📱 移动端优化成果
+
 - **多断点响应式设计** - 支持768px, 480px, 375px等多种屏幕尺寸
 - **触摸设备专用优化** - 最小44px触摸目标，防止iOS自动缩放，触摸反馈效果
 - **手势交互系统** - 支持左右滑动控制菜单，长按弹出操作菜单
@@ -67,6 +74,7 @@ AISTONE 是部署在 Cloudflare 上的无服务器 AI 内容创作平台，提�
 - **无障碍访问** - 支持减少动画、高对比度、深色模式等用户偏好设置
 
 ### 🎯 AdSense 优化进展
+
 - **用户体验改进** - 相关内容推荐可提升页面停留时间和浏览深度
 - **导航体验优化** - 面包屑导航改善了网站结构化数据
 - **内容互联性增强** - 内部链接密度显著提升
@@ -75,6 +83,7 @@ AISTONE 是部署在 Cloudflare 上的无服务器 AI 内容创作平台，提�
 - **企业形象提升** - 改造后的about页面展现企业级服务能力
 
 ### 📈 实际成果
+
 - ✅ 内部链接密度提升至 6+ 链接/页面 (超出目标)
 - ✅ 专业内容覆盖率达到 85% (新增3个专业页面)
 - ✅ 页面间互联性完整建立，形成内容生态闭环
@@ -94,49 +103,58 @@ AISTONE 是部署在 Cloudflare 上的无服务器 AI 内容创作平台，提�
 ## 环境要求
 
 ### 开发环境依赖
+
 - **Node.js**: 版本 18.0.0 或更高 (用于 wrangler 等工具)
 - **Python**: 版本 3.8.0 或更高 (用于本地开发服务器)
 - **Git**: 最新版本 (用于版本控制和自动部署)
 
 ### 全局工具
+
 - **Wrangler CLI**: Cloudflare Workers 部署工具
   ```bash
   npm install -g wrangler
   ```
 
 ### 浏览器支持
+
 - 现代浏览器 (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+)
 - 支持 ES6+ 和 Fetch API
 
 ## 开发命令
 
 ### 前端开发
+
 - **本地开发服务器**: `python -m http.server 8000` (在 `frontend/` 目录下执行)
 - **Node.js 替代方案**: `npx http-server -p 8000 --cors` (在 `frontend/` 目录下执行)
 - **访问地址**: `http://localhost:8000`
 
 ### 后端部署
+
 - **部署到 Cloudflare Workers**: `wrangler deploy` (在项目根目录执行)
 - **Worker 名称**: `text2image-api` (在 `wrangler.toml` 中定义)
 - **Worker 入口文件**: `backend/index.js`
 
 ### 常用命令
+
 - **构建项目**: 此项目为静态前端，无需构建
 - **类型检查**: 目前未配置 TypeScript，使用原生 JavaScript
 - **依赖管理**: `npm install` (仅用于 wrangler 等开发工具)
 
 ### 开发工作流
+
 - 前端修改后直接推送到 GitHub，Cloudflare Pages 自动部署
 - 后端修改后使用 `wrangler deploy` 手动部署
 - 完成代码修改后建议进行手动功能测试
 
 ### 测试
+
 - 目前未配置自动化测试套件
 - 主要通过 Web 界面进行手动测试
 
 ## 架构
 
 ### 整体架构
+
 ```
 frontend/               # 静态 Web 资源 (Cloudflare Pages)
 ├── index.html         # 主应用入口页面
@@ -162,18 +180,21 @@ backend/               # Cloudflare Worker API
 ### 核心组件
 
 **前端架构:**
+
 - 原生 JavaScript ES6 模块，支持动态导入
 - 模块化设计，关注点分离 (API, UI, Auth)
 - 响应式设计，支持桌面和移动设备
 - 完整的国际化支持 (中英文切换)
 
 **后端架构:**
+
 - 基于 ES 模块的 Cloudflare Workers
 - JWT 认证集成 Google OAuth
 - KV 存储用于用户数据、图片缓存和反馈
 - 提供生成、认证和管理功能的 API 端点
 
 **外部集成:**
+
 - Pollinations.ai 用于图片和音频生成
 - DeepSeek API (通过 SiliconFlow) 用于中英文提示词优化
 - Google OAuth 用于用户认证
@@ -181,12 +202,14 @@ backend/               # Cloudflare Worker API
 ## 配置
 
 ### 环境变量 (在 wrangler.toml 中)
+
 - `DEEPSEEK_API_KEY`: 提示词优化必需
 - `JWT_SECRET`: JWT 令牌签名密钥
 - `ADMIN_KEY`: 管理员后台访问密钥
 - `LOG_LEVEL`: 设置为 "debug" 可获取详细日志
 
 ### KV 命名空间
+
 - `USERS`: 用户账户数据存储
 - `IMAGES_CACHE`: 高清图片缓存存储
 - `RESET_TOKENS`: 密码重置令牌存储
@@ -195,33 +218,39 @@ backend/               # Cloudflare Worker API
 ## API 端点
 
 ### 核心生成功能
+
 - `POST /api/generate`: 文本转图片和文本转语音生成
 - `POST /api/optimize`: 使用 DeepSeek 进行中文提示词优化
 
 ### 认证功能
+
 - `POST /api/auth/register`: 用户注册
 - `POST /api/auth/login`: 用户登录
 - `POST /api/auth/google-login`: Google OAuth 登录
 - `GET /api/auth/validate`: 令牌验证
 
 ### 用户功能
+
 - `POST /api/images/save`: 保存生成的图片到用户缓存
 - `GET /api/images/list`: 列出用户缓存的图片
 - `DELETE /api/images/delete`: 删除缓存图片
 
 ### 管理员功能
+
 - `GET /api/admin/feedback/list`: 列出所有反馈 (需要 ADMIN_KEY)
 - `POST /api/admin/feedback/update`: 更新反馈状态
 
 ## 开发指南
 
 ### 最新开发流程 (2025-09-08)
+
 - **用户体验优化优先级** - 优先实施面包屑导航、相关内容推荐等用户体验改进
 - **内容质量提升** - 专业内容页面创建（AI 指南、提示词工程教程）
 - **AdSense 合规优化** - 通过内容深度和用户留存时间改善来解决"低价值内容"问题
 - **内部链接策略** - 每个页面至少包含 3+ 个相关内容链接
 
 ### 代码编写规范
+
 - **ES6+ 语法**: 使用现代 JavaScript 特性和 ES 模块 (import/export)
 - **模块化设计**: 保持 UI、API 和业务逻辑的关注点分离
 - **命名规范**: 使用有意义的变量和函数名，优先使用英文命名
@@ -229,6 +258,7 @@ backend/               # Cloudflare Worker API
 - **错误处理**: 遵循现有的错误处理模式，提供用户友好的错误信息
 
 ### 代码风格
+
 - 使用 ES6+ 特性和模块
 - 在 UI、API 和业务逻辑之间保持关注点分离
 - 遵循现有的错误处理和用户反馈模式
@@ -241,6 +271,7 @@ backend/               # Cloudflare Worker API
   - API 接口注释 - 用中文描述接口的功能和用法
 
 ### 代码质量要求
+
 - **函数设计**: 保持函数单一职责，避免过长函数 (建议 < 50 行)
 - **变量声明**: 优先使用 `const`，需要重新赋值时使用 `let`，避免 `var`
 - **异步处理**: 使用 `async/await` 处理异步操作，避免回调地狱
@@ -248,6 +279,7 @@ backend/               # Cloudflare Worker API
 - **性能考虑**: 避免不必要的 DOM 操作，合理使用事件监听器
 
 ### 测试要求
+
 - **功能测试**: 每个新功能完成后必须进行手动功能测试
 - **兼容性测试**: 在主流浏览器中测试 (Chrome, Firefox, Safari, Edge)
 - **响应式测试**: 确保在不同屏幕尺寸下正常工作
@@ -256,6 +288,7 @@ backend/               # Cloudflare Worker API
 - **生产验证**: 部署后在生产环境进行完整功能验证
 
 ### 测试检查清单
+
 - [x] 图片生成功能 (不同尺寸、参数组合)
 - [x] 语音生成功能 (不同文本长度)
 - [x] 用户认证流程 (注册、登录、注销)
@@ -269,16 +302,19 @@ backend/               # Cloudflare Worker API
 - [ ] **新专业内容页面测试** (ai-guide.html, prompt-engineering.html) - 待完成
 
 ### API 集成模式
+
 - 使用 `fetchWithRetry` 辅助函数进行外部 API 调用 (实现自动重试逻辑)
 - 优雅地处理速率限制和 API 故障
 - 返回标准化的 JSON 响应和适当的 HTTP 状态码
 
 ### 认证流程
+
 - JWT 令牌存储在 localStorage 中并自动刷新
 - Google OAuth 集成用于社交登录
 - 在受保护端点上进行适当的令牌验证
 
 ### 图片生成工作流程
+
 1. 文本输入 (支持中文)
 2. 通过 DeepSeek API 自动优化提示词
 3. 通过 Pollinations API 生成图片
@@ -288,11 +324,13 @@ backend/               # Cloudflare Worker API
 ## Git 工作流规范
 
 ### 分支管理
+
 - **主分支**: `main` - 生产环境代码，自动部署到 Cloudflare Pages
 - **开发流程**: 直接在 `main` 分支开发 (小型项目简化流程)
 - **紧急修复**: 可创建 `hotfix/` 分支进行紧急修复
 
 ### 提交规范
+
 - **提交信息格式**: 使用中文描述，格式为 `类型: 简要描述`
 - **常用类型**:
   - `feat: 新增功能`
@@ -303,6 +341,7 @@ backend/               # Cloudflare Worker API
   - `perf: 性能优化`
 
 ### 提交示例
+
 ```bash
 git commit -m "feat: 新增用户反馈管理功能"
 git commit -m "fix: 修复图片生成API超时问题"
@@ -310,6 +349,7 @@ git commit -m "docs: 更新API文档和使用说明"
 ```
 
 ### 发布流程
+
 1. **开发完成**: 本地测试功能正常
 2. **提交代码**: 使用规范的提交信息
 3. **推送到main**: `git push origin main`
@@ -320,6 +360,7 @@ git commit -m "docs: 更新API文档和使用说明"
 ## 部署
 
 ### 前端 (Cloudflare Pages)
+
 - **部署方式**: GitHub 推送自动触发部署
 - **发布目录**: `frontend/`
 - **自定义域名**: https://aistone.org
@@ -327,7 +368,8 @@ git commit -m "docs: 更新API文档和使用说明"
 - **部署命令**: 无需手动命令，推送代码到 main 分支即可自动部署
 
 ### 后端 (Cloudflare Workers)
-- **部署命令**: 
+
+- **部署命令**:
   ```bash
   # 在项目根目录执行
   wrangler deploy
@@ -337,12 +379,15 @@ git commit -m "docs: 更新API文档和使用说明"
 - **入口文件**: `backend/index.js`
 
 ### 部署前准备
+
 1. **安装 Wrangler CLI** (如果尚未安装):
+
    ```bash
    npm install -g wrangler
    ```
 
 2. **登录 Cloudflare**:
+
    ```bash
    wrangler login
    ```
@@ -350,6 +395,7 @@ git commit -m "docs: 更新API文档和使用说明"
 3. **配置环境变量**: 在 Cloudflare Workers 控制台中设置必需的环境变量
 
 ### 完整部署流程
+
 1. **前端部署**: 推送代码到 GitHub main 分支 → Cloudflare Pages 自动部署
 2. **后端部署**: 在本地执行 `wrangler deploy` → 部署到 Cloudflare Workers
 3. **验证**: 访问 https://aistone.org 确认服务正常运行
@@ -357,22 +403,26 @@ git commit -m "docs: 更新API文档和使用说明"
 ## 开发调试
 
 ### 本地调试技巧
+
 - **前端调试**: 使用浏览器开发者工具，重点关注 Network 和 Console 面板
 - **API 调试**: 在前端代码中添加 `console.log` 调试 API 响应
 - **跨域问题**: 确保本地服务器启用 CORS 支持
 
 ### Worker 日志查看
+
 - **实时日志**: `wrangler tail` (查看 Worker 实时日志)
 - **部署日志**: `wrangler deploy --compatibility-date=2024-03-01` (查看部署过程)
 - **调试模式**: 在 `wrangler.toml` 中设置 `LOG_LEVEL=debug` 获取详细日志
 
 ### 常见调试场景
+
 - **API 响应异常**: 检查 Worker 日志和外部 API 状态
 - **认证问题**: 验证 JWT 令牌和 localStorage 存储
 - **图片生成失败**: 检查 Pollinations API 响应和提示词格式
 - **部署失败**: 检查环境变量配置和 KV 命名空间绑定
 
 ### 错误排查步骤
+
 1. **检查控制台错误** - 浏览器 F12 控制台
 2. **查看 Worker 日志** - `wrangler tail`
 3. **验证 API 状态** - 直接访问 API 端点测试
@@ -381,30 +431,35 @@ git commit -m "docs: 更新API文档和使用说明"
 ## 性能监控
 
 ### 性能指标监控
+
 - **API 响应时间**: 关注图片和语音生成 API 的响应时间
 - **错误率监控**: 监控 API 调用失败率和错误类型
 - **用户体验**: 关注页面加载速度和交互响应
 - **资源使用**: 监控 Worker 执行时间和内存使用
 
 ### Cloudflare 监控工具
+
 - **Workers 分析面板**: 查看请求量、错误率、执行时间
 - **Pages 分析**: 监控页面访问量和性能指标
 - **Real User Monitoring**: 监控真实用户体验数据
 - **日志聚合**: 通过 `wrangler tail` 实时查看日志
 
 ### 性能优化建议
+
 - **图片优化**: 合理设置图片尺寸，避免过大请求
 - **缓存策略**: 利用浏览器缓存和 Cloudflare CDN
 - **API 重试**: 使用 `fetchWithRetry` 处理临时故障
 - **错误处理**: 提供用户友好的错误提示，避免白屏
 
 ### 监控告警
+
 - **API 故障**: 监控外部 API (Pollinations, DeepSeek) 的可用性
 - **配额监控**: 关注 API 配额使用情况，避免超限
 - **错误日志**: 定期检查 Worker 错误日志，及时发现问题
 - **用户反馈**: 通过反馈系统了解用户遇到的问题
 
 ### 日志查看方法
+
 - **实时日志**: `wrangler tail --format=pretty`
 - **错误过滤**: `wrangler tail --format=json | grep "error"`
 - **生产日志**: Cloudflare 控制台 → Workers → 日志选项卡
@@ -413,16 +468,19 @@ git commit -m "docs: 更新API文档和使用说明"
 ## 常见问题
 
 ### CORS 配置
+
 - Worker 包含全面的 CORS 处理，支持跨域请求
 - 支持预检 OPTIONS 请求
 - 为前端域名访问进行了配置
 
 ### 外部 API 速率限制
+
 - Pollinations API 调用包含指数退避的重试逻辑
 - DeepSeek API 有速率限制 - 适当处理 429 响应
 - 在生产环境中监控配额使用情况
 
 ### 认证调试
+
 - 在 wrangler.toml 中设置 `LOG_LEVEL=debug` 获取详细认证日志
 - 检查 JWT 令牌过期和刷新逻辑
 - 验证 Google OAuth 配置和重定向 URL
@@ -432,8 +490,10 @@ git commit -m "docs: 更新API文档和使用说明"
 ### 🔴 严重级别问题 - 需要立即修复
 
 #### 1. 导航结构严重不一致
+
 **问题描述**: 各页面导航菜单差异巨大，用户体验极差
-- **index.html**: ✅ 完整7项标准导航 
+
+- **index.html**: ✅ 完整7项标准导航
 - **about.html**: 🔴 缺少ai-guide.html、prompt-engineering.html、faq.html
 - **ai-guide.html/prompt-engineering.html**: 🔴 只有5项菜单，错误包含services.html
 - **services.html**: 🔴 只有4项菜单，完全不同结构
@@ -441,7 +501,9 @@ git commit -m "docs: 更新API文档和使用说明"
 **修复优先级**: 🔥 紧急 - 影响所有页面用户导航
 
 #### 2. 双语支持混乱
+
 **问题描述**: 语言设置和内容翻译严重不一致
+
 - **默认语言混乱**: index.html(英文) vs about.html(中文) vs ai-guide.html(中文)
 - **语言选择器顺序**: 不同页面中英文顺序相反
 - **内容翻译缺失**: 专业页面(ai-guide.html, prompt-engineering.html)仅11个翻译点
@@ -449,7 +511,9 @@ git commit -m "docs: 更新API文档和使用说明"
 **修复优先级**: 🔥 紧急 - 影响国际化用户体验
 
 #### 3. 代码技术债务
+
 **发现问题**:
+
 - API Base配置缺陷 (可能导致API调用失败)
 - Microsoft Clarity重复加载 (影响数据准确性)
 - JavaScript模块依赖顺序问题 (可能导致功能异常)
@@ -458,8 +522,9 @@ git commit -m "docs: 更新API文档和使用说明"
 **修复优先级**: 🔥 紧急 - 影响平台稳定性
 
 ### 📊 当前检查进度
+
 - ✅ 代码质量检查 - 已完成
-- ✅ 导航结构分析 - 已完成  
+- ✅ 导航结构分析 - 已完成
 - ✅ 双语支持检查 - 已完成
 - 🔄 页面内容完整性 - 检查中
 - ⏳ 页面风格统一性 - 待检查
@@ -468,11 +533,13 @@ git commit -m "docs: 更新API文档和使用说明"
 ## ✅ 紧急问题修复完成 (2025-09-09 最新状态)
 
 ### 🔥 已完成的紧急修复
+
 1. **✅ API Base配置修复** - 添加默认值防止API调用失败
+
    ```javascript
    // 修复前：可能undefined导致API失败
    // 修复后：始终有默认API地址
-   window.API_BASE = 'https://text2image-api.peyoba660703.workers.dev';
+   window.API_BASE = "https://text2image-api.peyoba660703.workers.dev";
    ```
 
 2. **✅ Microsoft Clarity重复代码清理** - 移除重复加载，统一使用单一项目ID
@@ -481,7 +548,7 @@ git commit -m "docs: 更新API文档和使用说明"
 
 3. **✅ 导航结构完全标准化** - 所有页面导航已统一
    - **about.html**: 从5项菜单扩展为完整7项标准导航 ✅
-   - **ai-guide.html**: 从错误的5项菜单重构为标准7项导航 ✅  
+   - **ai-guide.html**: 从错误的5项菜单重构为标准7项导航 ✅
    - **prompt-engineering.html**: 从错误的5项菜单重构为标准7项导航 ✅
    - **所有页面CSS类名统一**: 使用 `<nav class="navbar">` 标准结构 ✅
 
@@ -496,21 +563,21 @@ git commit -m "docs: 更新API文档和使用说明"
    - 添加基本模态框功能确保兼容性 ✅
 
 ### 📊 修复成果统计
-| 修复项目 | 影响页面 | 修复状态 | 预期效果 |
-|---------|----------|----------|----------|
-| 导航一致性 | 4个页面 | ✅ 完成 | 100%统一导航 |
-| 双语支持 | 5个页面 | ✅ 完成 | 英文优先设置 |
-| API配置 | index.html | ✅ 完成 | API调用稳定 |
-| 重复代码 | index.html | ✅ 完成 | 数据统计准确 |
 
-### 🎯 下一阶段工作计划 
+| 修复项目   | 影响页面   | 修复状态 | 预期效果     |
+| ---------- | ---------- | -------- | ------------ |
+| 导航一致性 | 4个页面    | ✅ 完成  | 100%统一导航 |
+| 双语支持   | 5个页面    | ✅ 完成  | 英文优先设置 |
+| API配置    | index.html | ✅ 完成  | API调用稳定  |
+| 重复代码   | index.html | ✅ 完成  | 数据统计准确 |
+
+### 🎯 下一阶段工作计划
+
 **优先级2 - 中期修复 (1-2周内)**:
+
 1. **完善专业页面英文翻译** - ai-guide.html, prompt-engineering.html翻译完整度从15%提升到90%+
 2. **services.html内容充实** - 添加详细英文服务介绍或合并到about.html
 3. **CSS样式完全统一** - 确保所有页面Hero区域、Footer设计完全一致
 4. **错误处理完善** - 优化15个JS文件中的153处错误处理代码
 
-**优先级3 - 长期优化 (2-4周内)**:
-5. **页面间交叉链接** - 添加相关内容推荐，提升用户体验
-6. **SEO结构优化** - 减少冗余结构化数据，提升页面性能
-7. **面包屑导航完善** - 统一所有页面面包屑样式和多语言支持
+**优先级3 - 长期优化 (2-4周内)**: 5. **页面间交叉链接** - 添加相关内容推荐，提升用户体验 6. **SEO结构优化** - 减少冗余结构化数据，提升页面性能 7. **面包屑导航完善** - 统一所有页面面包屑样式和多语言支持

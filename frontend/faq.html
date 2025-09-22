@@ -1,576 +1,724 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FAQ - Frequently Asked Questions | AISTONE</title>
-    <link rel="canonical" href="https://aistone.org/faq.html">
-    <meta name="description" content="Find answers to common questions about AISTONE's AI image generator and voice synthesis. Get help with features, usage, and troubleshooting.">
-    <meta name="keywords" content="AISTONE FAQ, help center, AI image generator help, AI voice synthesis help, troubleshooting, usage guide">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="canonical" href="https://aistone.org/faq.html" />
+    <meta
+      name="description"
+      content="Find answers to common questions about AISTONE's AI image generator and voice synthesis. Get help with features, usage, and troubleshooting."
+    />
+    <meta
+      name="keywords"
+      content="AISTONE FAQ, help center, AI image generator help, AI voice synthesis help, troubleshooting, usage guide"
+    />
+    <link rel="stylesheet" href="css/style.css" />
 
     <!-- Google AdSense -->
-    <meta name="google-adsense-account" content="ca-pub-6165370615688912">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6165370615688912"
-         crossorigin="anonymous"></script>
-</head>
-<body>
+    <meta name="google-adsense-account" content="ca-pub-6165370615688912" />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6165370615688912"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
     <nav class="navbar">
-        <div class="navbar-left">
-            <img src="assets/logo.svg" alt="AISTONE LOGO - 免费AI图片生成与语音合成平台标志" class="logo-img" aria-label="AISTONE 平台标志" />
-            <span class="site-name">AISTONE</span>
-        </div>
-        <ul class="navbar-menu">
-            <li><a href="/" data-i18n="navHome">首页</a></li>
-            <li><a href="voice.html" data-i18n="navVoiceGen">语音合成</a></li>
-            <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
-            <li><a href="ai-guide.html" data-i18n="navAIGuide">AI指南</a></li>
-            <li><a href="prompt-engineering.html" data-i18n="navPromptEngineering">提示词工程</a></li>
-            <li><a href="tutorial.html" data-i18n="navTutorial">使用教程</a></li>
-            <li><a href="faq.html" class="active" data-i18n="navFAQ">常见问题</a></li>
-            <li><a href="contact.html" data-i18n="navContact">联系我们</a></li>
-        </ul>
-        <div class="navbar-right">
-            <select id="lang-select" class="lang-select">
-                <option value="en">English</option>
-                <option value="zh">中文</option>
-            </select>
-            <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">登录</button>
-        </div>
+      <div class="navbar-left">
+        <img
+          src="assets/logo.svg"
+          alt="AISTONE LOGO - 免费AI图片生成与语音合成平台标志"
+          class="logo-img"
+          aria-label="AISTONE 平台标志"
+        />
+        <span class="site-name">AISTONE</span>
+      </div>
+      <ul class="navbar-menu">
+        <li><a href="/" data-i18n="navHome">首页</a></li>
+        <li><a href="voice.html" data-i18n="navVoiceGen">语音合成</a></li>
+        <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
+        <li><a href="ai-guide.html" data-i18n="navAIGuide">AI指南</a></li>
+        <li><a href="prompt-engineering.html" data-i18n="navPromptEngineering">提示词工程</a></li>
+        <li><a href="tutorial.html" data-i18n="navTutorial">使用教程</a></li>
+        <li><a href="faq.html" class="active" data-i18n="navFAQ">常见问题</a></li>
+        <li><a href="contact.html" data-i18n="navContact">联系我们</a></li>
+      </ul>
+      <div class="navbar-right">
+        <select id="lang-select" class="lang-select">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+        </select>
+        <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">
+          登录
+        </button>
+      </div>
     </nav>
 
     <main class="faq-page">
-        <div class="container">
-            <!-- 面包屑导航 -->
-            <nav class="breadcrumb">
-                <a href="/" data-i18n="navHome">首页</a>
-                <span class="separator">></span>
-                <span class="current" data-i18n="navFAQ">常见问题</span>
-            </nav>
-            <h1 data-i18n="faqTitle">常见问题 FAQ</h1>
-            <div class="faq-content">
+      <div class="container">
+        <!-- 面包屑导航 -->
+        <nav class="breadcrumb">
+          <a href="/" data-i18n="navHome">首页</a>
+          <span class="separator">></span>
+          <span class="current" data-i18n="navFAQ">常见问题</span>
+        </nav>
+        <h1 data-i18n="faqTitle">常见问题 FAQ</h1>
+        <div class="faq-content">
+          <section class="faq-intro">
+            <p data-i18n="faqIntro">
+              这里收集了用户最常遇到的问题和解答。如果您没有找到需要的答案，请通过页面底部联系我们。
+            </p>
+          </section>
 
-                <section class="faq-intro">
-                    <p data-i18n="faqIntro">这里收集了用户最常遇到的问题和解答。如果您没有找到需要的答案，请通过页面底部联系我们。</p>
-                </section>
+          <section class="faq-section">
+            <h2 data-i18n="faqBasicTitle">基础使用问题</h2>
 
-                <section class="faq-section">
-                    <h2 data-i18n="faqBasicTitle">基础使用问题</h2>
-
-                    <div class="faq-item">
-                        <h3 data-i18n="faqQ1">AISTONE 是否永久免费？</h3>
-                        <div class="faq-answer" data-i18n="faqA1">
-                            是的，AISTONE 平台的所有核心功能都是永久免费的，无需注册，无次数限制。您可以完全免费使用图片生成和语音合成功能。
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3 data-i18n="faqQ2">使用平台需要登录吗？</h3>
-                        <div class="faq-answer" data-i18n="faqA2">
-                            不需要登录即可使用基本功能。但注册用户可以享受额外的功能，如保存生成历史、高清图片缓存、个人中心等。
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3 data-i18n="faqQ3">支持哪些输入语言？</h3>
-                        <div class="faq-answer" data-i18n="faqA3">
-                            支持中文和英文输入。平台会自动识别输入语言，并提供相应的AI模型进行处理。界面也支持中英文切换。
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3 data-i18n="faqQ4">生成的内容有版权吗？</h3>
-                        <div class="faq-answer" data-i18n="faqA4">
-                            您对使用AISTONE生成的内容享有完整的所有权，可以自由用于商业和个人用途，无需额外授权或付费。
-                        </div>
-                    </div>
-                </section>
-
-                <section class="faq-section">
-                    <h2 data-i18n="faqImageGenTitle">图片生成功能</h2>
-
-                    <div class="faq-item">
-                        <h3 data-i18n="faqQ5">支持哪些图片格式和尺寸？</h3>
-                        <div class="faq-answer">
-                            <p data-i18n="faqA5">支持多种主流格式（JPG、PNG等）和尺寸比例：1:1（方形）、16:9（横版）、9:16（竖版）、4:3（传统比例）等。还支持自定义尺寸设置（256-4096像素）。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3 data-i18n="faqQ6">可以生成多张图片吗？</h3>
-                        <div class="faq-answer">
-                            <p data-i18n="faqA6">是的，您可以选择生成1张、2张或4张图片。系统会根据您的描述生成多个变体，方便您进行比较和选择。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3 data-i18n="faqQ7">什么是AI模型？如何选择？</h3>
-                        <div class="faq-answer">
-                            <p data-i18n="faqA7">AI模型是生成图片的算法引擎：</p>
-                            <ul>
-                                <li><strong data-i18n="faqFluxModel">FLUX：</strong><span data-i18n="faqFluxModelDesc">高质量艺术创作，适合大多数场景</span></li>
-                                <li><strong data-i18n="faqTurboModel">Turbo：</strong><span data-i18n="faqTurboModelDesc">快速生成，适合原型设计</span></li>
-                                <li><strong data-i18n="faqKontextModel">Kontext：</strong><span data-i18n="faqKontextModelDesc">图像到图像生成，适合图片编辑</span></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3 data-i18n="faqQ8">生成图片需要多长时间？</h3>
-                        <div class="faq-answer">
-                            <p data-i18n="faqA8">通常需要10-30秒，具体时间取决于描述复杂度、选择的模型和当前服务器负载。Turbo模型生成速度最快。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3 data-i18n="faqQ9">图片质量不佳怎么办？</h3>
-                        <div class="faq-answer">
-                            <p data-i18n="faqA9">尝试以下方法改善质量：</p>
-                            <ul>
-                                <li data-i18n="faqQualityTip1">使用更详细的描述</li>
-                                <li data-i18n="faqQualityTip2">选择FLUX模型</li>
-                                <li data-i18n="faqQualityTip3">使用更高分辨率</li>
-                                <li data-i18n="faqQualityTip4">利用智能优化功能</li>
-                                <li data-i18n="faqQualityTip5">添加负向提示词排除不需要的元素</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="faq-section">
-                    <h2 data-i18n="faqVoiceGenTitle">语音合成功能</h2>
-
-                    <div class="faq-item">
-                        <h3 data-i18n="faqQ10">支持哪些语音音色？</h3>
-                        <div class="faq-answer">
-                            <p data-i18n="faqA10">提供6种专业语音音色：</p>
-                            <ul>
-                                <li><strong data-i18n="faqVoiceAlloy">Alloy：</strong><span data-i18n="faqVoiceAlloyDesc">专业女声</span></li>
-                                <li><strong data-i18n="faqVoiceEcho">Echo：</strong><span data-i18n="faqVoiceEchoDesc">温暖男声</span></li>
-                                <li><strong data-i18n="faqVoiceFable">Fable：</strong><span data-i18n="faqVoiceFableDesc">英国女声</span></li>
-                                <li><strong data-i18n="faqVoiceOnyx">Onyx：</strong><span data-i18n="faqVoiceOnyxDesc">深沉男声</span></li>
-                                <li><strong data-i18n="faqVoiceNova">Nova：</strong><span data-i18n="faqVoiceNovaDesc">活泼女声</span></li>
-                                <li><strong data-i18n="faqVoiceShimmer">Shimmer：</strong><span data-i18n="faqVoiceShimmerDesc">轻快女声</span></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3 data-i18n="faqQ11">可以下载生成的语音吗？</h3>
-                        <div class="faq-answer">
-                            <p data-i18n="faqA11">是的，生成完成后可以在线播放，也可以下载音频文件（WAV格式）到本地使用。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3 data-i18n="faqQ12">语音合成的质量如何？</h3>
-                        <div class="faq-answer">
-                            <p data-i18n="faqA12">采用先进的AI语音合成技术，生成自然流畅的语音，支持中文和英文，适合制作视频、播客、语音内容等各种场景。</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="faq-section">
-                    <h2>技术问题</h2>
-
-                    <div class="faq-item">
-                        <h3 data-i18n="faqQ6">生成速度慢或失败怎么办？</h3>
-                        <div class="faq-answer" data-i18n="faqA6">
-                            如遇高峰期可能稍慢，请耐心等待或稍后重试。如持续失败请联系客服。
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>生成失败或出错怎么办？</h3>
-                        <div class="faq-answer">
-                            <p>请尝试：</p>
-                            <ul>
-                                <li>检查网络连接</li>
-                                <li>简化描述文本</li>
-                                <li>清除浏览器缓存</li>
-                                <li>使用不同的浏览器</li>
-                                <li>稍后重试</li>
-                            </ul>
-                            <p>如果问题持续，请联系我们的技术支持。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>AI模型的技术原理是什么？</h3>
-                        <div class="faq-answer">
-                            <p>AISTONE使用先进的深度学习模型：</p>
-                            <ul>
-                                <li><strong>扩散模型：</strong>通过逐步去噪过程生成高质量图像</li>
-                                <li><strong>Transformer架构：</strong>理解文本语义并转换为视觉特征</li>
-                                <li><strong>语音合成：</strong>基于神经网络的端到端语音生成</li>
-                                <li><strong>DeepSeek优化：</strong>使用大语言模型优化提示词质量</li>
-                            </ul>
-                            <p>这些模型经过海量数据训练，能够理解复杂的文本描述并生成相应的多媒体内容。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>什么是负向提示词？如何使用？</h3>
-                        <div class="faq-answer">
-                            <p>负向提示词是告诉AI不要生成什么内容的指令，能显著提升生成质量：</p>
-                            <ul>
-                                <li><strong>质量控制：</strong>"模糊、低质量、变形、噪点"</li>
-                                <li><strong>风格排除：</strong>"卡通、动画、抽象"（当需要写实时）</li>
-                                <li><strong>内容过滤：</strong>"文字、水印、标识、多余物体"</li>
-                                <li><strong>色彩控制：</strong>"黑白、单色、过饱和"</li>
-                            </ul>
-                            <p>合理使用负向提示词可以让生成结果更符合您的预期。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>平台的技术架构是什么？</h3>
-                        <div class="faq-answer">
-                            <p>AISTONE采用现代Serverless架构：</p>
-                            <ul>
-                                <li><strong>前端：</strong>基于HTML5/CSS3/JavaScript的响应式单页应用</li>
-                                <li><strong>后端：</strong>部署在Cloudflare Workers的无服务器API</li>
-                                <li><strong>存储：</strong>使用Cloudflare KV进行用户数据和缓存管理</li>
-                                <li><strong>CDN：</strong>全球分布式内容分发网络</li>
-                                <li><strong>安全：</strong>HTTPS加密、JWT认证、CORS跨域保护</li>
-                            </ul>
-                            <p>这种架构确保了高可用性、低延迟和弹性扩展能力。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>图像生成的算法细节？</h3>
-                        <div class="faq-answer">
-                            <p>图像生成过程包含多个技术步骤：</p>
-                            <ul>
-                                <li><strong>文本编码：</strong>将用户描述转换为数学向量表示</li>
-                                <li><strong>语义理解：</strong>识别对象、风格、构图等视觉元素</li>
-                                <li><strong>噪声扩散：</strong>从随机噪声开始逐步构建图像</li>
-                                <li><strong>特征引导：</strong>根据文本语义引导生成方向</li>
-                                <li><strong>细节完善：</strong>多步迭代优化图像质量和细节</li>
-                            </ul>
-                            <p>整个过程结合了计算机视觉、自然语言处理和生成式AI的最新技术成果。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>不支持我的浏览器怎么办？</h3>
-                        <div class="faq-answer">
-                            <p>AISTONE支持所有现代浏览器，包括Chrome、Firefox、Safari、Edge等。建议使用最新版本的浏览器以获得最佳体验。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>移动设备可以使用吗？</h3>
-                        <div class="faq-answer">
-                            <p>完全支持移动设备！平台针对手机和平板进行了优化，提供响应式设计，确保在各种设备上都能正常使用。</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="faq-section">
-                    <h2>账户和隐私</h2>
-
-                    <div class="faq-item">
-                        <h3>如何注册账户？</h3>
-                        <div class="faq-answer">
-                            <p>点击页面上的"登录"按钮，选择邮箱注册或Google登录。注册后可以享受更多功能，如保存生成历史、管理个人作品等。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>忘记密码怎么办？</h3>
-                        <div class="faq-answer">
-                            <p>在登录页面点击"忘记密码"，系统会发送重置链接到您的邮箱。按照邮件指示重置密码即可。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>我的数据安全吗？</h3>
-                        <div class="faq-answer">
-                            <p>我们非常重视数据安全：</p>
-                            <ul>
-                                <li>采用HTTPS加密传输</li>
-                                <li>不存储用户生成的原始内容</li>
-                                <li>严格限制数据访问权限</li>
-                                <li>定期进行安全审计</li>
-                            </ul>
-                            <p>详细隐私政策请查看：<a href="privacy.html">隐私政策</a></p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>可以删除我的账户吗？</h3>
-                        <div class="faq-answer">
-                            <p>是的，您可以随时在个人中心申请删除账户。删除后，我们会按照隐私政策的要求处理您的数据。</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- AdSense 广告位 -->
-                <div class="ad-container" style="margin: 30px 0; text-align: center;">
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-client="ca-pub-6165370615688912"
-                         data-ad-slot="1234567890"
-                         data-ad-format="auto"
-                         data-full-width-responsive="true"></ins>
-                    <script>
-                         (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>
-
-                <section class="faq-section">
-                    <h2>其他问题</h2>
-
-                    <div class="faq-item">
-                        <h3>如何反馈问题或建议？</h3>
-                        <div class="faq-answer">
-                            <p>我们非常重视您的反馈：</p>
-                            <ul>
-                                <li>通过页面底部的联系方式</li>
-                                <li>发送邮件至 support@aistone.org</li>
-                                <li>在社交媒体上联系我们</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>平台未来会有哪些新功能？</h3>
-                        <div class="faq-answer">
-                            <p>我们持续改进平台，可能添加的功能包括：</p>
-                            <ul>
-                                <li>更多AI模型选择</li>
-                                <li>批量处理功能</li>
-                                <li>作品分享社区</li>
-                                <li>高级定制选项</li>
-                            </ul>
-                            <p>关注我们的更新公告，获取最新功能信息。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>可以商业使用生成的内容吗？</h3>
-                        <div class="faq-answer">
-                            <p>是的！您对生成的内容享有完整版权，可以自由用于商业用途，包括但不限于：</p>
-                            <ul>
-                                <li>营销材料</li>
-                                <li>产品设计</li>
-                                <li>网站内容</li>
-                                <li>出版物</li>
-                                <li>商业展示</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>AI生成图片的分辨率和格式选择？</h3>
-                        <div class="faq-answer">
-                            <p>AISTONE支持多种分辨率和格式选择：</p>
-                            <ul>
-                                <li><strong>标准分辨率：</strong>512x512, 768x768, 1024x1024</li>
-                                <li><strong>自定义尺寸：</strong>支持256-4096像素范围内任意尺寸</li>
-                                <li><strong>常用比例：</strong>1:1(正方形), 16:9(横版), 9:16(竖版), 4:3(传统)</li>
-                                <li><strong>输出格式：</strong>PNG(高质量), JPG(标准), WebP(优化)</li>
-                                <li><strong>质量设置：</strong>支持从draft(草图)到ultra(超高清)的多级质量</li>
-                            </ul>
-                            <p>建议根据用途选择合适的分辨率：网页用图选择768p，打印用图选择1024p以上。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>如何理解AI生成的随机性？</h3>
-                        <div class="faq-answer">
-                            <p>AI生成具有创意随机性，这是技术特点：</p>
-                            <ul>
-                                <li><strong>种子机制：</strong>每次生成使用不同的随机种子值</li>
-                                <li><strong>创意多样性：</strong>相同描述可产生多种不同的艺术解释</li>
-                                <li><strong>控制方法：</strong>通过更详细的描述减少随机性</li>
-                                <li><strong>重复性：</strong>完全相同的结果无法保证，但风格可以保持一致</li>
-                                <li><strong>优化策略：</strong>多次生成对比选择，或使用"regenerate"功能</li>
-                            </ul>
-                            <p>这种随机性实际上是AI创作的优势，能带来意想不到的创意效果。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>语音合成支持哪些语言和口音？</h3>
-                        <div class="faq-answer">
-                            <p>AISTONE语音合成支持多语言和地区口音：</p>
-                            <ul>
-                                <li><strong>中文：</strong>标准普通话、台湾国语、粤语</li>
-                                <li><strong>英文：</strong>美式英语、英式英语、澳洲英语</li>
-                                <li><strong>其他语言：</strong>日语、韩语、法语、德语、西班牙语</li>
-                                <li><strong>音色特点：</strong>每种语言都有男声女声选择</li>
-                                <li><strong>情感表达：</strong>支持中性、愉悦、专业等不同语调</li>
-                            </ul>
-                            <p>系统会自动检测输入文本的语言，选择最合适的语音模型进行合成。</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3>如何优化提示词以获得更好的结果？</h3>
-                        <div class="faq-answer">
-                            <p>提示词优化是获得理想结果的关键技巧：</p>
-                            <ul>
-                                <li><strong>结构化描述：</strong>主体 + 动作 + 环境 + 风格 + 质量</li>
-                                <li><strong>具体化：</strong>用"金色长发女性"替代"女人"</li>
-                                <li><strong>风格指定：</strong>明确艺术风格如"写实摄影、油画、卡通、素描"</li>
-                                <li><strong>技术参数：</strong>添加"8K、超高清、专业摄影、电影级"等质量词</li>
-                                <li><strong>光线描述：</strong>"柔和自然光、金色时光、戏剧性照明"</li>
-                                <li><strong>构图要求：</strong>"特写、全身、俯视角、对称构图"</li>
-                            </ul>
-                            <p>使用平台的智能优化功能可以自动改进您的提示词质量。</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 相关内容推荐 -->
-                <section class="related-content" style="margin-top: 40px; padding: 20px; background: var(--color-surface-muted, #f8f9fa); border-radius: 8px;">
-                    <h2 style="color: #333; margin-bottom: 20px;">📖 延伸阅读</h2>
-                    <div class="related-links" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-                        <div class="related-item" style="background: var(--color-surface-on-light-white, #fff); padding: 15px; border-radius: 6px; border: 1px solid var(--color-border-muted, #e9ecef);">
-                            <h3 style="font-size: 16px; margin: 0 0 8px 0; color: var(--color-link-primary, #007bff);">
-                                <a href="tutorial.html" style="text-decoration: none; color: inherit;">📘 完整使用教程</a>
-                            </h3>
-                            <p style="margin: 0; font-size: 14px; color: #666;">详细的分步指南，教您如何使用AISTONE的所有功能</p>
-                        </div>
-                        <div class="related-item" style="background: var(--color-surface-on-light-white, #fff); padding: 15px; border-radius: 6px; border: 1px solid var(--color-border-muted, #e9ecef);">
-                            <h3 style="font-size: 16px; margin: 0 0 8px 0; color: var(--color-link-primary, #007bff);">
-                                <a href="/" style="text-decoration: none; color: inherit;">🏠 返回首页</a>
-                            </h3>
-                            <p style="margin: 0; font-size: 14px; color: #666;">回到主页开始使用AI图片和语音生成功能</p>
-                        </div>
-                        <div class="related-item" style="background: var(--color-surface-on-light-white, #fff); padding: 15px; border-radius: 6px; border: 1px solid var(--color-border-muted, #e9ecef);">
-                            <h3 style="font-size: 16px; margin: 0 0 8px 0; color: var(--color-link-primary, #007bff);">
-                                <a href="contact.html" style="text-decoration: none; color: inherit;">💬 联系我们</a>
-                            </h3>
-                            <p style="margin: 0; font-size: 14px; color: #666;">没有找到答案？直接联系我们的技术支持团队</p>
-                        </div>
-                        <div class="related-item" style="background: var(--color-surface-on-light-white, #fff); padding: 15px; border-radius: 6px; border: 1px solid var(--color-border-muted, #e9ecef);">
-                            <h3 style="font-size: 16px; margin: 0 0 8px 0; color: var(--color-link-primary, #007bff);">
-                                <a href="user.html" style="text-decoration: none; color: inherit;">👤 个人中心</a>
-                            </h3>
-                            <p style="margin: 0; font-size: 14px; color: #666;">管理您的生成历史和个人设置</p>
-                        </div>
-                    </div>
-                </section>
+            <div class="faq-item">
+              <h3 data-i18n="faqQ1">AISTONE 是否永久免费？</h3>
+              <div class="faq-answer" data-i18n="faqA1">
+                是的，AISTONE
+                平台的所有核心功能都是永久免费的，无需注册，无次数限制。您可以完全免费使用图片生成和语音合成功能。
+              </div>
             </div>
+
+            <div class="faq-item">
+              <h3 data-i18n="faqQ2">使用平台需要登录吗？</h3>
+              <div class="faq-answer" data-i18n="faqA2">
+                不需要登录即可使用基本功能。但注册用户可以享受额外的功能，如保存生成历史、高清图片缓存、个人中心等。
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3 data-i18n="faqQ3">支持哪些输入语言？</h3>
+              <div class="faq-answer" data-i18n="faqA3">
+                支持中文和英文输入。平台会自动识别输入语言，并提供相应的AI模型进行处理。界面也支持中英文切换。
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3 data-i18n="faqQ4">生成的内容有版权吗？</h3>
+              <div class="faq-answer" data-i18n="faqA4">
+                您对使用AISTONE生成的内容享有完整的所有权，可以自由用于商业和个人用途，无需额外授权或付费。
+              </div>
+            </div>
+          </section>
+
+          <section class="faq-section">
+            <h2 data-i18n="faqImageGenTitle">图片生成功能</h2>
+
+            <div class="faq-item">
+              <h3 data-i18n="faqQ5">支持哪些图片格式和尺寸？</h3>
+              <div class="faq-answer">
+                <p data-i18n="faqA5">
+                  支持多种主流格式（JPG、PNG等）和尺寸比例：1:1（方形）、16:9（横版）、9:16（竖版）、4:3（传统比例）等。还支持自定义尺寸设置（256-4096像素）。
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3 data-i18n="faqQ6">可以生成多张图片吗？</h3>
+              <div class="faq-answer">
+                <p data-i18n="faqA6">
+                  是的，您可以选择生成1张、2张或4张图片。系统会根据您的描述生成多个变体，方便您进行比较和选择。
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3 data-i18n="faqQ7">什么是AI模型？如何选择？</h3>
+              <div class="faq-answer">
+                <p data-i18n="faqA7">AI模型是生成图片的算法引擎：</p>
+                <ul>
+                  <li>
+                    <strong data-i18n="faqFluxModel">FLUX：</strong
+                    ><span data-i18n="faqFluxModelDesc">高质量艺术创作，适合大多数场景</span>
+                  </li>
+                  <li>
+                    <strong data-i18n="faqTurboModel">Turbo：</strong
+                    ><span data-i18n="faqTurboModelDesc">快速生成，适合原型设计</span>
+                  </li>
+                  <li>
+                    <strong data-i18n="faqKontextModel">Kontext：</strong
+                    ><span data-i18n="faqKontextModelDesc">图像到图像生成，适合图片编辑</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3 data-i18n="faqQ8">生成图片需要多长时间？</h3>
+              <div class="faq-answer">
+                <p data-i18n="faqA8">
+                  通常需要10-30秒，具体时间取决于描述复杂度、选择的模型和当前服务器负载。Turbo模型生成速度最快。
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3 data-i18n="faqQ9">图片质量不佳怎么办？</h3>
+              <div class="faq-answer">
+                <p data-i18n="faqA9">尝试以下方法改善质量：</p>
+                <ul>
+                  <li data-i18n="faqQualityTip1">使用更详细的描述</li>
+                  <li data-i18n="faqQualityTip2">选择FLUX模型</li>
+                  <li data-i18n="faqQualityTip3">使用更高分辨率</li>
+                  <li data-i18n="faqQualityTip4">利用智能优化功能</li>
+                  <li data-i18n="faqQualityTip5">添加负向提示词排除不需要的元素</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="faq-section">
+            <h2 data-i18n="faqVoiceGenTitle">语音合成功能</h2>
+
+            <div class="faq-item">
+              <h3 data-i18n="faqQ10">支持哪些语音音色？</h3>
+              <div class="faq-answer">
+                <p data-i18n="faqA10">提供6种专业语音音色：</p>
+                <ul>
+                  <li>
+                    <strong data-i18n="faqVoiceAlloy">Alloy：</strong
+                    ><span data-i18n="faqVoiceAlloyDesc">专业女声</span>
+                  </li>
+                  <li>
+                    <strong data-i18n="faqVoiceEcho">Echo：</strong
+                    ><span data-i18n="faqVoiceEchoDesc">温暖男声</span>
+                  </li>
+                  <li>
+                    <strong data-i18n="faqVoiceFable">Fable：</strong
+                    ><span data-i18n="faqVoiceFableDesc">英国女声</span>
+                  </li>
+                  <li>
+                    <strong data-i18n="faqVoiceOnyx">Onyx：</strong
+                    ><span data-i18n="faqVoiceOnyxDesc">深沉男声</span>
+                  </li>
+                  <li>
+                    <strong data-i18n="faqVoiceNova">Nova：</strong
+                    ><span data-i18n="faqVoiceNovaDesc">活泼女声</span>
+                  </li>
+                  <li>
+                    <strong data-i18n="faqVoiceShimmer">Shimmer：</strong
+                    ><span data-i18n="faqVoiceShimmerDesc">轻快女声</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3 data-i18n="faqQ11">可以下载生成的语音吗？</h3>
+              <div class="faq-answer">
+                <p data-i18n="faqA11">
+                  是的，生成完成后可以在线播放，也可以下载音频文件（WAV格式）到本地使用。
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3 data-i18n="faqQ12">语音合成的质量如何？</h3>
+              <div class="faq-answer">
+                <p data-i18n="faqA12">
+                  采用先进的AI语音合成技术，生成自然流畅的语音，支持中文和英文，适合制作视频、播客、语音内容等各种场景。
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="faq-section">
+            <h2>技术问题</h2>
+
+            <div class="faq-item">
+              <h3 data-i18n="faqQ6">生成速度慢或失败怎么办？</h3>
+              <div class="faq-answer" data-i18n="faqA6">
+                如遇高峰期可能稍慢，请耐心等待或稍后重试。如持续失败请联系客服。
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>生成失败或出错怎么办？</h3>
+              <div class="faq-answer">
+                <p>请尝试：</p>
+                <ul>
+                  <li>检查网络连接</li>
+                  <li>简化描述文本</li>
+                  <li>清除浏览器缓存</li>
+                  <li>使用不同的浏览器</li>
+                  <li>稍后重试</li>
+                </ul>
+                <p>如果问题持续，请联系我们的技术支持。</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>AI模型的技术原理是什么？</h3>
+              <div class="faq-answer">
+                <p>AISTONE使用先进的深度学习模型：</p>
+                <ul>
+                  <li><strong>扩散模型：</strong>通过逐步去噪过程生成高质量图像</li>
+                  <li><strong>Transformer架构：</strong>理解文本语义并转换为视觉特征</li>
+                  <li><strong>语音合成：</strong>基于神经网络的端到端语音生成</li>
+                  <li><strong>DeepSeek优化：</strong>使用大语言模型优化提示词质量</li>
+                </ul>
+                <p>这些模型经过海量数据训练，能够理解复杂的文本描述并生成相应的多媒体内容。</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>什么是负向提示词？如何使用？</h3>
+              <div class="faq-answer">
+                <p>负向提示词是告诉AI不要生成什么内容的指令，能显著提升生成质量：</p>
+                <ul>
+                  <li><strong>质量控制：</strong>"模糊、低质量、变形、噪点"</li>
+                  <li><strong>风格排除：</strong>"卡通、动画、抽象"（当需要写实时）</li>
+                  <li><strong>内容过滤：</strong>"文字、水印、标识、多余物体"</li>
+                  <li><strong>色彩控制：</strong>"黑白、单色、过饱和"</li>
+                </ul>
+                <p>合理使用负向提示词可以让生成结果更符合您的预期。</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>平台的技术架构是什么？</h3>
+              <div class="faq-answer">
+                <p>AISTONE采用现代Serverless架构：</p>
+                <ul>
+                  <li><strong>前端：</strong>基于HTML5/CSS3/JavaScript的响应式单页应用</li>
+                  <li><strong>后端：</strong>部署在Cloudflare Workers的无服务器API</li>
+                  <li><strong>存储：</strong>使用Cloudflare KV进行用户数据和缓存管理</li>
+                  <li><strong>CDN：</strong>全球分布式内容分发网络</li>
+                  <li><strong>安全：</strong>HTTPS加密、JWT认证、CORS跨域保护</li>
+                </ul>
+                <p>这种架构确保了高可用性、低延迟和弹性扩展能力。</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>图像生成的算法细节？</h3>
+              <div class="faq-answer">
+                <p>图像生成过程包含多个技术步骤：</p>
+                <ul>
+                  <li><strong>文本编码：</strong>将用户描述转换为数学向量表示</li>
+                  <li><strong>语义理解：</strong>识别对象、风格、构图等视觉元素</li>
+                  <li><strong>噪声扩散：</strong>从随机噪声开始逐步构建图像</li>
+                  <li><strong>特征引导：</strong>根据文本语义引导生成方向</li>
+                  <li><strong>细节完善：</strong>多步迭代优化图像质量和细节</li>
+                </ul>
+                <p>整个过程结合了计算机视觉、自然语言处理和生成式AI的最新技术成果。</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>不支持我的浏览器怎么办？</h3>
+              <div class="faq-answer">
+                <p>
+                  AISTONE支持所有现代浏览器，包括Chrome、Firefox、Safari、Edge等。建议使用最新版本的浏览器以获得最佳体验。
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>移动设备可以使用吗？</h3>
+              <div class="faq-answer">
+                <p>
+                  完全支持移动设备！平台针对手机和平板进行了优化，提供响应式设计，确保在各种设备上都能正常使用。
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="faq-section">
+            <h2>账户和隐私</h2>
+
+            <div class="faq-item">
+              <h3>如何注册账户？</h3>
+              <div class="faq-answer">
+                <p>
+                  点击页面上的"登录"按钮，选择邮箱注册或Google登录。注册后可以享受更多功能，如保存生成历史、管理个人作品等。
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>忘记密码怎么办？</h3>
+              <div class="faq-answer">
+                <p>
+                  在登录页面点击"忘记密码"，系统会发送重置链接到您的邮箱。按照邮件指示重置密码即可。
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>我的数据安全吗？</h3>
+              <div class="faq-answer">
+                <p>我们非常重视数据安全：</p>
+                <ul>
+                  <li>采用HTTPS加密传输</li>
+                  <li>不存储用户生成的原始内容</li>
+                  <li>严格限制数据访问权限</li>
+                  <li>定期进行安全审计</li>
+                </ul>
+                <p>详细隐私政策请查看：<a href="privacy.html">隐私政策</a></p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>可以删除我的账户吗？</h3>
+              <div class="faq-answer">
+                <p>
+                  是的，您可以随时在个人中心申请删除账户。删除后，我们会按照隐私政策的要求处理您的数据。
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- AdSense 广告位 -->
+          <div class="ad-container" style="margin: 30px 0; text-align: center">
+            <ins
+              class="adsbygoogle"
+              style="display: block"
+              data-ad-client="ca-pub-6165370615688912"
+              data-ad-slot="1234567890"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            ></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+
+          <section class="faq-section">
+            <h2>其他问题</h2>
+
+            <div class="faq-item">
+              <h3>如何反馈问题或建议？</h3>
+              <div class="faq-answer">
+                <p>我们非常重视您的反馈：</p>
+                <ul>
+                  <li>通过页面底部的联系方式</li>
+                  <li>发送邮件至 support@aistone.org</li>
+                  <li>在社交媒体上联系我们</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>平台未来会有哪些新功能？</h3>
+              <div class="faq-answer">
+                <p>我们持续改进平台，可能添加的功能包括：</p>
+                <ul>
+                  <li>更多AI模型选择</li>
+                  <li>批量处理功能</li>
+                  <li>作品分享社区</li>
+                  <li>高级定制选项</li>
+                </ul>
+                <p>关注我们的更新公告，获取最新功能信息。</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>可以商业使用生成的内容吗？</h3>
+              <div class="faq-answer">
+                <p>是的！您对生成的内容享有完整版权，可以自由用于商业用途，包括但不限于：</p>
+                <ul>
+                  <li>营销材料</li>
+                  <li>产品设计</li>
+                  <li>网站内容</li>
+                  <li>出版物</li>
+                  <li>商业展示</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>AI生成图片的分辨率和格式选择？</h3>
+              <div class="faq-answer">
+                <p>AISTONE支持多种分辨率和格式选择：</p>
+                <ul>
+                  <li><strong>标准分辨率：</strong>512x512, 768x768, 1024x1024</li>
+                  <li><strong>自定义尺寸：</strong>支持256-4096像素范围内任意尺寸</li>
+                  <li><strong>常用比例：</strong>1:1(正方形), 16:9(横版), 9:16(竖版), 4:3(传统)</li>
+                  <li><strong>输出格式：</strong>PNG(高质量), JPG(标准), WebP(优化)</li>
+                  <li><strong>质量设置：</strong>支持从draft(草图)到ultra(超高清)的多级质量</li>
+                </ul>
+                <p>建议根据用途选择合适的分辨率：网页用图选择768p，打印用图选择1024p以上。</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>如何理解AI生成的随机性？</h3>
+              <div class="faq-answer">
+                <p>AI生成具有创意随机性，这是技术特点：</p>
+                <ul>
+                  <li><strong>种子机制：</strong>每次生成使用不同的随机种子值</li>
+                  <li><strong>创意多样性：</strong>相同描述可产生多种不同的艺术解释</li>
+                  <li><strong>控制方法：</strong>通过更详细的描述减少随机性</li>
+                  <li><strong>重复性：</strong>完全相同的结果无法保证，但风格可以保持一致</li>
+                  <li><strong>优化策略：</strong>多次生成对比选择，或使用"regenerate"功能</li>
+                </ul>
+                <p>这种随机性实际上是AI创作的优势，能带来意想不到的创意效果。</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>语音合成支持哪些语言和口音？</h3>
+              <div class="faq-answer">
+                <p>AISTONE语音合成支持多语言和地区口音：</p>
+                <ul>
+                  <li><strong>中文：</strong>标准普通话、台湾国语、粤语</li>
+                  <li><strong>英文：</strong>美式英语、英式英语、澳洲英语</li>
+                  <li><strong>其他语言：</strong>日语、韩语、法语、德语、西班牙语</li>
+                  <li><strong>音色特点：</strong>每种语言都有男声女声选择</li>
+                  <li><strong>情感表达：</strong>支持中性、愉悦、专业等不同语调</li>
+                </ul>
+                <p>系统会自动检测输入文本的语言，选择最合适的语音模型进行合成。</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <h3>如何优化提示词以获得更好的结果？</h3>
+              <div class="faq-answer">
+                <p>提示词优化是获得理想结果的关键技巧：</p>
+                <ul>
+                  <li><strong>结构化描述：</strong>主体 + 动作 + 环境 + 风格 + 质量</li>
+                  <li><strong>具体化：</strong>用"金色长发女性"替代"女人"</li>
+                  <li><strong>风格指定：</strong>明确艺术风格如"写实摄影、油画、卡通、素描"</li>
+                  <li><strong>技术参数：</strong>添加"8K、超高清、专业摄影、电影级"等质量词</li>
+                  <li><strong>光线描述：</strong>"柔和自然光、金色时光、戏剧性照明"</li>
+                  <li><strong>构图要求：</strong>"特写、全身、俯视角、对称构图"</li>
+                </ul>
+                <p>使用平台的智能优化功能可以自动改进您的提示词质量。</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 相关内容推荐 -->
+          <section
+            class="related-content"
+            style="
+              margin-top: 40px;
+              padding: 20px;
+              background: var(--color-surface-muted, #f8f9fa);
+              border-radius: 8px;
+            "
+          >
+            <h2 style="color: #333; margin-bottom: 20px">📖 延伸阅读</h2>
+            <div
+              class="related-links"
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 15px;
+              "
+            >
+              <div
+                class="related-item"
+                style="
+                  background: var(--color-surface-on-light-white, #fff);
+                  padding: 15px;
+                  border-radius: 6px;
+                  border: 1px solid var(--color-border-muted, #e9ecef);
+                "
+              >
+                <h3
+                  style="
+                    font-size: 16px;
+                    margin: 0 0 8px 0;
+                    color: var(--color-link-primary, #007bff);
+                  "
+                >
+                  <a href="tutorial.html" style="text-decoration: none; color: inherit"
+                    >📘 完整使用教程</a
+                  >
+                </h3>
+                <p style="margin: 0; font-size: 14px; color: #666">
+                  详细的分步指南，教您如何使用AISTONE的所有功能
+                </p>
+              </div>
+              <div
+                class="related-item"
+                style="
+                  background: var(--color-surface-on-light-white, #fff);
+                  padding: 15px;
+                  border-radius: 6px;
+                  border: 1px solid var(--color-border-muted, #e9ecef);
+                "
+              >
+                <h3
+                  style="
+                    font-size: 16px;
+                    margin: 0 0 8px 0;
+                    color: var(--color-link-primary, #007bff);
+                  "
+                >
+                  <a href="/" style="text-decoration: none; color: inherit">🏠 返回首页</a>
+                </h3>
+                <p style="margin: 0; font-size: 14px; color: #666">
+                  回到主页开始使用AI图片和语音生成功能
+                </p>
+              </div>
+              <div
+                class="related-item"
+                style="
+                  background: var(--color-surface-on-light-white, #fff);
+                  padding: 15px;
+                  border-radius: 6px;
+                  border: 1px solid var(--color-border-muted, #e9ecef);
+                "
+              >
+                <h3
+                  style="
+                    font-size: 16px;
+                    margin: 0 0 8px 0;
+                    color: var(--color-link-primary, #007bff);
+                  "
+                >
+                  <a href="contact.html" style="text-decoration: none; color: inherit"
+                    >💬 联系我们</a
+                  >
+                </h3>
+                <p style="margin: 0; font-size: 14px; color: #666">
+                  没有找到答案？直接联系我们的技术支持团队
+                </p>
+              </div>
+              <div
+                class="related-item"
+                style="
+                  background: var(--color-surface-on-light-white, #fff);
+                  padding: 15px;
+                  border-radius: 6px;
+                  border: 1px solid var(--color-border-muted, #e9ecef);
+                "
+              >
+                <h3
+                  style="
+                    font-size: 16px;
+                    margin: 0 0 8px 0;
+                    color: var(--color-link-primary, #007bff);
+                  "
+                >
+                  <a href="user.html" style="text-decoration: none; color: inherit">👤 个人中心</a>
+                </h3>
+                <p style="margin: 0; font-size: 14px; color: #666">管理您的生成历史和个人设置</p>
+              </div>
+            </div>
+          </section>
         </div>
+      </div>
     </main>
 
     <!-- 相关内容推荐 -->
     <section class="related-content">
-        <div class="container">
-            <h3>相关内容推荐</h3>
-            <div class="related-links">
-                <div class="related-item">
-                    <h4><a href="tutorial.html">使用教程</a></h4>
-                    <p>详细的操作指南，帮助您快速掌握AISTONE的各项功能。</p>
-                </div>
-                <div class="related-item">
-                    <h4><a href="/">AI图片生成器</a></h4>
-                    <p>立即体验我们的AI图片生成功能，创造令人惊艳的艺术作品。</p>
-                </div>
-                <div class="related-item">
-                    <h4><a href="voice.html">AI语音合成器</a></h4>
-                    <p>将文本转换为自然流畅的语音，支持多种音色和语言。</p>
-                </div>
-                <div class="related-item">
-                    <h4><a href="contact.html">联系我们</a></h4>
-                    <p>如果您还有其他问题，请随时通过多种方式联系我们的技术支持。</p>
-                </div>
-            </div>
+      <div class="container">
+        <h3>相关内容推荐</h3>
+        <div class="related-links">
+          <div class="related-item">
+            <h4><a href="tutorial.html">使用教程</a></h4>
+            <p>详细的操作指南，帮助您快速掌握AISTONE的各项功能。</p>
+          </div>
+          <div class="related-item">
+            <h4><a href="/">AI图片生成器</a></h4>
+            <p>立即体验我们的AI图片生成功能，创造令人惊艳的艺术作品。</p>
+          </div>
+          <div class="related-item">
+            <h4><a href="voice.html">AI语音合成器</a></h4>
+            <p>将文本转换为自然流畅的语音，支持多种音色和语言。</p>
+          </div>
+          <div class="related-item">
+            <h4><a href="contact.html">联系我们</a></h4>
+            <p>如果您还有其他问题，请随时通过多种方式联系我们的技术支持。</p>
+          </div>
         </div>
+      </div>
     </section>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2025 AISTONE. 保留所有权利。</p>
-            <div class="footer-links">
-                <a href="privacy.html">隐私政策</a>
-                <a href="terms.html">使用条款</a>
-                <a href="contact.html">联系我们</a>
-            </div>
+      <div class="container">
+        <p>&copy; 2025 AISTONE. 保留所有权利。</p>
+        <div class="footer-links">
+          <a href="privacy.html">隐私政策</a>
+          <a href="terms.html">使用条款</a>
+          <a href="contact.html">联系我们</a>
         </div>
+      </div>
     </footer>
 
     <style>
-    /* 面包屑导航样式 */
-    .breadcrumb {
+      /* 面包屑导航样式 */
+      .breadcrumb {
         margin-bottom: 20px;
         padding: 10px 0;
         font-size: 0.9em;
         color: var(--color-text-on-light-muted, #666);
-    }
-    
-    .breadcrumb a {
+      }
+
+      .breadcrumb a {
         color: var(--color-accent-blue, #4a90e2);
         text-decoration: none;
         transition: color 0.3s;
-    }
-    
-    .breadcrumb a:hover {
+      }
+
+      .breadcrumb a:hover {
         color: var(--color-accent-blue-dark, #2980b9);
         text-decoration: underline;
-    }
-    
-    .breadcrumb .separator {
+      }
+
+      .breadcrumb .separator {
         margin: 0 8px;
         color: #999;
-    }
-    
-    .breadcrumb .current {
+      }
+
+      .breadcrumb .current {
         color: var(--color-text-on-light-strong, #333);
         font-weight: 500;
-    }
+      }
 
-    .faq-page {
+      .faq-page {
         max-width: 900px;
         margin: 0 auto;
         padding: 40px 20px;
         line-height: 1.6;
-    }
+      }
 
-    .faq-content {
+      .faq-content {
         background: var(--color-surface-white, #fff);
         padding: 30px;
         border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
 
-    .faq-content h1 {
+      .faq-content h1 {
         color: var(--color-text-on-light-strong, #333);
         margin-bottom: 30px;
         font-size: 2.5em;
         text-align: center;
-    }
+      }
 
-    .faq-content h2 {
+      .faq-content h2 {
         color: var(--color-accent-blue, #4a90e2);
         margin-top: 40px;
         margin-bottom: 20px;
         font-size: 1.5em;
         border-left: 4px solid var(--color-accent-blue, #4a90e2);
         padding-left: 15px;
-    }
+      }
 
-    .faq-intro {
+      .faq-intro {
         text-align: center;
         margin-bottom: 40px;
         padding: 20px;
         background: var(--color-surface-muted, #f8f9fa);
         border-radius: 8px;
-    }
+      }
 
-    .faq-item {
+      .faq-item {
         margin-bottom: 20px;
         border: 1px solid var(--color-border-neutral, #e0e0e0);
         border-radius: 8px;
         overflow: hidden;
-    }
+      }
 
-    .faq-item h3 {
+      .faq-item h3 {
         background: var(--color-surface-muted, #f8f9fa);
         margin: 0;
         padding: 15px 20px;
@@ -580,138 +728,140 @@
         color: var(--color-text-on-light-strong, #333);
         border-bottom: 1px solid var(--color-border-neutral, #e0e0e0);
         transition: background-color 0.3s;
-    }
+      }
 
-    .faq-item h3:hover {
+      .faq-item h3:hover {
         background: var(--color-surface-info-soft, #e8f4fd);
-    }
+      }
 
-    .faq-answer {
+      .faq-answer {
         padding: 20px;
         background: var(--color-surface-white, #fff);
         display: block;
-    }
+      }
 
-    .faq-answer p {
+      .faq-answer p {
         margin-bottom: 10px;
         color: var(--color-text-on-light-muted, #666);
-    }
+      }
 
-    .faq-answer ul {
+      .faq-answer ul {
         margin-left: 20px;
         margin-bottom: 15px;
-    }
+      }
 
-    .faq-answer li {
+      .faq-answer li {
         margin-bottom: 5px;
         color: var(--color-text-on-light-muted, #666);
-    }
+      }
 
-    .ad-container {
+      .ad-container {
         background: var(--color-surface-verylight, #f9f9f9);
         border: 1px dashed var(--color-border-soft, #ddd);
         border-radius: 5px;
         padding: 20px;
-    }
+      }
 
-    footer {
+      footer {
         background: #333;
         color: var(--color-surface-on-light-white, #fff);
         text-align: center;
         padding: 20px 0;
         margin-top: 50px;
-    }
+      }
 
-    .footer-links a {
+      .footer-links a {
         color: var(--color-surface-on-light-white, #fff);
         text-decoration: none;
         margin: 0 15px;
-    }
+      }
 
-    .footer-links a:hover {
+      .footer-links a:hover {
         text-decoration: underline;
-    }
+      }
 
-    /* 相关内容推荐样式 */
-    .related-content {
+      /* 相关内容推荐样式 */
+      .related-content {
         background: var(--color-surface-muted, #f8f9fa);
         padding: 40px 0;
         margin-top: 30px;
         border-top: 1px solid var(--color-border-muted, #e9ecef);
-    }
+      }
 
-    .related-content h3 {
+      .related-content h3 {
         text-align: center;
         color: var(--color-text-on-light-strong, #333);
         margin-bottom: 30px;
         font-size: 1.5em;
-    }
+      }
 
-    .related-links {
+      .related-links {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
         max-width: 1000px;
         margin: 0 auto;
-    }
+      }
 
-    .related-item {
+      .related-item {
         background: var(--color-surface-on-light-white, #fff);
         padding: 20px;
         border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease;
-    }
+      }
 
-    .related-item:hover {
+      .related-item:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      }
 
-    .related-item h4 {
+      .related-item h4 {
         margin: 0 0 10px 0;
         color: #4a90e2;
-    }
+      }
 
-    .related-item h4 a {
+      .related-item h4 a {
         color: var(--color-accent-blue, #4a90e2);
         text-decoration: none;
         transition: color 0.3s ease;
-    }
+      }
 
-    .related-item h4 a:hover {
+      .related-item h4 a:hover {
         color: var(--color-accent-blue-dark, #2980b9);
         text-decoration: underline;
-    }
+      }
 
-    .related-item p {
+      .related-item p {
         margin: 0;
         color: #666;
         font-size: 0.9em;
         line-height: 1.4;
-    }
+      }
     </style>
     <script src="js/i18n.js"></script>
     <script src="js/ui_handler.js" defer></script>
     <script src="js/auth_modals.js" defer></script>
     <div id="auth-modals"></div>
     <script>
-        fetch('auth-modals.html')
-            .then(r => r.text())
-            .then(html => {
-                const mount = document.getElementById('auth-modals');
-                if (mount) mount.innerHTML = html;
-                const ensureBind = () => {
-                    if (window.initAuthForms) {
-                        window.initAuthForms();
-                    } else { setTimeout(ensureBind, 100); }
-                };
-                ensureBind();
-                if (typeof setLanguage === 'function' && typeof getCurrentLang === 'function') {
-                    setLanguage(getCurrentLang());
-                }
-            })
-            .catch(err => console.error('加载认证界面失败:', err));
+      fetch("auth-modals.html")
+        .then((r) => r.text())
+        .then((html) => {
+          const mount = document.getElementById("auth-modals");
+          if (mount) mount.innerHTML = html;
+          const ensureBind = () => {
+            if (window.initAuthForms) {
+              window.initAuthForms();
+            } else {
+              setTimeout(ensureBind, 100);
+            }
+          };
+          ensureBind();
+          if (typeof setLanguage === "function" && typeof getCurrentLang === "function") {
+            setLanguage(getCurrentLang());
+          }
+        })
+        .catch((err) => console.error("加载认证界面失败:", err));
     </script>
-</body>
+  </body>
 </html>
