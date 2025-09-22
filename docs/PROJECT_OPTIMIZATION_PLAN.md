@@ -63,6 +63,9 @@
       - 文件头注释补全：为关键入口与核心模块补充文件头 JSDoc，便于快速理解与 AI 解析（零逻辑变更）
         - `frontend/js/app.js`：应用入口脚本职责
         - `backend/index.js`：Workers 后端入口职责
+      - 全局对象 JSDoc 补全：统一为浏览器全局导出对象添加简短 API 说明（零逻辑变更）
+        - `window.UIUtils`、`window.ImageDisplay`
+        - 语音模块：`window.VoiceHistory/VoiceTextTools/VoiceDownload/VoiceShare/VoiceUIControls/VoiceLogger/VoiceExamples/VoiceResultRenderer/VoiceUrlParams/VoiceWaveform/VoiceSpeed`
     - 提交前校验：接入 Husky + lint-staged（pre-commit）
       - `prepare` 脚本启用 husky；pre-commit 执行 `lint-staged`
       - `lint-staged`：对 `**/*.{js,css,html,json,md}` 运行 Prettier，对 `{frontend/js,backend}/**/*.js` 运行 `eslint --fix`
