@@ -60,6 +60,9 @@
         - `frontend/js/app.js`：`App` 实例 `app`
         - `frontend/js/i18n.js`：`updateLanguageButtons`
         - `frontend/js/ui_enhancements.js`：`setupAboutModal/setupContactModal/setupServicesModal` 与自动轮播中的 `timer`
+      - 文件头注释补全：为关键入口与核心模块补充文件头 JSDoc，便于快速理解与 AI 解析（零逻辑变更）
+        - `frontend/js/app.js`：应用入口脚本职责
+        - `backend/index.js`：Workers 后端入口职责
     - 提交前校验：接入 Husky + lint-staged（pre-commit）
       - `prepare` 脚本启用 husky；pre-commit 执行 `lint-staged`
       - `lint-staged`：对 `**/*.{js,css,html,json,md}` 运行 Prettier，对 `{frontend/js,backend}/**/*.js` 运行 `eslint --fix`
