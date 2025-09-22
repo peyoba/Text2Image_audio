@@ -438,24 +438,17 @@ class UIHandler {
         window.ImageDisplay.showMultiple(validImages);
       }
     } else {
-      // 最小回退渲染：不依赖全局函数，直接渲染到容器
-      const imageContainer = document.getElementById("image-result-container");
-      if (!imageContainer) {
-        console.error("图片容器元素未找到");
-        return;
-      }
-      imageContainer.innerHTML = "";
+      // 最小回退渲染，不依赖全局（功能等价：支持点击查看，下载/复制由主路径 ImageDisplay 提供）
+      const container = document.getElementById("image-result-container");
+      if (!container) return;
+      container.innerHTML = "";
       if (validImages.length === 1) {
         const img = document.createElement("img");
         img.id = "generated-image";
         img.src = validImages[0];
         img.alt = "AI生成的图片";
-        img.addEventListener("click", () => {
-          try {
-            window.open(validImages[0], "_blank");
-          } catch (_) {}
-        });
-        imageContainer.appendChild(img);
+        img.addEventListener("click", () => window.open(validImages[0], "_blank"));
+        container.appendChild(img);
       } else {
         const grid = document.createElement("div");
         grid.className = "image-grid";
@@ -467,16 +460,12 @@ class UIHandler {
           const img = document.createElement("img");
           img.src = url;
           img.alt = "AI生成的图片";
-          img.addEventListener("click", () => {
-            try {
-              window.open(url, "_blank");
-            } catch (_) {}
-          });
+          img.addEventListener("click", () => window.open(url, "_blank"));
           grid.appendChild(img);
         });
-        imageContainer.appendChild(grid);
+        container.appendChild(grid);
       }
-      imageContainer.style.display = "block";
+      container.style.display = "block";
     }
 
     // 隐藏音频结果容器
