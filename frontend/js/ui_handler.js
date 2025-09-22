@@ -438,34 +438,12 @@ class UIHandler {
         window.ImageDisplay.showMultiple(validImages);
       }
     } else {
-      // 最小回退渲染，不依赖全局（功能等价：支持点击查看，下载/复制由主路径 ImageDisplay 提供）
-      const container = document.getElementById("image-result-container");
-      if (!container) return;
-      container.innerHTML = "";
+      // 回退到原有全局实现，确保与既有行为保持一致（含下载/复制等按钮）
       if (validImages.length === 1) {
-        const img = document.createElement("img");
-        img.id = "generated-image";
-        img.src = validImages[0];
-        img.alt = "AI生成的图片";
-        img.addEventListener("click", () => window.open(validImages[0], "_blank"));
-        container.appendChild(img);
+        displayImageResult(validImages[0], 1);
       } else {
-        const grid = document.createElement("div");
-        grid.className = "image-grid";
-        if (validImages.length === 1) grid.classList.add("single");
-        else if (validImages.length === 2) grid.classList.add("double");
-        else if (validImages.length === 4) grid.classList.add("quad");
-        else grid.classList.add("quad");
-        validImages.forEach((url) => {
-          const img = document.createElement("img");
-          img.src = url;
-          img.alt = "AI生成的图片";
-          img.addEventListener("click", () => window.open(url, "_blank"));
-          grid.appendChild(img);
-        });
-        container.appendChild(grid);
+        displayImageResult(validImages, validImages.length);
       }
-      container.style.display = "block";
     }
 
     // 隐藏音频结果容器
