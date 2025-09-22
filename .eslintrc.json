@@ -15,7 +15,7 @@
     "prefer-const": ["warn", { "ignoreReadBeforeAssign": true }],
     "no-unused-vars": ["warn", { "args": "none", "ignoreRestSiblings": true }],
     "no-console": "off",
-    "no-empty": "warn",
+    "no-empty": ["warn", { "allowEmptyCatch": true }],
     "import/order": [
       "warn",
       {
