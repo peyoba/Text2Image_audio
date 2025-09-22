@@ -85,5 +85,10 @@
     });
   }
 
+  /**
+   * Global voice speed controller.
+   * @global
+   * @property {(options?:{sliderId?:string,displayId?:string,audioId?:string,storageKey?:string})=>void} init
+   */
   window.VoiceSpeed = { init: init };
 })();

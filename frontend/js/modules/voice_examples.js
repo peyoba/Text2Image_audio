@@ -105,6 +105,12 @@
     } catch (_) {}
   }
 
+  /**
+   * Global voice examples helper.
+   * @global
+   * @property {(buttonSelector:string, textInputSelector:string)=>void} bind
+   * @property {(lang?:string)=>void} populate
+   */
   window.VoiceExamples = {
     bind: bind,
     populate: populate,

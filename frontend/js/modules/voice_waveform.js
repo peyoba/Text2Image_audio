@@ -107,6 +107,14 @@
     state.ctx.fillRect(0, 0, state.canvas.width, state.canvas.height);
   }
 
+  /**
+   * Global lightweight waveform renderer.
+   * @global
+   * @property {(target?:HTMLCanvasElement|string)=>{}} init
+   * @property {(target?:HTMLCanvasElement|string)=>{}} start
+   * @property {(target?:HTMLCanvasElement|string)=>void} stop
+   * @property {(target?:HTMLCanvasElement|string)=>void} clear
+   */
   window.VoiceWaveform = {
     init: init,
     start: start,

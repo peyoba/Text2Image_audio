@@ -32,6 +32,12 @@
     } catch (_) {}
   }
 
+  /**
+   * Global voice history storage.
+   * @global
+   * @property {()=>Array<{t:number,text:string,voice:string,speed:string,link:string}>} load
+   * @property {(item:{t:number,text:string,voice:string,speed:string,link:string})=>void} saveItem
+   */
   window.VoiceHistory = {
     load: load,
     saveItem: saveItem,

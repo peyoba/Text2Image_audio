@@ -297,6 +297,15 @@
     }
   }
 
+  /**
+   * Global image display helpers for non-bundled pages.
+   * @global
+   * @property {(url:string)=>void} showSingle
+   * @property {(urls:string[])=>void} showMultiple
+   * @property {(urls:string[])=>void} downloadAll
+   * @property {(url:string)=>void|Promise<void>} copyImageData
+   * @property {(url:string,index?:number)=>void} showImageModal
+   */
   window.ImageDisplay = {
     showSingle: showSingle,
     showMultiple: showMultiple,

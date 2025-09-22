@@ -18,5 +18,10 @@
     } catch (_) {}
   }
 
+  /**
+   * Global voice logger.
+   * @global
+   * @property {(message:string)=>void} log
+   */
   window.VoiceLogger = { log: log };
 })();

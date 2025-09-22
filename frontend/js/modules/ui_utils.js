@@ -93,6 +93,12 @@
     }
   }
 
+  /**
+   * Global UI utilities for browser usage.
+   * @global
+   * @property {(message:string, type?:('success'|'info'|'warning'|'error'), timeoutMs?:number)=>void} toast
+   * @property {(text:string)=>Promise<boolean>} copyText
+   */
   window.UIUtils = {
     toast: toast,
     copyText: copyText,

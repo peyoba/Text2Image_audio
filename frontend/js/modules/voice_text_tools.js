@@ -44,6 +44,12 @@
     return text;
   }
 
+  /**
+   * Global voice text tools API.
+   * @global
+   * @property {(text:string)=>Promise<string>} optimize
+   * @property {(text:string, targetLang:string)=>Promise<string>} translate
+   */
   window.VoiceTextTools = {
     optimize: optimize,
     translate: translate,

@@ -57,5 +57,10 @@
     }
   }
 
+  /**
+   * Global share helper for voice page.
+   * @global
+   * @property {(input?:{title?:string,text?:string,url?:string})=>Promise<void>} share
+   */
   window.VoiceShare = { share: share };
 })();

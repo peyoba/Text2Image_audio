@@ -51,6 +51,12 @@
     } catch (_) {}
   }
 
+  /**
+   * Global voice UI controls.
+   * @global
+   * @property {(isLoading:boolean)=>void} updateGenerateButton
+   * @property {(percent:number, label?:string)=>void} updateProgress
+   */
   window.VoiceUIControls = {
     updateGenerateButton: updateGenerateButton,
     updateProgress: updateProgress,

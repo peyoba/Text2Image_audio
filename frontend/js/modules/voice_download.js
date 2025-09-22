@@ -69,5 +69,10 @@
     }
   }
 
+  /**
+   * Global voice download helper.
+   * @global
+   * @property {(input:{url?:string, blob?:Blob, filenameBase?:string})=>Promise<void>} download
+   */
   window.VoiceDownload = { download: download };
 })();

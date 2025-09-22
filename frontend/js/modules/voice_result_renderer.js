@@ -71,5 +71,10 @@
     } catch (_) {}
   }
 
+  /**
+   * Global voice result renderer.
+   * @global
+   * @property {(response:{audioUrl:string,blob?:Blob}, params?:{blob?:Blob,lastParams?:{voice:string,speed:string,text:string}})=>void} display
+   */
   window.VoiceResultRenderer = { display: display };
 })();

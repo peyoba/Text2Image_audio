@@ -91,5 +91,10 @@
     } catch (_) {}
   }
 
+  /**
+   * Global URL params helper for voice page.
+   * @global
+   * @property {()=>void} applyAndMaybeAutoGenerate
+   */
   window.VoiceUrlParams = { applyAndMaybeAutoGenerate: applyAndMaybeAutoGenerate };
 })();
