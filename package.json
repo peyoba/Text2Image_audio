@@ -5,11 +5,20 @@
   "main": "backend/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "lint": "eslint \"frontend/js/**/*.js\" \"backend/**/*.js\"",
+    "lint:fix": "eslint \"frontend/js/**/*.js\" \"backend/**/*.js\" --fix",
+    "format": "prettier --write \"**/*.{js,css,html,json,md}\"",
+    "format:check": "prettier --check \"**/*.{js,css,html,json,md}\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
     "wrangler": "^4.33.1"
   }
 }
