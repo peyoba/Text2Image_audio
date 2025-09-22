@@ -1,3 +1,7 @@
+/**
+ * 应用入口脚本（前端）
+ * 负责初始化应用、错误处理与语言选择器绑定；零功能改动，仅补充文档说明。
+ */
 (function () {
   try {
     var qs = new URLSearchParams(location.search || "");

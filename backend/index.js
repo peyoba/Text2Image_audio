@@ -1,3 +1,7 @@
+/**
+ * 后端入口（Cloudflare Workers）
+ * 统一路由分发、CORS/安全头、认证与图片接口、中间件与指标日志。此编辑仅为文档头说明，无行为改动。
+ */
 // backend/index.js
 
 import {
