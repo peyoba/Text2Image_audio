@@ -54,6 +54,9 @@
       - Prettier 全量格式化（HTML/CSS/JS/MD）；修复 `voice.html` 多余闭合标签与 `style.css` 注释导致的语法问题
       - ESLint 配置：后端与前端模块启用 ESM 解析、前端全局声明（`t/getCurrentLang/setLanguage` 等）、`no-empty` 降级为告警
       - 正则误报抑制：`backend/index.js` 针对字符类转义添加单行忽略；移除 `events.js` 重复 `EventBus` 定义
+    - 提交前校验：接入 Husky + lint-staged（pre-commit）
+      - `prepare` 脚本启用 husky；pre-commit 执行 `lint-staged`
+      - `lint-staged`：对 `**/*.{js,css,html,json,md}` 运行 Prettier，对 `{frontend/js,backend}/**/*.js` 运行 `eslint --fix`
   - 后端调用稳健性：DeepSeek 两处请求统一使用 `fetchWithRetry`，重试上限与初始延迟可通过 `RETRY_MAX_ATTEMPTS`/`RETRY_INITIAL_DELAY_MS` 覆盖
   - CORS 灰度：新增 `ALLOWED_ORIGINS` 与 `CORS_STRICT` 白名单配置，默认行为保持不变
   - 文档：优化计划、部署/ENV 清单、前端运行时配置、监控与告警方案
