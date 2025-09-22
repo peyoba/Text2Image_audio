@@ -438,11 +438,45 @@ class UIHandler {
         window.ImageDisplay.showMultiple(validImages);
       }
     } else {
-      if (validImages.length === 1) {
-        displayImageResult(validImages[0], 1);
-      } else {
-        displayImageResult(validImages, validImages.length);
+      // 最小回退渲染：不依赖全局函数，直接渲染到容器
+      const imageContainer = document.getElementById("image-result-container");
+      if (!imageContainer) {
+        console.error("图片容器元素未找到");
+        return;
       }
+      imageContainer.innerHTML = "";
+      if (validImages.length === 1) {
+        const img = document.createElement("img");
+        img.id = "generated-image";
+        img.src = validImages[0];
+        img.alt = "AI生成的图片";
+        img.addEventListener("click", () => {
+          try {
+            window.open(validImages[0], "_blank");
+          } catch (_) {}
+        });
+        imageContainer.appendChild(img);
+      } else {
+        const grid = document.createElement("div");
+        grid.className = "image-grid";
+        if (validImages.length === 1) grid.classList.add("single");
+        else if (validImages.length === 2) grid.classList.add("double");
+        else if (validImages.length === 4) grid.classList.add("quad");
+        else grid.classList.add("quad");
+        validImages.forEach((url) => {
+          const img = document.createElement("img");
+          img.src = url;
+          img.alt = "AI生成的图片";
+          img.addEventListener("click", () => {
+            try {
+              window.open(url, "_blank");
+            } catch (_) {}
+          });
+          grid.appendChild(img);
+        });
+        imageContainer.appendChild(grid);
+      }
+      imageContainer.style.display = "block";
     }
 
     // 隐藏音频结果容器
@@ -974,6 +1008,7 @@ window.UIHandler = UIHandler;
  * @param {string|Array} imageData - Base64图片数据或图片数组
  * @param {number} numImages - 图片数量
  */
+/* removed by P4-4: display handled inline in showImageResult */
 function displayImageResult(imageData, numImages = 1) {
   // 优先委派到 ImageDisplay 模块
   if (
@@ -1006,6 +1041,7 @@ function displayImageResult(imageData, numImages = 1) {
 /**
  * 显示单张图片
  */
+/* removed by P4-4 */
 function displaySingleImage(container, imageData) {
   const img = document.createElement("img");
   img.id = "generated-image";
@@ -1032,6 +1068,7 @@ function displaySingleImage(container, imageData) {
 /**
  * 显示多张图片
  */
+/* removed by P4-4 */
 function displayMultipleImages(container, imageDataArray) {
   const imageGrid = document.createElement("div");
   imageGrid.className = "image-grid";
@@ -1076,6 +1113,7 @@ function displayMultipleImages(container, imageDataArray) {
 /**
  * 添加图片信息显示
  */
+/* removed by P4-4 */
 function addImageInfo(container, img) {
   const infoDiv = document.createElement("div");
   infoDiv.className = "image-info";
@@ -1089,6 +1127,7 @@ function addImageInfo(container, img) {
 /**
  * 添加多图片信息
  */
+/* removed by P4-4 */
 function addMultiImageInfo(container, count) {
   const infoDiv = document.createElement("div");
   infoDiv.className = "image-info";
@@ -1099,6 +1138,7 @@ function addMultiImageInfo(container, count) {
 /**
  * 添加图片操作按钮
  */
+/* removed by P4-4 */
 function addImageActions(container, img, imageData) {
   const actionsDiv = document.createElement("div");
   actionsDiv.className = "image-actions";
@@ -1134,6 +1174,7 @@ function addImageActions(container, img, imageData) {
 /**
  * 添加批量图片操作按钮
  */
+/* removed by P4-4 */
 function addBatchImageActions(container, imageDataArray) {
   const actionsDiv = document.createElement("div");
   actionsDiv.className = "image-actions";
@@ -1159,6 +1200,7 @@ function addBatchImageActions(container, imageDataArray) {
 /**
  * 显示图片模态框（放大查看）
  */
+/* removed by P4-4 */
 function showImageModal(imageData, index = 1) {
   // 创建模态框
   const modal = document.createElement("div");
@@ -1237,6 +1279,7 @@ function showImageModal(imageData, index = 1) {
 /**
  * 复制图片数据
  */
+/* removed by P4-4 */
 function copyImageData(imageData) {
   // 优先委派到 ImageDisplay 模块
   if (window.ImageDisplay && typeof window.ImageDisplay.copyImageData === "function") {
@@ -1277,6 +1320,7 @@ function copyImageData(imageData) {
 /**
  * 下载所有图片
  */
+/* removed by P4-4 */
 function downloadAllImages(imageDataArray) {
   // 优先委派到 ImageDisplay 模块
   if (window.ImageDisplay && typeof window.ImageDisplay.downloadAll === "function") {
@@ -1309,6 +1353,7 @@ function downloadAllImages(imageDataArray) {
 /**
  * 显示图片网格视图
  */
+/* removed by P4-4 */
 function showImageGrid(imageDataArray) {
   // 优先委派到 ImageDisplay 模块（用 showImageModal 作简化）
   if (window.ImageDisplay && typeof window.ImageDisplay.showImageModal === "function") {
