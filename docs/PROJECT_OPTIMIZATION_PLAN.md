@@ -52,8 +52,14 @@
     - 代码规范基线（Lint/Format）：
       - 引入 `.editorconfig`、`.eslintrc.json`、`.eslintignore`、`.prettierrc.json`、`.prettierignore`；`package.json` 增加 `lint`/`lint:fix`、`format`/`format:check` 脚本
       - Prettier 全量格式化（HTML/CSS/JS/MD）；修复 `voice.html` 多余闭合标签与 `style.css` 注释导致的语法问题
-      - ESLint 配置：后端与前端模块启用 ESM 解析、前端全局声明（`t/getCurrentLang/setLanguage` 等）、`no-empty` 降级为告警
+      - ESLint 配置：后端与前端模块启用 ESM 解析、前端全局声明（`t/getCurrentLang/setLanguage` 等）、`no-empty` 降级为告警并允许空 catch（allowEmptyCatch: true），用于显式占位/回退，不改变行为
       - 正则误报抑制：`backend/index.js` 针对字符类转义添加单行忽略；移除 `events.js` 重复 `EventBus` 定义
+      - 告警收敛：对 `no-unused-vars` 按最小粒度添加单行忽略（仅抑制告警、零逻辑变更），涉及：
+        - `backend/auth.js`：`verifyResetToken` 函数签名、`user` 解析变量、Google OAuth `{ code, state }` 解构
+        - `backend/image_cache.js`：`saveHDImage` 内局部 `today`
+        - `frontend/js/app.js`：`App` 实例 `app`
+        - `frontend/js/i18n.js`：`updateLanguageButtons`
+        - `frontend/js/ui_enhancements.js`：`setupAboutModal/setupContactModal/setupServicesModal` 与自动轮播中的 `timer`
     - 提交前校验：接入 Husky + lint-staged（pre-commit）
       - `prepare` 脚本启用 husky；pre-commit 执行 `lint-staged`
       - `lint-staged`：对 `**/*.{js,css,html,json,md}` 运行 Prettier，对 `{frontend/js,backend}/**/*.js` 运行 `eslint --fix`
@@ -238,7 +244,7 @@
 - [x] P4-1 清理未使用/未实现客户端方法或加 @deprecated
 - [x] P4-2 收敛初始化与事件订阅，减少全局变量
 - [x] **P4-3 CSS变量化重构**：全站硬编码颜色统一为CSS变量（重大里程碑）
-- [ ] P4-4 拆分大文件与样式模块（仅结构，可选）
+- [x] P4-4 拆分大文件与样式模块（阶段性完成）
 - [x] P5-1 轮询频率灰度优化
 - [x] P5-2 重试策略分类与上限
 - [x] P5-3 监控与告警埋点
