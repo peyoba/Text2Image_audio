@@ -573,6 +573,7 @@ window.UIEnhancements = UIEnhancements;
       }, 700);
     }
   }
+  // eslint-disable-next-line no-unused-vars
   const timer = setInterval(next, 3000);
   container.style.transition = "transform 0.7s cubic-bezier(0.4,0,0.2,1)";
   scrollToIndex(index, false);
