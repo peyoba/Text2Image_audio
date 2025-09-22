@@ -41,6 +41,7 @@ class HDImageCacheManager {
   async saveHDImage(userId, imageData) {
     try {
       const cacheKey = this.getCacheKey(userId);
+      // eslint-disable-next-line no-unused-vars
       const today = new Date().toISOString().split("T")[0];
 
       // 获取今天的图片列表

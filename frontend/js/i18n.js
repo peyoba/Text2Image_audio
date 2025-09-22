@@ -1919,6 +1919,7 @@ function getCurrentLang() {
 }
 
 // 更新语言切换按钮状态
+// eslint-disable-next-line no-unused-vars
 function updateLanguageButtons() {
   const currentLang = getCurrentLang();
   const langSelect = document.getElementById("lang-select");

@@ -424,6 +424,7 @@ class UIEnhancements {
 }
 
 // 关于弹窗模块化逻辑
+// eslint-disable-next-line no-unused-vars
 function setupAboutModal() {
   // 注释掉弹窗逻辑，让链接正常跳转
   /*
@@ -454,6 +455,7 @@ function setupAboutModal() {
     */
 }
 
+// eslint-disable-next-line no-unused-vars
 function setupContactModal() {
   // 注释掉弹窗逻辑，让链接正常跳转
   /*
@@ -483,6 +485,7 @@ function setupContactModal() {
     */
 }
 
+// eslint-disable-next-line no-unused-vars
 function setupServicesModal() {
   // 注释掉弹窗逻辑，让链接正常跳转
   /*

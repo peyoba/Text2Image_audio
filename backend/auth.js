@@ -492,6 +492,7 @@ function generateResetToken(email) {
  * @param {number} maxAge - token最大有效期（毫秒）
  * @returns {Object|null} 解码后的数据或null
  */
+// eslint-disable-next-line no-unused-vars
 function verifyResetToken(token, maxAge = 24 * 60 * 60 * 1000) {
   // 24小时默认
   try {
@@ -552,6 +553,7 @@ export async function handleForgotPassword(requestData, env) {
       };
     }
 
+    // eslint-disable-next-line no-unused-vars
     const user = JSON.parse(userData);
 
     // 生成重置token
@@ -823,6 +825,7 @@ export async function handleGoogleLogin(requestData, env) {
  */
 export async function handleGoogleOAuth(requestData, env) {
   try {
+    // eslint-disable-next-line no-unused-vars
     const { code, state } = requestData;
 
     if (!code) {

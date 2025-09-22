@@ -119,6 +119,7 @@ class App {
 }
 
 // 创建应用实例
+// eslint-disable-next-line no-unused-vars
 const app = new App();
 
 // 调试：监听localStorage变化
