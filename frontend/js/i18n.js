@@ -105,16 +105,6 @@ const i18n = {
     generatingContent: "Generating content, please wait...",
     generatedAudio: "Generated Audio:",
     downloadAudioFile: "Download Audio File",
-    imageGeneratedDone: "🎉 Image generation completed!",
-    audioGeneratedDone: "🎉 Audio generation completed!",
-    preparingContent: "Preparing content...",
-    generatingContent: "Generating content, please wait...",
-    generatedAudio: "Generated Audio:",
-    downloadAudioFile: "Download Audio File",
-    preparingContent: "Preparing content...",
-    generatingContent: "Generating content, please wait...",
-    generatedAudio: "Generated Audio:",
-    downloadAudioFile: "Download Audio File",
 
     // Example hints
     imageHint: "💡 Image generation supports multiple sizes and quantities",
@@ -2098,8 +2088,12 @@ function updatePageText() {
   console.log("[i18n] updatePageText called, lang=", lang);
 
   try {
-    // 更新标题
-    document.title = dict.title;
+    // 更新标题（语音页优先 voiceHeroTitle）
+    if (document.body.classList.contains("voice-page") && dict.voiceHeroTitle) {
+      document.title = dict.voiceHeroTitle;
+    } else {
+      document.title = dict.title;
+    }
     console.log("[i18n] 已更新页面标题");
 
     // 更新所有带有data-i18n属性的元素
