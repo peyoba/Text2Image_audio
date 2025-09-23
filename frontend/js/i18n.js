@@ -105,6 +105,12 @@ const i18n = {
     generatingContent: "Generating content, please wait...",
     generatedAudio: "Generated Audio:",
     downloadAudioFile: "Download Audio File",
+    imageGeneratedDone: "🎉 Image generation completed!",
+    audioGeneratedDone: "🎉 Audio generation completed!",
+    preparingContent: "Preparing content...",
+    generatingContent: "Generating content, please wait...",
+    generatedAudio: "Generated Audio:",
+    downloadAudioFile: "Download Audio File",
     preparingContent: "Preparing content...",
     generatingContent: "Generating content, please wait...",
     generatedAudio: "Generated Audio:",
@@ -567,6 +573,7 @@ const i18n = {
     generatingContent: "正在生成内容，请稍候...",
     generatedAudio: "生成的音频：",
     downloadAudioFile: "下载音频文件",
+    audioUnsupported: "您的浏览器不支持音频播放。",
 
     // 认证相关
     loginTitle: "用户登录",
@@ -1493,6 +1500,7 @@ const i18n = {
     close: "Close",
     copied: "Copied",
     copyFailed: "Copy failed",
+    audioUnsupported: "Your browser does not support audio playback.",
 
     // Inspiration section
     inspirationTitle: "🎨 Inspiration Gallery",

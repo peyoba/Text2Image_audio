@@ -423,11 +423,17 @@
             <!-- 进度条 -->
             <div id="voice-progress" class="voice-progress" style="display: none">
               <div class="voice-progress-bar" id="voice-progress-bar" style="width: 0%"></div>
-              <div class="voice-progress-label" id="voice-progress-label">准备中...</div>
+              <div
+                class="voice-progress-label"
+                id="voice-progress-label"
+                data-i18n="preparingContent"
+              >
+                准备中...
+              </div>
             </div>
             <div class="audio-player-container">
               <audio id="generated-audio" controls class="audio-player">
-                您的浏览器不支持音频播放。
+                <span data-i18n="audioUnsupported">您的浏览器不支持音频播放。</span>
               </audio>
             </div>
             <!-- 波形可视化 -->
