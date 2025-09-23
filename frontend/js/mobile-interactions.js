@@ -1,6 +1,7 @@
 /**
  * 移动端交互增强管理器
  * 处理触摸手势、移动端菜单、PWA安装等功能
+ * 运行环境：无打包直接引入（no-bundler），通过 window 全局使用
  */
 class MobileInteractionsManager {
   constructor() {

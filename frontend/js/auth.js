@@ -1,6 +1,7 @@
 /**
  * 用户认证模块
  * 处理登录、注册、token管理等功能
+ * 运行环境：无打包直接引入（no-bundler），通过 window 全局使用
  */
 
 class AuthManager {

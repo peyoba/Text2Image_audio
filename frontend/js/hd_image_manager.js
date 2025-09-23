@@ -1,6 +1,7 @@
 /**
  * 前端高清图片管理器
  * 实现图片保存、查看、下载等功能
+ * 运行环境：无打包直接引入（no-bundler），通过 window 全局使用
  */
 
 class HDImageManager {
