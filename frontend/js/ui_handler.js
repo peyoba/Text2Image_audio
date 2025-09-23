@@ -400,11 +400,7 @@ class UIHandler {
   showImageResult(imageDataURLs) {
     if (!imageDataURLs || !Array.isArray(imageDataURLs) || imageDataURLs.length === 0) {
       console.error("UIHandler: showImageResult - 无效的imageDataURLs数组", imageDataURLs);
-      this.showError(
-        getCurrentLang && getCurrentLang() === "zh"
-          ? "未收到有效的图片数据。"
-          : "No valid image data received."
-      );
+      this.showError(t("noValidImageData"));
       return;
     }
 
@@ -419,11 +415,7 @@ class UIHandler {
 
     if (validImages.length === 0) {
       console.warn("UIHandler: showImageResult - 没有有效的图片数据");
-      this.showError(
-        getCurrentLang && getCurrentLang() === "zh"
-          ? "未能成功加载任何图片。"
-          : "Failed to load any images."
-      );
+      this.showError(t("noImagesLoaded"));
       return;
     }
 
@@ -458,7 +450,7 @@ class UIHandler {
   showAudioResult(audioUrl) {
     if (!audioUrl || typeof audioUrl !== "string") {
       console.error("UIHandler: showAudioResult - 无效的audioUrl", audioUrl);
-      this.showError("收到的音频数据链接不正确。");
+      this.showError(t("invalidAudioUrl"));
       return;
     }
     this.generatedAudio.src = audioUrl;

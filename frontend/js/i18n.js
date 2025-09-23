@@ -105,6 +105,13 @@ const i18n = {
     generatingContent: "Generating content, please wait...",
     generatedAudio: "Generated Audio:",
     downloadAudioFile: "Download Audio File",
+    audioUnsupported: "Your browser does not support audio playback.",
+    noValidImageData: "No valid image data received.",
+    noImagesLoaded: "Failed to load any images.",
+    imageLoadFailedRetry: "Image failed to load, please retry",
+    invalidAudioUrl: "Invalid audio URL received.",
+    downloadAll: "Download All",
+    gridView: "Grid View",
 
     // Example hints
     imageHint: "💡 Image generation supports multiple sizes and quantities",
@@ -563,6 +570,13 @@ const i18n = {
     generatingContent: "正在生成内容，请稍候...",
     generatedAudio: "生成的音频：",
     downloadAudioFile: "下载音频文件",
+    audioUnsupported: "您的浏览器不支持音频播放。",
+    noValidImageData: "未收到有效的图片数据。",
+    noImagesLoaded: "未能成功加载任何图片。",
+    imageLoadFailedRetry: "图片加载失败，请重试",
+    invalidAudioUrl: "收到的音频数据链接不正确。",
+    downloadAll: "下载全部",
+    gridView: "网格查看",
     audioUnsupported: "您的浏览器不支持音频播放。",
 
     // 认证相关
@@ -2088,9 +2102,11 @@ function updatePageText() {
   console.log("[i18n] updatePageText called, lang=", lang);
 
   try {
-    // 更新标题（语音页优先 voiceHeroTitle）
+    // 更新标题（按页面优先使用特定标题键）
     if (document.body.classList.contains("voice-page") && dict.voiceHeroTitle) {
       document.title = dict.voiceHeroTitle;
+    } else if (document.location.pathname.includes("image-generator") && dict.imageGeneratorTitle) {
+      document.title = dict.imageGeneratorTitle;
     } else {
       document.title = dict.title;
     }
