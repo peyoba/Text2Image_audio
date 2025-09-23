@@ -284,8 +284,13 @@ class UIEnhancements {
             if (mutation.type === "attributes" && mutation.attributeName === "style") {
               const isVisible = container.style.display !== "none";
               if (isVisible) {
-                const type = container.id.includes("image") ? "图片" : "语音";
-                this.updateResultStatus(`🎉 ${type}生成完成！`, "success");
+                const isImage = container.id.includes("image");
+                const msg = window.t
+                  ? isImage
+                    ? t("imageGeneratedDone")
+                    : t("audioGeneratedDone")
+                  : `🎉 ${isImage ? "图片生成完成！" : "语音生成完成！"}`;
+                this.updateResultStatus(msg, "success");
               }
             }
           });

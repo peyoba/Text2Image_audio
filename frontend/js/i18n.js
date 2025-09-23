@@ -97,8 +97,14 @@ const i18n = {
     optimizationSuccess: "✨ Prompt optimization completed!",
     optimizationFailed: "Optimization failed, please try again later",
     pleaseInputFirst: "Please enter text content first",
-    generationComplete: "Generation completed!",
+    generationComplete: "Generation complete!",
     generating: "Generating...",
+    imageGeneratedDone: "🎉 Image generation completed!",
+    audioGeneratedDone: "🎉 Audio generation completed!",
+    preparingContent: "Preparing content...",
+    generatingContent: "Generating content, please wait...",
+    generatedAudio: "Generated Audio:",
+    downloadAudioFile: "Download Audio File",
     preparingContent: "Preparing content...",
     generatingContent: "Generating content, please wait...",
     generatedAudio: "Generated Audio:",
@@ -555,6 +561,8 @@ const i18n = {
     pleaseInputFirst: "请先输入文本内容",
     generationComplete: "生成完成！",
     generating: "正在生成中...",
+    imageGeneratedDone: "🎉 图片生成完成！",
+    audioGeneratedDone: "🎉 语音生成完成！",
     preparingContent: "正在准备内容...",
     generatingContent: "正在生成内容，请稍候...",
     generatedAudio: "生成的音频：",
@@ -851,6 +859,8 @@ const i18n = {
     copy: "复制",
     view: "查看",
     close: "关闭",
+    copied: "已复制",
+    copyFailed: "复制失败",
 
     // 新增：灵感获取专区
     inspirationTitle: "🎨 灵感获取专区",
@@ -1481,6 +1491,8 @@ const i18n = {
     copy: "Copy",
     view: "View",
     close: "Close",
+    copied: "Copied",
+    copyFailed: "Copy failed",
 
     // Inspiration section
     inspirationTitle: "🎨 Inspiration Gallery",
@@ -2103,13 +2115,21 @@ function updatePageText() {
     // 更新特定元素
     const heroTitle = document.querySelector(".hero-title");
     if (heroTitle) {
-      heroTitle.textContent = dict.title;
+      // 若有更具体的页面级标题键（如 voiceHeroTitle），优先使用，否则回退通用 title
+      const specificTitleKey = document.body.classList.contains("voice-page")
+        ? "voiceHeroTitle"
+        : undefined;
+      heroTitle.textContent = (specificTitleKey && dict[specificTitleKey]) || dict.title;
       console.log("[i18n] 已更新hero标题");
     }
 
     const heroSubtitle = document.querySelector(".hero-subtitle");
     if (heroSubtitle) {
-      heroSubtitle.textContent = dict.subtitle;
+      const specificSubtitleKey = document.body.classList.contains("voice-page")
+        ? "voiceHeroSubtitle"
+        : undefined;
+      heroSubtitle.textContent =
+        (specificSubtitleKey && dict[specificSubtitleKey]) || dict.subtitle;
       console.log("[i18n] 已更新hero副标题");
     }
 
