@@ -2103,13 +2103,19 @@ function updatePageText() {
 
   try {
     // 更新标题（按页面优先使用特定标题键）
+    let pageTitle = dict.title;
     if (document.body.classList.contains("voice-page") && dict.voiceHeroTitle) {
-      document.title = dict.voiceHeroTitle;
+      pageTitle = dict.voiceHeroTitle;
     } else if (document.location.pathname.includes("image-generator") && dict.imageGeneratorTitle) {
-      document.title = dict.imageGeneratorTitle;
-    } else {
-      document.title = dict.title;
+      pageTitle = dict.imageGeneratorTitle;
     }
+    document.title = pageTitle;
+
+    // 同步 og:title 与 twitter:title
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute("content", pageTitle);
+    const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+    if (twitterTitle) twitterTitle.setAttribute("content", pageTitle);
     console.log("[i18n] 已更新页面标题");
 
     // 更新所有带有data-i18n属性的元素
