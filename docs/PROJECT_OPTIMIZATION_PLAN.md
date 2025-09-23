@@ -66,6 +66,11 @@
       - 全局对象 JSDoc 补全：统一为浏览器全局导出对象添加简短 API 说明（零逻辑变更）
         - `window.UIUtils`、`window.ImageDisplay`
         - 语音模块：`window.VoiceHistory/VoiceTextTools/VoiceDownload/VoiceShare/VoiceUIControls/VoiceLogger/VoiceExamples/VoiceResultRenderer/VoiceUrlParams/VoiceWaveform/VoiceSpeed`
+      - no-bundler/window 说明补全：为前端直引脚本补充分发与全局用法说明（零逻辑变更）
+        - `frontend/js/`：`auth_modals.js`、`api_client.js`、`i18n.js`、`ui_handler.js`、`voice_app.js`
+        - `前端功能脚本`：`ui_enhancements.js`、`mobile-interactions.js`、`prompt_templates.js`、`hd_image_manager.js`、`feedback_manager.js`
+      - no-bundler/window 说明补全：在核心前端脚本头部声明“无打包直接引入、通过 window 全局使用”，便于后续接入 bundler 前的认知一致
+        - `auth_modals.js`, `api_client.js`, `i18n.js`, `ui_handler.js`, `voice_app.js`, `ui_enhancements.js`, `mobile-interactions.js`, `prompt_templates.js`, `hd_image_manager.js`, `feedback_manager.js`
     - 提交前校验：接入 Husky + lint-staged（pre-commit）
       - `prepare` 脚本启用 husky；pre-commit 执行 `lint-staged`
       - `lint-staged`：对 `**/*.{js,css,html,json,md}` 运行 Prettier，对 `{frontend/js,backend}/**/*.js` 运行 `eslint --fix`
