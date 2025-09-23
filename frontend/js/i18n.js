@@ -1936,6 +1936,8 @@ const i18n = {
   },
 };
 
+// 兼容处理移除：已静态合并为单一 en
+
 // 获取当前语言
 function getCurrentLang() {
   const storedLang = localStorage.getItem("preferred_language");
