@@ -1,5 +1,6 @@
 /**
  * API客户端类，处理与后端的所有通信
+ * 运行环境：无打包直接引入（no-bundler），通过 window 全局使用
  */
 class ApiClient {
   constructor() {

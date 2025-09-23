@@ -1,5 +1,6 @@
 /**
  * UI处理器类，处理所有用户界面交互
+ * 运行环境：无打包直接引入（no-bundler），通过 window 全局使用
  */
 // 文件内分区说明（仅注释，无行为变化）：
 // - 初始化与语言：constructor, initLanguageSwitcher, updatePageText

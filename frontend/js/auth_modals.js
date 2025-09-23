@@ -1,6 +1,7 @@
 /**
  * 认证模态框脚本：负责绑定登录/注册表单事件
  * 注意：该脚本与 `auth-modals.html` 配合使用
+ * 运行环境：无打包直接引入（no-bundler），通过 window 全局使用
  */
 
 let isSubmittingLogin = false;
