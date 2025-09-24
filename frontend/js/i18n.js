@@ -1156,6 +1156,14 @@ const i18n = {
     educatorDesc: "制作教学材料，增强学习体验",
     generalUserDesc: "个人创作，记录生活，表达创意",
 
+    // 特色功能标题
+    featureFreeTitle: "永久免费",
+    featureSpeedTitle: "极速生成",
+    featureQualityTitle: "专业品质",
+    featurePrivacyTitle: "隐私保护",
+    featureMultiLangTitle: "多语言支持",
+    featureResponsiveTitle: "跨平台使用",
+
     // 使用步骤
     step1Title: "访问平台",
     step1Desc: "访问 aistone.org，选择图像生成或语音合成服务，无需注册直接使用",
@@ -1954,6 +1962,14 @@ const i18n = {
     ecommerceDesc: "Create product showcase images to enhance product appeal",
     educatorDesc: "Create teaching materials to enhance learning experience",
     generalUserDesc: "Personal creation, record life, express creativity",
+
+    // 特色功能标题
+    featureFreeTitle: "Permanently Free",
+    featureSpeedTitle: "Ultra-fast Generation",
+    featureQualityTitle: "Professional Quality",
+    featurePrivacyTitle: "Privacy Protection",
+    featureMultiLangTitle: "Multi-language Support",
+    featureResponsiveTitle: "Cross-platform Use",
 
     // 使用步骤
     step1Title: "Visit Platform",
