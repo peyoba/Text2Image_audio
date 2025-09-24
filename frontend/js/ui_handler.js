@@ -301,18 +301,30 @@ class UIHandler {
    * 绑定所有事件处理器
    */
   bindEvents() {
-    this.generateButton.addEventListener("click", () => this.handleGenerate());
-    this.textInput.addEventListener("input", () => this.validateInput());
+    if (this.generateButton) {
+      this.generateButton.addEventListener("click", () => this.handleGenerate());
+    }
+    if (this.textInput) {
+      this.textInput.addEventListener("input", () => this.validateInput());
+    }
 
     // 新增：为类型选择和图片选项绑定事件
-    this.typeImageRadio.addEventListener("change", () => this._toggleImageOptions());
-    this.typeAudioRadio.addEventListener("change", () => this._toggleImageOptions());
-    this.optionAspectRatio.addEventListener("change", () => this._handleAspectRatioChange());
+    if (this.typeImageRadio) {
+      this.typeImageRadio.addEventListener("change", () => this._toggleImageOptions());
+    }
+    if (this.typeAudioRadio) {
+      this.typeAudioRadio.addEventListener("change", () => this._toggleImageOptions());
+    }
+    if (this.optionAspectRatio) {
+      this.optionAspectRatio.addEventListener("change", () => this._handleAspectRatioChange());
+    }
 
     // 新增：为新的选项绑定事件
     this._bindNewOptionsEvents();
 
-    this.validateInput();
+    if (this.textInput) {
+      this.validateInput();
+    }
   }
 
   /**
@@ -354,9 +366,15 @@ class UIHandler {
       ? "AI服务繁忙时会自动排队重试，请耐心等待..."
       : "The AI service may queue and retry during peak times, please wait..."
   ) {
-    this.loadingText.textContent = message;
-    this.loadingIndicator.style.display = "block";
-    this.generateButton.disabled = true;
+    if (this.loadingText) {
+      this.loadingText.textContent = message;
+    }
+    if (this.loadingIndicator) {
+      this.loadingIndicator.style.display = "block";
+    }
+    if (this.generateButton) {
+      this.generateButton.disabled = true;
+    }
     this.hideError();
     this.hideResults();
   }
@@ -365,9 +383,13 @@ class UIHandler {
    * 隐藏加载状态
    */
   hideLoading() {
-    this.loadingIndicator.style.display = "none";
+    if (this.loadingIndicator) {
+      this.loadingIndicator.style.display = "none";
+    }
     // this.generateButton.disabled = false; // 移除，让 validateInput 通过 isGenerating 状态处理
-    this.validateInput(); // 确保根据 isGenerating 和输入内容更新按钮状态
+    if (this.textInput) {
+      this.validateInput(); // 确保根据 isGenerating 和输入内容更新按钮状态
+    }
   }
 
   /**
@@ -375,27 +397,39 @@ class UIHandler {
    * @param {string} message 错误信息
    */
   showError(message) {
-    this.errorMessage.textContent = message;
-    this.errorMessage.style.display = "block";
+    if (this.errorMessage) {
+      this.errorMessage.textContent = message;
+      this.errorMessage.style.display = "block";
+    }
   }
 
   /**
    * 隐藏错误信息
    */
   hideError() {
-    this.errorMessage.style.display = "none";
+    if (this.errorMessage) {
+      this.errorMessage.style.display = "none";
+    }
   }
 
   /**
    * 隐藏所有结果
    */
   hideResults() {
-    this.imageResultContainer.style.display = "none";
-    this.imageResultContainer.innerHTML = ""; // 清空图片容器内容
-    this.audioResultContainer.style.display = "none";
-    this.generatedAudio.src = "";
-    this.downloadAudioLink.href = "#";
-    this.downloadAudioLink.style.display = "none";
+    if (this.imageResultContainer) {
+      this.imageResultContainer.style.display = "none";
+      this.imageResultContainer.innerHTML = ""; // 清空图片容器内容
+    }
+    if (this.audioResultContainer) {
+      this.audioResultContainer.style.display = "none";
+    }
+    if (this.generatedAudio) {
+      this.generatedAudio.src = "";
+    }
+    if (this.downloadAudioLink) {
+      this.downloadAudioLink.href = "#";
+      this.downloadAudioLink.style.display = "none";
+    }
   }
 
   /**

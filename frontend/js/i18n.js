@@ -1096,6 +1096,14 @@ const i18n = {
       { text: "服务条款", url: "#" },
     ],
 
+    // 图像生成页面专用翻译
+    imageGeneratorTitle: "AI 图像生成器",
+    imageGeneratorSubtitle: "将文本转换为令人惊叹的AI图像",
+    imageGeneratorSlogan: "释放创意，让AI为您创造视觉奇迹",
+    breadcrumbImageGenerator: "图像生成",
+    preparingContent: "正在准备内容...",
+    generatingContent: "正在生成内容，请稍候...",
+
     // 弹窗内容
     aboutModal: {
       title: "关于 AISTONE",
@@ -1787,6 +1795,14 @@ const i18n = {
       { text: "Privacy Policy", url: "#" },
       { text: "Terms of Service", url: "#" },
     ],
+
+    // 图像生成页面专用翻译
+    imageGeneratorTitle: "AI Image Generator",
+    imageGeneratorSubtitle: "Transform text into stunning AI images",
+    imageGeneratorSlogan: "Unleash creativity, let AI create visual wonders for you",
+    breadcrumbImageGenerator: "Image Generation",
+    preparingContent: "Preparing content...",
+    generatingContent: "Generating content, please wait...",
 
     // Modal content
     aboutModal: {
