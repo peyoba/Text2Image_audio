@@ -899,7 +899,7 @@ class VoiceApp {
       meta.innerHTML = `<div style="font-size:12px;">${new Date(it.t).toLocaleString()} • ${it.voice} • ${it.speed}x</div><div style="font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width: 100%;">${(it.text || "").replace(/[\n\r]+/g, " ").slice(0, 120)}</div>`;
       const play = document.createElement("button");
       play.className = "action-btn";
-      play.textContent = "▶ 生成并播放";
+      play.textContent = t("generateAndPlay");
       play.addEventListener("click", () => {
         const params = new URLSearchParams({
           text: it.text || "",

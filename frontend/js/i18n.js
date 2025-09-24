@@ -1212,6 +1212,9 @@ const i18n = {
     termsOfService: "服务条款",
     contactUs: "联系我们",
 
+    // 语音合成按钮
+    generateAndPlay: "▶ 生成并播放",
+
     // 图像生成页面专用翻译
     imageGeneratorTitle: "AI 图像生成器",
     imageGeneratorSubtitle: "将文本转换为令人惊叹的AI图像",
@@ -2044,6 +2047,9 @@ const i18n = {
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
     contactUs: "Contact Us",
+
+    // 语音合成按钮
+    generateAndPlay: "▶ Generate & Play",
 
     // 图像生成页面专用翻译
     imageGeneratorTitle: "AI Image Generator",
