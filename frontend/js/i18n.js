@@ -1207,6 +1207,11 @@ const i18n = {
     aboutPhilosophyDesc:
       "我们相信AI技术应该普惠大众，因此所有功能永久免费开放。助力每一位用户释放创意灵感，实现从文字到视觉、从文字到语音的无限可能。保护用户隐私，生成内容版权归用户所有，支持商业用途。",
 
+    // 页脚链接
+    privacyPolicy: "隐私政策",
+    termsOfService: "服务条款",
+    contactUs: "联系我们",
+
     // 图像生成页面专用翻译
     imageGeneratorTitle: "AI 图像生成器",
     imageGeneratorSubtitle: "将文本转换为令人惊叹的AI图像",
@@ -2034,6 +2039,11 @@ const i18n = {
     aboutPhilosophyTitle: "Platform Philosophy",
     aboutPhilosophyDesc:
       "We believe AI technology should benefit everyone, so all features are permanently free and open. Help every user unleash creative inspiration, realize unlimited possibilities from text to visuals and voice. Protect user privacy, generated content copyright belongs to users, supports commercial use.",
+
+    // 页脚链接
+    privacyPolicy: "Privacy Policy",
+    termsOfService: "Terms of Service",
+    contactUs: "Contact Us",
 
     // 图像生成页面专用翻译
     imageGeneratorTitle: "AI Image Generator",
