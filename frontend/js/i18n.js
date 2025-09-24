@@ -2462,6 +2462,22 @@ function setLanguage(lang) {
         }
       }
 
+      // 强制更新select option元素（防止被其他代码覆盖）
+      setTimeout(() => {
+        const voiceSelect = document.getElementById("voice-model");
+        if (voiceSelect) {
+          const options = voiceSelect.querySelectorAll("option[data-i18n]");
+          options.forEach((option) => {
+            const key = option.getAttribute("data-i18n");
+            const value = getNestedI18nValue(lang, key);
+            if (value && value !== key) {
+              option.textContent = value;
+              console.log(`[i18n] Force updated option: ${key} = ${value}`);
+            }
+          });
+        }
+      }, 100);
+
       // 触发语言变更事件
       const event = new CustomEvent("languageChanged", { detail: { language: lang } });
       document.dispatchEvent(event);
