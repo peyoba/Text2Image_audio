@@ -2463,20 +2463,34 @@ function setLanguage(lang) {
       }
 
       // 强制更新select option元素（防止被其他代码覆盖）
-      setTimeout(() => {
+      const forceUpdateOptions = () => {
         const voiceSelect = document.getElementById("voice-model");
         if (voiceSelect) {
+          console.log(`[i18n] Force updating voice select options for language: ${lang}`);
           const options = voiceSelect.querySelectorAll("option[data-i18n]");
+          console.log(`[i18n] Found ${options.length} options to update`);
           options.forEach((option) => {
             const key = option.getAttribute("data-i18n");
             const value = getNestedI18nValue(lang, key);
+            const oldText = option.textContent;
             if (value && value !== key) {
               option.textContent = value;
-              console.log(`[i18n] Force updated option: ${key} = ${value}`);
+              console.log(`[i18n] Updated option: ${key} = "${oldText}" → "${value}"`);
+            } else {
+              console.warn(`[i18n] No translation found for option key: ${key}`);
             }
           });
+        } else {
+          console.warn("[i18n] Voice select element not found");
         }
-      }, 100);
+      };
+
+      // 立即执行一次
+      forceUpdateOptions();
+      // 延迟执行防止被覆盖
+      setTimeout(forceUpdateOptions, 50);
+      setTimeout(forceUpdateOptions, 200);
+      setTimeout(forceUpdateOptions, 500);
 
       // 触发语言变更事件
       const event = new CustomEvent("languageChanged", { detail: { language: lang } });

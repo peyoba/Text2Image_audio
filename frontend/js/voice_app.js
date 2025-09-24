@@ -67,6 +67,14 @@ class VoiceApp {
         }
         this.initWaveform();
         this.restoreHistory();
+
+        // 额外的波形初始化检查（防止模块加载时序问题）
+        setTimeout(() => {
+          if (!this.waveformInitialized && window.VoiceWaveform) {
+            console.log("[Voice] Retry waveform initialization after delay");
+            this.initWaveform();
+          }
+        }, 1000);
         console.log("Voice app initialized successfully");
       })
       .catch((error) => {
@@ -764,6 +772,7 @@ class VoiceApp {
       console.log("[Voice] Using VoiceWaveform module for waveform rendering");
       const result = window.VoiceWaveform.init("voice-waveform");
       console.log("[Voice] VoiceWaveform.init result:", result);
+      this.waveformInitialized = true;
       return;
     } else {
       console.log("[Voice] VoiceWaveform module not available, using fallback rendering");
