@@ -74,12 +74,12 @@ const i18n = {
     // Audio options
     audioOptions: "Audio Options",
     voiceSelection: "Voice Selection",
-    voiceNova: "Nova - Clear and professional female voice",
-    voiceEcho: "Echo - Warm and friendly male voice",
-    voiceFable: "Fable - Expressive narrative voice",
-    voiceOnyx: "Onyx - Deep and authoritative male voice",
-    voiceShimmer: "Shimmer - Bright and lively female voice",
-    voiceAlloy: "Alloy - Balanced multi-purpose voice",
+    voiceNova: "Nova (Female-Clear)",
+    voiceEcho: "Echo (Male-Deep)",
+    voiceFable: "Fable (Male-Young)",
+    voiceOnyx: "Onyx (Male-Magnetic)",
+    voiceShimmer: "Shimmer (Female-Sweet)",
+    voiceAlloy: "Alloy (Male-Gentle)",
     audioModel: "Audio Model",
     audioModelOpenai: "OpenAI Audio - Latest voice synthesis",
 
@@ -538,12 +538,12 @@ const i18n = {
     // 音频选项
     audioOptions: "音频选项",
     voiceSelection: "语音选择",
-    voiceNova: "Nova - 清晰专业的女声",
-    voiceEcho: "Echo - 温暖友好的男声",
-    voiceFable: "Fable - 富有表现力的叙事声音",
-    voiceOnyx: "Onyx - 深沉权威的男声",
-    voiceShimmer: "Shimmer - 明亮活泼的女声",
-    voiceAlloy: "Alloy - 平衡多用途的声音",
+    voiceNova: "Nova (女声-清晰)",
+    voiceEcho: "Echo (男声-深沉)",
+    voiceFable: "Fable (男声-年轻)",
+    voiceOnyx: "Onyx (男声-磁性)",
+    voiceShimmer: "Shimmer (女声-甜美)",
+    voiceAlloy: "Alloy (男声-温和)",
     audioModel: "音频模型",
     audioModelOpenai: "OpenAI Audio - 最新语音合成",
 
@@ -1216,6 +1216,20 @@ const i18n = {
     generateAndPlay: "▶ 生成并播放",
     copyDeepLink: "复制深链",
 
+    // 错误提示
+    initializationError: "应用初始化失败，请刷新页面重试",
+    pageElementsIncomplete: "页面元素加载不完整，请刷新页面重试",
+    pleaseEnterText: "请输入要转换的文本内容",
+    textTooLong: "文本内容不能超过1000个字符",
+    voiceGenerationFailed: "语音生成失败",
+
+    // 成功提示
+    voiceGenerationSuccess: "语音生成成功！",
+
+    // 进度提示
+    preparing: "准备中...",
+    completed: "完成",
+
     // 图像生成页面专用翻译
     imageGeneratorTitle: "AI 图像生成器",
     imageGeneratorSubtitle: "将文本转换为令人惊叹的AI图像",
@@ -1473,13 +1487,6 @@ const i18n = {
 
     // Audio options
     audioOptions: "Audio Options",
-    voiceSelection: "Voice Selection",
-    voiceNova: "Nova - Clear Professional Female Voice",
-    voiceEcho: "Echo - Warm Friendly Male Voice",
-    voiceFable: "Fable - Expressive Narrative Voice",
-    voiceOnyx: "Onyx - Deep Authoritative Male Voice",
-    voiceShimmer: "Shimmer - Bright Lively Female Voice",
-    voiceAlloy: "Alloy - Balanced Versatile Voice",
     audioModel: "Audio Model",
     audioModelOpenai: "OpenAI Audio - Latest Speech Synthesis",
 
@@ -2052,6 +2059,20 @@ const i18n = {
     // 语音合成按钮
     generateAndPlay: "▶ Generate & Play",
     copyDeepLink: "Copy Link",
+
+    // 错误提示
+    initializationError: "Application initialization failed, please refresh the page and try again",
+    pageElementsIncomplete: "Page elements incomplete, please refresh the page and try again",
+    pleaseEnterText: "Please enter text content to convert",
+    textTooLong: "Text content cannot exceed 1000 characters",
+    voiceGenerationFailed: "Voice generation failed",
+
+    // 成功提示
+    voiceGenerationSuccess: "Voice generation successful!",
+
+    // 进度提示
+    preparing: "Preparing...",
+    completed: "Completed",
 
     // 图像生成页面专用翻译
     imageGeneratorTitle: "AI Image Generator",

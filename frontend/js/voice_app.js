@@ -67,11 +67,11 @@ class VoiceApp {
         }
         this.initWaveform();
         this.restoreHistory();
-        console.log("语音应用初始化完成");
+        console.log("Voice app initialized successfully");
       })
       .catch((error) => {
-        console.error("语音应用初始化失败:", error);
-        this.showError("应用初始化失败，请刷新页面重试");
+        console.error("Voice app initialization failed:", error);
+        this.showError(t("initializationError"));
       });
   }
 
@@ -384,25 +384,25 @@ class VoiceApp {
     const generateBtn = document.getElementById("generate-voice-btn");
 
     if (!textInput || !voiceModel || !voiceSpeed || !generateBtn) {
-      this.showError("页面元素加载不完整，请刷新页面重试");
+      this.showError(t("pageElementsIncomplete"));
       return;
     }
 
     const text = textInput.value.trim();
     if (!text) {
-      this.showError("请输入要转换的文本内容");
+      this.showError(t("pleaseEnterText"));
       textInput.focus();
       return;
     }
 
     if (text.length > 1000) {
-      this.showError("文本内容不能超过1000个字符");
+      this.showError(t("textTooLong"));
       return;
     }
 
     this.isGenerating = true;
     this.updateGenerateButton(true);
-    this.updateProgress(2, "准备中...");
+    this.updateProgress(2, t("preparing"));
 
     try {
       const requestData = {
@@ -422,15 +422,15 @@ class VoiceApp {
         this.currentAudioUrl = response.audioUrl;
         this.currentAudioBlob = response.blob || null;
         this.displayVoiceResult(response);
-        this.showSuccess("语音生成成功！");
-        this.updateProgress(100, "完成");
+        this.showSuccess(t("voiceGenerationSuccess"));
+        this.updateProgress(100, t("completed"));
         this.saveHistory();
       } else {
-        throw new Error(response.error || "语音生成失败");
+        throw new Error(response.error || t("voiceGenerationFailed"));
       }
     } catch (error) {
-      console.error("语音生成错误:", error);
-      this.showError("语音生成失败: " + error.message);
+      console.error("Voice generation error:", error);
+      this.showError(t("voiceGenerationFailed") + ": " + error.message);
       this.log(`错误: ${error.message}`);
     } finally {
       this.isGenerating = false;
