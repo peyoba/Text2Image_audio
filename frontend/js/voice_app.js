@@ -85,7 +85,7 @@ class VoiceApp {
       }
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
-    throw new Error("依赖加载超时: APIClient 未准备就绪");
+    throw new Error("Dependency loading timeout: APIClient not ready");
   }
 
   // 事件：初始化交互
@@ -323,7 +323,7 @@ class VoiceApp {
 
         // 如果来源是主页，显示欢迎信息
         if (source === "main") {
-          this.showInfo("已自动填入您在主页输入的文本，您可以直接生成语音或进行修改。");
+          this.showInfo(t("autoFilledFromHomepage"));
         }
 
         // 滚动到输入框
@@ -431,7 +431,7 @@ class VoiceApp {
     } catch (error) {
       console.error("Voice generation error:", error);
       this.showError(t("voiceGenerationFailed") + ": " + error.message);
-      this.log(`错误: ${error.message}`);
+      this.log(`Error: ${error.message}`);
     } finally {
       this.isGenerating = false;
       this.updateGenerateButton(false);
@@ -499,12 +499,12 @@ class VoiceApp {
       // 更新音色信息
       if (modelElement) {
         const voiceNames = window.VOICE_NAMES || {
-          nova: "Nova (女声)",
-          alloy: "Alloy (男声)",
-          echo: "Echo (男声)",
-          fable: "Fable (男声)",
-          onyx: "Onyx (男声)",
-          shimmer: "Shimmer (女声)",
+          nova: t("voiceNova"),
+          alloy: t("voiceAlloy"),
+          echo: t("voiceEcho"),
+          fable: t("voiceFable"),
+          onyx: t("voiceOnyx"),
+          shimmer: t("voiceShimmer"),
         };
         modelElement.textContent =
           voiceNames[this.lastGenerationParams.voice] || this.lastGenerationParams.voice;
@@ -520,7 +520,7 @@ class VoiceApp {
   // 动作：下载音频
   async downloadAudio() {
     if (!this.currentAudioUrl) {
-      this.showError("没有可下载的音频文件");
+      this.showError(t("noAudioToDownload"));
       return;
     }
 
@@ -548,18 +548,18 @@ class VoiceApp {
         a.click();
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
-        this.showSuccess("音频下载已开始");
+        this.showSuccess(t("audioDownloadStarted"));
       }
     } catch (error) {
-      console.error("下载失败:", error);
-      this.showError("音频下载失败，请重试");
+      console.error("Download failed:", error);
+      this.showError(t("audioDownloadFailed"));
     }
   }
 
   // 动作：复制音频URL
   async copyAudioUrl() {
     if (!this.currentAudioUrl) {
-      this.showError("当前没有可复制的音频链接");
+      this.showError(t("noAudioUrlToCopy"));
       return;
     }
     try {
@@ -578,24 +578,24 @@ class VoiceApp {
         document.execCommand("copy");
         document.body.removeChild(ta);
       }
-      this.showSuccess("音频链接已复制");
+      this.showSuccess(t("audioUrlCopied"));
     } catch (e) {
-      this.showError("复制失败，请手动复制");
+      this.showError(t("copyFailed"));
     }
   }
 
   // 动作：分享
   async shareAudio() {
     if (!this.currentAudioUrl) {
-      this.showError("没有可分享的音频文件");
+      this.showError(t("noAudioToShare"));
       return;
     }
 
     // 优先使用模块化分享
     if (window.VoiceShare && typeof window.VoiceShare.share === "function") {
       await window.VoiceShare.share({
-        title: "AISTONE语音合成",
-        text: "我使用AISTONE生成了一段AI语音，快来听听吧！",
+        title: t("shareTitle"),
+        text: t("shareText"),
         url: window.location.href,
       });
       return;
@@ -605,13 +605,13 @@ class VoiceApp {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "AISTONE语音合成",
-          text: "我使用AISTONE生成了一段AI语音，快来听听吧！",
+          title: t("shareTitle"),
+          text: t("shareText"),
           url: window.location.href,
         });
       } catch (error) {
         if (error.name !== "AbortError") {
-          console.error("分享失败:", error);
+          console.error("Share failed:", error);
           this.fallbackShare();
         }
       }
@@ -631,7 +631,7 @@ class VoiceApp {
     }
     if (navigator.clipboard) {
       navigator.clipboard.writeText(url).then(() => {
-        this.showSuccess("页面链接已复制到剪贴板");
+        this.showSuccess(t("pageLinkCopied"));
       });
     } else {
       // 更老的浏览器降级方案
@@ -641,14 +641,14 @@ class VoiceApp {
       textArea.select();
       document.execCommand("copy");
       document.body.removeChild(textArea);
-      this.showSuccess("页面链接已复制到剪贴板");
+      this.showSuccess(t("pageLinkCopied"));
     }
   }
 
   // 动作：保存到个人中心（占位）
   async saveAudio() {
     if (!this.currentAudioUrl) {
-      this.showError("没有可保存的音频文件");
+      this.showError(t("noAudioToSave"));
       return;
     }
     try {
@@ -664,13 +664,13 @@ class VoiceApp {
       }
       // 回退提示
       if (!window.AuthManager || !window.AuthManager.isLoggedIn()) {
-        this.showError("请先登录再保存音频");
+        this.showError(t("pleaseLoginToSave"));
         return;
       }
-      this.showInfo("音频保存功能正在开发中，敬请期待！");
+      this.showInfo(t("saveFeatureComingSoon"));
     } catch (error) {
-      console.error("保存音频失败:", error);
-      this.showError("音频保存失败: " + error.message);
+      console.error("Save audio failed:", error);
+      this.showError(t("audioSaveFailed") + ": " + error.message);
     }
   }
 
@@ -717,10 +717,10 @@ class VoiceApp {
     if (percent > 0 && percent < 100) {
       box.style.display = "block";
       bar.style.width = `${Math.max(2, Math.min(100, percent))}%`;
-      if (text) text.textContent = label || "处理中...";
+      if (text) text.textContent = label || t("processing");
     } else if (percent >= 100) {
       bar.style.width = "100%";
-      if (text) text.textContent = label || "完成";
+      if (text) text.textContent = label || t("completed");
       setTimeout(() => {
         if (box) box.style.display = "none";
       }, 600);

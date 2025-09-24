@@ -1229,6 +1229,24 @@ const i18n = {
     // 进度提示
     preparing: "准备中...",
     completed: "完成",
+    processing: "处理中...",
+
+    // 操作提示
+    autoFilledFromHomepage: "已自动填入您在主页输入的文本，您可以直接生成语音或进行修改。",
+    noAudioToDownload: "没有可下载的音频文件",
+    audioDownloadStarted: "音频下载已开始",
+    audioDownloadFailed: "音频下载失败，请重试",
+    noAudioUrlToCopy: "当前没有可复制的音频链接",
+    audioUrlCopied: "音频链接已复制",
+    copyFailed: "复制失败，请手动复制",
+    noAudioToShare: "没有可分享的音频文件",
+    shareTitle: "AISTONE语音合成",
+    shareText: "我使用AISTONE生成了一段AI语音，快来听听吧！",
+    pageLinkCopied: "页面链接已复制到剪贴板",
+    noAudioToSave: "没有可保存的音频文件",
+    pleaseLoginToSave: "请先登录再保存音频",
+    saveFeatureComingSoon: "音频保存功能正在开发中，敬请期待！",
+    audioSaveFailed: "音频保存失败",
 
     // 图像生成页面专用翻译
     imageGeneratorTitle: "AI 图像生成器",
@@ -2073,6 +2091,25 @@ const i18n = {
     // 进度提示
     preparing: "Preparing...",
     completed: "Completed",
+    processing: "Processing...",
+
+    // 操作提示
+    autoFilledFromHomepage:
+      "Text automatically filled from homepage. You can generate voice directly or make modifications.",
+    noAudioToDownload: "No audio file available for download",
+    audioDownloadStarted: "Audio download started",
+    audioDownloadFailed: "Audio download failed, please try again",
+    noAudioUrlToCopy: "No audio URL available to copy",
+    audioUrlCopied: "Audio URL copied",
+    copyFailed: "Copy failed, please copy manually",
+    noAudioToShare: "No audio file available to share",
+    shareTitle: "AISTONE Voice Synthesis",
+    shareText: "I generated an AI voice using AISTONE, come and listen!",
+    pageLinkCopied: "Page link copied to clipboard",
+    noAudioToSave: "No audio file available to save",
+    pleaseLoginToSave: "Please login first to save audio",
+    saveFeatureComingSoon: "Audio save feature is under development, stay tuned!",
+    audioSaveFailed: "Audio save failed",
 
     // 图像生成页面专用翻译
     imageGeneratorTitle: "AI Image Generator",
