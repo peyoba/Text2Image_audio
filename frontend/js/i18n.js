@@ -1111,12 +1111,22 @@ const i18n = {
     modelsSubtitle: "基于Pollinations.AI技术的先进AI模型，满足不同创作需求",
 
     // 服务
+    servicesTitle: "AI 创作服务",
+    servicesSubtitle: "体验最先进的AI技术，将您的想法转化为令人惊叹的视觉和听觉作品",
+    imageGenerationTitle: "AI 图像生成",
+    voiceSynthesisTitle: "AI 语音合成",
     imageGenerationDesc:
       "从文本描述生成高质量的AI图像，支持多种艺术风格和自定义尺寸。基于Pollinations.AI技术，支持FLUX、Turbo、Kontext等先进模型，让您的创意无限延伸。",
     voiceSynthesisDesc:
       "将文本转换为自然流畅的语音，支持多种音色和语言。适合制作视频、播客、有声读物等内容，为您的作品增添生动的声音。",
     featureCommercial: "商用许可",
     featureDownloadable: "可下载",
+    featureHighQuality: "高清质量",
+    featureMultiStyle: "多种风格",
+    featureCustomSize: "自定义尺寸",
+    featureNaturalVoice: "自然语音",
+    featureMultiVoice: "多种音色",
+    featureMultiLang: "多语言支持",
 
     // 适用人群
     audienceTitle: "适用人群",
@@ -1908,12 +1918,23 @@ const i18n = {
       "Advanced AI models based on Pollinations.AI technology to meet different creative needs",
 
     // 服务
+    servicesTitle: "AI Creative Services",
+    servicesSubtitle:
+      "Experience the most advanced AI technology, transforming your ideas into stunning visual and audio works",
+    imageGenerationTitle: "AI Image Generation",
+    voiceSynthesisTitle: "AI Voice Synthesis",
     imageGenerationDesc:
       "Generate high-quality AI images from text descriptions, supporting multiple artistic styles and custom sizes. Based on Pollinations.AI technology, supports FLUX, Turbo, Kontext and other advanced models, letting your creativity extend infinitely.",
     voiceSynthesisDesc:
       "Convert text to natural and fluent speech, supporting multiple timbres and languages. Suitable for making videos, podcasts, audiobooks and other content, adding vivid sound to your works.",
     featureCommercial: "Commercial License",
     featureDownloadable: "Downloadable",
+    featureHighQuality: "High Quality",
+    featureMultiStyle: "Multiple Styles",
+    featureCustomSize: "Custom Sizes",
+    featureNaturalVoice: "Natural Voice",
+    featureMultiVoice: "Multiple Timbres",
+    featureMultiLang: "Multi-language",
 
     // 适用人群
     audienceTitle: "Target Users",
