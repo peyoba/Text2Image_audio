@@ -20,13 +20,18 @@ class UIHandler {
 
     // 检查当前页面类型
     const currentPath = window.location.pathname;
-    const isHomePage =
+    const isGenerationPage =
       !currentPath.includes("about.html") &&
       !currentPath.includes("services.html") &&
-      !currentPath.includes("contact.html");
+      !currentPath.includes("contact.html") &&
+      !currentPath.includes("voice.html") &&
+      !currentPath.includes("blog.html") &&
+      !currentPath.includes("user.html") &&
+      !currentPath.includes("privacy.html") &&
+      !currentPath.includes("terms.html");
 
-    if (isHomePage) {
-      // 首页：获取所有DOM元素
+    if (isGenerationPage) {
+      // 生成页面：获取所有DOM元素
       this.textInput = document.getElementById("text-input");
       this.generateButton = document.getElementById("generate-button");
       this.typeImageRadio = document.getElementById("type-image");
@@ -51,7 +56,7 @@ class UIHandler {
       // 新增：获取面包屑导航元素
       this.breadcrumbNav = document.getElementById("breadcrumb-nav");
 
-      // 绑定首页特有的事件
+      // 绑定生成页面特有的事件
       this.bindEvents();
       this._toggleImageOptions(); // 初始化时根据类型显隐图片选项
       this._handleAspectRatioChange(); // 初始化宽高比相关UI
@@ -59,7 +64,7 @@ class UIHandler {
       window.addEventListener("hashchange", () => this._handleBreadcrumbVisibility());
       document.addEventListener("DOMContentLoaded", () => this._handleBreadcrumbVisibility());
     } else {
-      // 新页面：只初始化基本元素
+      // 非生成页面：只初始化基本元素
       this.textInput = null;
       this.generateButton = null;
       this.typeImageRadio = null;
