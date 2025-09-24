@@ -18,15 +18,32 @@
     return null;
   }
 
+  function resolveCssColor(maybeVar) {
+    try {
+      if (typeof maybeVar !== "string") return maybeVar;
+      if (!maybeVar.startsWith("var(")) return maybeVar;
+      // Resolve CSS variable using a temporary element (safe for canvas context fillStyle)
+      var tmp = document.createElement("span");
+      tmp.style.color = maybeVar;
+      document.body.appendChild(tmp);
+      var resolved = getComputedStyle(tmp).color;
+      document.body.removeChild(tmp);
+      return resolved || maybeVar;
+    } catch (_) {
+      return maybeVar;
+    }
+  }
+
   function bgColor() {
-    return (
+    var col =
       (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bg) ||
-      "var(--color-wave-bg, #0e1424)"
-    );
+      "var(--color-wave-bg, #0e1424)";
+    return resolveCssColor(col);
   }
 
   function barColor() {
-    return (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bar) || "#00cfff";
+    var col = (window.VOICE_WAVEFORM_COLORS && window.VOICE_WAVEFORM_COLORS.bar) || "#00cfff";
+    return resolveCssColor(col);
   }
 
   function getKey(canvas) {

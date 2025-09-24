@@ -2476,24 +2476,45 @@ function setLanguage(lang) {
       // 强制更新select option元素（防止被其他代码覆盖）
       const forceUpdateOptions = () => {
         const voiceSelect = document.getElementById("voice-model");
-        if (voiceSelect) {
-          console.log(`[i18n] Force updating voice select options for language: ${lang}`);
-          const options = voiceSelect.querySelectorAll("option[data-i18n]");
-          console.log(`[i18n] Found ${options.length} options to update`);
-          options.forEach((option) => {
-            const key = option.getAttribute("data-i18n");
-            const value = getNestedI18nValue(lang, key);
-            const oldText = option.textContent;
-            if (value && value !== key) {
-              option.textContent = value;
-              console.log(`[i18n] Updated option: ${key} = "${oldText}" → "${value}"`);
-            } else {
-              console.warn(`[i18n] No translation found for option key: ${key}`);
-            }
-          });
-        } else {
+        if (!voiceSelect) {
           console.warn("[i18n] Voice select element not found");
+          return;
         }
+        console.log(`[i18n] Force updating voice select options for language: ${lang}`);
+
+        // 优先使用 data-i18n；若缺失则从 value 映射到对应 key
+        const valueToKey = {
+          nova: "voiceNova",
+          alloy: "voiceAlloy",
+          echo: "voiceEcho",
+          fable: "voiceFable",
+          onyx: "voiceOnyx",
+          shimmer: "voiceShimmer",
+        };
+
+        const options = voiceSelect.querySelectorAll("option");
+        console.log(`[i18n] Found ${options.length} options to update`);
+        options.forEach((option) => {
+          const key = option.getAttribute("data-i18n") || valueToKey[option.value];
+          const oldText = option.textContent;
+
+          let value = key ? getNestedI18nValue(lang, key) : undefined;
+          if (!value && typeof window.getVoiceName === "function") {
+            // 回退：使用 value → name 的动态函数
+            try {
+              value = window.getVoiceName(option.value);
+            } catch (_) {}
+          }
+
+          if (value && value !== key && typeof value === "string") {
+            option.textContent = value;
+            console.log(
+              `[i18n] Updated option: ${key || option.value} = "${oldText}" → "${value}"`
+            );
+          } else if (key) {
+            console.warn(`[i18n] No translation found for option key: ${key}`);
+          }
+        });
       };
 
       // 立即执行一次
