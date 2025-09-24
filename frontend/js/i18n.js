@@ -1166,6 +1166,10 @@ const i18n = {
     educatorDesc: "制作教学材料，增强学习体验",
     generalUserDesc: "个人创作，记录生活，表达创意",
 
+    // 特色功能
+    featuresTitle: "平台特色",
+    featuresSubtitle: "为什么选择 AISTONE 作为您的AI创作伙伴",
+
     // 特色功能标题
     featureFreeTitle: "永久免费",
     featureSpeedTitle: "极速生成",
@@ -1983,6 +1987,10 @@ const i18n = {
     ecommerceDesc: "Create product showcase images to enhance product appeal",
     educatorDesc: "Create teaching materials to enhance learning experience",
     generalUserDesc: "Personal creation, record life, express creativity",
+
+    // 特色功能
+    featuresTitle: "Key Features of AISTONE",
+    featuresSubtitle: "Why choose AISTONE as your AI creative partner",
 
     // 特色功能标题
     featureFreeTitle: "Permanently Free",
