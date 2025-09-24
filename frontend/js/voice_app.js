@@ -912,7 +912,7 @@ class VoiceApp {
       });
       const copy = document.createElement("button");
       copy.className = "action-btn";
-      copy.textContent = "复制深链";
+      copy.textContent = t("copyDeepLink");
       copy.addEventListener("click", async () => {
         try {
           if (window.UIUtils && typeof window.UIUtils.copyText === "function") {

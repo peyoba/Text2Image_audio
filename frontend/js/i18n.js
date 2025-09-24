@@ -1214,6 +1214,7 @@ const i18n = {
 
     // 语音合成按钮
     generateAndPlay: "▶ 生成并播放",
+    copyDeepLink: "复制深链",
 
     // 图像生成页面专用翻译
     imageGeneratorTitle: "AI 图像生成器",
@@ -2050,6 +2051,7 @@ const i18n = {
 
     // 语音合成按钮
     generateAndPlay: "▶ Generate & Play",
+    copyDeepLink: "Copy Link",
 
     // 图像生成页面专用翻译
     imageGeneratorTitle: "AI Image Generator",
