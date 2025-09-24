@@ -2383,6 +2383,9 @@ function setLanguage(lang) {
           if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
             el.placeholder = value;
           } else if (el.tagName === "OPTION") {
+            console.log(
+              `[setLanguage DEBUG] Updating OPTION: key=${key}, value=${value}, currentText=${el.textContent}`
+            );
             el.textContent = value;
           } else {
             el.innerHTML = value;
@@ -2516,6 +2519,9 @@ function updatePageText() {
         if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
           el.placeholder = value;
         } else if (el.tagName === "OPTION") {
+          console.log(
+            `[i18n DEBUG] Updating OPTION: key=${key}, value=${value}, currentText=${el.textContent}`
+          );
           el.textContent = value;
         } else {
           el.innerHTML = value;
