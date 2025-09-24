@@ -2383,9 +2383,6 @@ function setLanguage(lang) {
           if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
             el.placeholder = value;
           } else if (el.tagName === "OPTION") {
-            console.log(
-              `[setLanguage DEBUG] Updating OPTION: key=${key}, value=${value}, currentText=${el.textContent}`
-            );
             el.textContent = value;
           } else {
             el.innerHTML = value;
@@ -2454,6 +2451,17 @@ function setLanguage(lang) {
         typeHint.textContent = isImage ? i18n[lang].imageHint : i18n[lang].audioHint;
       }
 
+      // 强制更新语音模型显示
+      const voiceModelEl = document.getElementById("used-voice-model");
+      if (voiceModelEl && voiceModelEl.textContent && voiceModelEl.textContent !== "--") {
+        // 获取当前选中的语音模型
+        const voiceSelect = document.getElementById("voice-model");
+        if (voiceSelect && window.getVoiceName) {
+          const currentVoice = voiceSelect.value;
+          voiceModelEl.textContent = window.getVoiceName(currentVoice);
+        }
+      }
+
       // 触发语言变更事件
       const event = new CustomEvent("languageChanged", { detail: { language: lang } });
       document.dispatchEvent(event);
@@ -2519,9 +2527,6 @@ function updatePageText() {
         if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
           el.placeholder = value;
         } else if (el.tagName === "OPTION") {
-          console.log(
-            `[i18n DEBUG] Updating OPTION: key=${key}, value=${value}, currentText=${el.textContent}`
-          );
           el.textContent = value;
         } else {
           el.innerHTML = value;

@@ -746,8 +746,11 @@ class VoiceApp {
   initWaveform() {
     // 优先使用模块化渲染器
     if (window.VoiceWaveform && typeof window.VoiceWaveform.init === "function") {
+      console.log("[Voice] Using VoiceWaveform module for waveform rendering");
       window.VoiceWaveform.init("voice-waveform");
       return;
+    } else {
+      console.log("[Voice] VoiceWaveform module not available, using fallback rendering");
     }
     const canvas = document.getElementById("voice-waveform");
     if (!canvas) return;
