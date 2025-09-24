@@ -894,6 +894,31 @@ const i18n = {
     navContact: "联系我们",
     navServices: "我们的服务",
     navLogin: "登录",
+    navBlog: "博客",
+
+    // 博客相关
+    blogTitle: "AISTONE博客 - AI技术指南与教程",
+    blogHeroTitle: "AISTONE 技术博客",
+    blogHeroSubtitle: "深入探索AI图像生成技术，掌握提示词工程，从入门到精通的完整指南",
+    blogCategoryAll: "全部文章",
+    blogCategoryGuide: "技术指南",
+    blogCategoryTutorial: "使用教程",
+    blogCategoryPrompt: "提示词工程",
+    blogCategoryFAQ: "常见问题",
+
+    // 文章摘要
+    aiGuideExcerpt:
+      "从基础理论到实战技巧，深入了解扩散模型、FLUX、Stable Diffusion等前沿AI图像生成技术...",
+    aiGuideReadTime: "约10分钟阅读",
+    promptEngineeringExcerpt:
+      "掌握AI图像生成的核心技能，从基础语法到高级策略，学会权重控制、负面提示词和风格融合...",
+    promptEngineeringReadTime: "约12分钟阅读",
+    tutorialExcerpt:
+      "快速上手AISTONE平台，学会图像生成、语音合成的基本操作，掌握各种参数设置和优化技巧...",
+    tutorialReadTime: "约8分钟阅读",
+    faqExcerpt:
+      "汇总平台使用过程中的常见问题和解决方案，包括账号管理、生成失败、质量优化等实用建议...",
+    faqReadTime: "约5分钟阅读",
 
     // 面包屑导航
     breadcrumbHome: "首页",
@@ -1063,6 +1088,9 @@ const i18n = {
 
     // Footer
     footerCopyright: "© 2025 AISTONE",
+    footerDescription: "免费AI内容生成平台",
+    footerQuickLinks: "快速链接",
+    footerSupport: "支持",
     footerLinks: [
       { text: "隐私政策", url: "#" },
       { text: "服务条款", url: "#" },
@@ -1527,6 +1555,32 @@ const i18n = {
     navContact: "Contact",
     navServices: "Services",
     navLogin: "Login",
+    navBlog: "Blog",
+
+    // Blog related
+    blogTitle: "AISTONE Blog - AI Technology Guides & Tutorials",
+    blogHeroTitle: "AISTONE Tech Blog",
+    blogHeroSubtitle:
+      "Explore AI image generation technology, master prompt engineering, complete guides from beginner to expert",
+    blogCategoryAll: "All Articles",
+    blogCategoryGuide: "Tech Guides",
+    blogCategoryTutorial: "Tutorials",
+    blogCategoryPrompt: "Prompt Engineering",
+    blogCategoryFAQ: "FAQ",
+
+    // Article excerpts
+    aiGuideExcerpt:
+      "From basic theory to practical skills, deep dive into diffusion models, FLUX, Stable Diffusion and cutting-edge AI image generation technologies...",
+    aiGuideReadTime: "About 10 minutes read",
+    promptEngineeringExcerpt:
+      "Master the core skills of AI image generation, from basic syntax to advanced strategies, learn weight control, negative prompts and style fusion...",
+    promptEngineeringReadTime: "About 12 minutes read",
+    tutorialExcerpt:
+      "Quick start with AISTONE platform, learn basic operations of image generation and voice synthesis, master various parameter settings and optimization tips...",
+    tutorialReadTime: "About 8 minutes read",
+    faqExcerpt:
+      "Summary of common problems and solutions in platform usage, including account management, generation failures, quality optimization and practical suggestions...",
+    faqReadTime: "About 5 minutes read",
 
     // Breadcrumb navigation
     breadcrumbHome: "Home",
@@ -1726,6 +1780,9 @@ const i18n = {
 
     // Footer
     footerCopyright: "© 2025 AISTONE",
+    footerDescription: "Free AI Content Generation Platform",
+    footerQuickLinks: "Quick Links",
+    footerSupport: "Support",
     footerLinks: [
       { text: "Privacy Policy", url: "#" },
       { text: "Terms of Service", url: "#" },

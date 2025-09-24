@@ -1,0 +1,1607 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="blogTitle">AISTONE博客 - AI技术指南与教程</title>
+    <meta
+      name="description"
+      content="AISTONE博客：深入了解AI图像生成技术、提示词工程、使用教程和常见问题解答。从入门到精通的完整AI创作指南。"
+    />
+    <meta
+      name="keywords"
+      content="AISTONE博客, AI教程, 图像生成指南, 提示词工程, AI技术文章, 机器学习教程"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="canonical" href="https://aistone.org/blog.html" />
+
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "AISTONE博客",
+        "description": "AI图像生成技术、教程和指南的专业博客",
+        "url": "https://aistone.org/blog.html",
+        "publisher": {
+          "@type": "Organization",
+          "name": "AISTONE",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://aistone.org/assets/logo.svg"
+          }
+        }
+      }
+    </script>
+
+    <!-- Google AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-6165370615688912" />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6165370615688912"
+      crossorigin="anonymous"
+      onerror="console.warn('AdSense script failed to load')"
+    ></script>
+
+    <!-- Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+      onerror="console.warn('GA script failed to load')"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-XXXXXXXXXX");
+    </script>
+  </head>
+  <body>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+      <div class="navbar-left">
+        <img
+          src="assets/logo.svg"
+          alt="AISTONE LOGO"
+          class="logo-img"
+          aria-label="AISTONE 平台标志"
+        />
+        <span class="site-name">AISTONE</span>
+      </div>
+      <ul class="navbar-menu">
+        <li><a href="/" data-i18n="navHome">首页</a></li>
+        <li><a href="image-generator.html" data-i18n="navImageGen">图像生成</a></li>
+        <li><a href="voice.html" data-i18n="navVoiceGen">语音合成</a></li>
+        <li><a href="blog.html" class="active" data-i18n="navBlog">博客</a></li>
+        <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
+        <li><a href="contact.html" data-i18n="navContact">联系我们</a></li>
+      </ul>
+      <div class="navbar-right">
+        <select id="lang-select" class="lang-select">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+        </select>
+
+        <!-- 用户登录状态 -->
+        <div id="user-auth-container" class="user-auth-container">
+          <!-- 未登录状态 -->
+          <div id="login-button-container" class="login-container">
+            <button id="login-button" class="auth-button" data-i18n="navLogin">登录</button>
+          </div>
+
+          <!-- 已登录状态 -->
+          <div id="user-dropdown-container" class="user-dropdown" style="display: none">
+            <button id="user-dropdown-toggle" class="user-dropdown-toggle">
+              <img
+                id="user-avatar"
+                src="assets/default-avatar.svg"
+                alt="用户头像"
+                class="user-avatar"
+              />
+              <span id="user-name">用户</span>
+              <span class="dropdown-arrow">▼</span>
+            </button>
+            <div id="user-dropdown-menu" class="dropdown-menu">
+              <a href="/user.html" class="dropdown-item" data-i18n="userCenter">个人中心</a>
+              <button id="logout-button" class="dropdown-item logout-button" data-i18n="logout">
+                登出
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+      <!-- 博客头部 -->
+      <section class="blog-hero">
+        <div class="container">
+          <div class="hero-content">
+            <h1 class="hero-title" data-i18n="blogHeroTitle">AISTONE 技术博客</h1>
+            <p class="hero-subtitle" data-i18n="blogHeroSubtitle">
+              深入探索AI图像生成技术，掌握提示词工程，从入门到精通的完整指南
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 博客分类导航 -->
+      <section class="blog-categories">
+        <div class="container">
+          <div class="categories-nav">
+            <button class="category-btn active" data-category="all" data-i18n="blogCategoryAll">
+              全部文章
+            </button>
+            <button class="category-btn" data-category="guide" data-i18n="blogCategoryGuide">
+              技术指南
+            </button>
+            <button class="category-btn" data-category="tutorial" data-i18n="blogCategoryTutorial">
+              使用教程
+            </button>
+            <button class="category-btn" data-category="prompt" data-i18n="blogCategoryPrompt">
+              提示词工程
+            </button>
+            <button class="category-btn" data-category="faq" data-i18n="blogCategoryFAQ">
+              常见问题
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 博客文章列表 -->
+      <section class="blog-articles">
+        <div class="container">
+          <div class="articles-grid">
+            <!-- AI技术指南 -->
+            <article class="article-card" data-category="guide">
+              <div class="article-header">
+                <span class="article-category" data-i18n="blogCategoryGuide">技术指南</span>
+                <time class="article-date">2025年9月</time>
+              </div>
+              <h2 class="article-title">
+                <a
+                  href="#article-ai-guide"
+                  onclick="showArticle('ai-guide')"
+                  data-i18n="aiGuideTitle"
+                >
+                  AI图像生成完整指南
+                </a>
+              </h2>
+              <p class="article-excerpt" data-i18n="aiGuideExcerpt">
+                从基础理论到实战技巧，深入了解扩散模型、FLUX、Stable
+                Diffusion等前沿AI图像生成技术...
+              </p>
+              <div class="article-meta">
+                <span class="read-time" data-i18n="aiGuideReadTime">约10分钟阅读</span>
+                <span class="article-tags">
+                  <span class="tag">AI技术</span>
+                  <span class="tag">扩散模型</span>
+                  <span class="tag">FLUX</span>
+                </span>
+              </div>
+            </article>
+
+            <!-- 提示词工程教程 -->
+            <article class="article-card" data-category="prompt">
+              <div class="article-header">
+                <span class="article-category" data-i18n="blogCategoryPrompt">提示词工程</span>
+                <time class="article-date">2025年9月</time>
+              </div>
+              <h2 class="article-title">
+                <a
+                  href="#article-prompt-engineering"
+                  onclick="showArticle('prompt-engineering')"
+                  data-i18n="promptEngineeringTitle"
+                >
+                  提示词工程专业教程
+                </a>
+              </h2>
+              <p class="article-excerpt" data-i18n="promptEngineeringExcerpt">
+                掌握AI图像生成的核心技能，从基础语法到高级策略，学会权重控制、负面提示词和风格融合...
+              </p>
+              <div class="article-meta">
+                <span class="read-time" data-i18n="promptEngineeringReadTime">约12分钟阅读</span>
+                <span class="article-tags">
+                  <span class="tag">提示词</span>
+                  <span class="tag">权重控制</span>
+                  <span class="tag">风格设计</span>
+                </span>
+              </div>
+            </article>
+
+            <!-- 使用教程 -->
+            <article class="article-card" data-category="tutorial">
+              <div class="article-header">
+                <span class="article-category" data-i18n="blogCategoryTutorial">使用教程</span>
+                <time class="article-date">2025年9月</time>
+              </div>
+              <h2 class="article-title">
+                <a
+                  href="#article-tutorial"
+                  onclick="showArticle('tutorial')"
+                  data-i18n="tutorialTitle"
+                >
+                  AISTONE平台使用教程
+                </a>
+              </h2>
+              <p class="article-excerpt" data-i18n="tutorialExcerpt">
+                快速上手AISTONE平台，学会图像生成、语音合成的基本操作，掌握各种参数设置和优化技巧...
+              </p>
+              <div class="article-meta">
+                <span class="read-time" data-i18n="tutorialReadTime">约8分钟阅读</span>
+                <span class="article-tags">
+                  <span class="tag">入门教程</span>
+                  <span class="tag">操作指南</span>
+                  <span class="tag">参数设置</span>
+                </span>
+              </div>
+            </article>
+
+            <!-- 常见问题解答 -->
+            <article class="article-card" data-category="faq">
+              <div class="article-header">
+                <span class="article-category" data-i18n="blogCategoryFAQ">常见问题</span>
+                <time class="article-date">2025年9月</time>
+              </div>
+              <h2 class="article-title">
+                <a href="#article-faq" onclick="showArticle('faq')" data-i18n="faqTitle">
+                  常见问题解答
+                </a>
+              </h2>
+              <p class="article-excerpt" data-i18n="faqExcerpt">
+                汇总平台使用过程中的常见问题和解决方案，包括账号管理、生成失败、质量优化等实用建议...
+              </p>
+              <div class="article-meta">
+                <span class="read-time" data-i18n="faqReadTime">约5分钟阅读</span>
+                <span class="article-tags">
+                  <span class="tag">问题解答</span>
+                  <span class="tag">故障排除</span>
+                  <span class="tag">使用技巧</span>
+                </span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 文章内容模态框 -->
+      <div id="article-modal" class="article-modal" style="display: none">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="modal-close" onclick="closeArticleModal()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div id="article-content"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>AISTONE</h3>
+            <p data-i18n="footerDescription">免费AI内容生成平台</p>
+          </div>
+          <div class="footer-section">
+            <h4 data-i18n="footerQuickLinks">快速链接</h4>
+            <ul>
+              <li><a href="/" data-i18n="navHome">首页</a></li>
+              <li><a href="image-generator.html" data-i18n="navImageGen">图像生成</a></li>
+              <li><a href="voice.html" data-i18n="navVoiceGen">语音合成</a></li>
+              <li><a href="blog.html" data-i18n="navBlog">博客</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4 data-i18n="footerSupport">支持</h4>
+            <ul>
+              <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
+              <li><a href="contact.html" data-i18n="navContact">联系我们</a></li>
+              <li><a href="privacy.html">隐私政策</a></li>
+              <li><a href="terms.html">服务条款</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p data-i18n="footerCopyright">&copy; 2025 AISTONE. 保留所有权利。</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/i18n.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+      // 博客功能JavaScript
+
+      // 分类过滤功能
+      function initCategoryFilter() {
+        const categoryButtons = document.querySelectorAll(".category-btn");
+        const articles = document.querySelectorAll(".article-card");
+
+        categoryButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            // 更新按钮状态
+            categoryButtons.forEach((btn) => btn.classList.remove("active"));
+            button.classList.add("active");
+
+            const category = button.dataset.category;
+
+            // 过滤文章
+            articles.forEach((article) => {
+              if (category === "all" || article.dataset.category === category) {
+                article.style.display = "block";
+              } else {
+                article.style.display = "none";
+              }
+            });
+          });
+        });
+      }
+
+      // 文章内容数据
+      const articleContents = {
+        "ai-guide": {
+          title: "AI图像生成完整指南",
+          content: `
+            <div class="article-full">
+              <header class="article-full-header">
+                <h1>AI图像生成完整指南</h1>
+                <div class="article-meta">
+                  <span>AISTONE技术团队</span>
+                  <span>2025年9月9日</span>
+                  <span>约10分钟阅读</span>
+                </div>
+              </header>
+              
+              <div class="article-toc">
+                <h3>📋 目录</h3>
+                <ul>
+                  <li><a href="#section1">1. AI图像生成技术概述</a></li>
+                  <li><a href="#section2">2. 主流AI模型深度解析</a></li>
+                  <li><a href="#section3">3. 扩散模型工作原理</a></li>
+                  <li><a href="#section4">4. FLUX vs Stable Diffusion</a></li>
+                  <li><a href="#section5">5. 技术优势与应用场景</a></li>
+                </ul>
+              </div>
+              
+              <section id="section1">
+                <h2>🧠 1. AI图像生成技术概述</h2>
+                <h3>什么是AI图像生成？</h3>
+                <p>AI图像生成是一种利用深度学习技术，通过文本描述自动创建图像的革命性技术。这项技术基于大规模的图像-文本数据集训练，能够理解自然语言描述并将其转换为视觉内容。</p>
+                
+                <h3>🔥 技术发展历程</h3>
+                <ul>
+                  <li><strong>2020年</strong>：GPT-3展示了语言模型的强大能力</li>
+                  <li><strong>2021年</strong>：DALL-E首次实现文本到图像的转换</li>
+                  <li><strong>2022年</strong>：Stable Diffusion开源，推动技术普及</li>
+                  <li><strong>2023年</strong>：Midjourney达到商业化质量</li>
+                  <li><strong>2024年</strong>：FLUX模型在质量和速度上实现突破</li>
+                </ul>
+              </section>
+              
+              <section id="section2">
+                <h2>🎯 2. 主流AI模型深度解析</h2>
+                
+                <h3>FLUX系列模型</h3>
+                <p>FLUX是当前最先进的开源图像生成模型之一，在质量、一致性和提示词理解能力方面都有显著提升：</p>
+                <ul>
+                  <li><strong>FLUX.1-pro</strong>：商业级质量，适合专业创作</li>
+                  <li><strong>FLUX.1-dev</strong>：开发者版本，平衡质量与速度</li>
+                  <li><strong>FLUX.1-schnell</strong>：快速版本，适合实时应用</li>
+                </ul>
+                
+                <h3>Stable Diffusion</h3>
+                <p>作为开源生态的基石，Stable Diffusion提供了丰富的衍生版本和插件支持。</p>
+              </section>
+              
+              <section id="section3">
+                <h2>⚡ 3. 扩散模型工作原理</h2>
+                <p><strong>扩散模型（Diffusion Models）</strong>是目前最主流的AI图像生成技术。它模仿物理学中的扩散过程：</p>
+                
+                <h3>正向过程：</h3>
+                <p>将清晰图像逐步添加噪声，直到变成纯噪声</p>
+                
+                <h3>逆向过程：</h3>
+                <p>AI学会从噪声中逐步去噪，重构出有意义的图像</p>
+                
+                <h3>条件控制：</h3>
+                <p>通过文本编码器将提示词转换为数学向量，引导生成过程</p>
+              </section>
+              
+              <section id="section4">
+                <h2>🔍 4. FLUX vs Stable Diffusion</h2>
+                <div class="comparison-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>特性</th>
+                        <th>FLUX</th>
+                        <th>Stable Diffusion</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>图像质量</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>⭐⭐⭐⭐</td>
+                      </tr>
+                      <tr>
+                        <td>提示词理解</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>⭐⭐⭐</td>
+                      </tr>
+                      <tr>
+                        <td>生成速度</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                      </tr>
+                      <tr>
+                        <td>社区支持</td>
+                        <td>⭐⭐⭐</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+              
+              <section id="section5">
+                <h2>💡 5. 技术优势与应用场景</h2>
+                
+                <h3>技术优势</h3>
+                <ul>
+                  <li><strong>高质量输出</strong>：能够生成8K分辨率的专业级图像</li>
+                  <li><strong>风格多样性</strong>：支持摄影、绘画、插画等各种艺术风格</li>
+                  <li><strong>创意无限</strong>：可以创造现实中不存在的场景和概念</li>
+                  <li><strong>成本效益</strong>：大幅降低视觉内容创作的时间和成本</li>
+                </ul>
+                
+                <h3>应用场景</h3>
+                <ul>
+                  <li><strong>商业设计</strong>：产品包装、广告海报、品牌视觉</li>
+                  <li><strong>内容创作</strong>：社交媒体配图、博客插图、视频缩略图</li>
+                  <li><strong>游戏开发</strong>：概念设计、角色原画、场景背景</li>
+                  <li><strong>教育培训</strong>：教学插图、科普图解、演示材料</li>
+                </ul>
+              </section>
+              
+              <footer class="article-footer">
+                <div class="article-actions">
+                  <button onclick="window.print()" class="action-btn">📄 打印文章</button>
+                  <button onclick="shareArticle('ai-guide')" class="action-btn">📤 分享文章</button>
+                </div>
+                <div class="related-articles">
+                  <h4>相关文章</h4>
+                  <ul>
+                    <li><a href="#" onclick="showArticle('prompt-engineering')">提示词工程专业教程</a></li>
+                    <li><a href="#" onclick="showArticle('tutorial')">AISTONE平台使用教程</a></li>
+                  </ul>
+                </div>
+              </footer>
+            </div>
+          `,
+        },
+        "prompt-engineering": {
+          title: "提示词工程专业教程",
+          content: `
+            <div class="article-full">
+              <header class="article-full-header">
+                <h1>提示词工程专业教程</h1>
+                <div class="article-meta">
+                  <span>AISTONE专家团队</span>
+                  <span>2025年9月9日</span>
+                  <span>约12分钟阅读</span>
+                </div>
+              </header>
+              
+              <div class="article-content">
+                <h2>🎯 课程概览</h2>
+                <div class="course-overview">
+                  <div class="overview-item">
+                    <h3>🚀 基础语法</h3>
+                    <p>掌握提示词的基本结构和组织原则</p>
+                  </div>
+                  <div class="overview-item">
+                    <h3>⚡ 权重控制</h3>
+                    <p>学会精确控制各元素的重要性</p>
+                  </div>
+                  <div class="overview-item">
+                    <h3>🚫 负面提示词</h3>
+                    <p>排除不需要的元素，提升生成质量</p>
+                  </div>
+                  <div class="overview-item">
+                    <h3>🎨 风格融合</h3>
+                    <p>创造独特的艺术风格和视觉效果</p>
+                  </div>
+                </div>
+                
+                <h2>📝 基础语法规则</h2>
+                <h3>1. 主体描述</h3>
+                <p>始终以主要描述对象开头，这是最重要的部分：</p>
+                <div class="code-block">
+                  <code>
+                    ✅ 正确：a beautiful woman, long hair, smiling<br>
+                    ❌ 错误：beautiful, woman with long hair, happy face
+                  </code>
+                </div>
+                
+                <h3>2. 修饰词顺序</h3>
+                <p>按照重要性排列修饰词，越重要的越靠前：</p>
+                <div class="code-block">
+                  <code>
+                    主体 + 主要特征 + 次要特征 + 环境 + 风格 + 质量词
+                  </code>
+                </div>
+                
+                <h2>⚖️ 权重控制技术</h2>
+                <h3>括号语法</h3>
+                <ul>
+                  <li><code>(keyword)</code> - 增强1.1倍</li>
+                  <li><code>((keyword))</code> - 增强1.21倍</li>
+                  <li><code>[keyword]</code> - 减弱0.9倍</li>
+                  <li><code>(keyword:1.5)</code> - 精确控制权重</li>
+                </ul>
+                
+                <h3>实用示例</h3>
+                <div class="code-block">
+                  <code>
+                    (beautiful face:1.3), detailed eyes, (flowing hair), [background], masterpiece
+                  </code>
+                </div>
+                
+                <h2>🚫 负面提示词策略</h2>
+                <p>负面提示词用于排除不想要的元素，提升图像质量：</p>
+                
+                <h3>常用负面词汇</h3>
+                <ul>
+                  <li><strong>质量问题：</strong>blurry, low quality, pixelated, distorted</li>
+                  <li><strong>解剖错误：</strong>extra limbs, deformed, bad anatomy</li>
+                  <li><strong>面部问题：</strong>bad face, ugly, asymmetric eyes</li>
+                  <li><strong>构图问题：</strong>cropped, cut off, watermark, text</li>
+                </ul>
+                
+                <h2>🎨 风格控制技巧</h2>
+                <h3>艺术风格词汇</h3>
+                <ul>
+                  <li><strong>摄影风格：</strong>portrait photography, studio lighting, professional</li>
+                  <li><strong>绘画风格：</strong>oil painting, watercolor, digital art, concept art</li>
+                  <li><strong>特定艺术家：</strong>by Greg Rutkowski, by Artgerm, by Studio Ghibli</li>
+                </ul>
+                
+                <h3>质量提升词汇</h3>
+                <div class="code-block">
+                  <code>
+                    masterpiece, best quality, highly detailed, 8k, ultra sharp, professional
+                  </code>
+                </div>
+                
+                <h2>💼 高级技巧与实战</h2>
+                <h3>场景构建</h3>
+                <p>描述完整场景的层次化方法：</p>
+                <ol>
+                  <li><strong>前景：</strong>主要角色或物体</li>
+                  <li><strong>中景：</strong>重要的环境元素</li>
+                  <li><strong>背景：</strong>整体环境和氛围</li>
+                </ol>
+                
+                <h3>情感表达</h3>
+                <p>通过细节描述传达情感：</p>
+                <ul>
+                  <li><strong>快乐：</strong>bright smile, sparkling eyes, warm lighting</li>
+                  <li><strong>神秘：</strong>dramatic shadows, mysterious smile, soft focus</li>
+                  <li><strong>力量：</strong>confident pose, strong lighting, sharp focus</li>
+                </ul>
+                
+                <h2>📊 实战案例分析</h2>
+                <h3>案例1：人像摄影</h3>
+                <div class="case-study">
+                  <h4>提示词：</h4>
+                  <div class="code-block">
+                    <code>
+                      (professional portrait:1.3), beautiful young woman, (detailed eyes:1.2), natural makeup, soft smile, (studio lighting:1.1), clean background, high resolution, masterpiece
+                    </code>
+                  </div>
+                  <h4>负面提示词：</h4>
+                  <div class="code-block">
+                    <code>
+                      blurry, low quality, bad anatomy, deformed, extra limbs, watermark, text
+                    </code>
+                  </div>
+                </div>
+                
+                <h3>案例2：幻想场景</h3>
+                <div class="case-study">
+                  <h4>提示词：</h4>
+                  <div class="code-block">
+                    <code>
+                      (magical forest:1.3), ancient trees, (glowing mushrooms:1.2), fairy lights, mystical atmosphere, (fantasy art style:1.1), detailed environment, cinematic lighting
+                    </code>
+                  </div>
+                </div>
+                
+                <footer class="article-footer">
+                  <div class="article-actions">
+                    <button onclick="window.print()" class="action-btn">📄 打印文章</button>
+                    <button onclick="shareArticle('prompt-engineering')" class="action-btn">📤 分享文章</button>
+                  </div>
+                </footer>
+              </div>
+            </div>
+          `,
+        },
+        tutorial: {
+          title: "AISTONE平台使用教程",
+          content: `
+            <div class="article-full">
+              <header class="article-full-header">
+                <h1>AISTONE平台使用教程</h1>
+                <div class="article-meta">
+                  <span>AISTONE团队</span>
+                  <span>2025年9月</span>
+                  <span>约8分钟阅读</span>
+                </div>
+              </header>
+              
+              <div class="tutorial-content">
+                <h2>🚀 快速开始</h2>
+                
+                <h3>步骤1：访问平台</h3>
+                <p>打开浏览器访问 <a href="https://aistone.org">https://aistone.org</a>，无需注册即可开始使用。</p>
+                
+                <h3>步骤2：选择生成类型</h3>
+                <p>在页面上选择您想要生成的内容类型：</p>
+                <ul>
+                  <li><strong>生成图片：</strong>将文本描述转换为高质量图片</li>
+                  <li><strong>生成语音：</strong>将文本转换为自然流畅的语音</li>
+                </ul>
+                
+                <h3>步骤3：输入描述文本</h3>
+                <p>在文本输入框中输入您的描述：</p>
+                <ul>
+                  <li>支持中文和英文</li>
+                  <li>描述越详细，生成效果越好</li>
+                  <li>可以使用示例按钮快速填充</li>
+                </ul>
+                
+                <h3>步骤4：设置参数</h3>
+                <h4>图片生成参数：</h4>
+                <ul>
+                  <li><strong>AI模型：</strong>FLUX（高质量）、Turbo（快速）、Kontext（图像编辑）</li>
+                  <li><strong>宽高比例：</strong>正方形、横向、竖向等多种选择</li>
+                  <li><strong>生成数量：</strong>1-4张图片</li>
+                  <li><strong>去除水印：</strong>获得更清洁的图片</li>
+                </ul>
+                
+                <h4>语音生成参数：</h4>
+                <ul>
+                  <li><strong>音色选择：</strong>6种不同的AI音色</li>
+                  <li><strong>语速控制：</strong>0.25x到4.0x调节</li>
+                </ul>
+                
+                <h3>步骤5：点击生成</h3>
+                <p>点击"开始生成"按钮，AI会处理您的请求。通常需要10-30秒。</p>
+                
+                <h2>🎨 图片生成功能详解</h2>
+                
+                <h3>AI模型选择</h3>
+                <div class="model-comparison">
+                  <div class="model-item">
+                    <h4>FLUX - 高质量艺术创作</h4>
+                    <ul>
+                      <li>最新的开源模型</li>
+                      <li>优秀的细节表现</li>
+                      <li>适合艺术创作和专业用途</li>
+                    </ul>
+                  </div>
+                  
+                  <div class="model-item">
+                    <h4>Turbo - 快速生成</h4>
+                    <ul>
+                      <li>生成速度最快</li>
+                      <li>适合快速原型和测试</li>
+                      <li>质量略低但效率高</li>
+                    </ul>
+                  </div>
+                  
+                  <div class="model-item">
+                    <h4>Kontext - 图像到图像</h4>
+                    <ul>
+                      <li>支持图像编辑功能</li>
+                      <li>可以基于现有图像生成</li>
+                      <li>适合图像变换和修改</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <h3>宽高比例设置</h3>
+                <ul>
+                  <li><strong>正方形 (1:1)</strong>：适合社交媒体头像、LOGO</li>
+                  <li><strong>横向 (16:9)</strong>：适合横幅、背景图</li>
+                  <li><strong>竖向 (9:16)</strong>：适合手机壁纸、海报</li>
+                  <li><strong>标准 (4:3)</strong>：经典比例，适合大多数用途</li>
+                </ul>
+                
+                <h3>质量优化技巧</h3>
+                <ol>
+                  <li><strong>使用详细描述</strong>：描述越详细，生成效果越精确</li>
+                  <li><strong>选择FLUX模型</strong>：获得最佳质量</li>
+                  <li><strong>使用高分辨率</strong>：选择较大的图像尺寸</li>
+                  <li><strong>利用智能优化</strong>：使用平台的优化功能</li>
+                  <li><strong>添加负面提示词</strong>：排除不想要的元素</li>
+                </ol>
+                
+                <h2>🎵 语音合成功能详解</h2>
+                
+                <h3>音色选择指南</h3>
+                <div class="voice-guide">
+                  <div class="voice-item">
+                    <h4>Nova - 清晰专业的女声</h4>
+                    <p>适合：商务演示、教育内容、正式场合</p>
+                  </div>
+                  
+                  <div class="voice-item">
+                    <h4>Echo - 温暖友好的男声</h4>
+                    <p>适合：播客、故事朗读、休闲内容</p>
+                  </div>
+                  
+                  <div class="voice-item">
+                    <h4>Fable - 富有表现力的叙事声音</h4>
+                    <p>适合：有声书、故事讲述、戏剧化内容</p>
+                  </div>
+                  
+                  <div class="voice-item">
+                    <h4>Onyx - 深沉权威的男声</h4>
+                    <p>适合：新闻播报、严肃内容、权威解说</p>
+                  </div>
+                  
+                  <div class="voice-item">
+                    <h4>Shimmer - 明亮活泼的女声</h4>
+                    <p>适合：儿童内容、轻松话题、活泼解说</p>
+                  </div>
+                  
+                  <div class="voice-item">
+                    <h4>Alloy - 平衡多用途的声音</h4>
+                    <p>适合：通用内容、多场景应用</p>
+                  </div>
+                </div>
+                
+                <h3>语速控制技巧</h3>
+                <ul>
+                  <li><strong>0.25x-0.5x</strong>：适合学习、重要信息强调</li>
+                  <li><strong>0.75x-1.0x</strong>：正常语速，适合大部分内容</li>
+                  <li><strong>1.25x-2.0x</strong>：快速播报、时间紧张场合</li>
+                  <li><strong>2.0x-4.0x</strong>：超快速度，特殊需求</li>
+                </ul>
+                
+                <h2>💡 高级使用技巧</h2>
+                
+                <h3>智能优化功能</h3>
+                <p>点击"优化"按钮，AI会自动：</p>
+                <ul>
+                  <li>将中文描述翻译为英文</li>
+                  <li>优化提示词结构</li>
+                  <li>添加质量增强词汇</li>
+                  <li>改善语法和表达</li>
+                </ul>
+                
+                <h3>批量生成策略</h3>
+                <p>选择生成多张图片时：</p>
+                <ul>
+                  <li>每张图片会有不同的变化</li>
+                  <li>可以从中选择最满意的结果</li>
+                  <li>节省重复生成的时间</li>
+                </ul>
+                
+                <h3>账号功能（可选）</h3>
+                <p>注册账号后可以：</p>
+                <ul>
+                  <li>保存高清图片（每日3张）</li>
+                  <li>查看生成历史</li>
+                  <li>管理个人作品</li>
+                  <li>获得更好的服务体验</li>
+                </ul>
+                
+                <h2>❓ 常见问题解决</h2>
+                
+                <h3>生成失败怎么办？</h3>
+                <ol>
+                  <li>检查网络连接</li>
+                  <li>简化描述文本</li>
+                  <li>切换不同的AI模型</li>
+                  <li>稍后重试</li>
+                </ol>
+                
+                <h3>生成质量不满意？</h3>
+                <ol>
+                  <li>使用更详细的描述</li>
+                  <li>选择FLUX模型</li>
+                  <li>添加质量关键词</li>
+                  <li>使用负面提示词</li>
+                  <li>尝试智能优化功能</li>
+                </ol>
+                
+                <h3>速度较慢？</h3>
+                <ol>
+                  <li>选择Turbo模型（速度优先）</li>
+                  <li>避免高峰时段</li>
+                  <li>减少生成数量</li>
+                  <li>降低图像分辨率</li>
+                </ol>
+                
+                <footer class="article-footer">
+                  <div class="article-actions">
+                    <button onclick="window.print()" class="action-btn">📄 打印教程</button>
+                    <button onclick="shareArticle('tutorial')" class="action-btn">📤 分享教程</button>
+                  </div>
+                  <div class="help-links">
+                    <h4>需要更多帮助？</h4>
+                    <ul>
+                      <li><a href="#" onclick="showArticle('faq')">查看常见问题</a></li>
+                      <li><a href="contact.html">联系我们</a></li>
+                    </ul>
+                  </div>
+                </footer>
+              </div>
+            </div>
+          `,
+        },
+        faq: {
+          title: "常见问题解答",
+          content: `
+            <div class="article-full">
+              <header class="article-full-header">
+                <h1>常见问题解答</h1>
+                <div class="article-meta">
+                  <span>AISTONE支持团队</span>
+                  <span>2025年9月</span>
+                  <span>约5分钟阅读</span>
+                </div>
+              </header>
+              
+              <div class="faq-content">
+                <p class="faq-intro">这里汇总了用户在使用AISTONE平台过程中最常遇到的问题和解决方案。如果您没有找到需要的答案，请通过页面底部的联系方式与我们联系。</p>
+                
+                <div class="faq-sections">
+                  <section class="faq-section">
+                    <h2>💰 费用与账号相关</h2>
+                    
+                    <div class="faq-item">
+                      <h3>Q: AISTONE是否永久免费？</h3>
+                      <p>A: 是的，平台所有核心功能永久免费，包括图片生成和语音合成。无需注册，无次数限制，无隐藏费用。</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 使用平台需要注册登录吗？</h3>
+                      <p>A: 不需要。您可以直接使用所有功能。注册账号是可选的，主要用于保存高清图片和查看历史记录。</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 注册账号有什么额外好处？</h3>
+                      <p>A: 注册后可以：保存高清图片（每日3张）、查看生成历史、管理个人作品、获得优先支持。</p>
+                    </div>
+                  </section>
+                  
+                  <section class="faq-section">
+                    <h2>🎨 图片生成问题</h2>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 支持哪些图片格式和尺寸？</h3>
+                      <p>A: 支持多种主流格式（JPG、PNG等）和宽高比例：正方形(1:1)、横向(16:9)、竖向(9:16)、标准(4:3)等。也支持自定义尺寸设置（256-4096像素）。</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 可以生成多张图片吗？</h3>
+                      <p>A: 可以，您可以选择生成1、2或4张图片。系统会根据您的描述生成多个变体，方便您比较选择。</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                      <h3>Q: AI模型有什么区别？如何选择？</h3>
+                      <p>A: 我们提供三种AI模型：</p>
+                      <ul>
+                        <li><strong>FLUX：</strong>高质量艺术创作，适合大多数场景</li>
+                        <li><strong>Turbo：</strong>快速生成，适合快速原型制作</li>
+                        <li><strong>Kontext：</strong>图像到图像生成，适合图像编辑</li>
+                      </ul>
+                    </div>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 图片生成需要多长时间？</h3>
+                      <p>A: 通常需要10-30秒，具体时间取决于描述复杂程度、选择的模型和当前服务器负载。Turbo模型生成速度最快。</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 图片质量不好怎么办？</h3>
+                      <p>A: 尝试以下方法改善质量：</p>
+                      <ul>
+                        <li>使用更详细的描述</li>
+                        <li>选择FLUX模型</li>
+                        <li>使用更高分辨率</li>
+                        <li>利用智能优化功能</li>
+                        <li>添加负面提示词排除不需要的元素</li>
+                      </ul>
+                    </div>
+                  </section>
+                  
+                  <section class="faq-section">
+                    <h2>🎵 语音合成问题</h2>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 有哪些语音选项？</h3>
+                      <p>A: 提供6种专业AI音色：</p>
+                      <ul>
+                        <li><strong>Nova：</strong>清晰专业的女声</li>
+                        <li><strong>Echo：</strong>温暖友好的男声</li>
+                        <li><strong>Fable：</strong>富有表现力的叙事声音</li>
+                        <li><strong>Onyx：</strong>深沉权威的男声</li>
+                        <li><strong>Shimmer：</strong>明亮活泼的女声</li>
+                        <li><strong>Alloy：</strong>平衡多用途的声音</li>
+                      </ul>
+                    </div>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 可以下载生成的语音吗？</h3>
+                      <p>A: 可以，生成后您可以在线播放或下载音频文件（WAV格式）供本地使用。</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 语音合成质量如何？</h3>
+                      <p>A: 采用先进的AI语音合成技术，生成的语音自然流畅，情感表达丰富，支持中文和英文，适合播客、有声书、语音内容等各种应用场景。</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 支持语速调节吗？</h3>
+                      <p>A: 支持，可以在0.25x到4.0x范围内调节语速，满足不同应用需求。</p>
+                    </div>
+                  </section>
+                  
+                  <section class="faq-section">
+                    <h2>🛠️ 技术与使用问题</h2>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 支持哪些输入语言？</h3>
+                      <p>A: 支持中文和英文输入，界面可以在两种语言之间切换。平台会智能识别输入语言并优化处理。</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 生成速度慢或失败怎么办？</h3>
+                      <p>A: 如遇高峰期可能稍慢，请耐心等待或稍后重试。如持续失败，可以：</p>
+                      <ul>
+                        <li>检查网络连接</li>
+                        <li>切换不同的AI模型</li>
+                        <li>简化描述内容</li>
+                        <li>联系客服获得帮助</li>
+                      </ul>
+                    </div>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 如何保护用户隐私？</h3>
+                      <p>A: 平台不存储用户输入内容和生成结果，所有数据实时处理，确保隐私安全。我们严格遵守数据保护法规。</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 平台有API接口吗？</h3>
+                      <p>A: 支持API调用，详见开发文档或联系客服获取API接入方式。适合开发者集成到自己的应用中。</p>
+                    </div>
+                  </section>
+                  
+                  <section class="faq-section">
+                    <h2>📄 版权与法律问题</h2>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 生成的内容有版权吗？</h3>
+                      <p>A: AI生成的内容归用户所有，可以自由使用于个人或商业用途。但请注意不要生成涉及版权、违法或不当的内容。</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 有哪些使用限制？</h3>
+                      <p>A: 请不要生成：</p>
+                      <ul>
+                        <li>违法违规内容</li>
+                        <li>侵犯他人版权的内容</li>
+                        <li>不当或有害信息</li>
+                        <li>虚假或误导性内容</li>
+                      </ul>
+                    </div>
+                  </section>
+                  
+                  <section class="faq-section">
+                    <h2>🔮 未来发展</h2>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 未来会不会收费或限制？</h3>
+                      <p>A: 目前所有核心功能永久免费，无使用次数限制。如有任何变动，我们会提前公告并保证现有用户的权益。</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                      <h3>Q: 如何获取最新动态和加入社区？</h3>
+                      <p>A: 可以关注官网更新、订阅邮件通知，或联系客服获取交流群二维码和最新资讯。</p>
+                    </div>
+                  </section>
+                </div>
+                
+                <div class="faq-footer">
+                  <h3>🤝 仍需帮助？</h3>
+                  <p>如果您的问题没有在这里得到解答，我们提供多种联系方式：</p>
+                  <ul>
+                    <li>📧 邮件支持：<a href="mailto:support@aistone.org">support@aistone.org</a></li>
+                    <li>💬 在线客服：网站右下角聊天窗口</li>
+                    <li>📋 问题反馈：使用平台内置反馈系统</li>
+                  </ul>
+                  <p class="response-time">我们通常在1-2个工作日内回复您的问题。</p>
+                </div>
+                
+                <footer class="article-footer">
+                  <div class="article-actions">
+                    <button onclick="window.print()" class="action-btn">📄 打印FAQ</button>
+                    <button onclick="shareArticle('faq')" class="action-btn">📤 分享FAQ</button>
+                  </div>
+                </footer>
+              </div>
+            </div>
+          `,
+        },
+      };
+
+      // 显示文章内容
+      function showArticle(articleId) {
+        const modal = document.getElementById("article-modal");
+        const content = document.getElementById("article-content");
+
+        if (articleContents[articleId]) {
+          content.innerHTML = articleContents[articleId].content;
+          modal.style.display = "block";
+          document.body.style.overflow = "hidden"; // 防止背景滚动
+        }
+      }
+
+      // 关闭文章模态框
+      function closeArticleModal() {
+        const modal = document.getElementById("article-modal");
+        modal.style.display = "none";
+        document.body.style.overflow = "auto"; // 恢复滚动
+      }
+
+      // 分享文章
+      function shareArticle(articleId) {
+        const article = articleContents[articleId];
+        if (article && navigator.share) {
+          navigator.share({
+            title: article.title,
+            text: `查看这篇AISTONE博客文章：${article.title}`,
+            url: `${window.location.origin}/blog.html#${articleId}`,
+          });
+        } else {
+          // 回退到复制链接
+          const url = `${window.location.origin}/blog.html#${articleId}`;
+          navigator.clipboard.writeText(url).then(() => {
+            alert("文章链接已复制到剪贴板！");
+          });
+        }
+      }
+
+      // 点击模态框背景关闭
+      document.addEventListener("click", function (e) {
+        const modal = document.getElementById("article-modal");
+        if (e.target === modal) {
+          closeArticleModal();
+        }
+      });
+
+      // ESC键关闭模态框
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          closeArticleModal();
+        }
+      });
+
+      // 初始化
+      document.addEventListener("DOMContentLoaded", function () {
+        initCategoryFilter();
+
+        // 检查URL哈希，直接显示对应文章
+        const hash = window.location.hash.replace("#article-", "").replace("#", "");
+        if (hash && articleContents[hash]) {
+          showArticle(hash);
+        }
+      });
+    </script>
+
+    <style>
+      /* 博客专用样式 */
+      .blog-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+      }
+
+      .blog-categories {
+        padding: 2rem 0;
+        background: #f8fafc;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .categories-nav {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .category-btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        background: white;
+        color: #64748b;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .category-btn:hover {
+        background: #e2e8f0;
+        color: #334155;
+      }
+
+      .category-btn.active {
+        background: #4f46e5;
+        color: white;
+      }
+
+      .blog-articles {
+        padding: 3rem 0;
+      }
+
+      .articles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .article-card {
+        background: white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .article-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+      }
+
+      .article-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .article-category {
+        background: #e0f2fe;
+        color: #0369a1;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+      }
+
+      .article-date {
+        color: #64748b;
+        font-size: 0.875rem;
+      }
+
+      .article-title {
+        margin: 0 0 1rem 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+        line-height: 1.4;
+      }
+
+      .article-title a {
+        color: #1e293b;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .article-title a:hover {
+        color: #4f46e5;
+      }
+
+      .article-excerpt {
+        color: #64748b;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+
+      .article-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .read-time {
+        color: #64748b;
+        font-size: 0.875rem;
+      }
+
+      .article-tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .tag {
+        background: #f1f5f9;
+        color: #475569;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 0.75rem;
+      }
+
+      /* 文章模态框样式 */
+      .article-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        overflow-y: auto;
+      }
+
+      .modal-content {
+        background: white;
+        margin: 2rem auto;
+        max-width: 900px;
+        border-radius: 1rem;
+        position: relative;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      }
+
+      .modal-header {
+        padding: 1rem;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+        color: #64748b;
+        padding: 0;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-close:hover {
+        color: #334155;
+      }
+
+      .modal-body {
+        padding: 2rem;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      /* 文章内容样式 */
+      .article-full-header {
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .article-full-header h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0 0 1rem 0;
+        line-height: 1.2;
+      }
+
+      .article-meta {
+        display: flex;
+        gap: 1.5rem;
+        color: #64748b;
+        font-size: 0.875rem;
+        flex-wrap: wrap;
+      }
+
+      .article-toc {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .article-toc h3 {
+        margin: 0 0 1rem 0;
+        color: #374151;
+      }
+
+      .article-toc ul {
+        margin: 0;
+        padding-left: 1.5rem;
+      }
+
+      .article-toc li {
+        margin-bottom: 0.5rem;
+      }
+
+      .article-toc a {
+        color: #4f46e5;
+        text-decoration: none;
+      }
+
+      .article-toc a:hover {
+        text-decoration: underline;
+      }
+
+      .code-block {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin: 1rem 0;
+        overflow-x: auto;
+      }
+
+      .code-block code {
+        font-family: "Courier New", monospace;
+        font-size: 0.875rem;
+        line-height: 1.5;
+      }
+
+      .comparison-table table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        border: 1px solid #e2e8f0;
+        padding: 0.75rem;
+        text-align: left;
+      }
+
+      .comparison-table th {
+        background: #f8fafc;
+        font-weight: 600;
+      }
+
+      .course-overview {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .overview-item {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+      }
+
+      .overview-item h3 {
+        margin: 0 0 0.5rem 0;
+        color: #374151;
+      }
+
+      .case-study {
+        background: #f8fafc;
+        border-left: 4px solid #4f46e5;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .case-study h4 {
+        margin: 0 0 0.5rem 0;
+        color: #374151;
+      }
+
+      .model-comparison,
+      .voice-guide {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .model-item,
+      .voice-item {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+      }
+
+      .model-item h4,
+      .voice-item h4 {
+        margin: 0 0 1rem 0;
+        color: #374151;
+      }
+
+      .faq-sections {
+        margin: 2rem 0;
+      }
+
+      .faq-section {
+        margin-bottom: 3rem;
+      }
+
+      .faq-section h2 {
+        color: #1e293b;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .faq-item {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .faq-item h3 {
+        margin: 0 0 1rem 0;
+        color: #374151;
+        font-size: 1.1rem;
+      }
+
+      .faq-item p {
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .faq-item ul {
+        margin: 0.5rem 0 0 0;
+        padding-left: 1.5rem;
+      }
+
+      .faq-footer {
+        background: #e0f2fe;
+        border: 1px solid #0284c7;
+        border-radius: 0.5rem;
+        padding: 2rem;
+        margin: 2rem 0;
+        text-align: center;
+      }
+
+      .faq-footer h3 {
+        margin: 0 0 1rem 0;
+        color: #0369a1;
+      }
+
+      .response-time {
+        font-style: italic;
+        color: #64748b;
+        margin-top: 1rem;
+      }
+
+      .article-footer {
+        border-top: 1px solid #e2e8f0;
+        padding-top: 2rem;
+        margin-top: 3rem;
+      }
+
+      .article-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-bottom: 2rem;
+      }
+
+      .action-btn {
+        background: #4f46e5;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background 0.3s ease;
+      }
+
+      .action-btn:hover {
+        background: #4338ca;
+      }
+
+      .related-articles,
+      .help-links {
+        text-align: center;
+      }
+
+      .related-articles h4,
+      .help-links h4 {
+        margin: 0 0 1rem 0;
+        color: #374151;
+      }
+
+      .related-articles ul,
+      .help-links ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .related-articles li,
+      .help-links li {
+        margin-bottom: 0.5rem;
+      }
+
+      .related-articles a,
+      .help-links a {
+        color: #4f46e5;
+        text-decoration: none;
+      }
+
+      .related-articles a:hover,
+      .help-links a:hover {
+        text-decoration: underline;
+      }
+
+      /* 响应式设计 */
+      @media (max-width: 768px) {
+        .modal-content {
+          margin: 1rem;
+          border-radius: 0.5rem;
+        }
+
+        .modal-body {
+          padding: 1rem;
+        }
+
+        .article-full-header h1 {
+          font-size: 1.5rem;
+        }
+
+        .articles-grid {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+          padding: 0 1rem;
+        }
+
+        .categories-nav {
+          padding: 0 1rem;
+        }
+
+        .course-overview,
+        .model-comparison,
+        .voice-guide {
+          grid-template-columns: 1fr;
+        }
+
+        .article-actions {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </body>
+</html>
