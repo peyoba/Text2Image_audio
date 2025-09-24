@@ -1096,6 +1096,94 @@ const i18n = {
       { text: "服务条款", url: "#" },
     ],
 
+    // 主页CTA按钮
+    startImageGeneration: "开始图像生成",
+    startVoiceSynthesis: "开始语音合成",
+    tagHighQuality: "专业品质",
+
+    // 主页内容
+    heroDescription:
+      "基于先进的Pollinations.AI技术，支持FLUX、Turbo、Kontext、DeepSeek等多种AI模型。无需注册，永久免费，支持中英文输入，专为创作者优化。",
+    tagChinese: "中文支持",
+
+    // AI模型
+    modelsTitle: "支持的AI模型",
+    modelsSubtitle: "基于Pollinations.AI技术的先进AI模型，满足不同创作需求",
+
+    // 服务
+    imageGenerationDesc:
+      "从文本描述生成高质量的AI图像，支持多种艺术风格和自定义尺寸。基于Pollinations.AI技术，支持FLUX、Turbo、Kontext等先进模型，让您的创意无限延伸。",
+    voiceSynthesisDesc:
+      "将文本转换为自然流畅的语音，支持多种音色和语言。适合制作视频、播客、有声读物等内容，为您的作品增添生动的声音。",
+    featureCommercial: "商用许可",
+    featureDownloadable: "可下载",
+
+    // 适用人群
+    audienceTitle: "适用人群",
+    audienceSubtitle: "AISTONE为各行各业的创作者提供强大的AI工具",
+
+    // 特色功能
+    featureFreeDesc: "所有功能永久免费，无隐藏费用，无需注册即可使用，支持商业用途",
+    featureSpeedDesc: "基于先进的AI技术，秒级响应，高效创作体验，无需等待",
+    featureQualityDesc: "高清输出，多种风格，支持各种尺寸，满足专业创作需求",
+    featurePrivacyDesc: "不储存用户数据，实时处理，保护隐私安全，内容版权归用户所有",
+    featureMultiLangDesc: "支持中英文输入，界面可切换，特别为中文用户优化",
+    featureResponsiveDesc: "响应式设计，支持手机、平板、电脑无缝体验",
+
+    // 使用指南
+    guideTitle: "使用指南",
+    guideSubtitle: "仅需几步即可开始您的AI创作之旅",
+
+    // AI模型描述
+    fluxModelDesc: "高质量艺术创作模型，专为创意设计优化，生成细节丰富的艺术作品",
+    turboModelDesc: "极速生成模型，适合快速原型制作和批量图片生成，效率优先",
+    kontextModelDesc: "图像到图像生成模型，支持图片编辑和风格转换，专业图像处理",
+    deepseekModelDesc: "专为中文优化的AI模型，深度理解中文语义，特别适合中文创作",
+
+    // 适用人群标题
+    designerTitle: "设计师",
+    creatorTitle: "内容创作者",
+    marketerTitle: "营销人员",
+    ecommerceTitle: "电商卖家",
+    educatorTitle: "学生教师",
+    generalUserTitle: "普通用户",
+
+    // 适用人群描述
+    designerDesc: "快速生成设计灵感，创建概念图和原型",
+    creatorDesc: "为文章、视频、社交媒体制作配图和语音",
+    marketerDesc: "制作广告素材，提升营销效果",
+    ecommerceDesc: "创建产品展示图，提升商品吸引力",
+    educatorDesc: "制作教学材料，增强学习体验",
+    generalUserDesc: "个人创作，记录生活，表达创意",
+
+    // 使用步骤
+    step1Title: "访问平台",
+    step1Desc: "访问 aistone.org，选择图像生成或语音合成服务，无需注册直接使用",
+    step2Title: "选择模型",
+    step2Desc: "根据需求选择FLUX、Turbo、Kontext或DeepSeek模型，每个模型都有独特优势",
+    step3Title: "输入描述",
+    step3Desc: "用中文或英文详细描述您想要的内容，AI将基于描述生成对应的图像或语音",
+    step4Title: "生成内容",
+    step4Desc: "点击生成按钮，AI模型将创建高质量的图像或自然语音，支持下载和商用",
+
+    // 关于AISTONE
+    aboutTitle: "关于 AISTONE",
+    aboutDesc1:
+      "AISTONE 是一个基于 Pollinations.AI 技术的智能内容创作平台，集成了文本生成图片与语音功能，致力于为用户提供高效、便捷、免费的AI内容创作体验。我们的平台支持文本生成图片、文本生成语音等多种创作功能。",
+    aboutDesc2:
+      "无论你是设计师、内容创作者，还是普通用户，只需输入一句描述，就能一键生成高质量的视觉内容或语音内容。",
+    aboutImageTitle: "AI 图像生成",
+    aboutImageDesc:
+      "基于FLUX、Turbo、Kontext、DeepSeek等先进模型，支持多种艺术风格，从写实摄影到抽象艺术，满足各种创作需求",
+    aboutVoiceTitle: "AI 语音合成",
+    aboutVoiceDesc:
+      "将文本转换为自然流畅的语音，支持多种音色和语言，适合制作播客、有声读物、教学内容等",
+    aboutSpeedTitle: "极速便捷",
+    aboutSpeedDesc: "云端算力支持，保证生成速度与质量，界面简洁友好，适配多终端设备，随时随地创作",
+    aboutPhilosophyTitle: "平台理念",
+    aboutPhilosophyDesc:
+      "我们相信AI技术应该普惠大众，因此所有功能永久免费开放。助力每一位用户释放创意灵感，实现从文字到视觉、从文字到语音的无限可能。保护用户隐私，生成内容版权归用户所有，支持商业用途。",
+
     // 图像生成页面专用翻译
     imageGeneratorTitle: "AI 图像生成器",
     imageGeneratorSubtitle: "将文本转换为令人惊叹的AI图像",
@@ -1795,6 +1883,110 @@ const i18n = {
       { text: "Privacy Policy", url: "#" },
       { text: "Terms of Service", url: "#" },
     ],
+
+    // 主页CTA按钮
+    startImageGeneration: "🎨 Start Image Generation",
+    startVoiceSynthesis: "🎙️ Start Voice Synthesis",
+    tagHighQuality: "High Quality",
+
+    // 主页内容
+    heroDescription:
+      "Based on advanced Pollinations.AI technology, supports FLUX, Turbo, Kontext, DeepSeek and other AI models. No registration required, permanently free, supports Chinese and English input, optimized for creators.",
+    tagChinese: "Chinese Support",
+
+    // AI模型
+    modelsTitle: "Supported AI Models",
+    modelsSubtitle:
+      "Advanced AI models based on Pollinations.AI technology to meet different creative needs",
+
+    // 服务
+    imageGenerationDesc:
+      "Generate high-quality AI images from text descriptions, supporting multiple artistic styles and custom sizes. Based on Pollinations.AI technology, supports FLUX, Turbo, Kontext and other advanced models, letting your creativity extend infinitely.",
+    voiceSynthesisDesc:
+      "Convert text to natural and fluent speech, supporting multiple timbres and languages. Suitable for making videos, podcasts, audiobooks and other content, adding vivid sound to your works.",
+    featureCommercial: "Commercial License",
+    featureDownloadable: "Downloadable",
+
+    // 适用人群
+    audienceTitle: "Target Users",
+    audienceSubtitle: "AISTONE provides powerful AI tools for creators in all industries",
+
+    // 特色功能
+    featureFreeDesc:
+      "All features permanently free, no hidden fees, no registration required, supports commercial use",
+    featureSpeedDesc:
+      "Based on advanced AI technology, second-level response, efficient creative experience, no waiting",
+    featureQualityDesc:
+      "High-definition output, multiple styles, supports various sizes, meets professional creative needs",
+    featurePrivacyDesc:
+      "Does not store user data, real-time processing, protects privacy and security, content copyright belongs to users",
+    featureMultiLangDesc:
+      "Supports Chinese and English input, interface can be switched, specially optimized for Chinese users",
+    featureResponsiveDesc:
+      "Responsive design, supports seamless experience on mobile, tablet, and computer",
+
+    // 使用指南
+    guideTitle: "Usage Guide",
+    guideSubtitle: "Start your AI creation journey in just a few steps",
+
+    // AI模型描述
+    fluxModelDesc:
+      "High-quality artistic creation model, optimized for creative design, generating artworks with rich details",
+    turboModelDesc:
+      "High-speed generation model, suitable for rapid prototyping and batch image creation, efficiency-focused",
+    kontextModelDesc:
+      "Advanced image-to-image generation and editing model, professional image processing",
+    deepseekModelDesc:
+      "AI model optimized for Chinese, excels in Chinese understanding and image generation",
+
+    // 适用人群标题
+    designerTitle: "Designers",
+    creatorTitle: "Content Creators",
+    marketerTitle: "Marketers",
+    ecommerceTitle: "E-commerce Sellers",
+    educatorTitle: "Students & Teachers",
+    generalUserTitle: "General Users",
+
+    // 适用人群描述
+    designerDesc: "Quickly generate design inspiration, create concept art and prototypes",
+    creatorDesc: "Create images and voice content for articles, videos, and social media",
+    marketerDesc: "Create advertising materials to enhance marketing effectiveness",
+    ecommerceDesc: "Create product showcase images to enhance product appeal",
+    educatorDesc: "Create teaching materials to enhance learning experience",
+    generalUserDesc: "Personal creation, record life, express creativity",
+
+    // 使用步骤
+    step1Title: "Visit Platform",
+    step1Desc:
+      "Visit aistone.org, choose Image Generation or Voice Synthesis service, no registration required",
+    step2Title: "Select Model",
+    step2Desc:
+      "Choose from FLUX, Turbo, Kontext, or DeepSeek models based on your needs, each with unique advantages",
+    step3Title: "Input Description",
+    step3Desc:
+      "Describe your desired content in Chinese or English, AI will generate corresponding images or voice",
+    step4Title: "Generate Content",
+    step4Desc:
+      "Click generate button, AI will create high-quality images or natural voice, supports download and commercial use",
+
+    // 关于AISTONE
+    aboutTitle: "About AISTONE",
+    aboutDesc1:
+      "AISTONE is an intelligent content creation platform based on Pollinations.AI technology, integrating text-to-image and voice generation functions, committed to providing users with efficient, convenient, and free AI content creation experience. Our platform supports text-to-image, text-to-voice and other creative functions.",
+    aboutDesc2:
+      "Whether you are a designer, content creator, or general user, just input a description to generate high-quality visual or audio content with one click.",
+    aboutImageTitle: "AI Image Generation",
+    aboutImageDesc:
+      "Based on advanced models like FLUX, Turbo, Kontext, DeepSeek, supports various artistic styles from realistic photography to abstract art, meeting diverse creative needs",
+    aboutVoiceTitle: "AI Voice Synthesis",
+    aboutVoiceDesc:
+      "Convert text to natural and fluent speech, supports multiple timbres and languages, suitable for podcasts, audiobooks, educational content, etc.",
+    aboutSpeedTitle: "Ultra-fast & Convenient",
+    aboutSpeedDesc:
+      "Cloud computing support ensures generation speed and quality, with a simple and friendly interface, multi-device compatibility, create anytime, anywhere",
+    aboutPhilosophyTitle: "Platform Philosophy",
+    aboutPhilosophyDesc:
+      "We believe AI technology should benefit everyone, so all features are permanently free and open. Help every user unleash creative inspiration, realize unlimited possibilities from text to visuals and voice. Protect user privacy, generated content copyright belongs to users, supports commercial use.",
 
     // 图像生成页面专用翻译
     imageGeneratorTitle: "AI Image Generator",

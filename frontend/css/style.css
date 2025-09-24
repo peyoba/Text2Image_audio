@@ -2274,3 +2274,110 @@ footer .footer-icon path {
     border-color: #4a5568;
   }
 }
+
+/* 主页优化样式 - 保持现有颜色风格 */
+.hero-cta-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 15px 30px;
+  border-radius: var(--radius-lg, 12px);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1em;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  min-width: 200px;
+  text-align: center;
+}
+
+.cta-primary {
+  background: var(--color-brand-primary, #007bff);
+  color: white;
+  border-color: var(--color-brand-primary, #007bff);
+}
+
+.cta-primary:hover {
+  background: transparent;
+  color: var(--color-brand-primary, #007bff);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 123, 255, 0.2);
+}
+
+.cta-secondary {
+  background: transparent;
+  color: var(--color-brand-primary, #007bff);
+  border: 2px solid var(--color-brand-primary, #007bff);
+}
+
+.cta-secondary:hover {
+  background: var(--color-brand-primary, #007bff);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 123, 255, 0.2);
+}
+
+.tag-quality {
+  background: var(--color-brand-secondary, #00cfff);
+  color: white;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm, 6px);
+  font-size: 0.9em;
+  font-weight: 500;
+  display: inline-block;
+  margin: 2px;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 123, 255, 0.15);
+  border-color: var(--color-brand-primary, #007bff);
+}
+
+.service-btn:hover {
+  background: transparent;
+  color: var(--color-brand-primary, #007bff);
+  border: 2px solid var(--color-brand-primary, #007bff);
+  transform: translateY(-2px);
+}
+
+.feature-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 123, 255, 0.1);
+  border-color: var(--color-brand-secondary, #00cfff);
+}
+
+/* 移动端响应式优化 */
+@media (max-width: 768px) {
+  .hero-cta-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .cta-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .service-card,
+  .feature-item {
+    padding: 25px 20px;
+  }
+}
