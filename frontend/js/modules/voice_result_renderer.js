@@ -46,8 +46,8 @@
       var speedEl = document.getElementById("used-voice-speed");
       if (voiceModelEl) {
         var voiceKey = last.voice || (document.getElementById("voice-model") || {}).value || "";
-        var names = window.VOICE_NAMES || {};
-        voiceModelEl.textContent = names[voiceKey] || voiceKey || "--";
+        var voiceName = window.getVoiceName ? window.getVoiceName(voiceKey) : voiceKey;
+        voiceModelEl.textContent = voiceName || "--";
       }
       if (speedEl) {
         var speedStr = last.speed || (document.getElementById("voice-speed") || {}).value || "";

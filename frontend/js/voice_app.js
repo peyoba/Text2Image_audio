@@ -498,16 +498,10 @@ class VoiceApp {
 
       // 更新音色信息
       if (modelElement) {
-        const voiceNames = window.VOICE_NAMES || {
-          nova: t("voiceNova"),
-          alloy: t("voiceAlloy"),
-          echo: t("voiceEcho"),
-          fable: t("voiceFable"),
-          onyx: t("voiceOnyx"),
-          shimmer: t("voiceShimmer"),
-        };
-        modelElement.textContent =
-          voiceNames[this.lastGenerationParams.voice] || this.lastGenerationParams.voice;
+        const voiceName = window.getVoiceName
+          ? window.getVoiceName(this.lastGenerationParams.voice)
+          : this.lastGenerationParams.voice;
+        modelElement.textContent = voiceName;
       }
 
       // 更新语速信息

@@ -5,15 +5,32 @@
   if (typeof window === "undefined") return;
 
   // 语音模型名称映射（UI 展示用）
-  // key 使用后端/前端一致的模型标识；value 为展示名称
-  window.VOICE_NAMES = window.VOICE_NAMES || {
-    nova: "Nova (女声)",
-    alloy: "Alloy (男声)",
-    echo: "Echo (男声)",
-    fable: "Fable (男声)",
-    onyx: "Onyx (男声)",
-    shimmer: "Shimmer (女声)",
-  };
+  // 注意：这里不再硬编码名称，而是提供一个动态获取函数
+  window.getVoiceName =
+    window.getVoiceName ||
+    function (voiceKey) {
+      if (typeof window.t === "function") {
+        const keyMap = {
+          nova: "voiceNova",
+          alloy: "voiceAlloy",
+          echo: "voiceEcho",
+          fable: "voiceFable",
+          onyx: "voiceOnyx",
+          shimmer: "voiceShimmer",
+        };
+        return window.t(keyMap[voiceKey]) || voiceKey;
+      }
+      // 回退到英文（当i18n不可用时）
+      const fallback = {
+        nova: "Nova (Female-Clear)",
+        alloy: "Alloy (Male-Gentle)",
+        echo: "Echo (Male-Deep)",
+        fable: "Fable (Male-Young)",
+        onyx: "Onyx (Male-Magnetic)",
+        shimmer: "Shimmer (Female-Sweet)",
+      };
+      return fallback[voiceKey] || voiceKey;
+    };
 
   // 提示消息颜色（内联浮层）
   window.VOICE_MESSAGE_COLORS = window.VOICE_MESSAGE_COLORS || {
