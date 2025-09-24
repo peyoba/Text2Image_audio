@@ -885,6 +885,7 @@ const i18n = {
     // 导航栏
     navHome: "首页",
     navImageGen: "图像生成",
+    navVoice: "语音合成",
     navVoiceGen: "语音合成",
     navAbout: "关于我们",
     navAIGuide: "AI指南",
@@ -1664,6 +1665,7 @@ const i18n = {
     // Navigation
     navHome: "Home",
     navImageGen: "Image Generation",
+    navVoice: "Voice Synthesis",
     navVoiceGen: "Voice Synthesis",
     navAbout: "About",
     navAIGuide: "AI Guide",
