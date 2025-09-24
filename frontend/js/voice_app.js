@@ -146,8 +146,14 @@ class VoiceApp {
           audioPlayer.playbackRate = rate;
         } catch (e) {}
       });
-      audioPlayer.addEventListener("play", () => this.startWaveform());
-      audioPlayer.addEventListener("pause", () => this.stopWaveform());
+      audioPlayer.addEventListener("play", () => {
+        console.log("[Voice] Audio play event triggered");
+        this.startWaveform();
+      });
+      audioPlayer.addEventListener("pause", () => {
+        console.log("[Voice] Audio pause event triggered");
+        this.stopWaveform();
+      });
     }
 
     // 文本按钮
@@ -744,15 +750,24 @@ class VoiceApp {
 
   // 可视化：初始化波形
   initWaveform() {
+    const canvas = document.getElementById("voice-waveform");
+    console.log("[Voice] Initializing waveform...");
+    console.log("[Voice] Canvas element:", canvas);
+    console.log(
+      "[Voice] Canvas visible:",
+      canvas ? getComputedStyle(canvas).display !== "none" : "N/A"
+    );
+    console.log("[Voice] VoiceWaveform available:", !!window.VoiceWaveform);
+
     // 优先使用模块化渲染器
     if (window.VoiceWaveform && typeof window.VoiceWaveform.init === "function") {
       console.log("[Voice] Using VoiceWaveform module for waveform rendering");
-      window.VoiceWaveform.init("voice-waveform");
+      const result = window.VoiceWaveform.init("voice-waveform");
+      console.log("[Voice] VoiceWaveform.init result:", result);
       return;
     } else {
       console.log("[Voice] VoiceWaveform module not available, using fallback rendering");
     }
-    const canvas = document.getElementById("voice-waveform");
     if (!canvas) return;
     this.waveformCtx = canvas.getContext("2d");
     // 初始清屏（回退实现）
@@ -764,10 +779,14 @@ class VoiceApp {
 
   // 可视化：启动波形动画
   startWaveform() {
+    console.log("[Voice] Starting waveform animation...");
     // 优先使用模块化渲染器
     if (window.VoiceWaveform && typeof window.VoiceWaveform.start === "function") {
+      console.log("[Voice] Using VoiceWaveform.start()");
       window.VoiceWaveform.start("voice-waveform");
       return;
+    } else {
+      console.log("[Voice] Using fallback waveform animation");
     }
     const audio = document.getElementById("generated-audio");
     const canvas = document.getElementById("voice-waveform");
