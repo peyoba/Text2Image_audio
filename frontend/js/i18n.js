@@ -2349,6 +2349,17 @@ function getNestedI18nValue(lang, keyPath) {
     return undefined;
   }
 
+  // 直接检查平级键
+  if (i18n[lang][keyPath]) {
+    return i18n[lang][keyPath];
+  }
+
+  // 如果没有点分隔符，直接返回
+  if (keyPath.indexOf(".") === -1) {
+    return i18n[lang][keyPath];
+  }
+
+  // 处理嵌套路径
   const keys = keyPath.split(".");
   let value = i18n[lang];
 

@@ -40,6 +40,23 @@
         resultSection.scrollIntoView({ behavior: "smooth", block: "start" });
       } catch (_) {}
 
+      // 初始化波形动画（结果区域显示后立即初始化）
+      try {
+        console.log("[VoiceResultRenderer] Initializing waveform after result display");
+        if (window.VoiceWaveform && typeof window.VoiceWaveform.init === "function") {
+          const canvas = document.getElementById("voice-waveform");
+          console.log("[VoiceResultRenderer] Canvas element found:", !!canvas);
+          console.log(
+            "[VoiceResultRenderer] Canvas visible:",
+            canvas ? getComputedStyle(canvas).display !== "none" : "N/A"
+          );
+          window.VoiceWaveform.init("voice-waveform");
+          console.log("[VoiceResultRenderer] Waveform initialized successfully");
+        }
+      } catch (error) {
+        console.error("[VoiceResultRenderer] Failed to initialize waveform:", error);
+      }
+
       // 更新信息区：模型/速度
       var last = (params && params.lastParams) || {};
       var voiceModelEl = document.getElementById("used-voice-model");
