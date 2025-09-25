@@ -1104,7 +1104,7 @@ const i18n = {
 
     // 主页内容
     heroDescription:
-      "基于先进的Pollinations.AI技术，支持FLUX、Turbo、Kontext、DeepSeek等多种AI模型。无需注册，永久免费，支持中英文输入，专为创作者优化。",
+      "基于先进的Pollinations.AI技术，支持FLUX、Turbo、Kontext等图像模型与OpenAI Audio TTS语音合成。无需注册，永久免费，支持中英文输入，专为创作者优化。",
     tagChinese: "中文支持",
 
     // AI模型
@@ -1149,7 +1149,8 @@ const i18n = {
     fluxModelDesc: "高质量艺术创作模型，专为创意设计优化，生成细节丰富的艺术作品",
     turboModelDesc: "极速生成模型，适合快速原型制作和批量图片生成，效率优先",
     kontextModelDesc: "图像到图像生成模型，支持图片编辑和风格转换，专业图像处理",
-    deepseekModelDesc: "专为中文优化的AI模型，深度理解中文语义，特别适合中文创作",
+    openaiAudioModelDesc:
+      "OpenAI Audio 语音合成（TTS），提供 Nova、Alloy、Echo、Fable、Onyx、Shimmer 多音色，发音自然流畅，支持语速调节",
 
     // 适用人群标题
     designerTitle: "设计师",
@@ -1183,7 +1184,8 @@ const i18n = {
     step1Title: "访问平台",
     step1Desc: "访问 aistone.org，选择图像生成或语音合成服务，无需注册直接使用",
     step2Title: "选择模型",
-    step2Desc: "根据需求选择FLUX、Turbo、Kontext或DeepSeek模型，每个模型都有独特优势",
+    step2Desc:
+      "根据需求选择FLUX、Turbo、Kontext图像模型，或选择OpenAI Audio TTS用于语音，每个模型都有独特优势",
     step3Title: "输入描述",
     step3Desc: "用中文或英文详细描述您想要的内容，AI将基于描述生成对应的图像或语音",
     step4Title: "生成内容",
@@ -1197,7 +1199,7 @@ const i18n = {
       "无论你是设计师、内容创作者，还是普通用户，只需输入一句描述，就能一键生成高质量的视觉内容或语音内容。",
     aboutImageTitle: "AI 图像生成",
     aboutImageDesc:
-      "基于FLUX、Turbo、Kontext、DeepSeek等先进模型，支持多种艺术风格，从写实摄影到抽象艺术，满足各种创作需求",
+      "基于FLUX、Turbo、Kontext等先进模型，支持多种艺术风格，从写实摄影到抽象艺术，满足各种创作需求",
     aboutVoiceTitle: "AI 语音合成",
     aboutVoiceDesc:
       "将文本转换为自然流畅的语音，支持多种音色和语言，适合制作播客、有声读物、教学内容等",
@@ -1949,7 +1951,7 @@ const i18n = {
 
     // 主页内容
     heroDescription:
-      "Based on advanced Pollinations.AI technology, supports FLUX, Turbo, Kontext, DeepSeek and other AI models. No registration required, permanently free, supports Chinese and English input, optimized for creators.",
+      "Based on advanced Pollinations.AI technology, supports FLUX, Turbo, Kontext for images, and OpenAI Audio TTS for voice. No registration required, permanently free, supports Chinese and English input, optimized for creators.",
     tagChinese: "Chinese Support",
 
     // AI模型
@@ -2005,8 +2007,8 @@ const i18n = {
       "High-speed generation model, suitable for rapid prototyping and batch image creation, efficiency-focused",
     kontextModelDesc:
       "Advanced image-to-image generation and editing model, professional image processing",
-    deepseekModelDesc:
-      "AI model optimized for Chinese, excels in Chinese understanding and image generation",
+    openaiAudioModelDesc:
+      "OpenAI Audio Text-to-Speech providing Nova, Alloy, Echo, Fable, Onyx, Shimmer voices with natural prosody and speed control",
 
     // 适用人群标题
     designerTitle: "Designers",
@@ -2042,7 +2044,7 @@ const i18n = {
       "Visit aistone.org, choose Image Generation or Voice Synthesis service, no registration required",
     step2Title: "Select Model",
     step2Desc:
-      "Choose from FLUX, Turbo, Kontext, or DeepSeek models based on your needs, each with unique advantages",
+      "Choose FLUX, Turbo, Kontext for images, or OpenAI Audio TTS for voice, each with unique advantages",
     step3Title: "Input Description",
     step3Desc:
       "Describe your desired content in Chinese or English, AI will generate corresponding images or voice",
@@ -2058,7 +2060,7 @@ const i18n = {
       "Whether you are a designer, content creator, or general user, just input a description to generate high-quality visual or audio content with one click.",
     aboutImageTitle: "AI Image Generation",
     aboutImageDesc:
-      "Based on advanced models like FLUX, Turbo, Kontext, DeepSeek, supports various artistic styles from realistic photography to abstract art, meeting diverse creative needs",
+      "Based on advanced models like FLUX, Turbo, Kontext, supports various artistic styles from realistic photography to abstract art, meeting diverse creative needs",
     aboutVoiceTitle: "AI Voice Synthesis",
     aboutVoiceDesc:
       "Convert text to natural and fluent speech, supports multiple timbres and languages, suitable for podcasts, audiobooks, educational content, etc.",
