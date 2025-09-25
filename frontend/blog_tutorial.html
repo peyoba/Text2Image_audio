@@ -63,34 +63,278 @@
 
         <section class="tutorial-content" style="color: #cbd6ff; line-height: 1.8">
           <h2>🚀 快速开始</h2>
+          <h3>步骤1：访问平台</h3>
+          <p>
+            打开浏览器访问
+            <a href="https://aistone.org">https://aistone.org</a>，无需注册即可开始使用。
+          </p>
+          <h3>步骤2：选择生成类型</h3>
+          <p>在页面上选择您想要生成的内容类型：</p>
+          <ul>
+            <li><strong>生成图片：</strong>将文本描述转换为高质量图片</li>
+            <li><strong>生成语音：</strong>将文本转换为自然流畅的语音</li>
+          </ul>
+          <h3>步骤3：输入描述文本</h3>
+          <p>在文本输入框中输入您的描述：</p>
+          <ul>
+            <li>支持中文和英文</li>
+            <li>描述越详细，生成效果越好</li>
+            <li>可以使用示例按钮快速填充</li>
+          </ul>
+          <h3>步骤4：设置参数</h3>
+          <h4>图片生成参数：</h4>
+          <ul>
+            <li><strong>AI模型：</strong>FLUX（高质量）、Turbo（快速）、Kontext（图像编辑）</li>
+            <li><strong>宽高比例：</strong>正方形、横向、竖向等多种选择</li>
+            <li><strong>生成数量：</strong>1-4张图片</li>
+            <li><strong>去除水印：</strong>获得更清洁的图片</li>
+          </ul>
+          <h4>语音生成参数：</h4>
+          <ul>
+            <li><strong>音色选择：</strong>6种不同的AI音色</li>
+            <li><strong>语速控制：</strong>0.25x到4.0x调节</li>
+          </ul>
+          <h3>步骤5：点击生成</h3>
+          <p>点击"开始生成"按钮，AI会处理您的请求。通常需要10-30秒。</p>
+
+          <h2>🎨 图片生成功能详解</h2>
+          <h3>AI模型选择</h3>
+          <div
+            class="model-comparison"
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+              gap: 12px;
+            "
+          >
+            <div
+              class="model-item"
+              style="
+                background: #0b1324;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                padding: 12px;
+              "
+            >
+              <h4>FLUX - 高质量艺术创作</h4>
+              <ul>
+                <li>最新的开源模型</li>
+                <li>优秀的细节表现</li>
+                <li>适合艺术创作和专业用途</li>
+              </ul>
+            </div>
+            <div
+              class="model-item"
+              style="
+                background: #0b1324;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                padding: 12px;
+              "
+            >
+              <h4>Turbo - 快速生成</h4>
+              <ul>
+                <li>生成速度最快</li>
+                <li>适合快速原型和测试</li>
+                <li>质量略低但效率高</li>
+              </ul>
+            </div>
+            <div
+              class="model-item"
+              style="
+                background: #0b1324;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                padding: 12px;
+              "
+            >
+              <h4>Kontext - 图像到图像</h4>
+              <ul>
+                <li>支持图像编辑功能</li>
+                <li>可以基于现有图像生成</li>
+                <li>适合图像变换和修改</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3>宽高比例设置</h3>
+          <ul>
+            <li><strong>正方形 (1:1)</strong>：适合社交媒体头像、LOGO</li>
+            <li><strong>横向 (16:9)</strong>：适合横幅、背景图</li>
+            <li><strong>竖向 (9:16)</strong>：适合手机壁纸、海报</li>
+            <li><strong>标准 (4:3)</strong>：经典比例，适合大多数用途</li>
+          </ul>
+
+          <h3>质量优化技巧</h3>
           <ol>
-            <li>访问 <a href="https://aistone.org">aistone.org</a></li>
-            <li>选择“图像生成”或“语音合成”</li>
-            <li>输入描述文本</li>
-            <li>设置参数并点击生成</li>
+            <li><strong>使用详细描述</strong>：描述越详细，生成效果越精确</li>
+            <li><strong>选择FLUX模型</strong>：获得最佳质量</li>
+            <li><strong>使用高分辨率</strong>：选择较大的图像尺寸</li>
+            <li><strong>利用智能优化</strong>：使用平台的优化功能</li>
+            <li><strong>添加负面提示词</strong>：排除不想要的元素</li>
           </ol>
 
-          <h2>🎨 图片生成功能</h2>
+          <h2>🎵 语音合成功能详解</h2>
+          <h3>音色选择指南</h3>
+          <div
+            class="voice-guide"
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+              gap: 12px;
+            "
+          >
+            <div
+              class="voice-item"
+              style="
+                background: #0b1324;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                padding: 12px;
+              "
+            >
+              <h4>Nova - 清晰专业的女声</h4>
+              <p>适合：商务演示、教育内容、正式场合</p>
+            </div>
+            <div
+              class="voice-item"
+              style="
+                background: #0b1324;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                padding: 12px;
+              "
+            >
+              <h4>Echo - 温暖友好的男声</h4>
+              <p>适合：播客、故事朗读、休闲内容</p>
+            </div>
+            <div
+              class="voice-item"
+              style="
+                background: #0b1324;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                padding: 12px;
+              "
+            >
+              <h4>Fable - 富有表现力的叙事声音</h4>
+              <p>适合：有声书、故事讲述、戏剧化内容</p>
+            </div>
+            <div
+              class="voice-item"
+              style="
+                background: #0b1324;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                padding: 12px;
+              "
+            >
+              <h4>Onyx - 深沉权威的男声</h4>
+              <p>适合：新闻播报、严肃内容、权威解说</p>
+            </div>
+            <div
+              class="voice-item"
+              style="
+                background: #0b1324;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                padding: 12px;
+              "
+            >
+              <h4>Shimmer - 明亮活泼的女声</h4>
+              <p>适合：儿童内容、轻松话题、活泼解说</p>
+            </div>
+            <div
+              class="voice-item"
+              style="
+                background: #0b1324;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                padding: 12px;
+              "
+            >
+              <h4>Alloy - 平衡多用途的声音</h4>
+              <p>适合：通用内容、多场景应用</p>
+            </div>
+          </div>
+
+          <h3>语速控制技巧</h3>
           <ul>
-            <li>AI模型：FLUX / Turbo / Kontext</li>
-            <li>宽高比例：1:1、16:9、9:16、4:3</li>
-            <li>生成数量：1-4张</li>
-            <li>去除水印选项</li>
+            <li><strong>0.25x-0.5x</strong>：适合学习、重要信息强调</li>
+            <li><strong>0.75x-1.0x</strong>：正常语速，适合大部分内容</li>
+            <li><strong>1.25x-2.0x</strong>：快速播报、时间紧张场合</li>
+            <li><strong>2.0x-4.0x</strong>：超快速度，特殊需求</li>
           </ul>
 
-          <h2>🎵 语音生成功能</h2>
+          <h2>💡 高级使用技巧</h2>
+          <h3>智能优化功能</h3>
+          <p>点击"优化"按钮，AI会自动：</p>
           <ul>
-            <li>音色：Nova、Echo、Fable、Onyx、Shimmer、Alloy</li>
-            <li>语速：0.25x ~ 4.0x</li>
+            <li>将中文描述翻译为英文</li>
+            <li>优化提示词结构</li>
+            <li>添加质量增强词汇</li>
+            <li>改善语法和表达</li>
           </ul>
 
-          <h2>💡 使用技巧</h2>
+          <h3>批量生成策略</h3>
+          <p>选择生成多张图片时：</p>
           <ul>
-            <li>使用详细、结构清晰的描述</li>
-            <li>优先选择FLUX获取最佳质量</li>
-            <li>结合负面提示词排除不需要的元素</li>
-            <li>利用“优化”按钮自动改写提示词</li>
+            <li>每张图片会有不同的变化</li>
+            <li>可以从中选择最满意的结果</li>
+            <li>节省重复生成的时间</li>
           </ul>
+
+          <h3>账号功能（可选）</h3>
+          <p>注册账号后可以：</p>
+          <ul>
+            <li>保存高清图片（每日3张）</li>
+            <li>查看生成历史</li>
+            <li>管理个人作品</li>
+            <li>获得更好的服务体验</li>
+          </ul>
+
+          <h2>❓ 常见问题解决</h2>
+          <h3>生成失败怎么办？</h3>
+          <ol>
+            <li>检查网络连接</li>
+            <li>简化描述文本</li>
+            <li>切换不同的AI模型</li>
+            <li>稍后重试</li>
+          </ol>
+          <h3>生成质量不满意？</h3>
+          <ol>
+            <li>使用更详细的描述</li>
+            <li>选择FLUX模型</li>
+            <li>添加质量关键词</li>
+            <li>使用负面提示词</li>
+            <li>尝试智能优化功能</li>
+          </ol>
+          <h3>速度较慢？</h3>
+          <ol>
+            <li>选择Turbo模型（速度优先）</li>
+            <li>避免高峰时段</li>
+            <li>减少生成数量</li>
+            <li>降低图像分辨率</li>
+          </ol>
+
+          <footer class="article-footer">
+            <div class="article-actions" style="display: flex; gap: 12px; justify-content: center">
+              <button onclick="window.print()" class="action-btn">📄 打印教程</button>
+              <button
+                onclick="navigator.share && navigator.share({title:'平台使用教程', url: location.href})"
+                class="action-btn"
+              >
+                📤 分享教程
+              </button>
+            </div>
+            <div class="help-links" style="text-align: center; margin-top: 12px">
+              <h4>需要更多帮助？</h4>
+              <ul style="list-style: none; padding: 0; margin: 0">
+                <li><a href="blog_faq.html">查看常见问题</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+              </ul>
+            </div>
+          </footer>
         </section>
       </article>
     </main>

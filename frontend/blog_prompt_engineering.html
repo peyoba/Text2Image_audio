@@ -67,7 +67,7 @@
             class="course-overview"
             style="
               display: grid;
-              grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
               gap: 16px;
             "
           >
@@ -80,7 +80,7 @@
               "
             >
               <h3>🚀 基础语法</h3>
-              <p>掌握提示词的基本结构和组织原则。</p>
+              <p>掌握提示词的基本结构和组织原则</p>
             </div>
             <div
               style="
@@ -91,7 +91,18 @@
               "
             >
               <h3>⚡ 权重控制</h3>
-              <p>括号语法与精确权重 <code>(keyword:1.5)</code>。</p>
+              <p>学会精确控制各元素的重要性</p>
+            </div>
+            <div
+              style="
+                background: #0b1324;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                padding: 14px;
+              "
+            >
+              <h3>🚫 负面提示词</h3>
+              <p>排除不需要的元素，提升生成质量</p>
             </div>
             <div
               style="
@@ -102,12 +113,13 @@
               "
             >
               <h3>🎨 风格融合</h3>
-              <p>摄影、绘画、插画等风格词与艺术家标签。</p>
+              <p>创造独特的艺术风格和视觉效果</p>
             </div>
           </div>
 
-          <h2>🧱 基本结构</h2>
-          <p>推荐结构：<strong>主体</strong> + 主要特征 + 次要特征 + 环境 + 风格 + 质量词</p>
+          <h2>📝 基础语法规则</h2>
+          <h3>1. 主体描述</h3>
+          <p>始终以主要描述对象开头，这是最重要的部分：</p>
           <div
             class="code-block"
             style="
@@ -119,23 +131,36 @@
             "
           >
             <code
-              >beautiful woman, long hair, soft smile, studio lighting, portrait photography,
-              masterpiece, highly detailed</code
+              >✅ 正确：a beautiful woman, long hair, smiling<br />❌ 错误：beautiful, woman with
+              long hair, happy face</code
             >
           </div>
 
-          <h2>⚖️ 权重控制</h2>
+          <h3>2. 修饰词顺序</h3>
+          <p>按照重要性排列修饰词，越重要的越靠前：</p>
+          <div
+            class="code-block"
+            style="
+              background: #1e293b;
+              color: #e2e8f0;
+              padding: 12px;
+              border-radius: 6px;
+              overflow: auto;
+            "
+          >
+            <code>主体 + 主要特征 + 次要特征 + 环境 + 风格 + 质量词</code>
+          </div>
+
+          <h2>⚖️ 权重控制技术</h2>
+          <h3>括号语法</h3>
           <ul>
-            <li><code>(keyword)</code> 增强1.1倍</li>
-            <li><code>((keyword))</code> 增强1.21倍</li>
-            <li><code>[keyword]</code> 减弱0.9倍</li>
-            <li><code>(keyword:1.5)</code> 精确权重</li>
+            <li><code>(keyword)</code> - 增强1.1倍</li>
+            <li><code>((keyword))</code> - 增强1.21倍</li>
+            <li><code>[keyword]</code> - 减弱0.9倍</li>
+            <li><code>(keyword:1.5)</code> - 精确控制权重</li>
           </ul>
 
-          <h2>🚫 负面提示词</h2>
-          <p>用于排除不想要的元素，如：blurry, low quality, watermark, text ...</p>
-
-          <h2>📌 实战示例</h2>
+          <h3>实用示例</h3>
           <div
             class="code-block"
             style="
@@ -147,10 +172,98 @@
             "
           >
             <code
-              >(professional portrait:1.3), (detailed eyes:1.2), natural makeup, soft smile, studio
-              lighting, clean background, masterpiece</code
+              >(beautiful face:1.3), detailed eyes, (flowing hair), [background], masterpiece</code
             >
           </div>
+
+          <h2>🚫 负面提示词策略</h2>
+          <p>负面提示词用于排除不想要的元素，提升图像质量：</p>
+          <h3>常用负面词汇</h3>
+          <ul>
+            <li><strong>质量问题：</strong>blurry, low quality, pixelated, distorted</li>
+            <li><strong>解剖错误：</strong>extra limbs, deformed, bad anatomy</li>
+            <li><strong>面部问题：</strong>bad face, ugly, asymmetric eyes</li>
+            <li><strong>构图问题：</strong>cropped, cut off, watermark, text</li>
+          </ul>
+
+          <h2>🎨 风格控制技巧</h2>
+          <h3>艺术风格词汇</h3>
+          <ul>
+            <li><strong>摄影风格：</strong>portrait photography, studio lighting, professional</li>
+            <li><strong>绘画风格：</strong>oil painting, watercolor, digital art, concept art</li>
+            <li><strong>特定艺术家：</strong>by Greg Rutkowski, by Artgerm, by Studio Ghibli</li>
+          </ul>
+
+          <h3>质量提升词汇</h3>
+          <div
+            class="code-block"
+            style="
+              background: #1e293b;
+              color: #e2e8f0;
+              padding: 12px;
+              border-radius: 6px;
+              overflow: auto;
+            "
+          >
+            <code>masterpiece, best quality, highly detailed, 8k, ultra sharp, professional</code>
+          </div>
+
+          <h2>💼 高级技巧与实战</h2>
+          <h3>场景构建</h3>
+          <p>描述完整场景的层次化方法：</p>
+          <ol>
+            <li><strong>前景：</strong>主要角色或物体</li>
+            <li><strong>中景：</strong>重要的环境元素</li>
+            <li><strong>背景：</strong>整体环境和氛围</li>
+          </ol>
+
+          <h3>情感表达</h3>
+          <p>通过细节描述传达情感：</p>
+          <ul>
+            <li><strong>快乐：</strong>bright smile, sparkling eyes, warm lighting</li>
+            <li><strong>神秘：</strong>dramatic shadows, mysterious smile, soft focus</li>
+            <li><strong>力量：</strong>confident pose, strong lighting, sharp focus</li>
+          </ul>
+
+          <h2>📊 实战案例分析</h2>
+          <h3>案例1：人像摄影</h3>
+          <div class="case-study">
+            <h4>提示词：</h4>
+            <div class="code-block">
+              <code
+                >(professional portrait:1.3), beautiful young woman, (detailed eyes:1.2), natural
+                makeup, soft smile, (studio lighting:1.1), clean background, high resolution,
+                masterpiece</code
+              >
+            </div>
+            <h4>负面提示词：</h4>
+            <div class="code-block">
+              <code>blurry, low quality, bad anatomy, deformed, extra limbs, watermark, text</code>
+            </div>
+          </div>
+          <h3>案例2：幻想场景</h3>
+          <div class="case-study">
+            <h4>提示词：</h4>
+            <div class="code-block">
+              <code
+                >(magical forest:1.3), ancient trees, (glowing mushrooms:1.2), fairy lights,
+                mystical atmosphere, (fantasy art style:1.1), detailed environment, cinematic
+                lighting</code
+              >
+            </div>
+          </div>
+
+          <footer class="article-footer">
+            <div class="article-actions" style="display: flex; gap: 12px; justify-content: center">
+              <button onclick="window.print()" class="action-btn">📄 打印文章</button>
+              <button
+                onclick="navigator.share && navigator.share({title:'提示词工程', url: location.href})"
+                class="action-btn"
+              >
+                📤 分享文章
+              </button>
+            </div>
+          </footer>
         </section>
       </article>
     </main>
