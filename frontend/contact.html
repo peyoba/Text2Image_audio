@@ -30,16 +30,19 @@
         <span class="site-name">AISTONE</span>
       </div>
       <ul class="navbar-menu">
-        <li><a href="/" data-i18n="navHome">首页</a></li>
-        <li><a href="voice.html" data-i18n="navVoiceGen">语音合成</a></li>
-        <li><a href="about.html" data-i18n="navAbout">关于我们</a></li>
-        <li><a href="blog.html" data-i18n="navBlog">博客</a></li>
-        <li><a href="contact.html" class="active" data-i18n="navContact">联系我们</a></li>
+        <li><a href="index.html" class="navbar-link" data-i18n="navHome">首页</a></li>
+        <li>
+          <a href="image-generator.html" class="navbar-link" data-i18n="navImageGen">图像生成</a>
+        </li>
+        <li><a href="voice.html" class="navbar-link" data-i18n="navVoice">语音合成</a></li>
+        <li><a href="blog.html" class="navbar-link" data-i18n="navBlog">博客</a></li>
+        <li><a href="about.html" class="navbar-link" data-i18n="navAbout">关于</a></li>
+        <li><a href="contact.html" class="navbar-link active" data-i18n="navContact">联系</a></li>
       </ul>
       <div class="navbar-right">
         <select id="lang-select" class="lang-select">
-          <option value="en">English</option>
           <option value="zh">中文</option>
+          <option value="en">English</option>
         </select>
         <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">
           登录
