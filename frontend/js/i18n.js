@@ -3051,6 +3051,21 @@ if (document.readyState === "loading") {
   initI18n();
 }
 
+// 兜底：在所有资源加载完成后再次应用语言，避免其他脚本覆盖文案
+if (typeof window !== "undefined") {
+  window.addEventListener("load", function () {
+    try {
+      const lang = getCurrentLang();
+      setLanguage(lang);
+      // 多次微延迟刷新，确保异步注入的节点也被覆盖
+      setTimeout(updatePageText, 50);
+      setTimeout(updatePageText, 200);
+    } catch (e) {
+      console.warn("[i18n] load fallback failed:", e);
+    }
+  });
+}
+
 // 将函数设为全局变量
 window.getCurrentLang = getCurrentLang;
 window.setLanguage = setLanguage;
