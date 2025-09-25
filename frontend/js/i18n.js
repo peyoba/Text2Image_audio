@@ -1214,6 +1214,60 @@ const i18n = {
     termsOfService: "服务条款",
     contactUs: "联系我们",
 
+    // 隐私政策（Privacy Policy）
+    privacyBreadcrumb: "隐私政策",
+    privacyTitle: "隐私政策",
+    privacyLastUpdated: "最后更新时间：2025年9月6日",
+    privacySection1Title: "1. 信息收集",
+    privacySection1Intro: "AISTONE致力于保护用户隐私。我们收集的信息类型包括：",
+    privacySection1Item1: "自动收集的信息：IP地址、浏览器类型、访问时间等技术信息",
+    privacySection1Item2: "用户提供的信息：您在使用我们服务时主动提供的文本内容",
+    privacySection1Item3: "Cookie信息：用于改善用户体验的必要Cookie",
+    privacySection2Title: "2. 信息使用",
+    privacySection2Intro: "我们使用收集的信息用于：",
+    privacySection2Item1: "提供AI图片生成和语音合成服务",
+    privacySection2Item2: "改善服务质量和用户体验",
+    privacySection2Item3: "进行必要的安全监控和防护",
+    privacySection2Item4: "遵守法律法规要求",
+    privacySection3Title: "3. 数据安全",
+    privacySection3Intro: "我们采用以下措施保护您的数据安全：",
+    privacySection3Item1: "零存储政策：用户生成的内容不会在我们的服务器上长期存储",
+    privacySection3Item2: "加密传输：所有数据传输均采用HTTPS加密",
+    privacySection3Item3: "访问控制：严格限制对用户数据的访问权限",
+    privacySection3Item4: "定期审计：定期进行安全审计和漏洞检测",
+    privacySection4Title: "4. 第三方服务",
+    privacySection4Intro: "我们的服务集成了以下第三方服务：",
+    privacySection4Item1: "Pollinations AI：提供图片和语音生成技术",
+    privacySection4Item2: "DeepSeek AI：提供提示词优化服务",
+    privacySection4Item3: "Google Analytics：用于网站分析（如适用）",
+    privacySection4Item4: "Google AdSense：用于展示广告（如适用）",
+    privacySection4Note: "这些第三方服务有各自的隐私政策，我们建议您仔细阅读。",
+    privacySection5Title: "5. Cookie政策",
+    privacySection5Intro: "我们使用Cookie来：",
+    privacySection5Item1: "记住您的语言偏好设置",
+    privacySection5Item2: "分析网站使用情况",
+    privacySection5Item3: "提供个性化的用户体验",
+    privacySection5Item4: "展示相关广告（如适用）",
+    privacySection5Note: "您可以通过浏览器设置管理Cookie，但这可能影响网站的正常功能。",
+    privacySection6Title: "6. 用户权利",
+    privacySection6Intro: "根据适用的数据保护法律，您享有以下权利：",
+    privacySection6Item1: "知情权：了解我们如何处理您的个人信息",
+    privacySection6Item2: "访问权：请求访问我们持有的您的个人信息",
+    privacySection6Item3: "更正权：请求更正不准确的个人信息",
+    privacySection6Item4: "删除权：在特定情况下请求删除您的个人信息",
+    privacySection6Item5: "反对权：反对我们处理您的个人信息",
+    privacySection7Title: "7. 儿童隐私",
+    privacySection7Intro:
+      "我们的服务不针对13岁以下的儿童。我们不会故意收集13岁以下儿童的个人信息。如果我们发现收集了此类信息，将立即删除。",
+    privacySection8Title: "8. 政策更新",
+    privacySection8Intro:
+      "我们可能会不时更新本隐私政策。重大变更将通过网站公告或其他适当方式通知用户。继续使用我们的服务表示您接受更新后的政策。",
+    privacySection9Title: "9. 联系我们",
+    privacySection9Intro:
+      "如果您对本隐私政策有任何疑问或需要行使您的权利，请通过以下方式联系我们：",
+    privacySection9Item1: "邮箱：privacy@aistone.org",
+    privacySection9Item2: "网站：联系我们页面",
+
     // 语音合成按钮
     generateAndPlay: "▶ 生成并播放",
     copyDeepLink: "复制深链",
@@ -2075,6 +2129,71 @@ const i18n = {
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
     contactUs: "Contact Us",
+
+    // Privacy Policy (EN)
+    privacyBreadcrumb: "Privacy Policy",
+    privacyTitle: "Privacy Policy",
+    privacyLastUpdated: "Last Updated: September 6, 2025",
+    privacySection1Title: "1. Information Collection",
+    privacySection1Intro:
+      "AISTONE is committed to protecting user privacy. We collect the following types of information:",
+    privacySection1Item1:
+      "Automatically Collected Information: Technical data such as IP address, browser type, and access time.",
+    privacySection1Item2:
+      "User-Provided Information: Text content you voluntarily provide when using our services.",
+    privacySection1Item3: "Cookie Information: Necessary cookies used to improve your experience.",
+    privacySection2Title: "2. Use of Information",
+    privacySection2Intro: "We use the collected information to:",
+    privacySection2Item1: "Provide AI image generation and voice synthesis services.",
+    privacySection2Item2: "Improve service quality and user experience.",
+    privacySection2Item3: "Conduct necessary security monitoring and protection.",
+    privacySection2Item4: "Comply with legal and regulatory requirements.",
+    privacySection3Title: "3. Data Security",
+    privacySection3Intro: "We protect your data through the following measures:",
+    privacySection3Item1:
+      "Zero-storage Policy: User-generated content is not stored on our servers for the long term.",
+    privacySection3Item2: "Encrypted Transmission: All data is transmitted over HTTPS encryption.",
+    privacySection3Item3: "Access Control: Strictly limited access to user data.",
+    privacySection3Item4: "Regular Audits: Periodic security reviews and vulnerability scanning.",
+    privacySection4Title: "4. Third-Party Services",
+    privacySection4Intro: "Our services integrate the following third-party providers:",
+    privacySection4Item1: "Pollinations AI: Provides image and voice generation technology.",
+    privacySection4Item2: "DeepSeek AI: Provides prompt optimization services.",
+    privacySection4Item3: "Google Analytics: Website analytics (where applicable).",
+    privacySection4Item4: "Google AdSense: Advertising display (where applicable).",
+    privacySection4Note:
+      "Each third-party service has its own privacy policy. We recommend that you read them carefully.",
+    privacySection5Title: "5. Cookie Policy",
+    privacySection5Intro: "We use cookies to:",
+    privacySection5Item1: "Remember your language preferences.",
+    privacySection5Item2: "Analyze website usage.",
+    privacySection5Item3: "Provide a personalized experience.",
+    privacySection5Item4: "Display relevant ads (where applicable).",
+    privacySection5Note:
+      "You can manage cookies via your browser settings, but this may affect normal site functionality.",
+    privacySection6Title: "6. Your Rights",
+    privacySection6Intro:
+      "Under applicable data protection laws, you may have the following rights:",
+    privacySection6Item1:
+      "Right to be Informed: Understand how we process your personal information.",
+    privacySection6Item2:
+      "Right of Access: Request access to personal information we hold about you.",
+    privacySection6Item3:
+      "Right to Rectification: Request correction of inaccurate personal information.",
+    privacySection6Item4:
+      "Right to Erasure: Request deletion of your personal information in certain circumstances.",
+    privacySection6Item5: "Right to Object: Object to our processing of your personal information.",
+    privacySection7Title: "7. Children's Privacy",
+    privacySection7Intro:
+      "Our services are not directed to children under the age of 13. We do not knowingly collect personal information from children under 13. If we discover such information has been collected, we will delete it immediately.",
+    privacySection8Title: "8. Policy Updates",
+    privacySection8Intro:
+      "We may update this Privacy Policy from time to time. Material changes will be communicated through website notices or other appropriate means. Your continued use of our services indicates your acceptance of the updated policy.",
+    privacySection9Title: "9. Contact Us",
+    privacySection9Intro:
+      "If you have any questions about this Privacy Policy or wish to exercise your rights, please contact us via:",
+    privacySection9Item1: "Email: privacy@aistone.org",
+    privacySection9Item2: "Website: Contact Us page",
 
     // 语音合成按钮
     generateAndPlay: "▶ Generate & Play",
