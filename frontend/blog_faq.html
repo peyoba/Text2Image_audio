@@ -60,37 +60,225 @@
         </header>
 
         <section class="faq-content" style="color: #cbd6ff; line-height: 1.8">
-          <h2>💰 费用与账号</h2>
-          <ul>
-            <li>核心功能永久免费，无需注册。</li>
-            <li>注册后可保存高清图片、查看历史记录、管理作品。</li>
-          </ul>
-          <h2>🎨 图片生成</h2>
-          <ul>
-            <li>支持JPG/PNG，多种宽高比例，并支持自定义尺寸。</li>
-            <li>AI模型：FLUX / Turbo / Kontext，各有优势。</li>
-            <li>质量不满意？尝试详细描述、提高分辨率、使用“优化”和负面提示词。</li>
-          </ul>
-          <h2>🎵 语音合成</h2>
-          <ul>
-            <li>音色：Nova、Echo、Fable、Onyx、Shimmer、Alloy；语速0.25x~4.0x。</li>
-            <li>生成后可在线播放或下载WAV文件。</li>
-          </ul>
-          <h2>🛠️ 技术与使用</h2>
-          <ul>
-            <li>支持中文和英文输入，界面可切换。</li>
-            <li>生成失败或速度慢：换模型、简化描述、避开高峰、稍后重试。</li>
-            <li>隐私：不存储输入与生成内容，实时处理。</li>
-          </ul>
-          <h2>📄 版权与法律</h2>
-          <ul>
-            <li>生成内容归用户所有，可商用；请勿生成违法或侵权内容。</li>
-          </ul>
-          <h2>🔮 未来与社区</h2>
-          <ul>
-            <li>核心功能永久免费，如有变动将提前公告。</li>
-            <li>关注官网更新或联系客服加入交流群。</li>
-          </ul>
+          <p class="faq-intro">
+            这里汇总了用户在使用AISTONE平台过程中最常遇到的问题和解决方案。如果您没有找到需要的答案，请通过页面底部的联系方式与我们联系。
+          </p>
+
+          <div class="faq-sections">
+            <section class="faq-section">
+              <h2>💰 费用与账号相关</h2>
+
+              <div class="faq-item">
+                <h3>Q: AISTONE是否永久免费？</h3>
+                <p>
+                  A:
+                  是的，平台所有核心功能永久免费，包括图片生成和语音合成。无需注册，无次数限制，无隐藏费用。
+                </p>
+              </div>
+
+              <div class="faq-item">
+                <h3>Q: 使用平台需要注册登录吗？</h3>
+                <p>
+                  A:
+                  不需要。您可以直接使用所有功能。注册账号是可选的，主要用于保存高清图片和查看历史记录。
+                </p>
+              </div>
+
+              <div class="faq-item">
+                <h3>Q: 注册账号有什么额外好处？</h3>
+                <p>
+                  A: 注册后可以：保存高清图片（每日3张）、查看生成历史、管理个人作品、获得优先支持。
+                </p>
+              </div>
+            </section>
+
+            <section class="faq-section">
+              <h2>🎨 图片生成问题</h2>
+
+              <div class="faq-item">
+                <h3>Q: 支持哪些图片格式和尺寸？</h3>
+                <p>
+                  A:
+                  支持多种主流格式（JPG、PNG等）和宽高比例：正方形(1:1)、横向(16:9)、竖向(9:16)、标准(4:3)等。也支持自定义尺寸设置（256-4096像素）。
+                </p>
+              </div>
+
+              <div class="faq-item">
+                <h3>Q: 可以生成多张图片吗？</h3>
+                <p>
+                  A:
+                  可以，您可以选择生成1、2或4张图片。系统会根据您的描述生成多个变体，方便您比较选择。
+                </p>
+              </div>
+
+              <div class="faq-item">
+                <h3>Q: AI模型有什么区别？如何选择？</h3>
+                <p>A: 我们提供三种AI模型：</p>
+                <ul>
+                  <li><strong>FLUX：</strong>高质量艺术创作，适合大多数场景</li>
+                  <li><strong>Turbo：</strong>快速生成，适合快速原型制作</li>
+                  <li><strong>Kontext：</strong>图像到图像生成，适合图像编辑</li>
+                </ul>
+              </div>
+
+              <div class="faq-item">
+                <h3>Q: 图片生成需要多长时间？</h3>
+                <p>
+                  A:
+                  通常需要10-30秒，具体时间取决于描述复杂程度、选择的模型和当前服务器负载。Turbo模型生成速度最快。
+                </p>
+              </div>
+
+              <div class="faq-item">
+                <h3>Q: 图片质量不好怎么办？</h3>
+                <p>A: 尝试以下方法改善质量：</p>
+                <ul>
+                  <li>使用更详细的描述</li>
+                  <li>选择FLUX模型</li>
+                  <li>使用更高分辨率</li>
+                  <li>利用智能优化功能</li>
+                  <li>添加负面提示词排除不需要的元素</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="faq-section">
+              <h2>🎵 语音合成问题</h2>
+
+              <div class="faq-item">
+                <h3>Q: 有哪些语音选项？</h3>
+                <p>A: 提供6种专业AI音色：</p>
+                <ul>
+                  <li><strong>Nova：</strong>清晰专业的女声</li>
+                  <li><strong>Echo：</strong>温暖友好的男声</li>
+                  <li><strong>Fable：</strong>富有表现力的叙事声音</li>
+                  <li><strong>Onyx：</strong>深沉权威的男声</li>
+                  <li><strong>Shimmer：</strong>明亮活泼的女声</li>
+                  <li><strong>Alloy：</strong>平衡多用途的声音</li>
+                </ul>
+              </div>
+
+              <div class="faq-item">
+                <h3>Q: 可以下载生成的语音吗？</h3>
+                <p>A: 可以，生成后您可以在线播放或下载音频文件（WAV格式）供本地使用。</p>
+              </div>
+
+              <div class="faq-item">
+                <h3>Q: 语音合成质量如何？</h3>
+                <p>
+                  A:
+                  采用先进的AI语音合成技术，生成的语音自然流畅，情感表达丰富，支持中文和英文，适合播客、有声书、语音内容等各种应用场景。
+                </p>
+              </div>
+
+              <div class="faq-item">
+                <h3>Q: 支持语速调节吗？</h3>
+                <p>A: 支持，可以在0.25x到4.0x范围内调节语速，满足不同应用需求。</p>
+              </div>
+            </section>
+
+            <section class="faq-section">
+              <h2>🛠️ 技术与使用问题</h2>
+
+              <div class="faq-item">
+                <h3>Q: 支持哪些输入语言？</h3>
+                <p>
+                  A:
+                  支持中文和英文输入，界面可以在两种语言之间切换。平台会智能识别输入语言并优化处理。
+                </p>
+              </div>
+
+              <div class="faq-item">
+                <h3>Q: 生成速度慢或失败怎么办？</h3>
+                <p>A: 如遇高峰期可能稍慢，请耐心等待或稍后重试。如持续失败，可以：</p>
+                <ul>
+                  <li>检查网络连接</li>
+                  <li>切换不同的AI模型</li>
+                  <li>简化描述内容</li>
+                  <li>联系客服获得帮助</li>
+                </ul>
+              </div>
+
+              <div class="faq-item">
+                <h3>Q: 如何保护用户隐私？</h3>
+                <p>
+                  A:
+                  平台不存储用户输入内容和生成结果，所有数据实时处理，确保隐私安全。我们严格遵守数据保护法规。
+                </p>
+              </div>
+
+              <div class="faq-item">
+                <h3>Q: 平台有API接口吗？</h3>
+                <p>
+                  A:
+                  支持API调用，详见开发文档或联系客服获取API接入方式。适合开发者集成到自己的应用中。
+                </p>
+              </div>
+            </section>
+
+            <section class="faq-section">
+              <h2>📄 版权与法律问题</h2>
+
+              <div class="faq-item">
+                <h3>Q: 生成的内容有版权吗？</h3>
+                <p>
+                  A:
+                  AI生成的内容归用户所有，可以自由使用于个人或商业用途。但请注意不要生成涉及版权、违法或不当的内容。
+                </p>
+              </div>
+
+              <div class="faq-item">
+                <h3>Q: 有哪些使用限制？</h3>
+                <p>A: 请不要生成：</p>
+                <ul>
+                  <li>违法违规内容</li>
+                  <li>侵犯他人版权的内容</li>
+                  <li>不当或有害信息</li>
+                  <li>虚假或误导性内容</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="faq-section">
+              <h2>🔮 未来发展</h2>
+
+              <div class="faq-item">
+                <h3>Q: 未来会不会收费或限制？</h3>
+                <p>
+                  A:
+                  目前所有核心功能永久免费，无使用次数限制。如有任何变动，我们会提前公告并保证现有用户的权益。
+                </p>
+              </div>
+
+              <div class="faq-item">
+                <h3>Q: 如何获取最新动态和加入社区？</h3>
+                <p>A: 可以关注官网更新、订阅邮件通知，或联系客服获取交流群二维码和最新资讯。</p>
+              </div>
+            </section>
+          </div>
+
+          <div class="faq-footer">
+            <h3>🤝 仍需帮助？</h3>
+            <p>如果您的问题没有在这里得到解答，我们提供多种联系方式：</p>
+            <ul>
+              <li>📧 邮件支持：<a href="mailto:support@aistone.org">support@aistone.org</a></li>
+              <li>💬 在线客服：网站右下角聊天窗口</li>
+              <li>📋 问题反馈：使用平台内置反馈系统</li>
+            </ul>
+            <p class="response-time">我们通常在1-2个工作日内回复您的问题。</p>
+          </div>
+
+          <footer class="article-footer">
+            <div class="article-actions" style="display: flex; gap: 12px; justify-content: center">
+              <button onclick="window.print()" class="action-btn">📄 打印FAQ</button>
+              <button
+                onclick="navigator.share && navigator.share({title:'常见问题解答', url: location.href})"
+                class="action-btn"
+              >
+                📤 分享FAQ
+              </button>
+            </div>
+          </footer>
         </section>
       </article>
     </main>
