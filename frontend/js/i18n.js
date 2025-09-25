@@ -1215,6 +1215,20 @@ const i18n = {
     termsOfService: "服务条款",
     contactUs: "联系我们",
 
+    // 博客标签（通用）
+    tagAITech: "AI技术",
+    tagDiffusion: "扩散模型",
+    tagFlux: "FLUX",
+    tagPrompt: "提示词",
+    tagWeight: "权重控制",
+    tagStyle: "风格设计",
+    tagBeginner: "入门教程",
+    tagHowTo: "操作指南",
+    tagParam: "参数设置",
+    tagQnA: "问题解答",
+    tagTroubleshoot: "故障排除",
+    tagTips: "使用技巧",
+
     // 使用条款（Terms of Service）
     termsBreadcrumb: "使用条款",
     termsTitle: "使用条款",
@@ -2235,6 +2249,20 @@ const i18n = {
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
     contactUs: "Contact Us",
+
+    // Blog tags (shared)
+    tagAITech: "AI Tech",
+    tagDiffusion: "Diffusion Models",
+    tagFlux: "FLUX",
+    tagPrompt: "Prompts",
+    tagWeight: "Weight Control",
+    tagStyle: "Style Design",
+    tagBeginner: "Beginner Guide",
+    tagHowTo: "How-To",
+    tagParam: "Parameter Setup",
+    tagQnA: "Q&A",
+    tagTroubleshoot: "Troubleshooting",
+    tagTips: "Tips",
 
     // Terms of Service (EN)
     termsBreadcrumb: "Terms of Service",
