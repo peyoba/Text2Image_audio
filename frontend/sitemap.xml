@@ -35,42 +35,42 @@
         <priority>0.7</priority>
     </url>
 
-    <!-- 语音合成页面 -->
+    <!-- 博客列表页面 -->
     <url>
-        <loc>https://aistone.org/voice.html</loc>
-        <lastmod>2025-09-09</lastmod>
+        <loc>https://aistone.org/blog.html</loc>
+        <lastmod>2025-09-25</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
-    <!-- AI指南页面 -->
+    <!-- 博客文章：AI图像生成完整指南 -->
     <url>
-        <loc>https://aistone.org/ai-guide.html</loc>
-        <lastmod>2025-09-09</lastmod>
+        <loc>https://aistone.org/blog_ai_guide.html</loc>
+        <lastmod>2025-09-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
-    <!-- 提示词工程页面 -->
+    <!-- 博客文章：提示词工程专业教程 -->
     <url>
-        <loc>https://aistone.org/prompt-engineering.html</loc>
-        <lastmod>2025-09-09</lastmod>
+        <loc>https://aistone.org/blog_prompt_engineering.html</loc>
+        <lastmod>2025-09-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
-    <!-- 使用教程页面 -->
+    <!-- 博客文章：AISTONE平台使用教程 -->
     <url>
-        <loc>https://aistone.org/tutorial.html</loc>
-        <lastmod>2025-09-11</lastmod>
+        <loc>https://aistone.org/blog_tutorial.html</loc>
+        <lastmod>2025-09-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
-    <!-- 常见问题页面 -->
+    <!-- 博客文章：常见问题解答 -->
     <url>
-        <loc>https://aistone.org/faq.html</loc>
-        <lastmod>2025-09-11</lastmod>
+        <loc>https://aistone.org/blog_faq.html</loc>
+        <lastmod>2025-09-25</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
@@ -96,7 +96,15 @@
     <!-- 图片生成器页面 -->
     <url>
         <loc>https://aistone.org/image-generator.html</loc>
-        <lastmod>2025-09-11</lastmod>
+        <lastmod>2025-09-25</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- 语音合成页面 -->
+    <url>
+        <loc>https://aistone.org/voice.html</loc>
+        <lastmod>2025-09-25</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>AISTONE 博客</title>
+    <link>https://aistone.org/blog.html</link>
+    <description>AI图像生成、提示词工程、教程与FAQ的最新文章</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 25 Sep 2025 12:00:00 GMT</lastBuildDate>
+    <ttl>1800</ttl>
+
+    <item>
+      <title>AI图像生成完整指南</title>
+      <link>https://aistone.org/blog_ai_guide.html</link>
+      <guid>https://aistone.org/blog_ai_guide.html</guid>
+      <pubDate>Thu, 25 Sep 2025 12:00:00 GMT</pubDate>
+      <description>扩散模型机制、主流模型解析与最佳实践的完整指南。</description>
+    </item>
+
+    <item>
+      <title>提示词工程专业教程</title>
+      <link>https://aistone.org/blog_prompt_engineering.html</link>
+      <guid>https://aistone.org/blog_prompt_engineering.html</guid>
+      <pubDate>Thu, 25 Sep 2025 12:00:00 GMT</pubDate>
+      <description>从基础到高级策略的完整提示词工程指南，附实战案例。</description>
+    </item>
+
+    <item>
+      <title>AISTONE平台使用教程</title>
+      <link>https://aistone.org/blog_tutorial.html</link>
+      <guid>https://aistone.org/blog_tutorial.html</guid>
+      <pubDate>Thu, 25 Sep 2025 12:00:00 GMT</pubDate>
+      <description>从快速开始到模型选择、参数设置、语音合成与常见问题的完整教程。</description>
+    </item>
+
+    <item>
+      <title>常见问题解答</title>
+      <link>https://aistone.org/blog_faq.html</link>
+      <guid>https://aistone.org/blog_faq.html</guid>
+      <pubDate>Thu, 25 Sep 2025 12:00:00 GMT</pubDate>
+      <description>涵盖费用账号、图片与语音生成、技术支持与法律问题的FAQ。</description>
+    </item>
+  </channel>
+</rss>
+
