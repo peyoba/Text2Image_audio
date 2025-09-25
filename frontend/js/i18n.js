@@ -1089,6 +1089,7 @@ const i18n = {
 
     // Footer
     footerCopyright: "© 2025 AISTONE",
+    footerCopyrightFull: "© 2025 AISTONE. 保留所有权利。",
     footerDescription: "免费AI内容生成平台",
     footerQuickLinks: "快速链接",
     footerSupport: "支持",
@@ -2083,6 +2084,7 @@ const i18n = {
 
     // Footer
     footerCopyright: "© 2025 AISTONE",
+    footerCopyrightFull: "© 2025 AISTONE. All rights reserved.",
     footerDescription: "Free AI Content Generation Platform",
     footerQuickLinks: "Quick Links",
     footerSupport: "Support",
