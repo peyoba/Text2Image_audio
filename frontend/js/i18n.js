@@ -1362,6 +1362,17 @@ const i18n = {
     privacySection9Item1: "邮箱：privacy@aistone.org",
     privacySection9Item2: "网站：联系我们页面",
 
+    // 联系我们 - 获取帮助（补齐中文键）
+    contactHelpTitle: "📞 获取帮助",
+    contactHelpFAQTitle: "❓ 常见问题解答",
+    contactHelpFAQDesc: "先查看FAQ，也许您的问题已有详细解答",
+    contactHelpTutorialTitle: "📖 使用教程",
+    contactHelpTutorialDesc: "完整的操作指南，帮您快速上手平台功能",
+    contactHelpAboutTitle: "ℹ️ 关于AISTONE",
+    contactHelpAboutDesc: "了解我们的平台理念和技术背景",
+    contactHelpHomeTitle: "🏠 返回首页",
+    contactHelpHomeDesc: "回到主页开始使用AI生成功能",
+
     // 语音合成按钮
     generateAndPlay: "▶ 生成并播放",
     copyDeepLink: "复制深链",
