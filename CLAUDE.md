@@ -10,6 +10,15 @@
 - 所有代码注释必须使用中文
 - 与用户的所有对话必须使用中文 -每次工作完成之后主动总结并记录当前工作进度和内容到Claude.md中，随时记录当前的项目状态和开发进度 -每一项任务完成，随时总结并更新工作进度和计划到Claude.md和PROJECT_STATUS_REPORT_2025.md
 
+## 📝 2025-09-12 Codex 更新记录
+
+- ✅ 首页 SEO 与内容增强：精简 index.html 头部 Meta/Schema，新增可复用的真实案例、四步工作流与常见问题，并同步结构化数据
+- ✅ 博客专业化：将 blog_ai_guide.html 改写为英文实战手册，提供流程表格、提示词模板与协作模式
+- ✅ 关于页面可信度升级：重构 about.html，补充公开仓库与运维信息，并通过 data-i18n 支持双语切换
+- ✅ 多语言同步：为新增文案补充 i18n 键值（中/英），确保语言切换后内容一致
+- ✅ 博客双语支持：为 blog_ai_guide.html、blog_prompt_engineering.html、blog_tutorial.html 添加 data-i18n 并补全中英文内容
+- 🔄 后续建议：整理 blog 文章的中文翻译版本，继续扩充 FAQ 与案例库提升页面停留时间
+
 ## 项目概述
 
 AISTONE 是部署在 Cloudflare 上的无服务器 AI 内容创作平台，提供免费的文本生成图像和文本转语音服务。平台采用分离架构，前端为静态资源 (Cloudflare Pages)，后端为 API 服务 (Cloudflare Workers)。

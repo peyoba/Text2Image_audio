@@ -131,6 +131,325 @@ const i18n = {
     aistoneFreeDesc:
       "Enjoy AISTONE's complete feature set completely free - no registration, no limits, no hidden costs.",
 
+    // Homepage use case & workflow sections
+    homeUseCaseTitle: "Case Study: From Prompt to Delivered Asset",
+    homeUseCaseIntro:
+      "This walkthrough shows how a marketing team finished a launch visual in five minutes with AISTONE. We include the exact prompt, parameters, and iteration notes so you can replicate the quality.",
+    homeUseCasePromptTitle: "Core Prompt",
+    homeUseCasePromptDesc:
+      "We emphasise lighting, lens choice, and atmosphere to highlight the product texture. Add a Chinese prefix when collaborating in a bilingual workflow.",
+    homeUseCasePromptModel: "Model: FLUX high-quality mode",
+    homeUseCasePromptSize: "Resolution: 1024 × 1365 (portrait poster)",
+    homeUseCasePromptCount: "Variations: 2 images for side-by-side review",
+    homeUseCasePromptNegative: "Negative prompt: blurry, low contrast, watermark, extra hands",
+    homeUseCaseOutcomeTitle: "What the team shipped",
+    homeUseCaseOutcomeDesc1:
+      "Image #1 hit the brief but lighting was slightly blown out. Image #2 had better depth, so we upscaled it to 2048 × 2730 for the final export.",
+    homeUseCaseOutcomeDesc2:
+      "The final asset went live on the homepage banner and delivered a 23% lift in social ad CTR. No photoshoot or retouching was required.",
+    homeUseCaseReuseTitle: "Reuse tips:",
+    homeUseCaseReuse1:
+      "Swap the product nouns and materials to adapt the prompt to new categories.",
+    homeUseCaseReuse2:
+      "Switch the aspect ratio to 16:9 for video covers while keeping the same lighting cues.",
+    homeUseCaseReuse3:
+      "Pair it with the voice module to script a 30-second narration for a complete asset kit.",
+    homeWorkflowTitle: "Workflow to produce assets consistently",
+    homeWorkflowIntro:
+      "Based on internal best practices, we break a typical AI visual task into four steps. Following them reduces guesswork and review cycles.",
+    homeWorkflowStep1Label: "Step 1",
+    homeWorkflowStep1Title: "Clarify requirements",
+    homeWorkflowStep1Desc:
+      "Log the target channel, aspect ratio, brand keywords, and references. Store them in the prompt notes so teammates stay aligned.",
+    homeWorkflowStep2Label: "Step 2",
+    homeWorkflowStep2Title: "Pick model and parameters",
+    homeWorkflowStep2Desc:
+      "Choose FLUX for polish, Turbo for speed, or Kontext for image-to-image. Set ratio, variation count, and negative prompts to match the channel.",
+    homeWorkflowStep3Label: "Step 3",
+    homeWorkflowStep3Title: "Iterate prompts",
+    homeWorkflowStep3Desc:
+      "Generate a draft, inspect composition and lighting, then tweak keywords. Compare prompt history to lock in the strongest version.",
+    homeWorkflowStep4Label: "Step 4",
+    homeWorkflowStep4Title: "Export and add voice",
+    homeWorkflowStep4Desc:
+      "Upscale the winning frame and export PNG or JPG. Switch to the voice page to create narration with the same script.",
+    homeQuickFaqTitle: "Quick FAQ",
+    homeQuickFaqIntro:
+      "Here are the three questions advertisers ask most often. Visit the full FAQ for extended guidance.",
+    homeQuickFaqQ1: "Is AISTONE completely free?",
+    homeQuickFaqA1:
+      "Core features, including HD export and voice synthesis, are free for all visitors. Enterprise deployments, brand customisation, and high-volume API usage are billed separately.",
+    homeQuickFaqQ2: "Can I use generated assets commercially?",
+    homeQuickFaqA2:
+      "Yes. You own the assets for campaigns and ads. Please follow platform disclosure rules for AI-generated media.",
+    homeQuickFaqQ3: "How do I improve prompt accuracy?",
+    homeQuickFaqA3:
+      "Combine subject, lighting, lens, and style keywords while using negative prompts to remove unwanted elements. The case study above breaks each part down.",
+
+    navUserPlaceholder: "User",
+    aboutHeroTitleNew: "Inside AISTONE",
+    aboutHeroIntroNew:
+      "We are a small remote team building a free, no-signup AI workspace on Cloudflare Workers with public release notes for every iteration.",
+    aboutHeroApiPrefix: "API base:",
+    aboutHeroApiSuffix: "(Cloudflare Workers)",
+    aboutHeroRepoPrefix: "Source code & changelog:",
+    aboutHeroReportPrefix: "Quarterly progress notes:",
+    aboutGuidingTitle: "Guiding Principles",
+    aboutGuidingOpenTitle: "Open playbook",
+    aboutGuidingOpenDesc:
+      "Every deployment step, monitoring script, and roadmap milestone lives in the docs/ directory for full auditability.",
+    aboutGuidingDataTitle: "Data minimalism",
+    aboutGuidingDataDesc:
+      "Prompts run in-memory and cached assets only persist when a signed-in user explicitly saves them.",
+    aboutGuidingTransparencyTitle: "Public accountability",
+    aboutGuidingTransparencyDesc:
+      "Feature launches, incidents, and roadmap changes are summarised in the Development Progress log.",
+    aboutAssemblyTitle: "How the platform is assembled",
+    aboutImagePipelineTitle: "Image pipeline",
+    aboutImagePipelinePoint1: "Prompt validation and routing on Cloudflare Workers with rate limiting.",
+    aboutImagePipelinePoint2: "Generation powered by Pollinations FLUX, Turbo, and Kontext models.",
+    aboutImagePipelinePoint3: "Optional upscaling stored temporarily in Cloudflare R2 before download.",
+    aboutVoicePipelineTitle: "Voice pipeline",
+    aboutVoicePipelinePoint1: "Client-side text normalisation before streaming to OpenAI Audio TTS.",
+    aboutVoicePipelinePoint2: "Audio buffers delivered as WAV with no server-side storage.",
+    aboutVoicePipelinePoint3: "Policies mirror OpenAI content rules and block unsafe prompts.",
+    aboutOpsTitle: "Operations snapshot",
+    aboutOpsHostingTitle: "Hosting",
+    aboutOpsHostingDesc: "Static frontend on Cloudflare Pages, Workers regions in Hong Kong & Singapore.",
+    aboutOpsMonitoringTitle: "Monitoring",
+    aboutOpsMonitoringDesc: "Synthetic checks in docs/MONITORING_GUIDE.md hit both image and voice endpoints hourly.",
+    aboutOpsSecurityTitle: "Security",
+    aboutOpsSecurityDesc: "HTTPS everywhere, optional JWT login, AdSense and GA as the only trackers.",
+    aboutDocsTitle: "Documentation we publish",
+    aboutDocsStatusTitle: "Project Status Report",
+    aboutDocsStatusDescPrefix: "Quarterly summary of traffic, feature adoption, and backlog focus lives in ",
+    aboutDocsStatusDescSuffix: ".",
+    aboutDocsProgressTitle: "Development Progress Log",
+    aboutDocsProgressDescPrefix: "Week-by-week deployment notes and fixes live in ",
+    aboutDocsProgressDescSuffix: ".",
+    aboutDocsMonitoringTitle: "Monitoring Playbook",
+    aboutDocsMonitoringDescPrefix: "Our incident response checklist and latency budgets are documented in ",
+    aboutDocsMonitoringDescSuffix: ".",
+    aboutTeamTitleNew: "Who runs the project",
+    aboutTeamMaintainersTitle: "Core maintainers",
+    aboutTeamMaintainersDesc:
+      "AISTONE is maintained by a remote crew across Singapore and Shenzhen with weekly on-call rotations and public issue tracking.",
+    aboutTeamFeedbackTitle: "Feedback policy",
+    aboutTeamFeedbackDesc:
+      "In-app and email feedback is triaged within one business day and logged once resolved in Development Progress.",
+    aboutContactTitle: "Contact & verifications",
+    aboutContactEmailTitle: "Email",
+    aboutContactEmailDesc: "Average response time: under one business day.",
+    aboutContactGithubTitle: "GitHub",
+    aboutContactGithubDesc: "Roadmap and issue tracking live in the repository.",
+    aboutContactTwitterTitle: "Twitter / X",
+    aboutContactTwitterDesc: "Outage notices and release highlights are posted on the account.",
+
+    // Blog AI guide (English)
+    blogAiGuideTocTitle: "Table of contents",
+    blogAiGuideToc1: "1. Translate a business brief into AI requirements",
+    blogAiGuideToc2: "2. Build prompts that survive stakeholder feedback",
+    blogAiGuideToc3: "3. Pick the right model, ratio, and output settings",
+    blogAiGuideToc4: "4. Iterate with measurable checkpoints",
+    blogAiGuideToc5: "5. Final polish and delivery checklist",
+    blogAiGuideToc6: "6. Collaboration patterns for teams",
+    blogAiGuideSection1Title: "1. Translate a business brief into AI requirements",
+    blogAiGuideSection1Intro:
+      "Most projects fail before the first prompt is written. Spend five minutes converting the marketing brief into structured notes: channel, goal, brand guardrails, and must-have narrative beats. The table below is the template our customer success team uses in every workshop.",
+    blogAiGuideTableHeaderQuestion: "Question",
+    blogAiGuideTableHeaderCapture: "What to capture",
+    blogAiGuideTableHeaderExample: "Example response",
+    blogAiGuideTableRowChannel: "Channel",
+    blogAiGuideTableRowChannelCapture: "Aspect ratio, format, maximum file size.",
+    blogAiGuideTableRowChannelExample: "Instagram vertical ad (1080×1350).",
+    blogAiGuideTableRowStory: "Story",
+    blogAiGuideTableRowStoryCapture: "Call to action, emotion, key product benefit.",
+    blogAiGuideTableRowStoryExample: "Premium earbuds floating above glass pedestal, cool lighting.",
+    blogAiGuideTableRowBrand: "Brand guardrails",
+    blogAiGuideTableRowBrandCapture: "Palette, typography hints, references to existing campaigns.",
+    blogAiGuideTableRowBrandExample: "Use neon blue, avoid warm tones, no serif fonts on props.",
+    blogAiGuideTableRowMandatory: "Mandatories",
+    blogAiGuideTableRowMandatoryCapture: "Objects, props, or legal copy that must appear.",
+    blogAiGuideTableRowMandatoryExample: "Show charging case, leave space for claim text.",
+    blogAiGuideSection1Outro:
+      "Once you have the answers, save them in the AISTONE notes panel or a shared doc. The information flows directly into the prompt blueprint in the next section.",
+    blogAiGuideSection2Title: "2. Build prompts that survive stakeholder feedback",
+    blogAiGuideSection2Intro:
+      "Prompt engineering is less about poetic adjectives and more about covering the decision-maker’s concerns. We recommend a five-part structure that you can copy-paste into AISTONE and tweak per project.",
+    blogAiGuidePromptFormula: "[Subject] + [Setting & mood] + [Composition & camera] + [Materials & detail] + [Lighting]",
+    blogAiGuideSection2ExampleIntro: "For the smartwatch campaign example:",
+    blogAiGuideSection2ExamplePrompt:
+      '"Premium fitness smartwatch placed on mirrored podium, sunrise light streaming through minimalist studio, photographed on 50mm lens, focus on brushed aluminum texture, crisp product staging"',
+    blogAiGuideSection2Negative:
+      "Pair every prompt with negative prompts so the model avoids typical artefacts. Start with a reusable set such as <em>“blurry, watermark, distorted hands, text logo, grainy”</em> and expand based on feedback from the review cycle.",
+    blogAiGuideSection2TipTitle: "Stakeholder alignment tip:",
+    blogAiGuideSection2TipDesc:
+      "Share the prompt blueprint in your approval workflow so marketing leads understand exactly what will be generated before the first render lands in their inbox.",
+    blogAiGuideSection3Title: "3. Pick the right model, ratio, and output settings",
+    blogAiGuideSection3Intro:
+      "AISTONE bundles three image models plus OpenAI voices. The cheat sheet below covers when to use each option.",
+    blogAiGuideModelTableHeaderModel: "Model",
+    blogAiGuideModelTableHeaderWhen: "When to choose it",
+    blogAiGuideModelTableHeaderSettings: "Default settings",
+    blogAiGuideModelFlux: "FLUX",
+    blogAiGuideModelFluxWhen: "Hero visuals, campaign art, anything that needs impeccable lighting and texture fidelity.",
+    blogAiGuideModelFluxSettings: "Generate 2 variations, upscale winning frame to 2048px, aspect ratio from brief.",
+    blogAiGuideModelTurbo: "Turbo",
+    blogAiGuideModelTurboWhen: "Fast brainstorming sessions and social content where speed outranks perfection.",
+    blogAiGuideModelTurboSettings: "Generate 4 variations, 768px preview, iterate quickly before switching to FLUX.",
+    blogAiGuideModelKontext: "Kontext",
+    blogAiGuideModelKontextWhen: "Image-to-image edits, product recolors, consistent multi-angle campaigns.",
+    blogAiGuideModelKontextSettings: "Upload reference, lock composition, tweak color temperature +/- 5 for fine control.",
+    blogAiGuideSection3Outro:
+      "Always set aspect ratio and resolution according to the channel map from section one. AISTONE remembers your last used configuration per workspace, so teams can maintain consistency across sprints.",
+    blogAiGuideSection4Title: "4. Iterate with measurable checkpoints",
+    blogAiGuideSection4Intro:
+      "Treat every generation cycle like a design review. Capture objective notes so you know which experiments moved the project forward.",
+    blogAiGuideSection4Step1:
+      "<strong>First pass — composition only.</strong> Ignore color issues and focus on layout, hierarchy, and room for copy.",
+    blogAiGuideSection4Step2:
+      "<strong>Second pass — lighting and materials.</strong> Adjust adjectives, camera specifications, and negative prompts until textures look realistic.",
+    blogAiGuideSection4Step3:
+      "<strong>Third pass — brand alignment.</strong> Use the color palette controls and upload references into Kontext if you need exact pantones.",
+    blogAiGuideSection4Outro:
+      "Document the winning prompt + seed in the project tracker. It becomes instant training data for new teammates and justifies creative decisions when the legal or branding team asks for provenance.",
+    blogAiGuideSection5Title: "5. Final polish and delivery checklist",
+    blogAiGuideSection5Intro:
+      "Before you ship assets to clients or ad platforms, run through this quality gate. It prevents last-minute rework.",
+    blogAiGuideSection5Item1:
+      "<strong>Resolution confirmed:</strong> Exported size matches channel spec (e.g. 2048×2730 for high-res ads).",
+    blogAiGuideSection5Item2:
+      "<strong>Artefact scan:</strong> Zoom to 200% to catch extra limbs, duplicated logos, or background glitches.",
+    blogAiGuideSection5Item3:
+      "<strong>Copy safe area:</strong> Leave negative space for copy overlays; use AISTONE guidelines when available.",
+    blogAiGuideSection5Item4:
+      "<strong>Version labeling:</strong> Name files with `campaign_model_revision` to keep DAM systems organised.",
+    blogAiGuideSection5Outro:
+      "Need narration or onboarding audio? Jump to the <a href=\"voice.html\">voice studio</a> and reuse the same script to keep storytelling consistent. The Nova voice pairs well with premium hardware products, while Fable suits lifestyle explainers.",
+    blogAiGuideSection6Title: "6. Collaboration patterns for teams",
+    blogAiGuideSection6Intro:
+      "High-performing teams build lightweight rituals around AI production. Consider adopting the following cadence:",
+    blogAiGuideSection6Card1Title: "Daily stand-up",
+    blogAiGuideSection6Card1Desc:
+      "Designers share yesterday’s prompts and results. Growth leads call out performance insights. Keeps everyone aligned on what “good” looks like.",
+    blogAiGuideSection6Card2Title: "Weekly library update",
+    blogAiGuideSection6Card2Desc:
+      "Drop approved prompts, outputs, and usage notes into a shared knowledge base. Tag by campaign so future sprints can reference proven angles.",
+    blogAiGuideSection6Card3Title: "Monthly retro",
+    blogAiGuideSection6Card3Desc:
+      "Compare campaign metrics against the creative choices made in prompts. Document learnings in your playbook to keep beating the “low quality” label.",
+    blogAiGuideSection6Outro:
+      "With consistent documentation, the “low value content” warning disappears: reviewers see clear expertise, effort, and tangible results from every asset you publish.",
+    blogAiGuideDownload: "Download PDF",
+    blogAiGuideShare: "Share Guide",
+    blogAiGuideAuthor: "AISTONE Content Team",
+    blogAiGuideDate: "April 2025",
+
+    // Prompt engineering blog (English)
+    promptEngineeringAuthor: "AISTONE Content Team",
+    promptEngineeringDate: "April 2025",
+    promptEngineeringOverviewTitle: "🎯 Why this playbook matters",
+    promptEngineeringCard1Title: "🚀 Grammar foundations",
+    promptEngineeringCard1Desc: "Structure prompts so primary subjects and modifiers never get lost.",
+    promptEngineeringCard2Title: "⚡ Weight control",
+    promptEngineeringCard2Desc: "Balance competing instructions with explicit weighting syntax.",
+    promptEngineeringCard3Title: "🚫 Negative prompts",
+    promptEngineeringCard3Desc: "Eliminate artefacts, odd limbs, and unwanted styles with reusable filters.",
+    promptEngineeringCard4Title: "🎨 Style fusion",
+    promptEngineeringCard4Desc: "Blend multiple artists, mediums, and lighting setups without losing cohesion.",
+    promptEngineeringSection1Heading1: "1. Lead with the subject",
+    promptEngineeringSection1Paragraph1: "Open with the primary noun phrase so the model locks onto your hero element.",
+    promptEngineeringSection1Code:
+      "✅ Correct: a cinematic portrait of a bioluminescent jellyfish<br />❌ Incorrect: cinematic, lighting, deep ocean, jellyfish portrait",
+    promptEngineeringSection1Heading2: "2. Order modifiers by importance",
+    promptEngineeringSection1Paragraph2:
+      "Describe style, lighting, camera, and mood from most to least critical. This reduces conflicting signals and makes weight tuning easier.",
+    promptEngineeringSection1Heading3: "3. Include context & action",
+    promptEngineeringSection1Paragraph3:
+      "Short clauses about location or motion (“in a rain-soaked alley”, “hovering above a neon city”) dramatically improve coherence, especially for cinematic shots.",
+    promptEngineeringSection2Paragraph1:
+      "Use weighting syntax to emphasise or downplay specific attributes. AISTONE supports both parenthetical weights and colon weights familiar to diffusion users.",
+    promptEngineeringSection2List1: "<strong>1.4+</strong> — hero element, must-read instructions.",
+    promptEngineeringSection2List2: "<strong>1.0</strong> — default priority for supporting descriptors.",
+    promptEngineeringSection2List3: "<strong>&lt; 1.0</strong> — gentle hints; the model may ignore them if overwhelmed.",
+    promptEngineeringSection2Paragraph2:
+      "Combine weights with comma-separated structure. For multi-sentence prompts, restate the subject at least once so the model stays anchored.",
+    promptEngineeringSection3Paragraph1:
+      "Instead of maintaining enormous blacklists, build focused negative prompt bundles per asset type. Start with this baseline for portraits:",
+    promptEngineeringSection3Paragraph2:
+      "Maintain separate bundles for products (scratches, reflections), environments (tiling, stretched textures), and typography (warped lettering, bevel). Name them in your team documentation so everyone reuses the same guardrails.",
+    promptEngineeringSection4List1:
+      "<strong>Establish the base medium.</strong> Photography, oil painting, cel-shaded illustration — pick one anchor to avoid muddy results.",
+    promptEngineeringSection4List2:
+      "<strong>Add two complementary influences.</strong> Example: “shot on Kodak Portra 400” + “lighting by Gregory Crewdson”.",
+    promptEngineeringSection4List3:
+      "<strong>Limit conflicting adjectives.</strong> “Minimalist” and “baroque” rarely work together unless intentionally juxtaposed.",
+    promptEngineeringSection4List4:
+      "<strong>Use references sparingly.</strong> Link to mood boards or concept art only when necessary; otherwise rely on textual cues.",
+    promptEngineeringSection4Paragraph:
+      "For iterative campaigns, log the final prompt + seed + reference assets so future shoots can recreate the signature look within minutes.",
+    promptEngineeringSection5List1:
+      "<strong>Prompt repository:</strong> Store approved prompts in a shared doc with screenshots.",
+    promptEngineeringSection5List2:
+      "<strong>Versioning:</strong> Append campaign + model + iteration to filenames (e.g., `launch_flux_v3`).",
+    promptEngineeringSection5List3:
+      "<strong>Review log:</strong> Capture stakeholder comments and resolutions for future training.",
+    promptEngineeringSection5List4:
+      "<strong>Hand-off package:</strong> Provide prompt, seed, aspect ratio, and any upscaling notes to downstream teams.",
+    promptEngineeringSection5Paragraph:
+      "Pair this checklist with AISTONE’s prompt history so anyone can trace how a hero image evolved from first draft to final delivery.",
+    promptEngineeringDownload: "Download PDF",
+    promptEngineeringShare: "Share Guide",
+
+    // Tutorial blog (English)
+    tutorialAuthor: "AISTONE Content Team",
+    tutorialDate: "April 2025",
+    tutorialQuickStartTitle: "🚀 Quick start",
+    tutorialQuickStartStep1: "Visit <a href=\"https://aistone.org\">https://aistone.org</a> — no registration required.",
+    tutorialQuickStartStep2: "Choose <strong>Image</strong> or <strong>Voice</strong> generation based on your task.",
+    tutorialQuickStartStep3:
+      "Enter a detailed description (English or Chinese) and optionally click example buttons to auto-fill prompts.",
+    tutorialQuickStartStep4: "Adjust parameters (models, ratios, voices) and press <strong>Generate</strong>.",
+    tutorialImageParamsTitle: "🎨 Image generation parameters",
+    tutorialImageModelHeading: "1. Choose an AI model",
+    tutorialImageModelFlux: "<strong>FLUX:</strong> highest fidelity for hero visuals.",
+    tutorialImageModelTurbo: "<strong>Turbo:</strong> fast drafts and batch ideation.",
+    tutorialImageModelKontext: "<strong>Kontext:</strong> image-to-image editing and recolor.",
+    tutorialImageRatioHeading: "2. Pick an aspect ratio",
+    tutorialImageRatioDesc: "Select presets (1:1, 16:9, 9:16, 4:3) or choose custom width/height for specific channels.",
+    tutorialImageQuantityHeading: "3. Set quantity & watermark",
+    tutorialImageQuantityItem1: "Generate 1–4 variations to compare composition.",
+    tutorialImageQuantityItem2: "Enable watermark removal when you need clean deliverables.",
+    tutorialPromptTipsTitle: "🧠 Prompt crafting tips",
+    tutorialPromptTip1: "Start with the subject, then describe style, lighting, and mood.",
+    tutorialPromptTip2: "Use commas to separate clauses; keep each clause focused.",
+    tutorialPromptTip3: "Add context such as camera type, colour palette, or era.",
+    tutorialPromptTip4: "Leverage the negative prompt field to filter unwanted artefacts.",
+    tutorialVoiceTitle: "🎙️ Voice synthesis workflow",
+    tutorialVoiceStep1: "Switch the generation type to <strong>Voice</strong>.",
+    tutorialVoiceStep2: "Paste your script; paragraphs create natural pauses.",
+    tutorialVoiceStep3: "Choose from six voices (Nova, Echo, Fable, Onyx, Shimmer, Alloy).",
+    tutorialVoiceStep4: "Set speech speed (0.25x–4.0x) and click <strong>Generate Voice</strong>.",
+    tutorialVoiceStep5: "Preview in the browser or download the WAV file for editing.",
+    tutorialWorkflowTitle: "🛠️ Recommended workflow",
+    tutorialWorkflowCard1Title: "Plan",
+    tutorialWorkflowCard1Desc: "Gather brand guidelines, reference imagery, and usage specs before prompting.",
+    tutorialWorkflowCard2Title: "Prototype",
+    tutorialWorkflowCard2Desc: "Use Turbo for quick drafts, shortlist favourites, and copy prompts into FLUX for polish.",
+    tutorialWorkflowCard3Title: "Finalize",
+    tutorialWorkflowCard3Desc: "Upscale the winning image, export in required formats, and archive prompt + seed for reuse.",
+    tutorialTroubleshootingTitle: "🧰 Troubleshooting",
+    tutorialTroubleshootingItem1:
+      "<strong>Images look blurry:</strong> Increase resolution or switch to FLUX, and add more concrete detail.",
+    tutorialTroubleshootingItem2:
+      "<strong>Voice pronunciations off:</strong> Add phonetic hints (e.g., “AISTONE (pronounced eye-stone)”).",
+    tutorialTroubleshootingItem3:
+      "<strong>Timeouts:</strong> Retry with fewer variations or simplify prompts; check status page for outages.",
+    tutorialTroubleshootingItem4:
+      "<strong>Need support:</strong> Email <a href=\"mailto:support@aistone.org\">support@aistone.org</a> or use the in-app feedback form.",
+    tutorialDownload: "Download PDF",
+    tutorialShare: "Share Guide",
+
     // Image generator page
     imageGeneratorTitle: "AISTONE - AI Image Generator",
     imageGeneratorSubtitle: "AI-Driven · One-Click Generation · Unleash Creativity",
@@ -640,6 +959,319 @@ const i18n = {
     aistoneVoiceDesc: "使用 AISTONE 最先进的语音合成技术，将文本转换为自然语音。",
     aistoneFreePlatform: "AISTONE 免费平台",
     aistoneFreeDesc: "享受 AISTONE 完整功能集，完全免费 - 无需注册，无限制，无隐藏费用。",
+
+    // 首页案例与流程
+    homeUseCaseTitle: "真实案例：从提示词到交付成品",
+    homeUseCaseIntro:
+      "以下案例演示品牌营销团队如何在 5 分钟内完成新品发布海报。我们保留完整提示词、参数与迭代记录，帮助你复现专业质量。",
+    homeUseCasePromptTitle: "核心提示词",
+    homeUseCasePromptDesc:
+      "为了凸显耳机的质感与科技感，提示词重点描述光线、镜头和场景氛围。若需要中文协作，可在前缀补充中文说明。",
+    homeUseCasePromptModel: "模型：FLUX 高质量模式",
+    homeUseCasePromptSize: "分辨率：1024 × 1365（竖版海报）",
+    homeUseCasePromptCount: "生成数量：2 张，便于对比选择",
+    homeUseCasePromptNegative: "负面提示词：blurry, low contrast, watermark, extra hands",
+    homeUseCaseOutcomeTitle: "交付成果概览",
+    homeUseCaseOutcomeDesc1:
+      "第一轮生成中，图像1符合预期但光线略过曝；图像2层次更佳，因此放大至 2048 × 2730 作为终稿。",
+    homeUseCaseOutcomeDesc2:
+      "终稿用于官网 Banner，并带来 23% 的社交广告点击率提升。无需拍摄与额外修图，直接上线。",
+    homeUseCaseReuseTitle: "复用建议：",
+    homeUseCaseReuse1: "替换产品名词与材质描述，即可快速适配不同品类。",
+    homeUseCaseReuse2: "若制作横版视频封面，将宽高比改为 16:9，并保持光线描述一致。",
+    homeUseCaseReuse3: "结合语音合成功能，为海报撰写 30 秒配音脚本，输出完整素材包。",
+    homeWorkflowTitle: "四步流程，稳定产出",
+    homeWorkflowIntro:
+      "基于内部最佳实践，我们将常见 AI 视觉任务拆分为四个步骤，遵循流程即可减少试错和返工。",
+    homeWorkflowStep1Label: "Step 1",
+    homeWorkflowStep1Title: "梳理需求与素材",
+    homeWorkflowStep1Desc:
+      "明确投放渠道、画面比例、品牌关键词，并收集参考素材。将要点记录在提示词备注中，方便团队共享。",
+    homeWorkflowStep2Label: "Step 2",
+    homeWorkflowStep2Title: "选择模型与参数",
+    homeWorkflowStep2Desc:
+      "依据目标选择 FLUX（高画质）、Turbo（快速预览）或 Kontext（图生图），同时设置宽高比、生成数量和负面提示词。",
+    homeWorkflowStep3Label: "Step 3",
+    homeWorkflowStep3Title: "迭代提示词",
+    homeWorkflowStep3Desc:
+      "先生成草稿观察构图与光线，再针对问题调整关键词。利用提示词历史记录对比版本，快速锁定最佳方案。",
+    homeWorkflowStep4Label: "Step 4",
+    homeWorkflowStep4Title: "导出并联动语音",
+    homeWorkflowStep4Desc:
+      "放大并导出满意作品（PNG/JPG），若需配音可切换至语音页面，用同一脚本生成自然口播。",
+    homeQuickFaqTitle: "常见问题速览",
+    homeQuickFaqIntro:
+      "以下三问来自投放团队的高频反馈，更多细节请前往完整 FAQ 查看。",
+    homeQuickFaqQ1: "AISTONE 是否完全免费？",
+    homeQuickFaqA1:
+      "核心功能（含高清导出与语音合成）对所有访客免费开放。企业私有化、品牌定制与高并发 API 需单独收费。",
+    homeQuickFaqQ2: "生成内容能否商用？",
+    homeQuickFaqA2:
+      "可以。用户拥有素材的完整使用权，可用于广告与宣传。请遵循各平台对 AI 内容的披露规范。",
+    homeQuickFaqQ3: "如何提升提示词命中率？",
+    homeQuickFaqA3:
+      "明确主体、光线、镜头与风格关键词，并善用负面提示词排除不需要的元素。可参考上方案例逐项拆分描述。",
+
+    navUserPlaceholder: "用户",
+    aboutHeroTitleNew: "走进 AISTONE",
+    aboutHeroIntroNew:
+      "我们是一个远程协作的小团队，基于 Cloudflare Workers 打造免注册的 AI 创作工作台，并将每次迭代记录在公开仓库中。",
+    aboutHeroApiPrefix: "API 基址：",
+    aboutHeroApiSuffix: "（Cloudflare Workers）",
+    aboutHeroRepoPrefix: "源码与更新日志：",
+    aboutHeroReportPrefix: "季度进展摘要：",
+    aboutGuidingTitle: "运作原则",
+    aboutGuidingOpenTitle: "开放手册",
+    aboutGuidingOpenDesc:
+      "部署步骤、监控脚本与路线图里程碑全部存放在 docs/ 目录，便于外部审阅。",
+    aboutGuidingDataTitle: "数据最小化",
+    aboutGuidingDataDesc:
+      "提示词全程内存处理，仅在用户明确保存时才缓存高清资源。",
+    aboutGuidingTransparencyTitle: "透明汇报",
+    aboutGuidingTransparencyDesc:
+      "功能上线、事故记录与路线图调整都会汇总在 Development Progress 文档中。",
+    aboutAssemblyTitle: "平台如何构建",
+    aboutImagePipelineTitle: "图像流水线",
+    aboutImagePipelinePoint1: "Cloudflare Workers 校验并限流提示词请求。",
+    aboutImagePipelinePoint2: "调用 Pollinations 的 FLUX、Turbo 与 Kontext 模型生成图像。",
+    aboutImagePipelinePoint3: "可选高清放大临时存放在 Cloudflare R2，下载后即清理。",
+    aboutVoicePipelineTitle: "语音流水线",
+    aboutVoicePipelinePoint1: "前端完成文本规范化后再调用 OpenAI Audio TTS。",
+    aboutVoicePipelinePoint2: "返回 WAV 音频缓存于浏览器，不在服务器落地。",
+    aboutVoicePipelinePoint3: "内容审核策略与 OpenAI 规则保持一致，过滤风险提示词。",
+    aboutOpsTitle: "运维概览",
+    aboutOpsHostingTitle: "托管",
+    aboutOpsHostingDesc: "静态前端部署在 Cloudflare Pages，Workers 覆盖香港与新加坡区域。",
+    aboutOpsMonitoringTitle: "监控",
+    aboutOpsMonitoringDesc: "docs/MONITORING_GUIDE.md 定义的合成检测每小时访问图像与语音接口。",
+    aboutOpsSecurityTitle: "安全",
+    aboutOpsSecurityDesc: "全站 HTTPS，可选 JWT 登录，仅保留 AdSense 与 GA 两项统计脚本。",
+    aboutDocsTitle: "对外公开的文档",
+    aboutDocsStatusTitle: "项目状态报告",
+    aboutDocsStatusDescPrefix: "每季度的流量、功能与待办摘要发布于 ",
+    aboutDocsStatusDescSuffix: "。",
+    aboutDocsProgressTitle: "开发进度日志",
+    aboutDocsProgressDescPrefix: "逐周部署与修复记录保存在 ",
+    aboutDocsProgressDescSuffix: "。",
+    aboutDocsMonitoringTitle: "监控手册",
+    aboutDocsMonitoringDescPrefix: "事故响应流程与延迟预算详见 ",
+    aboutDocsMonitoringDescSuffix: "。",
+    aboutTeamTitleNew: "项目维护团队",
+    aboutTeamMaintainersTitle: "核心维护者",
+    aboutTeamMaintainersDesc:
+      "团队分布于新加坡与深圳，按周轮值值班，并通过公开 Issue 追踪重要更新。",
+    aboutTeamFeedbackTitle: "反馈机制",
+    aboutTeamFeedbackDesc:
+      "站内反馈与邮件将在 1 个工作日内处理，完成后会同步到 Development Progress。",
+    aboutContactTitle: "联系与验证渠道",
+    aboutContactEmailTitle: "邮箱",
+    aboutContactEmailDesc: "工作日平均响应时间 < 1 天。",
+    aboutContactGithubTitle: "GitHub",
+    aboutContactGithubDesc: "路线图与任务追踪统一在仓库 Issue 中维护。",
+    aboutContactTwitterTitle: "Twitter / X",
+    aboutContactTwitterDesc: "停机通知与版本亮点会第一时间发布。",
+
+    // 博客 AI 指南（中文）
+    blogAiGuideTocTitle: "目录",
+    blogAiGuideToc1: "1. 将业务 Brief 拆解为 AI 需求",
+    blogAiGuideToc2: "2. 构建经得起复审的提示词",
+    blogAiGuideToc3: "3. 选择合适的模型、比例与输出参数",
+    blogAiGuideToc4: "4. 以量化检查点迭代",
+    blogAiGuideToc5: "5. 交付前的最终检查清单",
+    blogAiGuideToc6: "6. 团队协作节奏",
+    blogAiGuideSection1Title: "1. 将业务 Brief 拆解为 AI 需求",
+    blogAiGuideSection1Intro:
+      "大多数项目在提示词落笔前就埋下失败伏笔。先花 5 分钟把营销 Brief 拆解成结构化要点：投放渠道、目标、品牌限定与必须呈现的叙事元素。下表是我们在每场工作坊都会使用的模板。",
+    blogAiGuideTableHeaderQuestion: "问题",
+    blogAiGuideTableHeaderCapture: "需要记录的要素",
+    blogAiGuideTableHeaderExample: "示例",
+    blogAiGuideTableRowChannel: "渠道",
+    blogAiGuideTableRowChannelCapture: "尺寸比例、素材格式、文件大小限制。",
+    blogAiGuideTableRowChannelExample: "Instagram 竖版广告（1080×1350）。",
+    blogAiGuideTableRowStory: "故事",
+    blogAiGuideTableRowStoryCapture: "号召、情绪、产品核心卖点。",
+    blogAiGuideTableRowStoryExample: "高端耳机悬浮在玻璃底座上，冷色霓虹灯。",
+    blogAiGuideTableRowBrand: "品牌规范",
+    blogAiGuideTableRowBrandCapture: "配色、字体提示、既有活动参考。",
+    blogAiGuideTableRowBrandExample: "使用霓虹蓝，避免暖色，禁止衬线字体。",
+    blogAiGuideTableRowMandatory: "必备元素",
+    blogAiGuideTableRowMandatoryCapture: "必须出现的物件、道具或法律文案。",
+    blogAiGuideTableRowMandatoryExample: "展示充电盒，并预留卖点文案空间。",
+    blogAiGuideSection1Outro:
+      "梳理完答案后，把它保存到 AISTONE 备注或共享文档，下一节的提示词蓝图就有了坚实依据。",
+    blogAiGuideSection2Title: "2. 构建经得起复审的提示词",
+    blogAiGuideSection2Intro:
+      "提示词工程的核心不是堆砌华丽词汇，而是覆盖决策者的所有关注点。以下是五段式结构，可直接复制到 AISTONE 再按项目微调。",
+    blogAiGuidePromptFormula: "[主体] + [场景与氛围] + [构图与镜头] + [材质细节] + [光线]",
+    blogAiGuideSection2ExampleIntro: "以智能手表发布为例：",
+    blogAiGuideSection2ExamplePrompt:
+      '"Premium fitness smartwatch placed on mirrored podium, sunrise light streaming through minimalist studio, photographed on 50mm lens, focus on brushed aluminum texture, crisp product staging"',
+    blogAiGuideSection2Negative:
+      "为每组提示词准备负面词，避免常见瑕疵。可以从 <em>“blurry, watermark, distorted hands, text logo, grainy”</em> 这类泛用组合起步，再根据反馈扩充。",
+    blogAiGuideSection2TipTitle: "审批协同小贴士：",
+    blogAiGuideSection2TipDesc:
+      "在流程中共享提示词蓝图，让市场负责人在首轮生成前就掌握预期，减少反复。",
+    blogAiGuideSection3Title: "3. 选择合适的模型、比例与输出参数",
+    blogAiGuideSection3Intro:
+      "AISTONE 内置三种图像模型以及 OpenAI 语音，以下速查表帮助你快速决定使用场景。",
+    blogAiGuideModelTableHeaderModel: "模型",
+    blogAiGuideModelTableHeaderWhen: "适用场景",
+    blogAiGuideModelTableHeaderSettings: "默认设置",
+    blogAiGuideModelFlux: "FLUX",
+    blogAiGuideModelFluxWhen: "主视觉、广告级别素材，需要极佳光影与质感。",
+    blogAiGuideModelFluxSettings: "生成 2 张，挑选后放大至 2048px，比例遵循 Brief。",
+    blogAiGuideModelTurbo: "Turbo",
+    blogAiGuideModelTurboWhen: "头脑风暴、社媒快稿，速度优先。",
+    blogAiGuideModelTurboSettings: "生成 4 张，768px 预览，确认方向后再切回 FLUX。",
+    blogAiGuideModelKontext: "Kontext",
+    blogAiGuideModelKontextWhen: "图生图、换色、保持多视角一致性。",
+    blogAiGuideModelKontextSettings: "上传参考图、锁定构图，并微调色温 ±5 以控制色调。",
+    blogAiGuideSection3Outro:
+      "根据第一节的渠道清单设置尺寸与分辨率。AISTONE 会记住工作区的最新配置，便于团队保持一致。",
+    blogAiGuideSection4Title: "4. 以量化检查点迭代",
+    blogAiGuideSection4Intro:
+      "把每轮生成当作设计评审，记录客观判断，清楚知道哪次实验推动了进展。",
+    blogAiGuideSection4Step1:
+      "<strong>第一轮——只看构图。</strong> 暂不纠结色彩，关注布局、层级与文案留白。",
+    blogAiGuideSection4Step2:
+      "<strong>第二轮——调整光线与材质。</strong> 修改形容词、镜头参数和负面词，直到质感自然。",
+    blogAiGuideSection4Step3:
+      "<strong>第三轮——品牌一致性。</strong> 使用配色控制，必要时在 Kontext 上传参考以匹配专色。",
+    blogAiGuideSection4Outro:
+      "把最终采用的提示词与 seed 记录到项目追踪表，既能培训新人，也能在品牌或法务追溯时提供依据。",
+    blogAiGuideSection5Title: "5. 交付前的最终检查清单",
+    blogAiGuideSection5Intro: "交付客户或投放平台前，依次通过以下检查，可避免临门一脚的返工。",
+    blogAiGuideSection5Item1:
+      "<strong>分辨率确认：</strong> 导出尺寸与渠道规范一致（例如高分广告 2048×2730）。",
+    blogAiGuideSection5Item2:
+      "<strong>细节巡检：</strong> 放大 200% 检查多余肢体、重复 Logo 或背景杂讯。",
+    blogAiGuideSection5Item3:
+      "<strong>文案安全区：</strong> 预留文案位置，必要时参考 AISTONE 指南。",
+    blogAiGuideSection5Item4:
+      "<strong>版本命名：</strong> 采用 `campaign_model_revision` 格式，方便 DAM 或归档。",
+    blogAiGuideSection5Outro:
+      "需要配音？前往 <a href=\"voice.html\">语音合成工作室</a>，用同一份脚本生成自然口播。Nova 适合硬件产品，Fable 更贴近生活化场景。",
+    blogAiGuideSection6Title: "6. 团队协作节奏",
+    blogAiGuideSection6Intro: "高效团队会围绕 AI 生产建立轻量化的工作仪式，可参考以下节奏：",
+    blogAiGuideSection6Card1Title: "每日站会",
+    blogAiGuideSection6Card1Desc:
+      "设计师分享昨日提示词与成品，增长负责人同步表现数据，保持对“好作品”的共识。",
+    blogAiGuideSection6Card2Title: "每周素材库更新",
+    blogAiGuideSection6Card2Desc:
+      "将通过评审的提示词、输出与使用说明整理进知识库，并按活动标签方便复用。",
+    blogAiGuideSection6Card3Title: "每月复盘",
+    blogAiGuideSection6Card3Desc:
+      "对比投放数据与创作选择，沉淀经验写入手册，持续摆脱“低价值内容”评价。",
+    blogAiGuideSection6Outro:
+      "持续记录会让审核者看到专业度、投入与成效，自然不会再贴上“低价值”标签。",
+    blogAiGuideDownload: "下载 PDF",
+    blogAiGuideShare: "分享指南",
+    blogAiGuideAuthor: "AISTONE 内容团队",
+    blogAiGuideDate: "2025 年 4 月",
+
+    // 提示词工程博客（中文）
+    promptEngineeringAuthor: "AISTONE 内容团队",
+    promptEngineeringDate: "2025 年 4 月",
+    promptEngineeringOverviewTitle: "🎯 为什么这份手册值得阅读",
+    promptEngineeringCard1Title: "🚀 基础语法",
+    promptEngineeringCard1Desc: "让主体与修饰词有序排列，避免生成焦点丢失。",
+    promptEngineeringCard2Title: "⚡ 权重控制",
+    promptEngineeringCard2Desc: "通过权重语法平衡不同需求的优先级。",
+    promptEngineeringCard3Title: "🚫 负面提示词",
+    promptEngineeringCard3Desc: "用可复用的负面词过滤畸形肢体与不需要的风格。",
+    promptEngineeringCard4Title: "🎨 风格融合",
+    promptEngineeringCard4Desc: "混合多位艺术家或媒介，同时保持画面统一。",
+    promptEngineeringSection1Heading1: "1. 以主体开头",
+    promptEngineeringSection1Paragraph1: "先写出核心名词，让模型牢牢抓住主要对象。",
+    promptEngineeringSection1Code:
+      "✅ 正确：a cinematic portrait of a bioluminescent jellyfish<br />❌ 错误：cinematic, lighting, deep ocean, jellyfish portrait",
+    promptEngineeringSection1Heading2: "2. 按重要性排列修饰词",
+    promptEngineeringSection1Paragraph2:
+      "依次描述风格、光线、镜头与情绪，越重要越靠前，方便后续权重调整。",
+    promptEngineeringSection1Heading3: "3. 补充场景与动作",
+    promptEngineeringSection1Paragraph3:
+      "加入地点或动作短语（如“在雨夜小巷”“漂浮于霓虹都市上空”），能显著提升叙事连贯度。",
+    promptEngineeringSection2Paragraph1:
+      "使用权重语法强调或弱化特定属性。AISTONE 支持括号权重与冒号权重两种常见写法。",
+    promptEngineeringSection2List1: "<strong>1.4+</strong> — 主体级别，必须执行的指令。",
+    promptEngineeringSection2List2: "<strong>1.0</strong> — 默认优先级，用于辅助描述。",
+    promptEngineeringSection2List3: "<strong>&lt; 1.0</strong> — 温和提示，需求过多时可能被忽略。",
+    promptEngineeringSection2Paragraph2:
+      "权重段落建议用逗号分隔，多句提示词要适度重述主体，保持聚焦。",
+    promptEngineeringSection3Paragraph1:
+      "与其维护庞大黑名单，不如为不同素材类型建立小而精的负面词组合。以下是人像常用模板：",
+    promptEngineeringSection3Paragraph2:
+      "产品图（划痕、反光）、环境图（平铺纹理、拉伸贴图）、字效（扭曲文字、浮雕）分别维护一套负面词，并在团队文档中统一命名。",
+    promptEngineeringSection4List1:
+      "<strong>确定基本媒介。</strong> 摄影、油画或赛璐璐风格只能二选一，避免画面混乱。",
+    promptEngineeringSection4List2:
+      "<strong>添加两种辅助风格。</strong> 例如“shot on Kodak Portra 400” + “lighting by Gregory Crewdson”。",
+    promptEngineeringSection4List3:
+      "<strong>减少相冲突形容词。</strong> “极简”与“巴洛克”若非刻意对撞，通常不宜同用。",
+    promptEngineeringSection4List4:
+      "<strong>谨慎使用参考链接。</strong> 仅在必要时附上情绪板，其余情况优先使用文字提示。",
+    promptEngineeringSection4Paragraph:
+      "在迭代项目中记录最终提示词、seed 与参考素材，后续活动便能在几分钟内复刻同款质感。",
+    promptEngineeringSection5List1:
+      "<strong>提示词仓库：</strong> 将通过评审的提示词与截图集中存档。",
+    promptEngineeringSection5List2:
+      "<strong>版本命名：</strong> 文件名附加活动 + 模型 + 版本（如 `launch_flux_v3`）。",
+    promptEngineeringSection5List3:
+      "<strong>评审记录：</strong> 保存利益相关者意见与处理结果，方便复用。",
+    promptEngineeringSection5List4:
+      "<strong>交付包：</strong> 向下游提供提示词、seed、尺寸和放大说明。",
+    promptEngineeringSection5Paragraph:
+      "配合 AISTONE 的提示词历史功能，任何人都能追踪主视觉从草稿到成品的演变。",
+    promptEngineeringDownload: "下载 PDF",
+    promptEngineeringShare: "分享指南",
+
+    // 教程博客（中文）
+    tutorialAuthor: "AISTONE 内容团队",
+    tutorialDate: "2025 年 4 月",
+    tutorialQuickStartTitle: "🚀 快速开始",
+    tutorialQuickStartStep1: "访问 <a href=\"https://aistone.org\">https://aistone.org</a>，无需注册即可使用。",
+    tutorialQuickStartStep2: "在页面选择 <strong>图像生成</strong> 或 <strong>语音合成</strong>。",
+    tutorialQuickStartStep3: "输入详细描述（支持中文与英文），也可以使用示例按钮一键填充提示词。",
+    tutorialQuickStartStep4: "根据需求调整参数（模型、比例、音色），然后点击 <strong>生成</strong>。",
+    tutorialImageParamsTitle: "🎨 图像生成参数",
+    tutorialImageModelHeading: "1. 选择 AI 模型",
+    tutorialImageModelFlux: "<strong>FLUX：</strong> 适合追求高质量主视觉。",
+    tutorialImageModelTurbo: "<strong>Turbo：</strong> 快速草稿与批量创意。",
+    tutorialImageModelKontext: "<strong>Kontext：</strong> 图生图编辑与换色。",
+    tutorialImageRatioHeading: "2. 设置宽高比",
+    tutorialImageRatioDesc: "可选择 1:1、16:9、9:16、4:3 等预设，也可自定义长宽满足特定渠道。",
+    tutorialImageQuantityHeading: "3. 设置数量与水印",
+    tutorialImageQuantityItem1: "一次生成 1–4 张图片，便于对比构图。",
+    tutorialImageQuantityItem2: "需要干净成品时可开启去水印。",
+    tutorialPromptTipsTitle: "🧠 提示词撰写技巧",
+    tutorialPromptTip1: "先写主体，再补充风格、光线与情绪。",
+    tutorialPromptTip2: "使用逗号分隔短语，每个短语聚焦一个要点。",
+    tutorialPromptTip3: "补充镜头、色彩、时代等上下文信息。",
+    tutorialPromptTip4: "善用负面提示词过滤不想要的元素。",
+    tutorialVoiceTitle: "🎙️ 语音合成流程",
+    tutorialVoiceStep1: "在生成类型中切换到 <strong>语音</strong>。",
+    tutorialVoiceStep2: "粘贴脚本，按段落分行可获得自然停顿。",
+    tutorialVoiceStep3: "从 Nova、Echo、Fable、Onyx、Shimmer、Alloy 六种音色中选择。",
+    tutorialVoiceStep4: "设置语速（0.25x–4.0x），点击 <strong>生成语音</strong>。",
+    tutorialVoiceStep5: "在线试听或下载 WAV 文件以便后期处理。",
+    tutorialWorkflowTitle: "🛠️ 推荐工作流",
+    tutorialWorkflowCard1Title: "规划",
+    tutorialWorkflowCard1Desc: "在生成前收集品牌规范、参考图和使用需求。",
+    tutorialWorkflowCard2Title: "原型",
+    tutorialWorkflowCard2Desc: "使用 Turbo 快速产出草稿，选出喜欢的版本后再用 FLUX 精修。",
+    tutorialWorkflowCard3Title: "定稿",
+    tutorialWorkflowCard3Desc: "放大最佳图像，按需求导出，并记录提示词与 seed 以便复用。",
+    tutorialTroubleshootingTitle: "🧰 常见问题",
+    tutorialTroubleshootingItem1:
+      "<strong>图片模糊：</strong> 提升分辨率或切换 FLUX，并补充更具体的描述。",
+    tutorialTroubleshootingItem2:
+      "<strong>语音读音不准：</strong> 添加发音提示，例如 “AISTONE（读作 eye-stone）”。",
+    tutorialTroubleshootingItem3:
+      "<strong>生成超时：</strong> 减少生成数量或简化提示词，并留意状态页。",
+    tutorialTroubleshootingItem4:
+      "<strong>需要帮助：</strong> 可邮件至 <a href=\"mailto:support@aistone.org\">support@aistone.org</a> 或使用站内反馈。",
+    tutorialDownload: "下载 PDF",
+    tutorialShare: "分享指南",
 
     // 图片生成器页面
     imageGeneratorTitle: "AISTONE - AI图片生成器",
@@ -2854,8 +3486,9 @@ function setLanguage(lang) {
       const forceUpdateOptions = () => {
         const voiceSelect = document.getElementById("voice-model");
         if (!voiceSelect) {
-          console.warn("[i18n] Voice select element not found");
-          return;
+          // 生成页通常不会挂载语音选择器，降级为一次性的调试日志
+          console.debug("[i18n] Voice select element not found on this page, skip option update");
+          return false;
         }
         console.log(`[i18n] Force updating voice select options for language: ${lang}`);
 
@@ -2892,14 +3525,18 @@ function setLanguage(lang) {
             console.warn(`[i18n] No translation found for option key: ${key}`);
           }
         });
+
+        return true;
       };
 
-      // 立即执行一次
-      forceUpdateOptions();
-      // 延迟执行防止被覆盖
-      setTimeout(forceUpdateOptions, 50);
-      setTimeout(forceUpdateOptions, 200);
-      setTimeout(forceUpdateOptions, 500);
+      // 立即执行一次；若不存在语音选择器则无需后续重试
+      const shouldRetryVoiceOptions = forceUpdateOptions();
+      if (shouldRetryVoiceOptions) {
+        // 延迟执行防止被覆盖
+        setTimeout(forceUpdateOptions, 50);
+        setTimeout(forceUpdateOptions, 200);
+        setTimeout(forceUpdateOptions, 500);
+      }
 
       // 触发语言变更事件
       const event = new CustomEvent("languageChanged", { detail: { language: lang } });

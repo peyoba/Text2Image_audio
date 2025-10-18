@@ -1,26 +1,32 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title data-i18n="promptEngineeringTitle">提示词工程专业教程</title>
+    <title data-i18n="promptEngineeringTitle">Prompt Engineering Playbook</title>
     <link rel="canonical" href="https://aistone.org/blog_prompt_engineering.html" />
     <meta
       name="description"
-      content="提示词工程完整教程：基础语法、权重控制、负面提示词、风格融合与实战案例。"
+      content="Master prompt engineering for AI imagery: grammar, weighting, negative prompts, style blending, and production tooling."
     />
     <meta
       name="keywords"
-      content="提示词工程, Prompt Engineering, AI绘画, 扩散模型, 权重, 负面提示词"
+      content="prompt engineering, AI prompts, weight control, negative prompts, style blending, diffusion"
     />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="提示词工程专业教程" />
-    <meta property="og:description" content="从基础到高级策略的完整提示词工程指南，附实战案例。" />
+    <meta property="og:title" content="Prompt Engineering Playbook" />
+    <meta
+      property="og:description"
+      content="From grammar to advanced weighting and style fusion, this guide walks teams through production-ready prompt engineering."
+    />
     <meta property="og:url" content="https://aistone.org/blog_prompt_engineering.html" />
     <meta property="og:image" content="https://aistone.org/assets/logo.svg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="提示词工程专业教程" />
-    <meta name="twitter:description" content="从基础到高级策略的完整提示词工程指南，附实战案例。" />
+    <meta name="twitter:title" content="Prompt Engineering Playbook" />
+    <meta
+      name="twitter:description"
+      content="AISTONE's prompt engineering playbook covering structure, weighting syntax, negative prompts, and style blending workflows."
+    />
     <meta name="twitter:image" content="https://aistone.org/assets/logo.svg" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
@@ -31,28 +37,28 @@
         <span class="site-name">AISTONE</span>
       </div>
       <ul class="navbar-menu">
-        <li><a href="index.html" class="navbar-link" data-i18n="navHome">首页</a></li>
+        <li><a href="index.html" class="navbar-link" data-i18n="navHome">Home</a></li>
         <li>
-          <a href="image-generator.html" class="navbar-link" data-i18n="navImageGen">图像生成</a>
+          <a href="image-generator.html" class="navbar-link" data-i18n="navImageGen">Image</a>
         </li>
-        <li><a href="voice.html" class="navbar-link" data-i18n="navVoice">语音合成</a></li>
-        <li><a href="blog.html" class="navbar-link active" data-i18n="navBlog">博客</a></li>
-        <li><a href="about.html" class="navbar-link" data-i18n="navAbout">关于</a></li>
-        <li><a href="contact.html" class="navbar-link" data-i18n="navContact">联系</a></li>
+        <li><a href="voice.html" class="navbar-link" data-i18n="navVoice">Voice</a></li>
+        <li><a href="blog.html" class="navbar-link active" data-i18n="navBlog">Blog</a></li>
+        <li><a href="about.html" class="navbar-link" data-i18n="navAbout">About</a></li>
+        <li><a href="contact.html" class="navbar-link" data-i18n="navContact">Contact</a></li>
       </ul>
       <div class="navbar-right">
-        <select id="lang-select" class="lang-select" aria-label="选择语言">
-          <option value="zh">中文</option>
+        <select id="lang-select" class="lang-select" aria-label="Select language">
           <option value="en">English</option>
+          <option value="zh">中文</option>
         </select>
       </div>
     </nav>
 
     <main class="container" style="padding: 32px 0 40px">
       <nav class="breadcrumb" style="margin-bottom: 16px">
-        <a href="blog.html" data-i18n="navBlog">博客</a>
+        <a href="blog.html" data-i18n="navBlog">Blog</a>
         <span class="separator">></span>
-        <span class="current" data-i18n="promptEngineeringTitle">提示词工程专业教程</span>
+        <span class="current" data-i18n="promptEngineeringTitle">Prompt Engineering Playbook</span>
       </nav>
 
       <article
@@ -66,20 +72,17 @@
       >
         <header class="article-full-header">
           <h1 data-i18n="promptEngineeringTitle" style="color: #e9efff; margin: 0 0 12px 0">
-            提示词工程专业教程
+            Prompt Engineering Playbook
           </h1>
-          <div
-            class="article-meta"
-            style="display: flex; gap: 16px; color: #aab4d4; font-size: 0.9rem"
-          >
-            <span>AISTONE</span>
-            <span>2025年9月</span>
-            <span data-i18n="promptEngineeringReadTime">约12分钟阅读</span>
+          <div class="article-meta" style="display: flex; gap: 16px; color: #aab4d4; font-size: 0.9rem">
+            <span data-i18n="promptEngineeringAuthor">AISTONE Content Team</span>
+            <span data-i18n="promptEngineeringDate">April 2025</span>
+            <span data-i18n="promptEngineeringReadTime">12 min read</span>
           </div>
         </header>
 
         <section style="color: #cbd6ff; line-height: 1.8">
-          <h2>🎯 课程概览</h2>
+          <h2 data-i18n="promptEngineeringOverviewTitle">🎯 Why this playbook matters</h2>
           <div
             class="course-overview"
             style="
@@ -96,8 +99,10 @@
                 padding: 14px;
               "
             >
-              <h3>🚀 基础语法</h3>
-              <p>掌握提示词的基本结构和组织原则</p>
+              <h3 data-i18n="promptEngineeringCard1Title">🚀 Grammar foundations</h3>
+              <p data-i18n="promptEngineeringCard1Desc">
+                Structure prompts so primary subjects and modifiers never get lost.
+              </p>
             </div>
             <div
               style="
@@ -107,8 +112,10 @@
                 padding: 14px;
               "
             >
-              <h3>⚡ 权重控制</h3>
-              <p>学会精确控制各元素的重要性</p>
+              <h3 data-i18n="promptEngineeringCard2Title">⚡ Weight control</h3>
+              <p data-i18n="promptEngineeringCard2Desc">
+                Balance competing instructions with explicit weighting syntax.
+              </p>
             </div>
             <div
               style="
@@ -118,8 +125,10 @@
                 padding: 14px;
               "
             >
-              <h3>🚫 负面提示词</h3>
-              <p>排除不需要的元素，提升生成质量</p>
+              <h3 data-i18n="promptEngineeringCard3Title">🚫 Negative prompts</h3>
+              <p data-i18n="promptEngineeringCard3Desc">
+                Eliminate artefacts, odd limbs, and unwanted styles with reusable filters.
+              </p>
             </div>
             <div
               style="
@@ -129,239 +138,173 @@
                 padding: 14px;
               "
             >
-              <h3>🎨 风格融合</h3>
-              <p>创造独特的艺术风格和视觉效果</p>
+              <h3 data-i18n="promptEngineeringCard4Title">🎨 Style fusion</h3>
+              <p data-i18n="promptEngineeringCard4Desc">
+                Blend multiple artists, mediums, and lighting setups without losing cohesion.
+              </p>
             </div>
           </div>
 
-          <h2>📝 基础语法规则</h2>
-          <h3>1. 主体描述</h3>
-          <p>始终以主要描述对象开头，这是最重要的部分：</p>
-          <div
-            class="code-block"
-            style="
-              background: #1e293b;
-              color: #e2e8f0;
-              padding: 12px;
-              border-radius: 6px;
-              overflow: auto;
-            "
-          >
-            <code
-              >✅ 正确：a beautiful woman, long hair, smiling<br />❌ 错误：beautiful, woman with
-              long hair, happy face</code
+          <h2 data-i18n="promptEngineeringSection1Title">📝 Prompt grammar essentials</h2>
+          <div>
+            <h3 data-i18n="promptEngineeringSection1Heading1">1. Lead with the subject</h3>
+            <p data-i18n="promptEngineeringSection1Paragraph1">
+              Open with the primary noun phrase so the model locks onto your hero element.
+            </p>
+            <div
+              class="code-block"
+              style="
+                background: #1e293b;
+                color: #e2e8f0;
+                padding: 12px;
+                border-radius: 6px;
+                overflow: auto;
+              "
             >
+              <code data-i18n="promptEngineeringSection1Code">
+                ✅ Correct: a cinematic portrait of a bioluminescent jellyfish<br />❌ Incorrect: cinematic, lighting, deep ocean, jellyfish portrait
+              </code>
+            </div>
+
+            <h3 data-i18n="promptEngineeringSection1Heading2">2. Order modifiers by importance</h3>
+            <p data-i18n="promptEngineeringSection1Paragraph2">
+              Describe style, lighting, camera, and mood from most to least critical. This reduces conflicting signals and makes
+              weight tuning easier.
+            </p>
+
+            <h3 data-i18n="promptEngineeringSection1Heading3">3. Include context & action</h3>
+            <p data-i18n="promptEngineeringSection1Paragraph3">
+              Short clauses about location or motion (“in a rain-soaked alley”, “hovering above a neon city”) dramatically improve
+              coherence, especially for cinematic shots.
+            </p>
           </div>
 
-          <h3>2. 修饰词顺序</h3>
-          <p>按照重要性排列修饰词，越重要的越靠前：</p>
-          <div
-            class="code-block"
-            style="
-              background: #1e293b;
-              color: #e2e8f0;
-              padding: 12px;
-              border-radius: 6px;
-              overflow: auto;
-            "
-          >
-            <code>主体 + 主要特征 + 次要特征 + 环境 + 风格 + 质量词</code>
-          </div>
-
-          <h2>⚖️ 权重控制技术</h2>
-          <h3>括号语法</h3>
-          <ul>
-            <li><code>(keyword)</code> - 增强1.1倍</li>
-            <li><code>((keyword))</code> - 增强1.21倍</li>
-            <li><code>[keyword]</code> - 减弱0.9倍</li>
-            <li><code>(keyword:1.5)</code> - 精确控制权重</li>
-          </ul>
-
-          <h3>实用示例</h3>
-          <div
-            class="code-block"
-            style="
-              background: #1e293b;
-              color: #e2e8f0;
-              padding: 12px;
-              border-radius: 6px;
-              overflow: auto;
-            "
-          >
-            <code
-              >(beautiful face:1.3), detailed eyes, (flowing hair), [background], masterpiece</code
+          <h2 data-i18n="promptEngineeringSection2Title">⚖️ Weight control & syntax</h2>
+          <div>
+            <p data-i18n="promptEngineeringSection2Paragraph1">
+              Use weighting syntax to emphasise or downplay specific attributes. AISTONE supports both parenthetical weights and
+              colon weights familiar to diffusion users.
+            </p>
+            <div
+              class="code-block"
+              style="
+                background: #1e293b;
+                color: #e2e8f0;
+                padding: 12px;
+                border-radius: 6px;
+                overflow: auto;
+              "
             >
-          </div>
-
-          <h2>🚫 负面提示词策略</h2>
-          <p>负面提示词用于排除不想要的元素，提升图像质量：</p>
-          <h3>常用负面词汇</h3>
-          <ul>
-            <li><strong>质量问题：</strong>blurry, low quality, pixelated, distorted</li>
-            <li><strong>解剖错误：</strong>extra limbs, deformed, bad anatomy</li>
-            <li><strong>面部问题：</strong>bad face, ugly, asymmetric eyes</li>
-            <li><strong>构图问题：</strong>cropped, cut off, watermark, text</li>
-          </ul>
-
-          <h2>🎨 风格控制技巧</h2>
-          <h3>艺术风格词汇</h3>
-          <ul>
-            <li><strong>摄影风格：</strong>portrait photography, studio lighting, professional</li>
-            <li><strong>绘画风格：</strong>oil painting, watercolor, digital art, concept art</li>
-            <li><strong>特定艺术家：</strong>by Greg Rutkowski, by Artgerm, by Studio Ghibli</li>
-          </ul>
-
-          <h3>质量提升词汇</h3>
-          <div
-            class="code-block"
-            style="
-              background: #1e293b;
-              color: #e2e8f0;
-              padding: 12px;
-              border-radius: 6px;
-              overflow: auto;
-            "
-          >
-            <code>masterpiece, best quality, highly detailed, 8k, ultra sharp, professional</code>
-          </div>
-
-          <h2>💼 高级技巧与实战</h2>
-          <h3>场景构建</h3>
-          <p>描述完整场景的层次化方法：</p>
-          <ol>
-            <li><strong>前景：</strong>主要角色或物体</li>
-            <li><strong>中景：</strong>重要的环境元素</li>
-            <li><strong>背景：</strong>整体环境和氛围</li>
-          </ol>
-
-          <h3>情感表达</h3>
-          <p>通过细节描述传达情感：</p>
-          <ul>
-            <li><strong>快乐：</strong>bright smile, sparkling eyes, warm lighting</li>
-            <li><strong>神秘：</strong>dramatic shadows, mysterious smile, soft focus</li>
-            <li><strong>力量：</strong>confident pose, strong lighting, sharp focus</li>
-          </ul>
-
-          <h2>📊 实战案例分析</h2>
-          <h3>案例1：人像摄影</h3>
-          <div class="case-study">
-            <h4>提示词：</h4>
-            <div class="code-block">
               <code
-                >(professional portrait:1.3), beautiful young woman, (detailed eyes:1.2), natural
-                makeup, soft smile, (studio lighting:1.1), clean background, high resolution,
-                masterpiece</code
+                >((primary subject))::1.4, intricate filigree::1.2, depth of field::0.9, background ::0.5</code
               >
             </div>
-            <h4>负面提示词：</h4>
-            <div class="code-block">
-              <code>blurry, low quality, bad anatomy, deformed, extra limbs, watermark, text</code>
-            </div>
-          </div>
-          <h3>案例2：幻想场景</h3>
-          <div class="case-study">
-            <h4>提示词：</h4>
-            <div class="code-block">
-              <code
-                >(magical forest:1.3), ancient trees, (glowing mushrooms:1.2), fairy lights,
-                mystical atmosphere, (fantasy art style:1.1), detailed environment, cinematic
-                lighting</code
-              >
-            </div>
+            <ul>
+              <li data-i18n="promptEngineeringSection2List1">
+                <strong>1.4+</strong> — hero element, must-read instructions.
+              </li>
+              <li data-i18n="promptEngineeringSection2List2">
+                <strong>1.0</strong> — default priority for supporting descriptors.
+              </li>
+              <li data-i18n="promptEngineeringSection2List3">
+                <strong>&lt; 1.0</strong> — gentle hints; the model may ignore them if overwhelmed.
+              </li>
+            </ul>
+            <p data-i18n="promptEngineeringSection2Paragraph2">
+              Combine weights with comma-separated structure. For multi-sentence prompts, restate the subject at least once so the
+              model stays anchored.
+            </p>
           </div>
 
-          <footer class="article-footer">
-            <div class="article-actions" style="display: flex; gap: 12px; justify-content: center">
-              <button onclick="window.print()" class="action-btn">📄 打印文章</button>
-              <button
-                onclick="navigator.share && navigator.share({title:'提示词工程', url: location.href})"
-                class="action-btn"
+          <h2 data-i18n="promptEngineeringSection3Title">🧼 Negative prompts that actually work</h2>
+          <div>
+            <p data-i18n="promptEngineeringSection3Paragraph1">
+              Instead of maintaining enormous blacklists, build focused negative prompt bundles per asset type. Start with this
+              baseline for portraits:
+            </p>
+            <div
+              class="code-block"
+              style="
+                background: #1e293b;
+                color: #e2e8f0;
+                padding: 12px;
+                border-radius: 6px;
+                overflow: auto;
+              "
+            >
+              <code
+                >negative prompt: blurry, distorted eyes, extra limbs, watermark, text logo, low contrast, exaggerated teeth</code
               >
-                📤 分享文章
-              </button>
             </div>
-          </footer>
+            <p data-i18n="promptEngineeringSection3Paragraph2">
+              Maintain separate bundles for products (scratches, reflections), environments (tiling, stretched textures), and
+              typography (warped lettering, bevel). Name them in your team documentation so everyone reuses the same guardrails.
+            </p>
+          </div>
+
+          <h2 data-i18n="promptEngineeringSection4Title">🎨 Style blending workflows</h2>
+          <div>
+            <ol>
+              <li data-i18n="promptEngineeringSection4List1">
+                <strong>Establish the base medium.</strong> Photography, oil painting, cel-shaded illustration — pick one anchor
+                to avoid muddy results.
+              </li>
+              <li data-i18n="promptEngineeringSection4List2">
+                <strong>Add two complementary influences.</strong> Example: “shot on Kodak Portra 400” + “lighting by Gregory Crewdson”.
+              </li>
+              <li data-i18n="promptEngineeringSection4List3">
+                <strong>Limit conflicting adjectives.</strong> “Minimalist” and “baroque” rarely work together unless intentionally
+                juxtaposed.
+              </li>
+              <li data-i18n="promptEngineeringSection4List4">
+                <strong>Use references sparingly.</strong> Link to mood boards or concept art only when necessary; otherwise rely on
+                textual cues.
+              </li>
+            </ol>
+            <p data-i18n="promptEngineeringSection4Paragraph">
+              For iterative campaigns, log the final prompt + seed + reference assets so future shoots can recreate the signature look
+              within minutes.
+            </p>
+          </div>
+
+          <h2 data-i18n="promptEngineeringSection5Title">🛠️ Production checklist</h2>
+          <div>
+            <ul>
+              <li data-i18n="promptEngineeringSection5List1">
+                <strong>Prompt repository:</strong> Store approved prompts in a shared doc with screenshots.
+              </li>
+              <li data-i18n="promptEngineeringSection5List2">
+                <strong>Versioning:</strong> Append campaign + model + iteration to filenames (e.g., `launch_flux_v3`).
+              </li>
+              <li data-i18n="promptEngineeringSection5List3">
+                <strong>Review log:</strong> Capture stakeholder comments and resolutions for future training.
+              </li>
+              <li data-i18n="promptEngineeringSection5List4">
+                <strong>Hand-off package:</strong> Provide prompt, seed, aspect ratio, and any upscaling notes to downstream teams.
+              </li>
+            </ul>
+            <p data-i18n="promptEngineeringSection5Paragraph">
+              Pair this checklist with AISTONE’s prompt history so anyone can trace how a hero image evolved from first draft to final
+              delivery.
+            </p>
+          </div>
         </section>
+
+        <footer class="article-footer">
+          <div class="article-actions" style="display: flex; gap: 12px; justify-content: center">
+            <button onclick="window.print()" class="action-btn" data-i18n="promptEngineeringDownload">
+              Download PDF
+            </button>
+            <button
+              onclick="navigator.share && navigator.share({title:'Prompt Engineering Playbook', url: location.href})"
+              class="action-btn"
+              data-i18n="promptEngineeringShare"
+            >
+              Share Guide
+            </button>
+          </div>
+        </footer>
       </article>
     </main>
-
-    <footer id="contact">
-      <div class="footer-grid">
-        <div class="footer-left" data-i18n="footerCopyrightFull">
-          © 2025 AISTONE · All rights reserved · aistone.org
-        </div>
-        <div class="footer-center">
-          <a href="#" class="footer-icon" aria-label="Twitter"
-            ><svg width="28" height="28" fill="none" viewBox="0 0 24 24">
-              <path
-                fill="#00CFFF"
-                d="M22.46 5.924c-.793.352-1.646.59-2.54.698a4.48 4.48 0 0 0 1.963-2.47 8.94 8.94 0 0 1-2.828 1.08A4.48 4.48 0 0 0 11.1 9.03a12.72 12.72 0 0 1-9.23-4.68s-2.28 4.02 2.7 6.18c-.73.02-1.42-.22-2.02-.56 0 2.28 1.62 4.18 4.02 4.62-.39.11-.8.17-1.22.17-.3 0-.58-.03-.86-.08.58 1.81 2.27 3.13 4.27 3.17A9.01 9.01 0 0 1 2 19.54c6.29 4.03 13.72 1.13 15.86-5.13.32-.8.6-1.6.82-2.44.56-.41 1.05-.92 1.44-1.5z"
-              /></svg
-          ></a>
-          <a href="#" class="footer-icon" aria-label="LinkedIn"
-            ><svg width="28" height="28" fill="none" viewBox="0 0 24 24">
-              <path
-                fill="#00CFFF"
-                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zM6.12 20.452H2.566V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
-              /></svg
-          ></a>
-        </div>
-        <div class="footer-right">
-          <div class="footer-links">
-            <a href="privacy.html" data-i18n="privacyPolicy">隐私政策</a>
-            <a href="terms.html" data-i18n="termsOfService">服务条款</a>
-            <a href="contact.html" data-i18n="contactUs">联系我们</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "headline": "提示词工程专业教程",
-        "description": "提示词工程完整教程：基础语法、权重控制、负面提示词、风格融合与实战案例。",
-        "url": "https://aistone.org/blog_prompt_engineering.html",
-        "image": "https://aistone.org/assets/logo.svg",
-        "author": { "@type": "Organization", "name": "AISTONE" },
-        "publisher": {
-          "@type": "Organization",
-          "name": "AISTONE",
-          "logo": { "@type": "ImageObject", "url": "https://aistone.org/assets/logo.svg" }
-        },
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": "https://aistone.org/blog_prompt_engineering.html"
-        }
-      }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "首页",
-            "item": "https://aistone.org/index.html"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "博客",
-            "item": "https://aistone.org/blog.html"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "提示词工程专业教程",
-            "item": "https://aistone.org/blog_prompt_engineering.html"
-          }
-        ]
-      }
-    </script>
-    <script src="js/i18n.js"></script>
   </body>
 </html>

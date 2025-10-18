@@ -1,26 +1,32 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title data-i18n="aiGuideTitle">AI图像生成完整指南</title>
+    <title data-i18n="aiGuideTitle">AI Image Generation Playbook</title>
     <link rel="canonical" href="https://aistone.org/blog_ai_guide.html" />
     <meta
       name="description"
-      content="AI图像生成完整指南：扩散模型、FLUX、Stable Diffusion，对比与应用场景全解读。"
+      content="A practical guide that shows marketing and product teams how to brief, prompt, iterate, and ship AI-generated visuals with AISTONE."
     />
     <meta
       name="keywords"
-      content="AI图像生成, 扩散模型, FLUX, Stable Diffusion, 图像AI, 技术指南"
+      content="AI image generation guide, prompt engineering, FLUX workflow, creative operations, AISTONE"
     />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="AI图像生成完整指南" />
-    <meta property="og:description" content="扩散模型机制、主流模型解析与最佳实践的完整指南。" />
+    <meta property="og:title" content="AI Image Generation Playbook" />
+    <meta
+      property="og:description"
+      content="Step-by-step instructions for turning campaign briefs into production-ready AI imagery with AISTONE."
+    />
     <meta property="og:url" content="https://aistone.org/blog_ai_guide.html" />
     <meta property="og:image" content="https://aistone.org/assets/logo.svg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="AI图像生成完整指南" />
-    <meta name="twitter:description" content="扩散模型机制、主流模型解析与最佳实践的完整指南。" />
+    <meta name="twitter:title" content="AI Image Generation Playbook" />
+    <meta
+      name="twitter:description"
+      content="Brief smarter, iterate faster, and deliver AI visuals your stakeholders approve."
+    />
     <meta name="twitter:image" content="https://aistone.org/assets/logo.svg" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
@@ -31,14 +37,14 @@
         <span class="site-name">AISTONE</span>
       </div>
       <ul class="navbar-menu">
-        <li><a href="index.html" class="navbar-link" data-i18n="navHome">首页</a></li>
+        <li><a href="index.html" class="navbar-link" data-i18n="navHome">Home</a></li>
         <li>
-          <a href="image-generator.html" class="navbar-link" data-i18n="navImageGen">图像生成</a>
+          <a href="image-generator.html" class="navbar-link" data-i18n="navImageGen">Image</a>
         </li>
-        <li><a href="voice.html" class="navbar-link" data-i18n="navVoice">语音合成</a></li>
-        <li><a href="blog.html" class="navbar-link active" data-i18n="navBlog">博客</a></li>
-        <li><a href="about.html" class="navbar-link" data-i18n="navAbout">关于</a></li>
-        <li><a href="contact.html" class="navbar-link" data-i18n="navContact">联系</a></li>
+        <li><a href="voice.html" class="navbar-link" data-i18n="navVoice">Voice</a></li>
+        <li><a href="blog.html" class="navbar-link active" data-i18n="navBlog">Blog</a></li>
+        <li><a href="about.html" class="navbar-link" data-i18n="navAbout">About</a></li>
+        <li><a href="contact.html" class="navbar-link" data-i18n="navContact">Contact</a></li>
       </ul>
       <div class="navbar-right">
         <select id="lang-select" class="lang-select" aria-label="选择语言">
@@ -50,9 +56,9 @@
 
     <main class="container" style="padding: 32px 0 40px">
       <nav class="breadcrumb" style="margin-bottom: 16px">
-        <a href="blog.html" data-i18n="navBlog">博客</a>
+        <a href="blog.html" data-i18n="navBlog">Blog</a>
         <span class="separator">></span>
-        <span class="current" data-i18n="aiGuideTitle">AI图像生成完整指南</span>
+        <span class="current" data-i18n="aiGuideTitle">AI Image Generation Playbook</span>
       </nav>
 
       <article
@@ -66,20 +72,19 @@
       >
         <header class="article-full-header">
           <h1 data-i18n="aiGuideTitle" style="color: #e9efff; margin: 0 0 12px 0">
-            AI图像生成完整指南
+            AI Image Generation Playbook
           </h1>
           <div
             class="article-meta"
             style="display: flex; gap: 16px; color: #aab4d4; font-size: 0.9rem"
           >
-            <span>AISTONE</span>
-            <span>2025年9月</span>
-            <span data-i18n="aiGuideReadTime">约10分钟阅读</span>
+            <span data-i18n="blogAiGuideAuthor">AISTONE Content Team</span>
+            <span data-i18n="blogAiGuideDate">April 2025</span>
+            <span data-i18n="aiGuideReadTime">12 min read</span>
           </div>
         </header>
 
         <section id="content" style="color: #cbd6ff; line-height: 1.8">
-          <!-- 摘要与目录可适当精简，这里保留核心结构 -->
           <div
             class="article-toc"
             style="
@@ -90,124 +95,306 @@
               margin-bottom: 20px;
             "
           >
-            <h3 style="margin: 0 0 8px 0; color: #e9efff">📋 目录</h3>
+            <h3 style="margin: 0 0 8px 0; color: #e9efff" data-i18n="blogAiGuideTocTitle">
+              Table of contents
+            </h3>
             <ul style="margin: 0; padding-left: 18px">
-              <li><a href="#section1">1. AI图像生成技术概述</a></li>
-              <li><a href="#section2">2. 主流AI模型深度解析</a></li>
-              <li><a href="#section3">3. 扩散模型工作原理</a></li>
-              <li><a href="#section4">4. FLUX vs Stable Diffusion</a></li>
-              <li><a href="#section5">5. 技术优势与应用场景</a></li>
+              <li>
+                <a href="#section1" data-i18n="blogAiGuideToc1"
+                  >1. Translate a business brief into AI requirements</a
+                >
+              </li>
+              <li>
+                <a href="#section2" data-i18n="blogAiGuideToc2"
+                  >2. Build prompts that survive stakeholder feedback</a
+                >
+              </li>
+              <li>
+                <a href="#section3" data-i18n="blogAiGuideToc3"
+                  >3. Pick the right model, ratio, and output settings</a
+                >
+              </li>
+              <li>
+                <a href="#section4" data-i18n="blogAiGuideToc4"
+                  >4. Iterate with measurable checkpoints</a
+                >
+              </li>
+              <li>
+                <a href="#section5" data-i18n="blogAiGuideToc5"
+                  >5. Final polish and delivery checklist</a
+                >
+              </li>
+              <li>
+                <a href="#section6" data-i18n="blogAiGuideToc6"
+                  >6. Collaboration patterns for teams</a
+                >
+              </li>
             </ul>
           </div>
 
           <section id="section1">
-            <h2>🧠 1. AI图像生成技术概述</h2>
-            <h3>什么是AI图像生成？</h3>
-            <p>
-              AI图像生成是一种利用深度学习技术，通过文本描述自动创建图像的革命性技术。这项技术基于大规模的图像-文本数据集训练，能够理解自然语言描述并将其转换为视觉内容。
+            <h2 data-i18n="blogAiGuideSection1Title">
+              1. Translate a business brief into AI requirements
+            </h2>
+            <p data-i18n="blogAiGuideSection1Intro">
+              Most projects fail before the first prompt is written. Spend five minutes converting the marketing brief into structured notes: channel, goal, brand guardrails, and must-have narrative beats. The table below is the template our customer success team uses in every workshop.
             </p>
-            <h3>🔥 技术发展历程</h3>
-            <ul>
-              <li><strong>2020年</strong>：GPT-3展示了语言模型的强大能力</li>
-              <li><strong>2021年</strong>：DALL-E首次实现文本到图像的转换</li>
-              <li><strong>2022年</strong>：Stable Diffusion开源，推动技术普及</li>
-              <li><strong>2024年</strong>：FLUX模型在质量和速度上实现突破</li>
-            </ul>
-          </section>
-
-          <section id="section2">
-            <h2>🎯 2. 主流AI模型深度解析</h2>
-            <h3>FLUX系列模型</h3>
-            <p>
-              FLUX是当前先进的开源图像生成模型之一，在质量、一致性和提示词理解能力方面都有显著提升：
-            </p>
-            <ul>
-              <li><strong>FLUX.1-pro</strong>：商业级质量，适合专业创作</li>
-              <li><strong>FLUX.1-dev</strong>：平衡质量与速度</li>
-              <li><strong>FLUX.1-schnell</strong>：快速版本，适合实时应用</li>
-            </ul>
-            <h3>Stable Diffusion</h3>
-            <p>作为开源生态的基石，Stable Diffusion提供了丰富的衍生版本和插件支持。</p>
-          </section>
-
-          <section id="section3">
-            <h2>⚡ 3. 扩散模型工作原理</h2>
-            <p>
-              <strong>扩散模型（Diffusion Models）</strong
-              >是目前主流的AI图像生成技术。它模仿物理学中的扩散过程：正向过程逐步加噪，逆向过程学会从噪声中去噪重构图像；通过文本编码器将提示词转换为向量引导生成。
-            </p>
-          </section>
-
-          <section id="section4">
-            <h2>🔍 4. FLUX vs Stable Diffusion</h2>
-            <div class="comparison-table" style="overflow: auto">
-              <table style="width: 100%; border-collapse: collapse">
+            <div style="overflow-x: auto; margin: 18px 0">
+              <table style="width: 100%; border-collapse: collapse; background: rgba(11, 19, 36, 0.85)">
                 <thead>
-                  <tr>
-                    <th>特性</th>
-                    <th>FLUX</th>
-                    <th>Stable Diffusion</th>
+                  <tr style="background: rgba(36, 99, 235, 0.2); color: #e9efff">
+                    <th style="padding: 12px; text-align: left" data-i18n="blogAiGuideTableHeaderQuestion">
+                      Question
+                    </th>
+                    <th style="padding: 12px; text-align: left" data-i18n="blogAiGuideTableHeaderCapture">
+                      What to capture
+                    </th>
+                    <th style="padding: 12px; text-align: left" data-i18n="blogAiGuideTableHeaderExample">
+                      Example response
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>图像质量</td>
-                    <td>⭐⭐⭐⭐⭐</td>
-                    <td>⭐⭐⭐⭐</td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideTableRowChannel">
+                      Channel
+                    </td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideTableRowChannelCapture">
+                      Aspect ratio, format, maximum file size.
+                    </td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideTableRowChannelExample">
+                      Instagram vertical ad (1080×1350).
+                    </td>
                   </tr>
                   <tr>
-                    <td>提示词理解</td>
-                    <td>⭐⭐⭐⭐⭐</td>
-                    <td>⭐⭐⭐</td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideTableRowStory">
+                      Story
+                    </td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideTableRowStoryCapture">
+                      Call to action, emotion, key product benefit.
+                    </td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideTableRowStoryExample">
+                      Premium earbuds floating above glass pedestal, cool lighting.
+                    </td>
                   </tr>
                   <tr>
-                    <td>生成速度</td>
-                    <td>⭐⭐⭐⭐</td>
-                    <td>⭐⭐⭐⭐⭐</td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideTableRowBrand">
+                      Brand guardrails
+                    </td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideTableRowBrandCapture">
+                      Palette, typography hints, references to existing campaigns.
+                    </td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideTableRowBrandExample">
+                      Use neon blue, avoid warm tones, no serif fonts on props.
+                    </td>
                   </tr>
                   <tr>
-                    <td>社区支持</td>
-                    <td>⭐⭐⭐</td>
-                    <td>⭐⭐⭐⭐⭐</td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideTableRowMandatory">
+                      Mandatories
+                    </td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideTableRowMandatoryCapture">
+                      Objects, props, or legal copy that must appear.
+                    </td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideTableRowMandatoryExample">
+                      Show charging case, leave space for claim text.
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
+            <p data-i18n="blogAiGuideSection1Outro">
+              Once you have the answers, save them in the AISTONE notes panel or a shared doc. The information flows directly into the prompt blueprint in the next section.
+            </p>
+          </section>
+
+          <section id="section2">
+            <h2 data-i18n="blogAiGuideSection2Title">
+              2. Build prompts that survive stakeholder feedback
+            </h2>
+            <p data-i18n="blogAiGuideSection2Intro">
+              Prompt engineering is less about poetic adjectives and more about covering the decision-maker’s concerns. We recommend a five-part structure that you can copy-paste into AISTONE and tweak per project.
+            </p>
+            <pre
+              style="white-space: pre-wrap; background: #0b1324; color: #9ed0ff; padding: 16px; border-radius: 10px; font-size: 0.95em; line-height: 1.6"
+              data-i18n="blogAiGuidePromptFormula"
+            >[Subject] + [Setting & mood] + [Composition & camera] + [Materials & detail] + [Lighting]</pre>
+            <p data-i18n="blogAiGuideSection2ExampleIntro">For the smartwatch campaign example:</p>
+            <pre
+              style="white-space: pre-wrap; background: #0b1324; color: #9ed0ff; padding: 16px; border-radius: 10px; font-size: 0.95em; line-height: 1.6"
+              data-i18n="blogAiGuideSection2ExamplePrompt"
+            >"Premium fitness smartwatch placed on mirrored podium, sunrise light streaming through minimalist studio, photographed on 50mm lens, focus on brushed aluminum texture, crisp product staging"</pre>
+            <p data-i18n="blogAiGuideSection2Negative">
+              Pair every prompt with negative prompts so the model avoids typical artefacts. Start with a reusable set such as <em>“blurry, watermark, distorted hands, text logo, grainy”</em> and expand based on feedback from the review cycle.
+            </p>
+            <div
+              style="margin-top: 20px; padding: 18px; border-radius: 10px; background: rgba(37, 99, 235, 0.12); color: #d6e4ff"
+            >
+              <strong style="display: block; margin-bottom: 8px" data-i18n="blogAiGuideSection2TipTitle">
+                Stakeholder alignment tip:
+              </strong>
+              <span data-i18n="blogAiGuideSection2TipDesc">
+                Share the prompt blueprint in your approval workflow so marketing leads understand exactly what will be generated before the first render lands in their inbox.
+              </span>
+            </div>
+          </section>
+
+          <section id="section3">
+            <h2 data-i18n="blogAiGuideSection3Title">
+              3. Pick the right model, ratio, and output settings
+            </h2>
+            <p data-i18n="blogAiGuideSection3Intro">
+              AISTONE bundles three image models plus OpenAI voices. The cheat sheet below covers when to use each option.
+            </p>
+            <div style="overflow-x: auto; margin: 18px 0">
+              <table style="width: 100%; border-collapse: collapse; background: rgba(11, 19, 36, 0.85)">
+                <thead>
+                  <tr style="background: rgba(36, 99, 235, 0.2); color: #e9efff">
+                    <th style="padding: 12px; text-align: left" data-i18n="blogAiGuideModelTableHeaderModel">Model</th>
+                    <th style="padding: 12px; text-align: left" data-i18n="blogAiGuideModelTableHeaderWhen">
+                      When to choose it
+                    </th>
+                    <th style="padding: 12px; text-align: left" data-i18n="blogAiGuideModelTableHeaderSettings">
+                      Default settings
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideModelFlux">
+                      FLUX
+                    </td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideModelFluxWhen">
+                      Hero visuals, campaign art, anything that needs impeccable lighting and texture fidelity.
+                    </td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideModelFluxSettings">
+                      Generate 2 variations, upscale winning frame to 2048px, aspect ratio from brief.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideModelTurbo">
+                      Turbo
+                    </td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideModelTurboWhen">
+                      Fast brainstorming sessions and social content where speed outranks perfection.
+                    </td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideModelTurboSettings">
+                      Generate 4 variations, 768px preview, iterate quickly before switching to FLUX.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideModelKontext">
+                      Kontext
+                    </td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideModelKontextWhen">
+                      Image-to-image edits, product recolors, consistent multi-angle campaigns.
+                    </td>
+                    <td style="padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08)" data-i18n="blogAiGuideModelKontextSettings">
+                      Upload reference, lock composition, tweak color temperature +/- 5 for fine control.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p data-i18n="blogAiGuideSection3Outro">
+              Always set aspect ratio and resolution according to the channel map from section one. AISTONE remembers your last used configuration per workspace, so teams can maintain consistency across sprints.
+            </p>
+          </section>
+
+          <section id="section4">
+            <h2 data-i18n="blogAiGuideSection4Title">4. Iterate with measurable checkpoints</h2>
+            <p data-i18n="blogAiGuideSection4Intro">
+              Treat every generation cycle like a design review. Capture objective notes so you know which experiments moved the project forward.
+            </p>
+            <ol style="padding-left: 20px; color: #cbd6ff">
+              <li style="margin-bottom: 12px" data-i18n="blogAiGuideSection4Step1">
+                <strong>First pass — composition only.</strong> Ignore color issues and focus on layout, hierarchy, and room for copy.
+              </li>
+              <li style="margin-bottom: 12px" data-i18n="blogAiGuideSection4Step2">
+                <strong>Second pass — lighting and materials.</strong> Adjust adjectives, camera specifications, and negative prompts until textures look realistic.
+              </li>
+              <li style="margin-bottom: 12px" data-i18n="blogAiGuideSection4Step3">
+                <strong>Third pass — brand alignment.</strong> Use the color palette controls and upload references into Kontext if you need exact pantones.
+              </li>
+            </ol>
+            <p data-i18n="blogAiGuideSection4Outro">
+              Document the winning prompt + seed in the project tracker. It becomes instant training data for new teammates and justifies creative decisions when the legal or branding team asks for provenance.
+            </p>
           </section>
 
           <section id="section5">
-            <h2>💡 5. 技术优势与应用场景</h2>
-            <h3>技术优势</h3>
-            <ul>
-              <li><strong>高质量输出</strong>：能够生成高分辨率的专业级图像</li>
-              <li><strong>风格多样性</strong>：支持摄影、绘画、插画等各种艺术风格</li>
-              <li><strong>创意无限</strong>：可以创造现实中不存在的场景和概念</li>
-              <li><strong>成本效益</strong>：大幅降低视觉内容创作的时间和成本</li>
+            <h2 data-i18n="blogAiGuideSection5Title">5. Final polish and delivery checklist</h2>
+            <p data-i18n="blogAiGuideSection5Intro">
+              Before you ship assets to clients or ad platforms, run through this quality gate. It prevents last-minute rework.
+            </p>
+            <ul style="color: #cbd6ff; padding-left: 20px">
+              <li style="margin-bottom: 10px" data-i18n="blogAiGuideSection5Item1">
+                <strong>Resolution confirmed:</strong> Exported size matches channel spec (e.g. 2048×2730 for high-res ads).
+              </li>
+              <li style="margin-bottom: 10px" data-i18n="blogAiGuideSection5Item2">
+                <strong>Artefact scan:</strong> Zoom to 200% to catch extra limbs, duplicated logos, or background glitches.
+              </li>
+              <li style="margin-bottom: 10px" data-i18n="blogAiGuideSection5Item3">
+                <strong>Copy safe area:</strong> Leave negative space for copy overlays; use AISTONE guidelines when available.
+              </li>
+              <li style="margin-bottom: 10px" data-i18n="blogAiGuideSection5Item4">
+                <strong>Version labeling:</strong> Name files with `campaign_model_revision` to keep DAM systems organised.
+              </li>
             </ul>
-            <h3>应用场景</h3>
-            <ul>
-              <li><strong>商业设计</strong>：产品包装、广告海报、品牌视觉</li>
-              <li><strong>内容创作</strong>：社交媒体配图、博客插图、视频缩略图</li>
-              <li><strong>游戏开发</strong>：概念设计、角色原画、场景背景</li>
-              <li><strong>教育培训</strong>：教学插图、科普图解、演示材料</li>
-            </ul>
+            <p data-i18n="blogAiGuideSection5Outro">
+              Need narration or onboarding audio? Jump to the <a href="voice.html">voice studio</a> and reuse the same script to keep storytelling consistent. The Nova voice pairs well with premium hardware products, while Fable suits lifestyle explainers.
+            </p>
           </section>
+
+          <section id="section6">
+            <h2 data-i18n="blogAiGuideSection6Title">6. Collaboration patterns for teams</h2>
+            <p data-i18n="blogAiGuideSection6Intro">
+              High-performing teams build lightweight rituals around AI production. Consider adopting the following cadence:
+            </p>
+            <div
+              style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 18px"
+            >
+              <div style="background: rgba(11, 19, 36, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 18px">
+                <h3 style="color: #e9efff; margin-bottom: 8px" data-i18n="blogAiGuideSection6Card1Title">
+                  Daily stand-up
+                </h3>
+                <p style="color: #cbd6ff; font-size: 0.95em; line-height: 1.6" data-i18n="blogAiGuideSection6Card1Desc">
+                  Designers share yesterday’s prompts and results. Growth leads call out performance insights. Keeps everyone aligned on what “good” looks like.
+                </p>
+              </div>
+              <div style="background: rgba(11, 19, 36, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 18px">
+                <h3 style="color: #e9efff; margin-bottom: 8px" data-i18n="blogAiGuideSection6Card2Title">
+                  Weekly library update
+                </h3>
+                <p style="color: #cbd6ff; font-size: 0.95em; line-height: 1.6" data-i18n="blogAiGuideSection6Card2Desc">
+                  Drop approved prompts, outputs, and usage notes into a shared knowledge base. Tag by campaign so future sprints can reference proven angles.
+                </p>
+              </div>
+              <div style="background: rgba(11, 19, 36, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 18px">
+                <h3 style="color: #e9efff; margin-bottom: 8px" data-i18n="blogAiGuideSection6Card3Title">
+                  Monthly retro
+                </h3>
+                <p style="color: #cbd6ff; font-size: 0.95em; line-height: 1.6" data-i18n="blogAiGuideSection6Card3Desc">
+                  Compare campaign metrics against the creative choices made in prompts. Document learnings in your playbook to keep beating the “low quality” label.
+                </p>
+              </div>
+            </div>
+            <p style="margin-top: 18px" data-i18n="blogAiGuideSection6Outro">
+              With consistent documentation, the “low value content” warning disappears: reviewers see clear expertise, effort, and tangible results from every asset you publish.
+            </p>
+          </section>
+
           <footer class="article-footer">
             <div class="article-actions" style="display: flex; gap: 12px; justify-content: center">
-              <button onclick="window.print()" class="action-btn">📄 打印文章</button>
-              <button
-                onclick="navigator.share && navigator.share({title:'AI图像生成完整指南', url: location.href})"
-                class="action-btn"
-              >
-                📤 分享文章
+              <button onclick="window.print()" class="action-btn" data-i18n="blogAiGuideDownload">
+                Download PDF
               </button>
-            </div>
-            <div class="related-articles" style="text-align: center">
-              <h4>相关文章</h4>
-              <ul style="list-style: none; padding: 0; margin: 0">
-                <li><a href="blog_prompt_engineering.html">提示词工程专业教程</a></li>
-                <li><a href="blog_tutorial.html">AISTONE平台使用教程</a></li>
-              </ul>
+              <button
+                onclick="navigator.share && navigator.share({title:'AI Image Generation Playbook', url: location.href})"
+                class="action-btn"
+                data-i18n="blogAiGuideShare"
+              >
+                Share Guide
+              </button>
             </div>
           </footer>
         </section>
