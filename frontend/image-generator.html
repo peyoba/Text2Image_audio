@@ -163,69 +163,8 @@
       }
     </script>
   </head>
-  <body>
-    <!-- 顶部导航栏 -->
-    <nav class="navbar">
-      <div class="navbar-left">
-        <img
-          src="assets/logo.svg"
-          alt="AISTONE LOGO - 免费AI图片生成与语音合成平台标志"
-          class="logo-img"
-          aria-label="AISTONE 平台标志"
-        />
-        <span class="site-name">AISTONE</span>
-      </div>
-      <ul class="navbar-menu">
-        <li><a href="index.html" class="navbar-link" data-i18n="navHome">首页</a></li>
-        <li>
-          <a href="image-generator.html" class="navbar-link active" data-i18n="navImageGen"
-            >图像生成</a
-          >
-        </li>
-        <li><a href="voice.html" class="navbar-link" data-i18n="navVoice">语音合成</a></li>
-        <li><a href="blog.html" class="navbar-link" data-i18n="navBlog">博客</a></li>
-        <li><a href="about.html" class="navbar-link" data-i18n="navAbout">关于</a></li>
-        <li><a href="contact.html" class="navbar-link" data-i18n="navContact">联系</a></li>
-      </ul>
-      <div class="navbar-right">
-        <select id="lang-select" class="lang-select">
-          <option value="en">English</option>
-          <option value="zh">中文</option>
-        </select>
-        <!-- 登录按钮 -->
-        <button class="login-btn" onclick="showModal('loginModal')">登录</button>
-        <!-- 用户信息显示区域 -->
-        <div class="user-info" id="nav-user-info" style="display: none">
-          <div class="user-avatar">
-            <img src="assets/default-avatar.svg" alt="User avatar" id="userAvatar" />
-          </div>
-          <div class="user-details">
-            <button
-              class="user-menu-toggle"
-              id="userMenuToggle"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <img src="assets/default-avatar.svg" alt="avatar" class="avatar-inline" />
-              <span class="username">用户名</span>
-              <span class="caret">▾</span>
-            </button>
-            <div
-              class="user-dropdown"
-              id="userDropdown"
-              role="menu"
-              aria-labelledby="userMenuToggle"
-              style="display: none"
-            >
-              <a href="user.html" class="dropdown-item" data-i18n="userCenter">个人中心</a>
-              <a href="#" class="dropdown-item" onclick="authManager.logout()" data-i18n="logout"
-                >登出</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+  <body data-page-id="image">
+    <header data-header></header>
 
     <!-- 主视觉区 -->
     <section class="hero-section">
@@ -509,6 +448,9 @@
             data-ad-format="auto"
             data-full-width-responsive="true"
           ></ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
         </section>
       </main>
 
@@ -562,6 +504,8 @@
     <!-- V2.0 认证和图片管理模块 -->
     <script src="js/auth.js?v=20250924" defer></script>
     <script src="js/hd_image_manager.js?v=20250924" defer></script>
+    <script src="js/header.js?v=20250924" defer></script>
+    <script src="js/cookie_consent.js?v=20250924" defer></script>
 
     <!-- 认证界面 -->
     <div id="auth-modals"></div>

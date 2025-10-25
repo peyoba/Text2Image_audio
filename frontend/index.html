@@ -246,44 +246,7 @@
   </head>
 
   <body>
-    <!-- 顶部导航栏 -->
-    <nav class="navbar">
-      <div class="navbar-left">
-        <img
-          src="assets/logo.svg"
-          alt="AISTONE LOGO - 免费AI图片生成与语音合成平台标志"
-          class="logo-img"
-          aria-label="AISTONE 平台标志"
-        />
-        <span class="site-name">AISTONE</span>
-      </div>
-
-      <ul class="navbar-menu">
-        <li><a href="index.html" class="navbar-link active" data-i18n="navHome">首页</a></li>
-        <li>
-          <a href="image-generator.html" class="navbar-link" data-i18n="navImageGen">图像生成</a>
-        </li>
-        <li><a href="voice.html" class="navbar-link" data-i18n="navVoice">语音合成</a></li>
-        <li><a href="blog.html" class="navbar-link" data-i18n="navBlog">博客</a></li>
-        <li><a href="about.html" class="navbar-link" data-i18n="navAbout">关于</a></li>
-        <li><a href="contact.html" class="navbar-link" data-i18n="navContact">联系</a></li>
-      </ul>
-
-      <div class="navbar-right">
-        <!-- 语言选择器 -->
-        <select id="lang-select" class="lang-select" aria-label="选择语言">
-          <option value="zh">中文</option>
-          <option value="en">English</option>
-        </select>
-
-        <!-- 用户登录状态 -->
-        <div class="user-status" id="user-status">
-          <button onclick="showModal('login-modal')" class="user-btn" data-i18n="login">
-            登录
-          </button>
-        </div>
-      </div>
-    </nav>
+    <header data-header></header>
 
     <!-- 主Hero区域 -->
     <section class="hero-section" id="home">
@@ -576,9 +539,9 @@
               </h3>
               <pre
                 style="white-space: pre-wrap; background: #0b1324; color: #9ed0ff; padding: 16px; border-radius: 10px; font-size: 0.95em; line-height: 1.6"
-              >“Futuristic product launch scene, neon blue lighting, premium wireless earbuds floating above a glass pedestal, cinematic depth, volumetric light, captured on 50mm lens”</pre>
+              >"Futuristic product launch scene, neon blue lighting, premium wireless earbuds floating above a glass pedestal, cinematic depth, volumetric light, captured on 50mm lens"</pre>
               <p style="color: #c3ceff; font-size: 0.95em; line-height: 1.7" data-i18n="homeUseCasePromptDesc">
-                目标是突出耳机的质感与科技感，因此提示词强调光源、镜头焦段、场景氛围等细节。若需要中文环境，可在前缀加上“中文界面说明：”。
+                目标是突出耳机的质感与科技感，因此提示词强调光源、镜头焦段、场景氛围等细节。若需要中文环境，可在前缀加上"中文界面说明："。
               </p>
               <ul style="color: #c3ceff; font-size: 0.95em; line-height: 1.7; padding-left: 18px; margin-top: 16px">
                 <li data-i18n="homeUseCasePromptModel">模型：FLUX 高质量模型</li>
@@ -598,7 +561,7 @@
                 生成结果概览
               </h3>
               <p style="color: #c3ceff; font-size: 0.95em; line-height: 1.7" data-i18n="homeUseCaseOutcomeDesc1">
-                第一轮生成中，图像 1 符合预期但光线略显过曝；图像 2 的灯光层次更丰富，于是团队选择图像 2 并通过“高清放大”功能导出 2048 × 2730 的终稿。
+                第一轮生成中，图像 1 符合预期但光线略显过曝；图像 2 的灯光层次更丰富，于是团队选择图像 2 并通过"高清放大"功能导出 2048 × 2730 的终稿。
               </p>
               <p style="color: #c3ceff; font-size: 0.95em; line-height: 1.7" data-i18n="homeUseCaseOutcomeDesc2">
                 最终图像用于官网 Banner，并在社交媒体广告中获得 23% 更高的点击率。团队补充了品牌色彩和文案后直接上线，省去拍摄和修图成本。
@@ -647,7 +610,7 @@
               <span style="display: inline-block; font-size: 1.1em; font-weight: 600; color: #2563eb" data-i18n="homeWorkflowStep1Label">Step 1</span>
               <h3 style="margin: 12px 0; font-size: 1.3em" data-i18n="homeWorkflowStep1Title">梳理需求与素材</h3>
               <p style="color: #475569; line-height: 1.6" data-i18n="homeWorkflowStep1Desc">
-                明确使用场景、画面比例和品牌关键词，搜集参考图片或颜色。可以将核心要求记录在“提示词备注”中，方便团队成员共享。
+                明确使用场景、画面比例和品牌关键词，搜集参考图片或颜色。可以将核心要求记录在"提示词备注"中，方便团队成员共享。
               </p>
             </div>
 
@@ -1679,6 +1642,9 @@
           data-ad-format="auto"
           data-full-width-responsive="true"
         ></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
       </section>
 
       <!-- AISTONE 详细介绍部分 -->
@@ -1801,6 +1767,9 @@
             data-ad-format="auto"
             data-full-width-responsive="true"
           ></ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
         </div>
       </section>
 
@@ -1864,8 +1833,10 @@
     <script src="js/ui_handler.js?v=20250924" defer></script>
     <script src="js/ui_enhancements.js?v=20250924" defer></script>
     <script src="js/app.js?v=20250924" defer></script>
+    <script src="js/header.js?v=20250924" defer></script>
     <script src="js/auth_modals.js?v=20250924" defer></script>
     <script src="js/auth.js?v=20250924" defer></script>
+    <script src="js/cookie_consent.js?v=20250924" defer></script>
 
     <!-- 页面初始化 -->
     <script>
@@ -1916,10 +1887,11 @@
       window.addEventListener("load", function () {
         setTimeout(() => {
           try {
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            (adsbygoogle = window.adsbygoogle || []).push({});
+            (adsbygoogle = window.adsbygoogle || []).forEach &&
+              window.adsbygoogle.splice &&
+              window.adsbygoogle.splice(0);
           } catch (e) {
-            console.log("AdSense initialization failed:", e);
+            console.log("AdSense initialization cleanup failed:", e);
           }
         }, 1000);
       });

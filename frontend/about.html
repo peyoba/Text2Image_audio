@@ -44,63 +44,8 @@
       crossorigin="anonymous"
     ></script>
   </head>
-  <body>
-    <nav class="navbar">
-      <div class="navbar-left">
-        <img
-          src="assets/logo.svg"
-          alt="AISTONE LOGO"
-          class="logo-img"
-          aria-label="AISTONE logo"
-        />
-        <span class="site-name">AISTONE</span>
-      </div>
-      <ul class="navbar-menu">
-        <li><a href="index.html" class="navbar-link" data-i18n="navHome">Home</a></li>
-        <li>
-          <a href="image-generator.html" class="navbar-link" data-i18n="navImageGen">Image</a>
-        </li>
-        <li><a href="voice.html" class="navbar-link" data-i18n="navVoice">Voice</a></li>
-        <li><a href="blog.html" class="navbar-link" data-i18n="navBlog">Blog</a></li>
-        <li><a href="about.html" class="navbar-link active" data-i18n="navAbout">About</a></li>
-        <li><a href="contact.html" class="navbar-link" data-i18n="navContact">Contact</a></li>
-      </ul>
-      <div class="navbar-right">
-        <select id="lang-select" class="lang-select">
-          <option value="en">English</option>
-          <option value="zh">中文</option>
-        </select>
-        <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">
-          Login
-        </button>
-        <div class="user-info" id="nav-user-info" style="display: none">
-          <div class="user-details">
-            <button
-              class="user-menu-toggle"
-              id="userMenuToggle"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <img src="assets/default-avatar.svg" alt="avatar" class="avatar-inline" />
-              <span class="username" data-i18n="navUserPlaceholder">User</span>
-              <span class="caret">▾</span>
-            </button>
-            <div
-              class="user-dropdown"
-              id="userDropdown"
-              role="menu"
-              aria-labelledby="userMenuToggle"
-              style="display: none"
-            >
-              <a href="/user.html" class="dropdown-item" data-i18n="userCenter">Account</a>
-              <a href="#" class="dropdown-item" onclick="authManager.logout()" data-i18n="logout"
-                >Logout</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+  <body data-page-id="about">
+    <script src="js/header.js?v=20250924" defer></script>
 
     <main class="about-page">
       <div class="container">

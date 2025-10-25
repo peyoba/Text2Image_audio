@@ -163,69 +163,8 @@
       }
     </script>
   </head>
-  <body class="voice-page">
-    <!-- 顶部导航栏 -->
-    <nav class="navbar">
-      <div class="navbar-left">
-        <img
-          src="assets/logo.svg"
-          alt="AISTONE LOGO - 免费AI语音合成平台标志"
-          class="logo-img"
-          aria-label="AISTONE 平台标志"
-        />
-        <span class="site-name">AISTONE</span>
-      </div>
-      <ul class="navbar-menu">
-        <li><a href="index.html" class="navbar-link" data-i18n="navHome">首页</a></li>
-        <li>
-          <a href="image-generator.html" class="navbar-link" data-i18n="navImageGen">图像生成</a>
-        </li>
-        <li><a href="voice.html" class="navbar-link active" data-i18n="navVoice">语音合成</a></li>
-        <li><a href="blog.html" class="navbar-link" data-i18n="navBlog">博客</a></li>
-        <li><a href="about.html" class="navbar-link" data-i18n="navAbout">关于</a></li>
-        <li><a href="contact.html" class="navbar-link" data-i18n="navContact">联系</a></li>
-      </ul>
-      <div class="navbar-right">
-        <select id="lang-select" class="lang-select">
-          <option value="en">English</option>
-          <option value="zh">中文</option>
-        </select>
-        <!-- 登录按钮 -->
-        <button class="login-btn" onclick="showModal('loginModal')" data-i18n="navLogin">
-          登录
-        </button>
-        <!-- 用户信息显示区域 -->
-        <div class="user-info" id="nav-user-info" style="display: none">
-          <div class="user-avatar">
-            <img src="assets/default-avatar.svg" alt="User avatar" id="userAvatar" />
-          </div>
-          <div class="user-details">
-            <button
-              class="user-menu-toggle"
-              id="userMenuToggle"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <img src="assets/default-avatar.svg" alt="avatar" class="avatar-inline" />
-              <span class="username">用户名</span>
-              <span class="caret">▾</span>
-            </button>
-            <div
-              class="user-dropdown"
-              id="userDropdown"
-              role="menu"
-              aria-labelledby="userMenuToggle"
-              style="display: none"
-            >
-              <a href="/user.html" class="dropdown-item" data-i18n="userCenter">个人中心</a>
-              <a href="#" class="dropdown-item" onclick="authManager.logout()" data-i18n="logout"
-                >登出</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+  <body class="voice-page" data-page-id="voice">
+    <header data-header></header>
 
     <!-- 主视觉区 -->
     <section class="hero-section" id="voice-home">
@@ -651,7 +590,9 @@
     <script src="js/modules/voice_save.js?v=20250909" defer></script>
     <script src="js/modules/voice_share.js?v=20250909" defer></script>
     <script src="js/modules/voice_history.js?v=20250909" defer></script>
-    <script src="js/voice_app.js?v=20250925" defer></script>
+    <script src="js/voice_app.js?v=20250924" defer></script>
+    <script src="js/header.js?v=20250924" defer></script>
+    <script src="js/cookie_consent.js?v=20250924" defer></script>
 
     <!-- 认证模态交互脚本 -->
     <script src="js/auth_modals.js?v=20250909" defer></script>
@@ -1117,47 +1058,9 @@
     <!-- 页面初始化 -->
     <script>
       document.addEventListener("DOMContentLoaded", async function () {
-        // 等待所有模块加载完成
         setTimeout(async () => {
-          // 初始化认证状态
           if (window.authManager) {
             await window.authManager.init();
-            console.log("认证模块初始化完成");
-          } else {
-            console.error("认证模块未加载");
-          }
-
-          // 初始化图片管理
-          if (window.hdImageManager) {
-            console.log("图片管理模块初始化完成");
-            // 确保图片管理器正确初始化
-            if (window.authManager && window.authManager.isLoggedIn()) {
-              console.log("用户已登录，初始化图片管理器");
-              window.hdImageManager.init();
-            }
-          } else {
-            console.error("图片管理模块未加载");
-          }
-
-          // 测试模态框函数
-          console.log("showModal函数可用:", typeof showModal);
-
-          // 绑定用户菜单下拉
-          const userMenuToggle = document.getElementById("userMenuToggle");
-          const userDropdown = document.getElementById("userDropdown");
-          if (userMenuToggle && userDropdown) {
-            userMenuToggle.addEventListener("click", (e) => {
-              e.stopPropagation();
-              const shown = userDropdown.style.display === "block";
-              userDropdown.style.display = shown ? "none" : "block";
-              userMenuToggle.setAttribute("aria-expanded", (!shown).toString());
-            });
-            document.addEventListener("click", () => {
-              if (userDropdown.style.display === "block") {
-                userDropdown.style.display = "none";
-                userMenuToggle.setAttribute("aria-expanded", "false");
-              }
-            });
           }
         }, 1000);
       });
