@@ -86,13 +86,7 @@ class UIHandler {
       this.breadcrumbNav = null;
     }
 
-    // 更新页面文本
-    this.updatePageText();
-
-    // 监听语言变更事件
-    document.addEventListener("languageChanged", () => {
-      this.updatePageText();
-    });
+    // 移除重复的页面文本更新逻辑，交由 i18n.js 统一处理
   }
 
   /**
