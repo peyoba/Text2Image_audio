@@ -30,9 +30,12 @@
     const select = scope.querySelector("#lang-select");
     if (!select) return;
     try {
-      const current = typeof getCurrentLang === "function" ? getCurrentLang() : "zh";
+      const current = typeof getCurrentLang === "function" ? getCurrentLang() : "en";
       select.value = current;
-    } catch (_) {}
+    } catch (error) {
+      console.warn("[header] Failed to read current language:", error);
+      select.value = "en";
+    }
     select.addEventListener("change", (event) => {
       if (typeof setLanguage === "function") {
         const ok = setLanguage(event.target.value);
@@ -64,7 +67,8 @@
       .then((html) => {
         target.innerHTML = html;
         const nav = target.querySelector("nav.navbar");
-        const activeId = getActiveNavId();
+        const bodyPageId = document.body?.dataset?.pageId;
+        const activeId = bodyPageId || getActiveNavId();
         activateNav(nav, activeId);
         bindLanguageSelector(nav);
         bindAuthTrigger(nav);
