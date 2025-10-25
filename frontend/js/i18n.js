@@ -155,9 +155,9 @@ const i18n = {
       "Switch the aspect ratio to 16:9 for video covers while keeping the same lighting cues.",
     homeUseCaseReuse3:
       "Pair it with the voice module to script a 30-second narration for a complete asset kit.",
-    homeWorkflowTitle: "Workflow to produce assets consistently",
+    homeWorkflowTitle: "Workflow to Produce Assets Consistently",
     homeWorkflowIntro:
-      "Based on internal best practices, we break a typical AI visual task into four steps. Following them reduces guesswork and review cycles.",
+      "Based on our internal best practices, these four steps help teams ship reliable AI visuals while reducing guesswork and revision cycles.",
     homeWorkflowStep1Label: "Step 1",
     homeWorkflowStep1Title: "Clarify requirements",
     homeWorkflowStep1Desc:
@@ -1738,7 +1738,7 @@ const i18n = {
 
     // 主页内容
     heroDescription:
-      "基于先进的Pollinations.AI技术，支持FLUX、Turbo、Kontext等图像模型与OpenAI Audio TTS语音合成。无需注册，永久免费，支持中英文输入，专为创作者优化。",
+      "基于先进的 Pollinations.AI 技术，支持 FLUX、Turbo、Kontext 图像模型与 OpenAI Audio TTS 语音合成。无需注册，永久免费，支持中英文输入，专为创作者优化。",
     tagChinese: "中文支持",
 
     // AI模型
