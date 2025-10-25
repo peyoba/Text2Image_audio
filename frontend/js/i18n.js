@@ -23,7 +23,7 @@
  */
 const i18n = {
   en: {
-    // Title and description
+    // Title and description (English defaults now in HTML)
     title: "AISTONE",
     subtitle: "Images · Voice · Unlimited Free Generation",
 
@@ -132,6 +132,7 @@ const i18n = {
       "Enjoy AISTONE's complete feature set completely free - no registration, no limits, no hidden costs.",
 
     // Homepage use case & workflow sections
+    // Homepage case study & workflow (default text already updated in HTML)
     homeUseCaseTitle: "Case Study: From Prompt to Delivered Asset",
     homeUseCaseIntro:
       "This walkthrough shows how a marketing team finished a launch visual in five minutes with AISTONE. We include the exact prompt, parameters, and iteration notes so you can replicate the quality.",
@@ -142,12 +143,12 @@ const i18n = {
     homeUseCasePromptSize: "Resolution: 1024 × 1365 (portrait poster)",
     homeUseCasePromptCount: "Variations: 2 images for side-by-side review",
     homeUseCasePromptNegative: "Negative prompt: blurry, low contrast, watermark, extra hands",
-    homeUseCaseOutcomeTitle: "What the team shipped",
+    homeUseCaseOutcomeTitle: "Outcome Overview",
     homeUseCaseOutcomeDesc1:
       "Image #1 hit the brief but lighting was slightly blown out. Image #2 had better depth, so we upscaled it to 2048 × 2730 for the final export.",
     homeUseCaseOutcomeDesc2:
       "The final asset went live on the homepage banner and delivered a 23% lift in social ad CTR. No photoshoot or retouching was required.",
-    homeUseCaseReuseTitle: "Reuse tips:",
+    homeUseCaseReuseTitle: "Reuse Tips",
     homeUseCaseReuse1:
       "Swap the product nouns and materials to adapt the prompt to new categories.",
     homeUseCaseReuse2:
