@@ -3,7 +3,8 @@
  * 处理用户注册、登录、JWT token生成和验证
  */
 
-import { createHash, randomBytes } from "node:crypto";
+import { Buffer } from "node:buffer";
+import { createHash, randomBytes, pbkdf2Sync, timingSafeEqual } from "node:crypto";
 
 // --- Standard JWT (HS256 + base64url, WebCrypto) ---
 function base64urlEncode(bytes) {
@@ -88,16 +89,49 @@ function legacyVerifyJWT(token, secret) {
   }
 }
 
-/**
- * 生成密码哈希
- * @param {string} password - 明文密码
- * @param {string} salt - 盐值
- * @returns {string} 哈希后的密码
- */
-function hashPassword(password, salt) {
+const DEFAULT_PBKDF2_ITERATIONS = 120000;
+const DEFAULT_PBKDF2_KEYLEN = 64;
+const DEFAULT_PBKDF2_DIGEST = "sha256";
+
+function resolvePBKDF2Iterations(env) {
+  const value = parseInt(env?.PBKDF2_ITERATIONS || "", 10);
+  if (!Number.isNaN(value) && value >= 50000 && value <= 1000000) {
+    return value;
+  }
+  return DEFAULT_PBKDF2_ITERATIONS;
+}
+
+function resolvePBKDF2KeyLength(env) {
+  const value = parseInt(env?.PBKDF2_KEYLEN || "", 10);
+  if (!Number.isNaN(value) && value >= 32 && value <= 128) {
+    return value;
+  }
+  return DEFAULT_PBKDF2_KEYLEN;
+}
+
+function resolvePBKDF2Digest(env) {
+  const value = String(env?.PBKDF2_DIGEST || DEFAULT_PBKDF2_DIGEST).toLowerCase();
+  const allowed = new Set(["sha256", "sha384", "sha512"]);
+  return allowed.has(value) ? value : DEFAULT_PBKDF2_DIGEST;
+}
+
+function hashPasswordLegacy(password, salt) {
   return createHash("sha256")
     .update(password + salt)
     .digest("hex");
+}
+
+function hashPasswordPBKDF2(password, salt, iterations, keyLength, digest) {
+  return pbkdf2Sync(password, salt, iterations, keyLength, digest).toString("hex");
+}
+
+function timingSafeEqualHex(a, b) {
+  const bufA = Buffer.from(a, "hex");
+  const bufB = Buffer.from(b, "hex");
+  if (bufA.length !== bufB.length) {
+    return false;
+  }
+  return timingSafeEqual(bufA, bufB);
 }
 
 /**
@@ -179,9 +213,11 @@ export async function handleUserRegistration(userData, env) {
       };
     }
 
-    // 生成盐值和密码哈希
     const salt = generateSalt();
-    const hashedPassword = hashPassword(password, salt);
+    const iterations = resolvePBKDF2Iterations(env);
+    const keyLength = resolvePBKDF2KeyLength(env);
+    const digest = resolvePBKDF2Digest(env);
+    const hashedPassword = hashPasswordPBKDF2(password, salt, iterations, keyLength, digest);
 
     // 创建用户对象
     const user = {
@@ -189,9 +225,14 @@ export async function handleUserRegistration(userData, env) {
       username: username.trim(),
       email: email.toLowerCase().trim(),
       passwordHash: hashedPassword,
-      salt: salt,
+      salt,
+      passwordAlgorithm: "pbkdf2",
+      passwordIterations: iterations,
+      passwordKeyLength: keyLength,
+      passwordDigest: digest,
       createdAt: new Date().toISOString(),
       lastLoginAt: null,
+      passwordUpdatedAt: new Date().toISOString(),
       isActive: true,
     };
 
@@ -257,17 +298,29 @@ export async function handleUserLogin(credentials, env) {
 
     const user = JSON.parse(userData);
 
-    // 验证密码
-    const hashedPassword = hashPassword(password, user.salt);
-    if (hashedPassword !== user.passwordHash) {
+    const passwordCheckResult = verifyPasswordAgainstUser(password, user, env);
+    if (!passwordCheckResult.valid) {
       return {
         success: false,
         error: "邮箱或密码错误",
       };
     }
 
+    let userForPersistence = user;
+    if (passwordCheckResult.needsUpgrade) {
+      userForPersistence = upgradeUserPassword(user, password, env);
+    } else if (passwordCheckResult.metadataNeedsUpdate) {
+      userForPersistence = {
+        ...userForPersistence,
+        passwordAlgorithm: "pbkdf2",
+        passwordIterations: passwordCheckResult.iterations,
+        passwordKeyLength: passwordCheckResult.keyLength,
+        passwordDigest: passwordCheckResult.digest,
+      };
+    }
+
     // 检查用户状态
-    if (!user.isActive) {
+    if (!userForPersistence.isActive) {
       return {
         success: false,
         error: "账户已被禁用",
@@ -275,23 +328,23 @@ export async function handleUserLogin(credentials, env) {
     }
 
     // 更新最后登录时间
-    user.lastLoginAt = new Date().toISOString();
-    await env.USERS.put(email, JSON.stringify(user));
+    userForPersistence.lastLoginAt = new Date().toISOString();
+    await env.USERS.put(email, JSON.stringify(userForPersistence));
 
     // 生成JWT token
     const token = await generateJWT(
-      { userId: user.id, email: user.email },
+      { userId: userForPersistence.id, email: userForPersistence.email },
       env.JWT_SECRET || "your-secret-key",
       604800
     );
 
     // 返回用户信息（不包含敏感数据）
     const userResponse = {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      createdAt: user.createdAt,
-      lastLoginAt: user.lastLoginAt,
+      id: userForPersistence.id,
+      username: userForPersistence.username,
+      email: userForPersistence.email,
+      createdAt: userForPersistence.createdAt,
+      lastLoginAt: userForPersistence.lastLoginAt,
     };
 
     return {
@@ -646,13 +699,20 @@ export async function handleResetPassword(requestData, env) {
 
     const user = JSON.parse(userData);
 
-    // 生成新的盐值和密码哈希
+    const iterations = resolvePBKDF2Iterations(env);
+    const keyLength = resolvePBKDF2KeyLength(env);
+    const digest = resolvePBKDF2Digest(env);
     const salt = generateSalt();
-    const passwordHash = hashPassword(newPassword, salt);
+    const passwordHash = hashPasswordPBKDF2(newPassword, salt, iterations, keyLength, digest);
 
     // 更新用户密码
     user.passwordHash = passwordHash;
     user.salt = salt;
+    user.passwordAlgorithm = "pbkdf2";
+    user.passwordIterations = iterations;
+    user.passwordKeyLength = keyLength;
+    user.passwordDigest = digest;
+    user.passwordUpdatedAt = new Date().toISOString();
     user.updatedAt = new Date().toISOString();
 
     // 保存更新后的用户数据
@@ -1036,4 +1096,60 @@ function generateUUID() {
       return v.toString(16);
     });
   }
+}
+
+function verifyPasswordAgainstUser(password, user, env) {
+  const hasPBKDF2Meta =
+    user?.passwordAlgorithm === "pbkdf2" || user?.passwordIterations || user?.passwordDigest;
+
+  if (hasPBKDF2Meta) {
+    const iterations = user.passwordIterations || resolvePBKDF2Iterations(env);
+    const keyLength = user.passwordKeyLength || resolvePBKDF2KeyLength(env);
+    const digest = user.passwordDigest || resolvePBKDF2Digest(env);
+    const derived = hashPasswordPBKDF2(password, user.salt, iterations, keyLength, digest);
+    const valid = timingSafeEqualHex(derived, user.passwordHash);
+    const metadataNeedsUpdate =
+      user.passwordAlgorithm !== "pbkdf2" ||
+      user.passwordIterations !== iterations ||
+      user.passwordKeyLength !== keyLength ||
+      user.passwordDigest !== digest;
+    return {
+      valid,
+      needsUpgrade: false,
+      metadataNeedsUpdate,
+      iterations,
+      keyLength,
+      digest,
+    };
+  }
+
+  const legacyHash = hashPasswordLegacy(password, user.salt);
+  const valid = legacyHash === user.passwordHash;
+  return {
+    valid,
+    needsUpgrade: valid,
+    metadataNeedsUpdate: false,
+    iterations: resolvePBKDF2Iterations(env),
+    keyLength: resolvePBKDF2KeyLength(env),
+    digest: resolvePBKDF2Digest(env),
+  };
+}
+
+function upgradeUserPassword(user, password, env) {
+  const iterations = resolvePBKDF2Iterations(env);
+  const keyLength = resolvePBKDF2KeyLength(env);
+  const digest = resolvePBKDF2Digest(env);
+  const salt = generateSalt();
+  const hash = hashPasswordPBKDF2(password, salt, iterations, keyLength, digest);
+
+  return {
+    ...user,
+    salt,
+    passwordHash: hash,
+    passwordAlgorithm: "pbkdf2",
+    passwordIterations: iterations,
+    passwordKeyLength: keyLength,
+    passwordDigest: digest,
+    passwordUpdatedAt: new Date().toISOString(),
+  };
 }
