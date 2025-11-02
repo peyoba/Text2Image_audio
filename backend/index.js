@@ -9,6 +9,7 @@ import { registerAuthRoutes } from "./routes/auth.js";
 import { registerFeedbackRoutes } from "./routes/feedback.js";
 import { registerGenerationRoutes } from "./routes/generation.js";
 import { registerTranslateRoutes } from "./routes/translate.js";
+import { registerHealthRoutes } from "./routes/health.js";
 import { logInfo } from "./utils/logger.js";
 
 let routesRegistered = false;
@@ -18,6 +19,7 @@ function registerAllRoutes() {
   registerGenerationRoutes(registerRoute);
   registerFeedbackRoutes(registerRoute);
   registerTranslateRoutes(registerRoute);
+  registerHealthRoutes(registerRoute);
 }
 
 function ensureRoutesRegistered() {
