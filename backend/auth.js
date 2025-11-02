@@ -5,6 +5,7 @@
 
 import { Buffer } from "node:buffer";
 import { createHash, randomBytes, pbkdf2Sync, timingSafeEqual } from "node:crypto";
+import { logInfo } from "./utils/logger.js";
 
 // --- Standard JWT (HS256 + base64url, WebCrypto) ---
 function base64urlEncode(bytes) {
@@ -92,6 +93,48 @@ function legacyVerifyJWT(token, secret) {
 const DEFAULT_PBKDF2_ITERATIONS = 120000;
 const DEFAULT_PBKDF2_KEYLEN = 64;
 const DEFAULT_PBKDF2_DIGEST = "sha256";
+
+function trimToString(value) {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function resolveGoogleOAuthConfig(env) {
+  const errors = [];
+  const warnings = [];
+  const clientId = trimToString(env?.GOOGLE_CLIENT_ID);
+  if (!clientId) {
+    errors.push("GOOGLE_CLIENT_ID 未配置");
+  }
+
+  const clientSecretPrimary = trimToString(env?.GOOGLE_CLIENT_SECRET);
+  const clientSecretSecondary = trimToString(env?.GOOGLE_CLIENT_SECRET_NEW);
+  const clientSecret = clientSecretPrimary || clientSecretSecondary;
+  if (!clientSecret) {
+    errors.push("GOOGLE_CLIENT_SECRET 未配置");
+  } else if (!clientSecretPrimary && clientSecretSecondary) {
+    warnings.push("检测到 GOOGLE_CLIENT_SECRET_NEW，建议统一使用 GOOGLE_CLIENT_SECRET。");
+  }
+
+  let redirectUri = trimToString(env?.GOOGLE_REDIRECT_URI);
+  if (!redirectUri) {
+    const frontendUrl = trimToString(env?.FRONTEND_URL);
+    if (frontendUrl) {
+      const normalizedFrontend = frontendUrl.replace(/\/+$/, "");
+      redirectUri = `${normalizedFrontend || frontendUrl}/auth/google/callback`;
+      warnings.push("未显式配置 GOOGLE_REDIRECT_URI，已基于 FRONTEND_URL 推导回调地址。");
+    } else {
+      errors.push("GOOGLE_REDIRECT_URI 未配置，且 FRONTEND_URL 也为空");
+    }
+  }
+
+  return {
+    clientId,
+    clientSecret,
+    redirectUri,
+    errors,
+    warnings,
+  };
+}
 
 function resolvePBKDF2Iterations(env) {
   const value = parseInt(env?.PBKDF2_ITERATIONS || "", 10);
@@ -741,7 +784,7 @@ export async function handleResetPassword(requestData, env) {
  * @param {string} idToken - Google ID token
  * @returns {Promise<Object|null>} Google用户信息或null
  */
-async function verifyGoogleToken(idToken) {
+async function verifyGoogleToken(idToken, env) {
   try {
     const response = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${idToken}`);
 
@@ -750,11 +793,13 @@ async function verifyGoogleToken(idToken) {
     }
 
     const tokenInfo = await response.json();
-
-    // 验证audience（可选，增加安全性）
-    // if (tokenInfo.aud !== env.GOOGLE_CLIENT_ID) {
-    //     return null;
-    // }
+    const expectedAud = trimToString(env?.GOOGLE_CLIENT_ID);
+    if (expectedAud && tokenInfo.aud !== expectedAud) {
+      console.error(
+        `[Auth Error] Google token audience mismatch. expected=${expectedAud}, actual=${tokenInfo.aud}`
+      );
+      return null;
+    }
 
     return {
       email: tokenInfo.email,
@@ -785,9 +830,20 @@ export async function handleGoogleLogin(requestData, env) {
       };
     }
 
+    const clientId = trimToString(env?.GOOGLE_CLIENT_ID);
+    if (!clientId) {
+      console.error("[Auth Error] GOOGLE_CLIENT_ID 未配置，无法校验 Google 登录请求。");
+      return {
+        success: false,
+        error: "服务器配置错误，请联系管理员",
+        configErrors: ["GOOGLE_CLIENT_ID 未配置"],
+      };
+    }
+
     // 验证Google token
-    const googleUser = await verifyGoogleToken(idToken);
+    const googleUser = await verifyGoogleToken(idToken, env);
     if (!googleUser) {
+      console.error("[Auth Error] Google ID token 验证失败或audience不匹配。");
       return {
         success: false,
         error: "Google登录验证失败",
@@ -895,32 +951,25 @@ export async function handleGoogleOAuth(requestData, env) {
       };
     }
 
-    // 交换授权码获取访问令牌
-    const clientId =
-      env.GOOGLE_CLIENT_ID ||
-      "432588178769-n7vgnnmsh8l118heqmgtj92iir4i4n3s.apps.googleusercontent.com";
-    const clientSecret =
-      env.GOOGLE_CLIENT_SECRET || env.GOOGLE_CLIENT_SECRET_NEW || "GOCSPX-placeholder";
-    // 优先使用显式配置的回调；否则尝试从 FRONTEND_URL 推导；最后回退到历史硬编码
-    const redirectUri =
-      env.GOOGLE_REDIRECT_URI ||
-      (env.FRONTEND_URL && typeof env.FRONTEND_URL === "string"
-        ? `${String(env.FRONTEND_URL).replace(/\/$/, "")}/auth/google/callback`
-        : "https://aistone.org/auth/google/callback");
+    const googleConfig = resolveGoogleOAuthConfig(env);
+    if (googleConfig.errors.length) {
+      console.error(
+        `[Auth Error] Google OAuth 配置错误: ${googleConfig.errors.join("; ")}`
+      );
+      return {
+        success: false,
+        error: "服务器配置错误，请联系管理员",
+        configErrors: googleConfig.errors,
+      };
+    }
+    if (googleConfig.warnings.length) {
+      for (const warning of googleConfig.warnings) {
+        console.warn(`[Auth Warning] ${warning}`);
+      }
+    }
 
-    if (!env.GOOGLE_CLIENT_ID) {
-      console.warn(
-        "[Auth Warning] GOOGLE_CLIENT_ID 未设置，使用了内置回退值（仅用于兼容，建议尽快在环境变量中配置）。"
-      );
-    }
-    if (!env.GOOGLE_CLIENT_SECRET && !env.GOOGLE_CLIENT_SECRET_NEW) {
-      console.warn("[Auth Warning] GOOGLE_CLIENT_SECRET 未设置，使用了占位符，OAuth 可能会失败。");
-    }
-    if (!env.GOOGLE_REDIRECT_URI && !env.FRONTEND_URL) {
-      console.warn(
-        "[Auth Warning] 未配置 GOOGLE_REDIRECT_URI/FRONTEND_URL，使用了历史硬编码回调地址。"
-      );
-    }
+    const { clientId, clientSecret, redirectUri } = googleConfig;
+    logInfo(env, `[Auth] Exchanging Google auth code. redirectUri=${redirectUri}`);
 
     const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
       method: "POST",
@@ -945,6 +994,12 @@ export async function handleGoogleOAuth(requestData, env) {
         errorPayload = { error: "unknown_error", error_description: text };
       }
 
+      console.error(
+        `[Auth Error] Google OAuth token exchange失败 status=${tokenResponse.status}, payload=${JSON.stringify(
+          errorPayload
+        )}, state=${state || "<none>"}`
+      );
+
       // 统一的人性化错误信息
       let friendly = "Google授权失败，请重试";
       if (errorPayload && typeof errorPayload.error === "string") {
@@ -965,6 +1020,7 @@ export async function handleGoogleOAuth(requestData, env) {
     }
 
     const tokenData = await tokenResponse.json();
+    logInfo(env, "[Auth] Google token exchange成功，准备获取用户信息。");
 
     // 使用访问令牌获取用户信息
     const googleUserResponse = await fetch("https://www.googleapis.com/oauth2/v2/userinfo", {
@@ -974,7 +1030,10 @@ export async function handleGoogleOAuth(requestData, env) {
     });
 
     if (!googleUserResponse.ok) {
-      console.error("Google user info fetch failed:", await googleUserResponse.text());
+      const failureText = await googleUserResponse.text();
+      console.error(
+        `[Auth Error] Google user info 获取失败 status=${googleUserResponse.status}, body=${failureText}`
+      );
       return {
         success: false,
         error: "获取用户信息失败",
