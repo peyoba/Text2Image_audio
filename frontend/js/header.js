@@ -8,6 +8,7 @@
     if (path.endsWith("/") || path.endsWith("index.html")) return "home";
     if (path.includes("image-generator")) return "image";
     if (path.includes("voice")) return "voice";
+    if (path.includes("services")) return "services";
     if (path.includes("blog")) return "blog";
     if (path.includes("about")) return "about";
     if (path.includes("contact")) return "contact";

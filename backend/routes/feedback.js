@@ -5,9 +5,9 @@ import {
   getUserFeedbackList,
   getAllFeedbackForAdmin,
 } from "../services/feedback.js";
-import { jsonResponse } from "../utils/response.js";
-import { logInfo, logWarn } from "../utils/logger.js";
+import { logWarn } from "../utils/logger.js";
 import { recordMetric } from "../utils/metrics.js";
+import { jsonResponse } from "../utils/response.js";
 
 export function registerFeedbackRoutes(registerRoute) {
   registerRoute(

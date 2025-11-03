@@ -5,6 +5,7 @@
 
 import { Buffer } from "node:buffer";
 import { createHash, randomBytes, pbkdf2Sync, timingSafeEqual } from "node:crypto";
+
 import { logInfo } from "./utils/logger.js";
 
 // --- Standard JWT (HS256 + base64url, WebCrypto) ---
@@ -953,9 +954,7 @@ export async function handleGoogleOAuth(requestData, env) {
 
     const googleConfig = resolveGoogleOAuthConfig(env);
     if (googleConfig.errors.length) {
-      console.error(
-        `[Auth Error] Google OAuth 配置错误: ${googleConfig.errors.join("; ")}`
-      );
+      console.error(`[Auth Error] Google OAuth 配置错误: ${googleConfig.errors.join("; ")}`);
       return {
         success: false,
         error: "服务器配置错误，请联系管理员",

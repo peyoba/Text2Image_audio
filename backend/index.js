@@ -8,8 +8,8 @@ import { registerRoute, matchRoute, HttpError, jsonResponse, makeCorsResponse } 
 import { registerAuthRoutes } from "./routes/auth.js";
 import { registerFeedbackRoutes } from "./routes/feedback.js";
 import { registerGenerationRoutes } from "./routes/generation.js";
-import { registerTranslateRoutes } from "./routes/translate.js";
 import { registerHealthRoutes } from "./routes/health.js";
+import { registerTranslateRoutes } from "./routes/translate.js";
 import { logInfo } from "./utils/logger.js";
 
 let routesRegistered = false;

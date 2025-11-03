@@ -19,7 +19,10 @@ export function registerGenerationRoutes(registerRoute) {
         const genType = body.type;
 
         if (!textPrompt || !genType) {
-          logWarn(env, "[Generation] 缺少必要参数", { type: genType, hasText: Boolean(textPrompt) });
+          logWarn(env, "[Generation] 缺少必要参数", {
+            type: genType,
+            hasText: Boolean(textPrompt),
+          });
           return jsonResponse({ error: "缺少必要的参数: text 和 type" }, env, 400);
         }
 
@@ -169,13 +172,14 @@ async function handlePollinationsImage(body, env) {
     return jsonResponse({ error: "缺少必要的参数: prompt" }, env, 400);
   }
 
+  const t0 = Date.now();
+
   try {
     logInfo(
       env,
       `[Worker Log] Processing Pollinations image generation - Prompt: ${prompt.substring(0, 50)}..., Model: ${model}, Size: ${width}x${height}`
     );
 
-    const t0 = Date.now();
     const imageArrayBuffer = await generateImageFromPollinations(
       prompt,
       env,
