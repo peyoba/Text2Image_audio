@@ -972,6 +972,8 @@ const i18n = {
     // Google登录和忘记密码
     or: "或",
     googleLogin: "使用Google登录",
+    loginOptional: "登录是可选的—所有功能无需注册即可使用",
+    loginWithGoogle: "使用Google登录",
     forgotPassword: "忘记密码？",
     forgotPasswordTitle: "忘记密码",
     forgotPasswordTip: "我们将向您的邮箱发送重置密码的链接",
@@ -2415,6 +2417,8 @@ const i18n = {
     // Google Login and forgot password
     or: "OR",
     googleLogin: "Sign in with Google",
+    loginOptional: "Logging in is optional—every feature works without registration",
+    loginWithGoogle: "Continue with Google",
     forgotPassword: "Forgot Password?",
     forgotPasswordTitle: "Forgot Password",
     forgotPasswordTip: "We will send a password reset link to your email",
@@ -3446,14 +3450,44 @@ function setLanguage(lang) {
       document.querySelectorAll("[data-i18n]").forEach((el) => {
         const key = el.getAttribute("data-i18n");
         const value = getNestedI18nValue(normalized, key);
-        if (value && value !== key) {
+        if (value && value !== key && typeof value === "string") {
           if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
             el.placeholder = value;
           } else if (el.tagName === "OPTION") {
             el.textContent = value;
           } else {
-            el.innerHTML = value;
+            // 检查元素是否有需要保留的子元素（如图片、按钮等）
+            const hasPreservableChildren = el.querySelectorAll("img, button, a, svg").length > 0;
+            if (hasPreservableChildren) {
+              // 有需要保留的子元素，查找并更新span或文本节点
+              // 优先查找span元素
+              const span = el.querySelector("span");
+              if (span) {
+                span.textContent = value;
+              } else {
+                // 没有span，查找并更新第一个文本节点
+                let textNode = null;
+                for (let node of el.childNodes) {
+                  if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                    textNode = node;
+                    break;
+                  }
+                }
+                if (textNode) {
+                  textNode.textContent = value;
+                } else {
+                  // 没有文本节点，在所有子元素之后插入文本节点
+                  el.appendChild(document.createTextNode(value));
+                }
+              }
+            } else {
+              // 没有需要保留的子元素，直接使用textContent（更安全）
+              el.textContent = value;
+            }
           }
+          console.log(`[i18n] setLanguage 已更新元素 [data-i18n=${key}]`);
+        } else if (!value) {
+          console.warn(`[i18n] setLanguage 未找到翻译键: ${key}`);
         }
       });
 
@@ -3652,17 +3686,44 @@ function updatePageText() {
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const key = el.getAttribute("data-i18n");
       const value = getNestedI18nValue(lang, key);
-      if (value && value !== key) {
+      if (value && value !== key && typeof value === "string") {
         if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
           el.placeholder = value;
         } else if (el.tagName === "OPTION") {
           el.textContent = value;
         } else {
-          el.innerHTML = value;
+          // 检查元素是否有需要保留的子元素（如图片、按钮等）
+          const hasPreservableChildren = el.querySelectorAll("img, button, a, svg").length > 0;
+          if (hasPreservableChildren) {
+            // 有需要保留的子元素，查找并更新span或文本节点
+            // 优先查找span元素
+            const span = el.querySelector("span");
+            if (span) {
+              span.textContent = value;
+            } else {
+              // 没有span，查找并更新第一个文本节点
+              let textNode = null;
+              for (let node of el.childNodes) {
+                if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                  textNode = node;
+                  break;
+                }
+              }
+              if (textNode) {
+                textNode.textContent = value;
+              } else {
+                // 没有文本节点，在所有子元素之后插入文本节点
+                el.appendChild(document.createTextNode(value));
+              }
+            }
+          } else {
+            // 没有需要保留的子元素，直接使用textContent（更安全）
+            el.textContent = value;
+          }
         }
-        console.log(`[i18n] 已更新元素 [data-i18n=${key}]`);
-      } else {
-        console.warn(`[i18n] 未找到翻译键: ${key}`);
+        console.log(`[i18n] updatePageText 已更新元素 [data-i18n=${key}]`);
+      } else if (!value) {
+        console.warn(`[i18n] updatePageText 未找到翻译键: ${key}`);
       }
     });
 

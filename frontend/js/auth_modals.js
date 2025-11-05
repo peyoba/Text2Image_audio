@@ -469,6 +469,17 @@ window.addEventListener("DOMContentLoaded", () => {
     // 显示重置密码模态框
     showModal("resetPasswordModal");
   }
+
+  // 如果页面中已经有认证表单（如index.html），自动初始化
+  // 延迟执行确保所有脚本都已加载
+  setTimeout(() => {
+    const loginForm = document.getElementById("loginForm");
+    const googleLoginBtn = document.getElementById("googleLoginBtn");
+    if ((loginForm || googleLoginBtn) && window.initAuthForms) {
+      console.log("[auth_modals] 检测到内联认证表单，自动初始化...");
+      initAuthForms();
+    }
+  }, 100);
 });
 
 // 导出初始化函数
