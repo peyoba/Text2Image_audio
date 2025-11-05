@@ -1043,10 +1043,10 @@ const i18n = {
     homeQuickFaqQ1: "AISTONE 是否完全免费？",
     homeQuickFaqA1:
       "核心功能（含高清导出与语音合成）对所有访客免费开放。企业私有化、品牌定制与高并发 API 需单独收费。",
-    homeQuickFaqQ2: "Can I use generated assets commercially?",
+    homeQuickFaqQ2: "生成的素材可以商用吗？",
     homeQuickFaqA2:
-      "Yes. You own the assets for campaigns and ads. Please follow platform disclosure rules for AI-generated media.",
-    homeQuickFaqQ3: "How do I improve prompt accuracy?",
+      "可以。您拥有生成素材的商用权，可用于广告投放。请遵守平台对 AI 生成内容的披露规则。",
+    homeQuickFaqQ3: "如何提高提示词准确度？",
     homeQuickFaqA3:
       "明确主体、光线、镜头与风格关键词，并善用负面提示词排除不需要的元素。可参考上方案例逐项拆分描述。",
 
