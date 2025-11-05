@@ -289,14 +289,32 @@ async function handleGoogleLogin() {
     console.log("弹窗已打开:", popup);
 
     if (!popup) {
-      window.authManager?.showMessage(
+      const warnMsg =
         getCurrentLang && getCurrentLang() === "zh"
-          ? "弹窗被阻止，请允许弹窗后重试"
-          : "Popup blocked, please allow popups and try again",
-        "warning"
-      );
+          ? "检测到浏览器阻止弹窗，将在当前页面跳转至 Google 登录。"
+          : "The browser blocked the popup. Redirecting to Google sign-in in this tab.";
+      window.authManager?.showMessage(warnMsg, "warning");
+      // 降级：直接在当前窗口打开授权页
+      window.location.href = authUrl;
       return;
     }
+
+    // 如果用户立即关闭弹窗，给予提示
+    const popupWatchTimer = setInterval(() => {
+      try {
+        if (popup.closed) {
+          clearInterval(popupWatchTimer);
+          window.authManager?.showMessage(
+            getCurrentLang && getCurrentLang() === "zh"
+              ? "登录窗口已关闭，如需继续请允许弹窗或检查浏览器提示。"
+              : "The login window was closed. Please allow popups or retry the sign-in flow.",
+            "warning"
+          );
+        }
+      } catch (_) {
+        clearInterval(popupWatchTimer);
+      }
+    }, 1000);
 
     // 监听弹窗的消息
     const messageListener = (event) => {
@@ -330,6 +348,7 @@ async function handleGoogleLogin() {
         } catch (_) {}
         window.removeEventListener("message", messageListener);
         popup && popup.close();
+        clearInterval(popupWatchTimer);
         return;
       } else if (event.data.type === "GOOGLE_AUTH_TOKEN" && event.data.token) {
         // 兜底：回调页直接把 token+user 发来
@@ -344,6 +363,7 @@ async function handleGoogleLogin() {
         } catch (_) {}
         window.removeEventListener("message", messageListener);
         popup && popup.close();
+        clearInterval(popupWatchTimer);
         return;
       } else if (event.data.type === "GOOGLE_AUTH_SUCCESS") {
         // 处理成功的Google登录
@@ -351,6 +371,7 @@ async function handleGoogleLogin() {
         handleGoogleAuthSuccess(event.data.code, state);
         popup.close();
         window.removeEventListener("message", messageListener);
+        clearInterval(popupWatchTimer);
       } else if (event.data.type === "GOOGLE_AUTH_ERROR") {
         // 处理错误
         console.log("Google授权错误:", event.data.error);
@@ -362,6 +383,7 @@ async function handleGoogleLogin() {
         );
         popup.close();
         window.removeEventListener("message", messageListener);
+        clearInterval(popupWatchTimer);
       }
     };
 
@@ -380,6 +402,7 @@ async function handleGoogleLogin() {
       } catch (error) {
         // 忽略可能的跨域错误
       }
+      clearInterval(popupWatchTimer);
     }, 300000); // 5分钟超时
   } catch (err) {
     console.error("Google登录错误:", err);

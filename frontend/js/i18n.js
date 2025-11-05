@@ -3581,6 +3581,12 @@ function setLanguage(lang) {
       document.dispatchEvent(event);
       console.log("[i18n] 已触发languageChanged事件");
 
+      // 主动刷新页面文本，确保立即生效
+      if (typeof updatePageText === "function") {
+        console.log("[i18n] setLanguage 调用 updatePageText() 立即刷新文案");
+        updatePageText();
+      }
+
       return true;
     } catch (error) {
       console.error("[i18n] 设置语言时发生错误:", error);
