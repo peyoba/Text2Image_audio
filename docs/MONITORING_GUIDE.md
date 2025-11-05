@@ -42,6 +42,17 @@
 - 前端运行时
   - `window.HD_STATS_POLL_INTERVAL_MS` 或 localStorage `hd_stats_poll_ms`（默认3600000；0关闭）
 
+## 操作手册
+
+- **健康检查脚本**：
+  - 运行 `npm run health:check -- --url https://<worker>/ --token <HEALTH_CHECK_TOKEN>`
+  - 环境变量 `HEALTH_CHECK_URL` / `HEALTH_CHECK_TOKEN` / `HEALTH_CHECK_RETRIES` / `HEALTH_CHECK_INTERVAL_MS` 可覆盖默认值
+  - 加 `-v` 输出完整 JSON，便于定位具体 degraded 项
+- **指标日志**：
+  - 设置 `METRICS_ENABLED=true` 与 `METRICS_SAMPLE_RATE=0.2`（例）开启采样
+  - `LOG_LEVEL=debug` 时，可在 Cloudflare Logs 中检索 `[METRIC]` 前缀，组合 `api=`、`op=`、`status=` 字段快速筛查
+  - 建议灰度开启，验证日志量与成本后再扩大采样率
+
 ## 阈值与告警建议（轻量）
 
 - 短期内错误率 > 5%（按接口）→ 升级日志级别到 debug 并采样

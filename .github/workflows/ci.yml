@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        env:
+          PBKDF2_ITERATIONS: 120000
+          PBKDF2_KEYLEN: 64
+          PBKDF2_DIGEST: sha512
+        run: npm run test:unit
+
+      - name: Integration tests
+        env:
+          WRANGLER_LOG_DISABLE_FILE: "1"
+          HEALTH_CHECK_TOKEN: test-token
+          HEALTH_CHECK_RETRIES: 1
+          HEALTH_CHECK_INTERVAL_MS: 2000
+          JWT_SECRET: test-secret
+          GOOGLE_CLIENT_ID: dummy-client
+          GOOGLE_CLIENT_SECRET: dummy-secret
+          FRONTEND_URL: https://example.com
+        run: npm run test:integration

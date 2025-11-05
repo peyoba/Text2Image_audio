@@ -1211,3 +1211,14 @@ function upgradeUserPassword(user, password, env) {
     passwordUpdatedAt: new Date().toISOString(),
   };
 }
+
+export const __authTestables = {
+  hashPasswordLegacy,
+  hashPasswordPBKDF2,
+  verifyPasswordAgainstUser,
+  upgradeUserPassword,
+  resolvePBKDF2Iterations,
+  resolvePBKDF2KeyLength,
+  resolvePBKDF2Digest,
+  resolveGoogleOAuthConfig,
+};

@@ -324,6 +324,13 @@ wrangler deploy
    - **生产域名**：https://aistone.org
 3. ✅ **零维护**：推送即部署，无需手动操作
 
+## 🧭 运维与质量资源
+
+- `docs/OPERATIONS_RUNBOOK.md`：部署、验证、回滚与排障手册（推荐上线前后对照执行）。
+- `docs/MONITORING_GUIDE.md`：健康检查、日志与指标开关说明。
+- `docs/QA_TEST_PLAN.md`：核心功能测试计划与覆盖范围。
+- `docs/CI_GUIDE.md`：GitHub Actions CI 配置与 Secrets 要求。
+
 ## 🔐 环境变量配置
 
 我们推荐通过 `wrangler.toml` 文件来管理环境变量，这样便于版本控制和团队协作。您也可以在Cloudflare Workers的控制台UI中进行设置。
