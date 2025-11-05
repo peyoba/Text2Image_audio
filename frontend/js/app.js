@@ -65,25 +65,39 @@ class App {
    * 初始化语言选择器
    */
   initializeLanguageSelector() {
-    const langSelect = document.getElementById("lang-select");
-    if (langSelect) {
-      // 设置初始值
+    const attachHandler = () => {
+      const langSelect = document.getElementById("lang-select");
+      if (!langSelect) {
+        return false;
+      }
+
       const currentLang = getCurrentLang();
       langSelect.value = currentLang;
       console.log("设置语言选择器初始值:", currentLang);
 
-      // 添加事件监听器
-      langSelect.addEventListener("change", (e) => {
+      langSelect.onchange = (e) => {
         console.log("语言选择器变化:", e.target.value);
         const success = setLanguage(e.target.value);
         if (!success) {
           console.error("语言切换失败");
-          // 恢复原来的选择
           langSelect.value = getCurrentLang();
         }
-      });
-    } else {
-      console.error("未找到语言选择器元素");
+      };
+      return true;
+    };
+
+    if (!attachHandler()) {
+      console.warn("未找到语言选择器元素，等待导航挂载后再初始化");
+      document.addEventListener(
+        "header:mounted",
+        () => {
+          attachHandler();
+          if (window.uiHandler && typeof window.uiHandler.initLanguageSwitcher === "function") {
+            window.uiHandler.initLanguageSwitcher();
+          }
+        },
+        { once: true }
+      );
     }
   }
 

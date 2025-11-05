@@ -21,6 +21,13 @@
  * 支持中文和英文
  * 运行环境：无打包直接引入（no-bundler），通过 window 全局使用
  */
+function normalizeLang(lang) {
+  if (!lang) return "en";
+  const lower = String(lang).toLowerCase();
+  if (lower.startsWith("zh")) return "zh";
+  return "en";
+}
+
 const i18n = {
   en: {
     // Title and description (English defaults now in HTML)
@@ -3375,9 +3382,10 @@ const i18n = {
 
 // 获取当前语言
 function getCurrentLang() {
-  const storedLang = localStorage.getItem("preferred_language");
-  console.log("从localStorage获取语言:", storedLang); // 调试日志
-  return storedLang || "en"; // 默认使用英文
+  const storedRaw = localStorage.getItem("preferred_language");
+  const storedLang = normalizeLang(storedRaw);
+  console.log("从localStorage获取语言:", storedRaw, "→", storedLang); // 调试日志
+  return storedLang;
 }
 
 // 更新语言切换按钮状态
@@ -3424,19 +3432,20 @@ function getNestedI18nValue(lang, keyPath) {
 // 设置语言
 function setLanguage(lang) {
   // console.log('[i18n] setLanguage called, lang=', lang);
-  if (i18n[lang]) {
+  const normalized = normalizeLang(lang);
+  if (i18n[normalized]) {
     try {
       // 保存语言设置
-      localStorage.setItem("preferred_language", lang);
+      localStorage.setItem("preferred_language", normalized);
       // 设置HTML lang属性，使用标准的语言代码
-      const langCode = lang === "zh" ? "zh-CN" : "en";
+      const langCode = normalized === "zh" ? "zh-CN" : "en";
       document.documentElement.lang = langCode;
       // console.log('[i18n] 语言已保存到localStorage:', lang, 'HTML lang属性设置为:', langCode);
 
       // 更新所有带有data-i18n属性的元素
       document.querySelectorAll("[data-i18n]").forEach((el) => {
         const key = el.getAttribute("data-i18n");
-        const value = getNestedI18nValue(lang, key);
+        const value = getNestedI18nValue(normalized, key);
         if (value && value !== key) {
           if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
             el.placeholder = value;
@@ -3475,11 +3484,11 @@ function setLanguage(lang) {
 
       for (const [key, selector] of Object.entries(elements)) {
         const element = document.querySelector(selector);
-        if (element && i18n[lang][key]) {
+        if (element && i18n[normalized][key]) {
           if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
-            element.placeholder = i18n[lang][key];
+            element.placeholder = i18n[normalized][key];
           } else {
-            element.textContent = i18n[lang][key];
+            element.textContent = i18n[normalized][key];
           }
           console.log(`[i18n] 已更新元素 ${selector}`);
         }
@@ -3489,13 +3498,13 @@ function setLanguage(lang) {
       document.querySelectorAll(".example-btn").forEach((btn) => {
         const i18nNameKey = btn.dataset.i18nName;
         if (i18nNameKey) {
-          btn.textContent = getNestedI18nValue(lang, i18nNameKey);
+          btn.textContent = getNestedI18nValue(normalized, i18nNameKey);
           // 赋值text和type
           const parts = i18nNameKey.split(".");
           if (parts.length === 3 && parts[0] === "examples") {
             const exampleKey = parts[1];
-            const textVal = getNestedI18nValue(lang, `examples.${exampleKey}.text`);
-            const typeVal = getNestedI18nValue(lang, `examples.${exampleKey}.type`);
+            const textVal = getNestedI18nValue(normalized, `examples.${exampleKey}.text`);
+            const typeVal = getNestedI18nValue(normalized, `examples.${exampleKey}.type`);
             if (textVal) btn.dataset.text = textVal;
             if (typeVal) btn.dataset.type = typeVal;
           }
@@ -3506,7 +3515,7 @@ function setLanguage(lang) {
       const typeHint = document.getElementById("type-hint");
       if (typeHint) {
         const isImage = document.getElementById("type-image")?.checked;
-        typeHint.textContent = isImage ? i18n[lang].imageHint : i18n[lang].audioHint;
+        typeHint.textContent = isImage ? i18n[normalized].imageHint : i18n[normalized].audioHint;
       }
 
       // 强制更新语音模型显示
@@ -3546,7 +3555,7 @@ function setLanguage(lang) {
           const key = option.getAttribute("data-i18n") || valueToKey[option.value];
           const oldText = option.textContent;
 
-          let value = key ? getNestedI18nValue(lang, key) : undefined;
+          let value = key ? getNestedI18nValue(normalized, key) : undefined;
           if (!value && typeof window.getVoiceName === "function") {
             // 回退：使用 value → name 的动态函数
             try {
@@ -3577,7 +3586,7 @@ function setLanguage(lang) {
       }
 
       // 触发语言变更事件
-      const event = new CustomEvent("languageChanged", { detail: { language: lang } });
+      const event = new CustomEvent("languageChanged", { detail: { language: normalized } });
       document.dispatchEvent(event);
       console.log("[i18n] 已触发languageChanged事件");
 

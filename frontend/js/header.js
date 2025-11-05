@@ -76,6 +76,7 @@
         if (typeof window.authManager !== "undefined" && window.authManager?.syncHeader) {
           window.authManager.syncHeader(nav);
         }
+        document.dispatchEvent(new CustomEvent("header:mounted", { detail: { nav } }));
       })
       .catch((err) => {
         console.error("加载导航失败:", err);

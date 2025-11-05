@@ -37,7 +37,7 @@ class UIHandler {
       this.typeImageRadio = document.getElementById("type-image");
       this.typeAudioRadio = document.getElementById("type-audio");
       this.loadingIndicator = document.getElementById("loading-indicator");
-      this.loadingText = this.loadingIndicator.querySelector("p"); // 获取加载指示器内的p标签
+      this.loadingText = this.loadingIndicator?.querySelector("p") || null; // 获取加载指示器内的p标签
       this.errorMessage = document.getElementById("error-message");
       this.imageResultContainer = document.getElementById("image-result-container");
       this.audioResultContainer = document.getElementById("audio-result-container");
@@ -93,15 +93,26 @@ class UIHandler {
    * 初始化语言切换功能
    */
   initLanguageSwitcher() {
-    const currentLang = getCurrentLang();
-    const langSelect = document.getElementById("lang-select");
-    if (langSelect) {
-      langSelect.value = currentLang;
+    const applySwitcher = () => {
+      const langSelect = document.getElementById("lang-select");
+      if (!langSelect) return false;
+      langSelect.value = getCurrentLang();
       langSelect.addEventListener("change", (e) => {
         if (e.target.value !== getCurrentLang()) {
           setLanguage(e.target.value);
         }
       });
+      return true;
+    };
+
+    if (!applySwitcher()) {
+      document.addEventListener(
+        "header:mounted",
+        () => {
+          applySwitcher();
+        },
+        { once: true }
+      );
     }
   }
 
@@ -941,7 +952,7 @@ class UIHandler {
 
   _ensureLoadingIsHidden() {
     // 新增一个方法确保loading最终被隐藏
-    if (this.loadingIndicator.style.display !== "none") {
+    if (this.loadingIndicator && this.loadingIndicator.style.display !== "none") {
       this.hideLoading();
     }
   }
