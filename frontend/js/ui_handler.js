@@ -283,14 +283,16 @@ class UIHandler {
     const footerCopyright = document.querySelector(".footer-left");
     if (footerCopyright) footerCopyright.textContent = t("footerCopyright");
     const footerLinks = t("footerLinks");
+    const footerLinksTitle = t("footerLinksTitle");
     const footerRight = document.querySelector(".footer-right");
     if (footerRight && Array.isArray(footerLinks)) {
-      footerRight.innerHTML = footerLinks
+      const linksHtml = footerLinks
         .map(
           (link) =>
             `<a href="${link.url}" class="footer-link" target="_blank" rel="noopener noreferrer">${link.text}</a>`
         )
         .join("<br>");
+      footerRight.innerHTML = `<div class="footer-links-title">${footerLinksTitle}</div>${linksHtml}`;
     }
   }
 

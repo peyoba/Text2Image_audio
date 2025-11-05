@@ -285,14 +285,14 @@ const i18n = {
       "Once you have the answers, save them in the AISTONE notes panel or a shared doc. The information flows directly into the prompt blueprint in the next section.",
     blogAiGuideSection2Title: "2. Build prompts that survive stakeholder feedback",
     blogAiGuideSection2Intro:
-      "Prompt engineering is less about poetic adjectives and more about covering the decision-maker’s concerns. We recommend a five-part structure that you can copy-paste into AISTONE and tweak per project.",
+      "Prompt engineering is less about poetic adjectives and more about covering the decision-maker's concerns. We recommend a five-part structure that you can copy-paste into AISTONE and tweak per project.",
     blogAiGuidePromptFormula:
       "[Subject] + [Setting & mood] + [Composition & camera] + [Materials & detail] + [Lighting]",
     blogAiGuideSection2ExampleIntro: "For the smartwatch campaign example:",
     blogAiGuideSection2ExamplePrompt:
       '"Premium fitness smartwatch placed on mirrored podium, sunrise light streaming through minimalist studio, photographed on 50mm lens, focus on brushed aluminum texture, crisp product staging"',
     blogAiGuideSection2Negative:
-      "Pair every prompt with negative prompts so the model avoids typical artefacts. Start with a reusable set such as <em>“blurry, watermark, distorted hands, text logo, grainy”</em> and expand based on feedback from the review cycle.",
+      '为每组提示词准备负面词，避免常见瑕疵。可以从 <em>"blurry, watermark, distorted hands, text logo, grainy"</em> 这类泛用组合起步，再根据反馈扩充。',
     blogAiGuideSection2TipTitle: "Stakeholder alignment tip:",
     blogAiGuideSection2TipDesc:
       "Share the prompt blueprint in your approval workflow so marketing leads understand exactly what will be generated before the first render lands in their inbox.",
@@ -348,15 +348,15 @@ const i18n = {
       "High-performing teams build lightweight rituals around AI production. Consider adopting the following cadence:",
     blogAiGuideSection6Card1Title: "Daily stand-up",
     blogAiGuideSection6Card1Desc:
-      "Designers share yesterday’s prompts and results. Growth leads call out performance insights. Keeps everyone aligned on what “good” looks like.",
+      'Designers share yesterday\'s prompts and results. Growth leads call out performance insights. Keeps everyone aligned on what "good" looks like.',
     blogAiGuideSection6Card2Title: "Weekly library update",
     blogAiGuideSection6Card2Desc:
       "Drop approved prompts, outputs, and usage notes into a shared knowledge base. Tag by campaign so future sprints can reference proven angles.",
     blogAiGuideSection6Card3Title: "Monthly retro",
     blogAiGuideSection6Card3Desc:
-      "Compare campaign metrics against the creative choices made in prompts. Document learnings in your playbook to keep beating the “low quality” label.",
+      'Compare campaign metrics against the creative choices made in prompts. Document learnings in your playbook to keep beating the "low quality" label.',
     blogAiGuideSection6Outro:
-      "With consistent documentation, the “low value content” warning disappears: reviewers see clear expertise, effort, and tangible results from every asset you publish.",
+      'With consistent documentation, the "low value content" warning disappears: reviewers see clear expertise, effort, and tangible results from every asset you publish.',
     blogAiGuideDownload: "Download PDF",
     blogAiGuideShare: "Share Guide",
     blogAiGuideAuthor: "AISTONE Content Team",
@@ -387,7 +387,7 @@ const i18n = {
       "Describe style, lighting, camera, and mood from most to least critical. This reduces conflicting signals and makes weight tuning easier.",
     promptEngineeringSection1Heading3: "3. Include context & action",
     promptEngineeringSection1Paragraph3:
-      "Short clauses about location or motion (“in a rain-soaked alley”, “hovering above a neon city”) dramatically improve coherence, especially for cinematic shots.",
+      'Short clauses about location or motion ("in a rain-soaked alley", "hovering above a neon city") dramatically improve coherence, especially for cinematic shots.',
     promptEngineeringSection2Paragraph1:
       "Use weighting syntax to emphasise or downplay specific attributes. AISTONE supports both parenthetical weights and colon weights familiar to diffusion users.",
     promptEngineeringSection2List1: "<strong>1.4+</strong> — hero element, must-read instructions.",
@@ -404,9 +404,9 @@ const i18n = {
     promptEngineeringSection4List1:
       "<strong>Establish the base medium.</strong> Photography, oil painting, cel-shaded illustration — pick one anchor to avoid muddy results.",
     promptEngineeringSection4List2:
-      "<strong>Add two complementary influences.</strong> Example: “shot on Kodak Portra 400” + “lighting by Gregory Crewdson”.",
+      '<strong>Add two complementary influences.</strong> Example: "shot on Kodak Portra 400" + "lighting by Gregory Crewdson".',
     promptEngineeringSection4List3:
-      "<strong>Limit conflicting adjectives.</strong> “Minimalist” and “baroque” rarely work together unless intentionally juxtaposed.",
+      '<strong>Limit conflicting adjectives.</strong> "Minimalist" and "baroque" rarely work together unless intentionally juxtaposed.',
     promptEngineeringSection4List4:
       "<strong>Use references sparingly.</strong> Link to mood boards or concept art only when necessary; otherwise rely on textual cues.",
     promptEngineeringSection4Paragraph:
@@ -420,7 +420,7 @@ const i18n = {
     promptEngineeringSection5List4:
       "<strong>Hand-off package:</strong> Provide prompt, seed, aspect ratio, and any upscaling notes to downstream teams.",
     promptEngineeringSection5Paragraph:
-      "Pair this checklist with AISTONE’s prompt history so anyone can trace how a hero image evolved from first draft to final delivery.",
+      "Pair this checklist with AISTONE's prompt history so anyone can trace how a hero image evolved from first draft to final delivery.",
     promptEngineeringDownload: "Download PDF",
     promptEngineeringShare: "Share Guide",
 
@@ -472,7 +472,7 @@ const i18n = {
     tutorialTroubleshootingItem1:
       "<strong>Images look blurry:</strong> Increase resolution or switch to FLUX, and add more concrete detail.",
     tutorialTroubleshootingItem2:
-      "<strong>Voice pronunciations off:</strong> Add phonetic hints (e.g., “AISTONE (pronounced eye-stone)”).",
+      '<strong>Voice pronunciations off:</strong> Add phonetic hints (e.g., "AISTONE (pronounced eye-stone)")',
     tutorialTroubleshootingItem3:
       "<strong>Timeouts:</strong> Retry with fewer variations or simplify prompts; check status page for outages.",
     tutorialTroubleshootingItem4:
@@ -1034,10 +1034,10 @@ const i18n = {
     homeQuickFaqQ1: "AISTONE 是否完全免费？",
     homeQuickFaqA1:
       "核心功能（含高清导出与语音合成）对所有访客免费开放。企业私有化、品牌定制与高并发 API 需单独收费。",
-    homeQuickFaqQ2: "生成内容能否商用？",
+    homeQuickFaqQ2: "Can I use generated assets commercially?",
     homeQuickFaqA2:
-      "可以。用户拥有素材的完整使用权，可用于广告与宣传。请遵循各平台对 AI 内容的披露规范。",
-    homeQuickFaqQ3: "如何提升提示词命中率？",
+      "Yes. You own the assets for campaigns and ads. Please follow platform disclosure rules for AI-generated media.",
+    homeQuickFaqQ3: "How do I improve prompt accuracy?",
     homeQuickFaqA3:
       "明确主体、光线、镜头与风格关键词，并善用负面提示词排除不需要的元素。可参考上方案例逐项拆分描述。",
 
@@ -1046,7 +1046,7 @@ const i18n = {
     aboutHeroIntroNew:
       "我们是一个远程协作的小团队，基于 Cloudflare Workers 打造免注册的 AI 创作工作台，并将每次迭代记录在公开仓库中。",
     aboutHeroApiPrefix: "API 基址：",
-    aboutHeroApiSuffix: "（Cloudflare Workers）",
+    aboutHeroApiSuffix: "(Cloudflare Workers)",
     aboutHeroRepoPrefix: "源码与更新日志：",
     aboutHeroReportPrefix: "季度进展摘要：",
     aboutGuidingTitle: "运作原则",
@@ -1134,7 +1134,7 @@ const i18n = {
     blogAiGuideSection2ExamplePrompt:
       '"Premium fitness smartwatch placed on mirrored podium, sunrise light streaming through minimalist studio, photographed on 50mm lens, focus on brushed aluminum texture, crisp product staging"',
     blogAiGuideSection2Negative:
-      "为每组提示词准备负面词，避免常见瑕疵。可以从 <em>“blurry, watermark, distorted hands, text logo, grainy”</em> 这类泛用组合起步，再根据反馈扩充。",
+      '为每组提示词准备负面词，避免常见瑕疵。可以从 <em>"blurry, watermark, distorted hands, text logo, grainy"</em> 这类泛用组合起步，再根据反馈扩充。',
     blogAiGuideSection2TipTitle: "审批协同小贴士：",
     blogAiGuideSection2TipDesc:
       "在流程中共享提示词蓝图，让市场负责人在首轮生成前就掌握预期，减少反复。",
@@ -1181,15 +1181,15 @@ const i18n = {
     blogAiGuideSection6Intro: "高效团队会围绕 AI 生产建立轻量化的工作仪式，可参考以下节奏：",
     blogAiGuideSection6Card1Title: "每日站会",
     blogAiGuideSection6Card1Desc:
-      "设计师分享昨日提示词与成品，增长负责人同步表现数据，保持对“好作品”的共识。",
-    blogAiGuideSection6Card2Title: "每周素材库更新",
+      'Designers share yesterday\'s prompts and results. Growth leads call out performance insights. Keeps everyone aligned on what "good" looks like.',
+    blogAiGuideSection6Card2Title: "Weekly library update",
     blogAiGuideSection6Card2Desc:
-      "将通过评审的提示词、输出与使用说明整理进知识库，并按活动标签方便复用。",
-    blogAiGuideSection6Card3Title: "每月复盘",
+      "Drop approved prompts, outputs, and usage notes into a shared knowledge base. Tag by campaign so future sprints can reference proven angles.",
+    blogAiGuideSection6Card3Title: "Monthly retro",
     blogAiGuideSection6Card3Desc:
-      "对比投放数据与创作选择，沉淀经验写入手册，持续摆脱“低价值内容”评价。",
+      'Compare campaign metrics against the creative choices made in prompts. Document learnings in your playbook to keep beating the "low quality" label.',
     blogAiGuideSection6Outro:
-      "持续记录会让审核者看到专业度、投入与成效，自然不会再贴上“低价值”标签。",
+      'With consistent documentation, the "low value content" warning disappears: reviewers see clear expertise, effort, and tangible results from every asset you publish.',
     blogAiGuideDownload: "下载 PDF",
     blogAiGuideShare: "分享指南",
     blogAiGuideAuthor: "AISTONE 内容团队",
@@ -1216,12 +1216,14 @@ const i18n = {
       "依次描述风格、光线、镜头与情绪，越重要越靠前，方便后续权重调整。",
     promptEngineeringSection1Heading3: "3. 补充场景与动作",
     promptEngineeringSection1Paragraph3:
-      "加入地点或动作短语（如“在雨夜小巷”“漂浮于霓虹都市上空”），能显著提升叙事连贯度。",
+      'Short clauses about location or motion ("in a rain-soaked alley", "hovering above a neon city") dramatically improve coherence, especially for cinematic shots.',
     promptEngineeringSection2Paragraph1:
       "使用权重语法强调或弱化特定属性。AISTONE 支持括号权重与冒号权重两种常见写法。",
-    promptEngineeringSection2List1: "<strong>1.4+</strong> — 主体级别，必须执行的指令。",
-    promptEngineeringSection2List2: "<strong>1.0</strong> — 默认优先级，用于辅助描述。",
-    promptEngineeringSection2List3: "<strong>&lt; 1.0</strong> — 温和提示，需求过多时可能被忽略。",
+    promptEngineeringSection2List1: "<strong>1.4+</strong> — hero element, must-read instructions.",
+    promptEngineeringSection2List2:
+      "<strong>1.0</strong> — default priority for supporting descriptors.",
+    promptEngineeringSection2List3:
+      "<strong>&lt; 1.0</strong> — gentle hints; the model may ignore them if overwhelmed.",
     promptEngineeringSection2Paragraph2:
       "权重段落建议用逗号分隔，多句提示词要适度重述主体，保持聚焦。",
     promptEngineeringSection3Paragraph1:
@@ -1231,9 +1233,9 @@ const i18n = {
     promptEngineeringSection4List1:
       "<strong>确定基本媒介。</strong> 摄影、油画或赛璐璐风格只能二选一，避免画面混乱。",
     promptEngineeringSection4List2:
-      "<strong>添加两种辅助风格。</strong> 例如“shot on Kodak Portra 400” + “lighting by Gregory Crewdson”。",
+      '<strong>添加两种辅助风格。</strong> 例如"shot on Kodak Portra 400" + "lighting by Gregory Crewdson".',
     promptEngineeringSection4List3:
-      "<strong>减少相冲突形容词。</strong> “极简”与“巴洛克”若非刻意对撞，通常不宜同用。",
+      '<strong>减少相冲突形容词。</strong> "极简"与"巴洛克"若非刻意对撞，通常不宜同用。',
     promptEngineeringSection4List4:
       "<strong>谨慎使用参考链接。</strong> 仅在必要时附上情绪板，其余情况优先使用文字提示。",
     promptEngineeringSection4Paragraph:
@@ -1293,7 +1295,7 @@ const i18n = {
     tutorialTroubleshootingItem1:
       "<strong>图片模糊：</strong> 提升分辨率或切换 FLUX，并补充更具体的描述。",
     tutorialTroubleshootingItem2:
-      "<strong>语音读音不准：</strong> 添加发音提示，例如 “AISTONE（读作 eye-stone）”。",
+      '<strong>语音读音不准：</strong> 添加发音提示，例如 "AISTONE（读作 eye-stone）"。',
     tutorialTroubleshootingItem3:
       "<strong>生成超时：</strong> 减少生成数量或简化提示词，并留意状态页。",
     tutorialTroubleshootingItem4:
@@ -1390,7 +1392,7 @@ const i18n = {
     aboutContactSupportDesc:
       "我们提供多种方式与用户保持联系，确保您在使用过程中得到及时的帮助和支持。",
     aboutContactEmail: "邮件支持",
-    aboutContactEmailSla: "工作日24小时内回复",
+    aboutContactEmailSla: "Response within 24 hours on business days",
     aboutContactChat: "在线客服",
     aboutContactChatDesc: "网站右下角聊天窗口",
     aboutContactChatSla: "工作时间实时响应",
@@ -1755,6 +1757,7 @@ const i18n = {
     footerDescription: "免费AI内容生成平台",
     footerQuickLinks: "快速链接",
     footerSupport: "支持",
+    footerLinksTitle: "友情链接",
     footerLinks: [
       { text: "隐私政策", url: "#" },
       { text: "服务条款", url: "#" },
@@ -2152,19 +2155,19 @@ const i18n = {
     testimonialsTitle: "用户评价与真实案例",
     testimonialName1: "Sarah Chen",
     testimonialRole1: "插画师",
-    testimonialContent1: "“平台生成的插画非常精美，极大提升了我的设计效率！”",
+    testimonialContent1: "平台生成的插画非常精美，极大提升了我的设计效率！",
     testimonialName2: "Alex Wang",
     testimonialRole2: "短视频创作者",
-    testimonialContent2: "“AI语音自然流畅，直接用于我的短视频配音。”",
+    testimonialContent2: "AI语音自然流畅，直接用于我的短视频配音。",
     testimonialName3: "李明",
     testimonialRole3: "独立开发者",
-    testimonialContent3: "“一键生成图片和语音，创作效率翻倍，强烈推荐！”",
+    testimonialContent3: "一键生成图片和语音，创作效率翻倍，强烈推荐！",
     testimonialName4: "Emily Zhang",
     testimonialRole4: "产品经理",
-    testimonialContent4: "“AI内容生成工具极大提升了团队的创意产出效率。”",
+    testimonialContent4: "AI内容生成工具极大提升了团队的创意产出效率。",
     testimonialName5: "Tom Lee",
     testimonialRole5: "自媒体人",
-    testimonialContent5: "“生成速度快，内容质量高，值得推荐！”",
+    testimonialContent5: "生成速度快，内容质量高，值得推荐！",
     imageInfoSize: "Size",
     imageInfoFileSize: "File Size",
     imageInfoCount: "Total {count} images generated, click image to enlarge",
@@ -2778,6 +2781,7 @@ const i18n = {
     footerDescription: "Free AI Content Generation Platform",
     footerQuickLinks: "Quick Links",
     footerSupport: "Support",
+    footerLinksTitle: "Friend Links",
     footerLinks: [
       { text: "Privacy Policy", url: "#" },
       { text: "Terms of Service", url: "#" },

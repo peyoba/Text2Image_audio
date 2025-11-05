@@ -808,6 +808,7 @@ footer .footer-icon path {
   .navbar-right {
     gap: 14px;
     margin-left: 24px;
+    margin-right: 18px;
   }
   .lang-select {
     padding: 6px 14px;
@@ -891,6 +892,7 @@ footer .footer-icon path {
   }
   .navbar-right {
     padding: 0 4px;
+    margin-right: 0;
   }
   /* 弹窗全屏化 */
   .modal-content {
@@ -1218,7 +1220,7 @@ footer .footer-icon path {
   align-items: center;
   gap: 18px;
   margin-left: 32px;
-  margin-right: 0; /* 原为40px，改为0，整体左移 */
+  margin-right: 24px;
 }
 .login-btn {
   background: transparent;
@@ -1596,6 +1598,15 @@ footer .footer-icon path {
   color: var(--color-brand-primary);
   text-align: left;
   min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.footer-links-title {
+  font-size: 1.05em;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--color-brand-primary);
 }
 .footer-link {
   color: var(--color-brand-primary);
