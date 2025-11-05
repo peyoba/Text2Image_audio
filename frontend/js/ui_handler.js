@@ -286,7 +286,10 @@ class UIHandler {
     const footerRight = document.querySelector(".footer-right");
     if (footerRight && Array.isArray(footerLinks)) {
       footerRight.innerHTML = footerLinks
-        .map((link) => `<a href="${link.url}" class="footer-link">${link.text}</a>`)
+        .map(
+          (link) =>
+            `<a href="${link.url}" class="footer-link" target="_blank" rel="noopener noreferrer">${link.text}</a>`
+        )
         .join("<br>");
     }
   }

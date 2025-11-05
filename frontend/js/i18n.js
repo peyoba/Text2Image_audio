@@ -1758,7 +1758,7 @@ const i18n = {
     footerLinks: [
       { text: "隐私政策", url: "#" },
       { text: "服务条款", url: "#" },
-      { text: "友情链接：IDPhoto.space", url: "https://idphoto.space/" },
+      { text: "友情链接：IDPhoto.space（在线证件照工具）", url: "https://idphoto.space/" },
     ],
 
     // 主页CTA按钮
@@ -2781,7 +2781,7 @@ const i18n = {
     footerLinks: [
       { text: "Privacy Policy", url: "#" },
       { text: "Terms of Service", url: "#" },
-      { text: "Partner: IDPhoto.space", url: "https://idphoto.space/" },
+      { text: "Friend Link: IDPhoto.space (Online ID Photo Tool)", url: "https://idphoto.space/" },
     ],
 
     // 主页CTA按钮
