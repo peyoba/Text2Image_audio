@@ -1567,6 +1567,8 @@ const i18n = {
     blogCategoryPrompt: "提示词工程",
     blogCategoryFAQ: "常见问题",
 
+    tutorialTitle: "AISTONE平台使用教程",
+
     // 文章摘要
     aiGuideExcerpt:
       "从基础理论到实战技巧，深入了解扩散模型、FLUX、Stable Diffusion等前沿AI图像生成技术...",
@@ -2557,6 +2559,8 @@ const i18n = {
     blogCategoryTutorial: "Tutorials",
     blogCategoryPrompt: "Prompt Engineering",
     blogCategoryFAQ: "FAQ",
+
+    tutorialTitle: "AISTONE Platform Tutorial",
 
     // Article excerpts
     aiGuideExcerpt:

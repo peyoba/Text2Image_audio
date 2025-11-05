@@ -796,6 +796,30 @@ footer .footer-icon path {
   }
 }
 
+@media (max-width: 1180px) {
+  .navbar {
+    padding: 0 18px;
+    font-size: 1.12em;
+  }
+  .navbar-menu {
+    gap: 24px;
+    margin-left: 24px;
+  }
+  .navbar-right {
+    gap: 14px;
+    margin-left: 24px;
+  }
+  .lang-select {
+    padding: 6px 14px;
+    min-width: 84px;
+    padding-right: 22px;
+  }
+  .user-status .user-btn {
+    padding: 9px 22px;
+    font-size: 1em;
+  }
+}
+
 @media (max-width: 600px) {
   .container {
     padding: 8px 2vw;
@@ -1506,6 +1530,35 @@ footer .footer-icon path {
 .lang-select option {
   background: var(--color-surface-2);
   color: var(--color-text-primary);
+}
+.user-status .user-btn {
+  background: var(--color-brand-primary);
+  color: #0d1422;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 26px;
+  font-size: 1.02em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
+  flex-shrink: 0;
+}
+.user-status .user-btn:hover,
+.user-status .user-btn:focus {
+  background: #4de1ff;
+  color: #0b0f1a;
+  box-shadow: 0 4px 16px rgba(77, 225, 255, 0.3);
+  transform: translateY(-1px);
+}
+.user-status .user-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(77, 225, 255, 0.2);
 }
 
 .footer-grid {
