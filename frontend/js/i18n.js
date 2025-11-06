@@ -3379,7 +3379,6 @@ const i18n = {
     relatedAboutTitle: "ℹ️ 了解技术",
     relatedAboutDesc: "深入了解我们的AI技术和平台愿景",
   },
-  },
 };
 
 // 兼容处理移除：已静态合并为单一 en
