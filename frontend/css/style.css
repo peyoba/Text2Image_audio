@@ -279,15 +279,16 @@ main {
 .negative-prompt input,
 .image-options select,
 .image-options input[type="number"] {
-  color: var(--color-text-on-light-darker, #222);
-  background: var(--color-surface-white, #fff);
+  color: #e5e7eb;
+  background: #0e1424;
+  border: 1px solid #2a3a57;
 }
 
 /* 主文本输入框样式 */
 textarea#text-input {
   width: 100%;
   padding: 12px 15px;
-  border: 1px solid var(--color-border-input, #d1d9e6); /* 与其他输入框统一 */
+  border: 1px solid #2a3a57;
   border-radius: 8px;
   font-size: 1em;
   line-height: 1.5;
@@ -297,6 +298,8 @@ textarea#text-input {
     border-color 0.3s ease,
     box-shadow 0.3s ease;
   margin-bottom: 10px; /* 与下方提示的间距 */
+  background: #0e1424;
+  color: #e5e7eb;
 }
 
 textarea#text-input:focus {
