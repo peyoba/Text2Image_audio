@@ -1738,23 +1738,23 @@ footer .footer-icon path {
 #negative-prompt {
   width: 100%;
   padding: 12px 15px;
-  border: 1px solid var(--color-border-input, #d1d9e6);
+  border: 1px solid #2a3a57;
   border-radius: 8px;
   font-size: 1.1em;
   line-height: 1.5;
   margin-top: 8px;
   margin-bottom: 0;
   box-sizing: border-box;
-  background: var(--color-surface-white, #fff);
-  color: var(--color-text-on-light-darker, #222);
+  background: #0e1424;
+  color: #e5e7eb;
   transition:
     border-color 0.3s,
     box-shadow 0.3s;
 }
 #negative-prompt:focus {
-  border-color: var(--color-brand-secondary);
+  border-color: #667eea;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
 }
 
 @media (max-width: 600px) {
