@@ -3717,7 +3717,7 @@ function updatePageText() {
               }
             }
           } else {
-            // 没有需要保留的子元素，直接使用textContent（更安全）
+            // 没有需要保留的子元素，直接完全替换内容
             el.textContent = value;
           }
         }
