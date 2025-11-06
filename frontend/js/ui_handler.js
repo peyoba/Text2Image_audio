@@ -514,7 +514,11 @@ class UIHandler {
   _toggleImageOptions() {
     const imageOptionsContainer = document.getElementById("image-generation-options");
 
-    if (this.typeImageRadio.checked) {
+    // 图片生成器页面只生成图片，始终显示图片选项
+    if (!this.typeImageRadio) {
+      // 如果没有type radio（图片生成器页面），默认显示图片选项
+      if (imageOptionsContainer) imageOptionsContainer.style.display = "block";
+    } else if (this.typeImageRadio.checked) {
       // 显示图片选项
       if (imageOptionsContainer) imageOptionsContainer.style.display = "block";
     } else {
@@ -541,7 +545,8 @@ class UIHandler {
     }
 
     const text = this.textInput.value.trim();
-    const type = this.typeImageRadio.checked ? "image" : "audio";
+    // 图片生成器页面只生成图片，如果没有type radio则默认为image
+    const type = this.typeImageRadio ? (this.typeImageRadio.checked ? "image" : "audio") : "image";
 
     // 智能重定向：检测到语音生成时，提示并跳转到专业版
     if (type === "audio") {
