@@ -84,248 +84,147 @@
           <span class="current" data-i18n="navAbout">About</span>
         </nav>
 
-        <section class="hero-section about-hero-refined" style="margin-bottom: 48px">
+        <!-- Hero Section -->
+        <section class="hero-section about-hero-refined" style="margin-bottom: 48px; text-align: center">
           <div class="hero-content">
-            <h1 data-i18n="aboutHeroTitleNew">Inside AISTONE</h1>
-            <p class="hero-subtitle" style="max-width: 720px" data-i18n="aboutHeroIntroNew">
-              We are a small remote team building a free, no-signup AI workspace. AISTONE combines
-              image and voice generation on top of Cloudflare Workers and documents every release in
-              public repositories so reviewers can trace how the product evolves.
+            <h1 data-i18n="aboutPageTitle" style="font-size: 3em; margin-bottom: 20px">关于 AISTONE</h1>
+            <p class="hero-subtitle" style="max-width: 720px; margin: 0 auto; font-size: 1.3em; line-height: 1.8; color: rgba(255, 255, 255, 0.9)" data-i18n="aboutPageSubtitle">
+              让AI创作触手可及，为每个人赋能创意表达
             </p>
-            <ul
-              style="
-                margin-top: 24px;
-                list-style: disc;
-                padding-left: 24px;
-                color: rgba(255, 255, 255, 0.85);
-                line-height: 1.7;
-              "
-            >
-              <li>
-                <span data-i18n="aboutHeroApiPrefix">API base:</span>
-                <code>https://text2image-api.peyoba660703.workers.dev</code>
-                <span data-i18n="aboutHeroApiSuffix">(Cloudflare Workers)</span>
-              </li>
-              <li>
-                <span data-i18n="aboutHeroRepoPrefix">Source code & changelog:</span>
-                <a href="https://github.com/peyoba/Text2Image_audio" target="_blank" rel="noopener"
-                  >github.com/peyoba/Text2Image_audio</a
-                >
-              </li>
-              <li>
-                <span data-i18n="aboutHeroReportPrefix">Quarterly progress notes:</span>
-                <a
-                  href="https://github.com/peyoba/Text2Image_audio/blob/main/docs/PROJECT_STATUS_REPORT_2025.md"
-                  target="_blank"
-                  rel="noopener"
-                  >Project Status Report 2025</a
-                >
-              </li>
-            </ul>
           </div>
         </section>
 
-        <section class="value-proposition" style="margin-bottom: 48px">
-          <h2 style="text-align: center; margin-bottom: 24px" data-i18n="aboutGuidingTitle">
-            Guiding Principles
+        <!-- 我们的使命 -->
+        <section class="mission-section" style="margin-bottom: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 60px 40px; border-radius: 16px; text-align: center">
+          <h2 data-i18n="aboutMissionTitle" style="font-size: 2.2em; margin-bottom: 20px; color: white">我们的使命</h2>
+          <p data-i18n="aboutMissionDesc" style="max-width: 800px; margin: 0 auto; font-size: 1.2em; line-height: 1.8; color: rgba(255, 255, 255, 0.95)">
+            AISTONE致力于让每个人都能轻松使用AI技术进行创作。我们相信，创意不应该被技术门槛所限制，每个人都应该拥有将想法变为现实的能力。
+          </p>
+        </section>
+
+        <!-- 核心价值 -->
+        <section class="value-proposition" style="margin-bottom: 60px">
+          <h2 style="text-align: center; margin-bottom: 40px; font-size: 2.2em" data-i18n="aboutCoreValuesTitle">
+            核心价值
           </h2>
-          <div class="value-grid">
-            <div class="value-card">
-              <div class="value-icon">🧩</div>
-              <h3 data-i18n="aboutGuidingOpenTitle">Open playbook</h3>
-              <p data-i18n="aboutGuidingOpenDesc">
-                Every deployment step, monitoring script, and roadmap milestone is stored in the
-                docs/ directory so evaluators can audit how we operate the service.
+          <div class="value-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px">
+            <div class="value-card" style="background: #f8f9fa; padding: 30px; border-radius: 12px; text-align: center">
+              <div class="value-icon" style="font-size: 3em; margin-bottom: 15px">🎨</div>
+              <h3 data-i18n="aboutValueCreativityTitle" style="font-size: 1.4em; margin-bottom: 15px; color: #333">创意无限</h3>
+              <p data-i18n="aboutValueCreativityDesc" style="color: #666; line-height: 1.6">
+                支持多种AI模型和风格，让您的创意想法以最佳方式呈现
               </p>
             </div>
-            <div class="value-card">
-              <div class="value-icon">🛡️</div>
-              <h3 data-i18n="aboutGuidingDataTitle">Data minimalism</h3>
-              <p data-i18n="aboutGuidingDataDesc">
-                Prompts are processed in-memory. Cached images are created only when a logged-in user
-                asks us to keep a copy for later downloads.
+            <div class="value-card" style="background: #f8f9fa; padding: 30px; border-radius: 12px; text-align: center">
+              <div class="value-icon" style="font-size: 3em; margin-bottom: 15px">🆓</div>
+              <h3 data-i18n="aboutValueFreeTitle" style="font-size: 1.4em; margin-bottom: 15px; color: #333">永久免费</h3>
+              <p data-i18n="aboutValueFreeDesc" style="color: #666; line-height: 1.6">
+                所有核心功能完全免费，无需注册，无使用限制，让AI创作真正普惠大众
               </p>
             </div>
-            <div class="value-card">
-              <div class="value-icon">📊</div>
-              <h3 data-i18n="aboutGuidingTransparencyTitle">Public accountability</h3>
-              <p data-i18n="aboutGuidingTransparencyDesc">
-                We summarise feature launches, incidents, and roadmap shifts in Development Progress
-                for full visibility.
+            <div class="value-card" style="background: #f8f9fa; padding: 30px; border-radius: 12px; text-align: center">
+              <div class="value-icon" style="font-size: 3em; margin-bottom: 15px">🔒</div>
+              <h3 data-i18n="aboutValuePrivacyTitle" style="font-size: 1.4em; margin-bottom: 15px; color: #333">隐私安全</h3>
+              <p data-i18n="aboutValuePrivacyDesc" style="color: #666; line-height: 1.6">
+                您的创作内容不会被存储，所有处理都在云端实时完成，保护您的隐私
+              </p>
+            </div>
+            <div class="value-card" style="background: #f8f9fa; padding: 30px; border-radius: 12px; text-align: center">
+              <div class="value-icon" style="font-size: 3em; margin-bottom: 15px">⚡</div>
+              <h3 data-i18n="aboutValueSpeedTitle" style="font-size: 1.4em; margin-bottom: 15px; color: #333">快速高效</h3>
+              <p data-i18n="aboutValueSpeedDesc" style="color: #666; line-height: 1.6">
+                基于全球CDN部署，毫秒级响应，让您的创作灵感不被等待打断
               </p>
             </div>
           </div>
         </section>
 
-        <section class="technology-section" style="margin-bottom: 48px">
-          <h2 style="text-align: center; margin-bottom: 24px" data-i18n="aboutAssemblyTitle">
-            How the platform is assembled
+        <!-- 产品特色 -->
+        <section class="features-section" style="margin-bottom: 60px">
+          <h2 style="text-align: center; margin-bottom: 40px; font-size: 2.2em" data-i18n="aboutFeaturesTitle">
+            产品特色
           </h2>
-          <div class="tech-overview">
-            <div class="tech-content">
-              <div class="tech-highlights">
-                <div class="highlight-item">
-                  <h4 data-i18n="aboutImagePipelineTitle">Image pipeline</h4>
-                  <ul>
-                    <li data-i18n="aboutImagePipelinePoint1">
-                      Prompt validation and routing on Cloudflare Workers with rate limiting.
-                    </li>
-                    <li data-i18n="aboutImagePipelinePoint2">
-                      Generation powered by Pollinations FLUX, Turbo, and Kontext models.
-                    </li>
-                    <li data-i18n="aboutImagePipelinePoint3">
-                      Optional upscaling stored temporarily in Cloudflare R2 before download.
-                    </li>
-                  </ul>
-                </div>
-                <div class="highlight-item">
-                  <h4 data-i18n="aboutVoicePipelineTitle">Voice pipeline</h4>
-                  <ul>
-                    <li data-i18n="aboutVoicePipelinePoint1">
-                      Client-side text normalisation before streaming to OpenAI Audio TTS.
-                    </li>
-                    <li data-i18n="aboutVoicePipelinePoint2">
-                      Audio buffers delivered as WAV; nothing is stored server-side.
-                    </li>
-                    <li data-i18n="aboutVoicePipelinePoint3">
-                      Policies mirror OpenAI content rules and block unsafe prompts.
-                    </li>
-                  </ul>
-                </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px">
+            <div style="background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1)">
+              <h3 data-i18n="aboutFeatureImageTitle" style="font-size: 1.6em; margin-bottom: 15px; color: #667eea">🎨 AI图片生成</h3>
+              <ul style="list-style: none; padding: 0; color: #555; line-height: 2">
+                <li data-i18n="aboutFeatureImagePoint1">✓ 支持FLUX、Turbo等多种AI模型</li>
+                <li data-i18n="aboutFeatureImagePoint2">✓ 多种尺寸和比例选择</li>
+                <li data-i18n="aboutFeatureImagePoint3">✓ 智能提示词优化</li>
+                <li data-i18n="aboutFeatureImagePoint4">✓ 高清图片输出</li>
+              </ul>
+            </div>
+            <div style="background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1)">
+              <h3 data-i18n="aboutFeatureVoiceTitle" style="font-size: 1.6em; margin-bottom: 15px; color: #764ba2">🎵 AI语音合成</h3>
+              <ul style="list-style: none; padding: 0; color: #555; line-height: 2">
+                <li data-i18n="aboutFeatureVoicePoint1">✓ 6种专业级语音选择</li>
+                <li data-i18n="aboutFeatureVoicePoint2">✓ 自然流畅的语音效果</li>
+                <li data-i18n="aboutFeatureVoicePoint3">✓ 支持长文本合成</li>
+                <li data-i18n="aboutFeatureVoicePoint4">✓ 一键下载音频文件</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 为什么选择我们 -->
+        <section class="why-choose-section" style="margin-bottom: 60px; background: #f8f9fa; padding: 60px 40px; border-radius: 16px">
+          <h2 style="text-align: center; margin-bottom: 40px; font-size: 2.2em; color: #333" data-i18n="aboutWhyChooseTitle">
+            为什么选择 AISTONE
+          </h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto">
+            <div style="text-align: center">
+              <div style="font-size: 3em; margin-bottom: 10px">👥</div>
+              <h3 data-i18n="aboutWhyPoint1Title" style="font-size: 1.3em; margin-bottom: 10px; color: #333">用户优先</h3>
+              <p data-i18n="aboutWhyPoint1Desc" style="color: #666">简单易用的界面，无需专业知识即可上手</p>
+            </div>
+            <div style="text-align: center">
+              <div style="font-size: 3em; margin-bottom: 10px">🚀</div>
+              <h3 data-i18n="aboutWhyPoint2Title" style="font-size: 1.3em; margin-bottom: 10px; color: #333">持续创新</h3>
+              <p data-i18n="aboutWhyPoint2Desc" style="color: #666">不断引入最新AI技术，保持行业领先</p>
+            </div>
+            <div style="text-align: center">
+              <div style="font-size: 3em; margin-bottom: 10px">💬</div>
+              <h3 data-i18n="aboutWhyPoint3Title" style="font-size: 1.3em; margin-bottom: 10px; color: #333">用心服务</h3>
+              <p data-i18n="aboutWhyPoint3Desc" style="color: #666">快速响应用户反馈，持续优化产品体验</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 团队介绍 -->
+        <section class="team-section" style="margin-bottom: 60px; text-align: center">
+          <h2 style="margin-bottom: 30px; font-size: 2.2em" data-i18n="aboutTeamTitle">
+            关于团队
+          </h2>
+          <p data-i18n="aboutTeamDesc" style="max-width: 700px; margin: 0 auto 30px; font-size: 1.1em; line-height: 1.8; color: #666">
+            AISTONE由一支充满激情的技术团队打造，我们来自不同的背景，但都怀揣着让AI技术普惠大众的共同愿景。我们相信技术应该服务于人，让每个人都能享受AI带来的便利。
+          </p>
+        </section>
+
+        <!-- 联系我们 -->
+        <section class="contact-section" style="margin-bottom: 60px">
+          <h2 style="text-align: center; margin-bottom: 40px; font-size: 2.2em" data-i18n="aboutContactUsTitle">
+            联系我们
+          </h2>
+          <div style="max-width: 800px; margin: 0 auto; text-align: center">
+            <p data-i18n="aboutContactDesc" style="font-size: 1.1em; line-height: 1.8; color: #666; margin-bottom: 40px">
+              如果您有任何问题、建议或合作意向，欢迎随时与我们联系。我们重视每一位用户的反馈，并将在1个工作日内回复您。
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px">
+              <div>
+                <div style="font-size: 2.5em; margin-bottom: 10px">📧</div>
+                <h3 data-i18n="aboutContactEmailTitle" style="font-size: 1.2em; margin-bottom: 10px">邮箱</h3>
+                <a href="mailto:support@aistone.org" style="color: #667eea; text-decoration: none; font-weight: 500">support@aistone.org</a>
               </div>
-            </div>
-            <div class="tech-architecture">
-              <h3 data-i18n="aboutOpsTitle">Operations snapshot</h3>
-              <div class="architecture-diagram">
-                <div class="arch-layer">
-                  <h4 data-i18n="aboutOpsHostingTitle">Hosting</h4>
-                  <p data-i18n="aboutOpsHostingDesc">
-                    Static frontend on Cloudflare Pages, Workers regions in Hong Kong & Singapore.
-                  </p>
-                </div>
-                <div class="arch-layer">
-                  <h4 data-i18n="aboutOpsMonitoringTitle">Monitoring</h4>
-                  <p data-i18n="aboutOpsMonitoringDesc">
-                    Synthetic checks defined in docs/MONITORING_GUIDE.md test image and voice
-                    endpoints hourly.
-                  </p>
-                </div>
-                <div class="arch-layer">
-                  <h4 data-i18n="aboutOpsSecurityTitle">Security</h4>
-                  <p data-i18n="aboutOpsSecurityDesc">
-                    HTTPS everywhere, optional JWT login, with AdSense and GA as the only trackers.
-                  </p>
-                </div>
+              <div>
+                <div style="font-size: 2.5em; margin-bottom: 10px">💬</div>
+                <h3 data-i18n="aboutContactFeedbackTitle" style="font-size: 1.2em; margin-bottom: 10px">在线反馈</h3>
+                <a href="contact.html" style="color: #667eea; text-decoration: none; font-weight: 500" data-i18n="aboutContactFeedbackLink">提交反馈</a>
               </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="timeline-section" style="margin-bottom: 48px">
-          <h2 style="text-align: center; margin-bottom: 24px" data-i18n="aboutDocsTitle">
-            Documentation we publish
-          </h2>
-          <div class="timeline" style="display: grid; gap: 18px">
-            <div class="timeline-item" style="background: #0f1526; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px">
-              <h3 data-i18n="aboutDocsStatusTitle">Project Status Report</h3>
-              <p>
-                <span data-i18n="aboutDocsStatusDescPrefix">
-                  Quarterly summary of traffic, feature adoption, and backlog focus is published in
-                </span>
-                <a
-                  href="https://github.com/peyoba/Text2Image_audio/blob/main/docs/PROJECT_STATUS_REPORT_2025.md"
-                  target="_blank"
-                  rel="noopener"
-                  >docs/PROJECT_STATUS_REPORT_2025.md</a
-                ><span data-i18n="aboutDocsStatusDescSuffix">.</span>
-              </p>
-            </div>
-            <div class="timeline-item" style="background: #0f1526; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px">
-              <h3 data-i18n="aboutDocsProgressTitle">Development Progress Log</h3>
-              <p>
-                <span data-i18n="aboutDocsProgressDescPrefix">
-                  Week-by-week deployment notes and fixes live in
-                </span>
-                <a
-                  href="https://github.com/peyoba/Text2Image_audio/blob/main/docs/DEVELOPMENT_PROGRESS.md"
-                  target="_blank"
-                  rel="noopener"
-                  >docs/DEVELOPMENT_PROGRESS.md</a
-                ><span data-i18n="aboutDocsProgressDescSuffix">.</span>
-              </p>
-            </div>
-            <div class="timeline-item" style="background: #0f1526; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px">
-              <h3 data-i18n="aboutDocsMonitoringTitle">Monitoring Playbook</h3>
-              <p>
-                <span data-i18n="aboutDocsMonitoringDescPrefix">
-                  Our incident response checklist and latency budgets are documented in
-                </span>
-                <a
-                  href="https://github.com/peyoba/Text2Image_audio/blob/main/docs/MONITORING_GUIDE.md"
-                  target="_blank"
-                  rel="noopener"
-                  >docs/MONITORING_GUIDE.md</a
-                ><span data-i18n="aboutDocsMonitoringDescSuffix">.</span>
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section class="team-section" style="margin-bottom: 48px">
-          <h2 style="text-align: center; margin-bottom: 24px" data-i18n="aboutTeamTitleNew">
-            Who runs the project
-          </h2>
-          <div class="team-content" style="display: grid; gap: 24px">
-            <div class="team-description" style="background: #0f1526; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px">
-              <h3 data-i18n="aboutTeamMaintainersTitle">Core maintainers</h3>
-              <p data-i18n="aboutTeamMaintainersDesc">
-                AISTONE is maintained by a remote crew split between Singapore and Shenzhen. We
-                rotate on-call duties weekly and document major launches through public GitHub
-                issues.
-              </p>
-            </div>
-            <div class="team-description" style="background: #0f1526; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px">
-              <h3 data-i18n="aboutTeamFeedbackTitle">Feedback policy</h3>
-              <p data-i18n="aboutTeamFeedbackDesc">
-                Suggestions and bug reports submitted via the in-app form or email are triaged within
-                one business day. Completed items are logged in the Development Progress document.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section class="contact-section" style="margin-bottom: 48px">
-          <h2 style="text-align: center; margin-bottom: 24px" data-i18n="aboutContactTitle">
-            Contact & verifications
-          </h2>
-          <div
-            class="contact-grid"
-            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px"
-          >
-            <div class="contact-card" style="background: #f8f9fa; border-radius: 12px; padding: 20px">
-              <h3 data-i18n="aboutContactEmailTitle">Email</h3>
-              <p><a href="mailto:support@aistone.org">support@aistone.org</a></p>
-              <p style="color: #475569; font-size: 0.95em" data-i18n="aboutContactEmailDesc">
-                Average response time: under one business day.
-              </p>
-            </div>
-            <div class="contact-card" style="background: #f8f9fa; border-radius: 12px; padding: 20px">
-              <h3 data-i18n="aboutContactGithubTitle">GitHub</h3>
-              <p>
-                <a href="https://github.com/peyoba/Text2Image_audio" target="_blank" rel="noopener"
-                  >peyoba/Text2Image_audio</a
-                >
-              </p>
-              <p style="color: #475569; font-size: 0.95em" data-i18n="aboutContactGithubDesc">
-                Roadmap and issue tracking live in the repository.
-              </p>
-            </div>
-            <div class="contact-card" style="background: #f8f9fa; border-radius: 12px; padding: 20px">
-              <h3 data-i18n="aboutContactTwitterTitle">Twitter / X</h3>
-              <p><a href="https://twitter.com/aistone_ai" target="_blank" rel="noopener">@aistone_ai</a></p>
-              <p style="color: #475569; font-size: 0.95em" data-i18n="aboutContactTwitterDesc">
-                Outage notices and release highlights are posted here.
-              </p>
+              <div>
+                <div style="font-size: 2.5em; margin-bottom: 10px">🐦</div>
+                <h3 data-i18n="aboutContactSocialTitle" style="font-size: 1.2em; margin-bottom: 10px">社交媒体</h3>
+                <a href="https://twitter.com/aistone_ai" target="_blank" rel="noopener" style="color: #667eea; text-decoration: none; font-weight: 500">@aistone_ai</a>
+              </div>
             </div>
           </div>
         </section>
