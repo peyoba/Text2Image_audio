@@ -410,19 +410,20 @@ textarea#text-input:focus {
 .image-options select,
 .image-options input[type="number"] {
   padding: 8px 12px;
-  border: 2px solid var(--color-border-input-2, #e1e8ed);
+  border: 1px solid #2a3a57;
   border-radius: 8px;
   font-size: 1em;
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.9);
+  background: #0e1424;
+  color: #e5e7eb;
   margin-right: 10px;
 }
 
 .image-options select:focus,
 .image-options input[type="number"]:focus {
-  border-color: var(--color-brand-secondary);
+  border-color: #667eea;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
 }
 
 .image-options input[type="checkbox"] {
@@ -1090,17 +1091,28 @@ footer .footer-icon path {
   font-size: 0.95em;
   font-weight: 500;
   transition: all 0.3s ease;
-  border: 1px solid transparent; /* 统一边框处理 */
+  border: 1px solid #2a3a57;
   flex-grow: 0; /* 默认不拉伸 */
   flex-shrink: 0; /* 默认不压缩 */
+  background: #0e1424;
+  color: #e5e7eb;
 }
 
 /* 清空按钮 */
 #clear-btn:hover {
-  background-color: var(--color-border-muted, #e9ecef);
-  border-color: var(--color-border-alt-2, #dee2e6);
+  background-color: #1a2332;
+  border-color: #667eea;
   transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.15);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* 优化和随机按钮hover效果 */
+#optimize-btn:hover,
+#random-btn:hover {
+  background-color: #1a2332;
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
 
 /* 为三个快捷按钮设置flex-basis，使其在空间足够时宽度一致 */
