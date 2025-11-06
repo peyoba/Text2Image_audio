@@ -264,7 +264,7 @@ class ApiClient {
     try {
       console.log(`ApiClient: Optimizing text: ${text.substring(0, 50)}...`);
 
-      const response = await fetch(`${this.getBaseUrl()}/api/optimize`, {
+      const response = await fetch(`${this.getBaseUrl()}/api/prompts/optimize`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
