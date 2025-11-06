@@ -3450,6 +3450,7 @@ function setLanguage(lang) {
       document.querySelectorAll("[data-i18n]").forEach((el) => {
         const key = el.getAttribute("data-i18n");
         const value = getNestedI18nValue(normalized, key);
+        console.log(`[i18n DEBUG] setLanguage processing key="${key}", value="${value ? value.substring(0, 50) : 'null'}...", lang=${normalized}`);
         if (value && value !== key && typeof value === "string") {
           if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
             el.placeholder = value;
