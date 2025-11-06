@@ -529,6 +529,9 @@ class UIHandler {
 
   // 新增：处理宽高比选择变化
   _handleAspectRatioChange() {
+    if (!this.optionAspectRatio || !this.customDimensionsContainer) {
+      return; // 如果元素不存在，直接返回
+    }
     if (this.optionAspectRatio.value === "custom") {
       this.customDimensionsContainer.style.display = "block";
     } else {
