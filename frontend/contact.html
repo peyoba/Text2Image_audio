@@ -58,23 +58,92 @@
         <span class="current" data-i18n="contactModalTitle">联系我们</span>
       </nav>
       <main>
-        <section class="contact-section" id="contact">
-          <h1 data-i18n="contactModalTitle">联系我们</h1>
-          <div data-i18n="contactModalContent" class="contact-content">
-            如果您在使用 AISTONE 的过程中有任何问题或建议，欢迎随时与我们联系！<br /><br />
-            我们致力于为用户提供最优质的服务体验，无论是技术问题、功能建议还是合作咨询，我们都将认真对待并及时回复。<br /><br />
-            联系方式：<br />
-            • 邮箱：<a href="mailto:support@aistone.org">support@aistone.org</a><br />
-            • 官方网站：<a href="https://aistone.org" target="_blank">https://aistone.org</a><br />
-            • 技术支持：24/7在线支持<br /><br />
-            服务范围：<br />
-            •
-            <b>产品反馈与建议：</b
-            >我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈<br />
-            • <b>技术支持：</b>遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决<br />
-            • <b>商务合作：</b>如果您有商务合作需求，欢迎通过邮箱联系我们<br />
-            • <b>媒体采访：</b>媒体朋友如需采访或报道，请提前预约<br /><br />
-            我们会在1-2个工作日内回复您的信息。感谢您的关注与支持！
+        <section class="contact-section" id="contact" style="max-width: 1000px; margin: 0 auto">
+          <h1 data-i18n="contactModalTitle" style="text-align: center; margin-bottom: 30px; font-size: 2.5em">联系我们</h1>
+          
+          <!-- 介绍文字 -->
+          <div style="text-align: center; margin-bottom: 50px">
+            <p data-i18n="contactIntro" style="font-size: 1.2em; line-height: 1.8; color: #666; max-width: 700px; margin: 0 auto">
+              如果您在使用 AISTONE 的过程中有任何问题或建议，欢迎随时与我们联系！我们致力于为用户提供最优质的服务体验。
+            </p>
+          </div>
+
+          <!-- 联系方式卡片 -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 60px">
+            <!-- 邮箱联系 -->
+            <div style="background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center">
+              <div style="font-size: 3em; margin-bottom: 15px">📧</div>
+              <h3 data-i18n="contactEmailTitle" style="font-size: 1.4em; margin-bottom: 15px; color: #333">邮箱联系</h3>
+              <p style="margin-bottom: 15px">
+                <a href="mailto:support@aistone.org" style="color: #667eea; font-size: 1.1em; text-decoration: none; font-weight: 500">support@aistone.org</a>
+              </p>
+              <p data-i18n="contactEmailDesc" style="color: #666; font-size: 0.95em">
+                我们会在1-2个工作日内回复
+              </p>
+            </div>
+
+            <!-- 在线反馈 -->
+            <div style="background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center">
+              <div style="font-size: 3em; margin-bottom: 15px">💬</div>
+              <h3 data-i18n="contactFeedbackTitle" style="font-size: 1.4em; margin-bottom: 15px; color: #333">在线反馈</h3>
+              <p style="margin-bottom: 15px">
+                <a href="#feedback-form" style="color: #667eea; font-size: 1.1em; text-decoration: none; font-weight: 500" data-i18n="contactFeedbackLink">提交反馈表单</a>
+              </p>
+              <p data-i18n="contactFeedbackDesc" style="color: #666; font-size: 0.95em">
+                快速提交您的问题或建议
+              </p>
+            </div>
+
+            <!-- 社交媒体 -->
+            <div style="background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center">
+              <div style="font-size: 3em; margin-bottom: 15px">🐦</div>
+              <h3 data-i18n="contactSocialTitle" style="font-size: 1.4em; margin-bottom: 15px; color: #333">社交媒体</h3>
+              <p style="margin-bottom: 15px">
+                <a href="https://twitter.com/aistone_ai" target="_blank" rel="noopener" style="color: #667eea; font-size: 1.1em; text-decoration: none; font-weight: 500">@aistone_ai</a>
+              </p>
+              <p data-i18n="contactSocialDesc" style="color: #666; font-size: 0.95em">
+                关注我们获取最新动态
+              </p>
+            </div>
+          </div>
+
+          <!-- 服务范围 -->
+          <div style="background: #f8f9fa; padding: 50px 40px; border-radius: 12px; margin-bottom: 40px">
+            <h2 data-i18n="contactServicesTitle" style="text-align: center; margin-bottom: 40px; font-size: 2em; color: #333">服务范围</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px">
+              <div>
+                <h4 data-i18n="contactServiceFeedbackTitle" style="color: #667eea; font-size: 1.2em; margin-bottom: 10px">💡 产品反馈与建议</h4>
+                <p data-i18n="contactServiceFeedbackDesc" style="color: #666; line-height: 1.6">
+                  我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈
+                </p>
+              </div>
+              <div>
+                <h4 data-i18n="contactServiceTechTitle" style="color: #667eea; font-size: 1.2em; margin-bottom: 10px">🔧 技术支持</h4>
+                <p data-i18n="contactServiceTechDesc" style="color: #666; line-height: 1.6">
+                  遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决
+                </p>
+              </div>
+              <div>
+                <h4 data-i18n="contactServiceBusinessTitle" style="color: #667eea; font-size: 1.2em; margin-bottom: 10px">🤝 商务合作</h4>
+                <p data-i18n="contactServiceBusinessDesc" style="color: #666; line-height: 1.6">
+                  如果您有商务合作需求，欢迎通过邮箱联系我们
+                </p>
+              </div>
+              <div>
+                <h4 data-i18n="contactServiceMediaTitle" style="color: #667eea; font-size: 1.2em; margin-bottom: 10px">📰 媒体采访</h4>
+                <p data-i18n="contactServiceMediaDesc" style="color: #666; line-height: 1.6">
+                  媒体朋友如需采访或报道，请提前预约
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 响应时间说明 -->
+          <div style="text-align: center; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: white">
+            <h3 data-i18n="contactResponseTitle" style="font-size: 1.5em; margin-bottom: 15px">快速响应承诺</h3>
+            <p data-i18n="contactResponseDesc" style="font-size: 1.1em; line-height: 1.6">
+              我们承诺在1-2个工作日内回复您的信息。感谢您的关注与支持！
+            </p>
           </div>
         </section>
       </main>
