@@ -359,6 +359,7 @@ class AuthManager {
    */
   async googleAuthCodeLogin(code, state) {
     try {
+      console.log("Google OAuth: 开始授权码登录", { code: code.substring(0, 20) + "...", state });
       const response = await fetch(`${this.baseUrl}/auth/google-oauth`, {
         method: "POST",
         headers: {
@@ -368,6 +369,7 @@ class AuthManager {
       });
 
       const result = await response.json();
+      console.log("Google OAuth: 服务器响应", { status: response.status, result });
 
       if (response.ok && result && result.success && result.token) {
         this.setToken(result.token);
@@ -387,6 +389,12 @@ class AuthManager {
               : "Google login successful!"),
         };
       } else {
+        console.error("Google OAuth登录失败", {
+          status: response.status,
+          error: result?.error,
+          configErrors: result?.configErrors,
+          google_error: result?.google_error,
+        });
         return {
           success: false,
           message:
@@ -394,6 +402,7 @@ class AuthManager {
             (getCurrentLang && getCurrentLang() === "zh"
               ? "Google登录失败"
               : "Google login failed"),
+          details: result,
         };
       }
     } catch (error) {
