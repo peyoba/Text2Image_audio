@@ -978,6 +978,12 @@ class UIHandler {
       imageOptions.model = aiModelSelect.value;
     }
 
+    // Negative Prompt（反向提示词）
+    const negativePromptInput = document.getElementById("negative-prompt");
+    if (negativePromptInput && negativePromptInput.value.trim()) {
+      imageOptions.negative = negativePromptInput.value.trim();
+    }
+
     // 尺寸选项
     const aspectRatioSelect = document.getElementById("option-aspect-ratio");
     if (aspectRatioSelect) {
