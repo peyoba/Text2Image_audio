@@ -35,11 +35,30 @@
           }
         };
       })();
-      // 全局模态框函数（与首页一致）
+      // 全局模态框函数 - 支持异步等待模态框加载
       function showModal(modalId) {
         var m = document.getElementById(modalId);
         if (m) {
           m.style.display = "block";
+          console.log("显示模态框:", modalId);
+        } else {
+          console.warn("模态框未找到，等待加载:", modalId);
+          // 等待模态框加载完成后再显示
+          var checkInterval = setInterval(function() {
+            var modal = document.getElementById(modalId);
+            if (modal) {
+              clearInterval(checkInterval);
+              modal.style.display = "block";
+              console.log("模态框加载完成，显示:", modalId);
+            }
+          }, 100);
+          // 最多等待5秒
+          setTimeout(function() {
+            clearInterval(checkInterval);
+            if (!document.getElementById(modalId)) {
+              console.error("模态框加载超时:", modalId);
+            }
+          }, 5000);
         }
       }
       function closeModal(modalId) {
