@@ -1343,20 +1343,23 @@ footer .footer-icon path {
 .tag,
 .tag-free,
 .tag-unlimited,
-.tag-no-login {
+.tag-no-login,
+.tag-quality,
+.tag-chinese {
   display: inline-block;
-  background: var(--color-surface-dark-3, #262b35);
-  color: var(--color-text-light-3, #e0e6f6) !important;
+  background: #0e1424;
+  color: #e5e7eb !important;
   border-radius: 18px;
   padding: 6px 22px;
   font-size: 1em;
   font-weight: 500;
   margin-right: 10px;
   margin-bottom: 4px;
-  border: 2px solid transparent;
+  border: 2px solid #2a3a57;
   transition:
     border-color 0.2s,
-    color 0.2s;
+    color 0.2s,
+    background 0.2s;
 }
 .tag:last-child {
   margin-right: 0;
@@ -1364,9 +1367,12 @@ footer .footer-icon path {
 .tag:hover,
 .tag-free:hover,
 .tag-unlimited:hover,
-.tag-no-login:hover {
-  border-color: var(--color-brand-primary);
-  color: var(--color-brand-primary) !important;
+.tag-no-login:hover,
+.tag-quality:hover,
+.tag-chinese:hover {
+  border-color: #667eea;
+  background: #1a2332;
+  color: #667eea !important;
   cursor: pointer;
 }
 
@@ -2402,16 +2408,7 @@ footer .footer-icon path {
   box-shadow: 0 10px 25px rgba(0, 123, 255, 0.2);
 }
 
-.tag-quality {
-  background: var(--color-brand-secondary, #00cfff);
-  color: white;
-  padding: 6px 12px;
-  border-radius: var(--radius-sm, 6px);
-  font-size: 0.9em;
-  font-weight: 500;
-  display: inline-block;
-  margin: 2px;
-}
+/* tag-quality样式已统一到上方的.tag通用样式中 */
 
 .service-card:hover {
   transform: translateY(-5px);
