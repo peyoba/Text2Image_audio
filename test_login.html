@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>登录测试</title>
+</head>
+<body>
+    <h1>登录系统测试</h1>
+    
+    <h2>1. 测试邮箱登录</h2>
+    <form id="testLoginForm">
+        <input type="email" id="email" placeholder="邮箱" required><br>
+        <input type="password" id="password" placeholder="密码" required><br>
+        <button type="submit">测试登录</button>
+    </form>
+    <div id="loginResult"></div>
+    
+    <h2>2. 测试注册</h2>
+    <form id="testRegisterForm">
+        <input type="text" id="regUsername" placeholder="用户名" required><br>
+        <input type="email" id="regEmail" placeholder="邮箱" required><br>
+        <input type="password" id="regPassword" placeholder="密码(至少6位)" required><br>
+        <button type="submit">测试注册</button>
+    </form>
+    <div id="registerResult"></div>
+    
+    <h2>3. 测试后端连接</h2>
+    <button onclick="testBackend()">测试后端API</button>
+    <div id="backendResult"></div>
+    
+    <script>
+        const API_BASE = 'https://text2image-api.peyoba660703.workers.dev/api';
+        
+        // 测试登录
+        document.getElementById('testLoginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const resultDiv = document.getElementById('loginResult');
+            
+            resultDiv.innerHTML = '<p>正在测试登录...</p>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const result = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <h3>登录响应：</h3>
+                    <p>状态码: ${response.status}</p>
+                    <pre>${JSON.stringify(result, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">错误: ${error.message}</p>`;
+            }
+        });
+        
+        // 测试注册
+        document.getElementById('testRegisterForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('regUsername').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const resultDiv = document.getElementById('registerResult');
+            
+            resultDiv.innerHTML = '<p>正在测试注册...</p>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, email, password })
+                });
+                
+                const result = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <h3>注册响应：</h3>
+                    <p>状态码: ${response.status}</p>
+                    <pre>${JSON.stringify(result, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">错误: ${error.message}</p>`;
+            }
+        });
+        
+        // 测试后端连接
+        async function testBackend() {
+            const resultDiv = document.getElementById('backendResult');
+            resultDiv.innerHTML = '<p>正在测试后端连接...</p>';
+            
+            try {
+                // 测试健康检查端点
+                const response = await fetch(`${API_BASE}/health`);
+                const result = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <h3>后端健康检查：</h3>
+                    <p>状态码: ${response.status}</p>
+                    <pre>${JSON.stringify(result, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">错误: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
