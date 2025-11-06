@@ -1,91 +1,3 @@
-// ============================================
-// 📋 i18n.js - 多语言翻译配置文件
-// ============================================
-//
-// 📖 文件说明：
-//   - 支持语言：中文(zh) 和 英文(en)
-//   - 运行环境：无打包直接引入（no-bundler），通过 window 全局使用
-//   - 总行数：~3855行
-//   - 翻译键：~1400+个英文键，~1200+个中文键
-//
-// ============================================
-// 📍 快速导航索引
-// ============================================
-//
-// 🔧 工具函数与初始化 (第1-30行)
-//   └─ DEBUG日志抑制、normalizeLang()
-//
-// 🌍 英文翻译 (en) - 第32-1920行
-//   ├─ 🏠 首页与通用 (第33-140行)
-//   │   ├─ 标题描述 (第33-36行)
-//   │   ├─ 输入区域 (第37-47行)
-//   │   ├─ 生成类型 (第48-53行)
-//   │   ├─ 快捷操作 (第93-97行)
-//   │   ├─ 状态消息 (第98-122行)
-//   │   └─ 欢迎区域 (第127-140行)
-//   │
-//   ├─ 🎨 图片生成 (第54-80行)
-//   │   ├─ AI模型选择
-//   │   ├─ 尺寸比例
-//   │   └─ 图片数量
-//   │
-//   ├─ 🎵 语音生成 (第81-92行)
-//   │   ├─ 音频选项
-//   │   └─ 声音选择
-//   │
-//   ├─ 📝 博客页面 (第264-489行)
-//   │   ├─ AI指南 (第264-371行)
-//   │   ├─ 提示词工程 (第372-433行)
-//   │   └─ 教程博客 (第434-489行)
-//   │
-//   ├─ 📄 关于页面 (第497-805行)
-//   │   ├─ 关于AISTONE (第666-679行)
-//   │   └─ 技术架构 (第805-846行)
-//   │
-//   ├─ ❓ FAQ页面 (第680-730行)
-//   │
-//   ├─ 🔐 认证登录 (第922-969行)
-//   │   ├─ 登录注册
-//   │   ├─ Google登录
-//   │   └─ 密码找回
-//   │
-//   ├─ 👤 用户中心 (第1269-1276行)
-//   │
-//   ├─ 💬 反馈系统 (第1277-1316行)
-//   │
-//   ├─ 🖼️ HD图片管理 (第1250-1268行)
-//   │
-//   ├─ 📋 提示词模板 (第1303-1316行)
-//   │
-//   ├─ 🔗 导航与Footer (第1090-1104行, 第1328-1472行)
-//   │
-//   ├─ 📜 服务条款 (第1487-1608行)
-//   │
-//   └─ 🔒 隐私政策 (第1609-1718行)
-//
-// 🇨🇳 中文翻译 (zh) - 第1922-3381行
-//   └─ (结构与英文对应，键名相同)
-//
-// ⚙️ 核心函数 (第3387-3855行)
-//   ├─ getCurrentLang() - 获取当前语言 (第3387行)
-//   ├─ updateLanguageButtons() - 更新语言按钮 (第3396行)
-//   ├─ getNestedI18nValue() - 递归读取翻译值 (第3405行)
-//   ├─ setLanguage() - 设置语言 (第3436行)
-//   ├─ t() - 翻译函数 (第3639行)
-//   ├─ updatePageText() - 更新页面文本 (第3658行)
-//   └─ initI18n() - 初始化i18n (第3811行)
-//
-// ============================================
-// 💡 使用提示
-// ============================================
-//
-// 1. 查找翻译键：使用 Ctrl+F 搜索键名
-// 2. 添加新翻译：在对应section添加，保持en和zh同步
-// 3. 修改翻译：同时修改en和zh对应的键
-// 4. 测试翻译：调用 t('keyName') 或使用 data-i18n="keyName"
-//
-// ============================================
-
 // DEBUG 日志抑制（默认关闭），与 app.js 逻辑一致，尽早执行
 (function () {
   try {
@@ -105,7 +17,9 @@
 })();
 
 /**
- * 语言规范化函数
+ * 多语言配置文件
+ * 支持中文和英文
+ * 运行环境：无打包直接引入（no-bundler），通过 window 全局使用
  */
 function normalizeLang(lang) {
   if (!lang) return "en";
@@ -115,12 +29,7 @@ function normalizeLang(lang) {
 }
 
 const i18n = {
-  // ============================================
-  // 🌍 英文翻译 (English Translations)
-  // ============================================
   en: {
-    // ========== 🏠 首页与通用 (Homepage & Common) ==========
-    
     // Title and description (English defaults now in HTML)
     title: "AISTONE",
     subtitle: "Images · Voice · Unlimited Free Generation",
@@ -142,8 +51,6 @@ const i18n = {
     typeAudio: "Generate Voice",
     generationResult: "Generation Result",
 
-    // ========== 🎨 图片生成 (Image Generation) ==========
-    
     // Image options
     imageOptions: "Image Options",
     aiModel: "AI Model",
@@ -171,8 +78,6 @@ const i18n = {
     aspectRatioLandscape4K: "Landscape 4K (16:9 - 3840x2160)",
     aspectRatioPortrait4K: "Portrait 4K (9:16 - 2160x3840)",
 
-    // ========== 🎵 语音生成 (Voice Generation) ==========
-    
     // Audio options
     audioOptions: "Audio Options",
     voiceSelection: "Voice Selection",
@@ -356,8 +261,6 @@ const i18n = {
     aboutContactTwitterTitle: "Twitter / X",
     aboutContactTwitterDesc: "Outage notices and release highlights are posted on the account.",
 
-    // ========== 📝 博客页面 (Blog Pages) ==========
-    
     // Blog AI guide (English)
     blogAiGuideTocTitle: "Table of contents",
     blogAiGuideToc1: "1. Translate a business brief into AI requirements",
@@ -591,8 +494,6 @@ const i18n = {
       "Generate high-quality AI images for free, supporting various styles and sizes",
     breadcrumbImageGenerator: "AI Image Generator",
 
-    // ========== 📄 关于页面 (About Page) ==========
-    
     // About page
     aboutStatImages: "Image Generations",
     aboutStatVoice: "Voice Synthesis Duration",
@@ -776,9 +677,6 @@ const i18n = {
     aistonePartner: "AISTONE - Your AI Content Creation Partner",
     aistonePartnerDesc:
       "Join thousands of users who trust AISTONE for their AI content creation needs. From stunning visual art to natural voice synthesis, AISTONE is your one-stop solution for all AI-powered creative projects. Experience the future of content creation with AISTONE today.",
-    
-    // ========== ❓ FAQ页面 (FAQ Page) ==========
-    
     // FAQ page
     faqIntro:
       "This page collects the most common questions and answers. If you do not find the answer you need, please contact us via the page footer.",
@@ -1021,8 +919,6 @@ const i18n = {
     imageHint: "💡 Image generation supports multiple sizes and quantities",
     audioHint: "🎵 Audio generation supports playback and download",
 
-    // ========== 🔐 认证登录 (Authentication) ==========
-    
     // Auth related
     loginTitle: "User Login",
     registerTitle: "User Registration",
@@ -2023,13 +1919,7 @@ const i18n = {
     relatedAboutTitle: "ℹ️ Learn Technology",
     relatedAboutDesc: "Discover our AI technology and platform vision in depth",
   },
-  
-  // ============================================
-  // 🇨🇳 中文翻译 (Chinese Translations)
-  // ============================================
   zh: {
-    // ========== 🏠 首页与通用 (Homepage & Common) ==========
-    
     // 标题和描述
     title: "AISTONE",
     subtitle: "图片·语音·无限免费生成",
@@ -2050,8 +1940,6 @@ const i18n = {
     typeAudio: "生成语音",
     generationResult: "生成结果",
 
-    // ========== 🎨 图片生成 (Image Generation) ==========
-    
     // 图片选项
     imageOptions: "图片选项",
     aiModel: "AI模型",
@@ -2078,8 +1966,6 @@ const i18n = {
     aspectRatioLandscape4K: "横向4K (16:9 - 3840x2160)",
     aspectRatioPortrait4K: "竖向4K (9:16 - 2160x3840)",
 
-    // ========== 🎵 语音生成 (Voice Generation) ==========
-    
     // 音频选项
     audioOptions: "音频选项",
     voiceSelection: "语音选择",
@@ -2124,8 +2010,6 @@ const i18n = {
     gridView: "网格查看",
     audioUnsupported: "您的浏览器不支持音频播放。",
 
-    // ========== 🔐 认证登录 (Authentication) ==========
-    
     // 认证相关
     loginTitle: "用户登录",
     registerTitle: "用户注册",
