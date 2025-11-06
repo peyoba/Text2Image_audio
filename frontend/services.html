@@ -55,26 +55,8 @@
       <main>
         <section class="services-section" id="services">
           <h1 data-i18n="servicesModalTitle">我们的服务</h1>
-          <div data-i18n="servicesModalContent" class="services-content">
-            <ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #aab4d4">
-              <li>
-                <b>AI图片生成：</b
-                >输入描述文本，智能生成高质量、多风格的图片，支持多种分辨率和比例选择。
-              </li>
-              <li>
-                <b>AI语音生成：</b
-                >输入文本，一键生成自然流畅的语音音频，适用于配音、播报等多种场景。
-              </li>
-              <li>
-                <b>智能提示词优化：</b
-                >内置AI优化和翻译功能，自动将您的描述转化为高质量英文提示词，提升生成效果。
-              </li>
-              <li><b>多语言支持：</b>支持中文和英文界面，满足全球用户需求。</li>
-              <li><b>永久免费：</b>所有功能对用户永久免费，无需注册，无使用次数限制。</li>
-            </ul>
-            <div style="margin-top: 12px; color: #aab4d4">
-              如需了解更多服务细节，欢迎通过"联系我们"与我们取得联系。
-            </div>
+          <div class="services-content" id="services-content-container">
+            <!-- 内容将通过JavaScript动态插入 -->
           </div>
         </section>
 
@@ -249,6 +231,24 @@
     <script src="js/auth_modals.js" defer></script>
     <div id="auth-modals"></div>
     <script>
+      // 动态加载服务内容
+      function loadServicesContent() {
+        const container = document.getElementById("services-content-container");
+        if (container && typeof t === "function") {
+          const content = t("servicesModalContent");
+          if (content) {
+            container.innerHTML = content;
+          }
+        }
+      }
+
+      // 页面加载完成后加载内容
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", loadServicesContent);
+      } else {
+        loadServicesContent();
+      }
+
       fetch("auth-modals.html")
         .then((response) => response.text())
         .then((html) => {
@@ -264,11 +264,21 @@
           ensureBind();
           if (typeof setLanguage === "function" && typeof getCurrentLang === "function") {
             setLanguage(getCurrentLang());
+            // 语言切换后重新加载服务内容
+            loadServicesContent();
           }
         })
         .catch((error) => {
           console.error("加载认证界面失败:", error);
         });
+
+      // 监听语言切换事件
+      const langSelect = document.getElementById("lang-select");
+      if (langSelect) {
+        langSelect.addEventListener("change", function () {
+          setTimeout(loadServicesContent, 100);
+        });
+      }
     </script>
   </body>
 </html>
