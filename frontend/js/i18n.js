@@ -842,7 +842,7 @@ const i18n = {
       "Integrated multiple AI service providers with intelligent load balancing ensuring high availability",
     aboutDataStorage: "💾 Data Storage",
     aboutDataStorageDesc:
-      "KV storage for user data, R2 object storage for generated content management, global synchronization",,
+      "KV storage for user data, R2 object storage for generated content management, global synchronization",
 
     // === 以下翻译键来自原第二个en对象（已合并） ===
     // Title and description
