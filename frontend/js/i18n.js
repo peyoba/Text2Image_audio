@@ -3465,23 +3465,18 @@ function setLanguage(lang) {
               if (span) {
                 span.textContent = value;
               } else {
-                // 没有span，查找并更新第一个文本节点
-                let textNode = null;
-                for (let node of el.childNodes) {
-                  if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
-                    textNode = node;
-                    break;
+                // 没有span，清除所有文本节点并添加新的
+                // 先移除所有现有的文本节点
+                Array.from(el.childNodes).forEach(node => {
+                  if (node.nodeType === Node.TEXT_NODE) {
+                    node.remove();
                   }
-                }
-                if (textNode) {
-                  textNode.textContent = value;
-                } else {
-                  // 没有文本节点，在所有子元素之后插入文本节点
-                  el.appendChild(document.createTextNode(value));
-                }
+                });
+                // 在开头插入新的文本节点
+                el.insertBefore(document.createTextNode(value), el.firstChild);
               }
             } else {
-              // 没有需要保留的子元素，直接使用textContent（更安全）
+              // 没有需要保留的子元素，直接完全替换内容
               el.textContent = value;
             }
           }
@@ -3701,20 +3696,15 @@ function updatePageText() {
             if (span) {
               span.textContent = value;
             } else {
-              // 没有span，查找并更新第一个文本节点
-              let textNode = null;
-              for (let node of el.childNodes) {
-                if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
-                  textNode = node;
-                  break;
+              // 没有span，清除所有文本节点并添加新的
+              // 先移除所有现有的文本节点
+              Array.from(el.childNodes).forEach(node => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                  node.remove();
                 }
-              }
-              if (textNode) {
-                textNode.textContent = value;
-              } else {
-                // 没有文本节点，在所有子元素之后插入文本节点
-                el.appendChild(document.createTextNode(value));
-              }
+              });
+              // 在开头插入新的文本节点
+              el.insertBefore(document.createTextNode(value), el.firstChild);
             }
           } else {
             // 没有需要保留的子元素，直接完全替换内容
