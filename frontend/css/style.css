@@ -1,6 +1,17 @@
 @import url("variables.css");
 /* frontend/css/style.css - 现代化版本 + 布局优化 + 交互增强 */
 
+/* 语言切换渲染掩模：在i18n应用完成前隐藏页面，避免闪烁 */
+html.lang-loading body {
+  opacity: 0;
+  pointer-events: none;
+}
+
+html.lang-ready body {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
 /* 面包屑导航样式 */
 .breadcrumb {
   background: rgba(26, 34, 58, 0.8);

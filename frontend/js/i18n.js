@@ -104,6 +104,33 @@
   } catch (_) {}
 })();
 
+// 确保在多语言渲染完成前屏蔽页面闪烁
+(function () {
+  try {
+    const docEl = document.documentElement;
+    if (docEl && !docEl.classList.contains("lang-loading")) {
+      docEl.classList.add("lang-loading");
+    }
+  } catch (_) {}
+})();
+
+let languageReadyMarked = false;
+function markLanguageReady() {
+  if (languageReadyMarked) {
+    return;
+  }
+  languageReadyMarked = true;
+  try {
+    const docEl = document.documentElement;
+    if (docEl) {
+      docEl.classList.remove("lang-loading");
+      docEl.classList.add("lang-ready");
+    }
+  } catch (error) {
+    console.warn("[i18n] 无法移除语言加载遮罩:", error);
+  }
+}
+
 /**
  * 语言规范化函数
  */
@@ -143,7 +170,7 @@ const i18n = {
     generationResult: "Generation Result",
 
     // ========== 🎨 图片生成 (Image Generation) ==========
-    
+
     // Image options
     imageOptions: "Image Options",
     aiModel: "AI Model",
@@ -172,7 +199,7 @@ const i18n = {
     aspectRatioPortrait4K: "Portrait 4K (9:16 - 2160x3840)",
 
     // ========== 🎵 语音生成 (Voice Generation) ==========
-    
+
     // Audio options
     audioOptions: "Audio Options",
     voiceSelection: "Voice Selection",
@@ -400,7 +427,7 @@ const i18n = {
     aboutContactTwitterDesc: "Outage notices and release highlights are posted on the account.",
 
     // ========== 📝 博客页面 (Blog Pages) ==========
-    
+
     // Blog AI guide (English)
     blogAiGuideTocTitle: "Table of contents",
     blogAiGuideToc1: "1. Translate a business brief into AI requirements",
@@ -635,7 +662,7 @@ const i18n = {
     breadcrumbImageGenerator: "AI Image Generator",
 
     // ========== 📄 关于页面 (About Page) ==========
-    
+
     // About page
     aboutStatImages: "Image Generations",
     aboutStatVoice: "Voice Synthesis Duration",
@@ -1065,7 +1092,7 @@ const i18n = {
     audioHint: "🎵 Audio generation supports playback and download",
 
     // ========== 🔐 认证登录 (Authentication) ==========
-    
+
     // Auth related
     loginTitle: "User Login",
     registerTitle: "User Registration",
@@ -2115,7 +2142,7 @@ const i18n = {
     generationResult: "生成结果",
 
     // ========== 🎨 图片生成 (Image Generation) ==========
-    
+
     // 图片选项
     imageOptions: "图片选项",
     aiModel: "AI模型",
@@ -2143,7 +2170,7 @@ const i18n = {
     aspectRatioPortrait4K: "竖向4K (9:16 - 2160x3840)",
 
     // ========== 🎵 语音生成 (Voice Generation) ==========
-    
+
     // 音频选项
     audioOptions: "音频选项",
     voiceSelection: "语音选择",
@@ -2189,7 +2216,7 @@ const i18n = {
     audioUnsupported: "您的浏览器不支持音频播放。",
 
     // ========== 🔐 认证登录 (Authentication) ==========
-    
+
     // 认证相关
     loginTitle: "用户登录",
     registerTitle: "用户注册",
@@ -3869,13 +3896,16 @@ function setLanguage(lang) {
         updatePageText();
       }
 
+      markLanguageReady();
       return true;
     } catch (error) {
       console.error("[i18n] 设置语言时发生错误:", error);
+      markLanguageReady();
       return false;
     }
   }
   console.warn("[i18n] 不支持的语言:", lang);
+  markLanguageReady();
   return false;
 }
 
@@ -4096,3 +4126,4 @@ window.setLanguage = setLanguage;
 window.t = t;
 window.i18n = i18n;
 window.updatePageText = updatePageText;
+window.markLanguageReady = markLanguageReady;
