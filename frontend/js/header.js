@@ -73,6 +73,13 @@
         activateNav(nav, activeId);
         bindLanguageSelector(nav);
         bindAuthTrigger(nav);
+        if (typeof setLanguage === "function" && typeof getCurrentLang === "function") {
+          try {
+            setLanguage(getCurrentLang());
+          } catch (error) {
+            console.warn("[header] Failed to reapply language after mount:", error);
+          }
+        }
         if (typeof window.authManager !== "undefined" && window.authManager?.syncHeader) {
           window.authManager.syncHeader(nav);
         }
