@@ -2,9 +2,10 @@ import { fetchWithRetry } from "../utils/fetch.js";
 import { logInfo } from "../utils/logger.js";
 
 /**
- * 使用 Pollinations 新 API (gen.pollinations.ai) 生成图片
- * 2026-01 更新：Pollinations 已迁移到新的 API 系统，需要 API Key 认证
- * 文档：https://enter.pollinations.ai/api/docs
+ * 使用 Pollinations 免费 API (image.pollinations.ai) 生成图片
+ * 2026-01 更新：使用免费的旧 API，通过 referrer 参数认证
+ * 新 API (gen.pollinations.ai) 需要 Pollen 积分，暂不使用
+ * 文档：https://github.com/pollinations/pollinations/blob/master/APIDOCS.md
  */
 export async function generateImageFromPollinations(
   prompt,
@@ -16,49 +17,35 @@ export async function generateImageFromPollinations(
   negative,
   model = "flux"
 ) {
-  // 新 API 基础 URL：gen.pollinations.ai（2026-01 更新）
-  // 旧 API image.pollinations.ai 已弃用
-  let imageApiBase = env.POLLINATIONS_GEN_API_BASE || env.POLLINATIONS_IMAGE_API_BASE || "https://gen.pollinations.ai";
-  
-  // 兼容旧配置：如果配置的是旧 API 地址，自动切换到新地址
-  if (imageApiBase.includes("image.pollinations.ai")) {
-    imageApiBase = "https://gen.pollinations.ai";
-    logInfo(env, "[Worker Log] 检测到旧 API 地址，已自动切换到新 API: gen.pollinations.ai");
-  }
-  
-  if (imageApiBase.endsWith("/")) {
-    imageApiBase = imageApiBase.slice(0, -1);
-  }
+  // 使用免费的旧 API：image.pollinations.ai
+  const imageApiBase = "https://image.pollinations.ai";
 
   // 构建请求参数
   const params = new URLSearchParams();
   if (width) params.append("width", width);
   if (height) params.append("height", height);
   if (seed && seed !== -1) params.append("seed", seed);
-  if (nologo) params.append("nologo", nologo);
+  if (nologo) params.append("nologo", "true");
   if (negative) params.append("negative", negative);
   if (model) params.append("model", model);
+  
+  // 添加 referrer 参数用于认证（获得更高速率限制）
+  const referrer = env.POLLINATIONS_REFERRER || "aistone.org";
+  params.append("referrer", referrer);
 
-  // 新 API 端点格式：/image/{prompt}（不是 /prompt/{prompt}）
-  const fullUrl = `${imageApiBase}/image/${encodeURIComponent(prompt)}?${params.toString()}`;
-  logInfo(env, `[Worker Log] 向 Pollinations Gen API 发送请求 (模型: ${model}): ${fullUrl}`);
-
-  // 设置请求头 - 新 API 必须使用 API Key 认证
-  const headers = {};
-  const apiToken = env.POLLINATIONS_API_TOKEN || env.POLLINATIONS_API_KEY;
-  if (!apiToken) {
-    throw new Error("未配置 POLLINATIONS_API_TOKEN，请在 Cloudflare Workers 控制台设置 API Key");
-  }
-  headers["Authorization"] = `Bearer ${apiToken}`;
-  logInfo(env, "[Worker Log] 使用 Pollinations API Key 进行认证。");
+  // 旧 API 端点格式：/prompt/{prompt}
+  const fullUrl = `${imageApiBase}/prompt/${encodeURIComponent(prompt)}?${params.toString()}`;
+  logInfo(env, `[Worker Log] 向 Pollinations 免费 API 发送请求 (模型: ${model}): ${fullUrl}`);
 
   const response = await fetchWithRetry(
     fullUrl,
     {
       method: "GET",
-      headers,
+      headers: {
+        "Referer": `https://${referrer}/`,
+      },
     },
-    "Pollinations Gen API",
+    "Pollinations Image API",
     env
   );
 
