@@ -487,16 +487,24 @@ class ApiClient {
 
   /**
    * 获取可用的语音模型
+   * 2026-01 更新：新增 coral, verse, ballad, ash, sage, amuch, dan 等声音
    * @returns {Array} 语音模型列表
    */
   getAvailableVoiceModels() {
     return [
+      // 经典声音
       { id: "nova", name: "Nova", description: "女声-清晰自然" },
-      { id: "alloy", name: "Alloy", description: "男声-温和友好" },
+      { id: "alloy", name: "Alloy", description: "中性-温和友好" },
       { id: "echo", name: "Echo", description: "男声-深沉有力" },
       { id: "fable", name: "Fable", description: "男声-年轻活泼" },
       { id: "onyx", name: "Onyx", description: "男声-磁性成熟" },
       { id: "shimmer", name: "Shimmer", description: "女声-甜美温柔" },
+      // 新增声音 (2026-01)
+      { id: "coral", name: "Coral", description: "女声-温暖柔和" },
+      { id: "verse", name: "Verse", description: "中性-诗意优雅" },
+      { id: "ballad", name: "Ballad", description: "中性-抒情动听" },
+      { id: "ash", name: "Ash", description: "中性-沉稳冷静" },
+      { id: "sage", name: "Sage", description: "中性-智慧深邃" },
     ];
   }
 

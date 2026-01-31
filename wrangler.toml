@@ -43,9 +43,21 @@ compatibility_flags = ["nodejs_compat"] # 启用Node.js兼容性，支持crypto�
 mode = "smart" 
 
 [vars]
-# API配置
-POLLINATIONS_IMAGE_API_BASE = "https://image.pollinations.ai"
+# API配置 - 2026-01 更新：使用新的 gen.pollinations.ai API
+# 旧 API (image.pollinations.ai) 已弃用，需要迁移到新系统
+POLLINATIONS_GEN_API_BASE = "https://gen.pollinations.ai"
+POLLINATIONS_IMAGE_API_BASE = "https://gen.pollinations.ai"
 POLLINATIONS_TEXT_API_BASE = "https://text.pollinations.ai"
+
+# ⚠️ 重要：新 API 需要认证！请在 Cloudflare Workers 控制台设置以下环境变量：
+# POLLINATIONS_API_TOKEN = "sk_xxxxxxxx" (从 https://enter.pollinations.ai 获取)
+# 
+# 获取 API Key 步骤：
+# 1. 访问 https://enter.pollinations.ai
+# 2. 使用 GitHub 登录
+# 3. 购买 Pollen 积分 (或等待每日免费额度)
+# 4. 生成 API Key (sk_ 开头的密钥)
+# 5. 在 Cloudflare Workers 控制台添加环境变量 POLLINATIONS_API_TOKEN
 DEEPSEEK_API_URL = "https://api.siliconflow.cn/v1/chat/completions"
 DEEPSEEK_MODEL = "deepseek-ai/DeepSeek-V2.5"
 
