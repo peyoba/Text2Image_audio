@@ -2,10 +2,39 @@ import { fetchWithRetry } from "../utils/fetch.js";
 import { logInfo } from "../utils/logger.js";
 
 /**
- * 使用 Pollinations 免费 API (image.pollinations.ai) 生成图片
- * 2026-01 更新：使用免费的旧 API，通过 referrer 参数认证
- * 新 API (gen.pollinations.ai) 需要 Pollen 积分，暂不使用
- * 文档：https://github.com/pollinations/pollinations/blob/master/APIDOCS.md
+ * 免费模型列表 - 使用旧 API (image.pollinations.ai)
+ * 这些模型可以免费无限使用，仅有速率限制
+ */
+const FREE_MODELS = ["flux", "turbo", "zimage"];
+
+/**
+ * 付费模型列表 - 使用新 API (gen.pollinations.ai)
+ * 这些模型需要 Pollen 积分，提供更高级的功能
+ */
+const PREMIUM_MODELS = [
+  "kontext",           // FLUX.1 Kontext - 图像编辑
+  "klein",             // FLUX.2 Klein 4B
+  "klein-large",       // FLUX.2 Klein 9B
+  "gptimage",          // GPT Image Mini
+  "gptimage-large",    // GPT Image 1.5
+  "nanobanana",        // NanoBanana (Gemini)
+  "nanobanana-pro",    // NanoBanana Pro
+  "seedream",          // Seedream 4.0 (字节跳动)
+  "seedream-pro",      // Seedream 4.5 Pro
+];
+
+/**
+ * 判断模型是否为付费模型
+ */
+function isPremiumModel(model) {
+  return PREMIUM_MODELS.includes(model);
+}
+
+/**
+ * 使用 Pollinations API 生成图片
+ * 2026-01 更新：根据模型类型自动选择 API
+ * - 免费模型：使用 image.pollinations.ai (无需 API Key)
+ * - 付费模型：使用 gen.pollinations.ai (需要 Pollen 积分)
  */
 export async function generateImageFromPollinations(
   prompt,
@@ -17,8 +46,21 @@ export async function generateImageFromPollinations(
   negative,
   model = "flux"
 ) {
-  // 使用免费的旧 API：image.pollinations.ai
+  // 根据模型类型选择 API
+  if (isPremiumModel(model)) {
+    return generateImageWithPremiumApi(prompt, env, width, height, seed, nologo, negative, model);
+  } else {
+    return generateImageWithFreeApi(prompt, env, width, height, seed, nologo, negative, model);
+  }
+}
+
+/**
+ * 使用免费 API 生成图片 (image.pollinations.ai)
+ * 支持模型：flux, turbo, zimage
+ */
+async function generateImageWithFreeApi(prompt, env, width, height, seed, nologo, negative, model) {
   const imageApiBase = "https://image.pollinations.ai";
+  const referrer = env.POLLINATIONS_REFERRER || "aistone.org";
 
   // 构建请求参数
   const params = new URLSearchParams();
@@ -28,14 +70,11 @@ export async function generateImageFromPollinations(
   if (nologo) params.append("nologo", "true");
   if (negative) params.append("negative", negative);
   if (model) params.append("model", model);
-  
-  // 添加 referrer 参数用于认证（获得更高速率限制）
-  const referrer = env.POLLINATIONS_REFERRER || "aistone.org";
   params.append("referrer", referrer);
 
-  // 旧 API 端点格式：/prompt/{prompt}
+  // 免费 API 端点格式：/prompt/{prompt}
   const fullUrl = `${imageApiBase}/prompt/${encodeURIComponent(prompt)}?${params.toString()}`;
-  logInfo(env, `[Worker Log] 向 Pollinations 免费 API 发送请求 (模型: ${model}): ${fullUrl}`);
+  logInfo(env, `[Worker Log] [免费API] 生成图片 (模型: ${model})`);
 
   const response = await fetchWithRetry(
     fullUrl,
@@ -45,7 +84,52 @@ export async function generateImageFromPollinations(
         "Referer": `https://${referrer}/`,
       },
     },
-    "Pollinations Image API",
+    "Pollinations Free API",
+    env
+  );
+
+  return response.arrayBuffer();
+}
+
+/**
+ * 使用付费 API 生成图片 (gen.pollinations.ai)
+ * 支持高级模型：kontext, klein, gptimage, nanobanana, seedream 等
+ * 需要配置 POLLINATIONS_API_TOKEN
+ */
+async function generateImageWithPremiumApi(prompt, env, width, height, seed, nologo, negative, model) {
+  const genApiBase = env.POLLINATIONS_GEN_API_BASE || "https://gen.pollinations.ai";
+  const apiToken = env.POLLINATIONS_API_TOKEN || env.POLLINATIONS_API_KEY;
+
+  // 付费模型必须有 API Token
+  if (!apiToken) {
+    throw new Error(
+      `模型 "${model}" 是付费模型，需要 Pollen 积分。` +
+      `请访问 https://enter.pollinations.ai 购买积分，或选择免费模型 (flux, turbo, zimage)。`
+    );
+  }
+
+  // 构建请求参数
+  const params = new URLSearchParams();
+  if (width) params.append("width", width);
+  if (height) params.append("height", height);
+  if (seed && seed !== -1) params.append("seed", seed);
+  if (nologo) params.append("nologo", "true");
+  if (negative) params.append("negative", negative);
+  params.append("model", model);
+
+  // 付费 API 端点格式：/image/{prompt}
+  const fullUrl = `${genApiBase}/image/${encodeURIComponent(prompt)}?${params.toString()}`;
+  logInfo(env, `[Worker Log] [付费API] 生成图片 (模型: ${model})`);
+
+  const response = await fetchWithRetry(
+    fullUrl,
+    {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${apiToken}`,
+      },
+    },
+    "Pollinations Premium API",
     env
   );
 
