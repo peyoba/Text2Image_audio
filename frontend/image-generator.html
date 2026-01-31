@@ -277,21 +277,37 @@
           <div class="image-options" id="image-generation-options">
             <h3 class="section-title" data-i18n="imageOptions">图片选项</h3>
 
-            <!-- AI模型选择 -->
+            <!-- AI模型选择 - 2026-01 更新支持新 API 模型 -->
             <div>
               <label for="option-ai-model" data-i18n="aiModel">AI模型</label>
               <select id="option-ai-model" name="option-ai-model">
-                <option value="flux" selected data-i18n="aiModelFlux">
-                  FLUX - High Quality Art Creation
-                </option>
-                <option value="turbo" data-i18n="aiModelTurbo">Turbo - Fast Generation</option>
-                <option value="kontext" data-i18n="aiModelKontext">
-                  Kontext - Image-to-Image Generation
-                </option>
+                <!-- 免费/低价模型 -->
+                <optgroup label="⚡ Fast & Free" data-i18n-label="modelGroupFree">
+                  <option value="flux" selected data-i18n="aiModelFlux">FLUX Schnell - 免费高质量</option>
+                  <option value="zimage" data-i18n="aiModelZimage">Z-Image Turbo - 快速2倍放大</option>
+                  <option value="turbo" data-i18n="aiModelTurbo">SDXL Turbo - 单步快速生成</option>
+                </optgroup>
+                <!-- FLUX 系列 -->
+                <optgroup label="🎨 FLUX Series" data-i18n-label="modelGroupFlux">
+                  <option value="kontext" data-i18n="aiModelKontext">FLUX Kontext - 图像编辑</option>
+                  <option value="klein" data-i18n="aiModelKlein">FLUX.2 Klein 4B - 快速编辑</option>
+                  <option value="klein-large" data-i18n="aiModelKleinLarge">FLUX.2 Klein 9B - 高质量编辑</option>
+                </optgroup>
+                <!-- GPT Image -->
+                <optgroup label="🤖 GPT Image" data-i18n-label="modelGroupGPT">
+                  <option value="gptimage" data-i18n="aiModelGptimage">GPT Image Mini - OpenAI图像</option>
+                  <option value="gptimage-large" data-i18n="aiModelGptimageLarge">GPT Image 1.5 - 高级图像</option>
+                </optgroup>
+                <!-- 其他高级模型 -->
+                <optgroup label="✨ Premium" data-i18n-label="modelGroupPremium">
+                  <option value="nanobanana" data-i18n="aiModelNanobanana">NanoBanana - Gemini图像</option>
+                  <option value="nanobanana-pro" data-i18n="aiModelNanobananaPro">NanoBanana Pro - 4K思考</option>
+                  <option value="seedream" data-i18n="aiModelSeedream">Seedream 4.0 - 字节跳动</option>
+                  <option value="seedream-pro" data-i18n="aiModelSeedreamPro">Seedream 4.5 Pro - 4K多图</option>
+                </optgroup>
               </select>
               <small class="model-hint" data-i18n="modelHint"
-                >💡 Different models suit different scenarios: FLUX for art creation, Turbo for fast
-                prototyping, Kontext for image editing</small
+                >💡 FLUX 免费无限使用，其他模型消耗 Pollen 积分</small
               >
             </div>
 
