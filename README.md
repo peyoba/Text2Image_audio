@@ -9,6 +9,18 @@
 </p>
 
 <p align="center">
+  <a href="https://pollinations.ai">
+    <img src="https://img.shields.io/badge/Made%20with-Pollinations.AI-blue?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0wIDE4Yy00LjQxIDAtOC0zLjU5LTgtOHMzLjU5LTggOC04IDggMy41OSA4IDgtMy41OSA4LTggOHoiLz48L3N2Zz4=" alt="Made with Pollinations.AI">
+  </a>
+  <a href="https://github.com/peyoba/Text2Image_audio">
+    <img src="https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github" alt="GitHub">
+  </a>
+  <a href="https://aistone.org">
+    <img src="https://img.shields.io/badge/Website-aistone.org-green?style=for-the-badge" alt="Website">
+  </a>
+</p>
+
+<p align="center">
   <a href="https://aistone.org">官方网站</a> •
   <a href="#功能特色">功能特色</a> •
   <a href="#使用指南">使用指南</a> •
@@ -200,7 +212,15 @@ AISTONE 的诞生离不开以下优秀的开源项目和服务：
 ---
 
 <p align="center">
+  <a href="https://pollinations.ai">
+    <img src="https://img.shields.io/badge/Powered%20by-Pollinations.AI-blue?style=flat-square" alt="Powered by Pollinations.AI">
+  </a>
+</p>
+
+<p align="center">
   Made with ❤️ by AISTONE Team
   <br>
-  Powered by <a href="https://pollinations.ai">Pollinations.AI</a>
+  <a href="https://pollinations.ai">
+    <img src="https://raw.githubusercontent.com/pollinations/pollinations/master/assets/logo-text.svg" alt="Pollinations.AI" width="200">
+  </a>
 </p>
