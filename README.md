@@ -188,7 +188,6 @@ AISTONE 的诞生离不开以下优秀的开源项目和服务：
 - **[Pollinations.AI](https://pollinations.ai)** - 提供强大的开源 AI 图像和音频生成 API，是本项目的核心技术基础
 - **[DeepSeek](https://deepseek.com)** - 提供智能提示词优化能力，大幅提升生成质量
 - **[Cloudflare](https://cloudflare.com)** - 提供 Workers、Pages 和全球 CDN 基础设施
-- **[SiliconFlow](https://siliconflow.cn)** - 提供稳定的 AI 模型 API 服务
 
 特别感谢 Pollinations.AI 团队开放免费的 API 接口，让更多开发者和用户能够体验 AI 创作的魅力。
 
