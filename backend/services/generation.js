@@ -53,54 +53,30 @@ export async function generateImageFromPollinations(
 }
 
 /**
- * 使用 Pollinations 新 API (gen.pollinations.ai) 生成音频
- * 2026-01 更新：音频生成现在使用 OpenAI 兼容的 chat completions 端点
- * 模型：openai-audio
- * 可用声音：alloy, echo, fable, onyx, nova, shimmer, coral, verse, ballad, ash, sage, amuch, dan
+ * 使用 Pollinations API 生成音频
+ * 2026-01 更新：语音生成需要 Pollen 积分，使用 gen.pollinations.ai
+ * 如果没有配置 API Token，则抛出友好错误提示
+ * 可用声音：alloy, echo, fable, onyx, nova, shimmer, coral, verse, ballad, ash, sage
  */
 export async function generateAudioFromPollinations(prompt, env, voice = "nova", model = "openai-audio", speed) {
-  // 新 API 基础 URL
+  // 语音生成需要 API Token (Pollen 积分)
   const genApiBase = env.POLLINATIONS_GEN_API_BASE || "https://gen.pollinations.ai";
   const apiToken = env.POLLINATIONS_API_TOKEN || env.POLLINATIONS_API_KEY;
   
-  // 新 API 必须使用 API Token
+  // 检查 API Token
   if (!apiToken) {
-    throw new Error("未配置 POLLINATIONS_API_TOKEN，请在 Cloudflare Workers 控制台设置 API Key");
+    throw new Error("语音生成功能需要 Pollen 积分。请访问 https://enter.pollinations.ai 购买积分后配置 API Key。图片生成功能仍可免费使用。");
   }
-  
-  return await generateAudioWithNewApi(prompt, env, voice, model, speed, genApiBase, apiToken);
-}
-
-/**
- * 使用新 API 生成音频（OpenAI 兼容格式）
- */
-async function generateAudioWithNewApi(prompt, env, voice, model, speed, genApiBase, apiToken) {
-  const fullUrl = `${genApiBase}/v1/chat/completions`;
-  
-  // 构建语速指令
-  const normalizedSpeed =
-    typeof speed !== "undefined" && !isNaN(Number(speed))
-      ? Math.max(0.25, Math.min(4.0, Number(speed)))
-      : 1.0;
-  const speedInstruction =
-    normalizedSpeed !== 1.0
-      ? ` Please speak at approximately ${normalizedSpeed}x speed.`
-      : "";
   
   // 构建请求体（OpenAI 兼容格式）
   const requestBody = {
     model: "openai-audio",
     messages: [
       {
-        role: "system",
-        content: `You are a text-to-speech assistant. Read the user's text naturally and clearly.${speedInstruction} Voice: ${voice}`
-      },
-      {
         role: "user",
         content: prompt
       }
     ],
-    // 指定音频输出
     modalities: ["text", "audio"],
     audio: {
       voice: voice,
@@ -108,21 +84,20 @@ async function generateAudioWithNewApi(prompt, env, voice, model, speed, genApiB
     }
   };
   
-  logInfo(env, `[Worker Log] 向 Pollinations Gen API (Audio) 发送请求: ${fullUrl}, voice: ${voice}`);
-  
-  const headers = {
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${apiToken}`
-  };
+  const fullUrl = `${genApiBase}/v1/chat/completions`;
+  logInfo(env, `[Worker Log] 向 Pollinations Gen API (Audio) 发送请求: voice=${voice}`);
   
   const response = await fetchWithRetry(
     fullUrl,
     {
       method: "POST",
-      headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiToken}`
+      },
       body: JSON.stringify(requestBody),
     },
-    "Pollinations Gen Audio API",
+    "Pollinations Audio API",
     env
   );
   
