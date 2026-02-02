@@ -4,14 +4,17 @@ import { logInfo } from "../utils/logger.js";
 /**
  * 免费模型列表 - 使用旧 API (image.pollinations.ai)
  * 这些模型可以免费无限使用，仅有速率限制
+ * 2026-02 更新：根据 Pollinations 最新定价，只有 flux 和 zimage 完全免费
  */
-const FREE_MODELS = ["flux", "turbo", "zimage"];
+const FREE_MODELS = ["flux", "zimage"];
 
 /**
  * 付费模型列表 - 使用新 API (gen.pollinations.ai)
  * 这些模型需要 Pollen 积分，提供更高级的功能
+ * 2026-02 更新：turbo 现在也需要 Pollen 积分 (0.0003/张)
  */
 const PREMIUM_MODELS = [
+  "turbo",             // SDXL Turbo - 现在需要积分 (0.0003/张)
   "kontext",           // FLUX.1 Kontext - 图像编辑
   "klein",             // FLUX.2 Klein 4B
   "klein-large",       // FLUX.2 Klein 9B

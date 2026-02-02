@@ -61,6 +61,12 @@ https://gen.pollinations.ai/image/models
    - 新增 `POLLINATIONS_GEN_API_BASE` 配置
    - 添加详细的 API Key 获取步骤说明
 
+5. **更新前端模型选择器** - `frontend/js/api_client.js` (2026-01-31)
+   - `getAvailableImageModels()` 更新为完整12个模型
+   - 区分免费模型 (flux, zimage, turbo) 和付费模型
+   - 添加 `isFree` 和 `group` 属性便于前端分类显示
+   - 新增模型: FLUX.2 Klein 4B/9B, GPT Image, NanoBanana, Seedream 系列
+
 ### 🚀 用户需要执行的步骤
 
 1. **获取 API Key**:

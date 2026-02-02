@@ -87,7 +87,8 @@ class App {
     };
 
     if (!attachHandler()) {
-      console.warn("未找到语言选择器元素，等待导航挂载后再初始化");
+      // 动态导航加载时的正常情况，使用 debug 级别日志
+      console.log("[i18n] 语言选择器待导航挂载后初始化");
       document.addEventListener(
         "header:mounted",
         () => {
