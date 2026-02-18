@@ -5,7 +5,7 @@ export async function fetchWithRetry(
   options,
   apiName,
   env,
-  maxRetries = 8,
+  maxRetries = 4,
   initialDelay = 1500
 ) {
   const envMax = parseInt(env.RETRY_MAX_ATTEMPTS || env.FETCH_RETRY_MAX || "", 10);
@@ -20,9 +20,14 @@ export async function fetchWithRetry(
     initialDelay = envDelay;
   }
 
+  const perRequestTimeout = parseInt(env.FETCH_TIMEOUT_MS || "", 10) || 30000;
+
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), perRequestTimeout);
     try {
-      const response = await fetch(url, options);
+      const response = await fetch(url, { ...options, signal: controller.signal });
+      clearTimeout(timer);
       if (response.ok) {
         logInfo(env, `[Worker Log] 成功从 ${apiName} 获取响应 (尝试 ${attempt}/${maxRetries}).`);
         return response;
@@ -47,6 +52,7 @@ export async function fetchWithRetry(
       err.status = response.status;
       throw err;
     } catch (error) {
+      clearTimeout(timer);
       console.error(
         `[Worker Error] 调用 ${apiName} 时发生错误 (尝试 #${attempt}/${maxRetries}): ${error.message}`
       );

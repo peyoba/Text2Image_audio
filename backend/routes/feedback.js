@@ -54,13 +54,17 @@ export function registerFeedbackRoutes(registerRoute) {
   registerRoute({
     method: "GET",
     path: "/api/admin/feedback",
-    async handler({ env, url }) {
-      const adminKey = url.searchParams.get("admin_key");
-      if (adminKey !== env.ADMIN_KEY) {
+    async handler({ request, env, url }) {
+      const authHeader = request.headers.get("Authorization") || "";
+      const headerKey = authHeader.startsWith("Bearer ") ? authHeader.slice(7).trim() : "";
+      const adminKey = headerKey || url.searchParams.get("admin_key");
+      if (!adminKey || adminKey !== env.ADMIN_KEY) {
         return jsonResponse({ error: "管理员权限验证失败" }, env, 403);
       }
+      const page = parseInt(url.searchParams.get("page") || "1", 10);
+      const pageSize = parseInt(url.searchParams.get("page_size") || "50", 10);
       const t0 = Date.now();
-      const result = await getAllFeedbackForAdmin(env);
+      const result = await getAllFeedbackForAdmin(env, { page, pageSize });
       const dt = Date.now() - t0;
       recordMetric(env, "feedback_admin_list", { success: result.success, dt_ms: dt });
       if (!result.success) {

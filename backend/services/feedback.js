@@ -74,13 +74,15 @@ export async function getUserFeedbackList(user, env) {
     }
 
     const feedbackIds = JSON.parse(feedbackListStr);
-    const feedbacks = [];
 
-    for (const feedbackId of feedbackIds) {
-      try {
-        const feedbackStr = await env.FEEDBACK.get(feedbackId);
-        if (feedbackStr) {
-          const feedback = JSON.parse(feedbackStr);
+    const results = await Promise.allSettled(feedbackIds.map((id) => env.FEEDBACK.get(id)));
+
+    const feedbacks = [];
+    for (let i = 0; i < results.length; i++) {
+      const r = results[i];
+      if (r.status === "fulfilled" && r.value) {
+        try {
+          const feedback = JSON.parse(r.value);
           feedbacks.push({
             id: feedback.id,
             category: feedback.category,
@@ -88,9 +90,9 @@ export async function getUserFeedbackList(user, env) {
             created_at: feedback.created_at,
             status: feedback.status || "pending",
           });
+        } catch (e) {
+          console.error(`解析反馈失败: ${feedbackIds[i]}`, e);
         }
-      } catch (e) {
-        console.error(`获取反馈详情失败: ${feedbackId}`, e);
       }
     }
 
@@ -105,40 +107,45 @@ export async function getUserFeedbackList(user, env) {
   }
 }
 
-export async function getAllFeedbackForAdmin(env) {
+export async function getAllFeedbackForAdmin(env, { page = 1, pageSize = 50 } = {}) {
   try {
     const allKeys = await env.FEEDBACK.list({ prefix: "feedback_" });
-    const allFeedback = [];
 
-    for (const key of allKeys.keys) {
-      try {
-        const feedbackStr = await env.FEEDBACK.get(key.name);
-        if (feedbackStr) {
-          const feedback = JSON.parse(feedbackStr);
-          allFeedback.push(feedback);
-        }
-      } catch (e) {
-        console.error(`获取反馈详情失败: ${key.name}`, e);
+    const results = await Promise.allSettled(allKeys.keys.map((key) => env.FEEDBACK.get(key.name)));
+
+    const allFeedback = [];
+    for (const r of results) {
+      if (r.status === "fulfilled" && r.value) {
+        try {
+          allFeedback.push(JSON.parse(r.value));
+        } catch (_) {}
       }
     }
 
     allFeedback.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+    const todayStr = new Date().toISOString().split("T")[0];
     const stats = {
       total: allFeedback.length,
       pending: allFeedback.filter((f) => f.status === "pending").length,
       processed: allFeedback.filter((f) => f.status === "processed").length,
       today: allFeedback.filter((f) => {
-        const today = new Date().toISOString().split("T")[0];
         const feedbackDate = new Date(f.created_at).toISOString().split("T")[0];
-        return feedbackDate === today;
+        return feedbackDate === todayStr;
       }).length,
     };
 
+    const start = (page - 1) * pageSize;
+    const paginatedFeedback = allFeedback.slice(start, start + pageSize);
+
     return {
       success: true,
-      feedbacks: allFeedback,
+      feedbacks: paginatedFeedback,
       stats,
       count: allFeedback.length,
+      page,
+      pageSize,
+      totalPages: Math.ceil(allFeedback.length / pageSize),
     };
   } catch (error) {
     console.error("管理员获取反馈列表时出错:", error);
