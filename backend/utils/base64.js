@@ -1,9 +1,11 @@
 export function arrayBufferToBase64(buffer) {
-  let binary = "";
   const bytes = new Uint8Array(buffer);
   const len = bytes.byteLength;
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
+  const chunkSize = 8192;
+  const parts = [];
+  for (let i = 0; i < len; i += chunkSize) {
+    const slice = bytes.subarray(i, Math.min(i + chunkSize, len));
+    parts.push(String.fromCharCode.apply(null, slice));
   }
-  return btoa(binary);
+  return btoa(parts.join(""));
 }
