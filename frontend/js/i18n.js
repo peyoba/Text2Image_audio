@@ -147,7 +147,7 @@ const i18n = {
   // ============================================
   en: {
     // ========== 🏠 首页与通用 (Homepage & Common) ==========
-    
+
     // Title and description (English defaults now in HTML)
     title: "AISTONE",
     subtitle: "Images · Voice · Unlimited Free Generation",
@@ -334,21 +334,26 @@ const i18n = {
       "Combine subject, lighting, lens, and style keywords while using negative prompts to remove unwanted elements. The case study above breaks each part down.",
 
     navUserPlaceholder: "User",
-    
+
     // ========== 📄 About Page (Customer-Facing) ==========
     aboutPageTitle: "About AISTONE",
     aboutPageSubtitle: "Making AI Creation Accessible to Everyone, Empowering Creative Expression",
     aboutMissionTitle: "Our Mission",
-    aboutMissionDesc: "AISTONE is dedicated to making AI technology accessible to everyone for creation. We believe creativity should not be limited by technical barriers, and everyone should have the ability to turn ideas into reality.",
+    aboutMissionDesc:
+      "AISTONE is dedicated to making AI technology accessible to everyone for creation. We believe creativity should not be limited by technical barriers, and everyone should have the ability to turn ideas into reality.",
     aboutCoreValuesTitle: "Core Values",
     aboutValueCreativityTitle: "Unlimited Creativity",
-    aboutValueCreativityDesc: "Support multiple AI models and styles to present your creative ideas in the best way",
+    aboutValueCreativityDesc:
+      "Support multiple AI models and styles to present your creative ideas in the best way",
     aboutValueFreeTitle: "Forever Free",
-    aboutValueFreeDesc: "All core features are completely free, no registration required, no usage limits, making AI creation truly accessible to all",
+    aboutValueFreeDesc:
+      "All core features are completely free, no registration required, no usage limits, making AI creation truly accessible to all",
     aboutValuePrivacyTitle: "Privacy & Security",
-    aboutValuePrivacyDesc: "Your content is not stored, all processing is done in real-time in the cloud, protecting your privacy",
+    aboutValuePrivacyDesc:
+      "Your content is not stored, all processing is done in real-time in the cloud, protecting your privacy",
     aboutValueSpeedTitle: "Fast & Efficient",
-    aboutValueSpeedDesc: "Based on global CDN deployment, millisecond-level response, keeping your creative inspiration uninterrupted",
+    aboutValueSpeedDesc:
+      "Based on global CDN deployment, millisecond-level response, keeping your creative inspiration uninterrupted",
     aboutFeaturesTitle: "Product Features",
     aboutFeatureImageTitle: "🎨 AI Image Generation",
     aboutFeatureImagePoint1: "✓ Support FLUX, Turbo and other AI models",
@@ -366,16 +371,19 @@ const i18n = {
     aboutWhyPoint2Title: "Continuous Innovation",
     aboutWhyPoint2Desc: "Constantly introducing the latest AI technology, staying industry-leading",
     aboutWhyPoint3Title: "Dedicated Service",
-    aboutWhyPoint3Desc: "Quick response to user feedback, continuous product experience optimization",
+    aboutWhyPoint3Desc:
+      "Quick response to user feedback, continuous product experience optimization",
     aboutTeamTitle: "About the Team",
-    aboutTeamDesc: "AISTONE is created by a passionate technical team. We come from different backgrounds but share a common vision of making AI technology accessible to all. We believe technology should serve people and let everyone enjoy the convenience brought by AI.",
+    aboutTeamDesc:
+      "AISTONE is created by a passionate technical team. We come from different backgrounds but share a common vision of making AI technology accessible to all. We believe technology should serve people and let everyone enjoy the convenience brought by AI.",
     aboutContactUsTitle: "Contact Us",
-    aboutContactDesc: "If you have any questions, suggestions, or cooperation intentions, please feel free to contact us. We value every user's feedback and will reply within 1 business day.",
+    aboutContactDesc:
+      "If you have any questions, suggestions, or cooperation intentions, please feel free to contact us. We value every user's feedback and will reply within 1 business day.",
     aboutContactEmailTitle: "Email",
     aboutContactFeedbackTitle: "Online Feedback",
     aboutContactFeedbackLink: "Submit Feedback",
     aboutContactSocialTitle: "Social Media",
-    
+
     // Legacy About Keys (kept for compatibility)
     aboutHeroTitleNew: "Inside AISTONE",
     aboutHeroIntroNew:
@@ -863,9 +871,9 @@ const i18n = {
     aistonePartner: "AISTONE - Your AI Content Creation Partner",
     aistonePartnerDesc:
       "Join thousands of users who trust AISTONE for their AI content creation needs. From stunning visual art to natural voice synthesis, AISTONE is your one-stop solution for all AI-powered creative projects. Experience the future of content creation with AISTONE today.",
-    
+
     // ========== ❓ FAQ页面 (FAQ Page) ==========
-    
+
     // FAQ page
     faqIntro:
       "This page collects the most common questions and answers. If you do not find the answer you need, please contact us via the page footer.",
@@ -1956,7 +1964,8 @@ const i18n = {
       "AISTONE is an intelligent content creation platform powered by Pollinations.AI technology, integrating text-to-image and text-to-speech capabilities, dedicated to providing users with efficient, convenient, and free AI content creation experience.<br><br>Our platform supports various creative functions including text-to-image generation and text-to-speech synthesis. Whether you're a designer, content creator, or casual user, simply input a description to generate high-quality visual content or audio content with one click. The platform supports Chinese and English input with built-in intelligent optimization and multiple generation parameters to meet diverse creative needs.<br><br>Platform Features:<br>• 100% free to use, no registration required, no API keys needed, protecting user privacy<br>• Supports Chinese and English input with built-in intelligent optimization<br>• Multiple adjustable generation parameters to meet diverse creative needs<br>• Clean and friendly interface, compatible with multiple devices<br>• Cloud computing power support, ensuring generation speed and quality<br><br>This project is based on advanced AI models combined with cloud computing power, ensuring generation speed and quality. We believe AI technology should benefit everyone, which is why all features are permanently free and open, helping every user unleash their creative inspiration and realize unlimited possibilities from text to visual and from text to speech.",
     // Contact Page
     contactModalTitle: "Contact Us",
-    contactIntro: "If you have any questions or suggestions while using AISTONE, feel free to contact us! We are committed to providing the best service experience.",
+    contactIntro:
+      "If you have any questions or suggestions while using AISTONE, feel free to contact us! We are committed to providing the best service experience.",
     contactEmailTitle: "Email Contact",
     contactEmailDesc: "We will reply within 1-2 business days",
     contactFeedbackTitle: "Online Feedback",
@@ -1966,15 +1975,20 @@ const i18n = {
     contactSocialDesc: "Follow us for the latest updates",
     contactServicesTitle: "Service Scope",
     contactServiceFeedbackTitle: "💡 Product Feedback & Suggestions",
-    contactServiceFeedbackDesc: "We highly value your experience and opinions, any feature suggestions or improvement ideas are welcome",
+    contactServiceFeedbackDesc:
+      "We highly value your experience and opinions, any feature suggestions or improvement ideas are welcome",
     contactServiceTechTitle: "🔧 Technical Support",
-    contactServiceTechDesc: "If you encounter technical issues or usage obstacles, please describe your problem in detail, and we will assist you as soon as possible",
+    contactServiceTechDesc:
+      "If you encounter technical issues or usage obstacles, please describe your problem in detail, and we will assist you as soon as possible",
     contactServiceBusinessTitle: "🤝 Business Cooperation",
-    contactServiceBusinessDesc: "If you have business cooperation needs, please contact us through email",
+    contactServiceBusinessDesc:
+      "If you have business cooperation needs, please contact us through email",
     contactServiceMediaTitle: "📰 Media Interview",
-    contactServiceMediaDesc: "If media friends need to interview or report, please make an appointment in advance",
+    contactServiceMediaDesc:
+      "If media friends need to interview or report, please make an appointment in advance",
     contactResponseTitle: "Quick Response Commitment",
-    contactResponseDesc: "We commit to replying to your message within 1-2 business days. Thank you for your attention and support!",
+    contactResponseDesc:
+      "We commit to replying to your message within 1-2 business days. Thank you for your attention and support!",
     // Legacy
     contactModalContent:
       'If you have any questions or suggestions while using AISTONE, feel free to contact us!<br><br>We are committed to providing the best service experience for our users, whether it\'s technical issues, feature suggestions, or business consultation. We will handle your inquiries seriously and respond promptly.<br><br>Contact Information:<br>• Email: <a href="mailto:support@aistone.org">support@aistone.org</a><br>• Official Website: <a href="https://aistone.org" target="_blank">https://aistone.org</a><br>• Technical Support: 24/7 Online Support<br><br>Service Scope:<br>• <b>Product Feedback & Suggestions:</b> We highly value your experience and opinions, any feature suggestions or improvement ideas are welcome<br>• <b>Technical Support:</b> If you encounter technical issues or usage obstacles, please describe your problem in detail, and we will assist you as soon as possible<br>• <b>Business Cooperation:</b> If you have business cooperation needs, please contact us through email<br>• <b>Media Interview:</b> If media friends need to interview or report, please make an appointment in advance<br><br>We will reply to your message within 1-2 business days. Thank you for your attention and support!',
@@ -2143,13 +2157,13 @@ const i18n = {
     relatedAboutTitle: "ℹ️ Learn Technology",
     relatedAboutDesc: "Discover our AI technology and platform vision in depth",
   },
-  
+
   // ============================================
   // 🇨🇳 中文翻译 (Chinese Translations)
   // ============================================
   zh: {
     // ========== 🏠 首页与通用 (Homepage & Common) ==========
-    
+
     // 标题和描述
     title: "AISTONE",
     subtitle: "图片·语音·无限免费生成",
@@ -2380,12 +2394,13 @@ const i18n = {
       "明确主体、光线、镜头与风格关键词，并善用负面提示词排除不需要的元素。可参考上方案例逐项拆分描述。",
 
     navUserPlaceholder: "用户",
-    
+
     // ========== 📄 About Page (Customer-Facing) ==========
     aboutPageTitle: "关于 AISTONE",
     aboutPageSubtitle: "让AI创作触手可及，为每个人赋能创意表达",
     aboutMissionTitle: "我们的使命",
-    aboutMissionDesc: "AISTONE致力于让每个人都能轻松使用AI技术进行创作。我们相信，创意不应该被技术门槛所限制，每个人都应该拥有将想法变为现实的能力。",
+    aboutMissionDesc:
+      "AISTONE致力于让每个人都能轻松使用AI技术进行创作。我们相信，创意不应该被技术门槛所限制，每个人都应该拥有将想法变为现实的能力。",
     aboutCoreValuesTitle: "核心价值",
     aboutValueCreativityTitle: "创意无限",
     aboutValueCreativityDesc: "支持多种AI模型和风格，让您的创意想法以最佳方式呈现",
@@ -2414,14 +2429,16 @@ const i18n = {
     aboutWhyPoint3Title: "用心服务",
     aboutWhyPoint3Desc: "快速响应用户反馈，持续优化产品体验",
     aboutTeamTitle: "关于团队",
-    aboutTeamDesc: "AISTONE由一支充满激情的技术团队打造，我们来自不同的背景，但都怀揣着让AI技术普惠大众的共同愿景。我们相信技术应该服务于人，让每个人都能享受AI带来的便利。",
+    aboutTeamDesc:
+      "AISTONE由一支充满激情的技术团队打造，我们来自不同的背景，但都怀揣着让AI技术普惠大众的共同愿景。我们相信技术应该服务于人，让每个人都能享受AI带来的便利。",
     aboutContactUsTitle: "联系我们",
-    aboutContactDesc: "如果您有任何问题、建议或合作意向，欢迎随时与我们联系。我们重视每一位用户的反馈，并将在1个工作日内回复您。",
+    aboutContactDesc:
+      "如果您有任何问题、建议或合作意向，欢迎随时与我们联系。我们重视每一位用户的反馈，并将在1个工作日内回复您。",
     aboutContactEmailTitle: "邮箱",
     aboutContactFeedbackTitle: "在线反馈",
     aboutContactFeedbackLink: "提交反馈",
     aboutContactSocialTitle: "社交媒体",
-    
+
     // Legacy About Keys (kept for compatibility)
     aboutHeroTitleNew: "走进 AISTONE",
     aboutHeroIntroNew:
@@ -3513,7 +3530,8 @@ const i18n = {
       "AISTONE 是一个基于 Pollinations.AI 技术的智能内容创作平台，集成了文本生成图片与语音功能，致力于为用户提供高效、便捷、免费的AI内容创作体验。<br><br>我们的平台支持文本生成图片、文本生成语音等多种创作功能。无论你是设计师、内容创作者，还是普通用户，只需输入一句描述，就能一键生成高质量的视觉内容或语音内容。平台支持中英文输入，内置智能优化和多种生成参数，满足多样化的创作需求。<br><br>平台特色：<br>• 100%免费使用，无需注册，无需API密钥，保护用户隐私<br>• 支持中英文输入，内置智能优化<br>• 多种生成参数可调，满足多样化创作需求<br>• 界面简洁友好，适配多终端设备<br>• 云端算力支持，保证生成速度与质量<br><br>本项目基于先进的AI模型，结合云端算力，保证生成速度与质量。我们相信AI技术应该普惠大众，因此所有功能永久免费开放，助力每一位用户释放创意灵感，实现从文字到视觉、从文字到语音的无限可能。",
     // Contact Page
     contactModalTitle: "联系我们",
-    contactIntro: "如果您在使用 AISTONE 的过程中有任何问题或建议，欢迎随时与我们联系！我们致力于为用户提供最优质的服务体验。",
+    contactIntro:
+      "如果您在使用 AISTONE 的过程中有任何问题或建议，欢迎随时与我们联系！我们致力于为用户提供最优质的服务体验。",
     contactEmailTitle: "邮箱联系",
     contactEmailDesc: "我们会在1-2个工作日内回复",
     contactFeedbackTitle: "在线反馈",
@@ -3767,7 +3785,9 @@ function setLanguage(lang) {
       document.querySelectorAll("[data-i18n]").forEach((el) => {
         const key = el.getAttribute("data-i18n");
         const value = getNestedI18nValue(normalized, key);
-        console.log(`[i18n DEBUG] setLanguage processing key="${key}", value="${value ? value.substring(0, 50) : 'null'}...", lang=${normalized}`);
+        console.log(
+          `[i18n DEBUG] setLanguage processing key="${key}", value="${value ? value.substring(0, 50) : "null"}...", lang=${normalized}`
+        );
         if (value && value !== key && typeof value === "string") {
           if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
             el.placeholder = value;
@@ -3785,7 +3805,7 @@ function setLanguage(lang) {
               } else {
                 // 没有span，清除所有文本节点并添加新的
                 // 先移除所有现有的文本节点
-                Array.from(el.childNodes).forEach(node => {
+                Array.from(el.childNodes).forEach((node) => {
                   if (node.nodeType === Node.TEXT_NODE) {
                     node.remove();
                   }
@@ -4019,7 +4039,7 @@ function updatePageText() {
             } else {
               // 没有span，清除所有文本节点并添加新的
               // 先移除所有现有的文本节点
-              Array.from(el.childNodes).forEach(node => {
+              Array.from(el.childNodes).forEach((node) => {
                 if (node.nodeType === Node.TEXT_NODE) {
                   node.remove();
                 }
