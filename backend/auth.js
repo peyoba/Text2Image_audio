@@ -284,11 +284,7 @@ export async function handleUserRegistration(userData, env) {
     await env.USERS.put(email, JSON.stringify(user));
 
     // 生成JWT token
-    const token = await generateJWT(
-      { userId: user.id, email: user.email },
-      env.JWT_SECRET || "your-secret-key",
-      604800
-    );
+    const token = await generateJWT({ userId: user.id, email: user.email }, env.JWT_SECRET, 604800);
 
     // 返回用户信息（不包含敏感数据）
     const userResponse = {
@@ -378,7 +374,7 @@ export async function handleUserLogin(credentials, env) {
     // 生成JWT token
     const token = await generateJWT(
       { userId: userForPersistence.id, email: userForPersistence.email },
-      env.JWT_SECRET || "your-secret-key",
+      env.JWT_SECRET,
       604800
     );
 
@@ -423,14 +419,23 @@ export async function validateUserToken(token, env) {
     }
 
     // 标准HS256验证，失败再尝试旧制式；不再允许“仅解析载荷放行”
-    let claims = await verifyJWT(token, env.JWT_SECRET || "your-secret-key");
+    if (!env.JWT_SECRET) {
+      console.error("[Auth Error] JWT_SECRET 未配置");
+      return {
+        success: false,
+        error: "服务器配置错误",
+        cause: "missing_jwt_secret",
+      };
+    }
+
+    let claims = await verifyJWT(token, env.JWT_SECRET);
     let needIssueNewToken = false;
     const allowLegacy =
       String(env.JWT_ALLOW_LEGACY === undefined ? "true" : env.JWT_ALLOW_LEGACY).toLowerCase() !==
       "false";
     if (!claims) {
       if (allowLegacy) {
-        const legacyClaims = legacyVerifyJWT(token, env.JWT_SECRET || "your-secret-key");
+        const legacyClaims = legacyVerifyJWT(token, env.JWT_SECRET);
         if (!legacyClaims) {
           return {
             success: false,
@@ -513,7 +518,7 @@ export async function validateUserToken(token, env) {
       try {
         rotatedToken = await generateJWT(
           { userId: user.id, email: user.email },
-          env.JWT_SECRET || "your-secret-key",
+          env.JWT_SECRET,
           604800
         );
       } catch (_) {}
@@ -576,11 +581,8 @@ export async function authenticateUser(request, env) {
  * @param {string} email - 用户邮箱
  * @returns {string} 重置token
  */
-function generateResetToken(email) {
-  const timestamp = Date.now();
-  const randomStr = Math.random().toString(36).substring(2, 15);
-  const data = `${email}:${timestamp}:${randomStr}`;
-  return btoa(data).replace(/[+/=]/g, "");
+function generateResetToken() {
+  return randomBytes(32).toString("hex");
 }
 
 /**
@@ -632,8 +634,7 @@ export async function handleForgotPassword(requestData, env) {
     }
 
     // 验证邮箱格式
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!validateEmail(email)) {
       return {
         success: false,
         error: "邮箱格式不正确",
@@ -654,7 +655,7 @@ export async function handleForgotPassword(requestData, env) {
     const user = JSON.parse(userData);
 
     // 生成重置token
-    const resetToken = generateResetToken(email);
+    const resetToken = generateResetToken();
 
     // 存储重置token（可以存储在KV中，设置过期时间）
     const resetData = {
@@ -669,14 +670,12 @@ export async function handleForgotPassword(requestData, env) {
       expirationTtl: 24 * 60 * 60, // 24小时
     });
 
-    // TODO: 这里应该发送邮件给用户
-    // 目前返回重置链接（生产环境中应该通过邮件发送）
-    const resetUrl = `${env.FRONTEND_URL || "https://aistone.org"}/reset-password?token=${resetToken}`;
+    // TODO: 集成邮件服务（Cloudflare Email Workers / SendGrid / Resend）发送重置链接
+    // const resetUrl = `${env.FRONTEND_URL || "https://aistone.org"}/reset-password?token=${resetToken}`;
 
     return {
       success: true,
-      message: "重置密码链接已发送到您的邮箱",
-      resetUrl: resetUrl, // 开发环境返回链接，生产环境删除此行
+      message: "如果该邮箱已注册，您将收到重置密码的链接",
     };
   } catch (error) {
     console.error("忘记密码错误:", error);
@@ -902,11 +901,7 @@ export async function handleGoogleLogin(requestData, env) {
     await env.USERS.put(emailLower, JSON.stringify(user));
 
     // 生成JWT token
-    const token = await generateJWT(
-      { userId: user.id, email: user.email },
-      env.JWT_SECRET || "your-secret-key",
-      604800
-    );
+    const token = await generateJWT({ userId: user.id, email: user.email }, env.JWT_SECRET, 604800);
 
     // 返回用户信息（不包含敏感数据）
     const userResponse = {
@@ -1095,11 +1090,7 @@ export async function handleGoogleOAuth(requestData, env) {
     }
 
     // 生成JWT token
-    const token = await generateJWT(
-      { userId: user.id, email: user.email },
-      env.JWT_SECRET || "your-secret-key",
-      604800
-    );
+    const token = await generateJWT({ userId: user.id, email: user.email }, env.JWT_SECRET, 604800);
 
     // 返回用户信息（不包含敏感数据）
     const userResponse = {

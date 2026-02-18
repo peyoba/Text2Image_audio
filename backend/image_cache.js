@@ -241,7 +241,6 @@ class HDImageCacheManager {
  * @returns {Promise<Object|null>} 用户信息或null
  */
 async function authenticateImageAccess(request, env) {
-  // 导入认证相关函数
   const { extractTokenFromRequest, validateUserToken } = await import("./auth.js");
 
   const token = extractTokenFromRequest(request);
