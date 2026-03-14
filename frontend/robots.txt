@@ -45,7 +45,7 @@ Allow: /
 Crawl-delay: 2
 
 # 站点地图
-Sitemap: https://aistone.org/sitemap.xml
+Sitemap: https://aistone.cfd/sitemap.xml
 
 # AISTONE 网站信息
 # 网站名称: AISTONE - Free AI Image Generator & Voice Synthesis Platform

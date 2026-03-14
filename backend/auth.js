@@ -671,7 +671,7 @@ export async function handleForgotPassword(requestData, env) {
 
     // TODO: 这里应该发送邮件给用户
     // 目前返回重置链接（生产环境中应该通过邮件发送）
-    const resetUrl = `${env.FRONTEND_URL || "https://aistone.org"}/reset-password?token=${resetToken}`;
+    const resetUrl = `${env.FRONTEND_URL || "https://aistone.cfd"}/reset-password?token=${resetToken}`;
 
     return {
       success: true,

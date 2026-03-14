@@ -620,7 +620,7 @@ const i18n = {
     tutorialDate: "April 2025",
     tutorialQuickStartTitle: "🚀 Quick start",
     tutorialQuickStartStep1:
-      'Visit <a href="https://aistone.org">https://aistone.org</a> — no registration required.',
+      'Visit <a href="https://aistone.cfd">https://aistone.cfd</a> — no registration required.',
     tutorialQuickStartStep2:
       "Choose <strong>Image</strong> or <strong>Voice</strong> generation based on your task.",
     tutorialQuickStartStep3:
@@ -667,7 +667,7 @@ const i18n = {
     tutorialTroubleshootingItem3:
       "<strong>Timeouts:</strong> Retry with fewer variations or simplify prompts; check status page for outages.",
     tutorialTroubleshootingItem4:
-      '<strong>Need support:</strong> Email <a href="mailto:support@aistone.org">support@aistone.org</a> or use the in-app feedback form.',
+      '<strong>Need support:</strong> Email <a href="mailto:support@aistone.cfd">support@aistone.cfd</a> or use the in-app feedback form.',
     tutorialDownload: "Download PDF",
     tutorialShare: "Share Guide",
 
@@ -806,7 +806,7 @@ const i18n = {
     // Tutorial page
     tutorialStep1Title: "Step 1: Access Platform",
     tutorialStep1Desc:
-      'Open your browser and visit <a href="https://aistone.org">https://aistone.org</a>, no registration required to start using.',
+      'Open your browser and visit <a href="https://aistone.cfd">https://aistone.cfd</a>, no registration required to start using.',
     tutorialStep2Title: "Step 2: Choose Generation Type",
     tutorialStep2Desc: "On the page, select the type of content you want to generate:",
     tutorialImageGen: "Generate Images:",
@@ -1638,7 +1638,7 @@ const i18n = {
     // 使用步骤
     step1Title: "Visit Platform",
     step1Desc:
-      "Visit aistone.org, choose Image Generation or Voice Synthesis service, no registration required",
+      "Visit aistone.cfd, choose Image Generation or Voice Synthesis service, no registration required",
     step2Title: "Select Model",
     step2Desc:
       "Choose FLUX, Turbo, Kontext for images, or OpenAI Audio TTS for voice, each with unique advantages",
@@ -1804,7 +1804,7 @@ const i18n = {
     termsSection14Title: "14. Contact Us",
     termsSection14Intro:
       "If you have any questions about these Terms or need assistance, please contact us via:",
-    termsSection14Item1: "Email: legal@aistone.org",
+    termsSection14Item1: "Email: legal@aistone.cfd",
     termsSection14Item2: "Website: Contact Us page",
     termsSection15Title: "15. Effective Date",
     termsSection15Intro:
@@ -1871,7 +1871,7 @@ const i18n = {
     privacySection9Title: "9. Contact Us",
     privacySection9Intro:
       "If you have any questions about this Privacy Policy or wish to exercise your rights, please contact us via:",
-    privacySection9Item1: "Email: privacy@aistone.org",
+    privacySection9Item1: "Email: privacy@aistone.cfd",
     privacySection9Item2: "Website: Contact Us page",
 
     // 语音合成按钮
@@ -1928,7 +1928,7 @@ const i18n = {
     contactModal: {
       title: "Contact Us",
       content:
-        'If you have any questions or suggestions while using AISTONE, feel free to contact us!<br><br>We are committed to providing the best service experience for our users, whether it\'s technical issues, feature suggestions, or business consultation. We will handle your inquiries seriously and respond promptly.<br><br>Contact Information:<br>• Email: <a href="mailto:support@aistone.org">support@aistone.org</a><br>• Official Website: <a href="https://aistone.org" target="_blank">https://aistone.org</a><br>• Technical Support: 24/7 Online Support<br><br>Service Scope:<br>• <b>Product Feedback & Suggestions:</b> We highly value your experience and opinions, any feature suggestions or improvement ideas are welcome<br>• <b>Technical Support:</b> If you encounter technical issues or usage obstacles, please describe your problem in detail, and we will assist you as soon as possible<br>• <b>Business Cooperation:</b> If you have business cooperation needs, please contact us through email<br>• <b>Media Interview:</b> If media friends need to interview or report, please make an appointment in advance<br><br>We will reply to your message within 1-2 business days. Thank you for your attention and support!',
+        'If you have any questions or suggestions while using AISTONE, feel free to contact us!<br><br>We are committed to providing the best service experience for our users, whether it\'s technical issues, feature suggestions, or business consultation. We will handle your inquiries seriously and respond promptly.<br><br>Contact Information:<br>• Email: <a href="mailto:support@aistone.cfd">support@aistone.cfd</a><br>• Official Website: <a href="https://aistone.cfd" target="_blank">https://aistone.cfd</a><br>• Technical Support: 24/7 Online Support<br><br>Service Scope:<br>• <b>Product Feedback & Suggestions:</b> We highly value your experience and opinions, any feature suggestions or improvement ideas are welcome<br>• <b>Technical Support:</b> If you encounter technical issues or usage obstacles, please describe your problem in detail, and we will assist you as soon as possible<br>• <b>Business Cooperation:</b> If you have business cooperation needs, please contact us through email<br>• <b>Media Interview:</b> If media friends need to interview or report, please make an appointment in advance<br><br>We will reply to your message within 1-2 business days. Thank you for your attention and support!',
     },
     servicesModal: {
       title: "Our Services",
@@ -1950,7 +1950,7 @@ const i18n = {
     faqA4: "AI-generated content belongs to the user and can be used freely.",
     faqQ5: "How can I provide feedback or suggestions?",
     faqA5:
-      "You can contact us through the contact information at the bottom of the page or email support@aistone.org.",
+      "You can contact us through the contact information at the bottom of the page or email support@aistone.cfd.",
     aboutModalTitle: "About AISTONE",
     aboutModalContent:
       "AISTONE is an intelligent content creation platform powered by Pollinations.AI technology, integrating text-to-image and text-to-speech capabilities, dedicated to providing users with efficient, convenient, and free AI content creation experience.<br><br>Our platform supports various creative functions including text-to-image generation and text-to-speech synthesis. Whether you're a designer, content creator, or casual user, simply input a description to generate high-quality visual content or audio content with one click. The platform supports Chinese and English input with built-in intelligent optimization and multiple generation parameters to meet diverse creative needs.<br><br>Platform Features:<br>• 100% free to use, no registration required, no API keys needed, protecting user privacy<br>• Supports Chinese and English input with built-in intelligent optimization<br>• Multiple adjustable generation parameters to meet diverse creative needs<br>• Clean and friendly interface, compatible with multiple devices<br>• Cloud computing power support, ensuring generation speed and quality<br><br>This project is based on advanced AI models combined with cloud computing power, ensuring generation speed and quality. We believe AI technology should benefit everyone, which is why all features are permanently free and open, helping every user unleash their creative inspiration and realize unlimited possibilities from text to visual and from text to speech.",
@@ -1977,7 +1977,7 @@ const i18n = {
     contactResponseDesc: "We commit to replying to your message within 1-2 business days. Thank you for your attention and support!",
     // Legacy
     contactModalContent:
-      'If you have any questions or suggestions while using AISTONE, feel free to contact us!<br><br>We are committed to providing the best service experience for our users, whether it\'s technical issues, feature suggestions, or business consultation. We will handle your inquiries seriously and respond promptly.<br><br>Contact Information:<br>• Email: <a href="mailto:support@aistone.org">support@aistone.org</a><br>• Official Website: <a href="https://aistone.org" target="_blank">https://aistone.org</a><br>• Technical Support: 24/7 Online Support<br><br>Service Scope:<br>• <b>Product Feedback & Suggestions:</b> We highly value your experience and opinions, any feature suggestions or improvement ideas are welcome<br>• <b>Technical Support:</b> If you encounter technical issues or usage obstacles, please describe your problem in detail, and we will assist you as soon as possible<br>• <b>Business Cooperation:</b> If you have business cooperation needs, please contact us through email<br>• <b>Media Interview:</b> If media friends need to interview or report, please make an appointment in advance<br><br>We will reply to your message within 1-2 business days. Thank you for your attention and support!',
+      'If you have any questions or suggestions while using AISTONE, feel free to contact us!<br><br>We are committed to providing the best service experience for our users, whether it\'s technical issues, feature suggestions, or business consultation. We will handle your inquiries seriously and respond promptly.<br><br>Contact Information:<br>• Email: <a href="mailto:support@aistone.cfd">support@aistone.cfd</a><br>• Official Website: <a href="https://aistone.cfd" target="_blank">https://aistone.cfd</a><br>• Technical Support: 24/7 Online Support<br><br>Service Scope:<br>• <b>Product Feedback & Suggestions:</b> We highly value your experience and opinions, any feature suggestions or improvement ideas are welcome<br>• <b>Technical Support:</b> If you encounter technical issues or usage obstacles, please describe your problem in detail, and we will assist you as soon as possible<br>• <b>Business Cooperation:</b> If you have business cooperation needs, please contact us through email<br>• <b>Media Interview:</b> If media friends need to interview or report, please make an appointment in advance<br><br>We will reply to your message within 1-2 business days. Thank you for your attention and support!',
     servicesModalTitle: "Our Services",
     servicesModalContent:
       '<ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;"><li><b>AI Image Generation:</b> Input description text to intelligently generate high-quality, multi-style images, supporting various resolutions and aspect ratios.</li><li><b>AI Audio Generation:</b> Input text to generate natural and fluent audio with one click, suitable for dubbing, broadcasting, and other scenarios.</li><li><b>Smart Prompt Optimization:</b> Built-in AI optimization and translation features, automatically converting your descriptions into high-quality English prompts to improve generation results.</li><li><b>Multi-language Support:</b> Supports Chinese and English interfaces to meet global user needs.</li><li><b>Permanently Free:</b> All features are permanently free for users, no registration required, no usage limits.</li></ul><div style="margin-top: 12px; color: #AAB4D4;">For more service details, please contact us through "Contact Us".</div>',
@@ -2639,7 +2639,7 @@ const i18n = {
     tutorialDate: "2025 年 4 月",
     tutorialQuickStartTitle: "🚀 快速开始",
     tutorialQuickStartStep1:
-      '访问 <a href="https://aistone.org">https://aistone.org</a>，无需注册即可使用。',
+      '访问 <a href="https://aistone.cfd">https://aistone.cfd</a>，无需注册即可使用。',
     tutorialQuickStartStep2: "在页面选择 <strong>图像生成</strong> 或 <strong>语音合成</strong>。",
     tutorialQuickStartStep3: "输入详细描述（支持中文与英文），也可以使用示例按钮一键填充提示词。",
     tutorialQuickStartStep4:
@@ -2680,7 +2680,7 @@ const i18n = {
     tutorialTroubleshootingItem3:
       "<strong>生成超时：</strong> 减少生成数量或简化提示词，并留意状态页。",
     tutorialTroubleshootingItem4:
-      '<strong>需要帮助：</strong> 可邮件至 <a href="mailto:support@aistone.org">support@aistone.org</a> 或使用站内反馈。',
+      '<strong>需要帮助：</strong> 可邮件至 <a href="mailto:support@aistone.cfd">support@aistone.cfd</a> 或使用站内反馈。',
     tutorialDownload: "下载 PDF",
     tutorialShare: "分享指南",
 
@@ -2800,7 +2800,7 @@ const i18n = {
     // 教程页面
     tutorialStep1Title: "步骤1：访问平台",
     tutorialStep1Desc:
-      '打开浏览器访问 <a href="https://aistone.org">https://aistone.org</a>，无需注册即可开始使用。',
+      '打开浏览器访问 <a href="https://aistone.cfd">https://aistone.cfd</a>，无需注册即可开始使用。',
     tutorialStep2Title: "步骤2：选择生成类型",
     tutorialStep2Desc: "在页面上选择您想要生成的内容类型：",
     tutorialImageGen: "生成图片：",
@@ -3230,7 +3230,7 @@ const i18n = {
 
     // 使用步骤
     step1Title: "访问平台",
-    step1Desc: "访问 aistone.org，选择图像生成或语音合成服务，无需注册直接使用",
+    step1Desc: "访问 aistone.cfd，选择图像生成或语音合成服务，无需注册直接使用",
     step2Title: "选择模型",
     step2Desc:
       "根据需求选择FLUX、Turbo、Kontext图像模型，或选择OpenAI Audio TTS用于语音，每个模型都有独特优势",
@@ -3364,7 +3364,7 @@ const i18n = {
     termsSection13Item3: "争议解决：鼓励友好协商解决争议",
     termsSection14Title: "14. 联系我们",
     termsSection14Intro: "如果您对本使用条款有任何疑问或需要帮助，请通过以下方式联系我们：",
-    termsSection14Item1: "邮箱：legal@aistone.org",
+    termsSection14Item1: "邮箱：legal@aistone.cfd",
     termsSection14Item2: "网站：联系我们页面",
     termsSection15Title: "15. 生效日期",
     termsSection15Intro: "本使用条款于2025年1月1日生效，并取代之前的所有版本。",
@@ -3420,7 +3420,7 @@ const i18n = {
     privacySection9Title: "9. 联系我们",
     privacySection9Intro:
       "如果您对本隐私政策有任何疑问或需要行使您的权利，请通过以下方式联系我们：",
-    privacySection9Item1: "邮箱：privacy@aistone.org",
+    privacySection9Item1: "邮箱：privacy@aistone.cfd",
     privacySection9Item2: "网站：联系我们页面",
 
     // 联系我们 - 获取帮助（补齐中文键）
@@ -3487,7 +3487,7 @@ const i18n = {
     contactModal: {
       title: "联系我们",
       content:
-        '如果您在使用 AISTONE 的过程中有任何问题或建议，欢迎随时与我们联系！<br><br>我们致力于为用户提供最优质的服务体验，无论是技术问题、功能建议还是合作咨询，我们都将认真对待并及时回复。<br><br>联系方式：<br>• 邮箱：<a href="mailto:support@aistone.org">support@aistone.org</a><br>• 官方网站：<a href="https://aistone.org" target="_blank">https://aistone.org</a><br>• 技术支持：24/7在线支持<br><br>服务范围：<br>• <b>产品反馈与建议：</b>我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈<br>• <b>技术支持：</b>遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决<br>• <b>商务合作：</b>如果您有商务合作需求，欢迎通过邮箱联系我们<br>• <b>媒体采访：</b>媒体朋友如需采访或报道，请提前预约<br><br>我们会在1-2个工作日内回复您的信息。感谢您的关注与支持！',
+        '如果您在使用 AISTONE 的过程中有任何问题或建议，欢迎随时与我们联系！<br><br>我们致力于为用户提供最优质的服务体验，无论是技术问题、功能建议还是合作咨询，我们都将认真对待并及时回复。<br><br>联系方式：<br>• 邮箱：<a href="mailto:support@aistone.cfd">support@aistone.cfd</a><br>• 官方网站：<a href="https://aistone.cfd" target="_blank">https://aistone.cfd</a><br>• 技术支持：24/7在线支持<br><br>服务范围：<br>• <b>产品反馈与建议：</b>我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈<br>• <b>技术支持：</b>遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决<br>• <b>商务合作：</b>如果您有商务合作需求，欢迎通过邮箱联系我们<br>• <b>媒体采访：</b>媒体朋友如需采访或报道，请提前预约<br><br>我们会在1-2个工作日内回复您的信息。感谢您的关注与支持！',
     },
     servicesModal: {
       title: "我们的服务",
@@ -3507,7 +3507,7 @@ const i18n = {
     faqQ4: "生成的内容有版权吗？",
     faqA4: "AI生成内容归用户所有，可自由使用。",
     faqQ5: "如何反馈问题或建议？",
-    faqA5: "可通过页面底部的联系方式或邮箱 support@aistone.org 反馈。",
+    faqA5: "可通过页面底部的联系方式或邮箱 support@aistone.cfd 反馈。",
     aboutModalTitle: "关于 AISTONE",
     aboutModalContent:
       "AISTONE 是一个基于 Pollinations.AI 技术的智能内容创作平台，集成了文本生成图片与语音功能，致力于为用户提供高效、便捷、免费的AI内容创作体验。<br><br>我们的平台支持文本生成图片、文本生成语音等多种创作功能。无论你是设计师、内容创作者，还是普通用户，只需输入一句描述，就能一键生成高质量的视觉内容或语音内容。平台支持中英文输入，内置智能优化和多种生成参数，满足多样化的创作需求。<br><br>平台特色：<br>• 100%免费使用，无需注册，无需API密钥，保护用户隐私<br>• 支持中英文输入，内置智能优化<br>• 多种生成参数可调，满足多样化创作需求<br>• 界面简洁友好，适配多终端设备<br>• 云端算力支持，保证生成速度与质量<br><br>本项目基于先进的AI模型，结合云端算力，保证生成速度与质量。我们相信AI技术应该普惠大众，因此所有功能永久免费开放，助力每一位用户释放创意灵感，实现从文字到视觉、从文字到语音的无限可能。",
@@ -3534,7 +3534,7 @@ const i18n = {
     contactResponseDesc: "我们承诺在1-2个工作日内回复您的信息。感谢您的关注与支持！",
     // Legacy
     contactModalContent:
-      '如果您在使用 AISTONE 的过程中有任何问题或建议，欢迎随时与我们联系！<br><br>我们致力于为用户提供最优质的服务体验，无论是技术问题、功能建议还是合作咨询，我们都将认真对待并及时回复。<br><br>联系方式：<br>• 邮箱：<a href="mailto:support@aistone.org">support@aistone.org</a><br>• 官方网站：<a href="https://aistone.org" target="_blank">https://aistone.org</a><br>• 技术支持：24/7在线支持<br><br>服务范围：<br>• <b>产品反馈与建议：</b>我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈<br>• <b>技术支持：</b>遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决<br>• <b>商务合作：</b>如果您有商务合作需求，欢迎通过邮箱联系我们<br>• <b>媒体采访：</b>媒体朋友如需采访或报道，请提前预约<br><br>我们会在1-2个工作日内回复您的信息。感谢您的关注与支持！',
+      '如果您在使用 AISTONE 的过程中有任何问题或建议，欢迎随时与我们联系！<br><br>我们致力于为用户提供最优质的服务体验，无论是技术问题、功能建议还是合作咨询，我们都将认真对待并及时回复。<br><br>联系方式：<br>• 邮箱：<a href="mailto:support@aistone.cfd">support@aistone.cfd</a><br>• 官方网站：<a href="https://aistone.cfd" target="_blank">https://aistone.cfd</a><br>• 技术支持：24/7在线支持<br><br>服务范围：<br>• <b>产品反馈与建议：</b>我们非常重视您的体验和意见，任何功能建议或改进想法都欢迎反馈<br>• <b>技术支持：</b>遇到技术问题或使用障碍，请详细描述您的问题，我们会尽快协助解决<br>• <b>商务合作：</b>如果您有商务合作需求，欢迎通过邮箱联系我们<br>• <b>媒体采访：</b>媒体朋友如需采访或报道，请提前预约<br><br>我们会在1-2个工作日内回复您的信息。感谢您的关注与支持！',
     servicesModalTitle: "我们的服务",
     servicesModalContent:
       '<ul style="margin: 18px 0 18px 0; padding-left: 1.2em; line-height: 2; color: #AAB4D4;"><li><b>AI图片生成：</b>输入描述文本，智能生成高质量、多风格的图片，支持多种分辨率和比例选择。</li><li><b>AI语音生成：</b>输入文本，一键生成自然流畅的语音音频，适用于配音、播报等多种场景。</li><li><b>智能提示词优化：</b>内置AI优化和翻译功能，自动将您的描述转化为高质量英文提示词，提升生成效果。</li><li><b>多语言支持：</b>支持中文和英文界面，满足全球用户需求。</li><li><b>永久免费：</b>所有功能对用户永久免费，无需注册，无使用次数限制。</li></ul><div style="margin-top: 12px; color: #AAB4D4;">如需了解更多服务细节，欢迎通过"联系我们"与我们取得联系。</div>',

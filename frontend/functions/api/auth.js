@@ -489,7 +489,7 @@ export async function handleForgotPassword(requestData, env) {
 
     // TODO: 这里应该发送邮件给用户
     // 目前返回重置链接（生产环境中应该通过邮件发送）
-    const resetUrl = `${env.FRONTEND_URL || "https://aistone.org"}/reset-password?token=${resetToken}`;
+    const resetUrl = `${env.FRONTEND_URL || "https://aistone.cfd"}/reset-password?token=${resetToken}`;
 
     return {
       success: true,
@@ -754,7 +754,7 @@ export async function handleGoogleOAuth(requestData, env) {
         client_secret: env.GOOGLE_CLIENT_SECRET || "GOCSPX-placeholder", // 需要在环境变量中设置
         code: code,
         grant_type: "authorization_code",
-        redirect_uri: "https://aistone.org/auth/google/callback", // 必须与Google Cloud Console配置完全一致
+        redirect_uri: "https://aistone.cfd/auth/google/callback", // 必须与Google Cloud Console配置完全一致
       }),
     });
 
@@ -766,7 +766,7 @@ export async function handleGoogleOAuth(requestData, env) {
         error: errorText,
         requestBody: {
           client_id: "432588178769-n7vgnnmsh8l118heqmgtj92iir4i4n3s.apps.googleusercontent.com",
-          redirect_uri: "https://aistone.org/auth/google/callback",
+          redirect_uri: "https://aistone.cfd/auth/google/callback",
           grant_type: "authorization_code",
         },
       });

@@ -63,7 +63,7 @@ export async function generateImageFromPollinations(
  */
 async function generateImageWithFreeApi(prompt, env, width, height, seed, nologo, negative, model) {
   const imageApiBase = "https://image.pollinations.ai";
-  const referrer = env.POLLINATIONS_REFERRER || "aistone.org";
+  const referrer = env.POLLINATIONS_REFERRER || "aistone.cfd";
 
   // 构建请求参数
   const params = new URLSearchParams();
