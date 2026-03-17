@@ -6,15 +6,17 @@ class ApiClient {
   constructor() {
     // 允许通过 window.API_BASE 或 localStorage 覆盖后端地址
     try {
-      const saved =
-        (typeof window !== "undefined" && window.API_BASE) ||
-        (typeof localStorage !== "undefined" && localStorage.getItem("api_base"));
       this.baseUrl =
-        saved && typeof saved === "string" && saved.trim()
-          ? saved.trim()
-          : "https://text2image-api.peyoba660703.workers.dev";
+        (window.APP_CONFIG && window.APP_CONFIG.API_BASE) ||
+        window.API_BASE ||
+        (typeof localStorage !== "undefined" && localStorage.getItem("api_base")) ||
+        "";
+      if (!this.baseUrl || typeof this.baseUrl !== "string") {
+        this.baseUrl = "";
+      }
+      this.baseUrl = this.baseUrl.trim().replace(/\/+$/, "");
     } catch (e) {
-      this.baseUrl = "https://text2image-api.peyoba660703.workers.dev";
+      this.baseUrl = "";
     }
     this.maxPollingAttempts = 60; // 最大轮询次数 (60 * 2秒 = 2分钟)
     this.pollingInterval = 2000; // 轮询间隔 (2秒)

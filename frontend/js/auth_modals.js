@@ -325,8 +325,8 @@ async function handleGoogleLogin() {
         const thisOrigin = window.location.origin;
         const allowed = new Set([
           thisOrigin,
-          "https://aistone.cfd",
-          "https://www.aistone.cfd",
+          "https://aistone.ai",
+          "https://www.aistone.ai",
           "http://localhost:5173",
           "http://127.0.0.1:5500",
         ]);

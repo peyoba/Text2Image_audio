@@ -2,18 +2,10 @@
 <html lang="en">
   <head>
     <!-- 全局函数必须最先定义 -->
+    <script src="js/config.js"></script>
     <script>
-      // API Base配置（可从localStorage覆盖）
+      // 允许通过 localStorage 覆盖 API 基础地址（调试用）
       (function () {
-        window.API_BASE = "https://text2image-api.peyoba660703.workers.dev";
-        try {
-          var saved = localStorage.getItem("api_base");
-          if (saved && typeof saved === "string" && saved.trim()) {
-            window.API_BASE = saved.trim();
-          }
-        } catch (e) {
-          console.warn("无法从localStorage读取api_base配置，使用默认值");
-        }
         window.setApiBase = function (url) {
           if (typeof url === "string" && url.trim()) {
             window.API_BASE = url.trim();
@@ -75,17 +67,17 @@
     />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#4F46E5" />
-    <link rel="canonical" href="https://aistone.cfd/" />
+    <link rel="canonical" href="https://aistone.ai/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://aistone.cfd/" />
+    <meta property="og:url" content="https://aistone.ai/" />
     <meta property="og:title" content="AISTONE - Free AI Image & Voice Generator" />
     <meta
       property="og:description"
       content="Create high-quality visuals and natural speech in minutes with AISTONE's free AI workspace."
     />
-    <meta property="og:image" content="https://aistone.cfd/assets/logo.svg" />
+    <meta property="og:image" content="https://aistone.ai/assets/logo.svg" />
     <meta property="og:site_name" content="AISTONE" />
 
     <!-- Twitter -->
@@ -95,7 +87,7 @@
       name="twitter:description"
       content="Generate AI imagery and speech with practical prompt recipes and pro models."
     />
-    <meta name="twitter:image" content="https://aistone.cfd/assets/logo.svg" />
+    <meta name="twitter:image" content="https://aistone.ai/assets/logo.svg" />
 
     <!-- CSS样式 -->
     <link rel="stylesheet" href="css/style.css" />
@@ -142,42 +134,42 @@
         "@graph": [
           {
             "@type": "WebSite",
-            "@id": "https://aistone.cfd/#website",
-            "url": "https://aistone.cfd/",
+            "@id": "https://aistone.ai/#website",
+            "url": "https://aistone.ai/",
             "name": "AISTONE",
             "description": "Generate polished visuals and voiceovers with AISTONE's free AI workspace.",
             "inLanguage": "en",
-            "publisher": { "@id": "https://aistone.cfd/#organization" }
+            "publisher": { "@id": "https://aistone.ai/#organization" }
           },
           {
             "@type": "Organization",
-            "@id": "https://aistone.cfd/#organization",
+            "@id": "https://aistone.ai/#organization",
             "name": "AISTONE",
-            "url": "https://aistone.cfd/",
+            "url": "https://aistone.ai/",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://aistone.cfd/assets/logo.svg"
+              "url": "https://aistone.ai/assets/logo.svg"
             },
             "contactPoint": [
               {
                 "@type": "ContactPoint",
                 "contactType": "customer service",
-                "email": "support@aistone.cfd"
+                "email": "support@aistone.ai"
               }
             ]
           },
           {
             "@type": "WebPage",
-            "@id": "https://aistone.cfd/#home",
-            "url": "https://aistone.cfd/",
+            "@id": "https://aistone.ai/#home",
+            "url": "https://aistone.ai/",
             "name": "AISTONE - Free AI Image & Voice Generator",
-            "isPartOf": { "@id": "https://aistone.cfd/#website" },
+            "isPartOf": { "@id": "https://aistone.ai/#website" },
             "inLanguage": ["en", "zh-CN"],
             "description": "Generate polished visuals and voiceovers with AISTONE. Use FLUX, Turbo, or Kontext models, iterate on prompts, and export ready-to-use assets without registration."
           },
           {
             "@type": "ItemList",
-            "@id": "https://aistone.cfd/#models",
+            "@id": "https://aistone.ai/#models",
             "name": "Supported AI Models",
             "itemListElement": [
               { "@type": "ListItem", "position": 1, "name": "FLUX" },
@@ -188,11 +180,11 @@
           },
           {
             "@type": "HowTo",
-            "@id": "https://aistone.cfd/#workflow",
+            "@id": "https://aistone.ai/#workflow",
             "name": "How to create a campaign-ready visual with AISTONE",
-            "image": "https://aistone.cfd/assets/logo.svg",
+            "image": "https://aistone.ai/assets/logo.svg",
             "totalTime": "PT5M",
-            "isPartOf": { "@id": "https://aistone.cfd/#home" },
+            "isPartOf": { "@id": "https://aistone.ai/#home" },
             "step": [
               {
                 "@type": "HowToStep",
@@ -222,7 +214,7 @@
           },
           {
             "@type": "FAQPage",
-            "@id": "https://aistone.cfd/#faq",
+            "@id": "https://aistone.ai/#faq",
             "mainEntity": [
               {
                 "@type": "Question",
@@ -1467,7 +1459,7 @@
                 "
                 data-i18n="step1Desc"
               >
-                Go to aistone.cfd and choose either image or voice generation—no registration required
+                Go to aistone.ai and choose either image or voice generation—no registration required
               </p>
             </div>
 

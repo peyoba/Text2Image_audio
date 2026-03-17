@@ -120,7 +120,8 @@ class UIEnhancements {
     try {
       this.updateResultStatus(t("loading"), "loading");
 
-      const response = await fetch("https://text2image-api.peyoba660703.workers.dev/api/prompts/optimize", {
+      const apiBase = (window.APP_CONFIG && window.APP_CONFIG.API_BASE) || window.API_BASE || "";
+      const response = await fetch(`${apiBase}/api/prompts/optimize`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

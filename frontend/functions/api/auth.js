@@ -6,6 +6,16 @@
 import { createHash, randomBytes } from "node:crypto";
 
 /**
+ * 获取 JWT 签名密钥，若未配置则抛出致命错误
+ */
+function requireJwtSecret(env) {
+  if (!env.JWT_SECRET) {
+    throw new Error("FATAL: JWT_SECRET 环境变量未配置");
+  }
+  return env.JWT_SECRET;
+}
+
+/**
  * 生成JWT token
  * @param {Object} payload - token载荷
  * @param {string} secret - 密钥
@@ -189,7 +199,7 @@ export async function handleUserRegistration(userData, env) {
     // 生成JWT token
     const token = generateJWT(
       { userId: user.id, email: user.email },
-      env.JWT_SECRET || "your-secret-key",
+      requireJwtSecret(env),
       86400 // 24小时
     );
 
@@ -269,7 +279,7 @@ export async function handleUserLogin(credentials, env) {
     // 生成JWT token
     const token = generateJWT(
       { userId: user.id, email: user.email },
-      env.JWT_SECRET || "your-secret-key",
+      requireJwtSecret(env),
       86400 // 24小时
     );
 
@@ -313,7 +323,7 @@ export async function validateUserToken(token, env) {
     }
 
     // 验证JWT token
-    const claims = verifyJWT(token, env.JWT_SECRET || "your-secret-key");
+    const claims = verifyJWT(token, requireJwtSecret(env));
     if (!claims) {
       return {
         success: false,
@@ -487,14 +497,35 @@ export async function handleForgotPassword(requestData, env) {
       expirationTtl: 24 * 60 * 60, // 24小时
     });
 
-    // TODO: 这里应该发送邮件给用户
-    // 目前返回重置链接（生产环境中应该通过邮件发送）
-    const resetUrl = `${env.FRONTEND_URL || "https://aistone.cfd"}/reset-password?token=${resetToken}`;
+    const resetUrl = `${env.FRONTEND_URL || "https://aistone.ai"}/reset-password?token=${resetToken}`;
+    
+    // 尝试发送重置邮件
+    if (env.RESEND_API_KEY) {
+      try {
+        await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            from: 'AIStone <support@aistone.ai>',
+            to: email,
+            subject: 'AIStone Password Reset',
+            html: `<p>Please click the link below to reset your password:</p><p><a href="${resetUrl}">${resetUrl}</a></p>`
+          })
+        });
+      } catch (e) {
+        console.error("邮件发送失败:", e);
+      }
+    } else {
+      console.warn("未配置 RESEND_API_KEY，无法发送密码重置邮件给", email);
+    }
 
+    // 安全：不再将 resetUrl / resetToken 返回给前端
     return {
       success: true,
-      message: "重置密码链接已发送到您的邮箱",
-      resetUrl: resetUrl, // 开发环境返回链接，生产环境删除此行
+      message: "如果该邮箱已注册，重置密码链接将发送到您的邮箱",
     };
   } catch (error) {
     console.error("忘记密码错误:", error);
@@ -696,7 +727,7 @@ export async function handleGoogleLogin(requestData, env) {
     // 生成JWT token
     const token = generateJWT(
       { userId: user.id, email: user.email },
-      env.JWT_SECRET || "your-secret-key",
+      requireJwtSecret(env),
       86400 // 24小时
     );
 
@@ -754,7 +785,7 @@ export async function handleGoogleOAuth(requestData, env) {
         client_secret: env.GOOGLE_CLIENT_SECRET || "GOCSPX-placeholder", // 需要在环境变量中设置
         code: code,
         grant_type: "authorization_code",
-        redirect_uri: "https://aistone.cfd/auth/google/callback", // 必须与Google Cloud Console配置完全一致
+        redirect_uri: "https://aistone.ai/auth/google/callback", // 必须与Google Cloud Console配置完全一致
       }),
     });
 
@@ -766,7 +797,7 @@ export async function handleGoogleOAuth(requestData, env) {
         error: errorText,
         requestBody: {
           client_id: "432588178769-n7vgnnmsh8l118heqmgtj92iir4i4n3s.apps.googleusercontent.com",
-          redirect_uri: "https://aistone.cfd/auth/google/callback",
+          redirect_uri: "https://aistone.ai/auth/google/callback",
           grant_type: "authorization_code",
         },
       });

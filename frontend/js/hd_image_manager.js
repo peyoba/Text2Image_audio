@@ -9,7 +9,7 @@ class HDImageManager {
     this.maxImagesPerDay = 3;
     this.maxImageSize = 2 * 1024 * 1024; // 2MB
     // 与 auth.js 一致：优先 window.API_BASE，其次生产 Worker，最后相对路径
-    const apiBase = window.API_BASE || "https://text2image-api.peyoba660703.workers.dev";
+    const apiBase = (window.APP_CONFIG && window.APP_CONFIG.API_BASE) || window.API_BASE || "";
     this.baseUrl = apiBase.endsWith("/api") ? apiBase : `${apiBase}/api`;
     this.currentImageId = null;
     this._statsTimerId = null;

@@ -29,7 +29,7 @@
     <div id="backendResult"></div>
     
     <script>
-        const API_BASE = 'https://text2image-api.peyoba660703.workers.dev/api';
+        const API_BASE = ((window.APP_CONFIG && window.APP_CONFIG.API_BASE) || '') + '/api';
         
         // 测试登录
         document.getElementById('testLoginForm').addEventListener('submit', async (e) => {

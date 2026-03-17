@@ -48,6 +48,7 @@
       <p><small>正在处理Google登录...</small></p>
     </div>
 
+    <script src="../../js/config.js"></script>
     <script>
       // 解析URL参数
       const urlParams = new URLSearchParams(window.location.search);
@@ -61,7 +62,7 @@
           const saved = localStorage.getItem("api_base");
           if (saved && saved.trim()) return saved.trim().replace(/\/$/, "") + "/api";
         } catch (_) {}
-        return "https://text2image-api.peyoba660703.workers.dev/api";
+        return ((window.APP_CONFIG && window.APP_CONFIG.API_BASE) || window.API_BASE || "") + "/api";
       }
 
       function writeTokenAndUser(token, user) {
@@ -99,8 +100,9 @@
           try {
             window.opener.postMessage({ type: "GOOGLE_AUTH_ERROR", error }, window.location.origin);
           } catch (_) {
-            // 回退到通配，最大化送达
-            window.opener.postMessage({ type: "GOOGLE_AUTH_ERROR", error }, "*");
+            // 回退到安全配置的源
+            const targetOrigin = (window.APP_CONFIG && window.APP_CONFIG.POST_MESSAGE_ORIGIN) || window.location.origin;
+            window.opener.postMessage({ type: "GOOGLE_AUTH_ERROR", error }, targetOrigin);
           }
         }
         window.close();
@@ -118,13 +120,14 @@
             if (resp.ok && data && data.success && data.token) {
               writeTokenAndUser(data.token, data.user);
               if (window.opener) {
+                const targetOrigin = (window.APP_CONFIG && window.APP_CONFIG.POST_MESSAGE_ORIGIN) || window.location.origin;
                 try {
                   window.opener.postMessage(
                     { type: "GOOGLE_AUTH_LOGIN_READY" },
                     window.location.origin
                   );
                 } catch (_) {
-                  window.opener.postMessage({ type: "GOOGLE_AUTH_LOGIN_READY" }, "*");
+                  window.opener.postMessage({ type: "GOOGLE_AUTH_LOGIN_READY" }, targetOrigin);
                 }
                 // 800ms 兜底：若主窗口未及时校验，则直接携带 token+user 再发一次
                 setTimeout(() => {
@@ -136,7 +139,7 @@
                   } catch (_) {
                     window.opener.postMessage(
                       { type: "GOOGLE_AUTH_TOKEN", token: data.token, user: data.user },
-                      "*"
+                      targetOrigin
                     );
                   }
                 }, 800);
@@ -144,26 +147,28 @@
             } else {
               // 回退到仅发送 code 的老路径
               if (window.opener) {
+                const targetOrigin = (window.APP_CONFIG && window.APP_CONFIG.POST_MESSAGE_ORIGIN) || window.location.origin;
                 try {
                   window.opener.postMessage(
                     { type: "GOOGLE_AUTH_SUCCESS", code, state },
                     window.location.origin
                   );
                 } catch (_) {
-                  window.opener.postMessage({ type: "GOOGLE_AUTH_SUCCESS", code, state }, "*");
+                  window.opener.postMessage({ type: "GOOGLE_AUTH_SUCCESS", code, state }, targetOrigin);
                 }
               }
             }
           } catch (e) {
             // 失败则回退到仅发送 code
             if (window.opener) {
+              const targetOrigin = (window.APP_CONFIG && window.APP_CONFIG.POST_MESSAGE_ORIGIN) || window.location.origin;
               try {
                 window.opener.postMessage(
                   { type: "GOOGLE_AUTH_SUCCESS", code, state },
                   window.location.origin
                 );
               } catch (_) {
-                window.opener.postMessage({ type: "GOOGLE_AUTH_SUCCESS", code, state }, "*");
+                window.opener.postMessage({ type: "GOOGLE_AUTH_SUCCESS", code, state }, targetOrigin);
               }
             }
           } finally {
@@ -173,13 +178,14 @@
       } else {
         // 未知状态
         if (window.opener) {
+          const targetOrigin = (window.APP_CONFIG && window.APP_CONFIG.POST_MESSAGE_ORIGIN) || window.location.origin;
           try {
             window.opener.postMessage(
               { type: "GOOGLE_AUTH_ERROR", error: "unknown_error" },
               window.location.origin
             );
           } catch (_) {
-            window.opener.postMessage({ type: "GOOGLE_AUTH_ERROR", error: "unknown_error" }, "*");
+            window.opener.postMessage({ type: "GOOGLE_AUTH_ERROR", error: "unknown_error" }, targetOrigin);
           }
         }
         window.close();

@@ -56,7 +56,7 @@ export function registerFeedbackRoutes(registerRoute) {
     path: "/api/admin/feedback",
     async handler({ env, url }) {
       const adminKey = url.searchParams.get("admin_key");
-      if (adminKey !== env.ADMIN_KEY) {
+      if (!env.ADMIN_KEY || adminKey !== env.ADMIN_KEY) {
         return jsonResponse({ error: "管理员权限验证失败" }, env, 403);
       }
       const t0 = Date.now();

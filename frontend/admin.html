@@ -381,7 +381,15 @@
 
               try {
                   // 调用管理员API获取所有反馈
-                  const adminKey = 'aistone-admin-2025-secure-key'; // 在生产环境中应该更安全地处理
+                  let adminKey = localStorage.getItem('aistone_admin_key');
+                  if (!adminKey) {
+                      adminKey = prompt('请输入管理员访问密钥:');
+                      if (adminKey) {
+                          localStorage.setItem('aistone_admin_key', adminKey);
+                      } else {
+                          throw new Error('需要管理员密钥');
+                      }
+                  }
                   const response = await fetch(`${this.baseUrl}/admin/feedback?admin_key=${encodeURIComponent(adminKey)}`);
 
                   if (!response.ok) {
@@ -414,11 +422,11 @@
                               <h4 style="color: var(--color-brand-primary, #00CFFF); margin-bottom: 12px;">🔧 通过命令行查看：</h4>
                               <div style="font-family: 'Courier New', monospace; background: var(--color-surface-deep, #0f172a); padding: 12px; border-radius: 6px; margin: 8px 0;">
                                   <div style="color: var(--color-success, #10b981);"># 查看所有反馈键</div>
-                                  <div style="color: var(--color-text-verylight, #e5e7eb);">wrangler kv key list --namespace-id="937caf6061f04708929c2c4084b5c075"</div>
+                                  <div style="color: var(--color-text-verylight, #e5e7eb);">wrangler kv key list --namespace-id="<YOUR_NAMESPACE_ID>"</div>
                               </div>
                               <div style="font-family: 'Courier New', monospace; background: var(--color-surface-deep, #0f172a); padding: 12px; border-radius: 6px; margin: 8px 0;">
                                   <div style="color: var(--color-success, #10b981);"># 查看具体反馈内容</div>
-                                  <div style="color: var(--color-text-verylight, #e5e7eb);">wrangler kv key get "feedback_用户ID_时间戳" --namespace-id="937caf6061f04708929c2c4084b5c075"</div>
+                                  <div style="color: var(--color-text-verylight, #e5e7eb);">wrangler kv key get "feedback_用户ID_时间戳" --namespace-id="<YOUR_NAMESPACE_ID>"</div>
                               </div>
                           </div>
                           <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid var(--color-danger, #ef4444); border-radius: 8px; padding: 16px; margin: 20px 0;">
@@ -433,14 +441,6 @@
 
                   this.updateStats(0, 0, 0, 0);
 
-              } catch (error) {
-                  console.error('加载反馈数据失败:', error);
-                  container.innerHTML = `
-                      <div style="text-align: center; padding: 40px; color: #ef4444;">
-                          <h3>❌ 加载失败</h3>
-                          <p>无法连接到后端API，请检查网络连接或联系技术支持。</p>
-                      </div>
-                  `;
               }
           }
 
@@ -467,7 +467,7 @@
               const feedbackHTML = this.filteredFeedback.map(feedback => `
                   <div class="admin-feedback-item">
                       <div class="feedback-meta">
-                          <div class="feedback-user">${feedback.email}</div>
+                          <div class="feedback-user">${this.escapeHtml(feedback.email)}</div>
                           <div class="feedback-category-badge category-${feedback.category}">
                               ${this.getCategoryText(feedback.category)}
                           </div>
