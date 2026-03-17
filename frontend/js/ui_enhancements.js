@@ -526,68 +526,97 @@ function setupServicesModal() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  window.uiEnhancements = new UIEnhancements();
-
-  // 显示欢迎提示
+  // 注意：UIEnhancements 类的实例化已经移至 app.js 以保证幂等性并避免重复绑定
+  // 但我们仍可在这里注册延迟显示提示等不冲突的轻量逻辑
   setTimeout(() => {
-    window.uiEnhancements.showUsageTips();
+    if (window.uiEnhancements) {
+      window.uiEnhancements.showUsageTips();
+    }
   }, 1000);
-
-  // 注释掉弹窗初始化，让链接正常跳转
-  // setupAboutModal();
-  // setupContactModal();
-  // setupServicesModal();
 });
 
 // 将类设为全局变量
 window.UIEnhancements = UIEnhancements;
 
-// 用户评价区块卡片式自动轮播（每次滑动一整张卡片，循环无缝，卡片居中）
+// 用户评价区块卡片式自动轮播（修复双重定时器/卡顿问题并增加响应式支持）
 (function () {
   const wrapper = document.querySelector(".testimonial-carousel-wrapper");
   const container = wrapper && wrapper.querySelector(".testimonial-cards");
   if (!container) return;
+
   const cards = Array.from(container.children);
   const cardCount = cards.length;
-  const cardWidth = cards[0].offsetWidth + 18; // 卡片宽度+gap
-  // 克隆前N张卡片到末尾，保证无缝
-  for (let i = 0; i < Math.min(3, cardCount); i++) {
+  if (cardCount === 0) return;
+
+  // 1. 先克隆前 N 张卡片到末尾，保证无缝滚动视觉
+  const clonedCount = 3;
+  for (let i = 0; i < Math.min(clonedCount, cardCount); i++) {
     const clone = cards[i].cloneNode(true);
+    // 标记为克隆体避免重复计算
+    clone.classList.add('clone-card');
     container.appendChild(clone);
   }
+
   let index = 0;
   let paused = false;
-  function scrollToIndex(idx, smooth = true) {
-    const offset = idx * cardWidth;
-    container.style.transform = `translateX(${-offset}px)`;
+  let timer = null;
+
+  function getCardUnitWidth() {
+    const gap = parseFloat(window.getComputedStyle(container).gap) || 0;
+    return (cards[0].offsetWidth || 0) + gap;
   }
+
+  function scrollToIndex(idx, smooth = true) {
+    const unitWidth = getCardUnitWidth();
+    if (unitWidth <= 0) return; // 未正确渲染时跳过
+    
+    container.style.transition = smooth ? "transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)" : "none";
+    container.style.transform = `translateX(${-idx * unitWidth}px)`;
+  }
+
   function next() {
     if (paused) return;
     index++;
-    scrollToIndex(index);
+    scrollToIndex(index, true);
+    
+    // 如果已经滚到了原数组结尾开始（即进入克隆卡片区域）
     if (index >= cardCount) {
       setTimeout(() => {
-        container.style.transition = "none";
+        // 重置到头部，无缝瞬间切回
         index = 0;
         scrollToIndex(index, false);
-        // 强制重绘后恢复动画
-        void container.offsetWidth;
-        container.style.transition = "";
-      }, 700);
+      }, 600); // 必须与 CSS 过渡时间基本一致
     }
   }
-  // eslint-disable-next-line no-unused-vars
-  const timer = setInterval(next, 3000);
-  container.style.transition = "transform 0.7s cubic-bezier(0.4,0,0.2,1)";
-  scrollToIndex(index, false);
+
+  // 避免之前代码里两个 setInterval 冲突的问题（原代码580和590行各写了一个）
+  function startCarousel() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(next, 3500);
+  }
+
+  function stopCarousel() {
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+
   wrapper.addEventListener("mouseenter", () => {
     paused = true;
   });
   wrapper.addEventListener("mouseleave", () => {
     paused = false;
   });
-  // 自动轮播
-  setInterval(() => {
-    if (!paused) next();
-  }, 3000);
+
+  // 移动端触摸暂停
+  wrapper.addEventListener("touchstart", () => { paused = true; }, { passive: true });
+  wrapper.addEventListener("touchend", () => { setTimeout(() => { paused = false; }, 2000); }, { passive: true });
+
+  // 窗口改变时重置布局，避免出现留白偏移
+  window.addEventListener("resize", () => {
+    scrollToIndex(index, false);
+  });
+
+  // 初始化
+  scrollToIndex(index, false);
+  startCarousel();
 })();
