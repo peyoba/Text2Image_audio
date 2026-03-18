@@ -6,6 +6,7 @@ import {
 import { arrayBufferToBase64 } from "../utils/base64.js";
 import { logInfo, logWarn, logError } from "../utils/logger.js";
 import { recordMetric } from "../utils/metrics.js";
+import { checkRateLimitAndQuota } from "../utils/rate_limit.js";
 import { addCorsHeaders, addSecurityHeaders } from "../utils/response.js";
 
 export function registerGenerationRoutes(registerRoute) {
@@ -15,6 +16,21 @@ export function registerGenerationRoutes(registerRoute) {
       path: "/api/generate",
       bodyMessage: "生成请求体必须为 JSON",
       async handler({ request, env, body }) {
+        // --- 1. 风控与额度限制 ---
+        const quotaCheck = await checkRateLimitAndQuota(request, env);
+        if (!quotaCheck.allowed) {
+          return jsonResponse(
+            {
+              error: quotaCheck.error,
+              retry_after: quotaCheck.retryAfter,
+              remaining: quotaCheck.remaining,
+              total: quotaCheck.total,
+            },
+            env,
+            quotaCheck.status
+          );
+        }
+
         const textPrompt = body.text;
         const genType = body.type;
 
@@ -45,7 +61,22 @@ export function registerGenerationRoutes(registerRoute) {
       method: "POST",
       path: "/api/pollinations/image",
       bodyMessage: "图片代理请求体必须为 JSON",
-      async handler({ env, body }) {
+      async handler({ request, env, body }) {
+        // --- 1. 风控与额度限制 ---
+        const quotaCheck = await checkRateLimitAndQuota(request, env);
+        if (!quotaCheck.allowed) {
+          return jsonResponse(
+            {
+              error: quotaCheck.error,
+              retry_after: quotaCheck.retryAfter,
+              remaining: quotaCheck.remaining,
+              total: quotaCheck.total,
+            },
+            env,
+            quotaCheck.status
+          );
+        }
+
         return handlePollinationsImage(body, env);
       },
     })

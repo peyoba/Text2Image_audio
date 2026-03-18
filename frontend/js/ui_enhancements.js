@@ -553,7 +553,7 @@ window.UIEnhancements = UIEnhancements;
   for (let i = 0; i < Math.min(clonedCount, cardCount); i++) {
     const clone = cards[i].cloneNode(true);
     // 标记为克隆体避免重复计算
-    clone.classList.add('clone-card');
+    clone.classList.add("clone-card");
     container.appendChild(clone);
   }
 
@@ -569,7 +569,7 @@ window.UIEnhancements = UIEnhancements;
   function scrollToIndex(idx, smooth = true) {
     const unitWidth = getCardUnitWidth();
     if (unitWidth <= 0) return; // 未正确渲染时跳过
-    
+
     container.style.transition = smooth ? "transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)" : "none";
     container.style.transform = `translateX(${-idx * unitWidth}px)`;
   }
@@ -578,7 +578,7 @@ window.UIEnhancements = UIEnhancements;
     if (paused) return;
     index++;
     scrollToIndex(index, true);
-    
+
     // 如果已经滚到了原数组结尾开始（即进入克隆卡片区域）
     if (index >= cardCount) {
       setTimeout(() => {
@@ -608,8 +608,22 @@ window.UIEnhancements = UIEnhancements;
   });
 
   // 移动端触摸暂停
-  wrapper.addEventListener("touchstart", () => { paused = true; }, { passive: true });
-  wrapper.addEventListener("touchend", () => { setTimeout(() => { paused = false; }, 2000); }, { passive: true });
+  wrapper.addEventListener(
+    "touchstart",
+    () => {
+      paused = true;
+    },
+    { passive: true }
+  );
+  wrapper.addEventListener(
+    "touchend",
+    () => {
+      setTimeout(() => {
+        paused = false;
+      }, 2000);
+    },
+    { passive: true }
+  );
 
   // 窗口改变时重置布局，避免出现留白偏移
   window.addEventListener("resize", () => {
