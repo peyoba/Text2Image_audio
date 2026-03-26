@@ -65,9 +65,10 @@ export async function generateImageFromPollinations(
 }
 
 /**
- * 使用 Pollinations API 生成音频
- * 使用 OpenAI 兼容的 /v1/chat/completions 端点
- * 可用声音：alloy, echo, fable, onyx, nova, shimmer, coral, verse, ballad, ash, sage
+ * 使用 Pollinations API 生成音频（文本转语音）
+ * 2026-03 更新：使用 OpenAI 兼容的 POST /v1/audio/speech 端点
+ * 直接将输入文本朗读为语音，而非聊天回答
+ * 可用声音：alloy, echo, fable, onyx, nova, shimmer, ash, ballad, coral, sage, verse 等
  */
 export async function generateAudioFromPollinations(
   prompt,
@@ -86,24 +87,19 @@ export async function generateAudioFromPollinations(
     );
   }
 
-  // 构建请求体（OpenAI 兼容格式）
+  // 使用 OpenAI TTS 兼容端点，直接朗读输入文本
   const requestBody = {
     model: "openai-audio",
-    messages: [
-      {
-        role: "user",
-        content: prompt,
-      },
-    ],
-    modalities: ["text", "audio"],
-    audio: {
-      voice: voice,
-      format: "mp3",
-    },
+    input: prompt,
+    voice: voice,
+    response_format: "mp3",
   };
+  if (speed && speed !== 1.0) {
+    requestBody.speed = speed;
+  }
 
-  const fullUrl = `${genApiBase}/v1/chat/completions`;
-  logInfo(env, `[Worker Log] 生成音频 (voice: ${voice})`);
+  const fullUrl = `${genApiBase}/v1/audio/speech`;
+  logInfo(env, `[Worker Log] 生成音频 TTS (voice: ${voice}, speed: ${speed || 1.0})`);
 
   const response = await fetchWithRetry(
     fullUrl,
@@ -115,36 +111,9 @@ export async function generateAudioFromPollinations(
       },
       body: JSON.stringify(requestBody),
     },
-    "Pollinations Audio API",
+    "Pollinations TTS API",
     env
   );
 
-  const contentType = response.headers.get("Content-Type")?.toLowerCase() || "";
-
-  // 如果返回的是音频文件，直接返回
-  if (contentType.includes("audio/")) {
-    return response.arrayBuffer();
-  }
-
-  // 如果返回的是 JSON（OpenAI 格式），解析并提取音频
-  if (contentType.includes("application/json")) {
-    const jsonResponse = await response.json();
-
-    if (jsonResponse.choices && jsonResponse.choices[0]) {
-      const choice = jsonResponse.choices[0];
-      if (choice.message && choice.message.audio && choice.message.audio.data) {
-        const base64Audio = choice.message.audio.data;
-        const binaryString = atob(base64Audio);
-        const bytes = new Uint8Array(binaryString.length);
-        for (let i = 0; i < binaryString.length; i++) {
-          bytes[i] = binaryString.charCodeAt(i);
-        }
-        return bytes.buffer;
-      }
-    }
-
-    throw new Error(`API 响应中未找到音频数据: ${JSON.stringify(jsonResponse).substring(0, 500)}`);
-  }
-
-  throw new Error(`API 返回非预期内容，Content-Type: ${contentType}`);
+  return response.arrayBuffer();
 }
