@@ -18,7 +18,8 @@
     try {
       var host = new URL(url.trim()).hostname;
       for (var i = 0; i < FRONTEND_HOSTS.length; i++) {
-        if (host === FRONTEND_HOSTS[i] || host === "www." + FRONTEND_HOSTS[i]) return false;
+        // 精确匹配和子域名匹配（如 api.aistone.ai）
+        if (host === FRONTEND_HOSTS[i] || host.endsWith("." + FRONTEND_HOSTS[i])) return false;
       }
       return true;
     } catch (e) {
