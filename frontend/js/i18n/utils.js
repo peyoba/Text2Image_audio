@@ -34,7 +34,6 @@ function normalizeLang(lang) {
 }
 
 // 导出到全局
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   window.normalizeLang = normalizeLang;
 }
-

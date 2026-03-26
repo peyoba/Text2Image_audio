@@ -17,9 +17,9 @@
     apiBase =
       injected && typeof injected === "string" && injected.trim()
         ? injected.trim().replace(/\/+$/, "")
-        : "https://api.aistone.ai";
+        : "https://text2image-api.peyoba660703.workers.dev";
   } catch (e) {
-    apiBase = "https://api.aistone.ai";
+    apiBase = "https://text2image-api.peyoba660703.workers.dev";
   }
 
   window.APP_CONFIG = Object.freeze({

@@ -15,7 +15,9 @@ import { logInfo } from "./utils/logger.js";
  */
 function requireJwtSecret(env) {
   if (!env.JWT_SECRET) {
-    throw new Error("FATAL: JWT_SECRET 环境变量未配置，服务拒绝启动。请在 Cloudflare 控制台设置此密钥。");
+    throw new Error(
+      "FATAL: JWT_SECRET 环境变量未配置，服务拒绝启动。请在 Cloudflare 控制台设置此密钥。"
+    );
   }
   return env.JWT_SECRET;
 }
@@ -682,25 +684,25 @@ export async function handleForgotPassword(requestData, env) {
     });
 
     const resetUrl = `${env.FRONTEND_URL || "https://aistone.ai"}/reset-password?token=${resetToken}`;
-    
+
     // 尝试发送重置邮件
     if (env.RESEND_API_KEY) {
       try {
-        await fetch('https://api.resend.com/emails', {
-          method: 'POST',
+        await fetch("https://api.resend.com/emails", {
+          method: "POST",
           headers: {
-            'Authorization': `Bearer ${env.RESEND_API_KEY}`,
-            'Content-Type': 'application/json'
+            Authorization: `Bearer ${env.RESEND_API_KEY}`,
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            from: 'AIStone Support <support@aistone.ai>',
+            from: "AIStone Support <support@aistone.ai>",
             to: email,
-            subject: 'AIStone密码重置',
+            subject: "AIStone密码重置",
             html: `<p>您收到此邮件是因为您（或其他人）请求重置您的密码。</p>
                    <p>请点击下面的链接或将其粘贴到浏览器中以完成重置流程：</p>
                    <p><a href="${resetUrl}">${resetUrl}</a></p>
-                   <p>如果您没有请求重置密码，请忽略此邮件，您的密码将保持不变。</p>`
-          })
+                   <p>如果您没有请求重置密码，请忽略此邮件，您的密码将保持不变。</p>`,
+          }),
         });
       } catch (e) {
         console.error("邮件发送失败:", e);

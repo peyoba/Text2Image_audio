@@ -53,4 +53,3 @@ window.i18nCommonEn = {
   imageHint: "💡 Image generation supports multiple sizes and quantities",
   audioHint: "🎵 Voice generation supports play and download functions",
 };
-

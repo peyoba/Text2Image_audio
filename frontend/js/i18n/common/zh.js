@@ -15,8 +15,7 @@ window.i18nCommonZh = {
   inputPlaceholder: "请输入描述文本，例如：一只可爱的小猫在草地上玩耍...",
   generateButton: "开始生成",
   quickFillLabel: "快速填充示例：",
-  smartOptimizeTip:
-    "✨ 智能优化：自动将描述翻译并优化为高质量英文提示词，提升图片生成效果",
+  smartOptimizeTip: "✨ 智能优化：自动将描述翻译并优化为高质量英文提示词，提升图片生成效果",
   negativePromptLabel: "负面提示词：",
   negativePromptPlaceholder: "输入不想要的元素，用逗号分隔",
 
@@ -53,4 +52,3 @@ window.i18nCommonZh = {
   imageHint: "💡 图片生成支持多种尺寸和数量",
   audioHint: "🎵 语音生成支持播放和下载功能",
 };
-
