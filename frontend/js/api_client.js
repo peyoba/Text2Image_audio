@@ -387,93 +387,32 @@ class ApiClient {
 
   /**
    * 获取可用的图像模型
-   * 2026-01 更新：添加 Pollinations.ai 全部模型，区分免费和付费
-   * @returns {Array} 模型列表，包含 id, name, description, isFree 属性
+   * 2026-03 更新：同步 gen.pollinations.ai 最新模型列表
+   * @returns {Array} 模型列表
    */
   getAvailableImageModels() {
     return [
-      // 免费模型 - 无限使用，仅有速率限制
-      {
-        id: "flux",
-        name: "FLUX Schnell",
-        description: "免费高质量图像生成",
-        isFree: true,
-        group: "free",
-      },
-      {
-        id: "zimage",
-        name: "Z-Image Turbo",
-        description: "快速2倍放大",
-        isFree: true,
-        group: "free",
-      },
-      { id: "turbo", name: "SDXL Turbo", description: "单步快速生成", isFree: true, group: "free" },
-      // FLUX 系列付费模型
-      {
-        id: "kontext",
-        name: "FLUX.1 Kontext",
-        description: "图像编辑",
-        isFree: false,
-        group: "flux",
-      },
-      {
-        id: "klein",
-        name: "FLUX.2 Klein 4B",
-        description: "快速编辑 (NEW)",
-        isFree: false,
-        group: "flux",
-      },
-      {
-        id: "klein-large",
-        name: "FLUX.2 Klein 9B",
-        description: "高质量编辑 (NEW)",
-        isFree: false,
-        group: "flux",
-      },
+      // 基础模型
+      { id: "flux", name: "FLUX Schnell", description: "高质量图像生成", group: "basic" },
+      { id: "zimage", name: "Z-Image", description: "快速放大", group: "basic" },
+      // FLUX 系列
+      { id: "kontext", name: "FLUX Kontext", description: "图像编辑", group: "flux" },
+      { id: "klein", name: "FLUX Klein", description: "快速生成", group: "flux" },
       // GPT Image 系列
-      {
-        id: "gptimage",
-        name: "GPT Image 1 Mini",
-        description: "OpenAI 图像生成",
-        isFree: false,
-        group: "gpt",
-      },
-      {
-        id: "gptimage-large",
-        name: "GPT Image 1.5",
-        description: "高级图像生成",
-        isFree: false,
-        group: "gpt",
-      },
-      // 其他高级模型
-      {
-        id: "nanobanana",
-        name: "NanoBanana",
-        description: "Gemini 图像生成",
-        isFree: false,
-        group: "premium",
-      },
-      {
-        id: "nanobanana-pro",
-        name: "NanoBanana Pro",
-        description: "4K思考模式",
-        isFree: false,
-        group: "premium",
-      },
-      {
-        id: "seedream",
-        name: "Seedream 4.0",
-        description: "字节跳动模型",
-        isFree: false,
-        group: "premium",
-      },
-      {
-        id: "seedream-pro",
-        name: "Seedream 4.5 Pro",
-        description: "4K多图生成",
-        isFree: false,
-        group: "premium",
-      },
+      { id: "gptimage", name: "GPT Image", description: "OpenAI 图像生成", group: "gpt" },
+      { id: "gptimage-large", name: "GPT Image Large", description: "高级图像生成", group: "gpt" },
+      // NanoBanana 系列 (Gemini)
+      { id: "nanobanana", name: "NanoBanana", description: "Gemini 图像生成", group: "premium" },
+      { id: "nanobanana-2", name: "NanoBanana 2", description: "Gemini 新版", group: "premium" },
+      { id: "nanobanana-pro", name: "NanoBanana Pro", description: "4K思考模式", group: "premium" },
+      // Seedream 系列
+      { id: "seedream5", name: "Seedream 5", description: "字节跳动最新", group: "premium" },
+      { id: "seedream", name: "Seedream", description: "字节跳动模型", group: "premium" },
+      { id: "seedream-pro", name: "Seedream Pro", description: "高级版本", group: "premium" },
+      // 其他模型
+      { id: "qwen-image", name: "Qwen Image", description: "通义千问图像", group: "other" },
+      { id: "grok-imagine", name: "Grok Imagine", description: "xAI 图像生成", group: "other" },
+      { id: "nova-canvas", name: "Nova Canvas", description: "Amazon 图像生成", group: "other" },
     ];
   }
 
