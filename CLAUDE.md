@@ -10,88 +10,53 @@
 - 所有代码注释必须使用中文
 - 与用户的所有对话必须使用中文 -每次工作完成之后主动总结并记录当前工作进度和内容到Claude.md中，随时记录当前的项目状态和开发进度 -每一项任务完成，随时总结并更新工作进度和计划到Claude.md和PROJECT_STATUS_REPORT_2025.md
 
-## 📝 2026-01-31 Pollinations API 重大迁移
+## 📝 2026-03-26 Pollinations API 完整迁移 & 前端 405 修复
 
-### 🚨 重大变更发现
+### 🔧 修复的问题
 
-Pollinations 已完全迁移到新的 API 系统！
-
-| 旧系统 | 新系统 |
-|--------|--------|
-| `image.pollinations.ai` | **`gen.pollinations.ai`** |
-| `auth.pollinations.ai` (已弃用) | **`enter.pollinations.ai`** |
-| 免费匿名使用 | **需要 API Key + Pollen 积分** |
-
-### 📊 新 API 详情
-
-**文档地址**: https://enter.pollinations.ai/api/docs
-
-**新端点格式**:
-```bash
-# 图片生成
-curl 'https://gen.pollinations.ai/image/{prompt}?model=flux' \
-  -H 'Authorization: Bearer YOUR_API_KEY'
-
-# 模型列表
-https://gen.pollinations.ai/image/models
-```
-
-**API Key 类型**:
-- `pk_` - Publishable Keys (客户端使用，有 IP 限制)
-- `sk_` - Secret Keys (服务端使用，推荐)
+1. **前端 API 请求 405 错误** — `image-generator.html`、`voice.html`、`user.html` 缺少 `config.js`，导致 `API_BASE` 为空，请求发到 Cloudflare Pages 前端域名返回 405
+2. **`api.aistone.ai` 子域名缓存问题** — `config.js` 的 `isValidApiBase()` 只检查精确域名，未拦截 `api.aistone.ai` 等子域名
+3. **图片生成 401 认证错误** — `image.pollinations.ai` 旧免费端点已停用，需迁移到 `gen.pollinations.ai` + Bearer Token
+4. **语音合成输出对话回答而非朗读原文** — 音频端点从 `/v1/chat/completions`（聊天补全）改为 `/v1/audio/speech`（标准 TTS）
 
 ### ✅ 已完成的代码更新
 
-1. **更新图片 API 端点** - `backend/services/generation.js`
-   - 基础 URL: `image.pollinations.ai` → `gen.pollinations.ai`
-   - 端点格式: `/prompt/{prompt}` → `/image/{prompt}`
-   - 添加自动兼容旧配置的逻辑
+1. **前端 config.js 统一加载** — `image-generator.html`、`voice.html`、`user.html` 添加 `<script src="js/config.js"></script>`
+2. **子域名拦截** — `config.js` 中 `isValidApiBase()` 改用 `endsWith()` 匹配，拦截 `*.aistone.ai` 等子域名
+3. **图片生成完整迁移** — `backend/services/generation.js`
+   - 统一使用 `gen.pollinations.ai/image/{prompt}` + Bearer Token
+   - 移除旧的 `image.pollinations.ai` 免费/付费双端点逻辑
+   - 参数 `negative` 改为 `negative_prompt`（与新 API 一致）
+4. **音频生成修复** — `backend/services/generation.js`
+   - 从 `POST /v1/chat/completions` 改为 `POST /v1/audio/speech`
+   - 请求体改为 `{model, input, voice, response_format}` 标准 TTS 格式
+   - 直接返回 MP3 音频，不再需要解析 JSON base64
+5. **前端模型列表更新** — `frontend/js/api_client.js`
+   - 同步 gen.pollinations.ai 最新 18 个可用模型
+   - 新增：nanobanana-2、seedream5、qwen-image、grok-imagine、nova-canvas 等
+6. **配置精简** — `wrangler.toml` 移除过时的 `POLLINATIONS_IMAGE_API_BASE`、`POLLINATIONS_TEXT_API_BASE`
 
-2. **更新音频 API 端点** - `backend/services/generation.js`
-   - 新增 `generateAudioWithNewApi()` 函数支持新 API
-   - 使用 OpenAI 兼容的 `/v1/chat/completions` 端点
-   - 保留 `generateAudioWithLegacyApi()` 作为兼容模式
-   - 支持解析 OpenAI 格式的音频响应 (base64)
+### 📊 当前 Pollinations API 架构
 
-3. **更新前端语音选项** - `frontend/js/api_client.js`
-   - 新增声音: coral, verse, ballad, ash, sage
-   - 共11种可用声音
+| 功能 | 端点 | 方法 |
+|------|------|------|
+| 图片生成 | `gen.pollinations.ai/image/{prompt}` | GET |
+| 文本转语音 | `gen.pollinations.ai/v1/audio/speech` | POST |
+| 文本生成 | `gen.pollinations.ai/v1/chat/completions` | POST |
+| 模型列表 | `gen.pollinations.ai/image/models` | GET |
 
-4. **更新配置文件** - `wrangler.toml`
-   - 新增 `POLLINATIONS_GEN_API_BASE` 配置
-   - 添加详细的 API Key 获取步骤说明
+**API 文档**: https://enter.pollinations.ai/api/docs
+**API Key 管理**: https://enter.pollinations.ai
 
-5. **更新前端模型选择器** - `frontend/js/api_client.js` (2026-01-31)
-   - `getAvailableImageModels()` 更新为完整12个模型
-   - 区分免费模型 (flux, zimage, turbo) 和付费模型
-   - 添加 `isFree` 和 `group` 属性便于前端分类显示
-   - 新增模型: FLUX.2 Klein 4B/9B, GPT Image, NanoBanana, Seedream 系列
+### 💰 Pollen 定价参考 (2026-03 Beta)
 
-### 🚀 用户需要执行的步骤
-
-1. **获取 API Key**:
-   - 访问 https://enter.pollinations.ai
-   - 使用 GitHub 登录
-   - 购买 Pollen 积分或等待每日免费额度
-   - 生成 API Key (sk_ 开头)
-
-2. **配置环境变量**:
-   - 在 Cloudflare Workers 控制台添加:
-   - `POLLINATIONS_API_TOKEN` = `sk_xxxxxxxx`
-
-3. **重新部署**:
-   ```bash
-   wrangler deploy
-   ```
-
-### 💰 Pollen 定价参考 (Beta)
-
-| 模型 | 1 Pollen ≈ 生成数量 |
-|------|---------------------|
-| Flux Schnell | ~5000 张图片 |
-| SDXL Turbo | ~3300 张图片 |
-| FLUX Kontext | ~25 张图片 |
-| GPT Image | ~75 张图片 |
+| 模型 | 1 Pollen ≈ 生成数量 | 定价 |
+|------|---------------------|------|
+| Flux Schnell | ~1000 张 | 0.001/img |
+| Z-Image Turbo | ~500 张 | 0.002/img |
+| GPT Image Mini | ~75 张 | 按 token 计费 |
+| FLUX Kontext | ~25 张 | 0.04/img |
+| NanoBanana Pro | ~7 张 | 按 token 计费 |
 
 ---
 
