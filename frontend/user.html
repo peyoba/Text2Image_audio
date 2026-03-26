@@ -17,15 +17,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="css/style.css" rel="stylesheet" />
+    <!-- 全局配置必须最先加载 -->
+    <script src="js/config.js"></script>
     <script>
-      // API Base：可被localStorage覆盖，确保与首页一致
+      // 保留 setApiBase 工具函数（调试用）
       (function () {
-        try {
-          var saved = localStorage.getItem("api_base");
-          if (saved && typeof saved === "string" && saved.trim()) {
-            window.API_BASE = saved.trim();
-          }
-        } catch (e) {}
         window.setApiBase = function (url) {
           if (typeof url === "string" && url.trim()) {
             window.API_BASE = url.trim();

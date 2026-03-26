@@ -1,18 +1,11 @@
 <!doctype html>
 <html lang="zh-CN">
   <head>
-    <!-- 全局函数必须最先定义 -->
+    <!-- 全局配置必须最先加载 -->
+    <script src="js/config.js"></script>
     <script>
-      // API Base配置（可从localStorage覆盖）
+      // 保留 setApiBase 工具函数（调试用）
       (function () {
-        try {
-          var saved = localStorage.getItem("api_base");
-          if (saved && typeof saved === "string" && saved.trim()) {
-            window.API_BASE = saved.trim();
-          }
-        } catch (e) {
-          /* 忽略 */
-        }
         window.setApiBase = function (url) {
           if (typeof url === "string" && url.trim()) {
             window.API_BASE = url.trim();
@@ -588,7 +581,7 @@
 
     <!-- 按依赖顺序加载脚本 -->
     <script src="js/i18n.js?v=20251108"></script>
-    <script src="js/api_client.js?v=20250909" defer></script>
+    <script src="js/api_client.js?v=20251114" defer></script>
     <!-- 语音页面不依赖首页 UI 逻辑，避免阻塞语音功能 -->
     <script src="js/mobile-interactions.js?v=20250909" defer></script>
     <!-- 语音模块常量（需在 voice_app.js 之前加载） -->
