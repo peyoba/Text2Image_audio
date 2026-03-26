@@ -8,18 +8,39 @@
 (function () {
   "use strict";
 
+  var DEFAULT_API_BASE = "https://text2image-api.peyoba660703.workers.dev";
+
+  // 前端域名列表，防止 localStorage 缓存的旧值把 API 请求发到前端自身
+  var FRONTEND_HOSTS = ["aistone.cfd", "aistone.ai", "aistone.org"];
+
+  function isValidApiBase(url) {
+    if (!url || typeof url !== "string" || !url.trim()) return false;
+    try {
+      var host = new URL(url.trim()).hostname;
+      for (var i = 0; i < FRONTEND_HOSTS.length; i++) {
+        if (host === FRONTEND_HOSTS[i] || host === "www." + FRONTEND_HOSTS[i]) return false;
+      }
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   // --- 可被运行时覆盖的 API 基础地址 ---
   var apiBase;
   try {
     var injected =
       (typeof window !== "undefined" && window.API_BASE) ||
       (typeof localStorage !== "undefined" && localStorage.getItem("api_base"));
-    apiBase =
-      injected && typeof injected === "string" && injected.trim()
-        ? injected.trim().replace(/\/+$/, "")
-        : "https://text2image-api.peyoba660703.workers.dev";
+    apiBase = isValidApiBase(injected)
+      ? injected.trim().replace(/\/+$/, "")
+      : DEFAULT_API_BASE;
+    // 清除无效的 localStorage 缓存
+    if (injected && !isValidApiBase(injected)) {
+      try { localStorage.removeItem("api_base"); } catch (e) {}
+    }
   } catch (e) {
-    apiBase = "https://text2image-api.peyoba660703.workers.dev";
+    apiBase = DEFAULT_API_BASE;
   }
 
   window.APP_CONFIG = Object.freeze({
